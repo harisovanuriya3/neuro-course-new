@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/akimzhanovan/Desktop/neuro-course-new/app/layout.tsx"],"sourcesContent":["export const metadata = {\r\n  title: \"Neuro Course\",\r\n  description: \"Учебный проект на Next.js\",\r\n};\r\n\r\nexport default function RootLayout({\r\n  children,\r\n}: {\r\n  children: React.ReactNode;\r\n}) {\r\n  return (\r\n    <html lang=\"ru\">\r\n      <body>\r\n        {children}\r\n      </body>\r\n    </html>\r\n  );\r\n}\r\n"],"names":["metadata","title","description","RootLayout","children","lang"],"mappings":";;;;;;;;AAAO,MAAMA,WAAW;IACtBC,OAAO;IACPC,aAAa;AACf;AAEe,SAASC,WAAW,EACjCC,QAAQ,EAGT;IACC,qBACE,8OAAC;QAAKC,MAAK;kBACT,cAAA,8OAAC;sBACED;;;;;;;;;;;AAIT"}},
+    {"offset": {"line": 40, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/akimzhanovan/Desktop/neuro-course-new/node_modules/next/src/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = (\n  require('../../module.compiled') as typeof import('../../module.compiled')\n).vendored['react-rsc']!.ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":"AAAAA,OAAOC,OAAO,GACZC,QAAQ,4HACRC,QAAQ,CAAC,YAAY,CAAEC,kBAAkB","ignoreList":[0]}}]
+}

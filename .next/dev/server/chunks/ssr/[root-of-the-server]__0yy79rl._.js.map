@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/akimzhanovan/Desktop/neuro-course-new/app/modules/module-22/page.tsx"],"sourcesContent":["export default function module22Page() {\n    return <div>module-22 страница</div>;\n  }"],"names":["module22Page"],"mappings":";;;;;;AAAe,SAASA;IACpB,qBAAO,8OAAC;kBAAI;;;;;;AACd"}}]
+}
