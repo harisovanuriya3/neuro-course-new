@@ -1,0 +1,23 @@
+import type { Language, LocalizedLesson, Section } from "./types";
+import RU from "./modules/1/theory/ru";
+import KZ from "./modules/1/theory/kz";
+import EN from "./modules/1/theory/en";
+import practiceRU from "./modules/1/practice/ru";
+import practiceKZ from "./modules/1/practice/kz";
+import practiceEN from "./modules/1/practice/en";
+import casesRU from "./modules/1/cases/ru";
+import casesKZ from "./modules/1/cases/kz";
+import casesEN from "./modules/1/cases/en";
+
+// Register each new module/section here; routes and rendering stay unchanged.
+const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>> = {
+  1: {
+    theory: { RU, KZ, EN },
+    practice: { RU: practiceRU, KZ: practiceKZ, EN: practiceEN },
+    cases: { RU: casesRU, KZ: casesKZ, EN: casesEN },
+  },
+};
+
+export function getLesson(moduleId: number, section: Section, language: Language) {
+  return lessons[moduleId]?.[section]?.[language];
+}
