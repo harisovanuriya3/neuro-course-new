@@ -1,5 +1,55 @@
-{"timestamp":"00:00:03.708","source":"Server","level":"WARN","message":"⚠ Turbopack's filesystem cache has been deleted because we previously detected an internal error in Turbopack. Builds or page loads may be slower as a result."}
-{"timestamp":"00:00:05.060","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:02:57.080","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:03:58.123","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:06:30.881","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:00:03.724","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:31.809","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/modules/[id]/[section]/page\""}
+{"timestamp":"00:00:31.827","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/modules/[id]/[section]/page\""}
+{"timestamp":"00:00:34.460","source":"Browser","level":"ERROR","message":"Uncaught Error: The default export is not a React Component in \"/modules/[id]/[section]/page\""}
+{"timestamp":"00:00:34.461","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught Error: The default export is not a React Component in \\\"/modules/[id]/[section]/page\\\"\\u001b[39m\""}
+{"timestamp":"00:00:57.031","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:03:50.125","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/modules/[id]/[section]/page\""}
+{"timestamp":"00:03:50.136","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/modules/[id]/[section]/page\""}
+{"timestamp":"00:03:50.852","source":"Browser","level":"ERROR","message":"Uncaught Error: The default export is not a React Component in \"/modules/[id]/[section]/page\""}
+{"timestamp":"00:03:50.859","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught Error: The default export is not a React Component in \\\"/modules/[id]/[section]/page\\\"\\u001b[39m\""}
+{"timestamp":"00:06:03.145","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:06:10.298","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/modules/[id]/[section]/page\""}
+{"timestamp":"00:06:10.309","source":"Server","level":"ERROR","message":"⨯ Error: The default export is not a React Component in \"/modules/[id]/[section]/page\""}
+{"timestamp":"00:06:10.531","source":"Browser","level":"ERROR","message":"Uncaught Error: The default export is not a React Component in \"/modules/[id]/[section]/page\""}
+{"timestamp":"00:06:10.535","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught Error: The default export is not a React Component in \\\"/modules/[id]/[section]/page\\\"\\u001b[39m\""}
+{"timestamp":"03:20:37.707","source":"Browser","level":"ERROR","message":"Uncaught Error: The default export is not a React Component in \"/modules/[id]/[section]/page\""}
+{"timestamp":"03:20:37.710","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught Error: The default export is not a React Component in \\\"/modules/[id]/[section]/page\\\"\\u001b[39m\""}
+{"timestamp":"03:20:43.490","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:20:48.086","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:24:27.820","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:28:30.179","source":"Server","level":"LOG","message":"✓ Compiled in 1822ms"}
+{"timestamp":"03:30:44.063","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:46:20.172","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:49:30.544","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:49:33.953","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:49:36.753","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:49:53.106","source":"Browser","level":"ERROR","message":"Uncaught Error: The default export is not a React Component in \"/modules/[id]/[section]/page\""}
+{"timestamp":"03:49:53.121","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught Error: The default export is not a React Component in \\\"/modules/[id]/[section]/page\\\"\\u001b[39m\""}
+{"timestamp":"03:49:57.990","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:50:05.257","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:52:09.483","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload due to a runtime error."}
+{"timestamp":"03:52:09.486","source":"Server","level":"LOG","message":"✓ Compiled in 448ms"}
+{"timestamp":"03:52:11.978","source":"Server","level":"LOG","message":"✓ Compiled in 1050ms"}
+{"timestamp":"03:52:12.496","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:53:35.803","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:53:48.893","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:53:49.639","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:53:53.188","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"03:53:57.129","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:15:14.832","source":"Server","level":"LOG","message":"✓ Compiled in 2.2s"}
+{"timestamp":"04:19:17.983","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:19:42.337","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:19:52.391","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:20:03.492","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:20:14.097","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:20:26.534","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:20:41.632","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:21:10.824","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:21:14.969","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:21:18.919","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:22:46.519","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:26:15.779","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"04:47:11.471","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"05:20:54.947","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"05:20:56.462","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}

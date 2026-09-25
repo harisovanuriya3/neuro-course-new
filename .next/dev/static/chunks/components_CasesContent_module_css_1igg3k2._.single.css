@@ -1,0 +1,179 @@
+/* [project]/components/CasesContent.module.css [app-client] (css) */
+.CasesContent-module__AoXJVa__cases {
+  min-width: 0;
+}
+
+.CasesContent-module__AoXJVa__progress {
+  background: #edf6ff;
+  border: 1px solid #b6c9d9;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+}
+
+.CasesContent-module__AoXJVa__progress p {
+  margin-top: 0;
+}
+
+.CasesContent-module__AoXJVa__progress progress {
+  accent-color: #00599c;
+  width: 100%;
+  height: 10px;
+  display: block;
+}
+
+.CasesContent-module__AoXJVa__navigation {
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: 1.25rem;
+  display: flex;
+}
+
+.CasesContent-module__AoXJVa__navigation a {
+  box-sizing: border-box;
+  color: #004b87;
+  background: #fff;
+  border: 1px solid #8fb2ce;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 .25rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.CasesContent-module__AoXJVa__navigation a:hover {
+  background: #e4f0fa;
+}
+
+.CasesContent-module__AoXJVa__navigation .CasesContent-module__AoXJVa__doneLink {
+  color: #205537;
+  background: #eff8f3;
+  border-color: #83b599;
+}
+
+.CasesContent-module__AoXJVa__cases a:focus-visible {
+  outline-offset: 4px;
+  outline: 3px solid #00599c;
+}
+
+.CasesContent-module__AoXJVa__card {
+  scroll-margin-top: 1.5rem;
+}
+
+.CasesContent-module__AoXJVa__cardHeader {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-bottom: .75rem;
+  display: flex;
+}
+
+.CasesContent-module__AoXJVa__eyebrow {
+  color: #526b80;
+  font-weight: 600;
+}
+
+.CasesContent-module__AoXJVa__completed {
+  color: #205537;
+  font-weight: 700;
+}
+
+.CasesContent-module__AoXJVa__stage {
+  margin-top: 1.5rem;
+  padding-top: .25rem;
+}
+
+.CasesContent-module__AoXJVa__data {
+  background: #f3f7fa;
+  border-left: 3px solid #8fb2ce;
+  padding: 1rem;
+}
+
+.CasesContent-module__AoXJVa__selected {
+  background: #edf6ff;
+  border: 1px solid #b6c9d9;
+  border-radius: 8px;
+  padding: 1rem 1rem 1rem 2.5rem !important;
+}
+
+.CasesContent-module__AoXJVa__choices {
+  border: 1px solid #b6c9d9;
+  border-radius: 8px;
+  min-width: 0;
+  margin: 1.5rem 0;
+  padding: 1rem;
+}
+
+.CasesContent-module__AoXJVa__choices legend {
+  max-width: 100%;
+  padding: 0 .4rem;
+  font-weight: 600;
+}
+
+.CasesContent-module__AoXJVa__choices label, .CasesContent-module__AoXJVa__completion {
+  cursor: pointer;
+  border: 1px solid #b6c9d9;
+  border-radius: 8px;
+  align-items: flex-start;
+  gap: .75rem;
+  margin-bottom: .75rem;
+  padding: 1rem;
+  display: flex;
+}
+
+.CasesContent-module__AoXJVa__choices label:has(input:checked) {
+  background: #edf6ff;
+  border-color: #00599c;
+}
+
+.CasesContent-module__AoXJVa__choices input, .CasesContent-module__AoXJVa__completion input {
+  accent-color: #00599c;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: .3rem;
+}
+
+.CasesContent-module__AoXJVa__completion {
+  background: #eff8f3;
+  margin-top: 1.25rem;
+}
+
+.CasesContent-module__AoXJVa__diagram {
+  list-style: none;
+  padding: 0 !important;
+}
+
+.CasesContent-module__AoXJVa__diagram li {
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+  display: flex;
+}
+
+.CasesContent-module__AoXJVa__diagram li > span:first-child {
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #a9cfb6;
+  border-radius: 8px;
+  width: 100%;
+  padding: .6rem;
+}
+
+.CasesContent-module__AoXJVa__sources {
+  margin-top: 2rem;
+  font-size: .95rem;
+}
+
+@media (max-width: 480px) {
+  .CasesContent-module__AoXJVa__progress, .CasesContent-module__AoXJVa__choices, .CasesContent-module__AoXJVa__choices label {
+    padding: .75rem;
+  }
+}
+
+/*# sourceMappingURL=components_CasesContent_module_css_1igg3k2._.single.css.map*/

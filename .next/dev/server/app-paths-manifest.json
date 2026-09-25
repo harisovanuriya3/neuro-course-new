@@ -1,5 +1,5 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/modules/module-22/page": "app/modules/module-22/page.js",
+  "/modules/[id]/[section]/page": "app/modules/[id]/[section]/page.js",
+  "/modules/[id]/page": "app/modules/[id]/page.js",
   "/page": "app/page.js"
 }

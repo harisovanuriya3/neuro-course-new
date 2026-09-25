@@ -1,0 +1,89 @@
+/* [project]/components/LessonContent.module.css [app-client] (css) */
+.LessonContent-module__O06sTW__lesson {
+  color: #23384a;
+  overflow-wrap: anywhere;
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+.LessonContent-module__O06sTW__lesson section {
+  margin-top: 2.5rem;
+}
+
+.LessonContent-module__O06sTW__lesson h2 {
+  color: #004b87;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  line-height: 1.35;
+}
+
+.LessonContent-module__O06sTW__lesson h3 {
+  color: #234e6d;
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.LessonContent-module__O06sTW__lesson p {
+  margin: 1rem 0;
+}
+
+.LessonContent-module__O06sTW__lesson ul {
+  padding-left: 1.4rem;
+}
+
+.LessonContent-module__O06sTW__lesson li {
+  margin: .5rem 0;
+}
+
+.LessonContent-module__O06sTW__idea, .LessonContent-module__O06sTW__outcomes, .LessonContent-module__O06sTW__terms {
+  border: 1px solid #d4e0ea;
+  border-radius: 12px;
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.LessonContent-module__O06sTW__idea {
+  background: #edf6ff;
+  border-left: 4px solid #00599c;
+  margin: 1.5rem 0;
+}
+
+.LessonContent-module__O06sTW__outcomes {
+  background: #eff8f3;
+}
+
+.LessonContent-module__O06sTW__terms {
+  background: #f5f7fa;
+}
+
+.LessonContent-module__O06sTW__idea h3, .LessonContent-module__O06sTW__outcomes h2, .LessonContent-module__O06sTW__terms h2 {
+  margin-top: 0;
+}
+
+.LessonContent-module__O06sTW__terms ul {
+  flex-wrap: wrap;
+  gap: .5rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.LessonContent-module__O06sTW__terms li {
+  background: #fff;
+  border: 1px solid #d4e0ea;
+  border-radius: 8px;
+  margin: 0;
+  padding: .25rem .65rem;
+}
+
+@media (max-width: 480px) {
+  .LessonContent-module__O06sTW__lesson {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .LessonContent-module__O06sTW__lesson section {
+    margin-top: 1.75rem;
+  }
+}
+
+/*# sourceMappingURL=components_LessonContent_module_css_1igg3k2._.single.css.map*/

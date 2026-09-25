@@ -1,0 +1,31 @@
+.lesson {
+  color: #23384a;
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.lesson section { margin-top: 2.5rem; }
+.lesson h2 { color: #004b87; font-size: clamp(1.25rem, 3vw, 1.6rem); line-height: 1.35; }
+.lesson h3 { color: #234e6d; font-size: 1.125rem; line-height: 1.5; margin-top: 1.5rem; }
+.lesson p { margin: 1rem 0; }
+.lesson ul { padding-left: 1.4rem; }
+.lesson li { margin: 0.5rem 0; }
+
+.idea, .outcomes, .terms {
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid #d4e0ea;
+  border-radius: 12px;
+}
+
+.idea { background: #edf6ff; border-left: 4px solid #00599c; margin: 1.5rem 0; }
+.outcomes { background: #eff8f3; }
+.terms { background: #f5f7fa; }
+.idea h3, .outcomes h2, .terms h2 { margin-top: 0; }
+.terms ul { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; list-style: none; }
+.terms li { background: white; border: 1px solid #d4e0ea; border-radius: 8px; padding: 0.25rem 0.65rem; margin: 0; }
+
+@media (max-width: 480px) {
+  .lesson { font-size: 1rem; line-height: 1.7; }
+  .lesson section { margin-top: 1.75rem; }
+}

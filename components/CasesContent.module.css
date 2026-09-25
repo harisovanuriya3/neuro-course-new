@@ -1,0 +1,27 @@
+.cases { min-width: 0; }
+.progress { margin: 1.5rem 0; padding: 1.25rem; background: #edf6ff; border: 1px solid #b6c9d9; border-radius: 12px; }
+.progress p { margin-top: 0; }
+.progress progress { display: block; width: 100%; height: 10px; accent-color: #00599c; }
+.navigation { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.25rem; }
+.navigation a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0 0.25rem; box-sizing: border-box; color: #004b87; background: white; border: 1px solid #8fb2ce; border-radius: 8px; font-weight: 700; text-decoration: none; }
+.navigation a:hover { background: #e4f0fa; }
+.navigation .doneLink { color: #205537; background: #eff8f3; border-color: #83b599; }
+.cases a:focus-visible { outline: 3px solid #00599c; outline-offset: 4px; }
+.card { scroll-margin-top: 1.5rem; }
+.cardHeader { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.75rem; }
+.eyebrow { color: #526b80; font-weight: 600; }
+.completed { color: #205537; font-weight: 700; }
+.stage { margin-top: 1.5rem; padding-top: 0.25rem; }
+.data { padding: 1rem; background: #f3f7fa; border-left: 3px solid #8fb2ce; }
+.selected { background: #edf6ff; border: 1px solid #b6c9d9; border-radius: 8px; padding: 1rem 1rem 1rem 2.5rem !important; }
+.choices { min-width: 0; margin: 1.5rem 0; padding: 1rem; border: 1px solid #b6c9d9; border-radius: 8px; }
+.choices legend { max-width: 100%; padding: 0 0.4rem; font-weight: 600; }
+.choices label, .completion { display: flex; align-items: flex-start; gap: 0.75rem; padding: 1rem; margin-bottom: 0.75rem; border: 1px solid #b6c9d9; border-radius: 8px; cursor: pointer; }
+.choices label:has(input:checked) { background: #edf6ff; border-color: #00599c; }
+.choices input, .completion input { width: 20px; height: 20px; flex-shrink: 0; margin-top: 0.3rem; accent-color: #00599c; }
+.completion { margin-top: 1.25rem; background: #eff8f3; }
+.diagram { list-style: none; padding: 0 !important; }
+.diagram li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.4rem; }
+.diagram li > span:first-child { width: 100%; box-sizing: border-box; padding: 0.6rem; border: 1px solid #a9cfb6; border-radius: 8px; background: white; }
+.sources { margin-top: 2rem; font-size: 0.95rem; }
+@media (max-width: 480px) { .progress, .choices { padding: 0.75rem; } .choices label { padding: 0.75rem; } }

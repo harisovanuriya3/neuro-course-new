@@ -1,0 +1,239 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/modules/[id]",
+      "regex": "^/modules/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/modules/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/modules/[id]/[section]",
+      "regex": "^/modules/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid",
+        "nxtPsection": "nxtPsection"
+      },
+      "namedRegex": "^/modules/(?<nxtPid>[^/]+?)/(?<nxtPsection>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/modules-dynamic/[id]",
+      "regex": "^/modules\\-dynamic/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/modules\\-dynamic/(?<nxtPid>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/modules/exam",
+      "regex": "^/modules/exam(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/exam(?:/)?$"
+    },
+    {
+      "page": "/modules/module-1",
+      "regex": "^/modules/module\\-1(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-1(?:/)?$"
+    },
+    {
+      "page": "/modules/module-10",
+      "regex": "^/modules/module\\-10(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-10(?:/)?$"
+    },
+    {
+      "page": "/modules/module-11",
+      "regex": "^/modules/module\\-11(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-11(?:/)?$"
+    },
+    {
+      "page": "/modules/module-12",
+      "regex": "^/modules/module\\-12(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-12(?:/)?$"
+    },
+    {
+      "page": "/modules/module-13",
+      "regex": "^/modules/module\\-13(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-13(?:/)?$"
+    },
+    {
+      "page": "/modules/module-14",
+      "regex": "^/modules/module\\-14(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-14(?:/)?$"
+    },
+    {
+      "page": "/modules/module-15",
+      "regex": "^/modules/module\\-15(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-15(?:/)?$"
+    },
+    {
+      "page": "/modules/module-16",
+      "regex": "^/modules/module\\-16(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-16(?:/)?$"
+    },
+    {
+      "page": "/modules/module-17",
+      "regex": "^/modules/module\\-17(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-17(?:/)?$"
+    },
+    {
+      "page": "/modules/module-18",
+      "regex": "^/modules/module\\-18(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-18(?:/)?$"
+    },
+    {
+      "page": "/modules/module-19",
+      "regex": "^/modules/module\\-19(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-19(?:/)?$"
+    },
+    {
+      "page": "/modules/module-2",
+      "regex": "^/modules/module\\-2(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-2(?:/)?$"
+    },
+    {
+      "page": "/modules/module-20",
+      "regex": "^/modules/module\\-20(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-20(?:/)?$"
+    },
+    {
+      "page": "/modules/module-21",
+      "regex": "^/modules/module\\-21(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-21(?:/)?$"
+    },
+    {
+      "page": "/modules/module-22",
+      "regex": "^/modules/module\\-22(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-22(?:/)?$"
+    },
+    {
+      "page": "/modules/module-23",
+      "regex": "^/modules/module\\-23(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-23(?:/)?$"
+    },
+    {
+      "page": "/modules/module-3",
+      "regex": "^/modules/module\\-3(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-3(?:/)?$"
+    },
+    {
+      "page": "/modules/module-4",
+      "regex": "^/modules/module\\-4(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-4(?:/)?$"
+    },
+    {
+      "page": "/modules/module-5",
+      "regex": "^/modules/module\\-5(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-5(?:/)?$"
+    },
+    {
+      "page": "/modules/module-6",
+      "regex": "^/modules/module\\-6(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-6(?:/)?$"
+    },
+    {
+      "page": "/modules/module-7",
+      "regex": "^/modules/module\\-7(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-7(?:/)?$"
+    },
+    {
+      "page": "/modules/module-8",
+      "regex": "^/modules/module\\-8(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-8(?:/)?$"
+    },
+    {
+      "page": "/modules/module-9",
+      "regex": "^/modules/module\\-9(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/module\\-9(?:/)?$"
+    },
+    {
+      "page": "/modules/virtual-patient",
+      "regex": "^/modules/virtual\\-patient(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/modules/virtual\\-patient(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
