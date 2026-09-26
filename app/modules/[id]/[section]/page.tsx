@@ -1,59 +1,399 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
 import { getLesson } from "../../../../content";
 import type { Section } from "../../../../content/types";
+
 import LessonContent from "../../../../components/LessonContent";
 import PracticeContent from "../../../../components/PracticeContent";
 import CasesContent from "../../../../components/CasesContent";
+import CourseNavigation from "../../../../components/CourseNavigation";
 
-const sections = ["theory", "practice", "cases", "tests", "questions", "media"];
+type Lang = "RU" | "KZ" | "EN";
+
+const sections = [
+  "objectives",
+  "pretest",
+  "theory",
+  "one-minute",
+  "clinical",
+  "interactive",
+  "practice",
+  "cases",
+  "tests",
+  "questions",
+  "virtual-patient",
+  "media",
+  "glossary",
+  "voice",
+  "progress",
+  "notes",
+  "references",
+] as const;
+
 const text = {
-  RU: { module: "Модуль", back: "← Назад к модулю", pending: "Материалы раздела готовятся.", sections: ["Теория", "Практика", "Ситуационные задачи", "Тесты", "Вопросы", "Медиаматериалы"] },
-  KZ: { module: "Модуль", back: "← Модульге оралу", pending: "Бөлім материалдары дайындалуда.", sections: ["Теория", "Практика", "Ситуациялық тапсырмалар", "Тесттер", "Сұрақтар", "Медиаматериалдар"] },
-  EN: { module: "Module", back: "← Back to module", pending: "Section materials are being prepared.", sections: ["Theory", "Practice", "Case studies", "Tests", "Questions", "Media"] },
+  RU: {
+    module: "Модуль",
+    back: "← Назад к модулю",
+    pending: "Материалы раздела готовятся.",
+    sections: [
+      "Цели обучения",
+      "Входной блиц-тест",
+      "Теория",
+      "Ключевое за 1 минуту",
+      "Клинический мост",
+      "Интерактивные схемы",
+      "Практика",
+      "Ситуационные задачи",
+      "Ветвящиеся тесты",
+      "Контрольные вопросы",
+      "Виртуальный пациент",
+      "Медиа",
+      "Глоссарий",
+      "Голосовое сопровождение",
+      "Мой прогресс",
+      "Закладки и заметки",
+      "Источники и литература",
+    ],
+  },
+
+  KZ: {
+    module: "Модуль",
+    back: "← Модульге оралу",
+    pending: "Бөлім материалдары дайындалуда.",
+    sections: [
+      "Оқу мақсаттары",
+      "Кіріспе блиц-тест",
+      "Теория",
+      "1 минуттағы негізгі ойлар",
+      "Клиникалық көпір",
+      "Интерактивті сызбалар",
+      "Практика",
+      "Ситуациялық тапсырмалар",
+      "Тармақталған тесттер",
+      "Бақылау сұрақтары",
+      "Виртуалды пациент",
+      "Медиа",
+      "Глоссарий",
+      "Дауыстық сүйемелдеу",
+      "Менің прогресім",
+      "Бетбелгілер мен жазбалар",
+      "Дереккөздер мен әдебиеттер",
+    ],
+  },
+
+  EN: {
+    module: "Module",
+    back: "← Back to module",
+    pending: "Section materials are being prepared.",
+    sections: [
+      "Learning Objectives",
+      "Pre-module Quick Test",
+      "Theory",
+      "Key Points in 1 Minute",
+      "Clinical Bridge",
+      "Interactive Diagrams",
+      "Practice",
+      "Case Problems",
+      "Branching Tests",
+      "Review Questions",
+      "Virtual Patient",
+      "Media",
+      "Glossary",
+      "Audio Guide",
+      "My Progress",
+      "Bookmarks and Notes",
+      "References",
+    ],
+  },
 };
 
 type PageProps = {
-  params: Promise<{ id: string; section: string }>;
-  searchParams: Promise<{ lang?: string | string[] }>;
+  params: Promise<{
+    id: string;
+    section: string;
+  }>;
+
+  searchParams: Promise<{
+    lang?: string | string[];
+  }>;
 };
 
-export default async function SectionPage({ params, searchParams }: PageProps) {
+export default async function SectionPage({
+  params,
+  searchParams,
+}: PageProps) {
   const { id, section } = await params;
   const { lang: requestedLang } = await searchParams;
-  const lang = requestedLang === "KZ" || requestedLang === "EN" ? requestedLang : "RU";
-  const sectionIndex = sections.indexOf(section);
-  if (!/^(?:[1-9]|1[0-9]|2[0-3])$/.test(id) || sectionIndex === -1) notFound();
+
+  const rawLang = Array.isArray(requestedLang)
+    ? requestedLang[0]
+    : requestedLang;
+
+  const lang: Lang =
+    rawLang === "KZ" || rawLang === "EN"
+      ? rawLang
+      : "RU";
+
+  const moduleNumber = Number(id);
+
+  const sectionIndex = sections.indexOf(
+    section as (typeof sections)[number]
+  );
+
+  if (
+    !/^(?:[1-9]|1[0-9]|2[0-3])$/.test(id) ||
+    sectionIndex === -1
+  ) {
+    notFound();
+  }
+
   const t = text[lang];
-  const lesson = getLesson(Number(id), section as Section, lang);
+
+  // Старый учебный контент пока существует
+  // для этих разделов.
+  const contentSections = [
+    "theory",
+    "practice",
+    "cases",
+    "tests",
+    "questions",
+    "media",
+  ];
+
+  const lesson = contentSections.includes(section)
+    ? getLesson(
+        moduleNumber,
+        section as Section,
+        lang
+      )
+    : undefined;
 
   return (
-    <main style={{ minHeight: "100vh", padding: "40px 20px", background: "#eef5fa" }}>
-      <div lang={lang === "KZ" ? "kk" : lang.toLowerCase()} style={{ maxWidth: "900px", margin: "0 auto", padding: lesson ? "clamp(16px, 4vw, 32px)" : "32px", background: "white", borderRadius: "16px" }}>
-        <Link href={`/modules/${id}?lang=${lang}`} style={{ color: "#004b87", fontWeight: "bold" }}>{t.back}</Link>
-        <nav aria-label="Language" style={{ display: "flex", gap: "16px", marginTop: "24px" }}>
-          {(["RU", "KZ", "EN"] as const).map((code) => (
-            <Link key={code} href={`/modules/${id}/${section}?lang=${code}`} aria-current={lang === code ? "page" : undefined}>{code}</Link>
-          ))}
-        </nav>
-        {lesson ? (
-          <>
-            {"kind" in lesson && <p style={{ color: "#526b80", fontWeight: "bold" }}>{lesson.moduleTitle}</p>}
-            <h1 style={{ color: "#004b87", fontSize: "clamp(1.5rem, 4vw, 2rem)", lineHeight: 1.3 }}>{lesson.title}</h1>
-            <p style={{ color: "#526b80", fontWeight: "bold" }}>{t.sections[sectionIndex]}</p>
-            {"kind" in lesson && lesson.kind === "cases" ? <CasesContent key={`${id}/${section}/${lang}`} lesson={lesson} /> : "kind" in lesson ? (
-              <>
-                <Link href={`/modules/${id}/theory?lang=${lang}`}>{lesson.ui.theory}</Link>
-                <PracticeContent key={`${id}/${section}/${lang}`} lesson={lesson} language={lang} />
-              </>
-            ) : <LessonContent lesson={lesson} />}
-          </>
-        ) : (
-          <>
-            <h1 style={{ color: "#004b87" }}>{t.module} {id}: {t.sections[sectionIndex]}</h1>
-            <p>{t.pending}</p>
-          </>
-        )}
+    <main
+      id="top"
+      style={{
+        minHeight: "100vh",
+        padding: "40px 20px 60px",
+        background:
+          "linear-gradient(180deg, #eef5fa 0%, #f8fbfd 100%)",
+      }}
+    >
+      <div
+        lang={
+          lang === "KZ"
+            ? "kk"
+            : lang.toLowerCase()
+        }
+        style={{
+          maxWidth: "1000px",
+          margin: "0 auto",
+        }}
+      >
+        <div
+          style={{
+            padding: "clamp(22px, 4vw, 36px)",
+            background: "#ffffff",
+            borderRadius: "20px",
+            border: "1px solid #dce8ef",
+            boxShadow:
+              "0 8px 25px rgba(28, 72, 102, 0.06)",
+          }}
+        >
+          {/* НАЗАД К ТИТУЛУ МОДУЛЯ */}
+
+          <Link
+            href={`/modules/${id}?lang=${lang}`}
+            style={{
+              color: "#004b87",
+              fontWeight: 700,
+              textDecoration: "none",
+            }}
+          >
+            {t.back}
+          </Link>
+
+          {/* ЯЗЫК */}
+
+          <nav
+            aria-label="Language"
+            style={{
+              display: "flex",
+              gap: "10px",
+              marginTop: "24px",
+              marginBottom: "28px",
+              flexWrap: "wrap",
+            }}
+          >
+            {(["RU", "KZ", "EN"] as const).map(
+              (code) => (
+                <Link
+                  key={code}
+                  href={`/modules/${id}/${section}?lang=${code}`}
+                  aria-current={
+                    lang === code
+                      ? "page"
+                      : undefined
+                  }
+                  style={{
+                    minWidth: "42px",
+                    padding: "7px 11px",
+                    textAlign: "center",
+                    borderRadius: "9px",
+                    textDecoration: "none",
+                    fontWeight: 700,
+                    background:
+                      lang === code
+                        ? "#005b96"
+                        : "#f3f7fa",
+                    color:
+                      lang === code
+                        ? "#ffffff"
+                        : "#526b80",
+                    border:
+                      lang === code
+                        ? "1px solid #005b96"
+                        : "1px solid #d7e5ed",
+                  }}
+                >
+                  {code}
+                </Link>
+              )
+            )}
+          </nav>
+
+          {/* НОМЕР РАЗДЕЛА */}
+
+          <div
+            style={{
+              display: "inline-block",
+              marginBottom: "14px",
+              padding: "7px 12px",
+              borderRadius: "999px",
+              background: "#eaf5fa",
+              color: "#236b8e",
+              fontSize: "13px",
+              fontWeight: 800,
+            }}
+          >
+            {String(sectionIndex + 1).padStart(
+              2,
+              "0"
+            )}{" "}
+            / 17
+          </div>
+
+          {/* СУЩЕСТВУЮЩИЙ КОНТЕНТ */}
+
+          {lesson ? (
+            <>
+              {"kind" in lesson && (
+                <p
+                  style={{
+                    color: "#526b80",
+                    fontWeight: 700,
+                  }}
+                >
+                  {lesson.moduleTitle}
+                </p>
+              )}
+
+              <h1
+                style={{
+                  color: "#004b87",
+                  fontSize:
+                    "clamp(1.6rem, 4vw, 2.2rem)",
+                  lineHeight: 1.3,
+                }}
+              >
+                {lesson.title}
+              </h1>
+
+              <p
+                style={{
+                  color: "#526b80",
+                  fontWeight: 700,
+                  marginBottom: "28px",
+                }}
+              >
+                {t.sections[sectionIndex]}
+              </p>
+
+              {"kind" in lesson &&
+              lesson.kind === "cases" ? (
+                <CasesContent
+                  key={`${id}/${section}/${lang}`}
+                  lesson={lesson}
+                />
+              ) : "kind" in lesson ? (
+                <>
+                  <Link
+                    href={`/modules/${id}/theory?lang=${lang}`}
+                    style={{
+                      display: "inline-block",
+                      marginBottom: "20px",
+                      color: "#005b96",
+                      fontWeight: 700,
+                    }}
+                  >
+                    {lesson.ui.theory}
+                  </Link>
+
+                  <PracticeContent
+                    key={`${id}/${section}/${lang}`}
+                    lesson={lesson}
+                    language={lang}
+                  />
+                </>
+              ) : (
+                <LessonContent lesson={lesson} />
+              )}
+            </>
+          ) : (
+            <>
+              <p
+                style={{
+                  margin: "0 0 8px",
+                  color: "#607b8d",
+                  fontWeight: 700,
+                }}
+              >
+                {t.module} {moduleNumber}
+              </p>
+
+              <h1
+                style={{
+                  margin: "0 0 18px",
+                  color: "#004b87",
+                  fontSize:
+                    "clamp(1.6rem, 4vw, 2.2rem)",
+                  lineHeight: 1.3,
+                }}
+              >
+                {t.sections[sectionIndex]}
+              </h1>
+
+              <p
+                style={{
+                  margin: 0,
+                  color: "#526b80",
+                  lineHeight: 1.7,
+                }}
+              >
+                {t.pending}
+              </p>
+            </>
+          )}
+        </div>
+
+        {/* ЕДИНАЯ НАВИГАЦИЯ:
+            17 РАЗДЕЛОВ + 23 МОДУЛЯ */}
+
+        <CourseNavigation
+          moduleNumber={moduleNumber}
+          lang={lang}
+          currentSection={section}
+        />
       </div>
     </main>
   );
