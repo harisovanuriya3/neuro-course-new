@@ -8,11 +8,13 @@ export type TestState = {
   selected: string | null;
   attempts: Attempt[];
   history: RouteEvent[];
+  retryIds: string[] | null;
+  retryAttempts: Attempt[];
 };
-export type TestAction = { type: "select"; answer: string } | { type: "check" } | { type: "continue" } | { type: "restart" };
+export type TestAction = { type: "select"; answer: string } | { type: "check" } | { type: "continue" } | { type: "restart" } | { type: "retry" };
 
 export function initialState(test: BranchingTest): TestState {
-  return { current: test.start, phase: test.nodes[test.start].type === "remediation" ? "remediation" : "question", selected: null, attempts: [], history: [] };
+  return { current: test.start, phase: test.nodes[test.start].type === "remediation" ? "remediation" : "question", selected: null, attempts: [], history: [], retryIds: null, retryAttempts: [] };
 }
 
 function enter(test: BranchingTest, state: TestState, target: string): TestState {
@@ -29,6 +31,11 @@ function enter(test: BranchingTest, state: TestState, target: string): TestState
 
 export function transition(test: BranchingTest, state: TestState, action: TestAction): TestState {
   if (action.type === "restart") return initialState(test);
+  if (action.type === "retry" && state.phase === "results") {
+    const attempts = state.retryIds === null ? state.attempts : state.retryAttempts;
+    const retryIds = [...new Set(attempts.filter(attempt => !attempt.correct).map(attempt => attempt.nodeId))];
+    return retryIds.length ? enter(test, { ...state, retryIds, retryAttempts: [] }, retryIds[0]) : state;
+  }
   if (state.phase === "results") return state;
   const node = test.nodes[state.current];
   if (action.type === "select") {
@@ -38,14 +45,15 @@ export function transition(test: BranchingTest, state: TestState, action: TestAc
   if (action.type === "check") {
     if (state.phase !== "question" || node.type !== "question" || state.selected === null) return state;
     const attempt: Attempt = { nodeId: node.id, competency: node.competency, level: node.level, answer: state.selected, correct: state.selected === node.correctAnswer };
+    if (state.retryIds !== null) return { ...state, retryAttempts: [...state.retryAttempts, attempt], phase: "feedback" };
     const answered: TestState = { ...state, attempts: [...state.attempts, attempt], history: [...state.history, { type: "answer", attempt }], phase: "feedback" };
-    // An error leads directly to remediation; no correct option is revealed.
-    return !attempt.correct && test.nodes[node.onIncorrect]?.type === "remediation"
-      ? enter(test, answered, node.onIncorrect) : answered;
+    // Always show immediate feedback before following the data-defined branch.
+    return answered;
   }
   if (action.type === "continue") {
     if (state.phase === "remediation" && node.type === "remediation") return enter(test, state, node.next);
     if (state.phase === "feedback" && node.type === "question") {
+      if (state.retryIds !== null) return enter(test, state, state.retryIds[state.retryAttempts.length] ?? "end");
       const attempt = state.attempts[state.attempts.length - 1];
       return enter(test, state, attempt.correct ? node.onCorrect : node.onIncorrect);
     }

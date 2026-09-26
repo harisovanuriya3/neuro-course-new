@@ -10,7 +10,7 @@ export type ContentBlock =
 
 export type Lesson = {
   title: string;
-  sections: { title: string; blocks: ContentBlock[] }[];
+  sections: { id?: string; title: string; blocks: ContentBlock[] }[];
   outcomes: { title: string; introduction: string; items: string[] };
   terms: { title: string; items: string[] };
 };
@@ -48,7 +48,8 @@ export type PracticeLesson = {
 export type SectionLesson =
   | (Lesson & { kind: "theory" })
   | PracticeLesson
-  | import("./cases").CasesLesson;
+  | import("./cases").CasesLesson
+  | import("./tests").BranchingTest;
 
 // Only implemented renderers belong here. Adding a kind requires an explicit
 // branch in SectionContent; unfilled sections remain absent from the registry.

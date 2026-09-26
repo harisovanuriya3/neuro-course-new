@@ -1,0 +1,16 @@
+.test { line-height: 1.7; color: #24475e; overflow-wrap: anywhere; }
+.test h1, .test h2, .test h3 { color: #004b87; line-height: 1.35; }
+.test fieldset { border: 1px solid #cbdce8; border-radius: 12px; padding: 16px; margin-bottom: 16px; min-width: 0; }
+.option { display: flex; align-items: baseline; gap: 12px; padding: 12px; margin: 8px 0; border: 1px solid #cbdce8; border-radius: 8px; cursor: pointer; }
+.option input { flex-shrink: 0; }
+.test button { padding: 12px 18px; border: 1px solid #005b96; border-radius: 8px; background: #005b96; color: white; font: inherit; cursor: pointer; }
+.test button:disabled { opacity: .55; cursor: default; }
+.test a { color: #005b96; }
+.test :focus-visible { outline: 3px solid #d87500; outline-offset: 4px; }
+.note { background: #edf5fa; padding: 16px; border-radius: 8px; }
+.feedback, .correct { padding: 16px; margin: 16px 0; border-left: 4px solid #b26900; background: #fff6e8; }
+.correct { border-color: #218144; background: #effaf1; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; }
+.metrics div { padding: 14px; border: 1px solid #cbdce8; border-radius: 8px; }
+.metrics dd { margin: 0; font-weight: bold; font-size: 1.3rem; }

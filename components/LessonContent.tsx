@@ -18,7 +18,7 @@ export default function LessonContent({ lesson }: { lesson: Lesson }) {
   return (
     <article className={styles.lesson}>
       {lesson.sections.map((section) => (
-        <section key={section.title}>
+        <section id={section.id} key={section.id ?? section.title}>
           <h2>{section.title}</h2>
           {section.blocks.map((block, index) => <Block key={index} block={block} />)}
         </section>

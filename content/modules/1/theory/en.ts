@@ -4,6 +4,7 @@ const lesson: Lesson = {
   title: "Module 1. Introduction to Neurophysiology",
   sections: [
     {
+      id: "nervous-system",
       title: "1. General Organization of the Nervous System",
       blocks: [
         { type: "paragraph", text: "The nervous system is a complex functional system that receives, transmits, processes, and integrates information from the body's external and internal environments." },
@@ -12,6 +13,7 @@ const lesson: Lesson = {
       ],
     },
     {
+      id: "functions",
       title: "2. Major Functions of the Nervous System",
       blocks: [
         { type: "list", items: ["Detection of information.", "Conduction of neural signals.", "Analysis and integration of information.", "Generation of motor responses.", "Regulation of autonomic functions.", "Coordination of internal organ activity.", "Maintenance of homeostasis.", "Support of higher nervous functions."] },
@@ -20,6 +22,7 @@ const lesson: Lesson = {
       ],
     },
     {
+      id: "cns-pns",
       title: "3. Central and Peripheral Nervous Systems",
       blocks: [
         { type: "subheading", text: "Central nervous system (CNS)" },
@@ -31,6 +34,7 @@ const lesson: Lesson = {
       ],
     },
     {
+      id: "principles",
       title: "4. Fundamental Principles of Nervous System Function",
       blocks: [
         { type: "subheading", text: "Excitability and conduction" },
