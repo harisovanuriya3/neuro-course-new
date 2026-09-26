@@ -49,7 +49,8 @@ export type SectionLesson =
   | (Lesson & { kind: "theory" })
   | PracticeLesson
   | import("./cases").CasesLesson
-  | import("./tests").BranchingTest;
+  | import("./tests").BranchingTest
+  | import("./study").StudyLesson;
 
 // Only implemented renderers belong here. Adding a kind requires an explicit
 // branch in SectionContent; unfilled sections remain absent from the registry.

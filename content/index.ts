@@ -12,12 +12,23 @@ import testsRU from "./modules/1/tests/ru";
 import testsKZ from "./modules/1/tests/kz";
 import testsEN from "./modules/1/tests/en";
 import { validateTest } from "../lib/tests/engine";
+import { createStudyLessons } from "./modules/1/study";
+
+const studyRU = createStudyLessons("RU");
+const studyKZ = createStudyLessons("KZ");
+const studyEN = createStudyLessons("EN");
+const studyLessons = Object.fromEntries(
+  (Object.keys(studyRU) as (keyof typeof studyRU)[]).map(section => [section, {
+    RU: studyRU[section], KZ: studyKZ[section], EN: studyEN[section],
+  }])
+);
 
 [testsRU, testsKZ, testsEN].forEach(validateTest);
 
 // Register each new module/section here; routes and rendering stay unchanged.
 const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>> = {
   1: {
+    ...studyLessons,
     theory: {
       RU: { ...RU, kind: "theory" },
       KZ: { ...KZ, kind: "theory" },
