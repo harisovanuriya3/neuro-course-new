@@ -1,280 +1,187 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 type Lang = "RU" | "KZ" | "EN";
 
 const modules: Record<Lang, string[]> = {
   RU: [
-    "Введение",
-    "История",
-    "Клеточная физиология",
-    "Мембранные процессы",
-    "Ионные каналы",
-    "Синапсы",
-    "Возбуждение",
-    "Рефлексы",
-    "Пути",
-    "Спинной мозг",
-    "Ретикулярная формация",
-    "Ствол мозга",
+    "Введение в нейрофизиологию",
+    "История изучения и методы исследования нервной системы",
+    "Нейрон, нейроглия и микросреда нервной ткани",
+    "Мембранные процессы и потенциал покоя",
+    "Ионные каналы и потенциал действия",
+    "Синапсы, нейромедиаторы и нейромодуляция",
+    "Возбуждение и торможение",
+    "Рефлекторная деятельность и нейронные сети",
+    "Проводящие пути нервной системы",
+    "Спинной мозг и спинальная регуляция",
+    "Ствол мозга и ретикулярная формация",
+    "Двигательные системы и контроль движений",
     "Мозжечок",
-    "Таламус",
-    "Гипоталамус",
-    "Лимбическая система",
-    "Миндалина",
-    "Кора",
-    "Сенсорные системы",
-    "Вегетативная система",
-    "Высшая деятельность",
-    "Нейрогуморальная регуляция",
-    "Патофизиология",
+    "Таламус и таламо-кортикальные системы",
+    "Гипоталамус и гомеостаз",
+    "Лимбическая система, эмоции и мотивация",
+    "Базальные ганглии",
+    "Кора больших полушарий и функциональная организация мозга",
+    "Сенсорные системы и боль",
+    "Вегетативная нервная система",
+    "Высшая нервная деятельность",
+    "Нейрогуморальная регуляция, сон и биологические ритмы",
+    "Пластичность, восстановление и патофизиология нервной системы",
   ],
 
   KZ: [
-    "Кіріспе",
-    "Тарих",
-    "Жасушалық физиология",
-    "Мембраналық процестер",
-    "Иондық арналар",
-    "Синапстар",
-    "Қозу",
-    "Рефлекстер",
-    "Жолдар",
-    "Жұлын",
-    "Ретикулярлық формация",
-    "Ми сабауы",
+    "Нейрофизиологияға кіріспе",
+    "Жүйке жүйесін зерттеу тарихы мен әдістері",
+    "Нейрон, нейроглия және жүйке тінінің микроортасы",
+    "Мембраналық процестер және тыныштық потенциалы",
+    "Иондық арналар және әрекет потенциалы",
+    "Синапстар, нейромедиаторлар және нейромодуляция",
+    "Қозу және тежелу",
+    "Рефлекстік қызмет және нейрондық желілер",
+    "Жүйке жүйесінің өткізгіш жолдары",
+    "Жұлын және жұлындық реттелу",
+    "Ми сабауы және ретикулярлық формация",
+    "Қозғалыс жүйелері және қозғалысты басқару",
     "Мишық",
-    "Таламус",
-    "Гипоталамус",
-    "Лимбиялық жүйе",
-    "Бадамша дене",
-    "Ми қыртысы",
-    "Сенсорлық жүйелер",
-    "Вегетативтік жүйе",
+    "Таламус және таламо-кортикалық жүйелер",
+    "Гипоталамус және гомеостаз",
+    "Лимбиялық жүйе, эмоциялар және мотивация",
+    "Базальды ганглийлер",
+    "Үлкен ми сыңарларының қыртысы және мидың функционалдық ұйымдасуы",
+    "Сенсорлық жүйелер және ауырсыну",
+    "Вегетативтік жүйке жүйесі",
     "Жоғары жүйке қызметі",
-    "Нейрогуморальдық реттелу",
-    "Патофизиология",
+    "Нейрогуморальдық реттелу, ұйқы және биологиялық ырғақтар",
+    "Жүйке жүйесінің пластикалығы, қалпына келуі және патофизиологиясы",
   ],
 
   EN: [
-    "Introduction",
-    "History",
-    "Cell Physiology",
-    "Membrane Processes",
-    "Ion Channels",
-    "Synapses",
-    "Excitation",
-    "Reflexes",
-    "Pathways",
-    "Spinal Cord",
-    "Reticular Formation",
-    "Brainstem",
+    "Introduction to Neurophysiology",
+    "History and Methods of Nervous System Research",
+    "Neurons, Neuroglia, and the Neural Microenvironment",
+    "Membrane Processes and the Resting Membrane Potential",
+    "Ion Channels and the Action Potential",
+    "Synapses, Neurotransmitters, and Neuromodulation",
+    "Excitation and Inhibition",
+    "Reflex Activity and Neural Networks",
+    "Neural Pathways",
+    "Spinal Cord and Spinal Regulation",
+    "Brainstem and Reticular Formation",
+    "Motor Systems and Motor Control",
     "Cerebellum",
-    "Thalamus",
-    "Hypothalamus",
-    "Limbic System",
-    "Amygdala",
-    "Cerebral Cortex",
-    "Sensory Systems",
+    "Thalamus and Thalamocortical Systems",
+    "Hypothalamus and Homeostasis",
+    "Limbic System, Emotion, and Motivation",
+    "Basal Ganglia",
+    "Cerebral Cortex and Functional Organization of the Brain",
+    "Sensory Systems and Pain",
     "Autonomic Nervous System",
     "Higher Nervous Activity",
-    "Neurohumoral Regulation",
-    "Pathophysiology",
+    "Neurohumoral Regulation, Sleep, and Biological Rhythms",
+    "Neural Plasticity, Recovery, and Pathophysiology",
   ],
 };
 
-const text = {
+const ui: Record<
+  Lang,
+  {
+    title: string;
+    subtitle: string;
+    module: string;
+    open: string;
+  }
+> = {
   RU: {
-    university: "Карагандинский медицинский университет",
-    department: "Кафедра нормальной физиологии",
-    textbook: "УЧЕБНИК",
-    title: "Физиология центральной нервной системы",
-    subtitle: "Учебное пособие для студентов медицинских факультетов",
-    author: "Автор: Харисова Нурия Мансуровна, к.б.н., профессор",
-    approved: "Допущено кафедрой нормальной физиологии",
-    city: "Караганда — 2026",
-
-    enter: "Перейти к курсу",
-
-    contents: "Содержание курса",
-    contentsText: "Выберите учебный модуль",
-
+    title: "Содержание курса",
+    subtitle: "Выберите учебный модуль",
     module: "Модуль",
-    open: "Открыть модуль",
-
-    patient: "Виртуальный пациент",
-    patientText:
-      "Интерактивная клиническая среда для применения знаний по нейрофизиологии.",
-    patientButton: "Открыть виртуального пациента",
+    open: "Открыть модуль →",
   },
 
   KZ: {
-    university: "Қарағанды медицина университеті",
-    department: "Қалыпты физиология кафедрасы",
-    textbook: "ОҚУЛЫҚ",
-    title: "Орталық жүйке жүйесінің физиологиясы",
-    subtitle:
-      "Медицина факультетінің студенттеріне арналған оқу құралы",
-    author:
-      "Автор: Харисова Нурия Мансуровна, б.ғ.к., профессор",
-    approved:
-      "Қалыпты физиология кафедрасымен мақұлданған",
-    city: "Қарағанды — 2026",
-
-    enter: "Курсқа өту",
-
-    contents: "Курс мазмұны",
-    contentsText: "Оқу модулін таңдаңыз",
-
+    title: "Курс мазмұны",
+    subtitle: "Оқу модулін таңдаңыз",
     module: "Модуль",
-    open: "Модульді ашу",
-
-    patient: "Виртуалды пациент",
-    patientText:
-      "Нейрофизиология бойынша білімді қолдануға арналған интерактивті клиникалық орта.",
-    patientButton: "Виртуалды пациентті ашу",
+    open: "Модульді ашу →",
   },
 
   EN: {
-    university: "Karaganda Medical University",
-    department: "Department of Normal Physiology",
-    textbook: "TEXTBOOK",
-    title: "Physiology of the Central Nervous System",
-    subtitle: "Study guide for medical students",
-    author:
-      "Author: Nuria Mansurovna Kharissova, PhD, Professor",
-    approved:
-      "Approved by the Department of Normal Physiology",
-    city: "Karaganda — 2026",
-
-    enter: "Enter Course",
-
-    contents: "Course Contents",
-    contentsText: "Select a learning module",
-
+    title: "Course Contents",
+    subtitle: "Choose a learning module",
     module: "Module",
-    open: "Open module",
-
-    patient: "Virtual Patient",
-    patientText:
-      "An interactive clinical environment for applying knowledge of neurophysiology.",
-    patientButton: "Open Virtual Patient",
+    open: "Open module →",
   },
 };
 
-export default function Home() {
-  const [lang, setLang] = useState<Lang>("RU");
+export default function HomePage() {
+  const searchParams = useSearchParams();
 
-  const t = text[lang];
+  const requestedLang = searchParams.get("lang");
+
+  const lang: Lang =
+    requestedLang === "KZ" || requestedLang === "EN"
+      ? requestedLang
+      : "RU";
+
+  const t = ui[lang];
 
   return (
     <main
       style={{
         minHeight: "100vh",
-        backgroundImage:
-          "linear-gradient(rgba(0,20,55,0.25), rgba(0,20,55,0.5)), url('/neuron-bg.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-        padding: "25px 20px 70px",
+        padding: "48px 36px 70px",
+        background: "#f2f7fb",
+        color: "#003f73",
       }}
     >
-      {/* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА */}
-
-      <div
-        style={{
-          maxWidth: "950px",
-          margin: "0 auto 18px",
-          display: "flex",
-          justifyContent: "flex-end",
-          gap: "8px",
-        }}
-      >
-        {(["RU", "KZ", "EN"] as Lang[]).map((code) => (
-          <button
-            key={code}
-            onClick={() => setLang(code)}
-            style={{
-              padding: "9px 17px",
-              borderRadius: "22px",
-              border: "1px solid white",
-              cursor: "pointer",
-              background:
-                lang === code
-                  ? "#00599c"
-                  : "rgba(255,255,255,0.92)",
-              color:
-                lang === code
-                  ? "white"
-                  : "#003b6f",
-              fontWeight: "bold",
-            }}
-          >
-            {code}
-          </button>
-        ))}
-      </div>
-
-      {/* ТИТУЛЬНЫЙ ЛИСТ */}
-
       <section
+        id="course"
         style={{
-          maxWidth: "900px",
-          minHeight: "620px",
+          maxWidth: "1500px",
           margin: "0 auto",
-          padding: "55px 50px",
-          background: "rgba(255,255,255,0.94)",
-          borderRadius: "18px",
-          boxShadow: "0 12px 40px rgba(0,0,0,0.25)",
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
         }}
       >
-        <div>
-          <h3
-            style={{
-              color: "#003b6f",
-              margin: "0 0 8px",
-              fontSize: "20px",
-            }}
-          >
-            {t.university}
-          </h3>
+        {/* Языки */}
+        <nav
+          aria-label="Language"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "18px",
+            marginBottom: "28px",
+          }}
+        >
+          {(["RU", "KZ", "EN"] as const).map((code) => (
+            <Link
+              key={code}
+              href={`/?lang=${code}#course`}
+              aria-current={lang === code ? "page" : undefined}
+              style={{
+                color: "#005b9f",
+                fontWeight: lang === code ? 700 : 500,
+              }}
+            >
+              {code}
+            </Link>
+          ))}
+        </nav>
 
-          <p
-            style={{
-              margin: 0,
-              color: "#647789",
-              fontSize: "16px",
-            }}
-          >
-            {t.department}
-          </p>
-        </div>
-
-        <div style={{ margin: "50px 0" }}>
-          <div
-            style={{
-              fontSize: "15px",
-              letterSpacing: "5px",
-              color: "#70879b",
-              fontWeight: "bold",
-              marginBottom: "22px",
-            }}
-          >
-            {t.textbook}
-          </div>
-
+        {/* Заголовок */}
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "36px",
+          }}
+        >
           <h1
             style={{
               margin: 0,
-              color: "#003b6f",
-              fontSize: "40px",
-              lineHeight: 1.25,
+              fontSize: "34px",
+              lineHeight: 1.2,
+              color: "#004b87",
             }}
           >
             {t.title}
@@ -282,229 +189,81 @@ export default function Home() {
 
           <p
             style={{
-              marginTop: "22px",
+              marginTop: "14px",
               fontSize: "18px",
-              color: "#445566",
+              color: "#60758a",
             }}
           >
             {t.subtitle}
           </p>
         </div>
 
-        <div>
-          <p
-            style={{
-              fontSize: "17px",
-              color: "#222",
-            }}
-          >
-            {t.author}
-          </p>
-
-          <p
-            style={{
-              marginTop: "30px",
-              color: "#56697a",
-            }}
-          >
-            {t.approved}
-          </p>
-
-          <p
-            style={{
-              color: "#23384a",
-              fontWeight: "bold",
-            }}
-          >
-            {t.city}
-          </p>
-
-          {/* ГЛАВНАЯ КНОПКА */}
-
-          <a
-            href="#course"
-            style={{ textDecoration: "none" }}
-          >
-            <button
-              style={{
-                marginTop: "24px",
-                padding: "15px 36px",
-                background: "#00599c",
-                color: "white",
-                border: "none",
-                borderRadius: "10px",
-                fontSize: "17px",
-                fontWeight: "bold",
-                cursor: "pointer",
-              }}
-            >
-              {t.enter} ↓
-            </button>
-          </a>
-        </div>
-      </section>
-
-      {/* СОДЕРЖАНИЕ КУРСА */}
-
-      <section
-        id="course"
-        style={{
-          maxWidth: "1150px",
-          margin: "55px auto 0",
-          padding: "40px",
-          background: "rgba(255,255,255,0.95)",
-          borderRadius: "18px",
-          boxShadow: "0 12px 40px rgba(0,0,0,0.22)",
-        }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            color: "#003b6f",
-            fontSize: "32px",
-            margin: "0 0 8px",
-          }}
-        >
-          {t.contents}
-        </h2>
-
-        <p
-          style={{
-            textAlign: "center",
-            color: "#667788",
-            fontSize: "17px",
-            marginBottom: "32px",
-          }}
-        >
-          {t.contentsText}
-        </p>
-
-        {/* 23 КЛИКАБЕЛЬНЫХ МОДУЛЯ */}
-
+        {/* 23 модуля */}
         <div
           style={{
             display: "grid",
             gridTemplateColumns:
-              "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: "16px",
+              "repeat(auto-fit, minmax(270px, 1fr))",
+            gap: "18px",
           }}
         >
-          {modules[lang].map((moduleTitle, index) => {
-            const id = index + 1;
+          {modules[lang].map((title, index) => {
+            const moduleNumber = index + 1;
 
             return (
-              <Link
-                key={id}
-                href={`/modules/${id}?lang=${lang}`}
-                style={{ textDecoration: "none" }}
+              <article
+                key={moduleNumber}
+                style={{
+                  background: "#ffffff",
+                  border: "1px solid #d5e1eb",
+                  borderRadius: "16px",
+                  padding: "26px 20px",
+                  minHeight: "170px",
+                  boxShadow: "0 4px 12px rgba(0, 60, 100, 0.06)",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
               >
                 <div
                   style={{
-                    minHeight: "125px",
-                    padding: "20px",
-                    background: "white",
-                    border: "1px solid #d4e0ea",
-                    borderRadius: "13px",
-                    boxShadow:
-                      "0 4px 13px rgba(0,0,0,0.07)",
-                    cursor: "pointer",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
+                    fontSize: "13px",
+                    fontWeight: 700,
+                    letterSpacing: "1.5px",
+                    textTransform: "uppercase",
+                    color: "#7890a6",
+                    marginBottom: "10px",
                   }}
                 >
-                  <div
-                    style={{
-                      color: "#8295a6",
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                      letterSpacing: "2px",
-                    }}
-                  >
-                    {t.module.toUpperCase()} {id}
-                  </div>
-
-                  <h3
-                    style={{
-                      margin: "8px 0",
-                      color: "#003b6f",
-                      fontSize: "18px",
-                    }}
-                  >
-                    {id}. {moduleTitle}
-                  </h3>
-
-                  <span
-                    style={{
-                      color: "#0068a8",
-                      fontWeight: "bold",
-                      fontSize: "14px",
-                    }}
-                  >
-                    {t.open} →
-                  </span>
+                  {t.module} {moduleNumber}
                 </div>
-              </Link>
+
+                <h2
+                  style={{
+                    margin: 0,
+                    fontSize: "19px",
+                    lineHeight: 1.35,
+                    color: "#003f73",
+                  }}
+                >
+                  {moduleNumber}. {title}
+                </h2>
+
+                <Link
+                  href={`/modules/${moduleNumber}?lang=${lang}`}
+                  style={{
+                    display: "inline-block",
+                    marginTop: "auto",
+                    paddingTop: "16px",
+                    color: "#0067ad",
+                    fontWeight: 700,
+                    textDecoration: "none",
+                  }}
+                >
+                  {t.open}
+                </Link>
+              </article>
             );
           })}
-        </div>
-
-        {/* ВИРТУАЛЬНЫЙ ПАЦИЕНТ */}
-
-        <div
-          style={{
-            marginTop: "40px",
-            padding: "30px",
-            borderRadius: "16px",
-            background:
-              "linear-gradient(135deg, #003b6f, #0069a8)",
-            color: "white",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "42px",
-              marginBottom: "8px",
-            }}
-          >
-            🩺
-          </div>
-
-          <h2
-            style={{
-              margin: "5px 0 10px",
-              fontSize: "27px",
-            }}
-          >
-            {t.patient}
-          </h2>
-
-          <p
-            style={{
-              maxWidth: "650px",
-              margin: "0 auto 22px",
-              lineHeight: 1.6,
-              opacity: 0.95,
-            }}
-          >
-            {t.patientText}
-          </p>
-
-          <Link
-            href={`/virtual-patient?lang=${lang}`}
-            style={{
-              display: "inline-block",
-              background: "white",
-              color: "#004b87",
-              textDecoration: "none",
-              padding: "13px 25px",
-              borderRadius: "9px",
-              fontWeight: "bold",
-            }}
-          >
-            {t.patientButton} →
-          </Link>
         </div>
       </section>
     </main>
