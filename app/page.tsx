@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 
 type Lang = "RU" | "KZ" | "EN";
 
@@ -116,14 +113,24 @@ const ui: Record<
   },
 };
 
-export default function HomePage() {
-  const searchParams = useSearchParams();
+type PageProps = {
+  searchParams: Promise<{
+    lang?: string | string[];
+  }>;
+};
 
-  const requestedLang = searchParams.get("lang");
+export default async function HomePage({
+  searchParams,
+}: PageProps) {
+  const { lang: requestedLang } = await searchParams;
+
+  const rawLang = Array.isArray(requestedLang)
+    ? requestedLang[0]
+    : requestedLang;
 
   const lang: Lang =
-    requestedLang === "KZ" || requestedLang === "EN"
-      ? requestedLang
+    rawLang === "KZ" || rawLang === "EN"
+      ? rawLang
       : "RU";
 
   const t = ui[lang];
@@ -219,7 +226,8 @@ export default function HomePage() {
                   borderRadius: "16px",
                   padding: "26px 20px",
                   minHeight: "170px",
-                  boxShadow: "0 4px 12px rgba(0, 60, 100, 0.06)",
+                  boxShadow:
+                    "0 4px 12px rgba(0, 60, 100, 0.06)",
                   display: "flex",
                   flexDirection: "column",
                 }}
