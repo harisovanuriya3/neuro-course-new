@@ -1,16 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ModuleNavigation from "../../../components/ModuleNavigation";
+import CourseNavigation from "../../../components/CourseNavigation";
 
 type Lang = "RU" | "KZ" | "EN";
 
-type PageProps = {
-  params: Promise<{
-    id: string;
-  }>;
-  searchParams: Promise<{
-    lang?: string | string[];
-  }>;
+type SectionItem = {
+  slug: string;
+  icon: string;
+  title: Record<Lang, string>;
+  description: Record<Lang, string>;
 };
 
 const moduleTitles: Record<Lang, string[]> = {
@@ -93,403 +91,356 @@ const moduleTitles: Record<Lang, string[]> = {
   ],
 };
 
-const sections = {
-  RU: [
-    {
-      slug: "objectives",
-      icon: "🎯",
-      title: "Цели обучения",
-      description: "Что вы будете знать и уметь после изучения модуля.",
+const sections: SectionItem[] = [
+  {
+    slug: "objectives",
+    icon: "🎯",
+    title: {
+      RU: "Цели обучения",
+      KZ: "Оқу мақсаттары",
+      EN: "Learning Objectives",
     },
-    {
-      slug: "pretest",
-      icon: "⚡",
-      title: "Входной блиц-тест",
-      description: "Короткая диагностика исходных знаний без оценки.",
+    description: {
+      RU: "Что вы будете знать и уметь после изучения модуля",
+      KZ: "Модульді оқығаннан кейін нені білу және істей алу керек",
+      EN: "What you should know and be able to do after this module",
     },
-    {
-      slug: "theory",
-      icon: "📖",
-      title: "Теория",
-      description: "Основной учебный материал модуля.",
+  },
+  {
+    slug: "pretest",
+    icon: "⚡",
+    title: {
+      RU: "Входной блиц-тест",
+      KZ: "Кіріспе блиц-тест",
+      EN: "Pre-module Quick Test",
     },
-    {
-      slug: "one-minute",
-      icon: "⏱️",
-      title: "Ключевое за 1 минуту",
-      description: "Самые важные идеи модуля в краткой форме.",
+    description: {
+      RU: "Короткая диагностика исходных знаний без оценки",
+      KZ: "Бағасыз бастапқы білімді қысқаша диагностикалау",
+      EN: "A short diagnostic check of prior knowledge without grading",
     },
-    {
-      slug: "clinical",
-      icon: "🩺",
-      title: "Клинический мост",
-      description: "Связь фундаментальной нейрофизиологии с клинической практикой.",
+  },
+  {
+    slug: "theory",
+    icon: "📖",
+    title: {
+      RU: "Теория",
+      KZ: "Теория",
+      EN: "Theory",
     },
-    {
-      slug: "interactive",
-      icon: "🧠",
-      title: "Интерактивные схемы",
-      description: "Интерактивное изучение процессов, структур и связей.",
+    description: {
+      RU: "Основной учебный материал модуля",
+      KZ: "Модульдің негізгі оқу материалы",
+      EN: "Core learning material for the module",
     },
-    {
-      slug: "practice",
-      icon: "🧪",
-      title: "Практика",
-      description: "Практические задания для закрепления материала.",
+  },
+  {
+    slug: "one-minute",
+    icon: "⏱️",
+    title: {
+      RU: "Ключевое за 1 минуту",
+      KZ: "1 минуттағы негізгі ойлар",
+      EN: "Key Points in 1 Minute",
     },
-    {
-      slug: "cases",
-      icon: "📋",
-      title: "Ситуационные задачи",
-      description: "Разбор учебных и клинических ситуаций.",
+    description: {
+      RU: "Самые важные идеи модуля в краткой форме",
+      KZ: "Модульдің ең маңызды идеялары қысқаша түрде",
+      EN: "The most important ideas of the module at a glance",
     },
-    {
-      slug: "tests",
-      icon: "📝",
-      title: "Ветвящиеся тесты",
-      description: "Тесты с разными траекториями в зависимости от ответа.",
+  },
+  {
+    slug: "clinical",
+    icon: "🩺",
+    title: {
+      RU: "Клинический мост",
+      KZ: "Клиникалық көпір",
+      EN: "Clinical Bridge",
     },
-    {
-      slug: "questions",
-      icon: "❓",
-      title: "Контрольные вопросы",
-      description: "Вопросы для самопроверки и повторения.",
+    description: {
+      RU: "Связь физиологических механизмов с клинической практикой",
+      KZ: "Физиологиялық механизмдердің клиникалық тәжірибемен байланысы",
+      EN: "Connecting physiological mechanisms with clinical practice",
     },
-    {
-      slug: "virtual-patient",
-      icon: "👤",
-      title: "Виртуальный пациент",
-      description: "Интерактивный клинический сценарий принятия решений.",
+  },
+  {
+    slug: "interactive",
+    icon: "🧠",
+    title: {
+      RU: "Интерактивные схемы",
+      KZ: "Интерактивті сызбалар",
+      EN: "Interactive Diagrams",
     },
-    {
-      slug: "media",
-      icon: "🎬",
-      title: "Медиа",
-      description: "Иллюстрации, анимации, видео и дополнительные материалы.",
+    description: {
+      RU: "Схемы и визуальные модели для понимания процессов",
+      KZ: "Процестерді түсінуге арналған сызбалар мен көрнекі модельдер",
+      EN: "Diagrams and visual models for understanding key processes",
     },
-    {
-      slug: "glossary",
-      icon: "📚",
-      title: "Глоссарий",
-      description: "Ключевые термины и определения модуля.",
+  },
+  {
+    slug: "practice",
+    icon: "🧪",
+    title: {
+      RU: "Практика",
+      KZ: "Практика",
+      EN: "Practice",
     },
-    {
-      slug: "voice",
-      icon: "🔊",
-      title: "Голосовое сопровождение",
-      description: "Аудиосопровождение учебного материала.",
+    description: {
+      RU: "Практические задания для закрепления материала",
+      KZ: "Материалды бекітуге арналған практикалық тапсырмалар",
+      EN: "Practice activities to reinforce learning",
     },
-    {
-      slug: "progress",
-      icon: "⭐",
-      title: "Мой прогресс",
-      description: "Результаты, ошибки и персональные рекомендации.",
+  },
+  {
+    slug: "cases",
+    icon: "📋",
+    title: {
+      RU: "Ситуационные задачи",
+      KZ: "Ситуациялық тапсырмалар",
+      EN: "Case Problems",
     },
-    {
-      slug: "notes",
-      icon: "🔖",
-      title: "Закладки и заметки",
-      description: "Сохранённые материалы и личные заметки.",
+    description: {
+      RU: "Разбор учебных и клинических ситуаций",
+      KZ: "Оқу және клиникалық жағдайларды талдау",
+      EN: "Analysis of learning and clinical scenarios",
     },
-    {
-      slug: "references",
-      icon: "📑",
-      title: "Источники и литература",
-      description: "Учебная и научная литература по теме модуля.",
+  },
+  {
+    slug: "tests",
+    icon: "📝",
+    title: {
+      RU: "Ветвящиеся тесты",
+      KZ: "Тармақталған тесттер",
+      EN: "Branching Tests",
     },
-  ],
+    description: {
+      RU: "Тесты с разными траекториями в зависимости от ответа",
+      KZ: "Жауапқа байланысты әртүрлі бағыттары бар тесттер",
+      EN: "Adaptive question paths based on your answers",
+    },
+  },
+  {
+    slug: "questions",
+    icon: "❓",
+    title: {
+      RU: "Контрольные вопросы",
+      KZ: "Бақылау сұрақтары",
+      EN: "Review Questions",
+    },
+    description: {
+      RU: "Вопросы для самопроверки и контроля знаний",
+      KZ: "Өзін-өзі тексеруге және білімді бақылауға арналған сұрақтар",
+      EN: "Questions for self-assessment and knowledge review",
+    },
+  },
+  {
+    slug: "virtual-patient",
+    icon: "👤",
+    title: {
+      RU: "Виртуальный пациент",
+      KZ: "Виртуалды пациент",
+      EN: "Virtual Patient",
+    },
+    description: {
+      RU: "Интерактивный клинический сценарий с принятием решений",
+      KZ: "Шешім қабылдауға арналған интерактивті клиникалық сценарий",
+      EN: "An interactive clinical scenario with decision-making",
+    },
+  },
+  {
+    slug: "media",
+    icon: "🎬",
+    title: {
+      RU: "Медиа",
+      KZ: "Медиа",
+      EN: "Media",
+    },
+    description: {
+      RU: "Видео, изображения, анимации и дополнительные материалы",
+      KZ: "Бейне, суреттер, анимациялар және қосымша материалдар",
+      EN: "Video, images, animations, and supplementary materials",
+    },
+  },
+  {
+    slug: "glossary",
+    icon: "📚",
+    title: {
+      RU: "Глоссарий",
+      KZ: "Глоссарий",
+      EN: "Glossary",
+    },
+    description: {
+      RU: "Основные термины и определения модуля",
+      KZ: "Модульдің негізгі терминдері мен анықтамалары",
+      EN: "Key terms and definitions for the module",
+    },
+  },
+  {
+    slug: "voice",
+    icon: "🔊",
+    title: {
+      RU: "Голосовое сопровождение",
+      KZ: "Дауыстық сүйемелдеу",
+      EN: "Audio Guide",
+    },
+    description: {
+      RU: "Аудиосопровождение учебных материалов",
+      KZ: "Оқу материалдарының аудио сүйемелдеуі",
+      EN: "Audio support for the learning materials",
+    },
+  },
+  {
+    slug: "progress",
+    icon: "⭐",
+    title: {
+      RU: "Мой прогресс",
+      KZ: "Менің прогресім",
+      EN: "My Progress",
+    },
+    description: {
+      RU: "Результаты, ошибки и персональные рекомендации",
+      KZ: "Нәтижелер, қателер және жеке ұсыныстар",
+      EN: "Results, mistakes, and personalized recommendations",
+    },
+  },
+  {
+    slug: "notes",
+    icon: "🔖",
+    title: {
+      RU: "Закладки и заметки",
+      KZ: "Бетбелгілер мен жазбалар",
+      EN: "Bookmarks and Notes",
+    },
+    description: {
+      RU: "Сохранение важных фрагментов и собственных заметок",
+      KZ: "Маңызды бөліктер мен жеке жазбаларды сақтау",
+      EN: "Save important content and your own notes",
+    },
+  },
+  {
+    slug: "references",
+    icon: "📑",
+    title: {
+      RU: "Источники и литература",
+      KZ: "Дереккөздер мен әдебиеттер",
+      EN: "References",
+    },
+    description: {
+      RU: "Научные источники и рекомендуемая литература",
+      KZ: "Ғылыми дереккөздер және ұсынылатын әдебиеттер",
+      EN: "Scientific sources and recommended reading",
+    },
+  },
+];
 
-  KZ: [
-    {
-      slug: "objectives",
-      icon: "🎯",
-      title: "Оқу мақсаттары",
-      description: "Модульді аяқтағаннан кейін нені білу және істей алу қажет.",
-    },
-    {
-      slug: "pretest",
-      icon: "⚡",
-      title: "Кіріспе блиц-тест",
-      description: "Бастапқы білімді бағасыз қысқаша анықтау.",
-    },
-    {
-      slug: "theory",
-      icon: "📖",
-      title: "Теория",
-      description: "Модульдің негізгі оқу материалы.",
-    },
-    {
-      slug: "one-minute",
-      icon: "⏱️",
-      title: "1 минуттағы негізгі ойлар",
-      description: "Модульдің ең маңызды идеяларының қысқаша мазмұны.",
-    },
-    {
-      slug: "clinical",
-      icon: "🩺",
-      title: "Клиникалық көпір",
-      description: "Нейрофизиологияны клиникалық тәжірибемен байланыстыру.",
-    },
-    {
-      slug: "interactive",
-      icon: "🧠",
-      title: "Интерактивті сызбалар",
-      description: "Процестерді, құрылымдарды және байланыстарды интерактивті зерттеу.",
-    },
-    {
-      slug: "practice",
-      icon: "🧪",
-      title: "Практика",
-      description: "Материалды бекітуге арналған практикалық тапсырмалар.",
-    },
-    {
-      slug: "cases",
-      icon: "📋",
-      title: "Ситуациялық тапсырмалар",
-      description: "Оқу және клиникалық жағдайларды талдау.",
-    },
-    {
-      slug: "tests",
-      icon: "📝",
-      title: "Тармақталған тесттер",
-      description: "Жауапқа байланысты әртүрлі оқу жолдары бар тесттер.",
-    },
-    {
-      slug: "questions",
-      icon: "❓",
-      title: "Бақылау сұрақтары",
-      description: "Өзін-өзі тексеру және қайталау сұрақтары.",
-    },
-    {
-      slug: "virtual-patient",
-      icon: "👤",
-      title: "Виртуалды пациент",
-      description: "Клиникалық шешім қабылдаудың интерактивті сценарийі.",
-    },
-    {
-      slug: "media",
-      icon: "🎬",
-      title: "Медиа",
-      description: "Суреттер, анимациялар, бейнелер және қосымша материалдар.",
-    },
-    {
-      slug: "glossary",
-      icon: "📚",
-      title: "Глоссарий",
-      description: "Негізгі терминдер мен анықтамалар.",
-    },
-    {
-      slug: "voice",
-      icon: "🔊",
-      title: "Дауыстық сүйемелдеу",
-      description: "Оқу материалының аудио нұсқасы.",
-    },
-    {
-      slug: "progress",
-      icon: "⭐",
-      title: "Менің прогресім",
-      description: "Нәтижелер, қателер және жеке ұсыныстар.",
-    },
-    {
-      slug: "notes",
-      icon: "🔖",
-      title: "Бетбелгілер мен жазбалар",
-      description: "Сақталған материалдар мен жеке жазбалар.",
-    },
-    {
-      slug: "references",
-      icon: "📑",
-      title: "Дереккөздер мен әдебиеттер",
-      description: "Модуль тақырыбы бойынша оқу және ғылыми әдебиеттер.",
-    },
-  ],
-
-  EN: [
-    {
-      slug: "objectives",
-      icon: "🎯",
-      title: "Learning Objectives",
-      description: "What you should know and be able to do after completing the module.",
-    },
-    {
-      slug: "pretest",
-      icon: "⚡",
-      title: "Pre-module Quick Test",
-      description: "A short diagnostic assessment that does not affect the final grade.",
-    },
-    {
-      slug: "theory",
-      icon: "📖",
-      title: "Theory",
-      description: "The main learning material for this module.",
-    },
-    {
-      slug: "one-minute",
-      icon: "⏱️",
-      title: "Key Points in 1 Minute",
-      description: "The most important concepts summarized briefly.",
-    },
-    {
-      slug: "clinical",
-      icon: "🩺",
-      title: "Clinical Bridge",
-      description: "Connecting fundamental neurophysiology with clinical practice.",
-    },
-    {
-      slug: "interactive",
-      icon: "🧠",
-      title: "Interactive Diagrams",
-      description: "Interactive exploration of processes, structures, and connections.",
-    },
-    {
-      slug: "practice",
-      icon: "🧪",
-      title: "Practice",
-      description: "Practical activities for reinforcing learning.",
-    },
-    {
-      slug: "cases",
-      icon: "📋",
-      title: "Case Problems",
-      description: "Analysis of educational and clinical situations.",
-    },
-    {
-      slug: "tests",
-      icon: "📝",
-      title: "Branching Tests",
-      description: "Adaptive tests with different paths depending on your answers.",
-    },
-    {
-      slug: "questions",
-      icon: "❓",
-      title: "Review Questions",
-      description: "Questions for self-assessment and revision.",
-    },
-    {
-      slug: "virtual-patient",
-      icon: "👤",
-      title: "Virtual Patient",
-      description: "An interactive clinical decision-making scenario.",
-    },
-    {
-      slug: "media",
-      icon: "🎬",
-      title: "Media",
-      description: "Illustrations, animations, videos, and additional materials.",
-    },
-    {
-      slug: "glossary",
-      icon: "📚",
-      title: "Glossary",
-      description: "Key terms and definitions for the module.",
-    },
-    {
-      slug: "voice",
-      icon: "🔊",
-      title: "Audio Guide",
-      description: "Audio support for the learning material.",
-    },
-    {
-      slug: "progress",
-      icon: "⭐",
-      title: "My Progress",
-      description: "Results, errors, and personalized recommendations.",
-    },
-    {
-      slug: "notes",
-      icon: "🔖",
-      title: "Bookmarks and Notes",
-      description: "Saved materials and personal notes.",
-    },
-    {
-      slug: "references",
-      icon: "📑",
-      title: "References",
-      description: "Educational and scientific literature for the module.",
-    },
-  ],
-};
-
-const interfaceText = {
+const ui: Record<
+  Lang,
+  {
+    back: string;
+    eyebrow: string;
+    module: string;
+    author: string;
+    authorName: string;
+    intro: string;
+    structure: string;
+    sectionCount: string;
+  }
+> = {
   RU: {
-    course: "ИНТЕРАКТИВНЫЙ УЧЕБНИК ПО НЕЙРОФИЗИОЛОГИИ",
+    back: "← К содержанию курса",
+    eyebrow: "ИНТЕРАКТИВНЫЙ УЧЕБНИК ПО НЕЙРОФИЗИОЛОГИИ",
     module: "Модуль",
-    author: "Автор: Нурия",
-    instruction:
+    author: "Автор",
+    authorName: "Нурия",
+    intro:
       "Выберите раздел модуля. Материалы организованы от целей обучения и входной диагностики к теории, клиническому применению, практике и контролю знаний.",
     structure: "Структура модуля",
-    sections: "17 учебных разделов",
-    back: "← К содержанию курса",
+    sectionCount: "17 учебных разделов",
   },
 
   KZ: {
-    course: "НЕЙРОФИЗИОЛОГИЯ БОЙЫНША ИНТЕРАКТИВТІ ОҚУЛЫҚ",
-    module: "Модуль",
-    author: "Автор: Нурия",
-    instruction:
-      "Модуль бөлімін таңдаңыз. Материал оқу мақсаттары мен бастапқы диагностикадан теорияға, клиникалық қолдануға, практикаға және білімді бақылауға дейін ұйымдастырылған.",
-    structure: "Модуль құрылымы",
-    sections: "17 оқу бөлімі",
     back: "← Курс мазмұнына",
+    eyebrow: "НЕЙРОФИЗИОЛОГИЯ БОЙЫНША ИНТЕРАКТИВТІ ОҚУЛЫҚ",
+    module: "Модуль",
+    author: "Автор",
+    authorName: "Нурия",
+    intro:
+      "Модуль бөлімін таңдаңыз. Материалдар оқу мақсаттары мен бастапқы диагностикадан теорияға, клиникалық қолдануға, практикаға және білімді бақылауға дейін ұйымдастырылған.",
+    structure: "Модуль құрылымы",
+    sectionCount: "17 оқу бөлімі",
   },
 
   EN: {
-    course: "INTERACTIVE TEXTBOOK OF NEUROPHYSIOLOGY",
+    back: "← Back to Course Contents",
+    eyebrow: "INTERACTIVE TEXTBOOK OF NEUROPHYSIOLOGY",
     module: "Module",
-    author: "Author: Nuriya",
-    instruction:
-      "Choose a module section. The learning pathway progresses from objectives and diagnostic assessment to theory, clinical application, practice, and knowledge assessment.",
-    structure: "Module structure",
-    sections: "17 learning sections",
-    back: "← Back to course contents",
+    author: "Author",
+    authorName: "Nuriya",
+    intro:
+      "Choose a module section. The learning materials progress from objectives and initial diagnostics to theory, clinical application, practice, and knowledge assessment.",
+    structure: "Module Structure",
+    sectionCount: "17 learning sections",
   },
 };
 
-function normalizeLanguage(value?: string | string[]): Lang {
-  const selected = Array.isArray(value) ? value[0] : value;
+type PageProps = {
+  params: Promise<{
+    id: string;
+  }>;
 
-  if (selected === "KZ") return "KZ";
-  if (selected === "EN") return "EN";
-
-  return "RU";
-}
+  searchParams: Promise<{
+    lang?: string | string[];
+  }>;
+};
 
 export default async function ModulePage({
   params,
   searchParams,
 }: PageProps) {
   const { id } = await params;
-  const query = await searchParams;
+  const { lang: requestedLang } = await searchParams;
 
   if (!/^(?:[1-9]|1[0-9]|2[0-3])$/.test(id)) {
     notFound();
   }
 
   const moduleNumber = Number(id);
-  const lang = normalizeLanguage(query.lang);
+
+  const rawLang = Array.isArray(requestedLang)
+    ? requestedLang[0]
+    : requestedLang;
+
+  const lang: Lang =
+    rawLang === "KZ" || rawLang === "EN"
+      ? rawLang
+      : "RU";
 
   const moduleTitle = moduleTitles[lang][moduleNumber - 1];
-  const currentSections = sections[lang];
-  const text = interfaceText[lang];
 
   if (!moduleTitle) {
     notFound();
   }
+
+  const t = ui[lang];
 
   return (
     <main
       id="top"
       style={{
         minHeight: "100vh",
+        padding: "28px 36px 60px",
         background:
-          "linear-gradient(180deg, #f3f8fb 0%, #f8fbfd 45%, #ffffff 100%)",
-        color: "#173042",
-        padding: "24px 16px 60px",
+          "linear-gradient(180deg, #f2f7fb 0%, #eef5f9 100%)",
+        color: "#003f73",
       }}
     >
       <div
+        lang={
+          lang === "KZ"
+            ? "kk"
+            : lang.toLowerCase()
+        }
         style={{
-          maxWidth: "1180px",
+          maxWidth: "1500px",
           margin: "0 auto",
         }}
       >
@@ -500,112 +451,123 @@ export default async function ModulePage({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            gap: "16px",
+            gap: "20px",
             flexWrap: "wrap",
             marginBottom: "28px",
           }}
         >
           <Link
-            href={`/?lang=${lang}`}
+            href={`/?lang=${lang}#course`}
             style={{
               color: "#005b96",
               fontWeight: 700,
               textDecoration: "none",
             }}
           >
-            {text.back}
+            {t.back}
           </Link>
 
-          {/* Выбор языка */}
-
-          <div
+          <nav
+            aria-label="Language"
             style={{
               display: "flex",
-              gap: "8px",
-              flexWrap: "wrap",
+              gap: "10px",
             }}
           >
-            {(["RU", "KZ", "EN"] as Lang[]).map((item) => (
-              <Link
-                key={item}
-                href={`/modules/${moduleNumber}?lang=${item}`}
-                style={{
-                  minWidth: "44px",
-                  textAlign: "center",
-                  padding: "8px 12px",
-                  borderRadius: "10px",
-                  textDecoration: "none",
-                  fontWeight: 700,
-                  border:
-                    lang === item
-                      ? "1px solid #005b96"
-                      : "1px solid #d7e5ed",
-                  background: lang === item ? "#005b96" : "#ffffff",
-                  color: lang === item ? "#ffffff" : "#416174",
-                }}
-              >
-                {item}
-              </Link>
-            ))}
-          </div>
+            {(["RU", "KZ", "EN"] as const).map(
+              (code) => (
+                <Link
+                  key={code}
+                  href={`/modules/${moduleNumber}?lang=${code}`}
+                  aria-current={
+                    lang === code
+                      ? "page"
+                      : undefined
+                  }
+                  style={{
+                    minWidth: "70px",
+                    padding: "9px 18px",
+                    borderRadius: "10px",
+                    textAlign: "center",
+                    textDecoration: "none",
+                    fontWeight: 700,
+                    border:
+                      lang === code
+                        ? "1px solid #0067a5"
+                        : "1px solid #d4e2eb",
+                    background:
+                      lang === code
+                        ? "#0067a5"
+                        : "#ffffff",
+                    color:
+                      lang === code
+                        ? "#ffffff"
+                        : "#526b80",
+                  }}
+                >
+                  {code}
+                </Link>
+              )
+            )}
+          </nav>
         </div>
 
         {/* Титульный блок */}
 
-        <header
+        <section
           style={{
             background: "#ffffff",
-            border: "1px solid #dce8ef",
+            border: "1px solid #d5e3ec",
             borderRadius: "24px",
-            padding: "clamp(24px, 5vw, 48px)",
-            boxShadow: "0 12px 35px rgba(35, 73, 99, 0.08)",
-            marginBottom: "28px",
+            padding: "48px",
+            boxShadow:
+              "0 6px 20px rgba(31, 77, 107, 0.04)",
           }}
         >
-          <div
+          <p
             style={{
+              margin: "0 0 18px",
+              color: "#1373a6",
               fontSize: "13px",
               fontWeight: 800,
-              letterSpacing: "0.12em",
-              color: "#2b789e",
-              marginBottom: "16px",
+              letterSpacing: "1.5px",
             }}
           >
-            {text.course}
-          </div>
+            {t.eyebrow}
+          </p>
 
           <h1
             style={{
               margin: "0 0 14px",
-              fontSize: "clamp(30px, 5vw, 48px)",
+              color: "#064a73",
+              fontSize:
+                "clamp(2rem, 4vw, 3rem)",
               lineHeight: 1.15,
-              color: "#173b52",
             }}
           >
-            {text.module} {moduleNumber}. {moduleTitle}
+            {t.module} {moduleNumber}.{" "}
+            {moduleTitle}
           </h1>
 
           <p
             style={{
-              margin: "0 0 22px",
-              color: "#5f7888",
-              fontSize: "16px",
-              fontWeight: 600,
+              margin: "0 0 24px",
+              color: "#597185",
+              fontWeight: 700,
             }}
           >
-            {text.author}
+            {t.author}: {t.authorName}
           </p>
 
           <p
             style={{
-              margin: 0,
-              maxWidth: "900px",
-              color: "#4f6878",
-              fontSize: "16px",
-              lineHeight: 1.7,
+              maxWidth: "1000px",
+              margin: "0 0 28px",
+              color: "#526b80",
+              lineHeight: 1.8,
             }}
           >
-            {text.instruction}
+            {t.intro}
           </p>
 
           <div
@@ -613,59 +575,62 @@ export default async function ModulePage({
               display: "flex",
               gap: "10px",
               flexWrap: "wrap",
-              marginTop: "24px",
             }}
           >
             <span
               style={{
-                padding: "8px 12px",
-                background: "#eaf5fa",
+                padding: "8px 13px",
                 borderRadius: "999px",
-                color: "#236b8e",
+                background: "#e9f4f9",
+                color: "#14739d",
                 fontWeight: 700,
                 fontSize: "14px",
               }}
             >
-              {text.structure}
+              {t.structure}
             </span>
 
             <span
               style={{
-                padding: "8px 12px",
-                background: "#eef7f2",
+                padding: "8px 13px",
                 borderRadius: "999px",
-                color: "#39755a",
+                background: "#edf7f1",
+                color: "#367c55",
                 fontWeight: 700,
                 fontSize: "14px",
               }}
             >
-              {text.sections}
+              {t.sectionCount}
             </span>
           </div>
-        </header>
+        </section>
 
         {/* 17 разделов */}
 
         <section
+          aria-label={t.structure}
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: "16px",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(270px, 1fr))",
+            gap: "18px",
+            marginTop: "28px",
           }}
         >
-          {currentSections.map((section, index) => (
+          {sections.map((item, index) => (
             <Link
-              key={section.slug}
-              href={`/modules/${moduleNumber}/${section.slug}?lang=${lang}`}
+              key={item.slug}
+              href={`/modules/${moduleNumber}/${item.slug}?lang=${lang}`}
               style={{
                 display: "block",
+                minHeight: "165px",
+                padding: "22px",
                 background: "#ffffff",
-                border: "1px solid #dce8ef",
-                borderRadius: "18px",
-                padding: "20px",
+                border: "1px solid #d6e3eb",
+                borderRadius: "17px",
                 textDecoration: "none",
-                color: "inherit",
-                boxShadow: "0 5px 18px rgba(28, 72, 102, 0.05)",
+                boxShadow:
+                  "0 4px 12px rgba(0, 60, 100, 0.04)",
               }}
             >
               <div
@@ -676,53 +641,61 @@ export default async function ModulePage({
                 }}
               >
                 <div
+                  aria-hidden="true"
                   style={{
-                    width: "44px",
-                    height: "44px",
+                    width: "46px",
+                    height: "46px",
                     flexShrink: 0,
-                    borderRadius: "13px",
-                    background: "#f0f7fa",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "22px",
+                    borderRadius: "13px",
+                    background: "#f0f7fa",
+                    fontSize: "23px",
                   }}
                 >
-                  {section.icon}
+                  {item.icon}
                 </div>
 
-                <div>
+                <div
+                  style={{
+                    minWidth: 0,
+                  }}
+                >
                   <div
                     style={{
-                      color: "#78909d",
+                      marginBottom: "7px",
+                      color: "#7790a4",
                       fontSize: "12px",
                       fontWeight: 800,
-                      marginBottom: "5px",
                     }}
                   >
-                    {String(index + 1).padStart(2, "0")}
+                    {String(index + 1).padStart(
+                      2,
+                      "0"
+                    )}
                   </div>
 
                   <h2
                     style={{
-                      margin: "0 0 8px",
-                      fontSize: "18px",
+                      margin: "0 0 9px",
+                      color: "#004b78",
+                      fontSize: "17px",
                       lineHeight: 1.3,
-                      color: "#183d53",
                     }}
                   >
-                    {section.title}
+                    {item.title[lang]}
                   </h2>
 
                   <p
                     style={{
                       margin: 0,
-                      color: "#637b89",
-                      fontSize: "14px",
+                      color: "#61798b",
                       lineHeight: 1.55,
+                      fontSize: "14px",
                     }}
                   >
-                    {section.description}
+                    {item.description[lang]}
                   </p>
                 </div>
               </div>
@@ -730,9 +703,9 @@ export default async function ModulePage({
           ))}
         </section>
 
-        {/* НИЖНЯЯ НАВИГАЦИЯ */}
+        {/* Единая навигация между 23 модулями */}
 
-        <ModuleNavigation
+        <CourseNavigation
           moduleNumber={moduleNumber}
           lang={lang}
         />
