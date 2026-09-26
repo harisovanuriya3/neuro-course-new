@@ -1,0 +1,88 @@
+export type Language = "RU" | "KZ" | "EN";
+
+export const modules: Record<Language, string[]> = {
+  RU: [
+    "Введение в нейрофизиологию",
+    "История изучения и методы исследования нервной системы",
+    "Нейрон, нейроглия и микросреда нервной ткани",
+    "Мембранные процессы и потенциал покоя",
+    "Ионные каналы и потенциал действия",
+    "Синапсы, нейромедиаторы и нейромодуляция",
+    "Возбуждение и торможение",
+    "Рефлекторная деятельность и нейронные сети",
+    "Проводящие пути нервной системы",
+    "Спинной мозг и спинальная регуляция",
+    "Ствол мозга и ретикулярная формация",
+    "Двигательные системы и контроль движений",
+    "Мозжечок",
+    "Таламус и таламо-кортикальные системы",
+    "Гипоталамус и гомеостаз",
+    "Лимбическая система, эмоции и мотивация",
+    "Базальные ганглии",
+    "Кора больших полушарий и функциональная организация мозга",
+    "Сенсорные системы и боль",
+    "Вегетативная нервная система",
+    "Высшая нервная деятельность",
+    "Нейрогуморальная регуляция, сон и биологические ритмы",
+    "Пластичность, восстановление и патофизиология нервной системы",
+  ],
+
+  KZ: [
+    "Нейрофизиологияға кіріспе",
+    "Жүйке жүйесін зерттеу тарихы мен әдістері",
+    "Нейрон, нейроглия және жүйке тінінің микроортасы",
+    "Мембраналық процестер және тыныштық потенциалы",
+    "Иондық арналар және әрекет потенциалы",
+    "Синапстар, нейромедиаторлар және нейромодуляция",
+    "Қозу және тежелу",
+    "Рефлекстік қызмет және нейрондық желілер",
+    "Жүйке жүйесінің өткізгіш жолдары",
+    "Жұлын және жұлындық реттелу",
+    "Ми сабауы және ретикулярлық формация",
+    "Қозғалыс жүйелері және қозғалысты басқару",
+    "Мишық",
+    "Таламус және таламо-кортикалық жүйелер",
+    "Гипоталамус және гомеостаз",
+    "Лимбиялық жүйе, эмоциялар және мотивация",
+    "Базальды ганглийлер",
+    "Үлкен ми сыңарларының қыртысы және мидың функционалдық ұйымдасуы",
+    "Сенсорлық жүйелер және ауырсыну",
+    "Вегетативтік жүйке жүйесі",
+    "Жоғары жүйке қызметі",
+    "Нейрогуморальдық реттелу, ұйқы және биологиялық ырғақтар",
+    "Жүйке жүйесінің пластикалығы, қалпына келуі және патофизиологиясы",
+  ],
+
+  EN: [
+    "Introduction to Neurophysiology",
+    "History and Methods of Nervous System Research",
+    "Neurons, Neuroglia, and the Neural Microenvironment",
+    "Membrane Processes and the Resting Membrane Potential",
+    "Ion Channels and the Action Potential",
+    "Synapses, Neurotransmitters, and Neuromodulation",
+    "Excitation and Inhibition",
+    "Reflex Activity and Neural Networks",
+    "Neural Pathways",
+    "Spinal Cord and Spinal Regulation",
+    "Brainstem and Reticular Formation",
+    "Motor Systems and Motor Control",
+    "Cerebellum",
+    "Thalamus and Thalamocortical Systems",
+    "Hypothalamus and Homeostasis",
+    "Limbic System, Emotion, and Motivation",
+    "Basal Ganglia",
+    "Cerebral Cortex and Functional Organization of the Brain",
+    "Sensory Systems and Pain",
+    "Autonomic Nervous System",
+    "Higher Nervous Activity",
+    "Neurohumoral Regulation, Sleep, and Biological Rhythms",
+    "Neural Plasticity, Recovery, and Pathophysiology",
+  ],
+};
+
+export const MODULE_COUNT = modules.RU.length;
+
+export function isModuleId(id: string): boolean {
+  const number = Number(id);
+  return Number.isInteger(number) && number >= 1 && number <= MODULE_COUNT && String(number) === id;
+}

@@ -1,5 +1,6 @@
-export type Language = "RU" | "KZ" | "EN";
-export type Section = "theory" | "practice" | "cases" | "tests" | "questions" | "media";
+import type { Language } from "./course";
+export type { Language } from "./course";
+export type { Section } from "./sections";
 
 export type ContentBlock =
   | { type: "paragraph"; text: string }
@@ -43,4 +44,12 @@ export type PracticeLesson = {
   sections: { title: string; blocks: PracticeBlock[] }[];
 };
 
-export type LocalizedLesson = Record<Language, Lesson | PracticeLesson | import("./cases").CasesLesson>;
+// Existing theory data stays unchanged; its discriminator is added at registration.
+export type SectionLesson =
+  | (Lesson & { kind: "theory" })
+  | PracticeLesson
+  | import("./cases").CasesLesson;
+
+// Only implemented renderers belong here. Adding a kind requires an explicit
+// branch in SectionContent; unfilled sections remain absent from the registry.
+export type LocalizedLesson = Record<Language, SectionLesson>;

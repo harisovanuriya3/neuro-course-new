@@ -12,7 +12,11 @@ import casesEN from "./modules/1/cases/en";
 // Register each new module/section here; routes and rendering stay unchanged.
 const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>> = {
   1: {
-    theory: { RU, KZ, EN },
+    theory: {
+      RU: { ...RU, kind: "theory" },
+      KZ: { ...KZ, kind: "theory" },
+      EN: { ...EN, kind: "theory" },
+    },
     practice: { RU: practiceRU, KZ: practiceKZ, EN: practiceEN },
     cases: { RU: casesRU, KZ: casesKZ, EN: casesEN },
   },

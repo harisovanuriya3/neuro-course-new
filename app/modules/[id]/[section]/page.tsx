@@ -2,109 +2,29 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { getLesson } from "../../../../content";
-import type { Section } from "../../../../content/types";
+import { isModuleId, type Language as Lang } from "../../../../content/course";
+import { isSection, getSectionTitle, sectionOrder } from "../../../../content/sections";
 
-import LessonContent from "../../../../components/LessonContent";
-import PracticeContent from "../../../../components/PracticeContent";
-import CasesContent from "../../../../components/CasesContent";
+import SectionContent from "../../../../components/SectionContent";
 import CourseNavigation from "../../../../components/CourseNavigation";
-
-type Lang = "RU" | "KZ" | "EN";
-
-const sections = [
-  "objectives",
-  "pretest",
-  "theory",
-  "one-minute",
-  "clinical",
-  "interactive",
-  "practice",
-  "cases",
-  "tests",
-  "questions",
-  "virtual-patient",
-  "media",
-  "glossary",
-  "voice",
-  "progress",
-  "notes",
-  "references",
-] as const;
 
 const text = {
   RU: {
     module: "Модуль",
     back: "← Назад к модулю",
     pending: "Материалы раздела готовятся.",
-    sections: [
-      "Цели обучения",
-      "Входной блиц-тест",
-      "Теория",
-      "Ключевое за 1 минуту",
-      "Клинический мост",
-      "Интерактивные схемы",
-      "Практика",
-      "Ситуационные задачи",
-      "Ветвящиеся тесты",
-      "Контрольные вопросы",
-      "Виртуальный пациент",
-      "Медиа",
-      "Глоссарий",
-      "Голосовое сопровождение",
-      "Мой прогресс",
-      "Закладки и заметки",
-      "Источники и литература",
-    ],
   },
 
   KZ: {
     module: "Модуль",
     back: "← Модульге оралу",
     pending: "Бөлім материалдары дайындалуда.",
-    sections: [
-      "Оқу мақсаттары",
-      "Кіріспе блиц-тест",
-      "Теория",
-      "1 минуттағы негізгі ойлар",
-      "Клиникалық көпір",
-      "Интерактивті сызбалар",
-      "Практика",
-      "Ситуациялық тапсырмалар",
-      "Тармақталған тесттер",
-      "Бақылау сұрақтары",
-      "Виртуалды пациент",
-      "Медиа",
-      "Глоссарий",
-      "Дауыстық сүйемелдеу",
-      "Менің прогресім",
-      "Бетбелгілер мен жазбалар",
-      "Дереккөздер мен әдебиеттер",
-    ],
   },
 
   EN: {
     module: "Module",
     back: "← Back to module",
     pending: "Section materials are being prepared.",
-    sections: [
-      "Learning Objectives",
-      "Pre-module Quick Test",
-      "Theory",
-      "Key Points in 1 Minute",
-      "Clinical Bridge",
-      "Interactive Diagrams",
-      "Practice",
-      "Case Problems",
-      "Branching Tests",
-      "Review Questions",
-      "Virtual Patient",
-      "Media",
-      "Glossary",
-      "Audio Guide",
-      "My Progress",
-      "Bookmarks and Notes",
-      "References",
-    ],
   },
 };
 
@@ -137,37 +57,14 @@ export default async function SectionPage({
 
   const moduleNumber = Number(id);
 
-  const sectionIndex = sections.indexOf(
-    section as (typeof sections)[number]
-  );
-
-  if (
-    !/^(?:[1-9]|1[0-9]|2[0-3])$/.test(id) ||
-    sectionIndex === -1
-  ) {
+  if (!isModuleId(id) || !isSection(section)) {
     notFound();
   }
 
   const t = text[lang];
+  const sectionIndex = sectionOrder.indexOf(section);
 
-  // Старый учебный контент пока существует
-  // для этих разделов.
-  const contentSections = [
-    "theory",
-    "practice",
-    "cases",
-    "tests",
-    "questions",
-    "media",
-  ];
-
-  const lesson = contentSections.includes(section)
-    ? getLesson(
-        moduleNumber,
-        section as Section,
-        lang
-      )
-    : undefined;
+  const lesson = getLesson(moduleNumber, section, lang);
 
   return (
     <main
@@ -280,74 +177,19 @@ export default async function SectionPage({
               2,
               "0"
             )}{" "}
-            / 17
+            / {sectionOrder.length}
           </div>
 
           {/* СУЩЕСТВУЮЩИЙ КОНТЕНТ */}
 
           {lesson ? (
             <>
-              {"kind" in lesson && (
-                <p
-                  style={{
-                    color: "#526b80",
-                    fontWeight: 700,
-                  }}
-                >
-                  {lesson.moduleTitle}
-                </p>
-              )}
-
-              <h1
-                style={{
-                  color: "#004b87",
-                  fontSize:
-                    "clamp(1.6rem, 4vw, 2.2rem)",
-                  lineHeight: 1.3,
-                }}
-              >
-                {lesson.title}
-              </h1>
-
-              <p
-                style={{
-                  color: "#526b80",
-                  fontWeight: 700,
-                  marginBottom: "28px",
-                }}
-              >
-                {t.sections[sectionIndex]}
-              </p>
-
-              {"kind" in lesson &&
-              lesson.kind === "cases" ? (
-                <CasesContent
-                  key={`${id}/${section}/${lang}`}
-                  lesson={lesson}
-                />
-              ) : "kind" in lesson ? (
-                <>
-                  <Link
-                    href={`/modules/${id}/theory?lang=${lang}`}
-                    style={{
-                      display: "inline-block",
-                      marginBottom: "20px",
-                      color: "#005b96",
-                      fontWeight: 700,
-                    }}
-                  >
-                    {lesson.ui.theory}
-                  </Link>
-
-                  <PracticeContent
-                    key={`${id}/${section}/${lang}`}
-                    lesson={lesson}
-                    language={lang}
-                  />
-                </>
-              ) : (
-                <LessonContent lesson={lesson} />
-              )}
+              <SectionContent
+                key={`${id}/${section}/${lang}`}
+                lesson={lesson}
+                moduleId={id}
+                language={lang}
+              />
             </>
           ) : (
             <>
@@ -370,7 +212,7 @@ export default async function SectionPage({
                   lineHeight: 1.3,
                 }}
               >
-                {t.sections[sectionIndex]}
+                {getSectionTitle(section, lang)}
               </h1>
 
               <p

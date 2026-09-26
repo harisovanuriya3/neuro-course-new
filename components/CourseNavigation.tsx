@@ -1,93 +1,12 @@
 import Link from "next/link";
 
-type Lang = "RU" | "KZ" | "EN";
+import { MODULE_COUNT, type Language as Lang } from "../content/course";
+import { sectionOrder as sections, getSectionTitle } from "../content/sections";
 
 type CourseNavigationProps = {
   moduleNumber: number;
   lang: Lang;
   currentSection?: string;
-};
-
-const sections = [
-  "objectives",
-  "pretest",
-  "theory",
-  "one-minute",
-  "clinical",
-  "interactive",
-  "practice",
-  "cases",
-  "tests",
-  "questions",
-  "virtual-patient",
-  "media",
-  "glossary",
-  "voice",
-  "progress",
-  "notes",
-  "references",
-] as const;
-
-const sectionNames: Record<Lang, Record<string, string>> = {
-  RU: {
-    objectives: "Цели обучения",
-    pretest: "Входной блиц-тест",
-    theory: "Теория",
-    "one-minute": "Ключевое за 1 минуту",
-    clinical: "Клинический мост",
-    interactive: "Интерактивные схемы",
-    practice: "Практика",
-    cases: "Ситуационные задачи",
-    tests: "Ветвящиеся тесты",
-    questions: "Контрольные вопросы",
-    "virtual-patient": "Виртуальный пациент",
-    media: "Медиа",
-    glossary: "Глоссарий",
-    voice: "Голосовое сопровождение",
-    progress: "Мой прогресс",
-    notes: "Закладки и заметки",
-    references: "Источники и литература",
-  },
-
-  KZ: {
-    objectives: "Оқу мақсаттары",
-    pretest: "Кіріспе блиц-тест",
-    theory: "Теория",
-    "one-minute": "1 минуттағы негізгі ойлар",
-    clinical: "Клиникалық көпір",
-    interactive: "Интерактивті сызбалар",
-    practice: "Практика",
-    cases: "Ситуациялық тапсырмалар",
-    tests: "Тармақталған тесттер",
-    questions: "Бақылау сұрақтары",
-    "virtual-patient": "Виртуалды пациент",
-    media: "Медиа",
-    glossary: "Глоссарий",
-    voice: "Дауыстық сүйемелдеу",
-    progress: "Менің прогресім",
-    notes: "Бетбелгілер мен жазбалар",
-    references: "Дереккөздер мен әдебиеттер",
-  },
-
-  EN: {
-    objectives: "Learning Objectives",
-    pretest: "Pre-module Quick Test",
-    theory: "Theory",
-    "one-minute": "Key Points in 1 Minute",
-    clinical: "Clinical Bridge",
-    interactive: "Interactive Diagrams",
-    practice: "Practice",
-    cases: "Case Problems",
-    tests: "Branching Tests",
-    questions: "Review Questions",
-    "virtual-patient": "Virtual Patient",
-    media: "Media",
-    glossary: "Glossary",
-    voice: "Audio Guide",
-    progress: "My Progress",
-    notes: "Bookmarks and Notes",
-    references: "References",
-  },
 };
 
 const labels = {
@@ -142,7 +61,7 @@ export default function CourseNavigation({
   const t = labels[lang];
 
   const hasPreviousModule = moduleNumber > 1;
-  const hasNextModule = moduleNumber < 23;
+  const hasNextModule = moduleNumber < MODULE_COUNT;
 
   /*
     Если currentSection передан,
@@ -230,9 +149,7 @@ export default function CourseNavigation({
 
                   <strong>
                     {
-                      sectionNames[lang][
-                        previousSection
-                      ]
+                      getSectionTitle(previousSection, lang)
                     }
                   </strong>
                 </Link>
@@ -296,9 +213,7 @@ export default function CourseNavigation({
 
                   <strong>
                     {
-                      sectionNames[lang][
-                        nextSection
-                      ]
+                      getSectionTitle(nextSection, lang)
                     }
                   </strong>
                 </Link>
