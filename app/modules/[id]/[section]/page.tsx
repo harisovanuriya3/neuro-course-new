@@ -7,6 +7,8 @@ import { isSection, getSectionTitle, sectionOrder } from "../../../../content/se
 
 import SectionContent from "../../../../components/SectionContent";
 import CourseNavigation from "../../../../components/CourseNavigation";
+import DocumentLanguage from "../../../../components/DocumentLanguage";
+import { interfaceText } from "../../../../lib/interface";
 
 const text = {
   RU: {
@@ -76,6 +78,7 @@ export default async function SectionPage({
           "linear-gradient(180deg, #eef5fa 0%, #f8fbfd 100%)",
       }}
     >
+      <DocumentLanguage language={lang} />
       <div
         lang={
           lang === "KZ"
@@ -113,7 +116,7 @@ export default async function SectionPage({
           {/* ЯЗЫК */}
 
           <nav
-            aria-label="Language"
+            aria-label={interfaceText[lang].language}
             style={{
               display: "flex",
               gap: "10px",

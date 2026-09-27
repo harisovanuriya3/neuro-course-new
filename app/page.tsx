@@ -1,4 +1,7 @@
 import Link from "next/link";
+import DocumentLanguage from "../components/DocumentLanguage";
+import { interfaceText, htmlLanguage } from "../lib/interface";
+import styles from "./CourseLayout.module.css";
 
 import { modules, type Language as Lang } from "../content/course";
 
@@ -57,6 +60,8 @@ export default async function HomePage({
 
   return (
     <main
+      className={styles.page}
+      lang={htmlLanguage[lang]}
       style={{
         minHeight: "100vh",
         padding: "48px 36px 70px",
@@ -64,6 +69,7 @@ export default async function HomePage({
         color: "#003f73",
       }}
     >
+      <DocumentLanguage language={lang} />
       <section
         id="course"
         style={{
@@ -73,7 +79,7 @@ export default async function HomePage({
       >
         {/* Языки */}
         <nav
-          aria-label="Language"
+          aria-label={interfaceText[lang].language}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -123,6 +129,7 @@ export default async function HomePage({
           >
             {t.subtitle}
           </p>
+          <p>{interfaceText[lang].author}: {interfaceText[lang].authorName}</p>
         </div>
 
         {/* 23 модуля */}
@@ -130,7 +137,7 @@ export default async function HomePage({
           style={{
             display: "grid",
             gridTemplateColumns:
-              "repeat(auto-fit, minmax(270px, 1fr))",
+              "repeat(auto-fit, minmax(min(100%, 270px), 1fr))",
             gap: "18px",
           }}
         >

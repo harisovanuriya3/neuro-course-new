@@ -136,6 +136,7 @@ export default function PracticeContent({ lesson, language }: { lesson: Practice
   const ui: UI = { ...lesson.ui, hideAnswer: hideAnswer[language] };
   return (
     <article className={styles.practice}>
+      <h1>{lesson.title}</h1>
       <p className={styles.note}>{lesson.ui.localNote}</p>
       {lesson.sections.map((section) => (
         <section key={section.title} className={styles.card}>

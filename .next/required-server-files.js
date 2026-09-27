@@ -105,7 +105,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "C:\\Users\\akimzhanovan\\Desktop\\neuro-course-new",
+    "outputFileTracingRoot": "C:\\Users\\harisova\\Desktop\\neuro-course-new",
     "enablePrerenderSourceMaps": true,
     "cacheComponents": false,
     "cacheLife": {
@@ -320,13 +320,25 @@ self.__SERVER_FILES_MANIFEST={
     "htmlLimitedBots": "[\\w-]+-Google|Google-[\\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight",
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.js",
-    "repoRoot": "C:\\Users\\akimzhanovan\\Desktop\\neuro-course-new",
+    "repoRoot": "C:\\Users\\harisova\\Desktop\\neuro-course-new",
     "turbopack": {
-      "root": "C:\\Users\\akimzhanovan\\Desktop\\neuro-course-new"
+      "root": "C:\\Users\\harisova\\Desktop\\neuro-course-new"
     },
-    "distDirRoot": ".next"
+    "distDirRoot": ".next",
+    "_originalRedirects": [
+      {
+        "source": "/modules/module-1",
+        "destination": "/modules/1",
+        "permanent": true
+      },
+      {
+        "source": "/modules-dynamic/1",
+        "destination": "/modules/1",
+        "permanent": true
+      }
+    ]
   },
-  "appDir": "C:\\Users\\akimzhanovan\\Desktop\\neuro-course-new",
+  "appDir": "C:\\Users\\harisova\\Desktop\\neuro-course-new",
   "relativeAppDir": "",
   "files": [
     ".next\\package.json",

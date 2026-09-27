@@ -4,7 +4,7 @@
 type AppRoutes = "/" | "/modules-dynamic/[id]" | "/modules/[id]" | "/modules/[id]/[section]" | "/modules/exam" | "/modules/module-1" | "/modules/module-10" | "/modules/module-11" | "/modules/module-12" | "/modules/module-13" | "/modules/module-14" | "/modules/module-15" | "/modules/module-16" | "/modules/module-17" | "/modules/module-18" | "/modules/module-19" | "/modules/module-2" | "/modules/module-20" | "/modules/module-21" | "/modules/module-22" | "/modules/module-23" | "/modules/module-3" | "/modules/module-4" | "/modules/module-5" | "/modules/module-6" | "/modules/module-7" | "/modules/module-8" | "/modules/module-9" | "/modules/virtual-patient"
 type PageRoutes = never
 type LayoutRoutes = "/"
-type RedirectRoutes = never
+type RedirectRoutes = "/modules-dynamic/1" | "/modules/module-1"
 type RewriteRoutes = never
 type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes
 
@@ -12,6 +12,7 @@ type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRo
 interface ParamMap {
   "/": {}
   "/modules-dynamic/[id]": { "id": string; }
+  "/modules-dynamic/1": {}
   "/modules/[id]": { "id": string; }
   "/modules/[id]/[section]": { "id": string; "section": string; }
   "/modules/exam": {}

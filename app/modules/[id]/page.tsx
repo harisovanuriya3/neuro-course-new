@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CourseNavigation from "../../../components/CourseNavigation";
+import DocumentLanguage from "../../../components/DocumentLanguage";
+import { interfaceText } from "../../../lib/interface";
+import styles from "../../CourseLayout.module.css";
 
 import { modules as moduleTitles, isModuleId, type Language as Lang } from "../../../content/course";
 import { sections } from "../../../content/sections";
@@ -23,7 +26,7 @@ const ui: Record<
     eyebrow: "ИНТЕРАКТИВНЫЙ УЧЕБНИК ПО НЕЙРОФИЗИОЛОГИИ",
     module: "Модуль",
     author: "Автор",
-    authorName: "Нурия",
+    authorName: interfaceText.RU.authorName,
     intro:
       "Выберите раздел модуля. Материалы организованы от целей обучения и входной диагностики к теории, клиническому применению, практике и контролю знаний.",
     structure: "Структура модуля",
@@ -35,7 +38,7 @@ const ui: Record<
     eyebrow: "НЕЙРОФИЗИОЛОГИЯ БОЙЫНША ИНТЕРАКТИВТІ ОҚУЛЫҚ",
     module: "Модуль",
     author: "Автор",
-    authorName: "Нурия",
+    authorName: interfaceText.KZ.authorName,
     intro:
       "Модуль бөлімін таңдаңыз. Материалдар оқу мақсаттары мен бастапқы диагностикадан теорияға, клиникалық қолдануға, практикаға және білімді бақылауға дейін ұйымдастырылған.",
     structure: "Модуль құрылымы",
@@ -47,7 +50,7 @@ const ui: Record<
     eyebrow: "INTERACTIVE TEXTBOOK OF NEUROPHYSIOLOGY",
     module: "Module",
     author: "Author",
-    authorName: "Nuriya",
+    authorName: interfaceText.EN.authorName,
     intro:
       "Choose a module section. The learning materials progress from objectives and initial diagnostics to theory, clinical application, practice, and knowledge assessment.",
     structure: "Module Structure",
@@ -97,6 +100,7 @@ export default async function ModulePage({
 
   return (
     <main
+      className={styles.page}
       id="top"
       style={{
         minHeight: "100vh",
@@ -106,6 +110,7 @@ export default async function ModulePage({
         color: "#003f73",
       }}
     >
+      <DocumentLanguage language={lang} />
       <div
         lang={
           lang === "KZ"
@@ -141,7 +146,8 @@ export default async function ModulePage({
           </Link>
 
           <nav
-            aria-label="Language"
+            aria-label={interfaceText[lang].language}
+            className={styles.languages}
             style={{
               display: "flex",
               gap: "10px",
@@ -188,6 +194,7 @@ export default async function ModulePage({
         {/* Титульный блок */}
 
         <section
+          className={styles.title}
           style={{
             background: "#ffffff",
             border: "1px solid #d5e3ec",
@@ -285,7 +292,7 @@ export default async function ModulePage({
           style={{
             display: "grid",
             gridTemplateColumns:
-              "repeat(auto-fit, minmax(270px, 1fr))",
+              "repeat(auto-fit, minmax(min(100%, 270px), 1fr))",
             gap: "18px",
             marginTop: "28px",
           }}

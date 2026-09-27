@@ -13,6 +13,8 @@ import testsKZ from "./modules/1/tests/kz";
 import testsEN from "./modules/1/tests/en";
 import { validateTest } from "../lib/tests/engine";
 import { createStudyLessons } from "./modules/1/study";
+import { createInteractiveLesson } from "./modules/1/interactive";
+import { createMediaLesson } from "./modules/1/media";
 
 const studyRU = createStudyLessons("RU");
 const studyKZ = createStudyLessons("KZ");
@@ -29,6 +31,8 @@ const studyLessons = Object.fromEntries(
 const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>> = {
   1: {
     ...studyLessons,
+    media: { RU: createMediaLesson("RU"), EN: createMediaLesson("EN"), KZ: createMediaLesson("KZ") },
+    interactive: { RU: createInteractiveLesson("RU"), EN: createInteractiveLesson("EN"), KZ: createInteractiveLesson("KZ") },
     theory: {
       RU: { ...RU, kind: "theory" },
       KZ: { ...KZ, kind: "theory" },

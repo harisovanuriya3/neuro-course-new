@@ -101,7 +101,7 @@ const text = {
       "Учебное пособие для студентов медицинских факультетов",
 
     author:
-      "Автор: Харисова Нурия Мансуровна, к.б.н., профессор",
+      "Автор: Нурия Мансуровна Харисова, к.б.н., профессор",
 
     approved:
       "Допущено кафедрой нормальной физиологии",
@@ -137,7 +137,7 @@ const text = {
       "Медицина факультетінің студенттеріне арналған оқу құралы",
 
     author:
-      "Автор: Харисова Нурия Мансуровна, б.ғ.к., профессор",
+      "Автор: Нурия Мансуровна Харисова, б.ғ.к., профессор",
 
     approved:
       "Қалыпты физиология кафедрасымен мақұлданған",
@@ -173,7 +173,7 @@ const text = {
       "Study guide for medical students",
 
     author:
-      "Author: Nuria Mansurovna Kharissova, PhD, Professor",
+      "Author: Nuriya Mansurovna Kharissova, PhD, Professor",
 
     approved:
       "Approved by the Department of Normal Physiology",

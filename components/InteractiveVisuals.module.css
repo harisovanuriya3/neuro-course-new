@@ -1,0 +1,21 @@
+.figure { margin: 20px 0; padding: 12px; border: 1px solid #b6c9d9; border-radius: 12px; background: #f8fbfd; min-width: 0; }
+.svg { display: block; width: 100%; max-width: 480px; height: auto; margin: auto; }
+.part { fill: #e3edf4; stroke: #617b8d; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.active { fill: #bde2ee; stroke: #00599c; stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
+.outline { fill: #f0f5f8; stroke: #71899a; stroke-width: 2; stroke-linejoin: round; }
+.signal { fill: none; stroke: #00599c; stroke-width: 3; }
+.heat { fill: none; stroke: #9d4c00; stroke-width: 2; }
+.badge circle { fill: white; stroke: #004b87; stroke-width: 2; }
+.badge text { fill: #003f73; font: bold 21px sans-serif; }
+.badge .selection { fill: none; stroke-width: 3; stroke-dasharray: 4 3; }
+.letter, .ion { fill: #003f73; stroke: none; font: bold 22px sans-serif; }
+.symbol { fill: #003f73; font: bold 32px sans-serif; text-anchor: middle; }
+.figure figcaption { font-size: 0.95em; }
+.legend { margin-bottom: 0; }
+.current { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.control { cursor: pointer; pointer-events: all; }
+.control:hover { filter: drop-shadow(0 0 2px #00599c); }
+.control:focus-visible { outline: 3px solid #a54b00; outline-offset: 4px; }
+.control[aria-pressed="true"] { stroke-dasharray: 5 2; }
+.symbol, .letter { pointer-events: none; }
+@media (max-width: 480px) { .figure { padding: 6px; } }

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { interfaceText } from "../lib/interface";
+import styles from "../app/CourseLayout.module.css";
 
 import { MODULE_COUNT, type Language as Lang } from "../content/course";
 import { sectionOrder as sections, getSectionTitle } from "../content/sections";
@@ -90,7 +92,8 @@ export default function CourseNavigation({
 
   return (
     <nav
-      aria-label="Course navigation"
+      aria-label={interfaceText[lang].navigation}
+      className={styles.navigation}
       style={{
         marginTop: "40px",
         padding: "22px",

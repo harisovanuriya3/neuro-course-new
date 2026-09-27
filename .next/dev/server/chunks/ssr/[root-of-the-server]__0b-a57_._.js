@@ -1,0 +1,6531 @@
+module.exports = [
+"[externals]/next/dist/shared/lib/no-fallback-error.external.js [external] (next/dist/shared/lib/no-fallback-error.external.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+var mod = __turbopack_context__.x("next/dist/shared/lib/no-fallback-error.external.js", () => require("next/dist/shared/lib/no-fallback-error.external.js"));
+
+module.exports = mod;
+}),
+"[project]/app/CourseLayout.module.css [app-rsc] (css module)", ((__turbopack_context__) => {
+
+__turbopack_context__.v({
+  "languages": "CourseLayout-module__izAQ5a__languages",
+  "navigation": "CourseLayout-module__izAQ5a__navigation",
+  "page": "CourseLayout-module__izAQ5a__page",
+  "title": "CourseLayout-module__izAQ5a__title",
+});
+}),
+"[project]/app/modules/[id]/[section]/page.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>SectionPage
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.react-server.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$api$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/next/dist/api/navigation.react-server.js [app-rsc] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/components/navigation.react-server.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$index$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/index.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$course$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/course.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/sections.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$SectionContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/SectionContent.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$CourseNavigation$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/CourseNavigation.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$DocumentLanguage$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/DocumentLanguage.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$interface$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/interface.ts [app-rsc] (ecmascript)");
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+const text = {
+    RU: {
+        module: "Модуль",
+        back: "← Назад к модулю",
+        pending: "Материалы раздела готовятся."
+    },
+    KZ: {
+        module: "Модуль",
+        back: "← Модульге оралу",
+        pending: "Бөлім материалдары дайындалуда."
+    },
+    EN: {
+        module: "Module",
+        back: "← Back to module",
+        pending: "Section materials are being prepared."
+    }
+};
+async function SectionPage({ params, searchParams }) {
+    const { id, section } = await params;
+    const { lang: requestedLang } = await searchParams;
+    const rawLang = Array.isArray(requestedLang) ? requestedLang[0] : requestedLang;
+    const lang = rawLang === "KZ" || rawLang === "EN" ? rawLang : "RU";
+    const moduleNumber = Number(id);
+    if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$course$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["isModuleId"])(id) || !(0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["isSection"])(section)) {
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
+    }
+    const t = text[lang];
+    const sectionIndex = __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sectionOrder"].indexOf(section);
+    const lesson = (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$index$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getLesson"])(moduleNumber, section, lang);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
+        id: "top",
+        style: {
+            minHeight: "100vh",
+            padding: "40px 20px 60px",
+            background: "linear-gradient(180deg, #eef5fa 0%, #f8fbfd 100%)"
+        },
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$DocumentLanguage$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                language: lang
+            }, void 0, false, {
+                fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                lineNumber: 81,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                lang: lang === "KZ" ? "kk" : lang.toLowerCase(),
+                style: {
+                    maxWidth: "1000px",
+                    margin: "0 auto"
+                },
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            padding: "clamp(22px, 4vw, 36px)",
+                            background: "#ffffff",
+                            borderRadius: "20px",
+                            border: "1px solid #dce8ef",
+                            boxShadow: "0 8px 25px rgba(28, 72, 102, 0.06)"
+                        },
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                                href: `/modules/${id}?lang=${lang}`,
+                                style: {
+                                    color: "#004b87",
+                                    fontWeight: 700,
+                                    textDecoration: "none"
+                                },
+                                children: t.back
+                            }, void 0, false, {
+                                fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                                lineNumber: 105,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+                                "aria-label": __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$interface$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["interfaceText"][lang].language,
+                                style: {
+                                    display: "flex",
+                                    gap: "10px",
+                                    marginTop: "24px",
+                                    marginBottom: "28px",
+                                    flexWrap: "wrap"
+                                },
+                                children: [
+                                    "RU",
+                                    "KZ",
+                                    "EN"
+                                ].map((code)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                                        href: `/modules/${id}/${section}?lang=${code}`,
+                                        "aria-current": lang === code ? "page" : undefined,
+                                        style: {
+                                            minWidth: "42px",
+                                            padding: "7px 11px",
+                                            textAlign: "center",
+                                            borderRadius: "9px",
+                                            textDecoration: "none",
+                                            fontWeight: 700,
+                                            background: lang === code ? "#005b96" : "#f3f7fa",
+                                            color: lang === code ? "#ffffff" : "#526b80",
+                                            border: lang === code ? "1px solid #005b96" : "1px solid #d7e5ed"
+                                        },
+                                        children: code
+                                    }, code, false, {
+                                        fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                                        lineNumber: 130,
+                                        columnNumber: 17
+                                    }, this))
+                            }, void 0, false, {
+                                fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                                lineNumber: 118,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                style: {
+                                    display: "inline-block",
+                                    marginBottom: "14px",
+                                    padding: "7px 12px",
+                                    borderRadius: "999px",
+                                    background: "#eaf5fa",
+                                    color: "#236b8e",
+                                    fontSize: "13px",
+                                    fontWeight: 800
+                                },
+                                children: [
+                                    String(sectionIndex + 1).padStart(2, "0"),
+                                    " ",
+                                    "/ ",
+                                    __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sectionOrder"].length
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                                lineNumber: 167,
+                                columnNumber: 11
+                            }, this),
+                            lesson ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Fragment"], {
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$SectionContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                                    lesson: lesson,
+                                    moduleId: id,
+                                    language: lang
+                                }, `${id}/${section}/${lang}`, false, {
+                                    fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                                    lineNumber: 190,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                                lineNumber: 189,
+                                columnNumber: 13
+                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Fragment"], {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        style: {
+                                            margin: "0 0 8px",
+                                            color: "#607b8d",
+                                            fontWeight: 700
+                                        },
+                                        children: [
+                                            t.module,
+                                            " ",
+                                            moduleNumber
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                                        lineNumber: 199,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                                        style: {
+                                            margin: "0 0 18px",
+                                            color: "#004b87",
+                                            fontSize: "clamp(1.6rem, 4vw, 2.2rem)",
+                                            lineHeight: 1.3
+                                        },
+                                        children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getSectionTitle"])(section, lang)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                                        lineNumber: 209,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        style: {
+                                            margin: 0,
+                                            color: "#526b80",
+                                            lineHeight: 1.7
+                                        },
+                                        children: t.pending
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                                        lineNumber: 221,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                                lineNumber: 198,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                        lineNumber: 93,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$CourseNavigation$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                        moduleNumber: moduleNumber,
+                        lang: lang,
+                        currentSection: section
+                    }, void 0, false, {
+                        fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                        lineNumber: 237,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+                lineNumber: 82,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/modules/[id]/[section]/page.tsx",
+        lineNumber: 72,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/modules/[id]/[section]/page.tsx [app-rsc] (ecmascript, Next.js Server Component)", (function(__turbopack_context__){
+
+__turbopack_context__.n(__turbopack_context__.i("[project]/app/modules/[id]/[section]/page.tsx [app-rsc] (ecmascript)"));
+}),
+"[project]/components/BranchingTestContent.tsx [app-rsc] (client reference proxy)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/BranchingTestContent.tsx from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/BranchingTestContent.tsx", "default");
+}),
+"[project]/components/BranchingTestContent.tsx [app-rsc] (client reference proxy) <module evaluation>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/BranchingTestContent.tsx <module evaluation> from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/BranchingTestContent.tsx <module evaluation>", "default");
+}),
+"[project]/components/BranchingTestContent.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$BranchingTestContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/components/BranchingTestContent.tsx [app-rsc] (client reference proxy) <module evaluation>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$BranchingTestContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__ = __turbopack_context__.i("[project]/components/BranchingTestContent.tsx [app-rsc] (client reference proxy)");
+;
+__turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$BranchingTestContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__);
+}),
+"[project]/components/CasesContent.tsx [app-rsc] (client reference proxy)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/CasesContent.tsx from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/CasesContent.tsx", "default");
+}),
+"[project]/components/CasesContent.tsx [app-rsc] (client reference proxy) <module evaluation>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/CasesContent.tsx <module evaluation> from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/CasesContent.tsx <module evaluation>", "default");
+}),
+"[project]/components/CasesContent.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$CasesContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/components/CasesContent.tsx [app-rsc] (client reference proxy) <module evaluation>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$CasesContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__ = __turbopack_context__.i("[project]/components/CasesContent.tsx [app-rsc] (client reference proxy)");
+;
+__turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$CasesContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__);
+}),
+"[project]/components/CourseNavigation.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>CourseNavigation
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.react-server.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$interface$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/interface.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$CourseLayout$2e$module$2e$css__$5b$app$2d$rsc$5d$__$28$css__module$29$__ = __turbopack_context__.i("[project]/app/CourseLayout.module.css [app-rsc] (css module)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$course$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/course.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/sections.ts [app-rsc] (ecmascript)");
+;
+;
+;
+;
+;
+;
+const labels = {
+    RU: {
+        previousSection: "Предыдущий раздел",
+        nextSection: "Следующий раздел",
+        previousModule: "Предыдущий модуль",
+        nextModule: "Следующий модуль",
+        moduleHome: "Титул модуля",
+        courseHome: "Содержание курса",
+        top: "Наверх",
+        module: "Модуль"
+    },
+    KZ: {
+        previousSection: "Алдыңғы бөлім",
+        nextSection: "Келесі бөлім",
+        previousModule: "Алдыңғы модуль",
+        nextModule: "Келесі модуль",
+        moduleHome: "Модуль беті",
+        courseHome: "Курс мазмұны",
+        top: "Жоғары",
+        module: "Модуль"
+    },
+    EN: {
+        previousSection: "Previous section",
+        nextSection: "Next section",
+        previousModule: "Previous module",
+        nextModule: "Next module",
+        moduleHome: "Module home",
+        courseHome: "Course contents",
+        top: "Back to top",
+        module: "Module"
+    }
+};
+function CourseNavigation({ moduleNumber, lang, currentSection }) {
+    const t = labels[lang];
+    const hasPreviousModule = moduleNumber > 1;
+    const hasNextModule = moduleNumber < __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$course$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["MODULE_COUNT"];
+    /*
+    Если currentSection передан,
+    значит студент находится внутри одного
+    из 17 разделов.
+  */ const sectionIndex = currentSection ? __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sectionOrder"].indexOf(currentSection) : -1;
+    const isInsideSection = sectionIndex !== -1;
+    const previousSection = isInsideSection && sectionIndex > 0 ? __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sectionOrder"][sectionIndex - 1] : null;
+    const nextSection = isInsideSection && sectionIndex < __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sectionOrder"].length - 1 ? __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["sectionOrder"][sectionIndex + 1] : null;
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+        "aria-label": __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$interface$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["interfaceText"][lang].navigation,
+        className: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$CourseLayout$2e$module$2e$css__$5b$app$2d$rsc$5d$__$28$css__module$29$__["default"].navigation,
+        style: {
+            marginTop: "40px",
+            padding: "22px",
+            background: "#ffffff",
+            border: "1px solid #d7e5ed",
+            borderRadius: "20px",
+            boxShadow: "0 6px 20px rgba(28, 72, 102, 0.07)"
+        },
+        children: [
+            isInsideSection && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Fragment"], {
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            display: "grid",
+                            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                            gap: "12px"
+                        },
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: previousSection ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                                    href: `/modules/${moduleNumber}/${previousSection}?lang=${lang}`,
+                                    style: {
+                                        display: "flex",
+                                        height: "100%",
+                                        boxSizing: "border-box",
+                                        flexDirection: "column",
+                                        justifyContent: "center",
+                                        padding: "15px",
+                                        borderRadius: "13px",
+                                        background: "#f4f8fb",
+                                        border: "1px solid #d7e5ed",
+                                        color: "#005b96",
+                                        textDecoration: "none"
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            style: {
+                                                fontSize: "12px",
+                                                color: "#71899a",
+                                                marginBottom: "5px"
+                                            },
+                                            children: [
+                                                "← ",
+                                                t.previousSection
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/components/CourseNavigation.tsx",
+                                            lineNumber: 143,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                            children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getSectionTitle"])(previousSection, lang)
+                                        }, void 0, false, {
+                                            fileName: "[project]/components/CourseNavigation.tsx",
+                                            lineNumber: 153,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/components/CourseNavigation.tsx",
+                                    lineNumber: 126,
+                                    columnNumber: 17
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {}, void 0, false, {
+                                    fileName: "[project]/components/CourseNavigation.tsx",
+                                    lineNumber: 160,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/components/CourseNavigation.tsx",
+                                lineNumber: 124,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                                href: `/modules/${moduleNumber}?lang=${lang}`,
+                                style: {
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    textAlign: "center",
+                                    padding: "15px",
+                                    borderRadius: "13px",
+                                    background: "#005b96",
+                                    color: "#ffffff",
+                                    fontWeight: 700,
+                                    textDecoration: "none"
+                                },
+                                children: [
+                                    "📚 ",
+                                    t.moduleHome
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/components/CourseNavigation.tsx",
+                                lineNumber: 166,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: nextSection ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                                    href: `/modules/${moduleNumber}/${nextSection}?lang=${lang}`,
+                                    style: {
+                                        display: "flex",
+                                        height: "100%",
+                                        boxSizing: "border-box",
+                                        flexDirection: "column",
+                                        justifyContent: "center",
+                                        alignItems: "flex-end",
+                                        textAlign: "right",
+                                        padding: "15px",
+                                        borderRadius: "13px",
+                                        background: "#f4f8fb",
+                                        border: "1px solid #d7e5ed",
+                                        color: "#005b96",
+                                        textDecoration: "none"
+                                    },
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            style: {
+                                                fontSize: "12px",
+                                                color: "#71899a",
+                                                marginBottom: "5px"
+                                            },
+                                            children: [
+                                                t.nextSection,
+                                                " →"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/components/CourseNavigation.tsx",
+                                            lineNumber: 207,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                            children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getSectionTitle"])(nextSection, lang)
+                                        }, void 0, false, {
+                                            fileName: "[project]/components/CourseNavigation.tsx",
+                                            lineNumber: 217,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/components/CourseNavigation.tsx",
+                                    lineNumber: 188,
+                                    columnNumber: 17
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {}, void 0, false, {
+                                    fileName: "[project]/components/CourseNavigation.tsx",
+                                    lineNumber: 224,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/components/CourseNavigation.tsx",
+                                lineNumber: 186,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/components/CourseNavigation.tsx",
+                        lineNumber: 114,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            margin: "22px 0",
+                            borderTop: "1px solid #e3edf2"
+                        }
+                    }, void 0, false, {
+                        fileName: "[project]/components/CourseNavigation.tsx",
+                        lineNumber: 229,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/CourseNavigation.tsx",
+                lineNumber: 113,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                style: {
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                    gap: "12px"
+                },
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: hasPreviousModule ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                            href: `/modules/${moduleNumber - 1}?lang=${lang}`,
+                            style: {
+                                display: "flex",
+                                height: "100%",
+                                boxSizing: "border-box",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                padding: "15px",
+                                borderRadius: "13px",
+                                background: "#f4f8fb",
+                                border: "1px solid #d7e5ed",
+                                color: "#005b96",
+                                textDecoration: "none"
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    style: {
+                                        fontSize: "12px",
+                                        color: "#71899a",
+                                        marginBottom: "5px"
+                                    },
+                                    children: [
+                                        "← ",
+                                        t.previousModule
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/components/CourseNavigation.tsx",
+                                    lineNumber: 274,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                    children: [
+                                        t.module,
+                                        " ",
+                                        moduleNumber - 1
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/components/CourseNavigation.tsx",
+                                    lineNumber: 284,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/components/CourseNavigation.tsx",
+                            lineNumber: 256,
+                            columnNumber: 13
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {}, void 0, false, {
+                            fileName: "[project]/components/CourseNavigation.tsx",
+                            lineNumber: 289,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/components/CourseNavigation.tsx",
+                        lineNumber: 254,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                        href: `/?lang=${lang}`,
+                        style: {
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            textAlign: "center",
+                            padding: "15px",
+                            borderRadius: "13px",
+                            background: "#eaf5fa",
+                            border: "1px solid #cfe4ee",
+                            color: "#005b96",
+                            fontWeight: 700,
+                            textDecoration: "none"
+                        },
+                        children: [
+                            "🏠 ",
+                            t.courseHome
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/components/CourseNavigation.tsx",
+                        lineNumber: 295,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: hasNextModule ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                            href: `/modules/${moduleNumber + 1}?lang=${lang}`,
+                            style: {
+                                display: "flex",
+                                height: "100%",
+                                boxSizing: "border-box",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "flex-end",
+                                textAlign: "right",
+                                padding: "15px",
+                                borderRadius: "13px",
+                                background: "#f4f8fb",
+                                border: "1px solid #d7e5ed",
+                                color: "#005b96",
+                                textDecoration: "none"
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    style: {
+                                        fontSize: "12px",
+                                        color: "#71899a",
+                                        marginBottom: "5px"
+                                    },
+                                    children: [
+                                        t.nextModule,
+                                        " →"
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/components/CourseNavigation.tsx",
+                                    lineNumber: 338,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                    children: [
+                                        t.module,
+                                        " ",
+                                        moduleNumber + 1
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/components/CourseNavigation.tsx",
+                                    lineNumber: 348,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/components/CourseNavigation.tsx",
+                            lineNumber: 318,
+                            columnNumber: 13
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {}, void 0, false, {
+                            fileName: "[project]/components/CourseNavigation.tsx",
+                            lineNumber: 353,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/components/CourseNavigation.tsx",
+                        lineNumber: 316,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/CourseNavigation.tsx",
+                lineNumber: 244,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                style: {
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "20px",
+                    flexWrap: "wrap",
+                    marginTop: "18px",
+                    paddingTop: "16px",
+                    borderTop: "1px solid #e3edf2"
+                },
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                        href: `/?lang=${lang}`,
+                        style: {
+                            color: "#617b8d",
+                            fontSize: "14px",
+                            textDecoration: "none"
+                        },
+                        children: [
+                            "🏠 ",
+                            t.courseHome
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/components/CourseNavigation.tsx",
+                        lineNumber: 374,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                        href: `/modules/${moduleNumber}?lang=${lang}`,
+                        style: {
+                            color: "#617b8d",
+                            fontSize: "14px",
+                            textDecoration: "none"
+                        },
+                        children: [
+                            "📚 ",
+                            t.module,
+                            " ",
+                            moduleNumber
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/components/CourseNavigation.tsx",
+                        lineNumber: 385,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                        href: "#top",
+                        style: {
+                            color: "#617b8d",
+                            fontSize: "14px",
+                            textDecoration: "none"
+                        },
+                        children: [
+                            "↑ ",
+                            t.top
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/components/CourseNavigation.tsx",
+                        lineNumber: 396,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/CourseNavigation.tsx",
+                lineNumber: 362,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/components/CourseNavigation.tsx",
+        lineNumber: 94,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/components/DocumentLanguage.tsx [app-rsc] (client reference proxy)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/DocumentLanguage.tsx from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/DocumentLanguage.tsx", "default");
+}),
+"[project]/components/DocumentLanguage.tsx [app-rsc] (client reference proxy) <module evaluation>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/DocumentLanguage.tsx <module evaluation> from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/DocumentLanguage.tsx <module evaluation>", "default");
+}),
+"[project]/components/DocumentLanguage.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$DocumentLanguage$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/components/DocumentLanguage.tsx [app-rsc] (client reference proxy) <module evaluation>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$DocumentLanguage$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__ = __turbopack_context__.i("[project]/components/DocumentLanguage.tsx [app-rsc] (client reference proxy)");
+;
+__turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$DocumentLanguage$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__);
+}),
+"[project]/components/InteractiveContent.tsx [app-rsc] (client reference proxy)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/InteractiveContent.tsx from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/InteractiveContent.tsx", "default");
+}),
+"[project]/components/InteractiveContent.tsx [app-rsc] (client reference proxy) <module evaluation>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/InteractiveContent.tsx <module evaluation> from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/InteractiveContent.tsx <module evaluation>", "default");
+}),
+"[project]/components/InteractiveContent.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InteractiveContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/components/InteractiveContent.tsx [app-rsc] (client reference proxy) <module evaluation>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InteractiveContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__ = __turbopack_context__.i("[project]/components/InteractiveContent.tsx [app-rsc] (client reference proxy)");
+;
+__turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InteractiveContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__);
+}),
+"[project]/components/LessonContent.module.css [app-rsc] (css module)", ((__turbopack_context__) => {
+
+__turbopack_context__.v({
+  "idea": "LessonContent-module__O06sTW__idea",
+  "lesson": "LessonContent-module__O06sTW__lesson",
+  "outcomes": "LessonContent-module__O06sTW__outcomes",
+  "terms": "LessonContent-module__O06sTW__terms",
+});
+}),
+"[project]/components/LessonContent.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>LessonContent
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$LessonContent$2e$module$2e$css__$5b$app$2d$rsc$5d$__$28$css__module$29$__ = __turbopack_context__.i("[project]/components/LessonContent.module.css [app-rsc] (css module)");
+;
+;
+function Block({ block }) {
+    switch(block.type){
+        case "paragraph":
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                children: block.text
+            }, void 0, false, {
+                fileName: "[project]/components/LessonContent.tsx",
+                lineNumber: 7,
+                columnNumber: 14
+            }, this);
+        case "subheading":
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                children: block.text
+            }, void 0, false, {
+                fileName: "[project]/components/LessonContent.tsx",
+                lineNumber: 9,
+                columnNumber: 14
+            }, this);
+        case "list":
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                children: block.items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                        children: item
+                    }, item, false, {
+                        fileName: "[project]/components/LessonContent.tsx",
+                        lineNumber: 11,
+                        columnNumber: 45
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/components/LessonContent.tsx",
+                lineNumber: 11,
+                columnNumber: 14
+            }, this);
+        case "callout":
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
+                className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$LessonContent$2e$module$2e$css__$5b$app$2d$rsc$5d$__$28$css__module$29$__["default"].idea,
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                        children: block.title
+                    }, void 0, false, {
+                        fileName: "[project]/components/LessonContent.tsx",
+                        lineNumber: 13,
+                        columnNumber: 45
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        children: block.text
+                    }, void 0, false, {
+                        fileName: "[project]/components/LessonContent.tsx",
+                        lineNumber: 13,
+                        columnNumber: 67
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/LessonContent.tsx",
+                lineNumber: 13,
+                columnNumber: 14
+            }, this);
+    }
+}
+function LessonContent({ lesson }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
+        className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$LessonContent$2e$module$2e$css__$5b$app$2d$rsc$5d$__$28$css__module$29$__["default"].lesson,
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                children: lesson.title
+            }, void 0, false, {
+                fileName: "[project]/components/LessonContent.tsx",
+                lineNumber: 20,
+                columnNumber: 7
+            }, this),
+            lesson.sections.map((section)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                    id: section.id,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                            children: section.title
+                        }, void 0, false, {
+                            fileName: "[project]/components/LessonContent.tsx",
+                            lineNumber: 23,
+                            columnNumber: 11
+                        }, this),
+                        section.blocks.map((block, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(Block, {
+                                block: block
+                            }, index, false, {
+                                fileName: "[project]/components/LessonContent.tsx",
+                                lineNumber: 24,
+                                columnNumber: 49
+                            }, this))
+                    ]
+                }, section.id ?? section.title, true, {
+                    fileName: "[project]/components/LessonContent.tsx",
+                    lineNumber: 22,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$LessonContent$2e$module$2e$css__$5b$app$2d$rsc$5d$__$28$css__module$29$__["default"].outcomes,
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        children: lesson.outcomes.title
+                    }, void 0, false, {
+                        fileName: "[project]/components/LessonContent.tsx",
+                        lineNumber: 28,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        children: lesson.outcomes.introduction
+                    }, void 0, false, {
+                        fileName: "[project]/components/LessonContent.tsx",
+                        lineNumber: 29,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                        children: lesson.outcomes.items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                children: item
+                            }, item, false, {
+                                fileName: "[project]/components/LessonContent.tsx",
+                                lineNumber: 30,
+                                columnNumber: 50
+                            }, this))
+                    }, void 0, false, {
+                        fileName: "[project]/components/LessonContent.tsx",
+                        lineNumber: 30,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/LessonContent.tsx",
+                lineNumber: 27,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                className: __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$LessonContent$2e$module$2e$css__$5b$app$2d$rsc$5d$__$28$css__module$29$__["default"].terms,
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        children: lesson.terms.title
+                    }, void 0, false, {
+                        fileName: "[project]/components/LessonContent.tsx",
+                        lineNumber: 33,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                        children: lesson.terms.items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                children: item
+                            }, item, false, {
+                                fileName: "[project]/components/LessonContent.tsx",
+                                lineNumber: 34,
+                                columnNumber: 47
+                            }, this))
+                    }, void 0, false, {
+                        fileName: "[project]/components/LessonContent.tsx",
+                        lineNumber: 34,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/LessonContent.tsx",
+                lineNumber: 32,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/components/LessonContent.tsx",
+        lineNumber: 19,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/components/PracticeContent.tsx [app-rsc] (client reference proxy)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/PracticeContent.tsx from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/PracticeContent.tsx", "default");
+}),
+"[project]/components/PracticeContent.tsx [app-rsc] (client reference proxy) <module evaluation>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/PracticeContent.tsx <module evaluation> from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/PracticeContent.tsx <module evaluation>", "default");
+}),
+"[project]/components/PracticeContent.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$PracticeContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/components/PracticeContent.tsx [app-rsc] (client reference proxy) <module evaluation>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$PracticeContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__ = __turbopack_context__.i("[project]/components/PracticeContent.tsx [app-rsc] (client reference proxy)");
+;
+__turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$PracticeContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__);
+}),
+"[project]/components/SectionContent.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>SectionContent
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.react-server.js [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$LessonContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/LessonContent.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$PracticeContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/PracticeContent.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$CasesContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/CasesContent.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$BranchingTestContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/BranchingTestContent.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$StudyContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/StudyContent.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InteractiveContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/InteractiveContent.tsx [app-rsc] (ecmascript)");
+;
+;
+;
+;
+;
+;
+;
+;
+function unsupportedContent(lesson) {
+    throw new Error("Unsupported section content kind");
+}
+function SectionContent({ lesson, moduleId, language }) {
+    switch(lesson.kind){
+        case "interactive":
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$InteractiveContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                lesson: lesson,
+                moduleId: moduleId,
+                language: language
+            }, void 0, false, {
+                fileName: "[project]/components/SectionContent.tsx",
+                lineNumber: 23,
+                columnNumber: 14
+            }, this);
+        case "theory":
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$LessonContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                lesson: lesson
+            }, void 0, false, {
+                fileName: "[project]/components/SectionContent.tsx",
+                lineNumber: 25,
+                columnNumber: 14
+            }, this);
+        case "practice":
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Fragment"], {
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                        href: `/modules/${moduleId}/theory?lang=${language}`,
+                        style: {
+                            display: "inline-block",
+                            marginBottom: "20px",
+                            color: "#005b96",
+                            fontWeight: 700
+                        },
+                        children: lesson.ui.theory
+                    }, void 0, false, {
+                        fileName: "[project]/components/SectionContent.tsx",
+                        lineNumber: 29,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$PracticeContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                        lesson: lesson,
+                        language: language
+                    }, void 0, false, {
+                        fileName: "[project]/components/SectionContent.tsx",
+                        lineNumber: 40,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/SectionContent.tsx",
+                lineNumber: 28,
+                columnNumber: 9
+            }, this);
+        case "cases":
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$CasesContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                lesson: lesson
+            }, void 0, false, {
+                fileName: "[project]/components/SectionContent.tsx",
+                lineNumber: 44,
+                columnNumber: 14
+            }, this);
+        case "tests":
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$BranchingTestContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                test: lesson,
+                language: language
+            }, void 0, false, {
+                fileName: "[project]/components/SectionContent.tsx",
+                lineNumber: 46,
+                columnNumber: 14
+            }, this);
+        case "objectives":
+        case "pretest":
+        case "one-minute":
+        case "clinical":
+        case "questions":
+        case "glossary":
+        case "references":
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$StudyContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                lesson: lesson,
+                moduleId: moduleId,
+                language: language
+            }, void 0, false, {
+                fileName: "[project]/components/SectionContent.tsx",
+                lineNumber: 49,
+                columnNumber: 14
+            }, this);
+        default:
+            return unsupportedContent(lesson);
+    }
+}
+}),
+"[project]/components/StudyContent.tsx [app-rsc] (client reference proxy)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/StudyContent.tsx from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/StudyContent.tsx", "default");
+}),
+"[project]/components/StudyContent.tsx [app-rsc] (client reference proxy) <module evaluation>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+// This file is generated by next-core EcmascriptClientReferenceModule.
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-server-dom-turbopack-server.js [app-rsc] (ecmascript)");
+;
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$server$2d$dom$2d$turbopack$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerClientReference"])(function() {
+    throw new Error("Attempted to call the default export of [project]/components/StudyContent.tsx <module evaluation> from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.");
+}, "[project]/components/StudyContent.tsx <module evaluation>", "default");
+}),
+"[project]/components/StudyContent.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$StudyContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/components/StudyContent.tsx [app-rsc] (client reference proxy) <module evaluation>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$StudyContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__ = __turbopack_context__.i("[project]/components/StudyContent.tsx [app-rsc] (client reference proxy)");
+;
+__turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$StudyContent$2e$tsx__$5b$app$2d$rsc$5d$__$28$client__reference__proxy$29$__);
+}),
+"[project]/content/course.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "MODULE_COUNT",
+    ()=>MODULE_COUNT,
+    "isModuleId",
+    ()=>isModuleId,
+    "modules",
+    ()=>modules
+]);
+const modules = {
+    RU: [
+        "Введение в нейрофизиологию",
+        "История изучения и методы исследования нервной системы",
+        "Нейрон, нейроглия и микросреда нервной ткани",
+        "Мембранные процессы и потенциал покоя",
+        "Ионные каналы и потенциал действия",
+        "Синапсы, нейромедиаторы и нейромодуляция",
+        "Возбуждение и торможение",
+        "Рефлекторная деятельность и нейронные сети",
+        "Проводящие пути нервной системы",
+        "Спинной мозг и спинальная регуляция",
+        "Ствол мозга и ретикулярная формация",
+        "Двигательные системы и контроль движений",
+        "Мозжечок",
+        "Таламус и таламо-кортикальные системы",
+        "Гипоталамус и гомеостаз",
+        "Лимбическая система, эмоции и мотивация",
+        "Базальные ганглии",
+        "Кора больших полушарий и функциональная организация мозга",
+        "Сенсорные системы и боль",
+        "Вегетативная нервная система",
+        "Высшая нервная деятельность",
+        "Нейрогуморальная регуляция, сон и биологические ритмы",
+        "Пластичность, восстановление и патофизиология нервной системы"
+    ],
+    KZ: [
+        "Нейрофизиологияға кіріспе",
+        "Жүйке жүйесін зерттеу тарихы мен әдістері",
+        "Нейрон, нейроглия және жүйке тінінің микроортасы",
+        "Мембраналық процестер және тыныштық потенциалы",
+        "Иондық арналар және әрекет потенциалы",
+        "Синапстар, нейромедиаторлар және нейромодуляция",
+        "Қозу және тежелу",
+        "Рефлекстік қызмет және нейрондық желілер",
+        "Жүйке жүйесінің өткізгіш жолдары",
+        "Жұлын және жұлындық реттелу",
+        "Ми сабауы және ретикулярлық формация",
+        "Қозғалыс жүйелері және қозғалысты басқару",
+        "Мишық",
+        "Таламус және таламо-кортикалық жүйелер",
+        "Гипоталамус және гомеостаз",
+        "Лимбиялық жүйе, эмоциялар және мотивация",
+        "Базальды ганглийлер",
+        "Үлкен ми сыңарларының қыртысы және мидың функционалдық ұйымдасуы",
+        "Сенсорлық жүйелер және ауырсыну",
+        "Вегетативтік жүйке жүйесі",
+        "Жоғары жүйке қызметі",
+        "Нейрогуморальдық реттелу, ұйқы және биологиялық ырғақтар",
+        "Жүйке жүйесінің пластикалығы, қалпына келуі және патофизиологиясы"
+    ],
+    EN: [
+        "Introduction to Neurophysiology",
+        "History and Methods of Nervous System Research",
+        "Neurons, Neuroglia, and the Neural Microenvironment",
+        "Membrane Processes and the Resting Membrane Potential",
+        "Ion Channels and the Action Potential",
+        "Synapses, Neurotransmitters, and Neuromodulation",
+        "Excitation and Inhibition",
+        "Reflex Activity and Neural Networks",
+        "Neural Pathways",
+        "Spinal Cord and Spinal Regulation",
+        "Brainstem and Reticular Formation",
+        "Motor Systems and Motor Control",
+        "Cerebellum",
+        "Thalamus and Thalamocortical Systems",
+        "Hypothalamus and Homeostasis",
+        "Limbic System, Emotion, and Motivation",
+        "Basal Ganglia",
+        "Cerebral Cortex and Functional Organization of the Brain",
+        "Sensory Systems and Pain",
+        "Autonomic Nervous System",
+        "Higher Nervous Activity",
+        "Neurohumoral Regulation, Sleep, and Biological Rhythms",
+        "Neural Plasticity, Recovery, and Pathophysiology"
+    ]
+};
+const MODULE_COUNT = modules.RU.length;
+function isModuleId(id) {
+    const number = Number(id);
+    return Number.isInteger(number) && number >= 1 && number <= MODULE_COUNT && String(number) === id;
+}
+}),
+"[project]/content/index.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "getLesson",
+    ()=>getLesson
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$theory$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/theory/ru.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$theory$2f$kz$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/theory/kz.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$theory$2f$en$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/theory/en.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$practice$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/practice/ru.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$practice$2f$kz$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/practice/kz.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$practice$2f$en$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/practice/en.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$cases$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/cases/ru.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$cases$2f$kz$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/cases/kz.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$cases$2f$en$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/cases/en.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/tests/ru.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$kz$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/tests/kz.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$en$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/tests/en.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$tests$2f$engine$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/tests/engine.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$study$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/study.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$interactive$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/interactive.ts [app-rsc] (ecmascript)");
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+const studyRU = (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$study$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createStudyLessons"])("RU");
+const studyKZ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$study$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createStudyLessons"])("KZ");
+const studyEN = (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$study$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createStudyLessons"])("EN");
+const studyLessons = Object.fromEntries(Object.keys(studyRU).map((section)=>[
+        section,
+        {
+            RU: studyRU[section],
+            KZ: studyKZ[section],
+            EN: studyEN[section]
+        }
+    ]));
+[
+    __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$kz$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+    __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$en$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"]
+].forEach(__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$tests$2f$engine$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["validateTest"]);
+// Register each new module/section here; routes and rendering stay unchanged.
+const lessons = {
+    1: {
+        ...studyLessons,
+        interactive: {
+            RU: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$interactive$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createInteractiveLesson"])("RU"),
+            EN: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$interactive$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createInteractiveLesson"])("EN"),
+            KZ: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$interactive$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createInteractiveLesson"])("KZ")
+        },
+        theory: {
+            RU: {
+                ...__TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$theory$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+                kind: "theory"
+            },
+            KZ: {
+                ...__TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$theory$2f$kz$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+                kind: "theory"
+            },
+            EN: {
+                ...__TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$theory$2f$en$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+                kind: "theory"
+            }
+        },
+        practice: {
+            RU: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$practice$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+            KZ: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$practice$2f$kz$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+            EN: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$practice$2f$en$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"]
+        },
+        cases: {
+            RU: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$cases$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+            KZ: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$cases$2f$kz$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+            EN: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$cases$2f$en$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"]
+        },
+        tests: {
+            RU: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+            KZ: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$kz$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+            EN: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$en$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"]
+        }
+    }
+};
+function getLesson(moduleId, section, language) {
+    return lessons[moduleId]?.[section]?.[language];
+}
+}),
+"[project]/content/modules/1/cases/en.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+const lesson = {
+    kind: "cases",
+    title: "Case studies. Introduction to neurophysiology",
+    moduleTitle: "Module 1",
+    introduction: "Analyse each situation, identify the connections between functional components of the nervous system, and explain the response mechanism. In multistage cases, additional information is revealed gradually. After developing your own solution, compare your reasoning with the explanation and mark the case as complete.",
+    ui: {
+        progress: "Case studies",
+        completed: "completed",
+        navigation: "Jump to a case",
+        case: "Case",
+        situation: "Situation",
+        stage: "Stage",
+        answer: "Your solution and reasoning",
+        placeholder: "Explain how the events are connected and why this result occurs…",
+        note: "Written responses are for comparison with the explanation and are not graded automatically. Responses and progress last until you reload the page or change the language.",
+        next: "Show next stage",
+        show: "Show explanation",
+        hide: "Hide explanation",
+        explanation: "Physiological explanation",
+        complete: "Case completed",
+        done: "Completed",
+        check: "Check solution",
+        reset: "Reset",
+        undo: "Undo last step",
+        available: "Select events in order",
+        selected: "Your sequence",
+        empty: "No events selected yet.",
+        correct: "Correct. The sequence follows the transition from an electrical signal to chemical transmission and a postsynaptic response.",
+        incorrect: "The order is not yet correct. Consider what triggers transmitter release and what must happen before postsynaptic receptors are activated. Try again or open the explanation.",
+        incomplete: "Add every event before checking.",
+        choose: "Select an explanation first.",
+        gate: "First write your response to the questions in each revealed stage.",
+        sequenceGate: "Complete and check your sequence to unlock the explanation.",
+        choiceGate: "Write your reasoning, select an explanation, and check your solution to unlock the explanation.",
+        diagram: "Functional pathway",
+        sources: "Learning sources"
+    },
+    cases: [
+        {
+            id: "afferent",
+            title: "The afferent component",
+            situation: "During examination of a skin region, a stimulus acts on receptors, but information from them does not reach the central nervous system.",
+            stages: [
+                {
+                    title: "Trace the information pathway",
+                    questions: [
+                        "Which functional component is impaired?",
+                        "In which direction does information normally travel?",
+                        "How does this situation differ from disruption of an efferent pathway?"
+                    ]
+                }
+            ],
+            explanation: [
+                "The afferent component should be examined first: it carries sensory information from receptors towards the central nervous system (CNS). Applying a stimulus to the skin does not by itself establish that information has successfully reached central structures.",
+                "Normally, a receptor converts stimulation into an electrical response, and sensory fibres carry information towards the spinal cord or brain. The peripheral portion of this pathway belongs to the peripheral nervous system.",
+                "An efferent pathway disruption concerns transmission of a command from the CNS to an effector; sensory input may remain intact. The situation identifies a functional component to investigate, but does not establish a lesion site or clinical diagnosis. Intact receptor function also needs to be confirmed."
+            ]
+        },
+        {
+            id: "efferent",
+            title: "The efferent component",
+            situation: "Sensory information has reached the CNS and has been processed, but the effector organ has not received the appropriate neural command.",
+            stages: [
+                {
+                    title: "From command to action",
+                    questions: [
+                        "Which component of the functional chain should be analysed?",
+                        "Where does a signal travel along an efferent pathway?",
+                        "How does an effector differ from an efferent pathway?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Analyse the efferent component: transmission of a control signal from the CNS towards a peripheral effector organ. Sensory input and central processing alone do not guarantee delivery of the command.",
+                "The efferent pathway conducts the signal; the effector produces the response. For example, a motor nerve fibre conducts impulses towards skeletal muscle, whose fibres develop force following neuromuscular transmission. In other systems, smooth muscle or glands can act as effectors.",
+                "Failure of a command to reach an organ differs from an inability of the organ itself to respond. Here the stated problem concerns command transmission; there is insufficient information to determine its specific cause."
+            ]
+        },
+        {
+            id: "withdrawal",
+            title: "A protective reflex",
+            situation: "A person accidentally touches a hot surface and rapidly withdraws their hand.",
+            stages: [
+                {
+                    title: "Sensory input",
+                    questions: [
+                        "Identify the stimulus, receptor, and afferent component. How does information enter the CNS?"
+                    ]
+                },
+                {
+                    title: "Organising the movement",
+                    data: "The arm begins to flex and contact with the hot surface ends. The movement requires coordinated muscle activity.",
+                    questions: [
+                        "Identify the central component, efferent pathway, effector, and response.",
+                        "Why must the activity of muscles producing opposing movements be coordinated?"
+                    ]
+                },
+                {
+                    title: "Reflex action and awareness",
+                    data: "The person then becomes aware of pain, evaluates the source of danger, and decides what to do next.",
+                    questions: [
+                        "Why can the protective response begin before a full conscious analysis of the stimulus?",
+                        "What roles do the brain and ascending information pathways still have?"
+                    ]
+                }
+            ],
+            explanation: [
+                "The stimulus is potentially damaging heat. Cutaneous nociceptive endings sensitive to this stimulus detect it, and afferent fibres carry the signal into the spinal cord.",
+                "Spinal interneuronal networks link sensory input to motor neurons. Efferent motor fibres and neuromuscular synapses activate muscles that move the hand away. Coordinated excitation and inhibition, including reduced antagonist activity, help organise the movement.",
+                "Spinal circuits can initiate the protective response without waiting for complete conscious analysis. Information also ascends to higher centres for pain perception and evaluation of the event. Descending brain pathways influence spinal circuits as well: a reflex does not imply that the brain is uninvolved."
+            ]
+        },
+        {
+            id: "feedback",
+            title: "Feedback",
+            situation: "A person tries to hold their arm in a particular position with their eyes closed. The limb position changes slightly over time, but the nervous system adjusts muscle activity.",
+            stages: [
+                {
+                    title: "Regulation without visual monitoring",
+                    questions: [
+                        "Where does the nervous system obtain information about limb position?",
+                        "Why is feedback necessary?",
+                        "What happens to regulatory accuracy if this information is substantially reduced?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Proprioceptive information comes primarily from muscle spindles, which signal muscle length and its changes, and tendon organs, which are sensitive to tension. Joint and cutaneous receptors also contribute to estimates of limb position and movement.",
+                "Sensory feedback reports the actual outcome of an action. Central networks use it together with the intended motor task to adjust muscle activity: deviations in position lead to changes in motor commands.",
+                "Substantial loss of this input makes correction less accurate and deviations harder to detect and compensate for. Closing the eyes limits visual compensation but does not remove all other sensory and central mechanisms. This is a functional explanation, not a diagnosis."
+            ]
+        },
+        {
+            id: "excitation",
+            title: "Excitation and inhibition",
+            situation: "A precise movement requires activation of some neuronal groups while the activity of others is limited.",
+            stages: [
+                {
+                    title: "Selectivity of neural control",
+                    questions: [
+                        "Why is activation alone insufficient for precise neural regulation?",
+                        "What functional role does inhibition play?",
+                        "Why is the balance of excitatory and inhibitory influences important for neural networks?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Indiscriminate activation could recruit competing motor programmes and muscles. A precise movement requires selection of the appropriate neuronal groups, an appropriate response magnitude, and coordinated timing.",
+                "Excitatory influences generally increase the probability of an action potential, whereas inhibitory influences limit it and regulate signal transmission through the network. Inhibition is an active physiological process, not simply the absence of excitation.",
+                "Their coordination restrains excessive activity and helps select relevant signals. For example, inhibitory circuits can reduce antagonist activity during movement. This balance is dynamic and depends on the task and network state; it does not mean equal numbers of excitatory and inhibitory signals."
+            ]
+        },
+        {
+            id: "synapse",
+            title: "Synaptic transmission",
+            situation: "An action potential has reached the presynaptic terminal of a chemical synapse. Reconstruct the causal sequence of signal transmission.",
+            stages: [
+                {
+                    title: "From an electrical signal to chemical transmission",
+                    questions: [
+                        "Arrange the events in order: what must happen before each subsequent event?"
+                    ]
+                }
+            ],
+            interaction: {
+                type: "sequence",
+                steps: [
+                    "Arrival of the action potential",
+                    "Opening of voltage-gated Ca²⁺ channels",
+                    "Ca²⁺ influx",
+                    "Neurotransmitter exocytosis",
+                    "Transmitter diffusion across the synaptic cleft",
+                    "Binding to postsynaptic receptors",
+                    "Change in postsynaptic conductance/potential"
+                ]
+            },
+            explanation: [
+                "Depolarisation of the presynaptic terminal opens voltage-gated calcium channels. Calcium entry triggers fusion of release-ready synaptic vesicles with the membrane and neurotransmitter exocytosis.",
+                "The transmitter crosses the cleft and binds to receptors on the postsynaptic cell. Receptor activation changes ionic conductance directly or through intracellular mechanisms. The effect depends on receptor properties and ionic gradients; it is not necessarily excitatory and does not necessarily generate another action potential.",
+                "If calcium entry is substantially reduced, transmitter release decreases even when an action potential arrives. This illustrates why the electrical event must engage the secretion mechanism before a postsynaptic response can occur."
+            ]
+        },
+        {
+            id: "integration",
+            title: "Neural integration",
+            situation: "Signals from several receptors arrive in the CNS simultaneously. Some influences favour a response, whereas others limit it.",
+            stages: [
+                {
+                    title: "Explain the resulting response",
+                    questions: [
+                        "Why can the final response not be explained by a single input signal alone?",
+                        "What does neural integration mean?",
+                        "How do excitatory and inhibitory influences contribute to the final reaction?"
+                    ]
+                }
+            ],
+            interaction: {
+                type: "choice",
+                prompt: "Select the most accurate explanation.",
+                options: [
+                    {
+                        text: "The strongest input signal always determines the result.",
+                        correct: false,
+                        feedback: "A strong input may matter, but its effect depends on other inputs, inhibition, and network state. Signal strength alone cannot explain the result."
+                    },
+                    {
+                        text: "The CNS combines excitatory and inhibitory influences according to their timing, location, and the current state of neural networks.",
+                        correct: true,
+                        feedback: "Correct. Spatial and temporal interactions between inputs change neuronal activity, while connections between neurons organise a coordinated response. Integration is more than simply counting signals."
+                    },
+                    {
+                        text: "Inhibition switches off the entire CNS and therefore does not contribute to the response.",
+                        correct: false,
+                        feedback: "Inhibitory influences act selectively and help shape the response. Limiting activity in particular circuits can help other circuits perform the required function."
+                    },
+                    {
+                        text: "Each receptor independently specifies a complete motor command.",
+                        correct: false,
+                        feedback: "Receptors report stimuli. Transforming sensory input into coordinated commands requires central processing and interactions between neural networks."
+                    }
+                ]
+            },
+            explanation: [
+                "Neural integration combines and transforms incoming signals within a neuron and a network. Input intensity, arrival time, synaptic location, and the cell's current state all matter.",
+                "Excitatory and inhibitory synaptic influences jointly change the probability and pattern of firing. Consequently, the same sensory input can produce different responses when combined with different additional inputs.",
+                "At the network level, coordinated activity across many neurons selects and adjusts the response. Treating a single input as its universal cause overlooks this organisation."
+            ]
+        },
+        {
+            id: "integrative",
+            title: "An integrative case",
+            situation: "A person walks over uneven ground, unexpectedly steps on a small object, adjusts their foot position, and maintains balance.",
+            stages: [
+                {
+                    title: "What information enters the nervous system?",
+                    questions: [
+                        "Which changes do cutaneous receptors and proprioceptors detect?",
+                        "What is the role of afferent pathways? Which other sensory systems help maintain balance?"
+                    ]
+                },
+                {
+                    title: "What happens in the CNS?",
+                    data: "Pressure on the sole, muscle length, and muscle tension change together. Information about head position and the visual surroundings is also available to the nervous system.",
+                    questions: [
+                        "How does the CNS integrate these signals?",
+                        "Why are coordinated excitatory and inhibitory influences needed to select a response?"
+                    ]
+                },
+                {
+                    title: "How is the motor response generated and adjusted?",
+                    data: "Foot, leg, and trunk muscles change their activity, redistributing the load. Movement continues.",
+                    questions: [
+                        "Trace the command along efferent pathways towards the muscles acting as effectors.",
+                        "How does sensory feedback help evaluate the result and make subsequent corrections?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Cutaneous receptors report contact and pressure; proprioceptors report muscle state and movement of body segments. Vestibular and visual signals supplement estimates of body position. Afferent pathways deliver this information to the CNS.",
+                "Spinal and supraspinal networks, including brainstem and cerebellar mechanisms, combine sensory input with the ongoing motor task. Excitation and inhibition help coordinate muscle groups and scale the correction. Rapid responses work alongside subsequent conscious control.",
+                "Efferent signals alter muscle-effector activity through motor fibres and neuromuscular transmission. Foot movement and changes in postural activity follow. New sensory input reports the result, allowing further correction. The diagram describes functional connections; many real processes occur in parallel and form closed control loops."
+            ],
+            diagram: [
+                "Stimuli / environmental changes",
+                "Receptors",
+                "Afferent pathways",
+                "CNS and integration",
+                "Efferent pathways",
+                "Effectors",
+                "Response",
+                "Sensory feedback",
+                "Subsequent correction"
+            ]
+        }
+    ],
+    sources: [
+        {
+            title: "Neuroscience: Chemical Synapses",
+            href: "https://www.ncbi.nlm.nih.gov/books/NBK11009/"
+        },
+        {
+            title: "Physiology, Withdrawal Response",
+            href: "https://www.ncbi.nlm.nih.gov/books/NBK544292/"
+        }
+    ]
+};
+const __TURBOPACK__default__export__ = lesson;
+}),
+"[project]/content/modules/1/cases/kz.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+const lesson = {
+    kind: "cases",
+    title: "Ситуациялық тапсырмалар. Нейрофизиологияға кіріспе",
+    moduleTitle: "Модуль 1",
+    introduction: "Жағдайды талдап, жүйке жүйесінің функционалдық буындары арасындағы байланысты анықтаңыз және жауаптың механизмін түсіндіріңіз. Көп кезеңді тапсырмаларда қосымша мәліметтер біртіндеп ашылады. Өз шешіміңізді тұжырымдағаннан кейін оны талдаумен салыстырып, тапсырманың орындалғанын белгілеңіз.",
+    ui: {
+        progress: "Ситуациялық тапсырмалар",
+        completed: "аяқталды",
+        navigation: "Тапсырмаға жылдам өту",
+        case: "Тапсырма",
+        situation: "Жағдай",
+        stage: "Кезең",
+        answer: "Сіздің шешіміңіз және түсіндірмеңіз",
+        placeholder: "Оқиғалардың өзара байланысын және нәтижесінің себебін түсіндіріңіз…",
+        note: "Еркін жауап талдаумен өз бетінше салыстыруға арналған және автоматты түрде бағаланбайды. Жауаптар мен орындалу барысы бет жаңартылғанға немесе тіл ауыстырылғанға дейін ғана сақталады.",
+        next: "Келесі кезеңді көрсету",
+        show: "Талдауды көрсету",
+        hide: "Талдауды жасыру",
+        explanation: "Физиологиялық талдау",
+        complete: "Тапсырма орындалды",
+        done: "Орындалды",
+        check: "Шешімді тексеру",
+        reset: "Қалпына келтіру",
+        undo: "Соңғы қадамды болдырмау",
+        available: "Оқиғаларды ретімен таңдаңыз",
+        selected: "Сіз құрастырған реттілік",
+        empty: "Оқиғалар реттілігі әлі құрастырылған жоқ.",
+        correct: "Дұрыс. Реттілік электрлік сигналдан химиялық берілуге, одан постсинапстық жауапқа өтуді көрсетеді.",
+        incorrect: "Реттілік әзірше дұрыс емес. Медиатордың бөлінуін не іске қосатынын және постсинапстық рецепторлар белсенгенге дейін не болуы керектігін ойластырыңыз. Қайта орындаңыз немесе талдауды ашыңыз.",
+        incomplete: "Тексеру алдында барлық оқиғаны қосыңыз.",
+        choose: "Алдымен түсіндірмені таңдаңыз.",
+        gate: "Алдымен ашылған әр кезеңнің сұрақтарына жауап жазыңыз.",
+        sequenceGate: "Талдауды ашу үшін толық реттілікті құрастырып, тексеріңіз.",
+        choiceGate: "Талдауды ашу үшін ойыңызды жазып, түсіндірмені таңдаңыз және шешімді тексеріңіз.",
+        diagram: "Функционалдық сызба",
+        sources: "Оқу дереккөздері"
+    },
+    cases: [
+        {
+            id: "afferent",
+            title: "Афференттік буын",
+            situation: "Терінің белгілі бір аймағын зерттеу кезінде тітіркендіргіш рецепторларға әсер етеді, бірақ олардан шығатын ақпарат орталық жүйке жүйесіне жетпейді.",
+            stages: [
+                {
+                    title: "Ақпараттың өту жолын анықтаңыз",
+                    questions: [
+                        "Қай функционалдық буынның қызметі бұзылған?",
+                        "Қалыпты жағдайда ақпарат қай бағытта беріледі?",
+                        "Бұл жағдайдың эфференттік жол қызметінің бұзылуынан айырмашылығы қандай?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Ең алдымен афференттік буынды талдау қажет: ол сенсорлық ақпаратты рецепторлардан орталық жүйке жүйесіне (ОЖЖ) жеткізеді. Теріге әсердің болуы ақпараттың орталық құрылымдарға сәтті жеткенін өздігінен дәлелдемейді.",
+                "Қалыпты жағдайда рецептор әсерді электрлік жауапқа түрлендіреді, ал сезгіш талшықтар ақпаратты жұлынға немесе миға өткізеді. Бұл жолдың шеткі бөлігі шеткі жүйке жүйесіне жатады.",
+                "Эфференттік жол бұзылғанда мәселе ОЖЖ-ден атқарушы мүшеге пәрменнің берілуіне қатысты болады; сенсорлық ақпарат қалыпты түсуі мүмкін. Берілген мәліметтер талданатын функционалдық буынды анықтауға мүмкіндік береді, бірақ зақымның орнын немесе клиникалық диагнозды белгілеуге жеткіліксіз. Рецептор қызметінің сақталғанын да растау қажет."
+            ]
+        },
+        {
+            id: "efferent",
+            title: "Эфференттік буын",
+            situation: "Сенсорлық ақпарат ОЖЖ-ге түсіп, өңделді, алайда атқарушы мүше тиісті жүйкелік пәрменді алған жоқ.",
+            stages: [
+                {
+                    title: "Пәрменнен әрекетке дейін",
+                    questions: [
+                        "Функционалдық тізбектің қай буынын талдау қажет?",
+                        "Эфференттік жолмен сигнал қайда бағытталады?",
+                        "Эффектордың эфференттік жолдан айырмашылығы қандай?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Эфференттік буынды, яғни басқарушы сигналдың ОЖЖ-ден шеткі атқарушы мүшеге берілуін талдау қажет. Сенсорлық кірістің және орталық өңдеудің болуы пәрменнің мүшеге жеткізілуіне өздігінен кепілдік бермейді.",
+                "Эфференттік жол сигналды өткізеді, ал эффектор жауапты жүзеге асырады. Мысалы, қозғалтқыш жүйке талшығы импульстерді қаңқа бұлшықетіне жеткізеді; жүйке-бұлшықеттік берілуден кейін бұлшықет талшықтары күш өндіреді. Басқа жүйелерде бірыңғай салалы бұлшықеттер немесе бездер эффектор бола алады.",
+                "Мүшеге пәрменнің жетпеуі мен мүшенің өздігінен жауап бере алмауы — әртүрлі функционалдық жағдайлар. Бұл тапсырмада мәселе пәрменнің берілуіне қатысты; бұзылыстың нақты себебін анықтауға мәлімет жеткіліксіз."
+            ]
+        },
+        {
+            id: "withdrawal",
+            title: "Қорғаныш рефлексі",
+            situation: "Адам абайсызда ыстық беткейге тиіп кетіп, қолын тез тартып алады.",
+            stages: [
+                {
+                    title: "Сенсорлық кіріс",
+                    questions: [
+                        "Тітіркендіргішті, рецепторды және афференттік буынды атаңыз. Ақпарат ОЖЖ-ге қалай түседі?"
+                    ]
+                },
+                {
+                    title: "Қозғалысты ұйымдастыру",
+                    data: "Қол бүгіле бастайды, ыстық беткеймен жанасу тоқтайды. Қозғалыс үшін бұлшықеттердің үйлесімді қызметі қажет.",
+                    questions: [
+                        "Орталық буынды, эфференттік жолды, эффекторды және жауапты анықтаңыз.",
+                        "Қарама-қарсы қозғалыстарды орындайтын бұлшықеттердің белсенділігі неліктен үйлесуі керек?"
+                    ]
+                },
+                {
+                    title: "Рефлекс және саналы қабылдау",
+                    data: "Одан кейін адам ауырсынуды сезінеді, қауіп көзін бағалайды және әрі қарай не істеу керектігін шешеді.",
+                    questions: [
+                        "Неліктен қорғаныш реакциясы тітіркендіргіш толық саналы талданғанға дейін басталуы мүмкін?",
+                        "Ми мен ақпараттың жоғары бағытта берілуі қандай рөл атқарады?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Тітіркендіргіш — тінге зақым келтіруі ықтимал жылулық әсер. Оны осы әсерге сезімтал терінің ноцицептивтік жүйке ұштары қабылдайды. Афференттік талшықтар сигналды жұлынға жеткізеді.",
+                "Жұлынның аралық нейрондар желілері сенсорлық кірісті мотонейрондармен байланыстырады. Эфференттік қозғалтқыш талшықтар мен жүйке-бұлшықеттік синапстар арқылы қолды әсер көзінен әкететін бұлшықеттер белсенеді. Қозу мен тежелудің үйлесуі, соның ішінде антагонистер белсенділігінің шектелуі, ұйымдасқан жауапты қамтамасыз етеді.",
+                "Бастапқы қорғаныш жауабы толық саналы талдауды күтпей, жұлындық тізбектер арқылы іске қосылуы мүмкін. Сонымен қатар ақпарат өрлеме жолдармен жоғары бөлімдерге жеткізіліп, ауырсынуды қабылдауға және жағдайды бағалауға қатысады. Ми төмендеуші жолдар арқылы жұлын желілеріне де ықпал етеді: рефлекс мидың қатыспайтынын білдірмейді."
+            ]
+        },
+        {
+            id: "feedback",
+            title: "Кері байланыс",
+            situation: "Адам көзін жұмып, қолын белгілі бір қалыпта ұстап тұруға тырысады. Аяқ-қолдың қалпы үнемі аздап өзгергенімен, жүйке жүйесі бұлшықеттердің белсенділігін түзетіп отырады.",
+            stages: [
+                {
+                    title: "Көру бақылауынсыз реттеу",
+                    questions: [
+                        "Жүйке жүйесі аяқ-қолдың қалпы туралы ақпаратты қайдан алады?",
+                        "Кері байланыс не үшін қажет?",
+                        "Мұндай ақпараттың түсуі едәуір бұзылғанда реттеу дәлдігі қалай өзгереді?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Проприоцептивтік ақпарат негізінен бұлшықет ұзындығы мен оның өзгерістерін хабарлайтын бұлшықет ұршықтарынан және керілуге сезімтал сіңірлік мүшелерден түседі. Буын және тері рецепторлары да аяқ-қолдың қалпы мен қозғалысын бағалауға қатысады.",
+                "Сенсорлық кері байланыс әрекеттің нақты нәтижесі туралы мәлімет береді. Орталық желілер бұл ақпаратты қозғалыс міндетімен бірге пайдаланып, бұлшықеттердің белсенділігін түзетеді: қалыптың ауытқуы басқарушы ықпалдардың өзгеруіне әкеледі.",
+                "Мұндай кіріс едәуір азайса, түзету дәлдігі төмендейді, ауытқуларды анықтау мен өтеу қиындайды. Көзді жұму көру арқылы өтемдеуді шектейді, бірақ қалған барлық сенсорлық және орталық механизмдерді жоймайды. Бұл — функционалдық түсіндірме, диагноз емес."
+            ]
+        },
+        {
+            id: "excitation",
+            title: "Қозу және тежелу",
+            situation: "Дәл қозғалысты орындау үшін нейрондардың бір топтарын белсендіріп, сол мезетте басқа топтардың белсенділігін шектеу қажет.",
+            stages: [
+                {
+                    title: "Жүйкелік реттеудің таңдамалылығы",
+                    questions: [
+                        "Неліктен дәл жүйкелік реттеу үшін тек белсендіру жеткіліксіз?",
+                        "Тежелудің функционалдық рөлі қандай?",
+                        "Қоздырушы және тежеуші ықпалдардың теңгерімі нейрондық желілер үшін неліктен маңызды?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Белсенділіктің таңдамай күшеюі өзара бәсекелес қозғалыс бағдарламалары мен бұлшықеттерді іске қосуы мүмкін. Дәл қозғалыс тиісті нейрондық топтарды таңдауды, жауап күшін сәйкестендіруді және олардың жұмыс уақытын үйлестіруді талап етеді.",
+                "Қоздырушы ықпалдар әдетте әрекет потенциалының пайда болу ықтималдығын арттырады, ал тежеуші ықпалдар оны шектеп, желідегі сигналдардың берілуін реттейді. Тежелу — қозудың жай ғана болмауы емес, белсенді физиологиялық үдеріс.",
+                "Осы ықпалдардың үйлесуі шамадан тыс белсенділікті шектеп, маңызды сигналдарды бөліп көрсетуге көмектеседі. Мысалы, қозғалыс кезінде тежеуші тізбектер антагонистердің белсенділігін төмендете алады. Теңгерім динамикалық сипатта болады: ол міндет пен желі күйіне тәуелді және қоздырушы, тежеуші сигналдар санының теңдігін білдірмейді."
+            ]
+        },
+        {
+            id: "synapse",
+            title: "Синапстық берілу",
+            situation: "Әрекет потенциалы химиялық синапстың пресинапстық ұшына жетті. Сигнал берілуінің себеп-салдарлық реттілігін қалпына келтіріңіз.",
+            stages: [
+                {
+                    title: "Электрлік сигналдан химиялық берілуге дейін",
+                    questions: [
+                        "Оқиғаларды ретімен орналастырыңыз: әрбір келесі оқиғаның алдында не болуы керек?"
+                    ]
+                }
+            ],
+            interaction: {
+                type: "sequence",
+                steps: [
+                    "Әрекет потенциалының келуі",
+                    "Потенциалға тәуелді Ca²⁺ арналарының ашылуы",
+                    "Ca²⁺ иондарының ішке енуі",
+                    "Нейромедиатордың экзоцитозы",
+                    "Медиатордың синапстық саңылау арқылы диффузиясы",
+                    "Постсинапстық рецепторлармен байланысу",
+                    "Постсинапстық өткізгіштіктің/потенциалдың өзгеруі"
+                ]
+            },
+            explanation: [
+                "Пресинапстық ұштың деполяризациясы потенциалға тәуелді кальций арналарын ашады. Ca²⁺ иондарының енуі бөлінуге дайын синапстық көпіршіктердің мембранамен қосылуын және нейромедиатордың экзоцитозын іске қосады.",
+                "Медиатор синапстық саңылаудан өтіп, постсинапстық жасушаның рецепторларымен байланысады. Олардың белсенуі иондық өткізгіштікті тікелей немесе жасушаішілік механизмдер арқылы өзгертеді. Нәтиже рецептор мен иондық градиенттерге тәуелді; ол міндетті түрде қоздырушы болмайды және әрдайым жаңа әрекет потенциалын туындатпайды.",
+                "Ca²⁺ енуі едәуір шектелсе, әрекет потенциалы келгеннің өзінде медиатордың бөлінуі азаяды. Бұл постсинапстық жауап пайда болғанға дейін электрлік оқиғаның секреция механизмімен байланысуы неліктен қажет екенін көрсетеді."
+            ]
+        },
+        {
+            id: "integration",
+            title: "Жүйкелік ақпараттың интеграциясы",
+            situation: "ОЖЖ-ге бірнеше рецептордан сигналдар бір мезгілде түседі. Кейбір ықпалдар жауаптың қалыптасуына көмектеседі, ал басқалары оны шектейді.",
+            stages: [
+                {
+                    title: "Қорытынды реакцияны түсіндіріңіз",
+                    questions: [
+                        "Неліктен қорытынды жауапты тек бір кіріс сигналының әсерімен түсіндіруге болмайды?",
+                        "Жүйкелік ақпараттың интеграциясы нені білдіреді?",
+                        "Қоздырушы және тежеуші ықпалдар қорытынды реакцияның қалыптасуына қалай қатысады?"
+                    ]
+                }
+            ],
+            interaction: {
+                type: "choice",
+                prompt: "Ең дұрыс түсіндірмені таңдаңыз.",
+                options: [
+                    {
+                        text: "Қорытынды нәтижені әрқашан ең күшті кіріс сигналы анықтайды.",
+                        correct: false,
+                        feedback: "Күшті кіріс маңызды болуы мүмкін, бірақ оның әсері басқа кірістерге, тежелуге және желінің күйіне тәуелді. Нәтижені түсіндіру үшін сигналдың күші ғана жеткіліксіз."
+                    },
+                    {
+                        text: "ОЖЖ қоздырушы және тежеуші ықпалдарды олардың уақытын, орнын және нейрондық желілердің ағымдағы күйін ескере отырып біріктіреді.",
+                        correct: true,
+                        feedback: "Дұрыс. Кірістердің кеңістіктік және уақыттық өзара әсері нейрондардың белсенділігін өзгертеді, ал нейронаралық байланыстар үйлесімді реакцияны қалыптастырады. Интеграция сигналдарды жай санаумен шектелмейді."
+                    },
+                    {
+                        text: "Тежелу бүкіл ОЖЖ-ні өшіреді, сондықтан жауаптың қалыптасуына қатыспайды.",
+                        correct: false,
+                        feedback: "Тежеуші ықпалдар таңдамалы әсер етіп, жауапты реттеуге қатысады. Белгілі бір тізбектердің белсенділігін шектеу басқа тізбектердің қажетті қызметті орындауына көмектеседі."
+                    },
+                    {
+                        text: "Әр рецептор дайын қозғалыс пәрменін дербес анықтайды.",
+                        correct: false,
+                        feedback: "Рецепторлар әсерлер туралы ақпарат береді. Сенсорлық кірісті үйлесімді пәрмендерге айналдыру орталық өңдеуді және нейрондық желілердің өзара әрекеттесуін талап етеді."
+                    }
+                ]
+            },
+            explanation: [
+                "Жүйкелік ақпараттың интеграциясы — нейрон мен желіге түсетін сигналдарды біріктіру және түрлендіру. Кірістің қарқындылығымен қатар оның түсу уақыты, синапстық байланыстың орны және жасушаның ағымдағы күйі маңызды.",
+                "Қоздырушы және тежеуші синапстық ықпалдар импульстердің пайда болу ықтималдығы мен сипатын бірлесіп өзгертеді. Сондықтан бірдей сенсорлық кіріс басқа кірістердің әртүрлі үйлесімінде әртүрлі реакция туындатуы мүмкін.",
+                "Желі деңгейінде көптеген нейрондардың үйлесімді белсенділігі жауапты таңдауды және реттеуді қамтамасыз етеді. Жалғыз сигналды әмбебап себеп деп қарастыру осы ұйымдасуды ескермейді."
+            ]
+        },
+        {
+            id: "integrative",
+            title: "Интегративтік тапсырма",
+            situation: "Адам тегіс емес жермен жүріп келе жатып, күтпеген жерден шағын затты басып кетеді, табанының қалпын өзгертеді және тепе-теңдігін сақтайды.",
+            stages: [
+                {
+                    title: "Жүйке жүйесіне қандай ақпарат түседі?",
+                    questions: [
+                        "Тері рецепторлары мен проприорецепторлар қандай өзгерістерді қабылдайды?",
+                        "Афференттік жолдардың рөлі қандай? Тепе-теңдікті сақтауға тағы қандай сенсорлық жүйелер көмектеседі?"
+                    ]
+                },
+                {
+                    title: "ОЖЖ-де ақпаратпен не болады?",
+                    data: "Табанға түсетін қысым, бұлшықеттердің ұзындығы мен керілуі бір мезгілде өзгерді. Жүйке жүйесіне бастың қалпы және көзге көрінетін орта туралы ақпарат та қолжетімді.",
+                    questions: [
+                        "ОЖЖ осы сигналдарды қалай біріктіреді?",
+                        "Жауапты таңдау үшін қоздырушы және тежеуші ықпалдардың үйлесуі неліктен қажет?"
+                    ]
+                },
+                {
+                    title: "Қозғалыс жауабы қалай қалыптасады және түзетіледі?",
+                    data: "Табан, сирақ және тұлға бұлшықеттерінің белсенділігі өзгеріп, жүктеме қайта бөлінді. Қозғалыс жалғасуда.",
+                    questions: [
+                        "Пәрменнің эфференттік жолдар арқылы эффектор ретіндегі бұлшықеттерге берілуін сипаттаңыз.",
+                        "Сенсорлық кері байланыс нәтижені бағалауға және кейінгі түзетуге қалай көмектеседі?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Тері рецепторлары жанасу мен қысым туралы, ал проприорецепторлар бұлшықеттердің күйі және дене бөліктерінің қозғалысы туралы сигнал береді. Вестибулярлық және көру сигналдары дене қалпын бағалауды толықтырады. Афференттік жолдар осы мәліметтерді ОЖЖ-ге жеткізеді.",
+                "Жұлындық және жұлынүстілік желілер, соның ішінде ми бағаны мен мишық механизмдері, сенсорлық кірісті ағымдағы қозғалыс міндетімен біріктіреді. Қозу мен тежелу бұлшықет топтарын және түзету шамасын үйлестіруге көмектеседі; жылдам реакциялар кейінгі саналы басқарумен ұштасады.",
+                "Эфференттік сигналдар қозғалтқыш талшықтар мен жүйке-бұлшықеттік берілу арқылы бұлшықет-эффекторлардың белсенділігін өзгертеді. Табан қозғалып, дене қалпын ұстайтын бұлшықеттердің белсенділігі қайта бөлінеді. Жаңа сенсорлық кіріс нәтиже туралы хабарлап, түзетуді жалғастыруға мүмкіндік береді. Сызба функционалдық байланыстарды көрсетеді; нақты жүйеде көптеген үдеріс қатар жүріп, тұйық реттеу контурларын құрайды."
+            ],
+            diagram: [
+                "Тітіркендіргіштер / орта өзгерістері",
+                "Рецепторлар",
+                "Афференттік жолдар",
+                "ОЖЖ және интеграция",
+                "Эфференттік жолдар",
+                "Эффекторлар",
+                "Жауап",
+                "Сенсорлық кері байланыс",
+                "Кейінгі түзету"
+            ]
+        }
+    ],
+    sources: [
+        {
+            title: "Neuroscience: Chemical Synapses",
+            href: "https://www.ncbi.nlm.nih.gov/books/NBK11009/"
+        },
+        {
+            title: "Physiology, Withdrawal Response",
+            href: "https://www.ncbi.nlm.nih.gov/books/NBK544292/"
+        }
+    ]
+};
+const __TURBOPACK__default__export__ = lesson;
+}),
+"[project]/content/modules/1/cases/ru.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+const lesson = {
+    kind: "cases",
+    title: "Ситуационные задачи. Введение в нейрофизиологию",
+    moduleTitle: "Модуль 1",
+    introduction: "Проанализируйте ситуацию, определите связи между звеньями нервной системы и объясните механизм ответа. В многоэтапных задачах новые данные открываются постепенно. После собственного решения сравните рассуждение с разбором и отметьте задачу как выполненную.",
+    ui: {
+        progress: "Ситуационные задачи",
+        completed: "завершено",
+        navigation: "Быстрый переход к задаче",
+        case: "Задача",
+        situation: "Ситуация",
+        stage: "Этап",
+        answer: "Ваше решение и объяснение",
+        placeholder: "Объясните, как связаны события и почему возникает такой результат…",
+        note: "Свободный ответ предназначен для самостоятельного сравнения с разбором и не оценивается автоматически. Ответы и прогресс сохраняются только до перезагрузки страницы или смены языка.",
+        next: "Показать следующий этап",
+        show: "Показать разбор",
+        hide: "Скрыть разбор",
+        explanation: "Физиологический разбор",
+        complete: "Задача выполнена",
+        done: "Выполнено",
+        check: "Проверить решение",
+        reset: "Сбросить",
+        undo: "Отменить последний шаг",
+        available: "Выберите события по порядку",
+        selected: "Ваша последовательность",
+        empty: "Последовательность пока не составлена.",
+        correct: "Верно. Последовательность отражает переход от электрического сигнала к химической передаче и постсинаптическому ответу.",
+        incorrect: "Порядок пока неверен. Подумайте, какое событие запускает выделение медиатора и что должно произойти до активации постсинаптических рецепторов. Попробуйте снова или откройте разбор.",
+        incomplete: "Добавьте все события перед проверкой.",
+        choose: "Сначала выберите объяснение.",
+        gate: "Сначала сформулируйте ответ на вопросы каждого открытого этапа.",
+        sequenceGate: "Составьте полную последовательность и проверьте её, чтобы открыть разбор.",
+        choiceGate: "Запишите рассуждение, выберите объяснение и проверьте решение, чтобы открыть разбор.",
+        diagram: "Функциональная схема",
+        sources: "Учебные источники"
+    },
+    cases: [
+        {
+            id: "afferent",
+            title: "Афферентное звено",
+            situation: "При исследовании определённого участка кожи раздражитель действует на рецепторы, однако информация от них не достигает центральной нервной системы.",
+            stages: [
+                {
+                    title: "Проследите путь информации",
+                    questions: [
+                        "Какое функциональное звено нарушено?",
+                        "В каком направлении в норме передаётся информация?",
+                        "Чем эта ситуация отличается от нарушения эфферентного пути?"
+                    ]
+                }
+            ],
+            explanation: [
+                "В первую очередь следует анализировать афферентное звено: оно передаёт сенсорную информацию от рецепторов к центральной нервной системе (ЦНС). Воздействие на кожу ещё не означает, что информация успешно достигла центральных структур.",
+                "В норме рецептор преобразует воздействие в электрический ответ, а чувствительные волокна проводят информацию к спинному или головному мозгу. Периферическая часть этого пути относится к периферической нервной системе.",
+                "При нарушении эфферентного пути проблема относится к передаче команды от ЦНС к исполнительному органу: сенсорная информация при этом может поступать нормально. По условию можно определить функциональное звено для анализа, но нельзя установить место повреждения или клинический диагноз; также необходимо подтвердить сохранность рецепции."
+            ]
+        },
+        {
+            id: "efferent",
+            title: "Эфферентное звено",
+            situation: "Сенсорная информация поступила в ЦНС и была обработана, но исполнительный орган не получил соответствующую нервную команду.",
+            stages: [
+                {
+                    title: "От команды к действию",
+                    questions: [
+                        "Какое звено функциональной цепи следует анализировать?",
+                        "Куда направляется сигнал по эфферентному пути?",
+                        "Чем эффектор отличается от эфферентного пути?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Следует анализировать эфферентное звено — передачу управляющего сигнала от ЦНС к периферическому исполнительному органу. Наличие сенсорного входа и центральной обработки само по себе не гарантирует доставки команды.",
+                "Эфферентный путь проводит сигнал, а эффектор выполняет ответ. Например, двигательное нервное волокно проводит импульсы к скелетной мышце, а мышечные волокна после нервно-мышечной передачи развивают силу. В других системах эффекторами могут быть гладкие мышцы или железы.",
+                "Отсутствие команды у органа и неспособность самого органа ответить — разные функциональные ситуации. Здесь условие указывает на передачу команды; данных для определения конкретной причины нарушения недостаточно."
+            ]
+        },
+        {
+            id: "withdrawal",
+            title: "Защитный рефлекс",
+            situation: "Человек случайно касается горячей поверхности и быстро отдёргивает руку.",
+            stages: [
+                {
+                    title: "Сенсорный вход",
+                    questions: [
+                        "Назовите раздражитель, рецептор и афферентное звено. Как информация поступает в ЦНС?"
+                    ]
+                },
+                {
+                    title: "Организация движения",
+                    data: "Рука начинает сгибаться, контакт с горячей поверхностью прекращается. Для движения требуется согласованная работа мышц.",
+                    questions: [
+                        "Определите центральное звено, эфферентный путь, эффектор и ответ.",
+                        "Почему активность мышц, выполняющих противоположные движения, должна быть согласована?"
+                    ]
+                },
+                {
+                    title: "Рефлекс и осознание",
+                    data: "Человек затем осознаёт боль, оценивает источник опасности и решает, как действовать дальше.",
+                    questions: [
+                        "Почему защитная реакция может начаться до полного осознанного анализа раздражителя?",
+                        "Какую роль сохраняют головной мозг и восходящая передача информации?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Раздражитель — потенциально повреждающее тепловое воздействие. Его воспринимают чувствительные к такому воздействию ноцицептивные окончания кожи. Афферентные волокна передают сигнал в спинной мозг.",
+                "Спинальные сети вставочных нейронов связывают сенсорный вход с мотонейронами. Через эфферентные двигательные волокна и нервно-мышечные синапсы активируются мышцы, отводящие руку от источника воздействия. Согласование возбуждения и торможения, включая ограничение активности антагонистов, обеспечивает организованный ответ.",
+                "Начальный защитный ответ может запускаться спинальными цепями без ожидания полного осознанного анализа. Одновременно информация по восходящим путям передаётся в вышележащие отделы для восприятия боли и оценки ситуации. Головной мозг также влияет на спинальные сети нисходящими путями: рефлекс не означает отсутствия участия мозга."
+            ]
+        },
+        {
+            id: "feedback",
+            title: "Обратная связь",
+            situation: "Человек пытается удерживать руку в определённом положении с закрытыми глазами. Положение конечности постоянно немного изменяется, однако нервная система корректирует активность мышц.",
+            stages: [
+                {
+                    title: "Регуляция без зрительного контроля",
+                    questions: [
+                        "Откуда нервная система получает информацию о положении конечности?",
+                        "Зачем необходима обратная связь?",
+                        "Что произойдёт с точностью регуляции при существенном нарушении поступления такой информации?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Проприоцептивная информация поступает прежде всего от мышечных веретён, сигнализирующих о длине мышц и её изменениях, и сухожильных органов, чувствительных к натяжению. Информация от суставных и кожных рецепторов также помогает оценивать положение и движение конечности.",
+                "Сенсорная обратная связь сообщает о фактическом результате действия. Центральные сети используют её вместе с двигательной задачей для коррекции активности мышц: отклонение положения вызывает изменение управляющих влияний.",
+                "При существенном уменьшении такого входа коррекция становится менее точной, а отклонения труднее обнаружить и компенсировать. Закрытые глаза ограничивают зрительную компенсацию, но не выключают все остальные сенсорные и центральные механизмы. Это функциональное объяснение, а не диагноз."
+            ]
+        },
+        {
+            id: "excitation",
+            title: "Возбуждение и торможение",
+            situation: "Для выполнения точного движения необходимо активировать одни группы нейронов и одновременно ограничить активность других.",
+            stages: [
+                {
+                    title: "Избирательность нервной регуляции",
+                    questions: [
+                        "Почему одной активации недостаточно для точной нервной регуляции?",
+                        "Какую функциональную роль играет торможение?",
+                        "Почему баланс возбуждающих и тормозных влияний важен для нейронных сетей?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Неспецифическое усиление активности могло бы вовлечь конкурирующие двигательные программы и мышцы. Точное движение требует отбора нужных нейронных групп, соответствующей силы ответа и согласованного времени их работы.",
+                "Возбуждающие влияния обычно повышают вероятность генерации потенциала действия, а тормозные ограничивают её и регулируют передачу сигналов в сети. Торможение — активный физиологический процесс, а не просто отсутствие возбуждения.",
+                "Согласование этих влияний позволяет ограничивать избыточную активность и выделять значимые сигналы. Например, при движении тормозные цепи могут снижать активность антагонистов. Баланс динамичен: он зависит от задачи и состояния сети и не означает равенства числа возбуждающих и тормозных сигналов."
+            ]
+        },
+        {
+            id: "synapse",
+            title: "Синаптическая передача",
+            situation: "Потенциал действия достиг пресинаптического окончания химического синапса. Восстановите причинную последовательность передачи сигнала.",
+            stages: [
+                {
+                    title: "От электрического сигнала к химическому",
+                    questions: [
+                        "Расположите события по порядку: что должно произойти перед каждым следующим событием?"
+                    ]
+                }
+            ],
+            interaction: {
+                type: "sequence",
+                steps: [
+                    "Приход потенциала действия",
+                    "Открытие потенциал-зависимых Ca²⁺-каналов",
+                    "Вход Ca²⁺",
+                    "Экзоцитоз нейромедиатора",
+                    "Диффузия медиатора через синаптическую щель",
+                    "Связывание с постсинаптическими рецепторами",
+                    "Изменение постсинаптической проводимости/потенциала"
+                ]
+            },
+            explanation: [
+                "Деполяризация пресинаптического окончания открывает потенциал-зависимые кальциевые каналы. Вход Ca²⁺ запускает слияние готовых к выделению синаптических везикул с мембраной и экзоцитоз нейромедиатора.",
+                "Медиатор проходит через синаптическую щель и связывается с рецепторами постсинаптической клетки. Их активация изменяет ионную проводимость непосредственно либо через внутриклеточные механизмы. Результат зависит от рецептора и ионных градиентов; он не обязательно возбуждающий и не обязательно вызывает новый потенциал действия.",
+                "Если существенно ограничить вход Ca²⁺, выделение медиатора уменьшится даже при приходе потенциала действия. Это показывает, почему электрическое событие должно быть связано с механизмом секреции, прежде чем возникнет постсинаптический ответ."
+            ]
+        },
+        {
+            id: "integration",
+            title: "Интеграция информации",
+            situation: "В ЦНС одновременно поступают сигналы от нескольких рецепторов. Некоторые влияния способствуют формированию ответа, другие ограничивают его.",
+            stages: [
+                {
+                    title: "Объясните итоговую реакцию",
+                    questions: [
+                        "Почему итоговый ответ нельзя объяснить действием только одного входного сигнала?",
+                        "Что означает интеграция нервной информации?",
+                        "Как возбуждающие и тормозные влияния участвуют в формировании итоговой реакции?"
+                    ]
+                }
+            ],
+            interaction: {
+                type: "choice",
+                prompt: "Выберите наиболее корректное объяснение.",
+                options: [
+                    {
+                        text: "Итог всегда определяется самым сильным входным сигналом.",
+                        correct: false,
+                        feedback: "Сильный вход может быть значимым, но его действие зависит от других входов, торможения и состояния сети. Одной силы сигнала недостаточно для объяснения результата."
+                    },
+                    {
+                        text: "ЦНС объединяет возбуждающие и тормозные влияния с учётом их времени, места и текущего состояния нейронных сетей.",
+                        correct: true,
+                        feedback: "Верно. Пространственное и временное взаимодействие входов меняет активность нейронов, а связи между ними формируют согласованную реакцию. Интеграция не сводится к простому подсчёту сигналов."
+                    },
+                    {
+                        text: "Торможение выключает всю ЦНС, поэтому в формировании ответа оно не участвует.",
+                        correct: false,
+                        feedback: "Тормозные влияния действуют избирательно и участвуют в настройке ответа. Ограничение активности определённых цепей помогает другим цепям выполнять нужную функцию."
+                    },
+                    {
+                        text: "Каждый рецептор независимо задаёт готовую двигательную команду.",
+                        correct: false,
+                        feedback: "Рецепторы передают информацию о воздействиях. Преобразование сенсорного входа в согласованные команды требует центральной обработки и взаимодействия нейронных сетей."
+                    }
+                ]
+            },
+            explanation: [
+                "Интеграция нервной информации — объединение и преобразование поступающих сигналов в нейроне и сети. Значимы не только интенсивность входа, но и время его поступления, место синаптического контакта и текущее состояние клетки.",
+                "Возбуждающие и тормозные синаптические влияния совместно меняют вероятность и характер разрядов. Поэтому одинаковый сенсорный вход при разных сочетаниях других входов может приводить к различным реакциям.",
+                "На уровне сети согласованная активность множества нейронов обеспечивает выбор и настройку ответа. Утверждение о единственном сигнале как универсальной причине упускает эту организацию."
+            ]
+        },
+        {
+            id: "integrative",
+            title: "Интегративная задача",
+            situation: "Человек идёт по неровной поверхности, неожиданно наступает на небольшой предмет, изменяет положение стопы и сохраняет равновесие.",
+            stages: [
+                {
+                    title: "Какая информация поступает?",
+                    questions: [
+                        "Какие изменения воспринимают кожные рецепторы и проприорецепторы?",
+                        "Какова роль афферентных путей? Какие другие сенсорные системы помогают сохранять равновесие?"
+                    ]
+                },
+                {
+                    title: "Что происходит в ЦНС?",
+                    data: "Одновременно изменились давление на подошву, длина и натяжение мышц. Информация о положении головы и зрительном окружении также доступна нервной системе.",
+                    questions: [
+                        "Как ЦНС интегрирует эти сигналы?",
+                        "Почему для выбора ответа нужны согласованные возбуждающие и тормозные влияния?"
+                    ]
+                },
+                {
+                    title: "Как формируется и корректируется ответ?",
+                    data: "Мышцы стопы, голени и туловища изменили активность; распределение нагрузки стало другим. Движение продолжается.",
+                    questions: [
+                        "Проследите передачу команды по эфферентным путям к мышцам как эффекторам.",
+                        "Как сенсорная обратная связь помогает оценить результат и выполнить последующую коррекцию?"
+                    ]
+                }
+            ],
+            explanation: [
+                "Кожные рецепторы сигнализируют о контакте и давлении, проприорецепторы — о состоянии мышц и движении сегментов тела. Вестибулярные и зрительные сигналы дополняют оценку положения тела. Афферентные пути доставляют эти сведения в ЦНС.",
+                "Спинальные и надспинальные сети, включая стволовые и мозжечковые механизмы, объединяют сенсорный вход с текущей двигательной задачей. Возбуждение и торможение помогают согласовать мышечные группы и масштаб коррекции; быстрые реакции сочетаются с дальнейшим осознанным управлением.",
+                "Эфферентные сигналы через двигательные волокна и нервно-мышечную передачу изменяют активность мышц-эффекторов. Возникает движение стопы и перераспределение позной активности. Новый сенсорный вход сообщает о результате, позволяя продолжать коррекцию. Схема описывает функциональные связи; в реальной системе многие процессы идут параллельно и образуют замкнутые контуры."
+            ],
+            diagram: [
+                "Раздражители / изменения среды",
+                "Рецепторы",
+                "Афферентные пути",
+                "ЦНС и интеграция",
+                "Эфферентные пути",
+                "Эффекторы",
+                "Ответ",
+                "Сенсорная обратная связь",
+                "Последующая коррекция"
+            ]
+        }
+    ],
+    sources: [
+        {
+            title: "Neuroscience: Chemical Synapses",
+            href: "https://www.ncbi.nlm.nih.gov/books/NBK11009/"
+        },
+        {
+            title: "Physiology, Withdrawal Response",
+            href: "https://www.ncbi.nlm.nih.gov/books/NBK544292/"
+        }
+    ]
+};
+const __TURBOPACK__default__export__ = lesson;
+}),
+"[project]/content/modules/1/interactive.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "createInteractiveLesson",
+    ()=>createInteractiveLesson
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/sections.ts [app-rsc] (ecmascript)");
+;
+function createInteractiveLesson(language) {
+    const t = (copy)=>copy[language === "RU" ? 0 : language === "EN" ? 1 : 2];
+    const node = (id, label, explanation)=>({
+            id,
+            label: t(label),
+            explanation: t(explanation)
+        });
+    return {
+        kind: "interactive",
+        title: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getSectionTitle"])("interactive", language),
+        introduction: t([
+            "Исследуйте организацию нервной системы, путь сигнала и взаимодействие нервных влияний. Схемы связаны с теорией Модуля 1; это учебные модели, а не анатомические изображения или количественные симуляции.",
+            "Explore nervous system organisation, signal pathways and interacting neural inputs. These diagrams follow Module 1 theory: they are teaching models, not anatomical images or quantitative simulations.",
+            "Жүйке жүйесінің ұйымдасуын, сигнал жолын және жүйкелік әсерлердің өзара әрекетін зерттеңіз. Сызбалар Модуль 1 теориясына негізделген: бұлар анатомиялық кескіндер немесе сандық симуляциялар емес, оқу модельдері."
+        ]),
+        ui: {
+            instructions: t([
+                "Как работать со схемой",
+                "How to use the diagram",
+                "Сызбамен жұмыс істеу"
+            ]),
+            select: t([
+                "Выберите элемент",
+                "Select an element",
+                "Элементті таңдаңыз"
+            ]),
+            explanation: t([
+                "Пояснение",
+                "Explanation",
+                "Түсіндірме"
+            ]),
+            previous: t([
+                "Предыдущий этап",
+                "Previous step",
+                "Алдыңғы кезең"
+            ]),
+            next: t([
+                "Следующий этап",
+                "Next step",
+                "Келесі кезең"
+            ]),
+            reset: t([
+                "К началу схемы",
+                "Reset diagram",
+                "Сызбаның басына"
+            ]),
+            step: t([
+                "Этап",
+                "Step",
+                "Кезең"
+            ]),
+            theory: t([
+                "Открыть соответствующий фрагмент теории",
+                "Open the related theory passage",
+                "Теорияның тиісті бөлігін ашу"
+            ]),
+            returnToCenter: t([
+                "Вернуть информацию в ЦНС",
+                "Return information to the CNS",
+                "Ақпаратты ОЖЖ-ге қайтару"
+            ]),
+            keyboard: t([
+                "Клавиатура: Tab и Shift+Tab — переход между кнопками, Enter или пробел — выбор. Выбранный элемент отмечен рамкой и состоянием кнопки; пояснение находится под схемой.",
+                "Keyboard: Tab and Shift+Tab move between buttons; Enter or Space selects. A border and button state identify the selected element; its explanation appears below the diagram.",
+                "Пернетақта: Tab және Shift+Tab батырмалар арасында ауыстырады, Enter немесе бос орын таңдайды. Таңдалған элемент жиекпен және батырма күйімен белгіленеді; түсіндірме сызбаның астында беріледі."
+            ]),
+            active: t([
+                "Включено",
+                "On",
+                "Қосулы"
+            ]),
+            inactive: t([
+                "Выключено",
+                "Off",
+                "Өшірулі"
+            ]),
+            result: t([
+                "Что меняется в модели",
+                "What changes in the model",
+                "Модельде не өзгереді"
+            ])
+        },
+        organization: {
+            id: "organization",
+            title: t([
+                "1. Организация: ЦНС и ПНС",
+                "1. Organisation: CNS and PNS",
+                "1. Ұйымдасу: ОЖЖ және ШЖЖ"
+            ]),
+            anchor: "cns-pns",
+            instruction: t([
+                "Выберите структуру в одной из двух ветвей. Сравните её принадлежность и функцию. Обе ветви — части единой нервной системы.",
+                "Select a structure in either branch. Compare its division and function. Both branches belong to one nervous system.",
+                "Екі тармақтың біріндегі құрылымды таңдаңыз. Оның қай бөлімге жататынын және қызметін салыстырыңыз. Екі тармақ та біртұтас жүйке жүйесіне жатады."
+            ]),
+            root: t([
+                "Нервная система",
+                "Nervous system",
+                "Жүйке жүйесі"
+            ]),
+            groups: [
+                {
+                    id: "cns",
+                    title: t([
+                        "Центральная нервная система (ЦНС)",
+                        "Central nervous system (CNS)",
+                        "Орталық жүйке жүйесі (ОЖЖ)"
+                    ]),
+                    nodes: [
+                        node("brain", [
+                            "Головной мозг",
+                            "Brain",
+                            "Ми"
+                        ], [
+                            "Относится к ЦНС. Обрабатывает и интегрирует сигналы, участвует в организации движений, регуляции органов и высших нервных функциях.",
+                            "Part of the CNS. Processes and integrates signals and contributes to movement, organ regulation and higher nervous functions.",
+                            "ОЖЖ-ге жатады. Сигналдарды өңдеп, біріктіреді; қимылды ұйымдастыруға, мүшелерді реттеуге және жоғары жүйке қызметтеріне қатысады."
+                        ]),
+                        node("spinal", [
+                            "Спинной мозг",
+                            "Spinal cord",
+                            "Жұлын"
+                        ], [
+                            "Относится к ЦНС. Проводит информацию и содержит нейронные сети, обеспечивающие ряд рефлексов: это не только проводящий путь.",
+                            "Part of the CNS. Conducts information and contains circuits that mediate a range of reflexes: it is more than a conduction pathway.",
+                            "ОЖЖ-ге жатады. Ақпаратты өткізеді және бірқатар рефлекстерді іске асыратын нейрондық желілерді қамтиды: ол тек өткізгіш жол емес."
+                        ])
+                    ]
+                },
+                {
+                    id: "pns",
+                    title: t([
+                        "Периферическая нервная система (ПНС)",
+                        "Peripheral nervous system (PNS)",
+                        "Шеткі жүйке жүйесі (ШЖЖ)"
+                    ]),
+                    nodes: [
+                        node("nerves", [
+                            "Нервы",
+                            "Nerves",
+                            "Жүйкелер"
+                        ], [
+                            "Относятся к ПНС. Это пучки нервных волокон. Афферентные пути несут информацию к ЦНС, эфферентные — команды к мышцам и железам.",
+                            "Part of the PNS. Nerves are bundles of nerve fibres. Afferent pathways carry information towards the CNS; efferent pathways carry commands towards muscles and glands.",
+                            "ШЖЖ-ге жатады. Жүйкелер — жүйке талшықтарының шоғырлары. Афференттік жолдар ақпаратты ОЖЖ-ге, эфференттік жолдар бұйрықтарды бұлшықеттер мен бездерге жеткізеді."
+                        ]),
+                        node("ganglia", [
+                            "Ганглии",
+                            "Ganglia",
+                            "Ганглийлер"
+                        ], [
+                            "Относятся к ПНС. Ганглии — скопления тел нейронов вне центральной нервной системы.",
+                            "Part of the PNS. Ganglia are clusters of neuronal cell bodies outside the central nervous system.",
+                            "ШЖЖ-ге жатады. Ганглийлер — орталық жүйке жүйесінен тыс орналасқан нейрон денелерінің шоғырлары."
+                        ]),
+                        node("endings", [
+                            "Нервные окончания",
+                            "Nerve endings",
+                            "Жүйке ұштары"
+                        ], [
+                            "Относятся к ПНС. Чувствительные и двигательные окончания участвуют в связи нервной системы с органами и тканями.",
+                            "Part of the PNS. Sensory and motor endings help connect the nervous system with organs and tissues.",
+                            "ШЖЖ-ге жатады. Сезімтал және қозғалтқыш ұштар жүйке жүйесінің мүшелермен және тіндермен байланысына қатысады."
+                        ])
+                    ]
+                }
+            ]
+        },
+        pathway: {
+            id: "pathway",
+            title: t([
+                "2. Путь сигнала и обратная связь",
+                "2. Signal pathway and feedback",
+                "2. Сигнал жолы және кері байланыс"
+            ]),
+            anchor: "cns-pns",
+            instruction: t([
+                "Проследите защитную реакцию на горячий предмет: выбирайте звенья или переходите по этапам. В конце верните информацию о результате в ЦНС кнопкой обратной связи.",
+                "Follow a protective response to a hot object: select nodes or move through the steps. At the end, return outcome information to the CNS using the feedback button.",
+                "Ыстық затқа қорғаныш реакциясын бақылаңыз: буындарды таңдаңыз немесе кезеңдермен өтіңіз. Соңында кері байланыс батырмасы арқылы нәтиже туралы ақпаратты ОЖЖ-ге қайтарыңыз."
+            ]),
+            nodes: [
+                node("receptor", [
+                    "Рецептор",
+                    "Receptor",
+                    "Рецептор"
+                ], [
+                    "Рецептор воспринимает воздействие горячего предмета и преобразует его в сигнал для нервной системы.",
+                    "A receptor detects the hot object's stimulus and converts it into a signal for the nervous system.",
+                    "Рецептор ыстық заттың әсерін қабылдап, оны жүйке жүйесіне арналған сигналға түрлендіреді."
+                ]),
+                node("afferent", [
+                    "Афферентный путь",
+                    "Afferent pathway",
+                    "Афференттік жол"
+                ], [
+                    "Сенсорная информация идёт от рецептора к ЦНС. Направление к центру отличает афферентный путь от эфферентного.",
+                    "Sensory information travels from the receptor towards the CNS. This inward direction distinguishes an afferent pathway from an efferent one.",
+                    "Сенсорлық ақпарат рецептордан ОЖЖ-ге бағытталады. Орталыққа бағытталуы афференттік жолды эфференттік жолдан ажыратады."
+                ]),
+                node("center", [
+                    "ЦНС: интеграция",
+                    "CNS: integration",
+                    "ОЖЖ: интеграция"
+                ], [
+                    "Сигналы обрабатываются в центральных сетях. Спинальные сети могут организовать отдёргивание руки, а обработка в головном мозге обеспечивает осознанное восприятие боли. Интеграция происходит в ЦНС, а не в отдельном органе после неё.",
+                    "Central circuits process the signals. Spinal circuits can organise hand withdrawal, while brain processing supports conscious pain perception. Integration takes place within the CNS, not in a separate organ after it.",
+                    "Орталық желілер сигналдарды өңдейді. Жұлын желілері қолды тартып алуды ұйымдастыра алады, ал мидағы өңдеу ауырсынуды саналы сезінуді қамтамасыз етеді. Интеграция ОЖЖ-ден кейінгі бөлек мүшеде емес, ОЖЖ ішінде жүреді."
+                ]),
+                node("efferent", [
+                    "Эфферентный путь",
+                    "Efferent pathway",
+                    "Эфференттік жол"
+                ], [
+                    "Команда направляется от ЦНС к исполнительному органу. В этом примере она поступает к мышцам руки.",
+                    "A command travels from the CNS towards an effector. In this example it reaches the arm muscles.",
+                    "Бұйрық ОЖЖ-ден атқарушы мүшеге бағытталады. Бұл мысалда ол қол бұлшықеттеріне жетеді."
+                ]),
+                node("effector", [
+                    "Эффектор и ответ",
+                    "Effector and response",
+                    "Эффектор және жауап"
+                ], [
+                    "Мышцы выполняют ответ: рука отдёргивается. В других реакциях эффекторами могут быть железы. Эффектор — исполнитель, а не сенсорный вход.",
+                    "Muscles carry out the response: the hand withdraws. Glands can be effectors in other responses. An effector produces an output rather than a sensory input.",
+                    "Бұлшықеттер жауапты орындайды: қол тартып алынады. Басқа реакцияларда бездер эффектор бола алады. Эффектор — сенсорлық кіріс емес, жауапты орындаушы."
+                ]),
+                node("feedback", [
+                    "Обратная связь",
+                    "Feedback",
+                    "Кері байланыс"
+                ], [
+                    "Информация о результате действия возвращается к центральным сетям и позволяет корректировать ответ. Это поступление информации, а не повторная двигательная команда.",
+                    "Information about the action's outcome returns to central circuits and allows the response to be adjusted. This is incoming information, not another motor command.",
+                    "Әрекет нәтижесі туралы ақпарат орталық желілерге қайтып, жауапты түзетуге мүмкіндік береді. Бұл — қайталанған қимыл бұйрығы емес, ақпараттың келуі."
+                ])
+            ],
+            loop: t([
+                "Обратная связь → ЦНС: интеграция → уточнение ответа. Линейная схема упрощает работу взаимодействующих нервных сетей.",
+                "Feedback → CNS integration → adjustment of the response. This linear diagram simplifies interacting neural networks.",
+                "Кері байланыс → ОЖЖ-дегі интеграция → жауапты нақтылау. Сызықтық сызба өзара әрекеттесетін жүйкелік желілер жұмысын жеңілдетіп көрсетеді."
+            ])
+        },
+        synapse: {
+            id: "synapse",
+            title: t([
+                "3. Передача через синапс",
+                "3. Transmission across a synapse",
+                "3. Синапс арқылы берілу"
+            ]),
+            anchor: "principles",
+            instruction: t([
+                "Выберите тип синапса и проследите передачу по этапам. Сравните роль медиатора и прямого прохождения тока. При смене типа схема начинается с первого этапа.",
+                "Choose a synapse type and follow transmission step by step. Compare transmitter action with direct current flow. Changing the type returns to the first step.",
+                "Синапс түрін таңдап, берілуді кезең-кезеңімен бақылаңыз. Медиатордың рөлін токтың тікелей өтуімен салыстырыңыз. Түрі өзгергенде сызба бірінші кезеңнен басталады."
+            ]),
+            modes: [
+                {
+                    id: "chemical",
+                    title: t([
+                        "Химический синапс",
+                        "Chemical synapse",
+                        "Химиялық синапс"
+                    ]),
+                    note: t([
+                        "Проведение по волокну и передача другой клетке — разные процессы.",
+                        "Conduction along a fibre and transmission to another cell are different processes.",
+                        "Талшық бойымен өткізу мен басқа жасушаға беру — бөлек үдерістер."
+                    ]),
+                    nodes: [
+                        node("arrival", [
+                            "Приход импульса",
+                            "Impulse arrival",
+                            "Импульстің келуі"
+                        ], [
+                            "Потенциал действия проводится по аксону и достигает пресинаптического окончания.",
+                            "An action potential travels along the axon and reaches the presynaptic terminal.",
+                            "Әрекет потенциалы аксон бойымен өткізіліп, пресинапстық ұшқа жетеді."
+                        ]),
+                        node("calcium", [
+                            "Вход Ca²⁺",
+                            "Ca²⁺ entry",
+                            "Ca²⁺ енуі"
+                        ], [
+                            "Приход потенциала действия вызывает вход кальция в окончание. Это связывает электрический сигнал с выделением медиатора.",
+                            "Arrival of the action potential triggers calcium entry into the terminal, linking the electrical signal to transmitter release.",
+                            "Әрекет потенциалының келуі ұшқа кальцийдің енуін туғызады. Бұл электрлік сигналды медиатордың бөлінуімен байланыстырады."
+                        ]),
+                        node("transmitter", [
+                            "Выделение медиатора",
+                            "Transmitter release",
+                            "Медиатордың бөлінуі"
+                        ], [
+                            "Нейромедиатор выделяется из пресинаптического окончания и передаёт сигнал через химическое взаимодействие.",
+                            "Neurotransmitter is released from the presynaptic terminal and carries the signal through chemical interaction.",
+                            "Нейромедиатор пресинапстық ұштан бөлініп, сигналды химиялық өзара әрекет арқылы жеткізеді."
+                        ]),
+                        node("binding", [
+                            "Связывание с рецепторами",
+                            "Receptor binding",
+                            "Рецепторлармен байланысу"
+                        ], [
+                            "Медиатор связывается с рецепторами постсинаптической мембраны. Это другой тип рецепторов, чем сенсорный рецептор в схеме защитного ответа.",
+                            "The transmitter binds to receptors on the postsynaptic membrane. These differ from the sensory receptor in the protective-response diagram.",
+                            "Медиатор постсинапстық мембрана рецепторларымен байланысады. Бұлар қорғаныш жауап сызбасындағы сенсорлық рецептордан өзгеше."
+                        ]),
+                        node("response", [
+                            "Изменение активности",
+                            "Activity changes",
+                            "Белсенділіктің өзгеруі"
+                        ], [
+                            "Активность принимающей клетки изменяется. Результат зависит от рецепторов и связанных механизмов; передача не обязательно вызывает возбуждение или новый потенциал действия.",
+                            "The receiving cell's activity changes. The effect depends on receptors and associated mechanisms; transmission does not necessarily cause excitation or a new action potential.",
+                            "Қабылдаушы жасушаның белсенділігі өзгереді. Нәтиже рецепторлар мен байланысты механизмдерге тәуелді; берілу міндетті түрде қозуды немесе жаңа әрекет потенциалын туғызбайды."
+                        ])
+                    ]
+                },
+                {
+                    id: "electrical",
+                    title: t([
+                        "Электрический синапс",
+                        "Electrical synapse",
+                        "Электрлік синапс"
+                    ]),
+                    note: t([
+                        "Для сравнения показано прохождение тока от одной клетки к другой; схема не задаёт универсальную односторонность электрических синапсов.",
+                        "Current flow from one cell to another is shown for comparison; the diagram does not imply that all electrical synapses are one-way.",
+                        "Салыстыру үшін токтың бір жасушадан екіншісіне өтуі көрсетілген; сызба барлық электрлік синапстар бірбағытты дегенді білдірмейді."
+                    ]),
+                    nodes: [
+                        node("cell", [
+                            "Электрическое изменение",
+                            "Electrical change",
+                            "Электрлік өзгеріс"
+                        ], [
+                            "Изменение электрического состояния одной клетки может влиять на связанную с ней клетку.",
+                            "A change in one cell's electrical state can influence a coupled cell.",
+                            "Бір жасушаның электрлік күйінің өзгерісі онымен байланысқан жасушаға әсер етуі мүмкін."
+                        ]),
+                        node("junction", [
+                            "Щелевые контакты",
+                            "Gap junctions",
+                            "Саңылаулы түйіспелер"
+                        ], [
+                            "Ток проходит между клетками через щелевые контакты. На этом этапе не требуется цепочка выделения медиатора и связывания с постсинаптическими рецепторами.",
+                            "Current passes between cells through gap junctions. This step does not require transmitter release followed by binding to postsynaptic receptors.",
+                            "Ток жасушалар арасында саңылаулы түйіспелер арқылы өтеді. Бұл кезеңде медиатордың бөлінуі мен постсинапстық рецепторларға байланысу тізбегі қажет емес."
+                        ]),
+                        node("coupled", [
+                            "Влияние на другую клетку",
+                            "Influence on the other cell",
+                            "Басқа жасушаға әсер"
+                        ], [
+                            "Прохождение тока влияет на электрическое состояние другой клетки. Сравните этот путь с химической передачей выше.",
+                            "Current flow influences the other cell's electrical state. Compare this pathway with chemical transmission above.",
+                            "Токтың өтуі басқа жасушаның электрлік күйіне әсер етеді. Бұл жолды жоғарыдағы химиялық берілумен салыстырыңыз."
+                        ])
+                    ]
+                }
+            ]
+        },
+        integration: {
+            id: "integration",
+            title: t([
+                "4. Возбуждение, торможение и интеграция",
+                "4. Excitation, inhibition and integration",
+                "4. Қозу, тежелу және интеграция"
+            ]),
+            anchor: "principles",
+            instruction: t([
+                "Включайте и выключайте два входа в нейрон. Сравните четыре сочетания и прочитайте, что можно заключить об ответе клетки.",
+                "Turn the two inputs to the neuron on and off. Compare all four combinations and read what can be concluded about the cell's response.",
+                "Нейронға келетін екі кірісті қосып, өшіріңіз. Төрт үйлесімді салыстырып, жасуша жауабы туралы қандай қорытынды жасауға болатынын оқыңыз."
+            ]),
+            excitation: t([
+                "Возбуждающее влияние",
+                "Excitatory input",
+                "Қоздырушы әсер"
+            ]),
+            inhibition: t([
+                "Тормозное влияние",
+                "Inhibitory input",
+                "Тежеуші әсер"
+            ]),
+            neuron: t([
+                "Нейрон: интеграция входов",
+                "Neuron: integrating inputs",
+                "Нейрон: кірістерді біріктіру"
+            ]),
+            note: t([
+                "Качественная модель: здесь нет расчёта потенциала, порога или частоты разрядов. Итог зависит от силы, времени, места действия входов и состояния клетки.",
+                "A qualitative model: membrane potential, threshold and firing frequency are not calculated. The outcome depends on input strength, timing, location and the cell's state.",
+                "Сапалық модель: мұнда потенциал, табалдырық немесе разряд жиілігі есептелмейді. Нәтиже кірістердің күшіне, уақытына, әсер ету орнына және жасуша күйіне тәуелді."
+            ]),
+            outcomes: [
+                t([
+                    "Оба показанных входа выключены. Это означает только отсутствие этих двух влияний в модели; заключить, что нейрон полностью неактивен, нельзя.",
+                    "Both displayed inputs are off. Only these two influences are absent in the model; this does not establish that the neuron is completely inactive.",
+                    "Көрсетілген екі кіріс те өшірулі. Бұл модельде тек осы екі әсердің жоқтығын білдіреді; нейрон мүлде белсенді емес деп қорытынды жасауға болмайды."
+                ]),
+                t([
+                    "Включено возбуждающее влияние: оно повышает вероятность разряда. Возникновение потенциала действия не гарантировано — важны порог и состояние клетки.",
+                    "Excitatory input is on: it increases firing probability. An action potential is not guaranteed; threshold and the cell's state matter.",
+                    "Қоздырушы әсер қосулы: ол разряд ықтималдығын арттырады. Әрекет потенциалының пайда болуы кепілденбейді — табалдырық пен жасуша күйі маңызды."
+                ]),
+                t([
+                    "Включено тормозное влияние: оно снижает вероятность или частоту разрядов. Торможение — активный процесс, а не просто отсутствие возбуждения.",
+                    "Inhibitory input is on: it reduces firing probability or frequency. Inhibition is an active process, not simply the absence of excitation.",
+                    "Тежеуші әсер қосулы: ол разряд ықтималдығын немесе жиілігін төмендетеді. Тежелу — қозудың жай болмауы емес, белсенді үдеріс."
+                ]),
+                t([
+                    "Включены оба влияния. Нейрон интегрирует их совместное действие. Они не обязаны взаимно обнуляться; без дополнительных данных нельзя предсказать наличие разряда.",
+                    "Both inputs are on. The neuron integrates their combined effects. They do not necessarily cancel each other; firing cannot be predicted without further information.",
+                    "Екі әсер де қосулы. Нейрон олардың бірлескен әсерін біріктіреді. Олар міндетті түрде бірін-бірі жоймайды; қосымша дерексіз разрядтың пайда болуын болжауға болмайды."
+                ])
+            ]
+        }
+    };
+}
+}),
+"[project]/content/modules/1/practice/en.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+const lesson = {
+    kind: "practice",
+    title: "Practical Lesson. Introduction to Neurophysiology",
+    moduleTitle: "Module 1. Introduction",
+    ui: {
+        showAnswer: "Show answers and explanations",
+        check: "Check sequence",
+        reset: "Start again",
+        undo: "Remove last step",
+        correct: "Correct: the steps are in the right order.",
+        incorrect: "The order is not yet correct. Review the direction of information flow and try again.",
+        incomplete: "Arrange all steps first.",
+        available: "Choose the next step",
+        selected: "Your sequence",
+        empty: "No steps selected yet.",
+        input: "Your answer",
+        theory: "Open Module 1 theory",
+        localNote: "Answers and check marks are for independent study. They are not saved after reloading the page or changing language."
+    },
+    sections: [
+        {
+            title: "1. Aim of the Lesson",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "To develop an understanding of the structural and functional organization of the nervous system and the fundamental principles of neural regulation."
+                }
+            ]
+        },
+        {
+            title: "2. Learning Objectives",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "After completing the practical work, the student should be able to:"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Distinguish the central and peripheral nervous systems.",
+                        "Identify the main structural components of the nervous system.",
+                        "Explain the functional roles of afferent and efferent components.",
+                        "Explain the principle of neural regulation.",
+                        "Analyze a simple functional diagram of the nervous system.",
+                        "Use basic neurophysiology terminology."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "3. Required Materials",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "A diagram of the nervous system.",
+                        "A diagram of a neuron.",
+                        "A diagram of a reflex arc.",
+                        "Study tables.",
+                        "Materials from the Theory section of Module 1."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "Prepare diagrams from an educational atlas or the instructor's materials. Identify the cell body, dendrites, and axon on the neuron diagram, and central and peripheral structures on the nervous system diagram. Complete the tasks independently before comparing your explanations with the model answers."
+                }
+            ]
+        },
+        {
+            title: "4. Brief Theoretical Rationale",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "A receptor converts the effect of a stimulus into a signal. Information travels along an afferent pathway to the CNS, where it is processed and integrated. A command then travels along an efferent pathway to an effector, such as a muscle or gland, whose activity produces a response."
+                },
+                {
+                    type: "callout",
+                    title: "Principle of Neural Regulation",
+                    text: "Receptor → afferent pathway → CNS → information processing and integration → efferent pathway → effector → response. Processing and integration occur within the CNS, rather than in a separate anatomical component beyond it."
+                },
+                {
+                    type: "paragraph",
+                    text: "Feedback is information about the outcome of a response and the current state of the body. It allows the actual outcome to be compared with the required outcome and effector activity to be adjusted. For example, signals from muscle and joint receptors help refine limb position during movement. Excitation and inhibition coordinate the activity of neural networks."
+                }
+            ]
+        },
+        {
+            title: "5. Practical Task 1. Structural Organization of the Nervous System",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Assign the structures to two groups: CNS and PNS. Briefly state the common feature that justifies each grouping."
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Ganglia.",
+                        "Brain.",
+                        "Cranial nerves.",
+                        "Nerve endings.",
+                        "Spinal cord.",
+                        "Spinal nerves."
+                    ]
+                },
+                {
+                    type: "response",
+                    label: "List the CNS and PNS structures and explain your classification."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "CNS: the brain and spinal cord. These structures contain central networks for information processing and integration.",
+                        "PNS: cranial nerves, spinal nerves, ganglia, and nerve endings. In this introductory scheme, these are grouped as peripheral structures connecting organs and tissues with central structures.",
+                        "Anatomical qualification: despite its name, the optic nerve (cranial nerve II) belongs to the CNS in its structure and development. The general statement about cranial nerves in this task is an educational simplification."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "6. Practical Task 2. Afferent and Efferent Components",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "A person accidentally touches a hot object and rapidly withdraws their hand. Analyze this protective reflex: identify the stimulus, receptor, afferent pathway, central component, efferent pathway, effector, and response."
+                },
+                {
+                    type: "response",
+                    label: "Write down the seven components and explain the direction of signal transmission."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "Stimulus: a high temperature capable of damaging tissue.",
+                        "Receptor: sensory free nerve endings in the skin, specifically heat-sensitive nociceptors.",
+                        "Afferent pathway: sensory fibers in a peripheral nerve; the corresponding neuronal cell bodies lie in a dorsal root ganglion, and their central processes enter the spinal cord through the dorsal root.",
+                        "Central component: spinal interneuron networks that activate the appropriate motor neurons and coordinate inhibition of antagonist muscles. Information also ascends to the brain for perception and further evaluation.",
+                        "Efferent pathway: axons of spinal motor neurons passing through the ventral root and peripheral nerves to the muscles.",
+                        "Effector: skeletal muscles that withdraw the hand, primarily the appropriate flexors.",
+                        "Response: rapid withdrawal of the hand from the hot object. Initiation of the spinal reflex does not require a prior conscious decision."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "7. Practical Task 3. Construct a Functional Sequence",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Select the steps one at a time in the order of information flow, from the initial stimulus to the response. If you make a mistake, remove the last step or start again. Then select “Check sequence”."
+                },
+                {
+                    type: "sequence",
+                    steps: [
+                        "Stimulus",
+                        "Receptor",
+                        "Afferent pathway",
+                        "CNS",
+                        "Efferent pathway",
+                        "Effector",
+                        "Response"
+                    ]
+                }
+            ]
+        },
+        {
+            title: "8. Table for Independent Completion",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Identify the system or functional component to which each structure belongs and state its main function. Categories are not restricted to the CNS and PNS: an effector may be a muscle or gland. For the receptor, consider a peripheral sensory ending in this exercise."
+                },
+                {
+                    type: "table",
+                    headers: [
+                        "Structure",
+                        "Belongs to",
+                        "Main function"
+                    ],
+                    rows: [
+                        [
+                            "Brain",
+                            "CNS",
+                            "Processing and integration of information; organization of behavior, movement, and regulation of bodily functions."
+                        ],
+                        [
+                            "Spinal cord",
+                            "CNS",
+                            "Conduction of signals and organization of spinal reflexes."
+                        ],
+                        [
+                            "Peripheral nerve",
+                            "PNS",
+                            "Conduction of afferent and/or efferent signals, depending on its fiber composition."
+                        ],
+                        [
+                            "Ganglion",
+                            "PNS",
+                            "A cluster of neuronal cell bodies: sensory ganglia contain afferent neuron cell bodies, while autonomic ganglia participate in signal relay and processing."
+                        ],
+                        [
+                            "Receptor",
+                            "Peripheral sensory component; PNS in this example",
+                            "Detection of a stimulus and its conversion into a signal. In other sensory systems, a receptor may be a specialized cell."
+                        ],
+                        [
+                            "Effector",
+                            "An executing organ: muscle or gland",
+                            "Production of a response, such as contraction or secretion; the effector itself is not classified as CNS or PNS."
+                        ]
+                    ]
+                }
+            ]
+        },
+        {
+            title: "9. Analysis of Results",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "Why does damage to an afferent pathway disrupt the delivery of sensory information?",
+                        "What happens if an efferent pathway is damaged?",
+                        "Why is the CNS considered an integrative component?",
+                        "What role does feedback play?",
+                        "Why does a normal response require coordinated activity across several components?"
+                    ]
+                },
+                {
+                    type: "response",
+                    label: "Provide cause-and-effect explanations for the five questions."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "Disruption of an afferent pathway reduces or prevents signal transmission from receptors to the relevant central structures.",
+                        "If an efferent pathway is disrupted, the command may not reach the effector, weakening or abolishing the response even when sensory information arrives.",
+                        "The CNS compares multiple inputs, combines them with information about the body's current state, and organizes coordinated output.",
+                        "Feedback reports the outcome of an action and allows subsequent responses to be adjusted.",
+                        "Reception, conduction, integration, and execution perform different tasks; disruption of any component can alter the overall result."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "10. Review Questions",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "1. What are the major functions of the nervous system?",
+                        "2. Which structures belong to the CNS and PNS?",
+                        "3. How does an afferent pathway differ from an efferent pathway?",
+                        "4. How does a receptor differ from an effector?",
+                        "5. What is neural information integration?",
+                        "6. How do excitation and inhibition interact?",
+                        "7. What are the main stages of chemical synaptic transmission?",
+                        "8. How does feedback contribute to homeostasis?"
+                    ]
+                },
+                {
+                    type: "response",
+                    label: "Write your answers to the eight review questions."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "1. Detection, conduction, and integration of information; organization of motor and autonomic responses; maintenance of homeostasis and higher nervous functions.",
+                        "2. CNS: brain and spinal cord. PNS: peripheral nerves, ganglia, and nerve endings. The anatomical qualification concerning the optic nerve is given in Task 1.",
+                        "3. Afferent pathways lead from receptors to the CNS; efferent pathways lead from the CNS to effectors.",
+                        "4. A receptor detects an influence and converts it into a signal; an effector executes the response.",
+                        "5. Integration combines and processes signals to produce a coordinated response.",
+                        "6. Excitatory influences increase the probability of neuronal firing, whereas inhibitory influences reduce it; their interaction makes responses selective.",
+                        "7. An action potential reaches the terminal, calcium channels open, and transmitter is released; it binds to postsynaptic receptors and changes the receiving cell's activity.",
+                        "8. Information about the current value of a regulated variable enables adjustment of the response; negative feedback reduces deviation from the required level."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "11. Practical Mini-Case",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "During a neurological examination, a patient feels touch on the skin of the hand but cannot voluntarily move the fingers. Which functional component may be impaired? Justify your answer by distinguishing the arrival of sensory information from execution of a motor command."
+                },
+                {
+                    type: "response",
+                    label: "Identify a potentially impaired functional component and explain the limits of this conclusion."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "Within the teaching model, consider impairment of motor output: the efferent component or the mechanisms that execute a motor command. Preserved touch perception indicates preservation of the sensory channel tested, not of every sensory modality.",
+                        "This description alone cannot establish the site of a lesion or a medical diagnosis: voluntary movement depends on central motor systems, peripheral motor fibers, neuromuscular transmission, and the muscle itself. The case illustrates the distinction between afferent and efferent functions."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "12. Conclusion",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "The nervous system follows a structural and functional organization: central and peripheral structures jointly support reception, conduction, and integration of information and control of effectors. Afferent and efferent components transmit signals in different directions but operate in coordination. Feedback refines the outcome and supports adaptive neural regulation."
+                }
+            ]
+        },
+        {
+            title: "13. Self-Assessment",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "After this lesson, I can:"
+                },
+                {
+                    type: "checklist",
+                    items: [
+                        "Distinguish the CNS and PNS.",
+                        "Explain the afferent pathway.",
+                        "Explain the efferent pathway.",
+                        "Construct a functional sequence of neural regulation.",
+                        "Explain the roles of integration and feedback."
+                    ]
+                }
+            ]
+        }
+    ]
+};
+const __TURBOPACK__default__export__ = lesson;
+}),
+"[project]/content/modules/1/practice/kz.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+const lesson = {
+    kind: "practice",
+    title: "Практикалық сабақ. Нейрофизиологияға кіріспе",
+    moduleTitle: "Модуль 1. Кіріспе",
+    ui: {
+        showAnswer: "Жауаптар мен түсіндірмелерді көрсету",
+        check: "Ретін тексеру",
+        reset: "Қайта бастау",
+        undo: "Соңғы кезеңді алып тастау",
+        correct: "Дұрыс: кезеңдер дұрыс ретпен орналастырылған.",
+        incorrect: "Реті әзірше дұрыс емес. Ақпараттың берілу бағытын салыстырып, қайта орындаңыз.",
+        incomplete: "Алдымен барлық кезеңдерді орналастырыңыз.",
+        available: "Келесі кезеңді таңдаңыз",
+        selected: "Сіздің реттілігіңіз",
+        empty: "Әзірше ешбір кезең таңдалмады.",
+        input: "Сіздің жауабыңыз",
+        theory: "1-модульдің теориясын ашу",
+        localNote: "Жауаптар мен белгілер өздік жұмысқа арналған. Бет қайта жүктелгенде немесе тіл ауыстырылғанда олар сақталмайды."
+    },
+    sections: [
+        {
+            title: "1. Сабақтың мақсаты",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Жүйке жүйесінің құрылымдық-қызметтік ұйымдасуы және жүйкелік реттелудің негізгі принциптері туралы түсінік қалыптастыру."
+                }
+            ]
+        },
+        {
+            title: "2. Оқу міндеттері",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Практикалық жұмысты орындағаннан кейін студент:"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Орталық және шеткі жүйке жүйесін ажырата алуы тиіс.",
+                        "Жүйке жүйесінің негізгі құрылымдық құрамбөліктерін анықтай алуы тиіс.",
+                        "Афференттік және эфференттік буындардың қызметтік рөлін түсіндіре алуы тиіс.",
+                        "Жүйкелік реттелу принципін түсіндіре алуы тиіс.",
+                        "Жүйке жүйесінің қарапайым қызметтік сызбасын талдай алуы тиіс.",
+                        "Нейрофизиологияның негізгі терминдерін қолдана алуы тиіс."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "3. Қажетті материалдар",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "Жүйке жүйесінің сызбасы.",
+                        "Нейронның сызбасы.",
+                        "Рефлекс доғасының сызбасы.",
+                        "Оқу кестелері.",
+                        "1-модульдің Theory (Теория) бөлімінің материалдары."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "Оқу атласынан немесе оқытушы материалдарынан сызбаларды дайындаңыз. Нейрон сызбасынан денесін, дендриттерін және аксонын; жүйке жүйесінің сызбасынан орталық және шеткі құрылымдарды табыңыз. Тапсырмаларды өз бетіңізше орындап, содан кейін түсіндірмелеріңізді үлгі жауаптармен салыстырыңыз."
+                }
+            ]
+        },
+        {
+            title: "4. Қысқаша теориялық негіздеме",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Рецептор тітіркендіргіштің әсерін сигналға түрлендіреді. Афференттік жол арқылы ақпарат ОЖЖ-ге түсіп, онда өңделеді және біріктіріледі. Эфференттік жол арқылы басқарушы сигнал эффекторға — бұлшықетке немесе безге жеткізіледі; оның қызметі жауап реакциясын қалыптастырады."
+                },
+                {
+                    type: "callout",
+                    title: "Жүйкелік реттелу принципі",
+                    text: "Рецептор → афференттік жол → ОЖЖ → ақпаратты өңдеу және интеграциялау → эфференттік жол → эффектор → жауап реакциясы. Ақпаратты өңдеу мен интеграциялау ОЖЖ-де жүреді, одан кейінгі жеке анатомиялық буында емес."
+                },
+                {
+                    type: "paragraph",
+                    text: "Кері байланыс — реакцияның нәтижесі және организмнің ағымдағы күйі туралы ақпараттың келуі. Ол алынған нәтижені қажетті нәтижемен салыстыруға және атқарушы мүшелердің қызметін түзетуге мүмкіндік береді. Мысалы, бұлшықеттер мен буындар рецепторларының сигналдары қозғалыс кезінде аяқ-қолдың қалпын нақтылауға көмектеседі. Қозу мен тежелу нейрондық желілер белсенділігінің үйлесуін қамтамасыз етеді."
+                }
+            ]
+        },
+        {
+            title: "5. №1 практикалық тапсырма. Жүйке жүйесінің құрылымдық ұйымдасуы",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Құрылымдарды екі топқа — ОЖЖ және ШЖЖ-ге бөліңіз. Әр топқа біріктірудің ортақ белгісін қысқаша түсіндіріңіз."
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Ганглийлер.",
+                        "Ми.",
+                        "Бассүйек жүйкелері.",
+                        "Жүйке ұштары.",
+                        "Жұлын.",
+                        "Жұлын жүйкелері."
+                    ]
+                },
+                {
+                    type: "response",
+                    label: "ОЖЖ мен ШЖЖ құрамын жазып, топтастыруды негіздеңіз."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "ОЖЖ: ми және жұлын. Бұл құрылымдар ақпаратты өңдеу мен интеграциялаудың орталық желілерін қамтиды.",
+                        "ШЖЖ: бассүйек жүйкелері, жұлын жүйкелері, ганглийлер және жүйке ұштары. Осы кіріспе сызбада олар мүшелермен және тіндермен байланысты қамтамасыз ететін шеткі құрылымдар ретінде біріктірілген.",
+                        "Нақтылау: көру жүйкесі (II жұп) атауына қарамастан, құрылысы мен дамуы бойынша ОЖЖ-ге жатады. Бұл тапсырмадағы бассүйек жүйкелері туралы жалпы ереже оқу мақсатында ықшамдалған."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "6. №2 практикалық тапсырма. Афференттік және эфференттік буын",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Адам ыстық затқа байқаусызда тиіп, қолын тез тартып алады. Қорғаныш рефлексін талдаңыз: тітіркендіргішті, рецепторды, афференттік жолды, орталық буынды, эфференттік жолды, эффекторды және жауап реакциясын анықтаңыз."
+                },
+                {
+                    type: "response",
+                    label: "Жеті буынды жазып, сигналдың берілу бағытын түсіндіріңіз."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "Тітіркендіргіш: тіндерді зақымдауы мүмкін жоғары температура.",
+                        "Рецептор: терінің сезімтал бос жүйке ұштары — жылуға сезімтал ноцицепторлар.",
+                        "Афференттік жол: шеткі жүйкенің сезімтал талшықтары; тиісті нейрондардың денелері жұлын түйінінде орналасады, ал орталық өсінділері жұлынға артқы түбіршік арқылы кіреді.",
+                        "Орталық буын: қажетті мотонейрондарды белсендіріп, антагонист бұлшықеттердің тежелуін үйлестіретін жұлынның аралық нейрондар желілері. Ақпарат қабылдау және әрі қарай бағалау үшін миға да беріледі.",
+                        "Эфференттік жол: алдыңғы түбіршік пен шеткі жүйкелер арқылы бұлшықеттерге баратын жұлын мотонейрондарының аксондары.",
+                        "Эффектор: қолды тартып алуды қамтамасыз ететін қаңқа бұлшықеттері, ең алдымен тиісті бүккіштер.",
+                        "Жауап реакциясы: қолды ыстық заттан тез алыстату. Жұлын рефлексінің басталуы үшін алдын ала саналы шешім қабылдау қажет емес."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "7. №3 практикалық тапсырма. Қызметтік сызбаны құрастырыңыз",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Кезеңдерді организмге әсер етуден бастап жауапқа дейінгі ақпараттың берілу ретімен бір-бірден таңдаңыз. Қателессеңіз, соңғы кезеңді алып тастаңыз немесе қайта бастаңыз. Содан кейін «Ретін тексеру» батырмасын басыңыз."
+                },
+                {
+                    type: "sequence",
+                    steps: [
+                        "Тітіркендіргіш",
+                        "Рецептор",
+                        "Афференттік жол",
+                        "ОЖЖ",
+                        "Эфференттік жол",
+                        "Эффектор",
+                        "Жауап реакциясы"
+                    ]
+                }
+            ]
+        },
+        {
+            title: "8. Өздігінен толтыруға арналған кесте",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Әр құрылымның қай жүйеге немесе буынға жататынын және негізгі қызметін көрсетіңіз. Санаттар ОЖЖ мен ШЖЖ-мен шектелмейді: эффектор бұлшықет немесе без болуы мүмкін. Бұл тапсырмада рецептор ретінде шеткі сезімтал ұш қарастырылатынын ескеріңіз."
+                },
+                {
+                    type: "table",
+                    headers: [
+                        "Құрылым",
+                        "Жататын жүйесі немесе буыны",
+                        "Негізгі қызметі"
+                    ],
+                    rows: [
+                        [
+                            "Ми",
+                            "ОЖЖ",
+                            "Ақпаратты өңдеу және интеграциялау, мінез-құлықты, қозғалыстарды және қызметтердің реттелуін ұйымдастыру."
+                        ],
+                        [
+                            "Жұлын",
+                            "ОЖЖ",
+                            "Сигналдарды өткізу және жұлын рефлекстерін ұйымдастыру."
+                        ],
+                        [
+                            "Шеткі жүйке",
+                            "ШЖЖ",
+                            "Талшықтар құрамына қарай афференттік және/немесе эфференттік сигналдарды өткізу."
+                        ],
+                        [
+                            "Ганглий",
+                            "ШЖЖ",
+                            "Нейрон денелерінің шоғыры: сезімтал ганглийлерде афференттік нейрондардың денелері орналасады, вегетативтік ганглийлер сигналдарды ауыстырып жеткізуге және өңдеуге қатысады."
+                        ],
+                        [
+                            "Рецептор",
+                            "Шеткі сезімтал буын; осы мысалда — ШЖЖ",
+                            "Тітіркенуді қабылдау және оны сигналға түрлендіру. Басқа сенсорлық жүйелерде рецептор маманданған жасуша болуы мүмкін."
+                        ],
+                        [
+                            "Эффектор",
+                            "Атқарушы мүше: бұлшықет немесе без",
+                            "Жауапты орындау, мысалы, жиырылу немесе секреция; эффектордың өзі ОЖЖ не ШЖЖ құрамына жатпайды."
+                        ]
+                    ]
+                }
+            ]
+        },
+        {
+            title: "9. Нәтижелерді талдау",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "Афференттік жолдың зақымдануы неліктен сенсорлық ақпараттың келуін бұзады?",
+                        "Эфференттік жол зақымданғанда не болады?",
+                        "ОЖЖ неліктен интегративтік буын ретінде қарастырылады?",
+                        "Кері байланыс қандай рөл атқарады?",
+                        "Организмнің қалыпты жауабы неліктен бірнеше буынның үйлесімді жұмысын талап етеді?"
+                    ]
+                },
+                {
+                    type: "response",
+                    label: "Бес сұрақ бойынша себеп-салдарлық түсіндірмелерді тұжырымдаңыз."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "Афференттік жолдың бұзылуы рецепторлардан тиісті орталық құрылымдарға сигналдардың берілуін шектейді немесе тоқтатады.",
+                        "Эфференттік жол бұзылғанда басқарушы сигнал эффекторға жетпеуі мүмкін, сондықтан сезімтал ақпарат келіп тұрса да, жауап әлсірейді немесе болмайды.",
+                        "ОЖЖ көптеген кіріс сигналдарын салыстырып, оларды организмнің ағымдағы күйімен біріктіреді және үйлесімді шығыс сигналын ұйымдастырады.",
+                        "Кері байланыс әрекеттің нәтижесі туралы хабарлап, кейінгі жауапты түзетуге мүмкіндік береді.",
+                        "Қабылдау, өткізу, интеграциялау және орындау әртүрлі міндеттерді шешеді; кез келген буынның бұзылуы жалпы нәтижені өзгертуі мүмкін."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "10. Бақылау сұрақтары",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "1. Жүйке жүйесінің негізгі қызметтері қандай?",
+                        "2. ОЖЖ мен ШЖЖ құрамына қандай құрылымдар кіреді?",
+                        "3. Афференттік жолдың эфференттік жолдан айырмашылығы неде?",
+                        "4. Рецептордың эффектордан айырмашылығы неде?",
+                        "5. Жүйкелік ақпараттың интеграциясы дегеніміз не?",
+                        "6. Қозу мен тежелу қалай өзара әрекеттеседі?",
+                        "7. Химиялық синапстық берілудің негізгі кезеңдері қандай?",
+                        "8. Кері байланыс гомеостазды сақтауға қалай қатысады?"
+                    ]
+                },
+                {
+                    type: "response",
+                    label: "Сегіз бақылау сұрағына жауап жазыңыз."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "1. Ақпаратты қабылдау, өткізу және интеграциялау, қозғалтқыш және вегетативтік жауаптарды ұйымдастыру, гомеостаз бен жоғары жүйке қызметтерін қамтамасыз ету.",
+                        "2. ОЖЖ — ми мен жұлын. ШЖЖ — шеткі жүйкелер, ганглийлер және жүйке ұштары; көру жүйкесіне қатысты анатомиялық нақтылау №1 тапсырмада берілген.",
+                        "3. Афференттік жол рецепторлардан ОЖЖ-ге, эфференттік жол ОЖЖ-ден атқарушы мүшелерге бағытталған.",
+                        "4. Рецептор әсерді қабылдап, оны сигналға түрлендіреді, ал эффектор жауапты орындайды.",
+                        "5. Интеграция — үйлесімді жауап қалыптастыру үшін сигналдарды біріктіру және өңдеу.",
+                        "6. Қоздырушы әсерлер нейрон разрядының ықтималдығын арттырады, тежеуші әсерлер төмендетеді; олардың өзара әрекеттесуі жауаптардың таңдамалылығын қамтамасыз етеді.",
+                        "7. Әрекет потенциалы жүйке ұшына жетеді, кальций арналары ашылады, медиатор бөлініп, постсинапстық рецепторлармен байланысады және жасуша белсенділігін өзгертеді.",
+                        "8. Реттелетін көрсеткіштің ағымдағы күйі туралы ақпарат жауапты түзетуге мүмкіндік береді; теріс кері байланыс қажетті деңгейден ауытқуды азайтады."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "11. Қысқаша практикалық есеп",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Неврологиялық тексеру кезінде пациент қол басының терісіне жанасуды сезеді, бірақ саусақтарын ерікті түрде қозғалта алмайды. Қай қызметтік буын бұзылуы мүмкін? Сезімтал ақпараттың келуі мен қозғалтқыш команданың орындалуын ажырата отырып, жауабыңызды негіздеңіз."
+                },
+                {
+                    type: "response",
+                    label: "Бұзылуы мүмкін қызметтік буынды және мұндай қорытындының шектеулерін көрсетіңіз."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "Оқу мақсатындағы қызметтік сызбада қозғалтқыш шығыстың — эфференттік буынның немесе қозғалтқыш команданы іске асыру механизмдерінің бұзылуын болжауға болады. Жанасуды сезінудің сақталуы тек зерттелген сезімтал арнаның сақталғанын көрсетеді, барлық сезімталдық түрлерінің емес.",
+                        "Бұл сипаттама бойынша зақымдану орнын немесе медициналық диагнозды анықтауға болмайды: ерікті қозғалыс орталық қозғалтқыш жүйелерге, шеткі қозғалтқыш талшықтарға, жүйке-бұлшықет берілуіне және бұлшықеттің өзіне тәуелді. Есеп афференттік және эфференттік қызметтердің айырмашылығын көрсетеді."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "12. Қорытынды",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Жүйке жүйесі құрылымдық-қызметтік принцип бойынша ұйымдасқан: орталық және шеткі құрылымдар бірлесіп ақпаратты қабылдауды, өткізуді, интеграциялауды және атқарушы мүшелерді басқаруды қамтамасыз етеді. Афференттік және эфференттік буындардағы сигналдардың берілу бағыты әртүрлі болғанымен, олардың қызметі үйлесімді. Кері байланыс нәтижені нақтылауға және жүйкелік реттелудің бейімделгіштігін сақтауға мүмкіндік береді."
+                }
+            ]
+        },
+        {
+            title: "13. Өзін-өзі бағалау",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Сабақтан кейін мен:"
+                },
+                {
+                    type: "checklist",
+                    items: [
+                        "ОЖЖ мен ШЖЖ-ні ажырата аламын.",
+                        "Афференттік жолды түсіндіре аламын.",
+                        "Эфференттік жолды түсіндіре аламын.",
+                        "Жүйкелік реттелудің қызметтік сызбасын құрастыра аламын.",
+                        "Интеграция мен кері байланыстың рөлін түсіндіре аламын."
+                    ]
+                }
+            ]
+        }
+    ]
+};
+const __TURBOPACK__default__export__ = lesson;
+}),
+"[project]/content/modules/1/practice/ru.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+const lesson = {
+    kind: "practice",
+    title: "Практическое занятие. Введение в нейрофизиологию",
+    moduleTitle: "Модуль 1. Введение",
+    ui: {
+        showAnswer: "Показать ответы и объяснения",
+        check: "Проверить порядок",
+        reset: "Начать заново",
+        undo: "Убрать последний этап",
+        correct: "Верно: этапы расположены в правильном порядке.",
+        incorrect: "Порядок пока неверный. Сопоставьте направление передачи информации и попробуйте снова.",
+        incomplete: "Сначала расположите все этапы.",
+        available: "Выберите следующий этап",
+        selected: "Ваша последовательность",
+        empty: "Пока не выбран ни один этап.",
+        input: "Ваш ответ",
+        theory: "Открыть теорию Модуля 1",
+        localNote: "Ответы и отметки предназначены для самостоятельной работы и не сохраняются после перезагрузки страницы или смены языка."
+    },
+    sections: [
+        {
+            title: "1. Цель занятия",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Сформировать представление о структурно-функциональной организации нервной системы и основных принципах нервной регуляции."
+                }
+            ]
+        },
+        {
+            title: "2. Учебные задачи",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "После выполнения практической работы студент должен уметь:"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Различать центральную и периферическую нервную систему.",
+                        "Определять основные структурные компоненты нервной системы.",
+                        "Объяснять функциональную роль афферентного и эфферентного звеньев.",
+                        "Объяснять принцип нервной регуляции.",
+                        "Анализировать простую функциональную схему нервной системы.",
+                        "Использовать основные термины нейрофизиологии."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "3. Необходимые материалы",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "Схема нервной системы.",
+                        "Схема нейрона.",
+                        "Схема рефлекторной дуги.",
+                        "Учебные таблицы.",
+                        "Материалы раздела Theory (Теория) Модуля 1."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "Подготовьте схемы из учебного атласа или материалов преподавателя. На схеме нейрона найдите тело, дендриты и аксон; на схеме нервной системы — центральные и периферические структуры. Выполняйте задания самостоятельно, затем сравнивайте свои объяснения с эталонами."
+                }
+            ]
+        },
+        {
+            title: "4. Краткое теоретическое обоснование",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Рецептор преобразует действие раздражителя в сигнал. По афферентному пути информация поступает в ЦНС, где происходит её обработка и интеграция. По эфферентному пути команда направляется к эффектору — мышце или железе, деятельность которой формирует ответную реакцию."
+                },
+                {
+                    type: "callout",
+                    title: "Принцип нервной регуляции",
+                    text: "Рецептор → афферентный путь → ЦНС → обработка и интеграция информации → эфферентный путь → эффектор → ответная реакция. Обработка и интеграция происходят в ЦНС, а не в отдельном анатомическом звене после неё."
+                },
+                {
+                    type: "paragraph",
+                    text: "Обратная связь — поступление информации о результате реакции и текущем состоянии организма. Она позволяет сопоставлять полученный результат с необходимым и корректировать деятельность исполнительных органов. Например, сигналы от рецепторов мышц и суставов помогают уточнять положение конечности во время движения. Возбуждение и торможение обеспечивают согласование активности нейронных сетей."
+                }
+            ]
+        },
+        {
+            title: "5. Практическое задание №1. Структурная организация нервной системы",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Распределите структуры по двум группам — ЦНС и ПНС. Для каждой группы кратко укажите общий признак объединения."
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Ганглии.",
+                        "Головной мозг.",
+                        "Черепные нервы.",
+                        "Нервные окончания.",
+                        "Спинной мозг.",
+                        "Спинномозговые нервы."
+                    ]
+                },
+                {
+                    type: "response",
+                    label: "Запишите состав ЦНС и ПНС и обоснуйте распределение."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "ЦНС: головной мозг и спинной мозг. Эти структуры содержат центральные сети обработки и интеграции информации.",
+                        "ПНС: черепные нервы, спинномозговые нервы, ганглии и нервные окончания. В данной вводной схеме они объединены как периферические структуры связи с органами и тканями.",
+                        "Уточнение: зрительный нерв (II пара), несмотря на название, по строению и развитию относится к ЦНС. Общее правило о черепных нервах в этом задании является учебным упрощением."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "6. Практическое задание №2. Афферентное и эфферентное звено",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Человек случайно касается горячего предмета и быстро отдёргивает руку. Разберите защитный рефлекс: определите раздражитель, рецептор, афферентный путь, центральное звено, эфферентный путь, эффектор и ответную реакцию."
+                },
+                {
+                    type: "response",
+                    label: "Запишите семь звеньев и объясните направление передачи сигнала."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "Раздражитель: высокая температура, способная повредить ткани.",
+                        "Рецептор: чувствительные свободные нервные окончания кожи — термочувствительные ноцицепторы.",
+                        "Афферентный путь: чувствительные волокна периферического нерва; тела соответствующих нейронов находятся в спинномозговом ганглии, а центральные отростки входят в спинной мозг через задний корешок.",
+                        "Центральное звено: сети вставочных нейронов спинного мозга, активирующие нужные мотонейроны и координирующие торможение мышц-антагонистов. Информация также передаётся в головной мозг для восприятия и дальнейшей оценки.",
+                        "Эфферентный путь: аксоны спинальных мотонейронов, проходящие через передний корешок и периферические нервы к мышцам.",
+                        "Эффектор: скелетные мышцы, обеспечивающие отдёргивание руки, прежде всего соответствующие сгибатели.",
+                        "Ответная реакция: быстрое отведение руки от горячего предмета. Для запуска спинального рефлекса не требуется предварительное осознанное решение."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "7. Практическое задание №3. Построй функциональную схему",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Выбирайте этапы по одному в порядке передачи информации — от воздействия на организм до ответа. При ошибке уберите последний этап или начните заново. Затем нажмите «Проверить порядок»."
+                },
+                {
+                    type: "sequence",
+                    steps: [
+                        "Раздражитель",
+                        "Рецептор",
+                        "Афферентный путь",
+                        "ЦНС",
+                        "Эфферентный путь",
+                        "Эффектор",
+                        "Ответная реакция"
+                    ]
+                }
+            ]
+        },
+        {
+            title: "8. Таблица для самостоятельного заполнения",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Укажите принадлежность каждой структуры и её основную функцию. Категории не ограничены ЦНС и ПНС: эффектор может быть мышцей или железой. Для рецептора учитывайте, что в этом задании рассматривается периферическое чувствительное окончание."
+                },
+                {
+                    type: "table",
+                    headers: [
+                        "Структура",
+                        "Относится к",
+                        "Основная функция"
+                    ],
+                    rows: [
+                        [
+                            "Головной мозг",
+                            "ЦНС",
+                            "Обработка и интеграция информации, организация поведения, движений и регуляции функций."
+                        ],
+                        [
+                            "Спинной мозг",
+                            "ЦНС",
+                            "Проведение сигналов и организация спинальных рефлексов."
+                        ],
+                        [
+                            "Периферический нерв",
+                            "ПНС",
+                            "Проведение афферентных и/или эфферентных сигналов в зависимости от состава волокон."
+                        ],
+                        [
+                            "Ганглий",
+                            "ПНС",
+                            "Скопление тел нейронов: чувствительные ганглии содержат тела афферентных нейронов, вегетативные участвуют в переключении и обработке сигналов."
+                        ],
+                        [
+                            "Рецептор",
+                            "Периферическое чувствительное звено; в данном примере — ПНС",
+                            "Восприятие раздражения и преобразование его в сигнал. В других сенсорных системах рецептором может быть специализированная клетка."
+                        ],
+                        [
+                            "Эффектор",
+                            "Исполнительный орган: мышца или железа",
+                            "Выполнение ответа, например сокращение или секреция; сам эффектор не относят к ЦНС или ПНС."
+                        ]
+                    ]
+                }
+            ]
+        },
+        {
+            title: "9. Анализ результатов",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "Почему повреждение афферентного пути нарушает поступление сенсорной информации?",
+                        "Что произойдёт при повреждении эфферентного пути?",
+                        "Почему ЦНС рассматривается как интегративное звено?",
+                        "Какую роль играет обратная связь?",
+                        "Почему нормальная реакция организма требует согласованной работы нескольких звеньев?"
+                    ]
+                },
+                {
+                    type: "response",
+                    label: "Сформулируйте причинно-следственные объяснения по пяти вопросам."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "Нарушение афферентного пути ограничивает или прекращает передачу сигналов от рецепторов к соответствующим центральным структурам.",
+                        "При нарушении эфферентного пути команда может не достигать эффектора, поэтому ответ ослабевает или отсутствует, даже если чувствительная информация поступает.",
+                        "ЦНС сопоставляет множество входных сигналов, объединяет их с текущим состоянием организма и организует согласованный выходной сигнал.",
+                        "Обратная связь сообщает о результате действия и позволяет корректировать последующий ответ.",
+                        "Рецепция, проведение, интеграция и исполнение решают разные задачи; нарушение любого звена может изменить общий результат."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "10. Контрольные вопросы",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "1. Какие основные функции выполняет нервная система?",
+                        "2. Какие структуры входят в ЦНС и ПНС?",
+                        "3. Чем афферентный путь отличается от эфферентного?",
+                        "4. Чем рецептор отличается от эффектора?",
+                        "5. Что такое интеграция нервной информации?",
+                        "6. Как соотносятся возбуждение и торможение?",
+                        "7. Каковы основные этапы химической синаптической передачи?",
+                        "8. Как обратная связь участвует в поддержании гомеостаза?"
+                    ]
+                },
+                {
+                    type: "response",
+                    label: "Запишите ответы на восемь контрольных вопросов."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "1. Восприятие, проведение и интеграция информации, организация двигательных и вегетативных реакций, поддержание гомеостаза и высших нервных функций.",
+                        "2. ЦНС — головной и спинной мозг. ПНС — периферические нервы, ганглии и нервные окончания; анатомическое уточнение о зрительном нерве приведено в задании №1.",
+                        "3. Афферентный путь направлен от рецепторов к ЦНС, эфферентный — от ЦНС к исполнительным органам.",
+                        "4. Рецептор обнаруживает воздействие и преобразует его в сигнал, эффектор выполняет ответ.",
+                        "5. Интеграция — объединение и обработка сигналов для формирования согласованного ответа.",
+                        "6. Возбуждающие влияния повышают вероятность разряда нейрона, тормозные — снижают её; их взаимодействие делает ответы избирательными.",
+                        "7. Потенциал действия достигает окончания, открываются кальциевые каналы, выделяется медиатор, который связывается с постсинаптическими рецепторами и изменяет активность клетки.",
+                        "8. Информация о текущем состоянии регулируемой величины позволяет корректировать ответ; отрицательная обратная связь уменьшает отклонение от необходимого уровня."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "11. Практическая мини-задача",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "При неврологическом обследовании пациент чувствует прикосновение к коже кисти, но не может произвольно выполнить движение пальцами. Какое функциональное звено может быть нарушено? Обоснуйте ответ, различая поступление чувствительной информации и выполнение двигательной команды."
+                },
+                {
+                    type: "response",
+                    label: "Укажите возможное функциональное звено и пределы такого вывода."
+                },
+                {
+                    type: "answer",
+                    items: [
+                        "В учебной функциональной схеме следует предположить нарушение двигательного выхода — эфферентного звена или механизмов реализации двигательной команды. Сохранённое восприятие прикосновения указывает на сохранность исследуемого чувствительного канала, но не всех видов чувствительности.",
+                        "По этому описанию нельзя установить место повреждения или медицинский диагноз: произвольное движение зависит от центральных двигательных систем, периферических двигательных волокон, нервно-мышечной передачи и самой мышцы. Задача иллюстрирует различие афферентной и эфферентной функций."
+                    ]
+                }
+            ]
+        },
+        {
+            title: "12. Вывод",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Нервная система организована по структурно-функциональному принципу: центральные и периферические структуры совместно обеспечивают восприятие, проведение и интеграцию информации, а также управление исполнительными органами. Афферентное и эфферентное звенья имеют различное направление передачи сигналов, но действуют согласованно. Обратная связь позволяет уточнять результат и поддерживать адаптивность нервной регуляции."
+                }
+            ]
+        },
+        {
+            title: "13. Самооценка",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "После занятия я могу:"
+                },
+                {
+                    type: "checklist",
+                    items: [
+                        "Различать ЦНС и ПНС.",
+                        "Объяснить афферентный путь.",
+                        "Объяснить эфферентный путь.",
+                        "Построить функциональную схему нервной регуляции.",
+                        "Объяснить роль интеграции и обратной связи."
+                    ]
+                }
+            ]
+        }
+    ]
+};
+const __TURBOPACK__default__export__ = lesson;
+}),
+"[project]/content/modules/1/study.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "createStudyLessons",
+    ()=>createStudyLessons
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/sections.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/tests/ru.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$kz$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/tests/kz.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$en$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/tests/en.ts [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$cases$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/cases/ru.ts [app-rsc] (ecmascript)");
+;
+;
+;
+;
+;
+const pick = (copy, language)=>copy[language === "RU" ? 0 : language === "KZ" ? 1 : 2];
+const theory = (anchor)=>({
+        section: "theory",
+        anchor
+    });
+const goals = [
+    {
+        id: "organization",
+        text: [
+            "Различить ЦНС и ПНС: отнести головной и спинной мозг к ЦНС, нервы и ганглии — к ПНС.",
+            "ОЖЖ мен ШЖЖ-ні ажырату: ми мен жұлынды ОЖЖ-ге, жүйкелер мен ганглийлерді ШЖЖ-ге жатқызу.",
+            "Distinguish CNS from PNS: classify the brain and spinal cord as CNS, and nerves and ganglia as PNS."
+        ],
+        links: [
+            theory("cns-pns"),
+            {
+                section: "practice"
+            }
+        ]
+    },
+    {
+        id: "pathways",
+        text: [
+            "Построить цепочку «рецептор → афферентный путь → ЦНС → эфферентный путь → эффектор» и указать направление передачи на каждом этапе.",
+            "«Рецептор → афференттік жол → ОЖЖ → эфференттік жол → эффектор» тізбегін құрып, әр кезеңдегі сигнал бағытын көрсету.",
+            "Construct the receptor → afferent pathway → CNS → efferent pathway → effector sequence and identify signal direction at each step."
+        ],
+        links: [
+            theory("cns-pns"),
+            {
+                section: "practice"
+            },
+            {
+                section: "cases"
+            }
+        ]
+    },
+    {
+        id: "principles",
+        text: [
+            "Объяснить различие проведения и синаптической передачи; сопоставить возбуждающее и тормозное влияние на вероятность разряда нейрона.",
+            "Өткізу мен синапстық берілудің айырмасын түсіндіру; қоздырушы және тежеуші әсерлердің нейрон разрядының ықтималдығына ықпалын салыстыру.",
+            "Explain conduction versus synaptic transmission and compare how excitatory and inhibitory inputs affect neuronal firing probability."
+        ],
+        links: [
+            theory("principles"),
+            {
+                section: "questions"
+            },
+            {
+                section: "tests"
+            }
+        ]
+    },
+    {
+        id: "integration",
+        text: [
+            "На примере защитной реакции выделить сенсорный вход, интеграцию и двигательный ответ; объяснить, почему рефлекс не требует предварительного осознания боли.",
+            "Қорғаныш реакциясынан сенсорлық кірісті, интеграцияны және қимыл жауабын бөліп көрсету; рефлекс үшін ауырсынуды алдын ала саналы сезіну неге қажет емес екенін түсіндіру.",
+            "Identify sensory input, integration and motor output in a protective response, and explain why a reflex need not await conscious pain perception."
+        ],
+        links: [
+            theory("functions"),
+            {
+                section: "clinical"
+            },
+            {
+                section: "cases"
+            }
+        ]
+    },
+    {
+        id: "feedback",
+        text: [
+            "На одном примере объяснить, как обратная связь корректирует ответ и поддерживает гомеостаз; отличить коррекцию результата от простой передачи команды.",
+            "Бір мысал арқылы кері байланыстың жауапты түзетіп, гомеостазды қалай қолдайтынын түсіндіру; нәтижені түзетуді жай бұйрық беруден ажырату.",
+            "Use one example to explain how feedback adjusts a response and supports homeostasis; distinguish result correction from simply issuing a command."
+        ],
+        links: [
+            theory("functions"),
+            theory("cns-pns"),
+            {
+                section: "tests"
+            }
+        ]
+    }
+];
+const summary = [
+    {
+        title: [
+            "Система",
+            "Жүйе",
+            "System"
+        ],
+        text: [
+            "Нервная система получает информацию, объединяет сигналы и организует ответ. Нейроны передают и обрабатывают сигналы; глия поддерживает условия их работы.",
+            "Жүйке жүйесі ақпаратты қабылдап, сигналдарды біріктіреді және жауапты ұйымдастырады. Нейрондар сигналдарды өткізеді және өңдейді; глия олардың жұмыс жағдайын қолдайды.",
+            "The nervous system receives information, integrates signals and organises responses. Neurons transmit and process signals; glia support their working environment."
+        ],
+        anchor: "nervous-system"
+    },
+    {
+        title: [
+            "Организация",
+            "Ұйымдасу",
+            "Organisation"
+        ],
+        text: [
+            "ЦНС — головной и спинной мозг. ПНС связывает их с органами. Афферентные пути идут к ЦНС, эфферентные — к мышцам и железам.",
+            "ОЖЖ — ми мен жұлын. ШЖЖ оларды ағзалармен байланыстырады. Афференттік жолдар ОЖЖ-ге, эфференттік жолдар бұлшықеттер мен бездерге бағытталады.",
+            "The CNS comprises brain and spinal cord. The PNS connects them with the body. Afferent pathways lead towards the CNS; efferent pathways lead to muscles and glands."
+        ],
+        anchor: "cns-pns"
+    },
+    {
+        title: [
+            "Сигналы",
+            "Сигналдар",
+            "Signals"
+        ],
+        text: [
+            "Проведение переносит сигнал по волокну, синапс передаёт влияние другой клетке. Возбуждение и активное торможение совместно регулируют вероятность ответа.",
+            "Өткізу сигналды талшық бойымен таратады, ал синапс әсерді басқа жасушаға жеткізеді. Қозу мен белсенді тежелу жауап ықтималдығын бірге реттейді.",
+            "Conduction carries a signal along a fibre; a synapse conveys an influence to another cell. Excitation and active inhibition jointly regulate response probability."
+        ],
+        anchor: "principles"
+    },
+    {
+        title: [
+            "Регуляция",
+            "Реттелу",
+            "Regulation"
+        ],
+        text: [
+            "Рефлекторный ответ может начаться до осознания раздражителя. Обратная связь сообщает о результате и помогает его корректировать. Гомеостаз — относительная стабильность, а не полная неизменность.",
+            "Рефлекстік жауап тітіркендіргішті саналы сезінуден бұрын басталуы мүмкін. Кері байланыс нәтиже туралы хабарлап, оны түзетуге көмектеседі. Гомеостаз — толық өзгермеу емес, салыстырмалы тұрақтылық.",
+            "A reflex may begin before conscious awareness of a stimulus. Feedback reports the outcome and helps adjust it. Homeostasis means relative stability, not complete absence of change."
+        ],
+        anchor: "functions"
+    }
+];
+const clinical = [
+    {
+        id: "withdrawal",
+        title: [
+            "Отдёргивание руки",
+            "Қолды тартып алу",
+            "Withdrawing the hand"
+        ],
+        mechanism: [
+            "Сенсорный вход активирует спинальные сети, которые изменяют активность мотонейронов.",
+            "Сенсорлық кіріс мотонейрон белсенділігін өзгертетін жұлын желілерін белсендіреді.",
+            "Sensory input activates spinal networks that alter motor neuron activity."
+        ],
+        manifestation: [
+            "При болезненном раздражении рука может отдёрнуться до осознанной оценки ситуации.",
+            "Ауырсындыратын әсер кезінде қол жағдайды саналы бағалаудан бұрын тартылуы мүмкін.",
+            "A painful stimulus may trigger hand withdrawal before conscious appraisal."
+        ],
+        why: [
+            "Для запуска защитной двигательной реакции достаточно спинальной обработки; восходящие сигналы обеспечивают последующее осознанное восприятие. Это разные, взаимодействующие процессы.",
+            "Қорғаныш қимылын бастауға жұлындық өңдеу жеткілікті; жоғары өрлейтін сигналдар кейінгі саналы қабылдауды қамтамасыз етеді. Бұлар өзара байланысқан бөлек үдерістер.",
+            "Spinal processing can initiate the protective motor response; ascending signals support subsequent conscious perception. These are distinct, interacting processes."
+        ],
+        anchor: "functions"
+    },
+    {
+        id: "sensory",
+        title: [
+            "Ослабление сенсорного входа",
+            "Сенсорлық кірістің әлсіреуі",
+            "Reduced sensory input"
+        ],
+        mechanism: [
+            "Для рефлекторной реакции информация от рецептора должна достигнуть центральной сети по афферентному пути.",
+            "Рефлекстік реакция үшін рецептор ақпараты афференттік жолмен орталық желіге жетуі керек.",
+            "A reflex requires receptor information to reach the central network through an afferent pathway."
+        ],
+        manifestation: [
+            "В учебной модели прерывание этого пути ослабляет или устраняет ответ на раздражение, даже если мышца способна сокращаться.",
+            "Оқу моделінде бұл жолдың үзілуі бұлшықет жиырыла алса да, тітіркенуге жауапты әлсіретеді немесе жояды.",
+            "In a teaching model, interrupting this pathway reduces or abolishes the response even when the muscle can still contract."
+        ],
+        why: [
+            "Сохранный эффектор не компенсирует отсутствие запускающего сигнала. Наблюдаемое снижение ответа само по себе не определяет причину или место нарушения.",
+            "Сақталған эффектор іске қосатын сигналдың жоқтығын өтемейді. Жауаптың төмендеуі өздігінен бұзылыстың себебін не орнын анықтамайды.",
+            "An intact effector cannot replace a missing initiating signal. A reduced response alone does not identify the cause or location of a disturbance."
+        ],
+        anchor: "cns-pns"
+    },
+    {
+        id: "synaptic",
+        title: [
+            "Изменение синаптического влияния",
+            "Синапстық әсердің өзгеруі",
+            "Altered synaptic influence"
+        ],
+        mechanism: [
+            "Химическая передача зависит от выделения медиатора и ответа рецепторов клетки-мишени.",
+            "Химиялық берілу медиатордың бөлінуіне және нысана жасуша рецепторларының жауабына тәуелді.",
+            "Chemical transmission depends on transmitter release and the response of target-cell receptors."
+        ],
+        manifestation: [
+            "Ослабление возбуждающего синаптического влияния может уменьшить ответ клетки, хотя сигнал по входящему аксону проводится.",
+            "Қоздырушы синапстық әсердің әлсіреуі кіріс аксонында сигнал өткізілсе де, жасуша жауабын азайтуы мүмкін.",
+            "Weaker excitatory synaptic influence may reduce a cell's response despite conduction along the incoming axon."
+        ],
+        why: [
+            "Проведение по аксону и передача через синапс — разные этапы. Конечный ответ определяется совокупностью возбуждающих и тормозных входов, а не только наличием входящего импульса.",
+            "Аксон бойымен өткізу мен синапс арқылы берілу — бөлек кезеңдер. Соңғы жауап тек кіріс импульсіне емес, қоздырушы және тежеуші кірістер жиынтығына тәуелді.",
+            "Axonal conduction and transmission across a synapse are separate stages. The final response depends on combined excitatory and inhibitory inputs, not merely the presence of an incoming impulse."
+        ],
+        anchor: "principles"
+    }
+];
+const terms = [
+    {
+        id: "neuron",
+        term: [
+            "Нейрон",
+            "Нейрон",
+            "Neuron"
+        ],
+        definition: [
+            "Возбудимая клетка, принимающая, обрабатывающая и передающая сигналы.",
+            "Сигналдарды қабылдайтын, өңдейтін және өткізетін қозғыш жасуша.",
+            "An excitable cell that receives, processes and transmits signals."
+        ],
+        anchor: "nervous-system"
+    },
+    {
+        id: "glia",
+        term: [
+            "Нейроглия",
+            "Нейроглия",
+            "Neuroglia"
+        ],
+        definition: [
+            "Клетки, поддерживающие среду и работу нейронов; некоторые образуют миелин.",
+            "Нейрондардың ортасы мен қызметін қолдайтын жасушалар; кейбірі миелин түзеді.",
+            "Cells supporting neurons and their environment; some form myelin."
+        ],
+        anchor: "nervous-system"
+    },
+    {
+        id: "cns",
+        term: [
+            "Центральная нервная система (ЦНС)",
+            "Орталық жүйке жүйесі (ОЖЖ)",
+            "Central nervous system (CNS)"
+        ],
+        definition: [
+            "Головной и спинной мозг; обеспечивают обработку сигналов и организацию ответов.",
+            "Ми мен жұлын; сигналдарды өңдеп, жауаптарды ұйымдастырады.",
+            "The brain and spinal cord, which process signals and organise responses."
+        ],
+        anchor: "cns-pns"
+    },
+    {
+        id: "pns",
+        term: [
+            "Периферическая нервная система (ПНС)",
+            "Шеткі жүйке жүйесі (ШЖЖ)",
+            "Peripheral nervous system (PNS)"
+        ],
+        definition: [
+            "Нервные структуры вне головного и спинного мозга, связывающие ЦНС с органами и тканями.",
+            "Ми мен жұлыннан тыс орналасқан, ОЖЖ-ні ағзалармен және тіндермен байланыстыратын жүйкелік құрылымдар.",
+            "Neural structures outside the brain and spinal cord that connect the CNS with organs and tissues."
+        ],
+        anchor: "cns-pns"
+    },
+    {
+        id: "receptor",
+        term: [
+            "Сенсорный рецептор",
+            "Сенсорлық рецептор",
+            "Sensory receptor"
+        ],
+        definition: [
+            "Структура, преобразующая действие раздражителя в сигнал для нервной системы.",
+            "Тітіркендіргіш әсерін жүйке жүйесіне арналған сигналға түрлендіретін құрылым.",
+            "A structure that converts a stimulus into a signal for the nervous system."
+        ],
+        anchor: "cns-pns"
+    },
+    {
+        id: "afferent",
+        term: [
+            "Афферентный путь",
+            "Афференттік жол",
+            "Afferent pathway"
+        ],
+        definition: [
+            "Путь передачи сенсорной информации от периферии к ЦНС.",
+            "Сенсорлық ақпаратты шеттен ОЖЖ-ге жеткізетін жол.",
+            "A pathway carrying sensory information from the periphery towards the CNS."
+        ],
+        anchor: "cns-pns"
+    },
+    {
+        id: "efferent",
+        term: [
+            "Эфферентный путь",
+            "Эфференттік жол",
+            "Efferent pathway"
+        ],
+        definition: [
+            "Путь передачи команд от ЦНС к исполнительным органам.",
+            "ОЖЖ-ден атқарушы ағзаларға бұйрық жеткізетін жол.",
+            "A pathway carrying commands from the CNS towards effectors."
+        ],
+        anchor: "cns-pns"
+    },
+    {
+        id: "effector",
+        term: [
+            "Эффектор",
+            "Эффектор",
+            "Effector"
+        ],
+        definition: [
+            "Исполнительная структура, например мышца или железа, реализующая ответ.",
+            "Жауапты іске асыратын атқарушы құрылым, мысалы бұлшықет немесе без.",
+            "A responding structure, such as a muscle or gland, that carries out an output."
+        ],
+        anchor: "cns-pns"
+    },
+    {
+        id: "excitation",
+        term: [
+            "Возбуждение",
+            "Қозу",
+            "Excitation"
+        ],
+        definition: [
+            "Активный электрический ответ клетки; возбуждающее синаптическое влияние повышает вероятность разряда нейрона.",
+            "Жасушаның белсенді электрлік жауабы; қоздырушы синапстық әсер нейрон разрядының ықтималдығын арттырады.",
+            "An active electrical cellular response; excitatory synaptic influence increases neuronal firing probability."
+        ],
+        anchor: "principles"
+    },
+    {
+        id: "inhibition",
+        term: [
+            "Торможение",
+            "Тежелу",
+            "Inhibition"
+        ],
+        definition: [
+            "Активное влияние, снижающее вероятность или частоту разрядов нейрона.",
+            "Нейрон разрядының ықтималдығын немесе жиілігін төмендететін белсенді әсер.",
+            "An active influence reducing the probability or frequency of neuronal firing."
+        ],
+        anchor: "principles"
+    },
+    {
+        id: "synapse",
+        term: [
+            "Синапс",
+            "Синапс",
+            "Synapse"
+        ],
+        definition: [
+            "Специализированный контакт для передачи сигнала от нейрона другой клетке.",
+            "Нейроннан басқа жасушаға сигнал беретін маманданған түйісу.",
+            "A specialised contact transmitting a signal from a neuron to another cell."
+        ],
+        anchor: "principles"
+    },
+    {
+        id: "integration",
+        term: [
+            "Интеграция",
+            "Интеграция",
+            "Integration"
+        ],
+        definition: [
+            "Объединение и обработка входящих сигналов для формирования согласованного ответа.",
+            "Үйлесімді жауап қалыптастыру үшін кіріс сигналдарын біріктіру және өңдеу.",
+            "Combining and processing incoming signals to produce a coordinated response."
+        ],
+        anchor: "principles"
+    },
+    {
+        id: "feedback",
+        term: [
+            "Обратная связь",
+            "Кері байланыс",
+            "Feedback"
+        ],
+        definition: [
+            "Информация о результате действия, используемая для последующей коррекции.",
+            "Кейінгі түзету үшін қолданылатын әрекет нәтижесі туралы ақпарат.",
+            "Information about an action's outcome used for subsequent adjustment."
+        ],
+        anchor: "cns-pns"
+    },
+    {
+        id: "homeostasis",
+        term: [
+            "Гомеостаз",
+            "Гомеостаз",
+            "Homeostasis"
+        ],
+        definition: [
+            "Поддержание относительной стабильности внутренней среды за счёт механизмов регуляции.",
+            "Реттелу механизмдері арқылы ішкі ортаның салыстырмалы тұрақтылығын сақтау.",
+            "Maintenance of relative stability of the internal environment through regulatory mechanisms."
+        ],
+        anchor: "functions"
+    }
+];
+const review = [
+    {
+        prompt: [
+            "Почему нервная система — не просто система проводов?",
+            "Неліктен жүйке жүйесі жай өткізгіштер жүйесі емес?",
+            "Why is the nervous system more than a wiring system?"
+        ],
+        explanation: [
+            "Она не только проводит, но и обрабатывает сигналы, объединяет входы и выбирает ответ с учётом состояния организма.",
+            "Ол сигналдарды өткізіп қана қоймай, өңдейді, кірістерді біріктіреді және организм күйін ескеріп жауапты таңдайды.",
+            "It conducts and processes signals, combines inputs and selects responses according to the body's state."
+        ],
+        anchor: "nervous-system"
+    },
+    {
+        prompt: [
+            "Чем различаются ЦНС и ПНС? Приведите по два примера структур.",
+            "ОЖЖ мен ШЖЖ қалай ажыратылады? Әрқайсысына екі құрылымнан мысал келтіріңіз.",
+            "How do CNS and PNS differ? Give two examples of structures in each."
+        ],
+        explanation: [
+            "ЦНС включает головной и спинной мозг. К ПНС относятся, например, нервы и ганглии вне ЦНС. Это анатомическое деление, а не разделение на важную и второстепенную системы.",
+            "ОЖЖ-ге ми мен жұлын кіреді. ШЖЖ-ге, мысалы, ОЖЖ-ден тыс жүйкелер мен ганглийлер жатады. Бұл маңызды және қосалқы жүйелерге емес, анатомиялық бөліну.",
+            "The CNS includes brain and spinal cord. Examples in the PNS are nerves and ganglia outside the CNS. This is an anatomical distinction, not a division into important and secondary systems."
+        ],
+        anchor: "cns-pns"
+    },
+    {
+        prompt: [
+            "Опишите путь от раздражения кожи до сокращения мышцы.",
+            "Терінің тітіркенуінен бұлшықет жиырылуына дейінгі жолды сипаттаңыз.",
+            "Describe the pathway from skin stimulation to muscle contraction."
+        ],
+        explanation: [
+            "Рецептор преобразует раздражение; афферентный путь передаёт информацию в ЦНС; центральная сеть интегрирует вход; эфферентный путь воздействует на мышцу-эффектор. Обратная связь позволяет корректировать результат.",
+            "Рецептор тітіркенуді түрлендіреді; афференттік жол ақпаратты ОЖЖ-ге өткізеді; орталық желі кірісті біріктіреді; эфференттік жол бұлшықет-эффекторға әсер етеді. Кері байланыс нәтижені түзетуге мүмкіндік береді.",
+            "A receptor transduces the stimulus; an afferent pathway carries information to the CNS; a central network integrates input; an efferent pathway acts on the muscle effector. Feedback supports correction of the outcome."
+        ],
+        anchor: "cns-pns"
+    },
+    {
+        prompt: [
+            "Почему торможение нельзя считать отсутствием работы нейронов?",
+            "Неліктен тежелуді нейрондар жұмысының жоқтығы деп санауға болмайды?",
+            "Why is inhibition not simply an absence of neuronal activity?"
+        ],
+        explanation: [
+            "Тормозные влияния активно изменяют состояние клетки и уменьшают вероятность разряда. Они помогают ограничивать и согласовывать ответ вместе с возбуждающими входами.",
+            "Тежеуші әсерлер жасуша күйін белсенді өзгертіп, разряд ықтималдығын азайтады. Олар қоздырушы кірістермен бірге жауапты шектеуге және үйлестіруге көмектеседі.",
+            "Inhibitory inputs actively alter a cell's state and reduce firing probability. Together with excitatory inputs they help constrain and coordinate responses."
+        ],
+        anchor: "principles"
+    },
+    {
+        prompt: [
+            "Как связаны проведение по аксону и передача в химическом синапсе?",
+            "Аксон бойымен өткізу мен химиялық синапстағы берілу қалай байланысқан?",
+            "How are axonal conduction and chemical synaptic transmission related?"
+        ],
+        explanation: [
+            "Импульс проводится к окончанию аксона; вход кальция запускает выделение медиатора, который действует на рецепторы следующей клетки. Проведение и межклеточная передача — разные звенья.",
+            "Импульс аксон ұшына өтеді; кальцийдің енуі медиатор бөлінуін іске қосады, ол келесі жасуша рецепторларына әсер етеді. Өткізу мен жасушааралық берілу — бөлек буындар.",
+            "An impulse reaches the axon terminal; calcium entry triggers transmitter release, which acts on receptors of the next cell. Conduction and intercellular transmission are distinct steps."
+        ],
+        anchor: "principles"
+    },
+    {
+        prompt: [
+            "Что добавляет обратная связь к передаче команды?",
+            "Кері байланыс бұйрық беруге не қосады?",
+            "What does feedback add to issuing a command?"
+        ],
+        explanation: [
+            "Она сообщает, что реально произошло, и позволяет изменить последующую команду. Поэтому регуляция может поддерживать показатели в определённых пределах, а не требовать их полной неизменности.",
+            "Ол нақты не болғанын хабарлап, келесі бұйрықты өзгертуге мүмкіндік береді. Сондықтан реттелу көрсеткіштердің толық өзгермеуін емес, белгілі шектерде сақталуын қамтамасыз етеді.",
+            "It reports what actually happened and allows subsequent commands to change. Regulation can therefore keep variables within a range rather than requiring complete constancy."
+        ],
+        anchor: "functions"
+    }
+];
+function createStudyLessons(language) {
+    const t = (copy)=>pick(copy, language);
+    const title = (section)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$sections$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getSectionTitle"])(section, language);
+    const tests = {
+        RU: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+        KZ: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$kz$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"],
+        EN: __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$en$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"]
+    }[language];
+    const sourceLinks = [
+        [
+            theory("principles"),
+            {
+                section: "clinical",
+                anchor: "synaptic"
+            },
+            {
+                section: "cases"
+            },
+            {
+                section: "questions"
+            }
+        ],
+        [
+            theory("functions"),
+            {
+                section: "clinical",
+                anchor: "withdrawal"
+            },
+            {
+                section: "cases"
+            }
+        ]
+    ];
+    return {
+        objectives: {
+            kind: "objectives",
+            title: title("objectives"),
+            introduction: t([
+                "После изучения модуля проверьте, можете ли вы выполнить каждое действие самостоятельно. Ссылки ведут к материалам и проверочным активностям.",
+                "Модульден кейін әр әрекетті өз бетіңізше орындай алатыныңызды тексеріңіз. Сілтемелер материалдар мен тексеру тапсырмаларына апарады.",
+                "After studying the module, check whether you can perform each action independently. Links lead to the relevant material and assessment activities."
+            ]),
+            cards: goals.map((goal, index)=>({
+                    id: goal.id,
+                    title: `${index + 1}`,
+                    paragraphs: [
+                        t(goal.text)
+                    ],
+                    links: goal.links
+                }))
+        },
+        pretest: {
+            kind: "pretest",
+            title: title("pretest"),
+            introduction: t([
+                "Пять вопросов для определения исходных знаний. Это диагностика без итоговой оценки. Выберите ответ, прочитайте объяснение и используйте рекомендации для повторения. Попытка сбрасывается при перезагрузке или смене языка.",
+                "Бастапқы білімді анықтайтын бес сұрақ. Бұл қорытынды бағаға кірмейтін диагностика. Жауапты таңдап, түсіндірмені оқыңыз және қайталау ұсыныстарын қолданыңыз. Бет жаңартылғанда немесе тіл ауысқанда әрекет қайта басталады.",
+                "Five questions to check prior knowledge. This diagnostic does not contribute to a final grade. Choose an answer, read the explanation and use the review recommendations. Reloading or changing language resets the attempt."
+            ]),
+            questions: [
+                "organization",
+                "cns-pns",
+                "afferent",
+                "synapse",
+                "regulation"
+            ].map((id)=>{
+                const node = tests.nodes[`${id}:main`];
+                if (node.type !== "question") throw Error("Expected diagnostic question");
+                return {
+                    ...node,
+                    topic: tests.competencies[id].title,
+                    target: theory(tests.competencies[id].theoryTarget.anchor)
+                };
+            })
+        },
+        "one-minute": {
+            kind: "one-minute",
+            title: title("one-minute"),
+            introduction: t([
+                "Около минуты чтения: четыре опорные идеи перед повторением или проверкой знаний.",
+                "Шамамен бір минут: қайталау немесе білімді тексеру алдындағы төрт негізгі ой.",
+                "About a minute of reading: four core ideas before review or self-assessment."
+            ]),
+            cards: summary.map((item, index)=>({
+                    id: `key-${index + 1}`,
+                    title: t(item.title),
+                    paragraphs: [
+                        t(item.text)
+                    ],
+                    links: [
+                        theory(item.anchor)
+                    ]
+                }))
+        },
+        clinical: {
+            kind: "clinical",
+            title: title("clinical"),
+            introduction: t([
+                "Учебные примеры связывают физиологию с наблюдаемыми проявлениями. Они объясняют механизмы, а не устанавливают диагноз и не предлагают лечение.",
+                "Оқу мысалдары физиологияны байқалатын көріністермен байланыстырады. Олар механизмдерді түсіндіреді, диагноз қоймайды және ем ұсынбайды.",
+                "These teaching examples connect physiology with observable manifestations. They explain mechanisms rather than establish a diagnosis or recommend treatment."
+            ]),
+            cards: clinical.map((item)=>({
+                    id: item.id,
+                    title: t(item.title),
+                    paragraphs: [
+                        t([
+                            "Механизм: ",
+                            "Механизм: ",
+                            "Mechanism: "
+                        ]) + t(item.mechanism),
+                        t([
+                            "Проявление: ",
+                            "Көрініс: ",
+                            "Manifestation: "
+                        ]) + t(item.manifestation),
+                        t([
+                            "Почему: ",
+                            "Неліктен: ",
+                            "Why: "
+                        ]) + t(item.why)
+                    ],
+                    links: [
+                        theory(item.anchor),
+                        {
+                            section: "references",
+                            anchor: item.id === "synaptic" ? "source-1" : "source-2"
+                        }
+                    ]
+                }))
+        },
+        questions: {
+            kind: "questions",
+            title: title("questions"),
+            introduction: t([
+                "Сначала сформулируйте ответ своими словами, затем сравните его с объяснением. Свободный ответ не оценивается автоматически и не сохраняется после ухода со страницы.",
+                "Алдымен өз сөзіңізбен жауап беріп, кейін түсіндірмемен салыстырыңыз. Еркін жауап автоматты бағаланбайды және беттен шыққаннан кейін сақталмайды.",
+                "Formulate an answer in your own words before comparing it with the explanation. Free-text answers are not automatically graded and are not saved after leaving the page."
+            ]),
+            questions: review.map((item, index)=>({
+                    id: `review-${index + 1}`,
+                    prompt: t(item.prompt),
+                    explanation: t(item.explanation),
+                    target: theory(item.anchor)
+                }))
+        },
+        glossary: {
+            kind: "glossary",
+            title: title("glossary"),
+            introduction: t([
+                "Ищите по термину или определению. Ссылки открывают связанный фрагмент теории на выбранном языке.",
+                "Термин немесе анықтама бойынша іздеңіз. Сілтемелер таңдалған тілдегі тиісті теория бөлігін ашады.",
+                "Search terms or definitions. Links open the related theory passage in the selected language."
+            ]),
+            terms: terms.map((item)=>({
+                    id: item.id,
+                    term: t(item.term),
+                    definition: t(item.definition),
+                    target: theory(item.anchor)
+                }))
+        },
+        references: {
+            kind: "references",
+            title: title("references"),
+            introduction: t([
+                "Источники, уже используемые в ситуационных задачах Модуля 1. Названия и адреса сохранены; отсутствующие в проекте авторы, даты и издания не добавлены. Это тематические источники по синапсам и защитному рефлексу, а не исчерпывающая библиография модуля.",
+                "Модуль 1 ситуациялық тапсырмаларында қолданылған дереккөздер. Атаулар мен мекенжайлар сақталған; жобада жоқ авторлар, күндер және басылымдар қосылмаған. Бұлар синапстар мен қорғаныш рефлексіне қатысты дереккөздер, модульдің толық библиографиясы емес.",
+                "Sources already used in Module 1 case problems. Titles and URLs are preserved; authors, dates and editions absent from the project have not been added. These are topic-specific sources on synapses and the protective reflex, not an exhaustive module bibliography."
+            ]),
+            cards: [
+                {
+                    id: "module-materials",
+                    title: t([
+                        "Материалы учебника",
+                        "Оқулық материалдары",
+                        "Textbook materials"
+                    ]),
+                    paragraphs: [
+                        t([
+                            "Для общей организации нервной системы, путей и гомеостаза используйте теорию модуля. Практика и вопросы помогают проверить понимание.",
+                            "Жүйке жүйесінің жалпы ұйымдасуы, жолдары және гомеостаз үшін модуль теориясын қолданыңыз. Практика мен сұрақтар түсінуді тексеруге көмектеседі.",
+                            "Use the module theory for nervous system organisation, pathways and homeostasis. Practice and questions help assess understanding."
+                        ])
+                    ],
+                    links: [
+                        theory("nervous-system"),
+                        theory("cns-pns"),
+                        theory("functions"),
+                        {
+                            section: "practice"
+                        },
+                        {
+                            section: "questions"
+                        }
+                    ]
+                }
+            ],
+            sources: (__TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$cases$2f$ru$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].sources ?? []).map((source, index)=>({
+                    ...source,
+                    description: index === 0 ? t([
+                        "Химическая синаптическая передача: связь с механизмами межклеточного сигнала.",
+                        "Химиялық синапстық берілу: жасушааралық сигнал механизмдерімен байланыс.",
+                        "Chemical synaptic transmission and the mechanisms of intercellular signalling."
+                    ]) : t([
+                        "Реакция отдёргивания: связь сенсорного входа, спинальных сетей и защитного движения.",
+                        "Тартып алу реакциясы: сенсорлық кіріс, жұлын желілері және қорғаныш қимылының байланысы.",
+                        "Withdrawal response: links between sensory input, spinal networks and protective movement."
+                    ]),
+                    links: sourceLinks[index] ?? []
+                }))
+        }
+    };
+}
+}),
+"[project]/content/modules/1/tests/en.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/tests/structure.ts [app-rsc] (ecmascript)");
+;
+const copy = {
+    title: "Adaptive test. Introduction to neurophysiology",
+    moduleTitle: "Module 1",
+    ui: {
+        introduction: "This formative assessment offers different learning routes. A correct solution leads to the next core topic. After an error, review the relevant theory and complete an additional task. The length of your route depends on your answers.",
+        languageWarning: "Changing the language will restart your current attempt.",
+        localNote: "Progress is kept only on this page and resets on reload. Theory opens in a new tab: return here to continue the same attempt.",
+        mainProgress: "Main route",
+        additional: "Additional task",
+        basic: "Foundation task",
+        competency: "Topic",
+        check: "Check answer",
+        select: "Select one option, then check your answer.",
+        correct: "Correct",
+        reviewNeeded: "Review needed",
+        continue: "Continue the route",
+        finish: "View results",
+        review: "Review needed",
+        detailedReview: "A closer explanation",
+        openTheory: "Open the relevant theory section",
+        newTab: "opens in a new tab",
+        reviewed: "I have reviewed the material — continue",
+        unresolvedFeedback: "This topic still needs review. Read the explanation: the route will continue, but this topic will not be marked as mastered.",
+        route: "Your completed route",
+        mainQuestion: "Main question",
+        extraQuestion: "Additional question",
+        theoryVisit: "Theory review",
+        immediate: "Mastered on the first attempt",
+        recovered: "Mastered after review",
+        needsReview: "Further review needed",
+        complete: "Test completed",
+        firstAttempt: "Main questions correct on the first attempt",
+        mastery: "Mastered including review",
+        recoveredCount: "Of these, mastered after review",
+        extraCount: "Additional learning tasks",
+        remediationCount: "Review stages",
+        weakTopics: "Topics that required review",
+        noWeakTopics: "All core topics were mastered on the first attempt.",
+        repeatTheory: "Review theory",
+        restart: "Restart the test",
+        resultNote: "First-attempt performance is recorded separately and does not change after review. Mastery requires a correct answer; opening theory alone does not improve the score. This is learning feedback, not an examination grade."
+    },
+    topics: {
+        organization: {
+            title: "Organisation of the nervous system",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("A person notices an obstacle and changes direction. Which description most fully represents nervous system function?", [
+                "It only carries ready-made commands without processing incoming signals.",
+                "It receives, conducts, and integrates information to organise a coordinated response.",
+                "It controls only conscious movements and does not regulate internal organs.",
+                "Each receptor independently produces a complete movement programme."
+            ], "b", "The nervous system connects information acquisition with processing and response organisation. Its regulation includes movement, internal organs, and behaviour, rather than signal conduction alone."),
+            review: "Check whether your explanation reduces the whole system to a single function. In the general organisation section, identify what happens between receiving information and producing the body's response.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Why is the nervous system more than a collection of conducting fibres?", [
+                "Fibres do not conduct signals at all.",
+                "All processing occurs only in muscles.",
+                "Neural networks also process information and coordinate responses with the body's state.",
+                "Each part of the nervous system operates independently."
+            ], "c", "Conduction provides communication, but networks also transform and integrate inputs. This allows responses to be selected according to current conditions and physiological needs."),
+            detailedReview: "Separate three functions: obtaining information, processing it, and organising action. Neurons receive and transmit signals, and their connections form processing networks. Glial cells support the conditions needed for neuronal activity. Regulation depends on these components working together.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Which is an example of information processing rather than conduction alone?", [
+                "Comparing sensory inputs to select a response.",
+                "An impulse propagating along one axon.",
+                "A signal travelling along a sensory fibre.",
+                "An impulse travelling along a motor fibre."
+            ], "a", "Comparing inputs changes how information is used. Impulse propagation provides transmission, but does not by itself describe response selection.")
+        },
+        "cns-pns": {
+            title: "Central and peripheral nervous systems",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Which structure belongs to the central nervous system?", [
+                "A spinal nerve.",
+                "A peripheral ganglion.",
+                "A sensory nerve ending in the skin.",
+                "The spinal cord."
+            ], "d", "The brain and spinal cord form the CNS. Nerves, peripheral ganglia, and nerve endings belong to the PNS. Similar wording in 'spinal cord' and 'spinal nerve' does not imply the same anatomical classification."),
+            review: "Review the anatomical distinction between the CNS and PNS. Distinguish a central organ from a nerve connecting it to the periphery; a structure's name alone can be misleading.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Which two structures form the CNS?", [
+                "The brain and spinal cord.",
+                "The brain and all peripheral nerves.",
+                "Ganglia and nerve endings.",
+                "The spinal cord and spinal nerves."
+            ], "a", "The CNS comprises the brain and spinal cord. Connected peripheral nerves do not become CNS structures simply because they carry its signals."),
+            detailedReview: "Anatomical boundaries are not determined by signal direction. The CNS consists of the brain and spinal cord; the PNS includes nerves, ganglia outside the CNS, and nerve endings. A peripheral nerve can carry both sensory and motor signals.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("A peripheral nerve connects the CNS with tissues. Which division does it belong to?", [
+                "The CNS, because it is connected to it.",
+                "The PNS.",
+                "The CNS only while transmitting a motor command.",
+                "It is not part of the nervous system."
+            ], "b", "The nerve belongs to the PNS anatomically. The direction of the signal being conducted does not change its classification.")
+        },
+        afferent: {
+            title: "Afferent pathway",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("A receptor detects a change in the external environment. Where does information normally travel along an afferent pathway?", [
+                "From the CNS towards a muscle.",
+                "Directly from one effector to another.",
+                "From the receptor towards the CNS.",
+                "From the CNS towards the receptor as an execution command."
+            ], "c", "An afferent pathway delivers sensory information from receptors to the CNS. This input supports processing of the stimulus and organisation of a response."),
+            review: "Review the direction of sensory information transmission. In the CNS/PNS section, trace where the incoming signal starts and where it goes; distinguish sensory input from a motor command.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Complete the functional chain: receptor → ? → CNS.", [
+                "Effector.",
+                "Afferent pathway.",
+                "Efferent pathway.",
+                "Muscle contraction."
+            ], "b", "The afferent pathway conducts sensory information between the receptor and CNS. An effector performs the response rather than replacing sensory conduction."),
+            detailedReview: "Afferent means travelling towards central structures from a sensory source. Efferent means carrying a control signal from the CNS towards an effector. Determine direction relative to the CNS, rather than from the orientation of an arrow in a diagram.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("A signal travels from a skin receptor to the spinal cord. What direction is this?", [
+                "Efferent.",
+                "From an effector towards a muscle.",
+                "Exclusively within a muscle.",
+                "Afferent."
+            ], "d", "The signal travels from a sensory source towards the spinal cord, a CNS structure. This is afferent conduction.")
+        },
+        efferent: {
+            title: "Efferent pathway",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("The CNS has generated a motor command. Which pathway carries it towards an effector organ?", [
+                "An efferent pathway.",
+                "An afferent pathway from a skin receptor.",
+                "A sensory receptor acting as a complete pathway.",
+                "Feedback about the outcome of an already completed movement."
+            ], "a", "An efferent pathway carries a control signal from the CNS towards an effector. In the motor system, motor fibres provide peripheral conduction of the command."),
+            review: "Distinguish a command travelling towards an organ from a sensory report arriving from the periphery. Review afferent and efferent directions in the CNS/PNS section.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Which comparison of directions is correct?", [
+                "Both pathways travel only away from the CNS.",
+                "Afferent: towards a muscle; efferent: towards the CNS.",
+                "Afferent: receptor to CNS; efferent: CNS to effector.",
+                "Both pathways carry only information from receptors."
+            ], "c", "The directions are defined relative to the CNS: afferent signalling provides input, while efferent signalling delivers control influences to an organ."),
+            detailedReview: "First identify the source of the signal. A CNS command travelling towards a muscle or gland uses an efferent pathway. Receptor information travelling towards the CNS uses an afferent pathway. The muscle remains the effector; the neural pathway remains the conductor.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("A motor fibre conducts a command from the CNS to skeletal muscle. What is its role?", [
+                "Receptor function.",
+                "Efferent conduction.",
+                "Sensory input to the CNS.",
+                "Producing mechanical contraction instead of the muscle."
+            ], "b", "The fibre conducts an efferent signal. Muscle fibres perform the mechanical work after neuromuscular transmission.")
+        },
+        effector: {
+            title: "Receptor and effector",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("A muscle contracts after receiving a motor command. What is its functional role in this chain?", [
+                "An afferent pathway.",
+                "A receptor detecting the external stimulus.",
+                "An efferent neural pathway.",
+                "An effector performing the response."
+            ], "d", "The muscle acts as an effector by producing a mechanical response. An efferent pathway delivers the command and a receptor detects a change. These are distinct roles within one chain."),
+            review: "Distinguish detecting a stimulus, conducting a command, and performing an action. Find examples of effector organs in the CNS/PNS section and compare their role with that of a neural pathway.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Which description correctly distinguishes a receptor from an effector?", [
+                "A receptor detects a change; an effector performs a response.",
+                "A receptor always contracts; an effector only conducts an impulse.",
+                "Receptor and effector are names for the same conducting fibre.",
+                "An effector must be located inside the CNS."
+            ], "a", "A receptor provides information about a stimulus, whereas an effector carries out an action. Depending on the system, a muscle or gland can be an effector."),
+            detailedReview: "Do not identify the conducting pathway as the executor. A nerve fibre delivers a command, a muscle develops force, and a gland secretes. Receptors detect changes. An organ may contain receptors, but the contracting muscle in this chain is acting as an effector.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("A gland secretes in response to a neural command. In this chain it is…", [
+                "An afferent fibre.",
+                "A central neural processing structure.",
+                "An effector.",
+                "Only a conductor carrying a command to another gland."
+            ], "c", "The gland performs a secretory response and therefore acts as an effector. Effector function is not limited to muscle contraction.")
+        },
+        excitation: {
+            title: "Excitation and inhibition",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Precise movement requires activation of some neuronal groups and restriction of others. Why is inhibition necessary?", [
+                "To switch off the entire nervous system.",
+                "To selectively limit competing activity and coordinate the response.",
+                "To replace all excitatory signals with mechanical movement.",
+                "To make every sensory signal invariably trigger a maximal response."
+            ], "b", "Inhibition actively regulates firing probability and restricts unnecessary activity. Together with excitation, it makes responses selective and coordinated."),
+            review: "Review inhibition as an active regulatory mechanism. Compare switching off the entire system with selectively limiting activity in particular circuits.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Why does increasing excitation in every neuronal group fail to guarantee precise movement?", [
+                "Neurons do not participate in movement.",
+                "Precision depends only on muscle strength.",
+                "Inhibition always stops all movement.",
+                "Competing programmes may be activated together; selection and coordination are needed."
+            ], "d", "Precision requires coordination of the relevant groups, response strength, and timing. Indiscriminate activation can recruit competing movements."),
+            detailedReview: "Excitatory influences generally increase the probability of firing, whereas inhibitory influences limit it. These are not 'good' and 'bad' processes in opposition. Their combination regulates network activity; inhibition is active and does not mean the absence of incoming signals.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Which description best represents inhibition within a neural network?", [
+                "An active reduction in the probability or frequency of firing.",
+                "The absence of all physiological processes.",
+                "Necessary damage to a neuron.",
+                "Always a complete shutdown of the brain."
+            ], "a", "Inhibition actively adjusts neuronal activity. It can change firing probability and frequency without damaging the cell or switching off the entire network.")
+        },
+        synapse: {
+            title: "Synaptic transmission",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Select the causally correct sequence at a chemical synapse after an action potential arrives.", [
+                "Exocytosis → Ca²⁺ influx → Ca²⁺ channel opening → transmitter binding.",
+                "Postsynaptic response → transmitter release → action potential arrival.",
+                "Ca²⁺ channel opening → Ca²⁺ influx → exocytosis → transmitter diffusion → receptor binding → postsynaptic effect.",
+                "Ca²⁺ influx → transmitter binding to receptors → exocytosis → transmitter diffusion."
+            ], "c", "Depolarisation opens voltage-gated calcium channels. Calcium entry triggers transmitter release; diffusion and receptor binding then change the postsynaptic cell's state. The effect is not necessarily excitatory."),
+            review: "Check which events are causes and which are consequences. In the synaptic transmission subsection, trace the connection between the electrical signal, transmitter release, and the receiving cell's response.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("An action potential still arrives, but Ca²⁺ entry into the presynaptic terminal is greatly reduced. Which consequence is most likely?", [
+                "Transmitter release will usually decrease.",
+                "Transmitter must start being released before any incoming signal.",
+                "Postsynaptic receptors will turn into presynaptic vesicles.",
+                "The amount of transmitter released must remain unchanged."
+            ], "a", "Calcium entry couples depolarisation to exocytosis. Reducing calcium entry therefore usually reduces transmitter release even when an action potential arrives."),
+            detailedReview: "Separate the two sides of the synapse. Presynaptic depolarisation produces calcium entry and transmitter release. The transmitter then crosses the cleft and acts on receptors of the receiving cell. In this sequence, the postsynaptic effect follows these events rather than initiating them.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("What must released transmitter bind to in order to produce the corresponding postsynaptic effect?", [
+                "Only the axon's myelin.",
+                "The presynaptic cell's nucleus directly across the cleft.",
+                "Any muscle without receptors.",
+                "Receptors on the postsynaptic cell."
+            ], "d", "Specific receptors mediate transmitter action on the receiving cell. Their associated mechanisms determine the nature of the effect.")
+        },
+        integration: {
+            title: "Neural integration",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Several excitatory and inhibitory influences reach the CNS together. Why can the result not be explained by one signal alone?", [
+                "All inputs always cancel one another completely.",
+                "The result depends on their interactions across time and space and on network state.",
+                "Inhibitory signals do not contribute to the response.",
+                "Only the earliest signal ever acts."
+            ], "b", "Neuronal inputs interact rather than acting in isolation. Their timing, location, and the cell and network state matter, so the same input can produce different responses under different conditions."),
+            review: "Review integration as the combined influence of inputs. Check whether the selected option ignores some signals or the state of the network.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("One sensory input remains unchanged, but inhibitory influences on the network increase. Why might the response change?", [
+                "The afferent signal stops being sensory by definition.",
+                "Any inhibition destroys the network.",
+                "Network state and the combination of inputs alter processing even when one signal is unchanged.",
+                "One unchanged signal always guarantees an unchanged response."
+            ], "c", "The reaction depends on the combination of influences. Altered inhibition can change the probability and nature of the response to an otherwise unchanged sensory signal."),
+            detailedReview: "Integration combines and transforms information. Excitation and inhibition jointly shape activity. Imagine the same input against different backgrounds of additional signals: the overall result may differ although the original input is identical.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Which example best illustrates integration?", [
+                "Using several signals together to form a coordinated response.",
+                "Completely ignoring every input except one under all conditions.",
+                "Only conducting an impulse without interaction with other inputs.",
+                "Each receptor independently operating as a complete brain."
+            ], "a", "Combining and transforming inputs is central to integration. Conduction of a single impulse does not describe the whole function.")
+        },
+        feedback: {
+            title: "Feedback",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("A person holds an arm in a target position. Why does the nervous system need information about small position changes after the command?", [
+                "To replace all motor commands with sensory signals.",
+                "To guarantee immobility without muscle activity.",
+                "To initiate only the first command and never participate again.",
+                "To compare the actual outcome with the task and adjust muscle activity."
+            ], "d", "Feedback reports the outcome of an action. It allows deviations to be detected and control to be adjusted, rather than only providing an initial command."),
+            review: "Distinguish the original command from information about what happened after it was executed. In the CNS/PNS section, identify how feedback about an action's outcome is used.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("If sensory information about limb position is substantially reduced, which outcome is most likely?", [
+                "Accuracy must improve because there are fewer signals.",
+                "Deviations become harder to detect and correct.",
+                "The motor command stops being efferent.",
+                "The muscle automatically becomes a central organ."
+            ], "b", "Reduced information about actual position makes outcome assessment and correction more difficult. The extent of impairment also depends on other remaining sensory mechanisms."),
+            detailedReview: "Control does not end when a command is sent. Receptors report actual position and movement; the CNS uses this information for further correction. Feedback supplements the command, but does not itself perform muscular work.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("What does sensory feedback report?", [
+                "Only the name of the efferent nerve.",
+                "Only a future command that the CNS has not yet generated.",
+                "Information about the actual outcome of an action.",
+                "Always a complete movement without muscle involvement."
+            ], "c", "The key role of feedback is to report the achieved outcome, providing a basis for adjusting subsequent control.")
+        },
+        regulation: {
+            title: "The general principle of neural regulation",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("A person unexpectedly steps onto uneven ground and adjusts body position. Which functional sequence is most accurate?", [
+                "Environmental change → receptor → afferent pathway → CNS / integration → efferent pathway → effector → response → feedback.",
+                "Environmental change → effector → efferent pathway → receptor → CNS → response.",
+                "CNS → afferent pathway → muscle → receptor; feedback is unnecessary.",
+                "Receptor → complete movement; central processing and an effector are unnecessary."
+            ], "a", "Sensory input reaches the CNS and contributes to integration; control signals then reach effectors. Outcome information allows the response to be adjusted. Real processes also operate in parallel and form closed control loops."),
+            review: "Separate information acquisition, central processing, command transmission, and action. Review nervous system functions and the role of evaluating information to produce a coordinated response.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Which connection correctly links information processing to movement execution?", [
+                "CNS → receptor → contraction without a muscle.",
+                "Muscle → afferent pathway → the original command from the CNS.",
+                "CNS → efferent pathway → muscle acting as effector.",
+                "Effector → receptor → efferent pathway towards the CNS."
+            ], "c", "After central processing, the command travels along an efferent pathway to the muscle. The muscle produces the response, and sensory pathways report its outcome."),
+            detailedReview: "Use the functional roles: a receptor detects stimulation, an afferent pathway delivers input, the CNS integrates, an efferent pathway carries the command, and an effector acts. Outcome information returns as sensory feedback. Do not exchange the roles of a conductor and an effector organ.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("What directly performs the mechanical response when body position is adjusted?", [
+                "A sensory signal by itself.",
+                "Muscles acting as effectors.",
+                "The name of the motor command.",
+                "The afferent pathway instead of an effector organ."
+            ], "b", "Muscles perform mechanical work. Receptors and conducting pathways provide information and control of that work, but do not replace it.")
+        }
+    }
+};
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createModule1Test"])(copy);
+}),
+"[project]/content/modules/1/tests/kz.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/tests/structure.ts [app-rsc] (ecmascript)");
+;
+const copy = {
+    title: "Бейімделетін тест. Нейрофизиологияға кіріспе",
+    moduleTitle: "Модуль 1",
+    ui: {
+        introduction: "Бұл — бірнеше оқу бағыты бар қалыптастырушы тест. Дұрыс шешім келесі негізгі тақырыпқа өткізеді. Қате жауаптан кейін теорияның тиісті бөлігін қайталап, қосымша тапсырманы орындайсыз. Бағыттың ұзақтығы жауаптарыңызға байланысты.",
+        languageWarning: "Тіл ауыстырылғанда ағымдағы талпыныс басынан басталады.",
+        localNote: "Орындалу барысы тек осы бетте сақталады және бет жаңартылғанда қалпына келтіріледі. Теория жаңа қойындыда ашылады: сол талпынысты жалғастыру үшін осы бетке оралыңыз.",
+        mainProgress: "Негізгі бағыт",
+        additional: "Қосымша тапсырма",
+        basic: "Базалық тапсырма",
+        competency: "Тақырып",
+        check: "Жауапты тексеру",
+        select: "Бір нұсқаны таңдап, жауабыңызды тексеріңіз.",
+        correct: "Дұрыс",
+        reviewNeeded: "Қайталау қажет",
+        continue: "Бағытты жалғастыру",
+        finish: "Нәтижелерді көру",
+        review: "Қайталау қажет",
+        detailedReview: "Толығырақ талдайық",
+        openTheory: "Теорияның қажетті бөлігін ашу",
+        newTab: "жаңа қойындыда ашылады",
+        reviewed: "Материалды қайталадым — жалғастыру",
+        unresolvedFeedback: "Бұл тақырыпты әлі де қайталау қажет. Түсіндірмені оқыңыз: бағыт жалғасады, бірақ тақырып меңгерілді деп белгіленбейді.",
+        route: "Сіз өткен бағыт",
+        mainQuestion: "Негізгі сұрақ",
+        extraQuestion: "Қосымша сұрақ",
+        theoryVisit: "Теорияны қайталау",
+        immediate: "Бірінші талпыныста меңгерілді",
+        recovered: "Қайталаудан кейін меңгерілді",
+        needsReview: "Қосымша қайталау қажет",
+        complete: "Тест аяқталды",
+        firstAttempt: "Бірінші талпыныста дұрыс орындалған негізгі сұрақтар",
+        mastery: "Қайталауды ескергендегі меңгерілген тақырыптар",
+        recoveredCount: "Оның ішінде қайталаудан кейін меңгерілгені",
+        extraCount: "Қосымша оқу тапсырмалары",
+        remediationCount: "Қайталау кезеңдері",
+        weakTopics: "Қайталауды қажет еткен тақырыптар",
+        noWeakTopics: "Барлық негізгі тақырып бірінші талпыныста меңгерілді.",
+        repeatTheory: "Теорияны қайталау",
+        restart: "Тестті қайта өту",
+        resultNote: "Бірінші талпыныстың нәтижесі бөлек есептеледі және қайталаудан кейін өзгермейді. Меңгеру тек дұрыс жауаптан кейін есепке алынады; теорияны ашудың өзі көрсеткішті арттырмайды. Бұл — оқу үшін кері байланыс, емтихан бағасы емес."
+    },
+    topics: {
+        organization: {
+            title: "Жүйке жүйесінің ұйымдасуы",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Адам кедергіні байқап, қозғалыс бағытын өзгертті. Қай сипаттама жүйке жүйесінің қызметін барынша толық көрсетеді?", [
+                "Ол кіріс сигналдарын өңдемей, тек дайын пәрмендерді өткізеді.",
+                "Ол ақпаратты қабылдап, өткізіп, біріктіреді және үйлесімді жауапты ұйымдастырады.",
+                "Ол тек саналы қозғалыстарға жауап береді, ішкі мүшелерді реттемейді.",
+                "Әр рецептор қозғалыстың толық бағдарламасын өздігінен қалыптастырады."
+            ], "b", "Жүйке жүйесі ақпаратты қабылдауды оны өңдеумен және жауапты ұйымдастырумен байланыстырады. Реттеу тек сигнал өткізумен шектелмей, қозғалысты, ішкі мүшелерді және мінез-құлықты қамтиды."),
+            review: "Таңдалған түсіндірме бүкіл жүйенің қызметін бір ғана міндетпен шектемейтінін тексеріңіз. Жалпы ұйымдасу бөлімінен ақпаратты алу мен организм жауабының арасында қандай үдерістер жүретінін табыңыз.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Неліктен жүйке жүйесін тек өткізгіш талшықтар жиынтығы ретінде қарастыруға болмайды?", [
+                "Талшықтар сигналдарды мүлде өткізбейді.",
+                "Ақпараттың барлығы тек бұлшықеттерде өңделеді.",
+                "Нейрондық желілер ақпаратты өңдеп, жауапты организмнің күйімен үйлестіреді.",
+                "Жүйке жүйесінің әр бөлігі қалғандарынан тәуелсіз жұмыс істейді."
+            ], "c", "Өткізу байланыс үшін қажет, бірақ нейрондық желілер кірістерді түрлендіріп, біріктіреді. Соның арқасында жауап жағдайлар мен организмнің қажеттіліктеріне сәйкес таңдалады."),
+            detailedReview: "Үш қызметті ажыратыңыз: мәлімет алу, оны өңдеу және әрекетті ұйымдастыру. Нейрондар сигналдарды қабылдап, береді, ал олардың байланыстары өңдеу желілерін құрайды. Глия жасушалары нейрондардың жұмысына қажетті жағдайларды қолдайды. Реттеу құрамдастардың бірлескен қызметі арқылы жүзеге асады.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Қай әрекет тек ақпарат өткізудің емес, оны өңдеудің мысалы болып табылады?", [
+                "Жауапты таңдау үшін сенсорлық кірістерді салыстыру.",
+                "Импульстің бір аксон бойымен таралуы.",
+                "Сигналдың сезгіш талшықпен өтуі.",
+                "Импульстің қозғалтқыш талшықпен өтуі."
+            ], "a", "Кірістерді салыстыру ақпаратты пайдалану тәсілін өзгертеді. Импульстің талшықпен таралуы берілуді қамтамасыз етеді, бірақ жауапты таңдауды өздігінен сипаттамайды.")
+        },
+        "cns-pns": {
+            title: "Орталық және шеткі жүйке жүйесі",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Қай құрылым орталық жүйке жүйесіне жатады?", [
+                "Жұлын жүйкесі.",
+                "Шеткі ганглий.",
+                "Терідегі сезгіш жүйке ұшы.",
+                "Жұлын."
+            ], "d", "Ми мен жұлын ОЖЖ-ні құрайды. Жүйкелер, шеткі ганглийлер және жүйке ұштары ШЖЖ-ге жатады. «Жұлын» және «жұлын жүйкесі» атауларының ұқсастығы олардың бір бөлімге жататынын білдірмейді."),
+            review: "Жүйке жүйесінің ОЖЖ және ШЖЖ болып анатомиялық бөліну қағидасын қайталаңыз. Орталық мүшені оны шеткі құрылымдармен байланыстыратын жүйкеден ажыратыңыз; құрылым атауының өзі жаңылыстыруы мүмкін.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("ОЖЖ-ні қандай екі құрылым құрайды?", [
+                "Ми мен жұлын.",
+                "Ми және барлық шеткі жүйкелер.",
+                "Ганглийлер мен жүйке ұштары.",
+                "Жұлын және жұлын жүйкелері."
+            ], "a", "ОЖЖ ми мен жұлыннан тұрады. Олармен байланысқан шеткі жүйкелер орталық сигналдарды өткізгені үшін ғана ОЖЖ құрамына кірмейді."),
+            detailedReview: "Анатомиялық шекара сигналдың бағытымен анықталмайды. ОЖЖ — ми мен жұлын; ШЖЖ құрамына жүйкелер, ОЖЖ-ден тыс ганглийлер және жүйке ұштары кіреді. Шеткі жүйке сезгіш те, қозғалтқыш та сигналдарды өткізе алады.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Шеткі жүйке ОЖЖ-ні тіндермен байланыстырады. Ол қай бөлімге жатады?", [
+                "ОЖЖ-ге, өйткені онымен байланысқан.",
+                "ШЖЖ-ге.",
+                "Тек қозғалтқыш пәрменді берген кезде ОЖЖ-ге.",
+                "Жүйке жүйесіне жатпайды."
+            ], "b", "Жүйке анатомиялық орналасуына қарай ШЖЖ-ге жатады. Өткізілетін сигналдың бағыты бұл жіктеуді өзгертпейді.")
+        },
+        afferent: {
+            title: "Афференттік жол",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Рецептор сыртқы ортадағы өзгерісті тіркеді. Қалыпты жағдайда афференттік жолмен ақпарат қайда бағытталады?", [
+                "ОЖЖ-ден бұлшықетке.",
+                "Бір эффектордан тікелей басқа эффекторға.",
+                "Рецептордан ОЖЖ-ге.",
+                "ОЖЖ-ден рецепторға атқарушы пәрмен ретінде."
+            ], "c", "Афференттік жол сенсорлық ақпаратты рецепторлардан ОЖЖ-ге жеткізеді. Бұл кіріс әсерді өңдеу және жауапты ұйымдастыру үшін қажет."),
+            review: "Сенсорлық ақпараттың берілу бағытын қайталаңыз. ОЖЖ/ШЖЖ бөлімінде кіріс сигналының қайдан басталып, қайда бағытталатынын қадағалаңыз; сенсорлық кірісті қозғалтқыш пәрменмен шатастырмаңыз.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Функционалдық тізбекті толықтырыңыз: рецептор → ? → ОЖЖ.", [
+                "Эффектор.",
+                "Афференттік жол.",
+                "Эфференттік жол.",
+                "Бұлшықеттің жиырылуы."
+            ], "b", "Рецептор мен ОЖЖ арасында сенсорлық ақпаратты афференттік жол өткізеді. Эффектор жауапты орындайды, сенсорлық өткізуді алмастырмайды."),
+            detailedReview: "Афференттік бағыт — сенсорлық көзден орталық құрылымдарға қарай бағытталу. Эфференттік бағыт — ОЖЖ-ден атқарушы мүшеге басқарушы сигналды жеткізу. Бағытты суреттегі көрсеткінің орналасуына емес, ОЖЖ-ге қатысты анықтаңыз.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Сигнал тері рецепторынан жұлынға өтеді. Бұл қандай бағыт?", [
+                "Эфференттік.",
+                "Атқарушы мүшеден бұлшықетке қарай.",
+                "Тек бұлшықеттің ішінде.",
+                "Афференттік."
+            ], "d", "Сигнал сенсорлық көзден жұлынға, яғни ОЖЖ-ге бағытталған. Бұл — афференттік өткізу.")
+        },
+        efferent: {
+            title: "Эфференттік жол",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("ОЖЖ қозғалтқыш пәрменді қалыптастырды. Оны атқарушы мүшеге қай жол жеткізеді?", [
+                "Эфференттік жол.",
+                "Тері рецепторынан шығатын афференттік жол.",
+                "Толық жол ретінде әрекет ететін сенсорлық рецептор.",
+                "Орындалған қозғалыстың нәтижесі туралы кері байланыс."
+            ], "a", "Эфференттік жол басқарушы сигналды ОЖЖ-ден эффекторға жеткізеді. Қозғалыс жүйесінде пәрменнің шеткі бөлікте өткізілуін қозғалтқыш талшықтар қамтамасыз етеді."),
+            review: "Мүшеге бағытталған пәрменді шеттен келетін сенсорлық мәліметтен ажыратыңыз. ОЖЖ/ШЖЖ бөлімінде афференттік және эфференттік өткізу бағыттарын қайталаңыз.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Бағыттарды қай салыстыру дұрыс көрсетеді?", [
+                "Екі жол да тек ОЖЖ-ден сыртқа бағытталған.",
+                "Афференттік — бұлшықетке; эфференттік — ОЖЖ-ге.",
+                "Афференттік — рецептордан ОЖЖ-ге; эфференттік — ОЖЖ-ден эффекторға.",
+                "Екі жол да тек рецепторлардан шығатын ақпаратты өткізеді."
+            ], "c", "Бұл бағыттар ОЖЖ-ге қатысты ажыратылады: афферентация кірісті жеткізеді, ал эфферентация басқарушы ықпалды мүшеге береді."),
+            detailedReview: "Алдымен сигнал көзін табыңыз. Егер бұл ОЖЖ-нің бұлшықетке немесе безге бағытталған пәрмені болса, эфференттік жол туралы сөз болады. Егер рецептор мәліметі ОЖЖ-ге бағытталса, бұл — афференттік жол. Бұлшықет орындаушы, ал жүйкелік жол өткізгіш болып қалады.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Қозғалтқыш талшық ОЖЖ-ден қаңқа бұлшықетіне пәрмен өткізеді. Оның рөлі қандай?", [
+                "Рецепторлық қызмет.",
+                "Эфференттік өткізу.",
+                "ОЖЖ-ге сенсорлық кіріс.",
+                "Бұлшықеттің орнына механикалық жиырылуды орындау."
+            ], "b", "Талшық эфференттік сигналды өткізеді. Жүйке-бұлшықеттік берілуден кейін механикалық жұмысты бұлшықет талшықтары орындайды.")
+        },
+        effector: {
+            title: "Рецептор және эффектор",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Қозғалтқыш пәрмен түскеннен кейін бұлшықет жиырылды. Осы тізбектегі оның функционалдық рөлі қандай?", [
+                "Афференттік жол.",
+                "Сыртқы тітіркендіргішті қабылдайтын рецептор.",
+                "Эфференттік жүйкелік жол.",
+                "Жауапты орындайтын эффектор."
+            ], "d", "Бұлшықет механикалық жауапты жүзеге асыратын эффектор қызметін атқарады. Эфференттік жол пәрменді жеткізеді, ал рецептор өзгерісті қабылдайды. Бұлар — бір тізбектегі әртүрлі рөлдер."),
+            review: "Әсерді қабылдау, пәрменді өткізу және әрекетті орындау арасындағы айырмашылықты тексеріңіз. ОЖЖ/ШЖЖ бөлімінен атқарушы мүшелердің мысалдарын тауып, олардың рөлін жүйкелік жолдың рөлімен салыстырыңыз.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Қай сипаттама рецептор мен эффекторды дұрыс ажыратады?", [
+                "Рецептор өзгерісті қабылдайды; эффектор жауапты орындайды.",
+                "Рецептор әрқашан жиырылады; эффектор тек импульс өткізеді.",
+                "Рецептор мен эффектор — бір өткізгіш талшықтың атаулары.",
+                "Эффектор міндетті түрде ОЖЖ ішінде орналасады."
+            ], "a", "Рецептор әсер туралы ақпарат алуды қамтамасыз етеді, ал эффектор әрекетті жүзеге асырады. Жүйеге байланысты бұлшықет немесе без эффектор бола алады."),
+            detailedReview: "Өткізгіш жолды орындаушы деп атамаңыз. Жүйке талшығы пәрменді жеткізеді, бұлшықет күш өндіреді, без секрет бөледі. Рецепторлар өзгерістерді тіркейді. Мүшеде рецепторлар болуы мүмкін, бірақ осы тізбекте жиырылатын бұлшықет эффектор рөлін атқарады.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Без жүйкелік пәрменге жауап ретінде секрет бөледі. Бұл тізбекте ол…", [
+                "Афференттік талшық.",
+                "Орталық жүйкелік өңдеу құрылымы.",
+                "Эффектор.",
+                "Тек басқа безге пәрмен жеткізетін өткізгіш."
+            ], "c", "Без секреторлық жауапты орындайды, сондықтан эффектор болып табылады. Атқарушы қызмет тек бұлшықеттің жиырылуымен шектелмейді.")
+        },
+        excitation: {
+            title: "Қозу және тежелу",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Дәл қозғалыс үшін нейрондардың бір топтары белсеніп, басқаларының белсенділігі шектеледі. Тежелу не үшін қажет?", [
+                "Бүкіл жүйке жүйесін толық өшіру үшін.",
+                "Бәсекелес белсенділікті таңдамалы шектеп, жауапты үйлестіру үшін.",
+                "Барлық қоздырушы сигналдарды механикалық қозғалыспен алмастыру үшін.",
+                "Әр сенсорлық сигналдың міндетті түрде ең жоғары жауап туындатуы үшін."
+            ], "b", "Тежелу импульстердің пайда болу ықтималдығын белсенді реттеп, қажетсіз белсенділікті шектейді. Қозумен бірге ол реакцияның таңдамалылығы мен үйлесімділігін қамтамасыз етеді."),
+            review: "Тежелудің белсенді реттеу механизмі ретіндегі рөлін қайталаңыз. Бүкіл жүйені өшіруді жекелеген тізбектердің белсенділігін таңдамалы шектеумен салыстырыңыз.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Неліктен барлық нейрондық топтың қозуын күшейту дәл қозғалысқа кепілдік бермейді?", [
+                "Жүйке жасушалары қозғалысқа мүлде қатыспайды.",
+                "Дәлдік тек бұлшықет күшіне тәуелді.",
+                "Тежелу әрқашан кез келген қозғалысты тоқтатады.",
+                "Бәсекелес бағдарламалар қатар белсенуі мүмкін; таңдау және үйлестіру қажет."
+            ], "d", "Дәлдік қажетті топтарды, жауаптың күшін және уақытын үйлестіруді талап етеді. Таңдамай белсендіру бәсекелес қозғалыстарды іске қосуы мүмкін."),
+            detailedReview: "Қоздырушы ықпалдар әдетте импульстің пайда болу ықтималдығын арттырады, ал тежеуші ықпалдар оны шектейді. Бұлар «жақсы» және «жаман» үдерістердің күресі емес. Олардың үйлесуі желінің жұмысын реттейді; тежелу белсенді үдеріс және кіріс сигналдарының болмауына тең емес.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Нейрондық желідегі тежелуді қалай сипаттаған дұрыс?", [
+                "Импульстердің пайда болу ықтималдығын немесе жиілігін белсенді шектеу.",
+                "Кез келген физиологиялық үдерістің болмауы.",
+                "Нейронның міндетті түрде зақымдануы.",
+                "Мидың жұмысының әрқашан толық тоқтауы."
+            ], "a", "Тежелу — белсенділікті реттеудің әрекет ететін механизмі. Ол жасушаны зақымдамай және бүкіл желіні өшірмей, импульстер ықтималдығы мен жиілігін өзгерте алады.")
+        },
+        synapse: {
+            title: "Синапстық берілу",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Әрекет потенциалы келгеннен кейін химиялық синапстағы себеп-салдарлық тұрғыдан дұрыс реттілікті таңдаңыз.", [
+                "Экзоцитоз → Ca²⁺ енуі → Ca²⁺ арналарының ашылуы → медиатордың байланысуы.",
+                "Постсинапстық жауап → медиатордың бөлінуі → әрекет потенциалының келуі.",
+                "Ca²⁺ арналарының ашылуы → Ca²⁺ енуі → экзоцитоз → медиатор диффузиясы → рецепторлармен байланысу → постсинапстық әсер.",
+                "Ca²⁺ енуі → медиатордың рецепторлармен байланысуы → экзоцитоз → медиатор диффузиясы."
+            ], "c", "Деполяризация потенциалға тәуелді Ca²⁺ арналарын ашады. Кальцийдің енуі медиатордың бөлінуін іске қосады; диффузиядан және рецепторлармен байланысудан кейін постсинапстық жасушаның күйі өзгереді. Әсер міндетті түрде қоздырушы болмайды."),
+            review: "Қай оқиғалар себеп, қайсысы салдар екенін тексеріңіз. Синапстық берілу туралы бөлімшеде электрлік сигналдың медиатор бөлінуімен және қабылдаушы жасушаның жауабымен байланысын қадағалаңыз.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Әрекет потенциалының келуі сақталған, бірақ пресинапстық ұшқа Ca²⁺ енуі күрт азайды. Қай салдар ең ықтимал?", [
+                "Медиатордың бөлінуі әдетте азаяды.",
+                "Медиатор кез келген сигнал келгенге дейін міндетті түрде бөліне бастайды.",
+                "Постсинапстық рецепторлар пресинапстық көпіршіктерге айналады.",
+                "Бөлінетін медиатор мөлшері міндетті түрде өзгеріссіз қалады."
+            ], "a", "Ca²⁺ енуі деполяризацияны экзоцитозбен байланыстырады. Сондықтан кальций кірісінің азаюы әрекет потенциалы келгеннің өзінде медиатордың бөлінуін әдетте төмендетеді."),
+            detailedReview: "Синапстың екі жағын ажыратыңыз. Пресинапстық жақта деполяризация кальцийдің енуін және медиатордың бөлінуін туындатады. Одан кейін медиатор саңылаудан өтіп, қабылдаушы жасушаның рецепторларына әсер етеді. Бұл сызбада постсинапстық әсер аталған оқиғалардан кейін пайда болады, оларды іске қоспайды.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Бөлінген медиатор тиісті постсинапстық әсерді туындату үшін немен байланысуы керек?", [
+                "Тек аксонның миелинімен.",
+                "Саңылау арқылы тікелей пресинапстық жасушаның ядросымен.",
+                "Рецепторлары жоқ кез келген бұлшықетпен.",
+                "Постсинапстық жасушаның рецепторларымен."
+            ], "d", "Арнайы рецепторлар медиатордың қабылдаушы жасушаға әсерін қамтамасыз етеді. Олармен байланысты механизмдер әсердің сипатын анықтайды.")
+        },
+        integration: {
+            title: "Жүйкелік ақпараттың интеграциясы",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("ОЖЖ-ге бірнеше қоздырушы және тежеуші ықпал бір мезгілде түседі. Неліктен нәтижені бір сигналмен ғана түсіндіруге болмайды?", [
+                "Барлық кіріс әрқашан бірін-бірі толық жояды.",
+                "Нәтиже олардың уақыт пен кеңістіктегі өзара әсеріне және желінің күйіне тәуелді.",
+                "Тежеуші сигналдар жауаптың қалыптасуына қатыспайды.",
+                "Әрқашан тек ең ерте келген сигнал әсер етеді."
+            ], "b", "Нейрондық кірістер оқшау әрекет етпей, өзара ықпалдасады. Олардың уақыты, әсер ету орны және жасуша мен желінің күйі маңызды, сондықтан бірдей кіріс әртүрлі жағдайда әртүрлі жауап туындатуы мүмкін."),
+            review: "Интеграция ұғымын қайталаңыз: сөз кірістердің бірлескен ықпалы туралы болып отыр. Таңдалған нұсқа сигналдардың бір бөлігін немесе желінің күйін елемейтінін тексеріңіз.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Бір сенсорлық кіріс өзгермеді, бірақ желіге тежеуші ықпалдар күшейді. Неліктен реакция өзгеруі мүмкін?", [
+                "Афференттік сигнал анықтамасы бойынша сенсорлық болудан қалады.",
+                "Кез келген тежелу желіні бұзады.",
+                "Желі күйі мен кірістердің үйлесімі бір сигнал өзгермесе де өңдеу нәтижесін өзгертеді.",
+                "Бір өзгермеген сигнал әрқашан өзгермейтін жауапқа кепілдік береді."
+            ], "c", "Реакция ықпалдар жиынтығына тәуелді. Тежеуші әсерлердің өзгеруі бұрынғы сенсорлық сигналға жауаптың ықтималдығы мен сипатын өзгерте алады."),
+            detailedReview: "Интеграция ақпаратты біріктіруді және түрлендіруді қамтиды. Қозу мен тежелу белсенділікке бірлесіп ықпал етеді. Бір кірісті әртүрлі қосымша сигналдар аясында елестетіңіз: бастапқы кіріс бірдей болғанымен, жалпы нәтиже өзгеше болуы мүмкін.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Қай мысал интеграцияны жақсы көрсетеді?", [
+                "Үйлесімді жауап қалыптастыру үшін бірнеше сигналды бірге пайдалану.",
+                "Кез келген жағдайда бір кірістен басқасының барлығын толық елемеу.",
+                "Басқа кірістермен әрекеттеспей, тек импульсті өткізу.",
+                "Әр рецептордың толық ми ретінде тәуелсіз жұмыс істеуі."
+            ], "a", "Кірістерді бірлесіп пайдалану және түрлендіру — интеграцияның негізі. Бір импульсті жай өткізу бұл қызметтің барлығын сипаттамайды.")
+        },
+        feedback: {
+            title: "Кері байланыс",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Адам қолын берілген қалыпта ұстап тұр. Пәрменнен кейінгі қалыптың шағын өзгерістері туралы ақпарат жүйке жүйесіне не үшін қажет?", [
+                "Барлық қозғалтқыш пәрмендерді сенсорлық сигналдармен алмастыру үшін.",
+                "Бұлшықеттер жұмыс істемей-ақ қозғалмауға кепілдік беру үшін.",
+                "Тек алғашқы пәрменді іске қосып, әрі қарай қатыспау үшін.",
+                "Нақты нәтижені міндетпен салыстырып, бұлшықет белсенділігін түзету үшін."
+            ], "d", "Кері байланыс әрекеттің нәтижесі туралы хабарлайды. Бұл мәліметтер бастапқы пәрменді берумен шектелмей, ауытқуды анықтауға және басқаруды түзетуге мүмкіндік береді."),
+            review: "Бастапқы пәрменді ол орындалғаннан кейінгі нәтиже туралы ақпараттан ажыратыңыз. ОЖЖ/ШЖЖ бөлімінен әрекет нәтижесі туралы кері байланыстың не үшін пайдаланылатынын табыңыз.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Аяқ-қолдың қалпы туралы сенсорлық ақпарат едәуір азайса, қай нәтиже ең ықтимал?", [
+                "Сигналдар азайғандықтан дәлдік міндетті түрде артады.",
+                "Ауытқуларды анықтау және түзету қиындайды.",
+                "Қозғалтқыш пәрмен эфференттік болудан қалады.",
+                "Бұлшықет автоматты түрде орталық мүшеге айналады."
+            ], "b", "Нақты қалып туралы ақпараттың азаюы нәтижені бағалауды және түзетуді қиындатады. Бұзылу дәрежесі басқа сенсорлық механизмдердің сақталуына да тәуелді."),
+            detailedReview: "Басқару пәрменді жіберумен аяқталмайды. Рецепторлар нақты қалып пен қозғалыс туралы хабарлайды; ОЖЖ бұл мәліметтерді келесі түзету үшін пайдаланады. Кері байланыс пәрменді толықтырады, бірақ бұлшықеттің жұмысын өзі орындамайды.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Сенсорлық кері байланыс нені хабарлайды?", [
+                "Тек эфференттік жүйкенің атауын.",
+                "Тек ОЖЖ әлі қалыптастырмаған болашақ пәрменді.",
+                "Әрекеттің нақты нәтижесі туралы ақпаратты.",
+                "Әрқашан бұлшықеттер қатыспайтын дайын қозғалысты."
+            ], "c", "Кері байланыстың негізгі рөлі — қол жеткізілген нәтиже туралы мәлімет беру. Соның негізінде кейінгі басқаруды өзгертуге болады.")
+        },
+        regulation: {
+            title: "Жүйкелік реттеудің жалпы қағидасы",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Адам күтпеген жерден тегіс емес жерді басып, дене қалпын түзетеді. Қай функционалдық реттілік ең дәл?", [
+                "Орта өзгерісі → рецептор → афференттік жол → ОЖЖ / интеграция → эфференттік жол → эффектор → жауап → кері байланыс.",
+                "Орта өзгерісі → эффектор → эфференттік жол → рецептор → ОЖЖ → жауап.",
+                "ОЖЖ → афференттік жол → бұлшықет → рецептор; кері байланыс қажет емес.",
+                "Рецептор → дайын қозғалыс; орталық өңдеу мен атқарушы мүше қажет емес."
+            ], "a", "Сенсорлық кіріс ОЖЖ-ге түсіп, интеграцияға қатысады; басқарушы сигналдар эффекторларға жетеді. Нәтиже туралы ақпарат жауапты түзетуге мүмкіндік береді. Нақты үдерістер қатар жүріп, тұйық реттеу контурларын да құрайды."),
+            review: "Жағдайды ақпарат алу, оны орталықта өңдеу, пәрменді өткізу және әрекет ету кезеңдеріне бөліңіз. Жүйке жүйесінің қызметтерін және үйлесімді жауап үшін ақпаратты бағалаудың рөлін қайталаңыз.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Қай байланыс ақпаратты өңдеуді қозғалысты орындаумен дұрыс байланыстырады?", [
+                "ОЖЖ → рецептор → бұлшықетсіз жиырылу.",
+                "Бұлшықет → афференттік жол → ОЖЖ-ден бастапқы пәрмен.",
+                "ОЖЖ → эфференттік жол → эффектор ретіндегі бұлшықет.",
+                "Эффектор → рецептор → ОЖЖ-ге бағытталған эфференттік жол."
+            ], "c", "Орталық өңдеуден кейін пәрмен эфференттік жолмен бұлшықетке беріледі. Бұлшықет жауапты орындайды, ал сенсорлық жолдар оның нәтижесі туралы хабарлайды."),
+            detailedReview: "Функционалдық рөлдерді қолданыңыз: рецептор әсерді қабылдайды, афференттік жол кірісті жеткізеді, ОЖЖ біріктіреді, эфференттік жол пәрменді өткізеді, эффектор әрекет етеді. Нәтиже туралы ақпарат сенсорлық кері байланыс ретінде қайтады. Өткізгіш пен атқарушы мүшенің орнын ауыстырмаңыз.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Дене қалпын түзеткенде механикалық жауапты тікелей не орындайды?", [
+                "Сенсорлық сигналдың өзі.",
+                "Эффектор қызметін атқаратын бұлшықеттер.",
+                "Қозғалтқыш пәрменнің атауы.",
+                "Атқарушы мүшенің орнына афференттік жол."
+            ], "b", "Механикалық жұмысты бұлшықеттер орындайды. Рецепторлар мен өткізгіш жолдар осы жұмыс үшін ақпарат алуды және басқаруды қамтамасыз етеді, бірақ оны алмастырмайды.")
+        }
+    }
+};
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createModule1Test"])(copy);
+}),
+"[project]/content/modules/1/tests/ru.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/content/modules/1/tests/structure.ts [app-rsc] (ecmascript)");
+;
+const copy = {
+    title: "Адаптивный тест. Введение в нейрофизиологию",
+    moduleTitle: "Модуль 1",
+    ui: {
+        introduction: "Это обучающий тест с разными маршрутами. Верное решение ведёт к следующей основной теме. После ошибки вы повторите нужный фрагмент теории и выполните дополнительное задание. Длина маршрута зависит от ваших ответов.",
+        languageWarning: "При смене языка текущая попытка будет начата заново.",
+        localNote: "Прогресс хранится только на этой странице и сбрасывается при перезагрузке. Теория открывается в новой вкладке: вернитесь сюда, чтобы продолжить ту же попытку.",
+        mainProgress: "Основной маршрут",
+        additional: "Дополнительное задание",
+        basic: "Базовое задание",
+        competency: "Тема",
+        check: "Проверить ответ",
+        select: "Выберите один вариант, затем проверьте ответ.",
+        correct: "Верно",
+        reviewNeeded: "Нужно повторить",
+        continue: "Продолжить маршрут",
+        finish: "Посмотреть результаты",
+        review: "Нужно повторить",
+        detailedReview: "Разберём подробнее",
+        openTheory: "Открыть нужный фрагмент теории",
+        newTab: "откроется в новой вкладке",
+        reviewed: "Я повторил материал — продолжить",
+        unresolvedFeedback: "Эта тема пока требует повторения. Прочитайте объяснение: мы продолжим маршрут, но не отметим её как освоенную.",
+        route: "Ваш пройденный маршрут",
+        mainQuestion: "Основной вопрос",
+        extraQuestion: "Дополнительный вопрос",
+        theoryVisit: "Повторение теории",
+        immediate: "Освоено сразу",
+        recovered: "Освоено после повторения",
+        needsReview: "Требует повторения",
+        complete: "Тест завершён",
+        firstAttempt: "Основные вопросы с первого раза",
+        mastery: "Освоено с учётом повторения",
+        recoveredCount: "Из них освоено после повторения",
+        extraCount: "Дополнительных обучающих заданий",
+        remediationCount: "Этапов повторения",
+        weakTopics: "Темы, которые потребовали повторения",
+        noWeakTopics: "Все основные темы освоены с первой попытки.",
+        repeatTheory: "Повторить теорию",
+        restart: "Пройти тест заново",
+        resultNote: "Первая попытка учитывается отдельно и не меняется после повторения. Освоение засчитывается только после верного ответа; само открытие теории не повышает показатель. Это обратная связь для обучения, а не экзаменационная оценка."
+    },
+    topics: {
+        organization: {
+            title: "Организация нервной системы",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Человек заметил препятствие и изменил направление движения. Какое описание наиболее полно отражает работу нервной системы?", [
+                "Она только передаёт готовые команды, не обрабатывая входящие сигналы.",
+                "Она принимает, проводит и интегрирует информацию, организуя согласованный ответ.",
+                "Она отвечает только за сознательные движения, но не регулирует внутренние органы.",
+                "Каждый рецептор самостоятельно формирует завершённую программу движения."
+            ], "b", "Нервная система связывает приём информации с её обработкой и организацией ответа. Регуляция включает движения, внутренние органы и поведение, а не только проведение сигналов."),
+            review: "Проверьте, не сводит ли выбранное объяснение работу всей системы к одной функции. В разделе об общей организации найдите, что происходит между получением информации и ответом организма.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Почему нервную систему нельзя представить только как набор проводящих волокон?", [
+                "Волокна вообще не проводят сигналы.",
+                "Вся обработка происходит только в мышцах.",
+                "Нейронные сети также обрабатывают информацию и согласуют ответ с состоянием организма.",
+                "Каждая часть нервной системы работает независимо от остальных."
+            ], "c", "Проведение необходимо для связи, но нейронные сети также преобразуют и интегрируют входы. Это позволяет выбирать ответ с учётом условий и потребностей организма."),
+            detailedReview: "Разделите три функции: получить сведения, обработать их, организовать действие. Нейроны принимают и передают сигналы, а их связи образуют сети обработки. Глиальные клетки поддерживают условия работы нейронов. Регуляция возникает благодаря совместной работе компонентов.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Какое действие является примером обработки информации, а не только её проведения?", [
+                "Сопоставление сенсорных входов для выбора ответа.",
+                "Распространение импульса вдоль одного аксона.",
+                "Перемещение сигнала по чувствительному волокну.",
+                "Проведение импульса по двигательному волокну."
+            ], "a", "Сопоставление входов меняет способ использования информации. Распространение импульса по волокну обеспечивает передачу, но само по себе не описывает выбор ответа.")
+        },
+        "cns-pns": {
+            title: "Центральная и периферическая нервная система",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Какая структура относится к центральной нервной системе?", [
+                "Спинномозговой нерв.",
+                "Периферический ганглий.",
+                "Чувствительное нервное окончание кожи.",
+                "Спинной мозг."
+            ], "d", "Головной и спинной мозг образуют ЦНС. Нервы, периферические ганглии и нервные окончания относятся к ПНС. Сходство слов «спинной» и «спинномозговой» не означает одинаковой принадлежности."),
+            review: "Повторите принцип анатомического деления нервной системы на ЦНС и ПНС. Различайте центральный орган и нерв, связывающий его с периферией; название структуры само по себе может вводить в заблуждение.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Какие две структуры образуют ЦНС?", [
+                "Головной и спинной мозг.",
+                "Головной мозг и все периферические нервы.",
+                "Ганглии и нервные окончания.",
+                "Спинной мозг и спинномозговые нервы."
+            ], "a", "ЦНС включает головной и спинной мозг. Связанные с ними периферические нервы не становятся частью ЦНС только потому, что проводят её сигналы."),
+            detailedReview: "Анатомическая граница не совпадает с направлением сигнала. ЦНС — головной и спинной мозг; ПНС включает нервы, ганглии вне ЦНС и нервные окончания. Периферический нерв может проводить как чувствительные, так и двигательные сигналы.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Периферический нерв соединяет ЦНС с тканями. К какому отделу он относится?", [
+                "К ЦНС, потому что связан с ней.",
+                "К ПНС.",
+                "К ЦНС только при передаче двигательной команды.",
+                "Не относится к нервной системе."
+            ], "b", "Нерв относится к ПНС по анатомическому положению. Направление проводимого сигнала не меняет эту классификацию.")
+        },
+        afferent: {
+            title: "Афферентный путь",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Рецептор зарегистрировал изменение внешней среды. Куда в норме направляется информация по афферентному пути?", [
+                "От ЦНС к мышце.",
+                "От эффектора прямо к другому эффектору.",
+                "От рецептора к ЦНС.",
+                "От ЦНС к рецептору как исполнительная команда."
+            ], "c", "Афферентный путь доставляет сенсорную информацию от рецепторов в ЦНС. Он обеспечивает вход, необходимый для обработки воздействия и организации ответа."),
+            review: "Здесь нужно повторить направление передачи сенсорной информации. В разделе ЦНС/ПНС проследите, откуда начинается входящий сигнал и куда он направляется; не смешивайте вход и двигательную команду.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Заполните функциональную цепь: рецептор → ? → ЦНС.", [
+                "Эффектор.",
+                "Афферентный путь.",
+                "Эфферентный путь.",
+                "Сокращение мышцы."
+            ], "b", "Между рецептором и ЦНС сенсорную информацию проводит афферентный путь. Эффектор выполняет ответ, а не заменяет сенсорное проведение."),
+            detailedReview: "Афферентный означает направленный к центральным структурам от сенсорного источника. Эфферентный означает передачу управляющего сигнала от ЦНС к исполнительному органу. Определяйте направление относительно ЦНС, а не по положению стрелки на рисунке.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Сигнал идёт от кожного рецептора к спинному мозгу. Это какое направление?", [
+                "Эфферентное.",
+                "От исполнительного органа к мышце.",
+                "Только внутри мышцы.",
+                "Афферентное."
+            ], "d", "Сигнал направлен к спинному мозгу, то есть к ЦНС, от сенсорного источника. Это афферентное проведение.")
+        },
+        efferent: {
+            title: "Эфферентный путь",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("ЦНС сформировала двигательную команду. Какой путь передаёт её к исполнительному органу?", [
+                "Эфферентный путь.",
+                "Афферентный путь от кожного рецептора.",
+                "Сенсорный рецептор как самостоятельный путь.",
+                "Обратная связь о результате уже выполненного движения."
+            ], "a", "Эфферентный путь передаёт управляющий сигнал от ЦНС к эффектору. В двигательной системе периферическое проведение команды осуществляют двигательные волокна."),
+            review: "Различите команду, направленную к органу, и сенсорный отчёт, поступающий от периферии. Повторите направления афферентного и эфферентного проведения в разделе ЦНС/ПНС.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Какое сопоставление направлений верно?", [
+                "Оба пути направлены только от ЦНС.",
+                "Афферентный — к мышце; эфферентный — к ЦНС.",
+                "Афферентный — от рецептора к ЦНС; эфферентный — от ЦНС к эффектору.",
+                "Оба пути передают только информацию от рецепторов."
+            ], "c", "Эти направления различаются относительно ЦНС: афферентация доставляет вход, эфферентация передаёт управляющее влияние к органу."),
+            detailedReview: "Сначала найдите источник сигнала. Если это команда ЦНС, направленная к мышце или железе, речь об эфферентном пути. Если это сведения рецептора, направленные к ЦНС, речь об афферентном пути. Мышца остаётся исполнителем, а нервный путь — проводником.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Двигательное волокно проводит команду от ЦНС к скелетной мышце. Какова его роль?", [
+                "Рецепторная.",
+                "Эфферентное проведение.",
+                "Сенсорный вход в ЦНС.",
+                "Выполнение механического сокращения вместо мышцы."
+            ], "b", "Волокно проводит эфферентный сигнал. Механическую работу после нервно-мышечной передачи выполняют мышечные волокна.")
+        },
+        effector: {
+            title: "Рецептор и эффектор",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Мышца сократилась после поступления двигательной команды. Какова её функциональная роль в этой цепи?", [
+                "Афферентный путь.",
+                "Рецептор внешнего раздражителя.",
+                "Эфферентный нервный путь.",
+                "Эффектор, выполняющий ответ."
+            ], "d", "Мышца выступает эффектором: она производит механический ответ. Эфферентный путь доставляет команду, а рецептор воспринимает изменение. Это разные роли в одной цепи."),
+            review: "Проверьте различие между восприятием воздействия, проведением команды и выполнением действия. В разделе ЦНС/ПНС найдите примеры исполнительных органов и сопоставьте их роль с ролью нервного пути.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Какое описание правильно различает рецептор и эффектор?", [
+                "Рецептор воспринимает изменение; эффектор выполняет ответ.",
+                "Рецептор всегда сокращается; эффектор только передаёт импульс.",
+                "Рецептор и эффектор — названия одного и того же проводящего волокна.",
+                "Эффектор обязательно находится внутри ЦНС."
+            ], "a", "Рецептор обеспечивает получение информации о воздействии; эффектор реализует действие. В зависимости от системы эффектором может быть мышца или железа."),
+            detailedReview: "Не называйте проводящий путь исполнителем. Нервное волокно доставляет команду, мышца развивает силу, железа выделяет секрет. Рецепторы регистрируют изменения. В органе могут присутствовать рецепторы, но в рассматриваемой цепи сокращающаяся мышца выполняет роль эффектора.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Железа выделяет секрет в ответ на нервную команду. В этой цепи она является…", [
+                "Афферентным волокном.",
+                "Центральным нервным узлом.",
+                "Эффектором.",
+                "Только проводником команды к другой железе."
+            ], "c", "Железа выполняет секреторный ответ, поэтому является эффектором. Исполнительная функция не ограничивается сокращением мышц.")
+        },
+        excitation: {
+            title: "Возбуждение и торможение",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Для точного движения одни нейронные группы активируются, а активность других ограничивается. Зачем нужно торможение?", [
+                "Чтобы полностью выключить всю нервную систему.",
+                "Чтобы избирательно ограничить конкурирующую активность и согласовать ответ.",
+                "Чтобы заменить все возбуждающие сигналы механическим движением.",
+                "Чтобы любой сенсорный сигнал неизменно вызывал максимальный ответ."
+            ], "b", "Торможение активно регулирует вероятность разрядов и ограничивает ненужную активность. Вместе с возбуждением оно делает реакцию избирательной и согласованной."),
+            review: "Повторите роль торможения как активного механизма регуляции. Сопоставьте полное выключение системы и избирательное ограничение активности отдельных цепей.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Почему усиление возбуждения всех нейронных групп не гарантирует точного движения?", [
+                "Потому что нервные клетки вообще не участвуют в движении.",
+                "Потому что точность зависит только от силы мышц.",
+                "Потому что торможение всегда прекращает любое движение.",
+                "Потому что могут одновременно активироваться конкурирующие программы; нужны отбор и согласование."
+            ], "d", "Точность требует согласования нужных групп, силы и времени ответа. Неизбирательная активация может вовлекать конкурирующие движения."),
+            detailedReview: "Возбуждающие влияния обычно повышают вероятность импульса, тормозные — ограничивают её. Это не борьба «хороших» и «плохих» процессов. Их сочетание регулирует работу сети; торможение активно и не равно отсутствию входящих сигналов.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Как лучше описать торможение в нейронной сети?", [
+                "Активное ограничение вероятности или частоты разрядов.",
+                "Отсутствие любых физиологических процессов.",
+                "Обязательное повреждение нейрона.",
+                "Всегда полная остановка работы мозга."
+            ], "a", "Торможение — действующий механизм настройки активности, который может менять вероятность и частоту разрядов без повреждения клетки и выключения всей сети.")
+        },
+        synapse: {
+            title: "Синаптическая передача",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Выберите причинно правильную последовательность в химическом синапсе после прихода потенциала действия.", [
+                "Экзоцитоз → вход Ca²⁺ → открытие Ca²⁺-каналов → связывание медиатора.",
+                "Постсинаптический ответ → выделение медиатора → приход потенциала действия.",
+                "Открытие Ca²⁺-каналов → вход Ca²⁺ → экзоцитоз → диффузия медиатора → связывание с рецепторами → постсинаптический эффект.",
+                "Вход Ca²⁺ → связывание медиатора с рецепторами → экзоцитоз → диффузия медиатора."
+            ], "c", "Деполяризация открывает потенциал-зависимые Ca²⁺-каналы. Вход кальция запускает выделение медиатора; после диффузии и связывания с рецепторами изменяется состояние постсинаптической клетки. Эффект не обязательно возбуждающий."),
+            review: "Проверьте, какие события являются причиной, а какие следствием. В подразделе о синаптической передаче проследите связь электрического сигнала с выделением медиатора и ответом принимающей клетки.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Приход потенциала действия сохранён, но вход Ca²⁺ в пресинаптическое окончание резко уменьшился. Какое следствие наиболее ожидаемо?", [
+                "Выделение медиатора обычно уменьшится.",
+                "Медиатор начнёт выделяться до прихода любого сигнала в обязательном порядке.",
+                "Постсинаптические рецепторы превратятся в пресинаптические пузырьки.",
+                "Количество выделяемого медиатора обязательно останется прежним."
+            ], "a", "Вход Ca²⁺ связывает деполяризацию с экзоцитозом. Поэтому уменьшение кальциевого входа обычно снижает выделение медиатора, даже если потенциал действия пришёл."),
+            detailedReview: "Разделите два конца синапса. На пресинаптической стороне деполяризация вызывает вход кальция и выделение медиатора. Медиатор затем проходит щель и действует на рецепторы принимающей клетки. Постсинаптический эффект возникает после этих событий, а не запускает их в данной схеме.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("С чем должен связаться выделенный медиатор, чтобы вызвать соответствующий постсинаптический эффект?", [
+                "Только с миелином аксона.",
+                "С ядром пресинаптической клетки напрямую через щель.",
+                "С произвольной мышцей без рецепторов.",
+                "С рецепторами постсинаптической клетки."
+            ], "d", "Специфические рецепторы обеспечивают действие медиатора на принимающую клетку. Связанные с ними механизмы определяют характер эффекта.")
+        },
+        integration: {
+            title: "Интеграция нервной информации",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("В ЦНС одновременно поступают несколько возбуждающих и тормозных влияний. Почему итог нельзя объяснить одним сигналом?", [
+                "Потому что все входы всегда взаимно уничтожаются.",
+                "Потому что результат зависит от их взаимодействия во времени и пространстве и от состояния сети.",
+                "Потому что тормозные сигналы не участвуют в формировании ответа.",
+                "Потому что всегда действует только самый ранний сигнал."
+            ], "b", "Нейронные входы взаимодействуют, а не действуют изолированно. Важны их время, место действия и состояние клетки и сети, поэтому одинаковый вход в разных условиях может дать разные ответы."),
+            review: "Повторите понятие интеграции: речь идёт о совместном влиянии входов. Проверьте, не игнорирует ли выбранный вариант часть сигналов или состояние сети.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Один сенсорный вход остался прежним, но тормозные влияния на сеть усилились. Почему реакция может измениться?", [
+                "Афферентный сигнал перестал быть сенсорным по определению.",
+                "Любое торможение разрушает сеть.",
+                "Состояние и сочетание входов меняют итог обработки даже при неизменном одном сигнале.",
+                "Один неизменный сигнал всегда гарантирует неизменный ответ."
+            ], "c", "Реакция зависит от совокупности воздействий. Изменение тормозных влияний может менять вероятность и характер ответа на прежний сенсорный сигнал."),
+            detailedReview: "Интеграция включает объединение и преобразование информации. Возбуждение и торможение совместно влияют на активность. Представьте один и тот же вход на фоне разных дополнительных сигналов: общий результат может различаться, хотя исходный вход одинаков.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Какой пример лучше отражает интеграцию?", [
+                "Совместное использование нескольких сигналов для формирования согласованного ответа.",
+                "Полное игнорирование всех входов, кроме одного, при любых условиях.",
+                "Только проведение импульса без взаимодействия с другими входами.",
+                "Независимая работа каждого рецептора как законченного мозга."
+            ], "a", "Совместное использование и преобразование входов — основа интеграции. Простое проведение одного импульса не описывает всю эту функцию.")
+        },
+        feedback: {
+            title: "Обратная связь",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Человек удерживает руку в заданном положении. Зачем нервной системе информация о небольших изменениях положения после команды?", [
+                "Чтобы заменить все двигательные команды сенсорными сигналами.",
+                "Чтобы гарантировать неподвижность без работы мышц.",
+                "Чтобы запустить только самую первую команду и больше не участвовать.",
+                "Чтобы сопоставлять фактический результат с задачей и корректировать активность мышц."
+            ], "d", "Обратная связь сообщает о результате действия. Эти сведения позволяют обнаружить отклонение и скорректировать управление, а не только выдать начальную команду."),
+            review: "Различите исходную команду и информацию о том, что получилось после её выполнения. В разделе ЦНС/ПНС найдите, для чего используется обратная связь о результате действия.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Если сенсорная информация о положении конечности существенно уменьшится, что наиболее вероятно?", [
+                "Точность обязательно возрастёт, так как сигналов станет меньше.",
+                "Отклонения станет труднее обнаруживать и корректировать.",
+                "Двигательная команда перестанет быть эфферентной.",
+                "Мышца автоматически превратится в центральный орган."
+            ], "b", "Уменьшение информации о фактическом положении затрудняет оценку результата и коррекцию. Степень нарушения зависит и от сохранности других сенсорных механизмов."),
+            detailedReview: "Управление не заканчивается отправкой команды. Рецепторы сообщают о фактическом положении и движении; ЦНС использует эти сведения для следующей коррекции. Обратная связь дополняет команду, но сама по себе не выполняет мышечную работу.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Что сообщает сенсорная обратная связь?", [
+                "Только название эфферентного нерва.",
+                "Только будущую команду, ещё не сформированную ЦНС.",
+                "Информацию о фактическом результате действия.",
+                "Всегда готовое движение без участия мышц."
+            ], "c", "Ключевая роль обратной связи — предоставить сведения о достигнутом результате, на основании которых можно изменять дальнейшее управление.")
+        },
+        regulation: {
+            title: "Общий принцип нервной регуляции",
+            main: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Человек неожиданно наступает на неровную поверхность и корректирует положение тела. Какая функциональная последовательность наиболее точна?", [
+                "Изменение среды → рецептор → афферентный путь → ЦНС / интеграция → эфферентный путь → эффектор → ответ → обратная связь.",
+                "Изменение среды → эффектор → эфферентный путь → рецептор → ЦНС → ответ.",
+                "ЦНС → афферентный путь → мышца → рецептор; обратная связь не нужна.",
+                "Рецептор → готовое движение; центральная обработка и исполнительный орган не требуются."
+            ], "a", "Сенсорный вход поступает в ЦНС, где участвует в интеграции; управляющие сигналы достигают эффекторов. Информация о результате позволяет корректировать ответ. Реальные процессы идут также параллельно и образуют замкнутые контуры."),
+            review: "Разделите ситуацию на получение информации, её центральную обработку, передачу команды и действие. Повторите функции нервной системы и роль оценки информации для согласованного ответа.",
+            corrective: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Какая связь правильно соединяет обработку информации с выполнением движения?", [
+                "ЦНС → рецептор → сокращение без мышцы.",
+                "Мышца → афферентный путь → первоначальная команда от ЦНС.",
+                "ЦНС → эфферентный путь → мышца-эффектор.",
+                "Эффектор → рецептор → эфферентный путь к ЦНС."
+            ], "c", "После центральной обработки команда передаётся по эфферентному пути к мышце. Мышца выполняет ответ, а сенсорные пути затем сообщают о его результате."),
+            detailedReview: "Используйте роли: рецептор принимает воздействие, афферентный путь доставляет вход, ЦНС интегрирует, эфферентный путь проводит команду, эффектор действует. Информация о результате возвращается как сенсорная обратная связь. Не меняйте местами проводник и исполнительный орган.",
+            basic: (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["question"])("Что непосредственно выполняет механический ответ при коррекции положения тела?", [
+                "Сенсорный сигнал сам по себе.",
+                "Мышцы, действующие как эффекторы.",
+                "Название двигательной команды.",
+                "Афферентный путь вместо исполнительного органа."
+            ], "b", "Механическую работу выполняют мышцы. Рецепторы и проводящие пути обеспечивают получение информации и управление этой работой, но не заменяют её.")
+        }
+    }
+};
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$content$2f$modules$2f$1$2f$tests$2f$structure$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createModule1Test"])(copy);
+}),
+"[project]/content/modules/1/tests/structure.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "createModule1Test",
+    ()=>createModule1Test,
+    "question",
+    ()=>question,
+    "topics",
+    ()=>topics
+]);
+const topics = [
+    {
+        id: "organization",
+        anchor: "nervous-system"
+    },
+    {
+        id: "cns-pns",
+        anchor: "cns-pns"
+    },
+    {
+        id: "afferent",
+        anchor: "cns-pns"
+    },
+    {
+        id: "efferent",
+        anchor: "cns-pns"
+    },
+    {
+        id: "effector",
+        anchor: "cns-pns"
+    },
+    {
+        id: "excitation",
+        anchor: "principles"
+    },
+    {
+        id: "synapse",
+        anchor: "principles"
+    },
+    {
+        id: "integration",
+        anchor: "principles"
+    },
+    {
+        id: "feedback",
+        anchor: "cns-pns"
+    },
+    {
+        id: "regulation",
+        anchor: "functions"
+    }
+];
+function question(prompt, options, correctAnswer, explanation) {
+    return {
+        prompt,
+        options: options.map((text, index)=>({
+                id: "abcd"[index],
+                text
+            })),
+        correctAnswer,
+        explanation
+    };
+}
+function createModule1Test(copy) {
+    const nodes = {};
+    const competencies = {};
+    const mainIds = topics.map(({ id })=>`${id}:main`);
+    topics.forEach(({ id, anchor }, index)=>{
+        const topic = copy.topics[id];
+        const theoryTarget = {
+            moduleId: 1,
+            anchor
+        };
+        competencies[id] = {
+            title: topic.title,
+            theoryTarget
+        };
+        const next = mainIds[index + 1] ?? "end";
+        for (const level of [
+            "main",
+            "corrective",
+            "basic"
+        ]){
+            const nodeId = `${id}:${level}`;
+            nodes[nodeId] = {
+                ...topic[level],
+                id: nodeId,
+                type: "question",
+                level,
+                competency: id,
+                onCorrect: next,
+                onIncorrect: level === "basic" ? next : `${id}:review-${level === "main" ? 1 : 2}`
+            };
+        }
+        for (const depth of [
+            1,
+            2
+        ]){
+            const nodeId = `${id}:review-${depth}`;
+            nodes[nodeId] = {
+                id: nodeId,
+                type: "remediation",
+                competency: id,
+                depth,
+                theoryTarget,
+                text: depth === 1 ? topic.review : topic.detailedReview,
+                next: `${id}:${depth === 1 ? "corrective" : "basic"}`
+            };
+        }
+    });
+    return {
+        kind: "tests",
+        title: copy.title,
+        moduleTitle: copy.moduleTitle,
+        ui: copy.ui,
+        start: mainIds[0],
+        mainIds,
+        competencies,
+        nodes
+    };
+}
+}),
+"[project]/content/modules/1/theory/en.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+const lesson = {
+    title: "Module 1. Introduction to Neurophysiology",
+    sections: [
+        {
+            id: "nervous-system",
+            title: "1. General Organization of the Nervous System",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "The nervous system is a complex functional system that receives, transmits, processes, and integrates information from the body's external and internal environments."
+                },
+                {
+                    type: "paragraph",
+                    text: "It coordinates organs and functional systems, enables the body to adapt to changing environmental conditions, and contributes to the organization of behavior."
+                },
+                {
+                    type: "paragraph",
+                    text: "The neuron is the fundamental structural and functional unit of the nervous system: a specialized cell that receives, processes, and transmits signals. Glial cells support neuronal function, help maintain the local cellular environment, and participate in the formation of myelin sheaths."
+                }
+            ]
+        },
+        {
+            id: "functions",
+            title: "2. Major Functions of the Nervous System",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "Detection of information.",
+                        "Conduction of neural signals.",
+                        "Analysis and integration of information.",
+                        "Generation of motor responses.",
+                        "Regulation of autonomic functions.",
+                        "Coordination of internal organ activity.",
+                        "Maintenance of homeostasis.",
+                        "Support of higher nervous functions."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "The nervous system does more than relay signals: it evaluates information in relation to the body's current state and previous experience to produce an appropriate response. For example, touching a hot object triggers rapid withdrawal of the hand, while processing in the brain supports conscious perception of pain and subsequent changes in behavior."
+                },
+                {
+                    type: "paragraph",
+                    text: "Homeostasis is the maintenance of a relatively stable internal environment. Together with endocrine and local mechanisms, the nervous system helps regulate circulation, breathing, and body temperature."
+                }
+            ]
+        },
+        {
+            id: "cns-pns",
+            title: "3. Central and Peripheral Nervous Systems",
+            blocks: [
+                {
+                    type: "subheading",
+                    text: "Central nervous system (CNS)"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Brain.",
+                        "Spinal cord."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "The CNS processes and integrates incoming signals, organizes reflex responses, and participates in the regulation of movement, internal organ activity, and higher nervous functions. The spinal cord is not merely a conduction pathway: it also contains neural circuits that mediate a range of reflexes."
+                },
+                {
+                    type: "subheading",
+                    text: "Peripheral nervous system (PNS)"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Nerves: bundles of nerve fibers connecting different structures of the body.",
+                        "Ganglia: clusters of neuronal cell bodies outside the CNS.",
+                        "Nerve endings, including sensory and motor endings.",
+                        "Other peripheral neural structures that connect the CNS with organs and tissues."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "Afferent (sensory) pathways carry information from receptors to the CNS. Efferent pathways carry commands to effectors, such as muscles and glands. Feedback about the outcome of an action allows the response to be adjusted. The CNS and PNS therefore function as interconnected parts of a unified system."
+                }
+            ]
+        },
+        {
+            id: "principles",
+            title: "4. Fundamental Principles of Nervous System Function",
+            blocks: [
+                {
+                    type: "subheading",
+                    text: "Excitability and conduction"
+                },
+                {
+                    type: "paragraph",
+                    text: "Excitability is the ability of a cell to respond to a stimulus by changing the electrical state of its membrane. An action potential may be generated when threshold is reached. Conduction is the propagation of an electrical signal along the membrane of a nerve fiber. In myelinated axons, action potentials are regenerated at successive nodes of Ranvier, increasing the speed of signal transmission."
+                },
+                {
+                    type: "subheading",
+                    text: "Excitation and inhibition"
+                },
+                {
+                    type: "paragraph",
+                    text: "Excitation is an active process associated with an electrical response in a cell; in synaptic communication, an excitatory influence increases the probability of action potential generation. Inhibition reduces the probability or frequency of neuronal firing. It is an active regulatory mechanism, rather than simply the absence of excitation. The combined action of excitatory and inhibitory influences makes neural responses selective and coordinated."
+                },
+                {
+                    type: "subheading",
+                    text: "Synaptic transmission"
+                },
+                {
+                    type: "paragraph",
+                    text: "A synapse is a specialized junction through which a neuron signals to another cell. At a chemical synapse, arrival of an action potential at the presynaptic terminal triggers calcium entry and neurotransmitter release. The transmitter binds to receptors on the postsynaptic membrane and changes the activity of the receiving cell. The effect depends on the receptors and their associated mechanisms. At electrical synapses, current passes between cells through gap junctions."
+                },
+                {
+                    type: "subheading",
+                    text: "Neural information integration"
+                },
+                {
+                    type: "paragraph",
+                    text: "A neuron receives multiple signals that interact across time and space. Their combined effect determines the cell's response. Within neural networks, information is evaluated in relation to current physiological needs and previous experience, enabling coordinated responses."
+                },
+                {
+                    type: "callout",
+                    title: "Key Idea",
+                    text: "The nervous system does more than conduct impulses. It selects, compares, and integrates information before generating an appropriate response by the body."
+                }
+            ]
+        },
+        {
+            title: "5. Importance of Neurophysiology",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Neurophysiology investigates the mechanisms and principles of nervous system function at several interconnected levels:"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Membrane level: ion channels, membrane potential, and electrical signals.",
+                        "Cellular level: the excitability and activity of individual neurons and their interactions with glia.",
+                        "Synaptic level: signaling between cells and changes in the effectiveness of transmission.",
+                        "Neural network level: interactions among groups of neurons and information processing.",
+                        "Systems level: the organization of sensory, motor, and autonomic functions.",
+                        "Integrative level: coordination of bodily functions, behavior, and adaptation."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "This knowledge explains how sensory systems detect stimuli and how motor control and autonomic regulation operate. It also provides a foundation for studying behavior, memory, and learning, which involve changes in neural network activity and synaptic plasticity."
+                },
+                {
+                    type: "paragraph",
+                    text: "Understanding normal mechanisms is essential for studying nervous system pathophysiology: it helps explain how disturbances of excitability, conduction, or synaptic transmission can lead to functional impairment."
+                }
+            ]
+        }
+    ],
+    outcomes: {
+        title: "6. Learning Outcomes",
+        introduction: "After completing this section, the student should be able to:",
+        items: [
+            "Describe the major functions of the nervous system.",
+            "Distinguish the central and peripheral nervous systems.",
+            "Explain neural information integration.",
+            "Explain the roles of excitation and inhibition.",
+            "Describe the basic principles of synaptic transmission.",
+            "Define the subject and objectives of neurophysiology."
+        ]
+    },
+    terms: {
+        title: "7. Key Terms",
+        items: [
+            "Nervous system",
+            "CNS",
+            "PNS",
+            "Neuron",
+            "Excitation",
+            "Inhibition",
+            "Synapse",
+            "Integration",
+            "Homeostasis",
+            "Neurophysiology"
+        ]
+    }
+};
+const __TURBOPACK__default__export__ = lesson;
+}),
+"[project]/content/modules/1/theory/kz.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+const lesson = {
+    title: "Модуль 1. Нейрофизиологияға кіріспе",
+    sections: [
+        {
+            id: "nervous-system",
+            title: "1. Жүйке жүйесінің жалпы сипаттамасы",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Жүйке жүйесі — организмнің сыртқы және ішкі ортасынан келетін ақпаратты қабылдауды, өткізуді, өңдеуді және біріктіруді қамтамасыз ететін күрделі қызметтік жүйе."
+                },
+                {
+                    type: "paragraph",
+                    text: "Ол мүшелер мен қызметтік жүйелердің жұмысын үйлестіреді, организмнің қоршаған ортаның өзгермелі жағдайларына бейімделуін қамтамасыз етеді және мінез-құлықтың қалыптасуына қатысады."
+                },
+                {
+                    type: "paragraph",
+                    text: "Жүйке жүйесінің негізгі құрылымдық-қызметтік бірлігі — нейрон. Ол сигналдарды қабылдауға, өңдеуге және беруге маманданған жасуша. Глия жасушалары нейрондардың қызметін қолдайды, олардың айналасындағы ортаның тұрақтылығын сақтауға және миелин қабықшаларын түзуге қатысады."
+                }
+            ]
+        },
+        {
+            id: "functions",
+            title: "2. Жүйке жүйесінің негізгі қызметтері",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "Ақпаратты қабылдау.",
+                        "Жүйке сигналдарын өткізу.",
+                        "Ақпаратты талдау және интеграциялау.",
+                        "Қимыл-қозғалыс жауаптарын қалыптастыру.",
+                        "Вегетативтік қызметтерді реттеу.",
+                        "Ішкі мүшелердің жұмысын үйлестіру.",
+                        "Гомеостазды сақтау.",
+                        "Жоғары жүйке қызметін қамтамасыз ету."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "Жүйке жүйесі сигналдарды жай ғана өткізбейді: организмнің күйі мен бұрынғы тәжірибесін ескере отырып, ақпаратты талдайды және оған сәйкес жауап қалыптастырады. Мысалы, ыстық затқа жанасқанда қол тез тартып алынады, ал ақпараттың мида өңделуі ауырсынуды саналы түрде сезінуге және кейінгі мінез-құлықты өзгертуге мүмкіндік береді."
+                },
+                {
+                    type: "paragraph",
+                    text: "Гомеостаз — организмнің ішкі ортасының салыстырмалы тұрақтылығын сақтау. Жүйке жүйесі эндокриндік және жергілікті механизмдермен бірлесіп, қан айналымын, тыныс алуды және дене температурасын реттеуге қатысады."
+                }
+            ]
+        },
+        {
+            id: "cns-pns",
+            title: "3. Орталық және шеткі жүйке жүйесі",
+            blocks: [
+                {
+                    type: "subheading",
+                    text: "Орталық жүйке жүйесі (ОЖЖ)"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Ми.",
+                        "Жұлын."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "ОЖЖ келіп түскен сигналдарды өңдеп, біріктіреді, рефлекстік жауаптарды ұйымдастырады, қимыл-қозғалысты, ішкі мүшелердің жұмысын және жоғары жүйке қызметтерін реттеуге қатысады. Жұлын ақпаратты өткізумен қатар, бірқатар рефлекстерді жүзеге асыратын нейрондық желілерді қамтиды."
+                },
+                {
+                    type: "subheading",
+                    text: "Шеткі жүйке жүйесі (ШЖЖ)"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Жүйкелер — организмнің әртүрлі құрылымдарын байланыстыратын жүйке талшықтарының шоғырлары.",
+                        "Жүйке түйіндері (ганглийлер) — ОЖЖ-ден тыс орналасқан нейрон денелерінің шоғырлары.",
+                        "Жүйке ұштары, соның ішінде сезімтал және қозғалтқыш ұштар.",
+                        "ОЖЖ-нің мүшелермен және тіндермен байланысын қамтамасыз ететін басқа шеткі жүйкелік құрылымдар."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "Афференттік (сезімтал) жолдар арқылы рецепторлардан ақпарат ОЖЖ-ге түседі. Эфференттік жолдар арқылы басқарушы сигналдар атқарушы мүшелерге — бұлшықеттер мен бездерге бағытталады. Әрекеттің нәтижесі туралы кері байланыс жауапты түзетуге мүмкіндік береді. Демек, ОЖЖ мен ШЖЖ біртұтас жүйенің өзара байланысты бөліктері ретінде қызмет етеді."
+                }
+            ]
+        },
+        {
+            id: "principles",
+            title: "4. Жүйке жүйесі қызметінің негізгі принциптері",
+            blocks: [
+                {
+                    type: "subheading",
+                    text: "Қозғыштық және қозуды өткізу"
+                },
+                {
+                    type: "paragraph",
+                    text: "Қозғыштық — жасушаның тітіркендіргішке мембрананың электрлік күйін өзгерту арқылы жауап беру қабілеті. Табалдырық деңгейіне жеткенде нейронда әрекет потенциалы пайда болуы мүмкін. Қозуды өткізу — электрлік сигналдың жүйке талшығының мембранасы бойымен таралуы. Миелинді аксондарда әрекет потенциалы Ранвье үзілістерінде кезекпен пайда болып, сигналдың берілуін жылдамдатады."
+                },
+                {
+                    type: "subheading",
+                    text: "Қозу және тежелу"
+                },
+                {
+                    type: "paragraph",
+                    text: "Қозу — жасушада электрлік жауаптың пайда болуымен байланысты белсенді үдеріс; синапстық өзара әрекеттесуде қоздырушы әсер әрекет потенциалының пайда болу ықтималдығын арттырады. Тежелу нейронда әрекет потенциалдарының пайда болу ықтималдығын немесе жиілігін төмендетеді. Ол қозудың жай ғана болмауы емес, белсенді реттеу механизмі болып табылады. Қоздырушы және тежеуші әсерлердің бірлескен әрекеті жүйкелік жауаптардың таңдамалылығы мен үйлесімділігін қамтамасыз етеді."
+                },
+                {
+                    type: "subheading",
+                    text: "Синапстық берілу"
+                },
+                {
+                    type: "paragraph",
+                    text: "Синапс — нейронның басқа жасушаға сигнал беруін қамтамасыз ететін маманданған түйісу аймағы. Химиялық синапста әрекет потенциалының пресинапстық ұшқа келуі кальций иондарының енуіне және нейромедиатордың бөлінуіне әкеледі. Медиатор постсинапстық мембрана рецепторларымен байланысып, жасушаның белсенділігін өзгертеді. Әсердің нәтижесі рецепторларға және олармен байланысты механизмдерге тәуелді. Электрлік синапстарда ток жасушалар арасында саңылаулы түйіспелер арқылы өтеді."
+                },
+                {
+                    type: "subheading",
+                    text: "Жүйкелік ақпараттың интеграциясы"
+                },
+                {
+                    type: "paragraph",
+                    text: "Нейрон уақыт пен кеңістік бойынша өзара әрекеттесетін көптеген сигналдарды қабылдайды. Олардың жиынтық әсері жасушаның жауабын анықтайды. Нейрондық желілер деңгейінде ақпарат организмнің ағымдағы қажеттіліктерімен және бұрынғы тәжірибесімен салыстырылып, үйлесімді жауаптардың қалыптасуына мүмкіндік береді."
+                },
+                {
+                    type: "callout",
+                    title: "Негізгі идея",
+                    text: "Жүйке жүйесі импульстерді жай ғана өткізбейді. Ол ақпаратты іріктейді, салыстырады және біріктіреді, содан кейін организмнің тиісті жауабын қалыптастырады."
+                }
+            ]
+        },
+        {
+            title: "5. Нейрофизиологияның маңызы",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Нейрофизиология жүйке жүйесінің қызмет ету механизмдері мен заңдылықтарын өзара байланысты бірнеше деңгейде зерттейді:"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Мембраналық деңгей: иондық арналар, мембраналық потенциал және электрлік сигналдар.",
+                        "Жасушалық деңгей: жеке нейрондардың қозғыштығы мен қызметі, олардың глиямен өзара әрекеттесуі.",
+                        "Синапстық деңгей: жасушалар арасындағы сигналдардың берілуі және осы берілудің тиімділігінің өзгеруі.",
+                        "Нейрондық желілер деңгейі: нейрон топтарының өзара әрекеттесуі және ақпаратты өңдеуі.",
+                        "Жүйелік деңгей: сенсорлық, қозғалтқыш және вегетативтік қызметтердің ұйымдасуы.",
+                        "Интегративтік деңгей: организм қызметтерінің үйлесуі, мінез-құлық пен бейімделудің қалыптасуы."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "Бұл білім сенсорлық жүйелердің тітіркендіргіштерді қалай қабылдайтынын, қимыл-қозғалысты басқару мен вегетативтік реттелудің қалай жүзеге асатынын түсінуге мүмкіндік береді. Сондай-ақ ол нейрондық желілер қызметінің өзгерістерімен және синапстық пластикалылықпен байланысты мінез-құлықты, есте сақтауды және үйренуді зерттеуге негіз болады."
+                },
+                {
+                    type: "paragraph",
+                    text: "Қалыпты механизмдерді білу жүйке жүйесінің патофизиологиясын зерттеу үшін қажет: ол қозғыштықтың, қозуды өткізудің немесе синапстық берілудің бұзылыстары қызметтік өзгерістерге қалай әкелетінін түсіндіруге көмектеседі."
+                }
+            ]
+        }
+    ],
+    outcomes: {
+        title: "6. Оқу нәтижелері",
+        introduction: "Бөлімді меңгергеннен кейін студент:",
+        items: [
+            "Жүйке жүйесінің негізгі қызметтерін түсіндіре алады.",
+            "Орталық және шеткі жүйке жүйесін ажырата алады.",
+            "Жүйкелік ақпарат интеграциясының маңызын түсінеді.",
+            "Қозу мен тежелудің маңызын түсіндіреді.",
+            "Синапстық берілудің негізгі принциптерін түсінеді.",
+            "Нейрофизиологияның пәні мен міндеттерін анықтай алады."
+        ]
+    },
+    terms: {
+        title: "Негізгі терминдер",
+        items: [
+            "Жүйке жүйесі",
+            "ОЖЖ",
+            "ШЖЖ",
+            "Нейрон",
+            "Қозғыштық",
+            "Қозу",
+            "Тежелу",
+            "Синапс",
+            "Синапстық берілу",
+            "Жүйкелік ақпараттың интеграциясы",
+            "Гомеостаз",
+            "Нейрофизиология"
+        ]
+    }
+};
+const __TURBOPACK__default__export__ = lesson;
+}),
+"[project]/content/modules/1/theory/ru.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>__TURBOPACK__default__export__
+]);
+const lesson = {
+    title: "Модуль 1. Введение в нейрофизиологию",
+    sections: [
+        {
+            id: "nervous-system",
+            title: "1. Общая характеристика нервной системы",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Нервная система представляет собой сложную функциональную систему, обеспечивающую восприятие, передачу, обработку и интеграцию информации, поступающей из внешней и внутренней среды организма."
+                },
+                {
+                    type: "paragraph",
+                    text: "Она координирует деятельность органов и функциональных систем, обеспечивает адаптацию организма к изменяющимся условиям среды и участвует в формировании поведения."
+                },
+                {
+                    type: "paragraph",
+                    text: "Основной структурно-функциональной единицей нервной системы является нейрон — специализированная клетка, принимающая, обрабатывающая и передающая сигналы. Глиальные клетки поддерживают работу нейронов, участвуют в поддержании среды вокруг них и формировании миелиновых оболочек."
+                }
+            ]
+        },
+        {
+            id: "functions",
+            title: "2. Основные функции нервной системы",
+            blocks: [
+                {
+                    type: "list",
+                    items: [
+                        "Восприятие информации.",
+                        "Проведение нервных сигналов.",
+                        "Анализ и интеграция информации.",
+                        "Формирование двигательных реакций.",
+                        "Регуляция вегетативных функций.",
+                        "Координация деятельности внутренних органов.",
+                        "Поддержание гомеостаза.",
+                        "Обеспечение высшей нервной деятельности."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "Нервная система не просто передаёт сигналы: она анализирует их с учётом состояния организма и предшествующего опыта и формирует адекватную ответную реакцию. Например, прикосновение к горячему предмету вызывает быстрое отдёргивание руки, а обработка информации в головном мозге обеспечивает осознанное восприятие боли и последующее изменение поведения."
+                },
+                {
+                    type: "paragraph",
+                    text: "Гомеостаз — это поддержание относительного постоянства внутренней среды. Нервная система совместно с эндокринными и местными механизмами регулирует, например, кровообращение, дыхание и температуру тела."
+                }
+            ]
+        },
+        {
+            id: "cns-pns",
+            title: "3. Центральная и периферическая нервная система",
+            blocks: [
+                {
+                    type: "subheading",
+                    text: "Центральная нервная система (ЦНС)"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Головной мозг.",
+                        "Спинной мозг."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "ЦНС обрабатывает и интегрирует поступающие сигналы, организует рефлекторные реакции и участвует в регуляции движений, деятельности внутренних органов и высших нервных функций. Спинной мозг не только проводит информацию, но и содержит нейронные сети, обеспечивающие ряд рефлексов."
+                },
+                {
+                    type: "subheading",
+                    text: "Периферическая нервная система (ПНС)"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Нервы — пучки нервных волокон, связывающие различные структуры организма.",
+                        "Нервные узлы (ганглии) — скопления тел нейронов вне ЦНС.",
+                        "Нервные окончания, в том числе чувствительные и двигательные.",
+                        "Другие периферические нервные структуры, обеспечивающие связь ЦНС с органами и тканями."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "По афферентным (чувствительным) путям информация от рецепторов поступает в ЦНС. По эфферентным путям команды направляются к исполнительным органам — мышцам и железам. Обратная связь о результате действия позволяет корректировать ответ. Таким образом, ЦНС и ПНС работают как взаимосвязанные части единой системы."
+                }
+            ]
+        },
+        {
+            id: "principles",
+            title: "4. Основные принципы работы нервной системы",
+            blocks: [
+                {
+                    type: "subheading",
+                    text: "Возбудимость и проведение возбуждения"
+                },
+                {
+                    type: "paragraph",
+                    text: "Возбудимость — способность клетки отвечать на раздражение изменением электрического состояния мембраны. При достижении порога в нейроне может возникнуть потенциал действия. Проведение возбуждения — распространение электрического сигнала по мембране нервного волокна; в миелинизированных аксонах потенциал действия последовательно возникает в перехватах Ранвье, что ускоряет передачу сигнала."
+                },
+                {
+                    type: "subheading",
+                    text: "Возбуждение и торможение"
+                },
+                {
+                    type: "paragraph",
+                    text: "Возбуждение — активный процесс, связанный с возникновением электрического ответа клетки; в синаптическом взаимодействии возбуждающее влияние повышает вероятность генерации потенциала действия. Торможение снижает вероятность или частоту разрядов нейрона. Оно является активным механизмом регуляции, а не просто отсутствием возбуждения. Совместное действие возбуждающих и тормозных влияний обеспечивает избирательность и согласованность нервных реакций."
+                },
+                {
+                    type: "subheading",
+                    text: "Синаптическая передача"
+                },
+                {
+                    type: "paragraph",
+                    text: "Синапс — специализированный контакт, через который нейрон передаёт сигнал другой клетке. В химическом синапсе приход потенциала действия к пресинаптическому окончанию вызывает вход ионов кальция и выделение нейромедиатора. Медиатор связывается с рецепторами постсинаптической мембраны и изменяет активность клетки. Результат зависит от рецепторов и связанных с ними механизмов. В электрических синапсах ток проходит между клетками через щелевые контакты."
+                },
+                {
+                    type: "subheading",
+                    text: "Интеграция нервной информации"
+                },
+                {
+                    type: "paragraph",
+                    text: "Нейрон получает множество сигналов, которые взаимодействуют во времени и пространстве. Их суммарное действие определяет ответ клетки. На уровне нейронных сетей информация сопоставляется с текущими потребностями организма и предшествующим опытом, что позволяет формировать согласованные реакции."
+                },
+                {
+                    type: "callout",
+                    title: "Ключевая идея",
+                    text: "Нервная система не просто проводит импульсы. Она отбирает, сравнивает и интегрирует информацию, после чего формирует соответствующую реакцию организма."
+                }
+            ]
+        },
+        {
+            title: "5. Значение нейрофизиологии",
+            blocks: [
+                {
+                    type: "paragraph",
+                    text: "Нейрофизиология изучает механизмы функционирования нервной системы и закономерности её деятельности на нескольких взаимосвязанных уровнях:"
+                },
+                {
+                    type: "list",
+                    items: [
+                        "Мембранный: ионные каналы, мембранный потенциал и электрические сигналы.",
+                        "Клеточный: возбудимость и деятельность отдельных нейронов, их взаимодействие с глией.",
+                        "Синаптический: передача сигналов между клетками и изменение эффективности этой передачи.",
+                        "Уровень нейронных сетей: взаимодействие групп нейронов и обработка информации.",
+                        "Системный: организация сенсорных, двигательных и вегетативных функций.",
+                        "Интегративный: согласование функций организма, формирование поведения и адаптации."
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    text: "Эти знания позволяют понять, как сенсорные системы воспринимают раздражители, как осуществляется двигательный контроль и вегетативная регуляция. Они также служат основой изучения поведения, памяти и обучения, связанных с изменениями работы нейронных сетей и синаптической пластичностью."
+                },
+                {
+                    type: "paragraph",
+                    text: "Знание нормальных механизмов необходимо для изучения патофизиологии нервной системы: оно помогает объяснять, как нарушения возбудимости, проведения или синаптической передачи приводят к расстройствам функций."
+                }
+            ]
+        }
+    ],
+    outcomes: {
+        title: "6. Результаты обучения",
+        introduction: "После изучения раздела студент должен уметь:",
+        items: [
+            "Объяснять основные функции нервной системы.",
+            "Различать центральную и периферическую нервную систему.",
+            "Объяснять значение интеграции нервной информации.",
+            "Объяснять роль возбуждения и торможения.",
+            "Понимать основные принципы синаптической передачи.",
+            "Определять предмет и задачи нейрофизиологии."
+        ]
+    },
+    terms: {
+        title: "Ключевые термины",
+        items: [
+            "Нервная система",
+            "ЦНС",
+            "ПНС",
+            "Нейрон",
+            "Возбуждение",
+            "Торможение",
+            "Синапс",
+            "Интеграция",
+            "Гомеостаз",
+            "Нейрофизиология"
+        ]
+    }
+};
+const __TURBOPACK__default__export__ = lesson;
+}),
+"[project]/content/sections.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "getSectionTitle",
+    ()=>getSectionTitle,
+    "isSection",
+    ()=>isSection,
+    "sectionOrder",
+    ()=>sectionOrder,
+    "sections",
+    ()=>sections
+]);
+const sections = [
+    {
+        slug: "objectives",
+        icon: "🎯",
+        title: {
+            RU: "Цели обучения",
+            KZ: "Оқу мақсаттары",
+            EN: "Learning Objectives"
+        },
+        description: {
+            RU: "Что вы будете знать и уметь после изучения модуля",
+            KZ: "Модульді оқығаннан кейін нені білу және істей алу керек",
+            EN: "What you should know and be able to do after this module"
+        }
+    },
+    {
+        slug: "pretest",
+        icon: "⚡",
+        title: {
+            RU: "Входной блиц-тест",
+            KZ: "Кіріспе блиц-тест",
+            EN: "Pre-module Quick Test"
+        },
+        description: {
+            RU: "Короткая диагностика исходных знаний без оценки",
+            KZ: "Бағасыз бастапқы білімді қысқаша диагностикалау",
+            EN: "A short diagnostic check of prior knowledge without grading"
+        }
+    },
+    {
+        slug: "theory",
+        icon: "📖",
+        title: {
+            RU: "Теория",
+            KZ: "Теория",
+            EN: "Theory"
+        },
+        description: {
+            RU: "Основной учебный материал модуля",
+            KZ: "Модульдің негізгі оқу материалы",
+            EN: "Core learning material for the module"
+        }
+    },
+    {
+        slug: "one-minute",
+        icon: "⏱️",
+        title: {
+            RU: "Ключевое за 1 минуту",
+            KZ: "1 минуттағы негізгі ойлар",
+            EN: "Key Points in 1 Minute"
+        },
+        description: {
+            RU: "Самые важные идеи модуля в краткой форме",
+            KZ: "Модульдің ең маңызды идеялары қысқаша түрде",
+            EN: "The most important ideas of the module at a glance"
+        }
+    },
+    {
+        slug: "clinical",
+        icon: "🩺",
+        title: {
+            RU: "Клинический мост",
+            KZ: "Клиникалық көпір",
+            EN: "Clinical Bridge"
+        },
+        description: {
+            RU: "Связь физиологических механизмов с клинической практикой",
+            KZ: "Физиологиялық механизмдердің клиникалық тәжірибемен байланысы",
+            EN: "Connecting physiological mechanisms with clinical practice"
+        }
+    },
+    {
+        slug: "interactive",
+        icon: "🧠",
+        title: {
+            RU: "Интерактивные схемы",
+            KZ: "Интерактивті сызбалар",
+            EN: "Interactive Diagrams"
+        },
+        description: {
+            RU: "Схемы и визуальные модели для понимания процессов",
+            KZ: "Процестерді түсінуге арналған сызбалар мен көрнекі модельдер",
+            EN: "Diagrams and visual models for understanding key processes"
+        }
+    },
+    {
+        slug: "practice",
+        icon: "🧪",
+        title: {
+            RU: "Практика",
+            KZ: "Практика",
+            EN: "Practice"
+        },
+        description: {
+            RU: "Практические задания для закрепления материала",
+            KZ: "Материалды бекітуге арналған практикалық тапсырмалар",
+            EN: "Practice activities to reinforce learning"
+        }
+    },
+    {
+        slug: "cases",
+        icon: "📋",
+        title: {
+            RU: "Ситуационные задачи",
+            KZ: "Ситуациялық тапсырмалар",
+            EN: "Case Problems"
+        },
+        description: {
+            RU: "Разбор учебных и клинических ситуаций",
+            KZ: "Оқу және клиникалық жағдайларды талдау",
+            EN: "Analysis of learning and clinical scenarios"
+        }
+    },
+    {
+        slug: "tests",
+        icon: "📝",
+        title: {
+            RU: "Ветвящиеся тесты",
+            KZ: "Тармақталған тесттер",
+            EN: "Branching Tests"
+        },
+        description: {
+            RU: "Тесты с разными траекториями в зависимости от ответа",
+            KZ: "Жауапқа байланысты әртүрлі бағыттары бар тесттер",
+            EN: "Adaptive question paths based on your answers"
+        }
+    },
+    {
+        slug: "questions",
+        icon: "❓",
+        title: {
+            RU: "Контрольные вопросы",
+            KZ: "Бақылау сұрақтары",
+            EN: "Review Questions"
+        },
+        description: {
+            RU: "Вопросы для самопроверки и контроля знаний",
+            KZ: "Өзін-өзі тексеруге және білімді бақылауға арналған сұрақтар",
+            EN: "Questions for self-assessment and knowledge review"
+        }
+    },
+    {
+        slug: "virtual-patient",
+        icon: "👤",
+        title: {
+            RU: "Виртуальный пациент",
+            KZ: "Виртуалды пациент",
+            EN: "Virtual Patient"
+        },
+        description: {
+            RU: "Интерактивный клинический сценарий с принятием решений",
+            KZ: "Шешім қабылдауға арналған интерактивті клиникалық сценарий",
+            EN: "An interactive clinical scenario with decision-making"
+        }
+    },
+    {
+        slug: "media",
+        icon: "🎬",
+        title: {
+            RU: "Медиа",
+            KZ: "Медиа",
+            EN: "Media"
+        },
+        description: {
+            RU: "Видео, изображения, анимации и дополнительные материалы",
+            KZ: "Бейне, суреттер, анимациялар және қосымша материалдар",
+            EN: "Video, images, animations, and supplementary materials"
+        }
+    },
+    {
+        slug: "glossary",
+        icon: "📚",
+        title: {
+            RU: "Глоссарий",
+            KZ: "Глоссарий",
+            EN: "Glossary"
+        },
+        description: {
+            RU: "Основные термины и определения модуля",
+            KZ: "Модульдің негізгі терминдері мен анықтамалары",
+            EN: "Key terms and definitions for the module"
+        }
+    },
+    {
+        slug: "voice",
+        icon: "🔊",
+        title: {
+            RU: "Голосовое сопровождение",
+            KZ: "Дауыстық сүйемелдеу",
+            EN: "Audio Guide"
+        },
+        description: {
+            RU: "Аудиосопровождение учебных материалов",
+            KZ: "Оқу материалдарының аудио сүйемелдеуі",
+            EN: "Audio support for the learning materials"
+        }
+    },
+    {
+        slug: "progress",
+        icon: "⭐",
+        title: {
+            RU: "Мой прогресс",
+            KZ: "Менің прогресім",
+            EN: "My Progress"
+        },
+        description: {
+            RU: "Результаты, ошибки и персональные рекомендации",
+            KZ: "Нәтижелер, қателер және жеке ұсыныстар",
+            EN: "Results, mistakes, and personalized recommendations"
+        }
+    },
+    {
+        slug: "notes",
+        icon: "🔖",
+        title: {
+            RU: "Закладки и заметки",
+            KZ: "Бетбелгілер мен жазбалар",
+            EN: "Bookmarks and Notes"
+        },
+        description: {
+            RU: "Сохранение важных фрагментов и собственных заметок",
+            KZ: "Маңызды бөліктер мен жеке жазбаларды сақтау",
+            EN: "Save important content and your own notes"
+        }
+    },
+    {
+        slug: "references",
+        icon: "📑",
+        title: {
+            RU: "Источники и литература",
+            KZ: "Дереккөздер мен әдебиеттер",
+            EN: "References"
+        },
+        description: {
+            RU: "Научные источники и рекомендуемая литература",
+            KZ: "Ғылыми дереккөздер және ұсынылатын әдебиеттер",
+            EN: "Scientific sources and recommended reading"
+        }
+    }
+];
+const sectionOrder = sections.map((section)=>section.slug);
+function isSection(value) {
+    return sections.some((section)=>section.slug === value);
+}
+function getSectionTitle(section, language) {
+    return sections.find((item)=>item.slug === section).title[language];
+}
+}),
+"[project]/lib/interface.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "htmlLanguage",
+    ()=>htmlLanguage,
+    "interfaceText",
+    ()=>interfaceText,
+    "normalizeLanguage",
+    ()=>normalizeLanguage
+]);
+function normalizeLanguage(value) {
+    const code = Array.isArray(value) ? value[0] : value;
+    return code === "EN" || code === "KZ" ? code : "RU";
+}
+const htmlLanguage = {
+    RU: "ru",
+    EN: "en",
+    KZ: "kk"
+};
+const interfaceText = {
+    RU: {
+        language: "Язык",
+        navigation: "Навигация по курсу",
+        author: "Автор",
+        authorName: "Нурия Мансуровна Харисова"
+    },
+    EN: {
+        language: "Language",
+        navigation: "Course navigation",
+        author: "Author",
+        authorName: "Nuriya Mansurovna Kharissova"
+    },
+    KZ: {
+        language: "Тіл",
+        navigation: "Курс бойынша навигация",
+        author: "Автор",
+        authorName: "Нурия Мансуровна Харисова"
+    }
+};
+}),
+"[project]/lib/tests/engine.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "initialState",
+    ()=>initialState,
+    "summarize",
+    ()=>summarize,
+    "transition",
+    ()=>transition,
+    "validateTest",
+    ()=>validateTest
+]);
+function initialState(test) {
+    return {
+        current: test.start,
+        phase: test.nodes[test.start].type === "remediation" ? "remediation" : "question",
+        selected: null,
+        attempts: [],
+        history: [],
+        retryIds: null,
+        retryAttempts: []
+    };
+}
+function enter(test, state, target) {
+    if (target === "end") return {
+        ...state,
+        current: target,
+        phase: "results",
+        selected: null
+    };
+    const node = test.nodes[target];
+    return {
+        ...state,
+        current: target,
+        selected: null,
+        phase: node.type === "remediation" ? "remediation" : "question",
+        history: node.type === "remediation" ? [
+            ...state.history,
+            {
+                type: "review",
+                nodeId: node.id,
+                competency: node.competency,
+                depth: node.depth
+            }
+        ] : state.history
+    };
+}
+function transition(test, state, action) {
+    if (action.type === "restart") return initialState(test);
+    if (action.type === "retry" && state.phase === "results") {
+        const attempts = state.retryIds === null ? state.attempts : state.retryAttempts;
+        const retryIds = [
+            ...new Set(attempts.filter((attempt)=>!attempt.correct).map((attempt)=>attempt.nodeId))
+        ];
+        return retryIds.length ? enter(test, {
+            ...state,
+            retryIds,
+            retryAttempts: []
+        }, retryIds[0]) : state;
+    }
+    if (state.phase === "results") return state;
+    const node = test.nodes[state.current];
+    if (action.type === "select") {
+        if (state.phase !== "question" || node.type !== "question" || !node.options.some((option)=>option.id === action.answer)) return state;
+        return {
+            ...state,
+            selected: action.answer
+        };
+    }
+    if (action.type === "check") {
+        if (state.phase !== "question" || node.type !== "question" || state.selected === null) return state;
+        const attempt = {
+            nodeId: node.id,
+            competency: node.competency,
+            level: node.level,
+            answer: state.selected,
+            correct: state.selected === node.correctAnswer
+        };
+        if (state.retryIds !== null) return {
+            ...state,
+            retryAttempts: [
+                ...state.retryAttempts,
+                attempt
+            ],
+            phase: "feedback"
+        };
+        const answered = {
+            ...state,
+            attempts: [
+                ...state.attempts,
+                attempt
+            ],
+            history: [
+                ...state.history,
+                {
+                    type: "answer",
+                    attempt
+                }
+            ],
+            phase: "feedback"
+        };
+        // Always show immediate feedback before following the data-defined branch.
+        return answered;
+    }
+    if (action.type === "continue") {
+        if (state.phase === "remediation" && node.type === "remediation") return enter(test, state, node.next);
+        if (state.phase === "feedback" && node.type === "question") {
+            if (state.retryIds !== null) return enter(test, state, state.retryIds[state.retryAttempts.length] ?? "end");
+            const attempt = state.attempts[state.attempts.length - 1];
+            return enter(test, state, attempt.correct ? node.onCorrect : node.onIncorrect);
+        }
+    }
+    return state;
+}
+function summarize(test, state) {
+    const mains = state.attempts.filter((attempt)=>attempt.level === "main");
+    const mastered = new Set(state.attempts.filter((attempt)=>attempt.correct).map((attempt)=>attempt.competency));
+    const weak = [
+        ...new Set(state.attempts.filter((attempt)=>!attempt.correct).map((attempt)=>attempt.competency))
+    ];
+    return {
+        total: test.mainIds.length,
+        mainAnswered: mains.length,
+        firstCorrect: mains.filter((attempt)=>attempt.correct).length,
+        mastered: mastered.size,
+        recovered: weak.filter((id)=>mastered.has(id)).length,
+        additional: state.attempts.length - mains.length,
+        remediations: state.history.filter((event)=>event.type === "review").length,
+        weak,
+        unresolved: weak.filter((id)=>!mastered.has(id))
+    };
+}
+function validateTest(test) {
+    if (!test.mainIds.length || new Set(test.mainIds).size !== test.mainIds.length) throw Error("Invalid main route");
+    const mainCompetencies = new Set();
+    test.mainIds.forEach((id)=>{
+        const node = test.nodes[id];
+        if (!node || node.type !== "question" || node.level !== "main" || mainCompetencies.has(node.competency)) throw Error(`Invalid main question: ${id}`);
+        mainCompetencies.add(node.competency);
+    });
+    const visited = new Set();
+    const visiting = new Set();
+    function visit(id) {
+        if (id === "end") return;
+        if (visiting.has(id)) throw Error(`Cycle at ${id}`);
+        if (visited.has(id)) return;
+        const node = test.nodes[id];
+        if (!node || node.id !== id || !test.competencies[node.competency]) throw Error(`Invalid node: ${id}`);
+        visiting.add(id);
+        if (node.type === "question") {
+            if (node.options.length < 2 || new Set(node.options.map((option)=>option.id)).size !== node.options.length || !node.options.some((option)=>option.id === node.correctAnswer)) throw Error(`Invalid options: ${id}`);
+            visit(node.onCorrect);
+            visit(node.onIncorrect);
+        } else visit(node.next);
+        visiting.delete(id);
+        visited.add(id);
+    }
+    visit(test.start);
+    if (visited.size !== Object.keys(test.nodes).length) throw Error("Unreachable nodes in test");
+}
+}),
+];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__0b-a57_._.js.map

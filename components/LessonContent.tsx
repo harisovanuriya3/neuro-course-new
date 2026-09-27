@@ -17,6 +17,7 @@ function Block({ block }: { block: ContentBlock }) {
 export default function LessonContent({ lesson }: { lesson: Lesson }) {
   return (
     <article className={styles.lesson}>
+      <h1>{lesson.title}</h1>
       {lesson.sections.map((section) => (
         <section id={section.id} key={section.id ?? section.title}>
           <h2>{section.title}</h2>

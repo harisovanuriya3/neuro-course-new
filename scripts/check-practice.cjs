@@ -59,13 +59,15 @@ async function main() {
       await call("Page.navigate", { url: `http://localhost:3000/modules/1/practice?lang=${lang}` });
       let ready = false;
       for (let attempt = 0; attempt < 100; attempt++) {
-        if (await evaluate(`document.querySelectorAll('article h2').length === 13 && document.querySelector('h1')?.textContent === ${JSON.stringify(lesson.title)}`)) {
+        if (await evaluate(`Object.keys(document.querySelector('article button') ?? {}).some(key => key.startsWith('__reactProps$')) && document.querySelectorAll('article h2').length === 13 && document.querySelector('h1')?.textContent === ${JSON.stringify(lesson.title)}`)) {
           ready = true;
           break;
         }
         await new Promise((resolve) => setTimeout(resolve, 100));
       }
       assert(ready, `Page loaded: ${lang}`);
+      assert.equal(await evaluate("document.querySelectorAll('h1').length"), 1);
+      assert.equal(await evaluate("document.documentElement.lang"), lang === "KZ" ? "kk" : lang.toLowerCase());
       for (let attempt = 0; attempt < 50; attempt++) {
         await click(ui.check);
         if (await evaluate(`document.querySelector('[role="status"]').textContent === ${JSON.stringify(ui.incomplete)}`)) break;

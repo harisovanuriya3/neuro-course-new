@@ -17,7 +17,7 @@ export default function Home() {
 «Физиология центральной нервной системы»
 Учебное пособие для студентов медицинских факультетов
 
-Автор: Харисова Нурия Мансуровна, к.б.н., профессор
+Автор: Нурия Мансуровна Харисова, к.б.н., профессор
 
 Допущено кафедрой физиологии
 Караганда – 2026
@@ -34,7 +34,7 @@ Textbook
 “Physiology of the Central Nervous System”
 Study guide for medical students
 
-Author: Nuria Mansurovna Kharissova, PhD, Professor
+Author: Nuriya Mansurovna Kharissova, PhD, Professor
 
 Approved by the Department of Physiology
 Karaganda – 2026
@@ -51,7 +51,7 @@ Karaganda – 2026
 «Орталық жүйке жүйесінің физиологиясы»
 Медициналық факультет студенттеріне арналған оқу құралы
 
-Автор: Харисова Нурия Мансуровна, б.ғ.к., профессор
+Автор: Нурия Мансуровна Харисова, б.ғ.к., профессор
 
 Физиология кафедрасымен мақұлданған
 Қарағанды – 2026

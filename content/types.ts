@@ -48,6 +48,8 @@ export type PracticeLesson = {
 export type SectionLesson =
   | (Lesson & { kind: "theory" })
   | PracticeLesson
+  | import("./interactive").InteractiveLesson
+  | import("./media").MediaLesson
   | import("./cases").CasesLesson
   | import("./tests").BranchingTest
   | import("./study").StudyLesson;

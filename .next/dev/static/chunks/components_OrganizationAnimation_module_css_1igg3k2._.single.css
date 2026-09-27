@@ -1,0 +1,159 @@
+/* [project]/components/OrganizationAnimation.module.css [app-client] (css) */
+.OrganizationAnimation-module__PKcdTq__player {
+  background: #f4f8fc;
+  border: 1px solid #b6c9d9;
+  border-radius: 12px;
+  min-width: 0;
+  padding: clamp(12px, 2vw, 20px);
+}
+
+.OrganizationAnimation-module__PKcdTq__player h3 {
+  margin-top: 0;
+}
+
+.OrganizationAnimation-module__PKcdTq__visual {
+  background: #fff;
+  border: 1px solid #d4e0ea;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.OrganizationAnimation-module__PKcdTq__visual svg {
+  width: 100%;
+  max-width: 490px;
+  height: auto;
+  margin: auto;
+  display: block;
+}
+
+.OrganizationAnimation-module__PKcdTq__body {
+  fill: #f2f6f9;
+  stroke: #9aafbf;
+  stroke-width: 2px;
+}
+
+.OrganizationAnimation-module__PKcdTq__structure {
+  fill: #dce6ee;
+  stroke: #73899b;
+  stroke-width: 2px;
+}
+
+.OrganizationAnimation-module__PKcdTq__highlight {
+  fill: #c1e5ee;
+  stroke: #00599c;
+  stroke-width: 4px;
+}
+
+.OrganizationAnimation-module__PKcdTq__structure, .OrganizationAnimation-module__PKcdTq__highlight {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.OrganizationAnimation-module__PKcdTq__flow {
+  fill: none;
+  color: #004b87;
+  stroke: currentColor;
+  stroke-width: 5px;
+  stroke-dasharray: 12 6;
+}
+
+.OrganizationAnimation-module__PKcdTq__moving {
+  animation: 1.2s linear infinite OrganizationAnimation-module__PKcdTq__signal-flow;
+}
+
+@keyframes OrganizationAnimation-module__PKcdTq__signal-flow {
+  to {
+    stroke-dashoffset: -36px;
+  }
+}
+
+.OrganizationAnimation-module__PKcdTq__legend {
+  margin: 8px 0 0;
+}
+
+.OrganizationAnimation-module__PKcdTq__legend [data-active="true"] {
+  text-underline-offset: 3px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.OrganizationAnimation-module__PKcdTq__direction {
+  font-weight: 700;
+}
+
+.OrganizationAnimation-module__PKcdTq__controls {
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0;
+  display: flex;
+}
+
+.OrganizationAnimation-module__PKcdTq__controls button {
+  flex: 160px;
+}
+
+.OrganizationAnimation-module__PKcdTq__controls button[aria-pressed="true"] {
+  background: #e4f0fa;
+  border-width: 2px;
+}
+
+.OrganizationAnimation-module__PKcdTq__player progress {
+  accent-color: #00599c;
+  width: 100%;
+  height: 12px;
+  display: block;
+}
+
+.OrganizationAnimation-module__PKcdTq__explanation {
+  background: #eff8f3;
+  border-left: 4px solid #39774f;
+  border-radius: 8px;
+  margin-top: 16px;
+  padding: 12px;
+}
+
+.OrganizationAnimation-module__PKcdTq__explanation p {
+  margin: 8px 0;
+}
+
+.OrganizationAnimation-module__PKcdTq__explanation h4 {
+  color: #004b87;
+  margin: 12px 0;
+  font-size: 1.05em;
+}
+
+.OrganizationAnimation-module__PKcdTq__note {
+  color: #526b80;
+  font-size: .95em;
+}
+
+.OrganizationAnimation-module__PKcdTq__reduced {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .OrganizationAnimation-module__PKcdTq__moving {
+    animation: none;
+  }
+
+  .OrganizationAnimation-module__PKcdTq__reduced {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .OrganizationAnimation-module__PKcdTq__controls {
+    flex-direction: column;
+  }
+
+  .OrganizationAnimation-module__PKcdTq__controls button {
+    flex: none;
+    width: 100%;
+  }
+
+  .OrganizationAnimation-module__PKcdTq__visual {
+    padding: 6px;
+  }
+}
+
+/*# sourceMappingURL=components_OrganizationAnimation_module_css_1igg3k2._.single.css.map*/

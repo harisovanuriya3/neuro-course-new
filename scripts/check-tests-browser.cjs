@@ -19,7 +19,7 @@ async function main() {
     return result.result.value;
   };
   const pause = () => new Promise(resolve => setTimeout(resolve, 60));
-  const click = async selector => { assert(await evaluate(`!!document.querySelector(${JSON.stringify(selector)}) && !document.querySelector(${JSON.stringify(selector)}).disabled`)); await evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`); await pause(); };
+  const click = async selector => { for (let i = 0; i < 100; i++) { if (await evaluate(`!!document.querySelector(${JSON.stringify(selector)}) && !document.querySelector(${JSON.stringify(selector)}).disabled`)) break; await pause(); } assert(await evaluate(`!!document.querySelector(${JSON.stringify(selector)}) && !document.querySelector(${JSON.stringify(selector)}).disabled`)); await evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`); await pause(); };
   try {
     await call('Runtime.enable'); await call('Page.enable');
     for (const lang of ['RU', 'KZ', 'EN']) {
@@ -27,7 +27,7 @@ async function main() {
       const response = await fetch(`http://localhost:3000/modules/1/tests?lang=${lang}`);
       assert.equal(response.status, 200); assert((await response.text()).includes(test.title));
       await call('Page.navigate', { url: `http://localhost:3000/modules/1/tests?lang=${lang}` });
-      for (let i = 0; i < 100; i++) { if (await evaluate(`document.querySelector('article h1')?.textContent === ${JSON.stringify(test.title)}`)) break; await pause(); }
+      for (let i = 0; i < 100; i++) { if (await evaluate(`document.querySelector('article h1')?.textContent === ${JSON.stringify(test.title)} && Object.keys(document.querySelector('article input') ?? {}).some(key => key.startsWith('__reactProps$'))`)) break; await pause(); }
       assert.equal(await evaluate("document.querySelector('article h1')?.textContent"), test.title);
       assert(await evaluate("document.querySelector('[data-action=check]').disabled"));
       // Trigger every remediation and foundation branch, then retry all errors correctly.
@@ -70,4 +70,5 @@ async function main() {
     assert.deepEqual(errors, []);
   } finally { ws.close(); }
 }
-main().catch(error => { console.error(error); process.exitCode = 1; });
+const timeout = setTimeout(() => { console.error('Browser check timed out'); process.exit(1); }, 180000);
+main().catch(error => { console.error(error); process.exitCode = 1; }).finally(() => clearTimeout(timeout));

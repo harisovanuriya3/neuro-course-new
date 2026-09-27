@@ -1,0 +1,42 @@
+.interactive { min-width: 0; }
+.card { scroll-margin-top: 20px; }
+.interactive button { width: 100%; box-sizing: border-box; }
+.interactive button[aria-pressed="true"] { border: 2px solid #00599c; background: #e4f0fa; color: #003f73; box-shadow: inset 0 0 0 1px #00599c; }
+.interactive button:focus-visible, .interactive a:focus-visible { outline: 3px solid #a54b00; outline-offset: 4px; }
+.root, .neuron { text-align: center; padding: 16px; border: 2px solid #8fb2ce; border-radius: 12px; background: #edf6ff; font-weight: 700; }
+.root { max-width: 400px; margin: 24px auto 0; }
+.branches { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.branches::before { content: ""; position: absolute; top: 12px; left: 25%; right: 25%; border-top: 2px solid #8fb2ce; }
+.branches::after { content: ""; position: absolute; top: 0; left: 50%; height: 12px; border-left: 2px solid #8fb2ce; }
+.branch { position: relative; min-width: 0; padding: 24px 12px 12px; border: 1px solid #b6c9d9; border-radius: 12px; margin-top: 24px; }
+.branch::before { content: ""; position: absolute; top: -13px; left: 50%; height: 12px; border-left: 2px solid #8fb2ce; }
+.branch h3 { margin-top: 0; }
+.nodes { display: grid; gap: 12px; }
+.interactive .sequence { list-style: none; padding: 0; margin: 20px auto; max-width: 580px; }
+.interactive .sequence li { margin: 0; }
+.sequence button { display: flex; align-items: center; gap: 12px; text-align: left; }
+.number { display: inline-grid; place-items: center; flex: 0 0 28px; height: 28px; border-radius: 50%; background: #004b87; color: white; }
+.arrow { display: block; text-align: center; font-size: 24px; line-height: 1.4; color: #00599c; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+.actions button { flex: 1 1 160px; width: auto; }
+.explanation { border-left: 4px solid #39774f; border-radius: 8px; background: #eff8f3; padding: 16px; margin: 24px 0; }
+.explanation h3 { margin-top: 0; }
+.explanation p:last-child { margin-bottom: 0; }
+.loop { padding: 16px; border: 2px dashed #8fb2ce; border-radius: 12px; }
+.loop p { margin-top: 0; }
+.returned { font-weight: 700; }
+.inputs, .convergence { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.convergence { text-align: center; color: #00599c; font-size: 28px; }
+.state { display: block; font-size: 0.9em; margin-top: 8px; }
+.note { padding: 12px; background: #f3f7fa; border-radius: 8px; }
+.theory { margin-bottom: 0; }
+.theory a { color: #00599c; text-underline-offset: 3px; }
+@media (max-width: 600px) {
+  .branches { grid-template-columns: minmax(0, 1fr); gap: 0; margin-left: 10px; padding-left: 14px; border-left: 2px solid #8fb2ce; }
+  .branches::before, .branches::after { display: none; }
+  .branch { padding: 16px 10px; }
+  .branch::before { top: 24px; left: -15px; width: 14px; height: 0; border-left: 0; border-top: 2px solid #8fb2ce; }
+  .inputs { gap: 8px; }
+  .inputs button { padding: 10px 6px; }
+  .explanation, .loop { padding: 12px; }
+}

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/harisova/Desktop/neuro-course-new/app/layout.tsx"],"sourcesContent":["import { headers } from \"next/headers\";\n\nexport const metadata = {\n  title: \"Neuro Course\",\r\n  description: \"Учебный проект на Next.js\",\r\n};\r\n\r\nexport default async function RootLayout({\n  children,\r\n}: {\r\n  children: React.ReactNode;\r\n}) {\r\n  const language = (await headers()).get(\"x-course-language\");\n  return (\n    <html lang={language === \"en\" || language === \"kk\" ? language : \"ru\"}>\n      <body>\r\n        {children}\r\n      </body>\r\n    </html>\r\n  );\r\n}\r\n"],"names":["metadata","title","description","RootLayout","children","language","get","lang"],"mappings":";;;;;;;AAAA;;;AAEO,MAAMA,WAAW;IACtBC,OAAO;IACPC,aAAa;AACf;AAEe,eAAeC,WAAW,EACvCC,QAAQ,EAGT;IACC,MAAMC,WAAW,CAAC,MAAM,IAAA,0IAAO,GAAE,EAAEC,GAAG,CAAC;IACvC,qBACE,8OAAC;QAAKC,MAAMF,aAAa,QAAQA,aAAa,OAAOA,WAAW;kBAC9D,cAAA,8OAAC;sBACED;;;;;;;;;;;AAIT"}}]
+}

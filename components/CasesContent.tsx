@@ -16,6 +16,7 @@ export default function CasesContent({ lesson }: { lesson: CasesLesson }) {
 
   return (
     <div className={`${shared.practice} ${styles.cases}`}>
+      <h1>{lesson.title}</h1>
       <p>{lesson.introduction}</p>
       <p className={shared.note}>{ui.note}</p>
       <div className={styles.progress}>

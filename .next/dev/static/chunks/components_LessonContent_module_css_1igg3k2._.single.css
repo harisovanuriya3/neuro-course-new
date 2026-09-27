@@ -10,6 +10,12 @@
   margin-top: 2.5rem;
 }
 
+.LessonContent-module__O06sTW__lesson h1 {
+  color: #004b87;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  line-height: 1.3;
+}
+
 .LessonContent-module__O06sTW__lesson h2 {
   color: #004b87;
   font-size: clamp(1.25rem, 3vw, 1.6rem);

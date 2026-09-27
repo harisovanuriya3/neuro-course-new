@@ -12,6 +12,18 @@
       "priority": true,
       "statusCode": 308,
       "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    },
+    {
+      "source": "/modules/module-1",
+      "destination": "/modules/1",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/modules/module-1(?:/)?$"
+    },
+    {
+      "source": "/modules-dynamic/1",
+      "destination": "/modules/1",
+      "statusCode": 308,
+      "regex": "^(?!/_next)/modules-dynamic/1(?:/)?$"
     }
   ],
   "headers": [],

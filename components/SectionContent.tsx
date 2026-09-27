@@ -5,6 +5,8 @@ import PracticeContent from "./PracticeContent";
 import CasesContent from "./CasesContent";
 import BranchingTestContent from "./BranchingTestContent";
 import StudyContent from "./StudyContent";
+import InteractiveContent from "./InteractiveContent";
+import MediaContent from "./MediaContent";
 
 type Props = {
   lesson: SectionLesson;
@@ -18,6 +20,10 @@ function unsupportedContent(lesson: never): never {
 
 export default function SectionContent({ lesson, moduleId, language }: Props) {
   switch (lesson.kind) {
+    case "media":
+      return <MediaContent lesson={lesson} moduleId={moduleId} language={language} />;
+    case "interactive":
+      return <InteractiveContent lesson={lesson} moduleId={moduleId} language={language} />;
     case "theory":
       return <LessonContent lesson={lesson} />;
     case "practice":

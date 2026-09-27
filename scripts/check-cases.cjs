@@ -87,6 +87,8 @@ async function main() {
       assert.equal((await fetch(url)).status, 200, `HTTP 200: ${lang}`);
       await call("Page.navigate", { url });
       await ready(lesson);
+      assert.equal(await evaluate("document.querySelectorAll('h1').length"), 1);
+      assert.equal(await evaluate("document.documentElement.lang"), lang === "KZ" ? "kk" : lang.toLowerCase());
       assert.equal(await evaluate("document.querySelector('progress').value"), 0);
       assert.equal(await evaluate("document.querySelectorAll('article button[aria-expanded=false]:disabled').length"), 8);
       assert.equal(await evaluate("document.querySelectorAll('article input[type=checkbox]').length"), 0);
@@ -167,7 +169,7 @@ async function main() {
       await ready(load(nextLang));
       assert.equal(await evaluate("document.querySelector('progress').value"), 0, "Language switch resets progress");
       assert.equal(await evaluate("document.querySelectorAll('article button[aria-expanded=false]:disabled').length"), 8);
-      assert.equal(await evaluate("document.querySelector('nav[aria-label=Language] [aria-current=page]').textContent"), nextLang);
+      assert.equal(await evaluate(`document.querySelector('nav a[href="/modules/1/cases?lang=${nextLang}"][aria-current=page]').textContent`), nextLang);
       console.log(`PASS ${lang}: HTTP 200, 8 cases, progressive stages, sequence incorrect/correct/undo/reset, all choices, keyboard disclosures/focus, completion 0–8, language switch, 320/375/1280px`);
     }
     assert.deepEqual(errors, [], "No browser runtime exceptions");
