@@ -9,6 +9,7 @@ import styles from "../../CourseLayout.module.css";
 
 import { modules as moduleTitles, isModuleId, type Language as Lang } from "../../../content/course";
 import { sections } from "../../../content/sections";
+import { getLesson } from "../../../content";
 
 const ui: Record<
   Lang,
@@ -193,7 +194,7 @@ export default async function ModulePage({
           </nav>
         </div>
 
-        {moduleNumber === 1 && <PageVoiceTools key={lang} language={lang} contentId="top" />}
+        <PageVoiceTools key={`${id}/${lang}`} moduleId={moduleNumber} language={lang} contentId="top" />
 
         {/* Титульный блок */}
 
@@ -381,6 +382,13 @@ export default async function ModulePage({
                   >
                     {item.description[lang]}
                   </p>
+                  {moduleNumber > 1 && <p style={{ margin: '10px 0 0', fontSize: '13px', fontWeight: 700, color: '#486477' }}>
+                    {getLesson(moduleNumber, item.slug, lang)
+                      ? ({ RU: 'Стартовые материалы добавлены', EN: 'Initial materials available', KZ: 'Бастапқы материалдар қосылды' }[lang])
+                      : item.slug === 'progress'
+                        ? ({ RU: 'Посещения и обзор курса', EN: 'Visits and course overview', KZ: 'Қаралымдар және курс шолуы' }[lang])
+                        : ({ RU: 'Содержание готовится', EN: 'Content in preparation', KZ: 'Мазмұны дайындалуда' }[lang])}
+                  </p>}
                 </div>
               </div>
             </Link>

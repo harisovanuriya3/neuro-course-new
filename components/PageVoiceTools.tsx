@@ -18,7 +18,7 @@ const copy = {
 } as const;
 const titleNoteKey = "neuro-course:module-1:title-note:v1";
 
-export default function PageVoiceTools({ language, contentId, section }: { language: Language; contentId: string; section?: Section }) {
+export default function PageVoiceTools({ language, contentId, section, moduleId = 1 }: { language: Language; contentId: string; section?: Section; moduleId?: number }) {
   const id = useId();
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState("");
@@ -26,12 +26,13 @@ export default function PageVoiceTools({ language, contentId, section }: { langu
   const [saved, setSaved] = useState(true);
   const c = copy[language];
   const panel = useRef<HTMLDivElement>(null);
+  const noteKey = moduleId === 1 ? titleNoteKey : `neuro-course:module-${moduleId}:page-note:${section ?? 'title'}:v1`;
   useEffect(() => {
     setReady(false);
-    if (section) setNote(readModuleNotes().notes[section] ?? "");
-    else { try { setNote(localStorage.getItem(titleNoteKey) ?? ""); } catch { setNote(""); } }
+    if (moduleId === 1 && section) setNote(readModuleNotes().notes[section] ?? "");
+    else { try { setNote(localStorage.getItem(noteKey) ?? ""); } catch { setNote(""); } }
     setReady(true);
-  }, [section]);
+  }, [section, moduleId, noteKey]);
   useEffect(() => {
     const root = document.getElementById(contentId);
     if (!root) return;
@@ -47,8 +48,8 @@ export default function PageVoiceTools({ language, contentId, section }: { langu
   }, [contentId, language]);
   function update(text: string) {
     setNote(text);
-    if (section) { const current = readModuleNotes(); setSaved(saveModuleNotes({ ...current, notes: { ...current.notes, [section]: text } })); }
-    else { try { localStorage.setItem(titleNoteKey, text); setSaved(true); } catch { setSaved(false); } }
+    if (moduleId === 1 && section) { const current = readModuleNotes(); setSaved(saveModuleNotes({ ...current, notes: { ...current.notes, [section]: text } })); }
+    else { try { localStorage.setItem(noteKey, text); setSaved(true); } catch { setSaved(false); } }
   }
   return <section className={styles.tools} aria-label={c.title} data-no-narration data-testid="page-voice-tools">
     <SpeechPlayer language={language} getText={() => { const root = document.getElementById(contentId); return root ? visiblePageText(root) : []; }} />

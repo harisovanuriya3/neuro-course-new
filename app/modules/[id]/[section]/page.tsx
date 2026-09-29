@@ -16,6 +16,7 @@ import BookmarkCurrent from "../../../../components/BookmarkCurrent";
 import PageVoiceTools from "../../../../components/PageVoiceTools";
 import CourseVisitTracker from "../../../../components/CourseVisitTracker";
 import { interfaceText } from "../../../../lib/interface";
+import FoundationVisual from "../../../../components/FoundationVisual";
 
 const text = {
   RU: {
@@ -193,7 +194,7 @@ export default async function SectionPage({
           {/* СУЩЕСТВУЮЩИЙ КОНТЕНТ */}
 
           <CourseVisitTracker moduleId={moduleNumber} section={section} />
-          {moduleNumber === 1 && <PageVoiceTools key={`${section}/${lang}`} language={lang} contentId="module1-page-content" section={section} />}
+          <PageVoiceTools key={`${id}/${section}/${lang}`} moduleId={moduleNumber} language={lang} contentId="module1-page-content" section={section} />
           {moduleNumber === 1 && section !== "notes" && <BookmarkCurrent section={section} language={lang} />}
 
           <div id="module1-page-content">
@@ -213,6 +214,7 @@ export default async function SectionPage({
                 moduleId={id}
                 language={lang}
               />
+              {section === 'theory' && moduleNumber > 1 && <FoundationVisual moduleId={moduleNumber} language={lang} />}
             </>
           ) : (
             <>

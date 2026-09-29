@@ -15,6 +15,7 @@ import { validateTest } from "../lib/tests/engine";
 import { createStudyLessons } from "./modules/1/study";
 import { createInteractiveLesson } from "./modules/1/interactive";
 import { createMediaLesson } from "./modules/1/media";
+import { foundationLessons } from "./course-foundation";
 
 const studyRU = createStudyLessons("RU");
 const studyKZ = createStudyLessons("KZ");
@@ -29,6 +30,7 @@ const studyLessons = Object.fromEntries(
 
 // Register each new module/section here; routes and rendering stay unchanged.
 const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>> = {
+  ...foundationLessons,
   1: {
     ...studyLessons,
     media: { RU: createMediaLesson("RU"), EN: createMediaLesson("EN"), KZ: createMediaLesson("KZ") },

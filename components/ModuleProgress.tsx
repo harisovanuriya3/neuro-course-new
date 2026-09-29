@@ -43,7 +43,7 @@ export default function ModuleProgress({ language, moduleId }: { language: Langu
       const visited = data?.visitedModules.includes(id) ?? false;
       return <div key={id}>
         <h3>{c.module} {id}: {title}</h3>
-        <p>{id === 1 ? `${c.sections}: ${count}` : c.pending}{visited ? " ✓" : ""}</p>
+        <p>{c.sections}: {count}{visited ? " ✓" : ""}</p>
         <Link href={`/modules/${id}?lang=${language}`}>{c.start}</Link>
       </div>;
     })}</div>

@@ -37,7 +37,7 @@ const copy = {
 
 const frames = ["approach", "signals", "correction"] as const;
 
-export default function BalanceDiagram({ language, ui }: { language: Language; ui: InteractiveLesson["ui"] }) {
+export default function BalanceDiagram({ language, ui, title }: { language: Language; ui: InteractiveLesson["ui"]; title?: string }) {
   const [step, setStep] = useState(0);
   const [replay, setReplay] = useState(0);
   const id = useId();
@@ -51,7 +51,7 @@ export default function BalanceDiagram({ language, ui }: { language: Language; u
   }, [replay]);
   const chooseStep = (value: number) => { setReplay(0); setStep(value); };
   return <section id="integrative" className={`${shared.card} ${controls.card}`} aria-labelledby={`${id}-heading`}>
-    <h2 id={`${id}-heading`}>{c.title}</h2>
+    <h2 id={`${id}-heading`}>{title ?? c.title}</h2>
     <p className={controls.note}>{c.note}</p>
     <figure className={styles.figure}>
       <div className={styles.scene} role="img" aria-label={`${c.stages[step]}. ${source.explanation[step]}`}>

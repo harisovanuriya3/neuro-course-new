@@ -1,0 +1,6 @@
+.visual { margin-top: 28px; padding: clamp(12px, 3vw, 24px); border: 1px solid #d1e0ea; border-radius: 14px; color: #193d56; background: #f8fbfd; line-height: 1.7; }
+.visual figure { margin: 16px 0; }
+.photo { position: relative; width: 100%; max-width: 520px; height: clamp(210px, 55vw, 340px); margin: auto; }
+.photo img { object-fit: contain; }
+.visual figcaption { margin-top: 16px; font-size: .9rem; }
+.visual a { color: #004b87; }
