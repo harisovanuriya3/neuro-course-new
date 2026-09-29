@@ -1,0 +1,33 @@
+.patient { color: #17384c; line-height: 1.55; }
+.patient h1 { color: #004b87; font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.25; }
+.patient h2 { font-size: 1.15rem; line-height: 1.35; }
+.patient a { color: #005b96; font-weight: 700; }
+.layout { display: grid; grid-template-columns: minmax(220px, 340px) minmax(0, 1fr); gap: clamp(18px, 3vw, 30px); align-items: start; }
+.photo { margin: 0; }
+.photo img { display: block; width: 100%; height: auto; border-radius: 12px; }
+.photo figcaption { margin-top: 7px; font-size: .83rem; color: #526b80; }
+.work { min-width: 0; }
+.situation { padding: 14px; background: #edf6ff; border-radius: 10px; margin-top: 0; }
+.counter { font-weight: 700; margin-bottom: 4px; }
+.work progress, .summary progress { display: block; width: 100%; height: 12px; accent-color: #005b96; }
+.work fieldset { border: 0; padding: 0; margin: 16px 0; }
+.work legend { font-weight: 700; margin-bottom: 8px; }
+.questions { display: grid; gap: 10px; }
+.questions > div { padding: 10px 12px; border: 1px solid #c7d9e5; border-radius: 9px; }
+.questions button { font: inherit; color: #005b96; font-weight: 700; background: transparent; border: 0; padding: 2px; text-align: left; text-decoration: underline; cursor: pointer; }
+.questions button:disabled { color: #526b80; cursor: default; text-decoration: none; }
+.questions button:focus-visible { outline: 2px solid #005b96; outline-offset: 2px; }
+.questions p { margin: 6px 0 0; }
+.work label { display: block; margin: 8px 0; padding: 10px 12px; border: 1px solid #c7d9e5; border-radius: 9px; cursor: pointer; }
+.work label:focus-within { outline: 2px solid #005b96; outline-offset: 2px; }
+.selected { background: #e8f4fc; border-color: #005b96 !important; }
+.feedback { border-left: 4px solid #005b96; padding: 8px 16px; background: #f3f8fb; }
+.feedback h3 { font-size: 1rem; margin-bottom: 0; }
+.actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.actions button, .actions a, .reset { font: inherit; padding: 9px 14px; border: 1px solid #005b96; border-radius: 8px; background: #005b96; color: white; text-decoration: none; cursor: pointer; }
+.actions button:disabled { opacity: .5; cursor: default; }
+.actions button:focus-visible, .actions a:focus-visible, .reset:focus-visible { outline: 3px solid #e49931; outline-offset: 2px; }
+.finished, .summary { margin: 20px 0; padding: 16px; background: #e9f6ef; border-radius: 10px; }
+.reset { background: white; color: #005b96; }
+.sources { margin-top: 20px; font-size: .86rem; }
+@media (max-width: 700px) { .layout { grid-template-columns: 1fr; } .photo { max-width: 430px; } }

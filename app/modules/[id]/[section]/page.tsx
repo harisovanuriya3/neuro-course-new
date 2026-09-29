@@ -8,6 +8,8 @@ import { isSection, getSectionTitle, sectionOrder } from "../../../../content/se
 import SectionContent from "../../../../components/SectionContent";
 import CourseNavigation from "../../../../components/CourseNavigation";
 import DocumentLanguage from "../../../../components/DocumentLanguage";
+import VirtualPatient from "../../../../components/VirtualPatient";
+import ModuleProgress from "../../../../components/ModuleProgress";
 import { interfaceText } from "../../../../lib/interface";
 
 const text = {
@@ -185,7 +187,11 @@ export default async function SectionPage({
 
           {/* СУЩЕСТВУЮЩИЙ КОНТЕНТ */}
 
-          {lesson ? (
+          {moduleNumber === 1 && section === "virtual-patient" ? (
+            <VirtualPatient language={lang} />
+          ) : moduleNumber === 1 && section === "progress" ? (
+            <ModuleProgress language={lang} />
+          ) : lesson ? (
             <>
               <SectionContent
                 key={`${id}/${section}/${lang}`}
