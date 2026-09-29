@@ -17,6 +17,6 @@
 .cover {
   background-image: linear-gradient(rgba(242,247,251,.70), rgba(238,245,249,.82)), url("/neuron-bg.jpg");
   background-position: center top;
-  background-size: auto, auto 100vh;
+  background-size: auto, auto 110vh;
   background-repeat: no-repeat, repeat-y;
 }
