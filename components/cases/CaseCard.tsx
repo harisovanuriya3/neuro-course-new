@@ -4,10 +4,12 @@ import { useState } from "react";
 import type { CaseExercise, CasesLesson } from "../../content/cases";
 import shared from "../PracticeContent.module.css";
 import styles from "../CasesContent.module.css";
+import VoiceTextarea from "../VoiceTextarea";
+import type { Language } from "../../content/course";
 
-type Props = { item: CaseExercise; number: number; ui: CasesLesson["ui"]; completed: boolean; onComplete: (done: boolean) => void };
+type Props = { item: CaseExercise; number: number; ui: CasesLesson["ui"]; language: Language; completed: boolean; onComplete: (done: boolean) => void };
 
-export default function CaseCard({ item, number, ui, completed, onComplete }: Props) {
+export default function CaseCard({ item, number, ui, language, completed, onComplete }: Props) {
   const [visible, setVisible] = useState(1);
   const [responses, setResponses] = useState<string[]>([]);
   const [selected, setSelected] = useState<number[]>([]);
@@ -82,15 +84,12 @@ export default function CaseCard({ item, number, ui, completed, onComplete }: Pr
           <h3 id={`${id}-stage-${index}`} tabIndex={-1}>{item.stages.length > 1 && `${ui.stage} ${index + 1} / ${item.stages.length}: `}{stage.title}</h3>
           {stage.data && <p className={styles.data}>{stage.data}</p>}
           <ol>{stage.questions.map((question) => <li key={question}>{question}</li>)}</ol>
-          {!sequence && <label className={shared.response} htmlFor={`${id}-response-${index}`}>
-            {ui.answer}{item.stages.length > 1 && ` — ${ui.stage.toLowerCase()} ${index + 1}`}
-            <textarea id={`${id}-response-${index}`} rows={4} value={responses[index] ?? ""} placeholder={ui.placeholder} onChange={(event) => {
+          {!sequence && <VoiceTextarea language={language} label={`${ui.answer}${item.stages.length > 1 ? ` — ${ui.stage.toLowerCase()} ${index + 1}` : ""}`} id={`${id}-response-${index}`} rows={4} value={responses[index] ?? ""} placeholder={ui.placeholder} onValue={text => {
               const next = [...responses];
-              next[index] = event.target.value;
+              next[index] = text;
               setResponses(next);
               invalidateReview();
-            }} />
-          </label>}
+            }} />}
         </section>
       ))}
       {visible < item.stages.length && <div className={shared.actions}>

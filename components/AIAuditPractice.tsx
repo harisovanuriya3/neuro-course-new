@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { Language, PracticeBlock } from "../content/types";
 import styles from "./PracticeContent.module.css";
+import VoiceTextarea from "./VoiceTextarea";
 
 type Audit = Extract<PracticeBlock, { type: "ai-audit" }>;
 
@@ -37,9 +38,7 @@ export default function AIAuditPractice({ block, language, moduleId }: { block: 
         <strong>{l.aiAnswer}</strong>
         <p>{current.claims.map((claim) => claim.text).join(" ")}</p>
       </div>
-      <label className={styles.response}>{l.prediction}
-        <textarea value={prediction} onChange={(event) => setPrediction(event.target.value)} disabled={locked} rows={3} />
-      </label>
+      <VoiceTextarea language={language} label={l.prediction} value={prediction} onValue={setPrediction} disabled={locked} rows={3} />
       <fieldset className={styles.trust} disabled={locked}>
         <legend>{l.trust}</legend>
         <p>{l.trustHint}</p>
@@ -58,9 +57,7 @@ export default function AIAuditPractice({ block, language, moduleId }: { block: 
             <span>{claim.text}</span>
           </label>)}
         </div>
-        <label className={styles.response}>{l.rationale}
-          <textarea value={rationale} onChange={(event) => setRationale(event.target.value)} disabled={checked} rows={4} />
-        </label>
+        <VoiceTextarea language={language} label={l.rationale} value={rationale} onValue={setRationale} disabled={checked} rows={4} />
         <p className={styles.auditSource}>{l.source} <Link href={`/modules/${moduleId}/theory?lang=${language}#${current.theoryAnchor}`}>{l.theory}</Link> · <a href={current.source.href} target="_blank" rel="noopener noreferrer">{current.source.label}</a></p>
         {!checked && <button type="button" className={styles.primary} disabled={!rationale.trim()} onClick={() => setChecked(true)}>{l.check}</button>}
       </>}

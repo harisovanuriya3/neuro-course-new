@@ -6,6 +6,7 @@ import type { Language } from "../content/course";
 import { getSectionTitle, sectionOrder, type Section } from "../content/sections";
 import { emptyModuleNotes, readModuleNotes, saveModuleNotes, type ModuleNotes } from "../lib/moduleNotes";
 import styles from "./ModuleTools.module.css";
+import VoiceTextarea from "./VoiceTextarea";
 
 const copy = {
   RU: { title: "Закладки и заметки", intro: "Сохраняйте ссылки на разделы модуля и свои заметки. Данные остаются только в этом браузере.", pick: "Раздел", add: "Добавить закладку", remove: "Убрать закладку", note: "Моя заметка", saved: "Сохранено", failed: "Не удалось сохранить в браузере. Текст останется только до закрытия страницы.", bookmarks: "Мои закладки", empty: "Закладок пока нет", open: "Открыть раздел" },
@@ -33,7 +34,7 @@ export default function NotesContent({ language }: { language: Language }) {
       <Link href={`/modules/1/${selected}?lang=${language}`}>{c.open}</Link>
     </div>
     <label htmlFor="section-note">{c.note}</label>
-    <textarea id="section-note" disabled={!ready} maxLength={5000} rows={7} value={value.notes[selected] ?? ""} onChange={event => update({ ...value, notes: { ...value.notes, [selected]: event.target.value } })} />
+    <VoiceTextarea key={selected} language={language} id="section-note" disabled={!ready} maxLength={5000} rows={7} value={value.notes[selected] ?? ""} onValue={text => update({ ...value, notes: { ...value.notes, [selected]: text } })} />
     <p role="status">{ready ? persisted ? c.saved : c.failed : ""}</p>
     <h2>{c.bookmarks}</h2>
     {value.bookmarks.length ? <ul>{value.bookmarks.map(section => <li key={section}><Link href={`/modules/1/${section}?lang=${language}`}>{getSectionTitle(section, language)}</Link></li>)}</ul> : <p>{c.empty}</p>}

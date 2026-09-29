@@ -4,10 +4,11 @@ export type PatientProgress = {
   asked: number[];
   answers: (number | null)[];
   firstTryCorrect: boolean[];
+  diagnosisText: string;
 };
 
 export const emptyPatientProgress = (): PatientProgress => ({
-  asked: [], answers: [null, null, null], firstTryCorrect: [false, false, false],
+  asked: [], answers: [null, null, null], firstTryCorrect: [false, false, false], diagnosisText: "",
 });
 
 export function readPatientProgress(): PatientProgress {
@@ -18,6 +19,7 @@ export function readPatientProgress(): PatientProgress {
       asked: Array.isArray(value.asked) ? [...new Set<number>(value.asked.filter((n: unknown) => Number.isInteger(n) && Number(n) >= 0 && Number(n) < 4))] : [],
       answers: [0, 1, 2].map(i => Number.isInteger(value.answers[i]) && value.answers[i] >= 0 && value.answers[i] <= 2 ? value.answers[i] : null),
       firstTryCorrect: [0, 1, 2].map(i => value.firstTryCorrect[i] === true),
+      diagnosisText: typeof value.diagnosisText === "string" ? value.diagnosisText.slice(0, 5000) : "",
     };
   } catch { return emptyPatientProgress(); }
 }

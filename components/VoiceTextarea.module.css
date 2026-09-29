@@ -1,0 +1,7 @@
+.field { width: 100%; min-width: 0; margin: 10px 0; }
+.field textarea { display: block; width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #b9cbd7; border-radius: 8px; font: inherit; }
+.field button { margin-top: 8px; padding: 8px 12px; background: #005b96; color: white; border: 0; border-radius: 8px; font: inherit; cursor: pointer; }
+.field button:disabled { opacity: .5; cursor: default; }
+.field button:focus-visible, .field textarea:focus-visible { outline: 3px solid #e49931; outline-offset: 2px; }
+.note { margin: 6px 0; color: #526b80; font-size: .83rem; }
+.field p:empty { display: none; }

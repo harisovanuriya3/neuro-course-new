@@ -6,6 +6,13 @@ import Link from "next/link";
 import type { Language } from "../content/course";
 import { emptyPatientProgress, readPatientProgress, savePatientProgress, type PatientProgress } from "../lib/virtualPatientProgress";
 import styles from "./VirtualPatient.module.css";
+import VoiceTextarea from "./VoiceTextarea";
+
+const diagnosisCopy = {
+  RU: { label: "Ваш предварительный диагноз и обоснование", compare: "Сравнить с вариантами", note: "Сначала сформулируйте свой ответ. Свободный текст не оценивается автоматически; затем сравните его с вариантами и разбором." },
+  EN: { label: "Your provisional diagnosis and reasoning", compare: "Compare with options", note: "Formulate your answer first. Free text is not graded automatically; then compare it with the options and explanation." },
+  KZ: { label: "Сіздің алдын ала диагнозыңыз және негіздемеңіз", compare: "Нұсқалармен салыстыру", note: "Алдымен өз жауабыңызды тұжырымдаңыз. Еркін мәтін автоматты бағаланбайды; кейін оны нұсқалармен және талдаумен салыстырыңыз." },
+} as const;
 
 const text = {
   RU: {
@@ -50,6 +57,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
   const [progress, setProgress] = useState<PatientProgress>(emptyPatientProgress);
   const [ready, setReady] = useState(false);
   const [stage, setStage] = useState(0);
+  const [showOptions, setShowOptions] = useState(false);
   useEffect(() => { setProgress(readPatientProgress()); setReady(true); }, []);
   const c = text[language];
   const answered = progress.answers.filter(value => value !== null).length;
@@ -59,12 +67,12 @@ export default function VirtualPatient({ language }: { language: Language }) {
     if (progress.asked.includes(index)) return;
     const asked = [...progress.asked, index];
     const complete = asked.includes(0) && asked.includes(1);
-    update({ asked, answers: progress.answers.map((answer, i) => i === 0 && complete ? 0 : answer), firstTryCorrect: progress.firstTryCorrect.map((correct, i) => i === 0 && progress.asked.length === 0 ? index === 0 || index === 1 : correct) });
+    update({ ...progress, asked, answers: progress.answers.map((answer, i) => i === 0 && complete ? 0 : answer), firstTryCorrect: progress.firstTryCorrect.map((correct, i) => i === 0 && progress.asked.length === 0 ? index === 0 || index === 1 : correct) });
   }
   function select(index: number) {
     update({ ...progress, answers: progress.answers.map((answer, i) => i === stage ? index : answer), firstTryCorrect: progress.firstTryCorrect.map((correct, i) => i === stage && progress.answers[i] === null ? index === 0 : correct) });
   }
-  function reset() { const cleared = emptyPatientProgress(); update(cleared); setStage(0); }
+  function reset() { const cleared = emptyPatientProgress(); update(cleared); setStage(0); setShowOptions(false); }
   return <article className={styles.patient}>
     <h1>{c.title}</h1><p>{c.intro}</p>
     <div className={styles.layout}>
@@ -77,6 +85,11 @@ export default function VirtualPatient({ language }: { language: Language }) {
         <p className={styles.counter}>{c.stage} {stage + 1} / 3 · {answered} / 3</p>
         <progress value={answered} max={3} aria-label={c.stage} />
         <h2>{c.tasks[stage]}</h2>
+        {stage === 2 && <div>
+          <VoiceTextarea language={language} label={diagnosisCopy[language].label} rows={4} maxLength={5000} value={progress.diagnosisText} disabled={!ready} onValue={text => update({ ...progress, diagnosisText: text })} />
+          <p>{diagnosisCopy[language].note}</p>
+          {!showOptions && selected === null && <button type="button" disabled={!progress.diagnosisText.trim()} onClick={() => setShowOptions(true)}>{diagnosisCopy[language].compare}</button>}
+        </div>}
         {stage === 0 ? <div>
           <p>{c.ask}</p>
           <div className={styles.questions}>{c.questions.map((question, i) => <div key={question}>
@@ -84,7 +97,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
             {progress.asked.includes(i) && <p><strong>{c.asked}:</strong> {c.replies[i]}</p>}
           </div>)}</div>
           {selected === null && <p>{c.hint}</p>}
-        </div> : <fieldset disabled={!ready}>
+        </div> : (stage !== 2 || showOptions || selected !== null) && <fieldset disabled={!ready}>
           <legend>{c.choice}</legend>
           {c.options[stage].map((option, index) => <label key={option} className={selected === index ? styles.selected : undefined}>
             <input type="radio" name={`patient-${stage}`} checked={selected === index} onChange={() => select(index)} /> {option}

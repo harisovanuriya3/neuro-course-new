@@ -44,7 +44,7 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
         </>
       );
     case "cases":
-      return <CasesContent lesson={lesson} />;
+      return <CasesContent lesson={lesson} language={language} />;
     case "tests":
       return <BranchingTestContent test={lesson} language={language} />;
     case "objectives": case "pretest": case "one-minute": case "clinical":

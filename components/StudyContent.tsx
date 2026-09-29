@@ -8,6 +8,7 @@ import { getSectionTitle } from "../content/sections";
 import shared from "./PracticeContent.module.css";
 import styles from "./StudyContent.module.css";
 import { recordOutcome } from "../lib/courseProgress";
+import VoiceTextarea from "./VoiceTextarea";
 
 const labels = {
   RU: { check: "Проверить ответ", next: "Следующий вопрос", finish: "Диагностический результат", correct: "Верно", incorrect: "Нужно повторить", select: "Выберите один ответ", answer: "Ваш ответ", show: "Показать эталонное объяснение", hide: "Скрыть объяснение", gate: "Сначала запишите свой ответ.", search: "Поиск по термину или определению", empty: "Ничего не найдено. Измените запрос.", count: "Найдено терминов", restart: "Пройти заново", score: "Верных ответов", note: "Результат диагностический и не входит в итоговую оценку.", review: "Рекомендуем повторить", ready: "Базовые темы знакомы. Переходите к теории, чтобы уточнить и систематизировать знания.", related: "Связанные материалы", sources: "Внешние источники", result: "Объяснение" },
@@ -54,7 +55,7 @@ function ReviewQuestion({ question, ...context }: Context & { question: Question
   const ui = labels[context.language];
   const [answer, setAnswer] = useState("");
   const [open, setOpen] = useState(false);
-  return <section className={shared.card} id={question.id}><h2>{question.prompt}</h2><label className={shared.response} htmlFor={`${question.id}-answer`}>{ui.answer}</label><textarea id={`${question.id}-answer`} value={answer} rows={4} onChange={event => { setAnswer(event.target.value); setOpen(false); }} /><p id={`${question.id}-hint`} className={shared.note}>{ui.gate}</p><button aria-describedby={`${question.id}-hint`} aria-expanded={open} aria-controls={`${question.id}-explanation`} disabled={!answer.trim()} onClick={() => setOpen(!open)}>{open ? ui.hide : ui.show}</button><div id={`${question.id}-explanation`} hidden={!open} className={shared.answers}>{open && <><h3>{ui.result}</h3><p>{question.explanation}</p><MaterialLink target={question.target} {...context} /></>}</div></section>;
+  return <section className={shared.card} id={question.id}><h2>{question.prompt}</h2><VoiceTextarea language={context.language} label={ui.answer} id={`${question.id}-answer`} value={answer} rows={4} onValue={text => { setAnswer(text); setOpen(false); }} /><p id={`${question.id}-hint`} className={shared.note}>{ui.gate}</p><button aria-describedby={`${question.id}-hint`} aria-expanded={open} aria-controls={`${question.id}-explanation`} disabled={!answer.trim()} onClick={() => setOpen(!open)}>{open ? ui.hide : ui.show}</button><div id={`${question.id}-explanation`} hidden={!open} className={shared.answers}>{open && <><h3>{ui.result}</h3><p>{question.explanation}</p><MaterialLink target={question.target} {...context} /></>}</div></section>;
 }
 function Glossary({ lesson, ...context }: Context & { lesson: GlossaryLesson }) {
   const ui = labels[context.language];

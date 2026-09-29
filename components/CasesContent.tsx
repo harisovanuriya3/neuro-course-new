@@ -6,8 +6,9 @@ import CaseCard from "./cases/CaseCard";
 import shared from "./PracticeContent.module.css";
 import styles from "./CasesContent.module.css";
 import { recordOutcome } from "../lib/courseProgress";
+import type { Language } from "../content/course";
 
-export default function CasesContent({ lesson }: { lesson: CasesLesson }) {
+export default function CasesContent({ lesson, language }: { lesson: CasesLesson; language: Language }) {
   const [completed, setCompleted] = useState<string[]>([]);
   const ui = lesson.ui;
 
@@ -34,7 +35,7 @@ export default function CasesContent({ lesson }: { lesson: CasesLesson }) {
         </nav>
       </div>
       {lesson.cases.map((item, index) => (
-        <CaseCard key={item.id} item={item} number={index + 1} ui={ui} completed={completed.includes(item.id)} onComplete={(done) => mark(item.id, done)} />
+        <CaseCard key={item.id} item={item} number={index + 1} ui={ui} language={language} completed={completed.includes(item.id)} onComplete={(done) => mark(item.id, done)} />
       ))}
       {lesson.sources && <aside className={styles.sources}>
         <h2>{ui.sources}</h2>
