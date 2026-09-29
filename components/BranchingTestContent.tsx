@@ -4,6 +4,7 @@ import { useEffect, useReducer, useRef } from "react";
 import type { Language } from "../content/types";
 import type { BranchingTest, TheoryTarget } from "../content/tests";
 import { initialState, summarize, transition, type TestAction, type TestState } from "../lib/tests/engine";
+import { recordOutcome } from "../lib/courseProgress";
 import styles from "./BranchingTestContent.module.css";
 
 const labels = {
@@ -19,6 +20,9 @@ export default function BranchingTestContent({ test, language }: { test: Branchi
   const ui = test.ui;
   const copy = labels[language];
   const result = summarize(test, state);
+  useEffect(() => {
+    if (state.phase === "results" && state.retryIds === null) recordOutcome(1, "tests", result.firstCorrect, result.total);
+  }, [state.phase, state.retryIds, result.firstCorrect, result.total]);
   const node = test.nodes[state.current];
   const attempts = state.retryIds === null ? state.attempts : state.retryAttempts;
   const last = attempts[attempts.length - 1];

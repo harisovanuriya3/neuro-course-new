@@ -5,13 +5,16 @@ import type { CasesLesson } from "../content/cases";
 import CaseCard from "./cases/CaseCard";
 import shared from "./PracticeContent.module.css";
 import styles from "./CasesContent.module.css";
+import { recordOutcome } from "../lib/courseProgress";
 
 export default function CasesContent({ lesson }: { lesson: CasesLesson }) {
   const [completed, setCompleted] = useState<string[]>([]);
   const ui = lesson.ui;
 
   function mark(id: string, done: boolean) {
-    setCompleted((previous) => done ? [...new Set([...previous, id])] : previous.filter((value) => value !== id));
+    const next = done ? [...new Set([...completed, id])] : completed.filter(value => value !== id);
+    setCompleted(next);
+    recordOutcome(1, "cases", next.length, lesson.cases.length);
   }
 
   return (

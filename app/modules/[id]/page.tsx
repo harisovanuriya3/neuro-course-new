@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import CourseNavigation from "../../../components/CourseNavigation";
 import DocumentLanguage from "../../../components/DocumentLanguage";
+import CourseVisitTracker from "../../../components/CourseVisitTracker";
 import { interfaceText } from "../../../lib/interface";
 import styles from "../../CourseLayout.module.css";
 
@@ -111,6 +112,7 @@ export default async function ModulePage({
       }}
     >
       <DocumentLanguage language={lang} />
+      <CourseVisitTracker moduleId={moduleNumber} />
       <div
         lang={
           lang === "KZ"

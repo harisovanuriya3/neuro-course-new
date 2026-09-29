@@ -7,6 +7,7 @@ import type { GlossaryLesson, PretestLesson, QuestionsLesson, ReadingLesson, Stu
 import { getSectionTitle } from "../content/sections";
 import shared from "./PracticeContent.module.css";
 import styles from "./StudyContent.module.css";
+import { recordOutcome } from "../lib/courseProgress";
 
 const labels = {
   RU: { check: "Проверить ответ", next: "Следующий вопрос", finish: "Диагностический результат", correct: "Верно", incorrect: "Нужно повторить", select: "Выберите один ответ", answer: "Ваш ответ", show: "Показать эталонное объяснение", hide: "Скрыть объяснение", gate: "Сначала запишите свой ответ.", search: "Поиск по термину или определению", empty: "Ничего не найдено. Измените запрос.", count: "Найдено терминов", restart: "Пройти заново", score: "Верных ответов", note: "Результат диагностический и не входит в итоговую оценку.", review: "Рекомендуем повторить", ready: "Базовые темы знакомы. Переходите к теории, чтобы уточнить и систематизировать знания.", related: "Связанные материалы", sources: "Внешние источники", result: "Объяснение" },
@@ -14,6 +15,10 @@ const labels = {
   EN: { check: "Check answer", next: "Next question", finish: "Diagnostic result", correct: "Correct", incorrect: "Review needed", select: "Choose one answer", answer: "Your answer", show: "Show model explanation", hide: "Hide explanation", gate: "Write your answer first.", search: "Search terms or definitions", empty: "No matches. Try another search.", count: "Terms found", restart: "Try again", score: "Correct answers", note: "This is a diagnostic result and does not contribute to a final grade.", review: "Recommended review", ready: "You recognise the basic topics. Continue to theory to refine and organise your knowledge.", related: "Related material", sources: "External sources", result: "Explanation" },
 };
 type Context = { moduleId: string; language: Language };
+function RecordPretestResult({ correct, total, moduleId }: { correct: number; total: number; moduleId: string }) {
+  useEffect(() => { recordOutcome(Number(moduleId), "pretest", correct, total); }, [correct, total, moduleId]);
+  return null;
+}
 function MaterialLink({ target, moduleId, language }: Context & { target: StudyLink }) {
   return <Link href={`/modules/${moduleId}/${target.section}?lang=${language}${target.anchor ? `#${target.anchor}` : ""}`}>{getSectionTitle(target.section, language)}</Link>;
 }
@@ -36,7 +41,7 @@ function Pretest({ lesson, ...context }: Context & { lesson: PretestLesson }) {
   const question = lesson.questions[index];
   if (!question) {
     const wrong = lesson.questions.filter((item, i) => item.correctAnswer !== answers[i]);
-    return <section className={shared.card} data-testid="diagnostic-result"><h2 ref={heading} tabIndex={-1}>{ui.finish}</h2><p>{ui.score}: {lesson.questions.length - wrong.length} / {lesson.questions.length}</p><p>{ui.note}</p>{wrong.length ? <><h3>{ui.review}</h3><ul>{wrong.map(item => <li key={item.id}>{item.topic}: <MaterialLink target={item.target} {...context} /></li>)}</ul></> : <p>{ui.ready}</p>}<p><MaterialLink target={{ section: "theory" }} {...context} /></p><button onClick={() => { setIndex(0); setSelected(null); setAnswers([]); }} data-action="restart">{ui.restart}</button></section>;
+    return <section className={shared.card} data-testid="diagnostic-result"><RecordPretestResult moduleId={context.moduleId} correct={lesson.questions.length - wrong.length} total={lesson.questions.length} /><h2 ref={heading} tabIndex={-1}>{ui.finish}</h2><p>{ui.score}: {lesson.questions.length - wrong.length} / {lesson.questions.length}</p><p>{ui.note}</p>{wrong.length ? <><h3>{ui.review}</h3><ul>{wrong.map(item => <li key={item.id}>{item.topic}: <MaterialLink target={item.target} {...context} /></li>)}</ul></> : <p>{ui.ready}</p>}<p><MaterialLink target={{ section: "theory" }} {...context} /></p><button onClick={() => { setIndex(0); setSelected(null); setAnswers([]); }} data-action="restart">{ui.restart}</button></section>;
   }
   const checked = answers.length > index;
   return <section className={shared.card} data-testid="diagnostic-question">

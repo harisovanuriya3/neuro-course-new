@@ -10,6 +10,10 @@ import CourseNavigation from "../../../../components/CourseNavigation";
 import DocumentLanguage from "../../../../components/DocumentLanguage";
 import VirtualPatient from "../../../../components/VirtualPatient";
 import ModuleProgress from "../../../../components/ModuleProgress";
+import VoiceContent from "../../../../components/VoiceContent";
+import NotesContent from "../../../../components/NotesContent";
+import BookmarkCurrent from "../../../../components/BookmarkCurrent";
+import CourseVisitTracker from "../../../../components/CourseVisitTracker";
 import { interfaceText } from "../../../../lib/interface";
 
 const text = {
@@ -187,10 +191,17 @@ export default async function SectionPage({
 
           {/* СУЩЕСТВУЮЩИЙ КОНТЕНТ */}
 
+          <CourseVisitTracker moduleId={moduleNumber} section={section} />
+          {moduleNumber === 1 && section !== "notes" && <BookmarkCurrent section={section} language={lang} />}
+
           {moduleNumber === 1 && section === "virtual-patient" ? (
             <VirtualPatient language={lang} />
-          ) : moduleNumber === 1 && section === "progress" ? (
-            <ModuleProgress language={lang} />
+          ) : section === "progress" ? (
+            <ModuleProgress language={lang} moduleId={moduleNumber} />
+          ) : moduleNumber === 1 && section === "voice" ? (
+            <VoiceContent language={lang} />
+          ) : moduleNumber === 1 && section === "notes" ? (
+            <NotesContent language={lang} />
           ) : lesson ? (
             <>
               <SectionContent

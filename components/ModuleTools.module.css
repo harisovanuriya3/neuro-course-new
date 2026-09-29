@@ -1,0 +1,12 @@
+.tool { color: #17384c; line-height: 1.6; }
+.tool h1 { color: #004b87; font-size: clamp(1.6rem, 4vw, 2.2rem); }
+.tool label { display: block; margin: 17px 0 5px; font-weight: 700; }
+.tool select, .tool textarea { width: 100%; max-width: 660px; box-sizing: border-box; border: 1px solid #b9cbd7; border-radius: 8px; padding: 9px; font: inherit; }
+.tool textarea { display: block; }
+.tool input[type=range] { display: block; width: min(100%, 340px); }
+.row, .bookmark { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0; }
+.row button, .bookmark button { border: 1px solid #005b96; background: #005b96; color: white; border-radius: 8px; padding: 8px 12px; font: inherit; cursor: pointer; }
+.row button:disabled, .bookmark button:disabled { opacity: .5; cursor: default; }
+.tool a, .bookmark a { color: #005b96; font-weight: 700; }
+.row button:focus-visible, .bookmark button:focus-visible, .tool select:focus-visible, .tool textarea:focus-visible { outline: 3px solid #e49931; outline-offset: 2px; }
+.bookmark { margin-top: 0; }

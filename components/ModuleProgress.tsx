@@ -2,31 +2,50 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import type { Language } from "../content/course";
+import { modules, type Language } from "../content/course";
+import { readCourseProgress, recordVisit, type CourseProgressData } from "../lib/courseProgress";
 import { readPatientProgress, type PatientProgress } from "../lib/virtualPatientProgress";
 import styles from "./VirtualPatient.module.css";
 
 const copy = {
-  RU: { title: "Мой прогресс · Модуль 1", scope: "Пилотный результат виртуального пациента", done: "Пройдено этапов", first: "Верно с первой попытки", saved: "Данные хранятся только в этом браузере. Они не отправляются преподавателю и не являются оценкой за модуль.", empty: "Начните виртуального пациента, чтобы увидеть результат.", continue: "Перейти к виртуальному пациенту", review: "Рекомендуем повторить", good: "Все решения на первом проходе верны. Сравните их с разбором случая.", topics: ["вопросы о распределении и времени симптомов", "выбор проверки чувствительности", "предварительный диагноз и его ограничения"] },
-  EN: { title: "My progress · Module 1", scope: "Virtual patient pilot result", done: "Stages completed", first: "Correct on the first attempt", saved: "Data is stored only in this browser. It is not sent to an instructor and is not a module grade.", empty: "Start the virtual patient to see a result.", continue: "Go to virtual patient", review: "Suggested review", good: "All first answers were correct. Compare your reasoning with the case explanation.", topics: ["questions about symptom distribution and timing", "selection of a sensory examination", "provisional diagnosis and its limits"] },
-  KZ: { title: "Менің үлгерімім · 1-модуль", scope: "Виртуалды пациенттің пилоттық нәтижесі", done: "Аяқталған кезеңдер", first: "Бірінші әрекеттен дұрыс", saved: "Деректер тек осы браузерде сақталады. Олар оқытушыға жіберілмейді және модульдің бағасы болып саналмайды.", empty: "Нәтижені көру үшін виртуалды пациент тапсырмасын бастаңыз.", continue: "Виртуалды пациентке өту", review: "Қайталауға ұсыныс", good: "Алғашқы жауаптардың бәрі дұрыс. Түсіндіруіңізді тапсырма талдауымен салыстырыңыз.", topics: ["симптомдардың таралуы мен уақыты туралы сұрақтар", "сезімталдықты тексеруді таңдау", "алдын ала диагноз және оның шектері"] },
+  RU: { title: "Мой прогресс · весь курс", scope: "Обзор 23 модулей", visited: "Посещено модулей", module: "Модуль", sections: "Открыто разделов", pending: "Материалы и измерение успеха ещё готовятся", patient: "Виртуальный пациент", pretest: "Входной тест", tests: "Ветвящийся тест (первая попытка)", cases: "Ситуационные задачи выполнены", result: "Последние сохранённые результаты заданий модуля 1", none: "Результатов пока нет", first: "Верно с первой попытки", saved: "Данные остаются только в этом браузере. Посещение не означает успешное завершение; общая оценка курса пока не рассчитывается.", continue: "Продолжить обучение", start: "Открыть модуль", review: "Рекомендуем повторить", good: "Все решения виртуального пациента на первом проходе верны.", topics: ["вопросы о симптомах", "проверка чувствительности", "предварительный диагноз"] },
+  EN: { title: "My progress · whole course", scope: "23-module overview", visited: "Modules visited", module: "Module", sections: "Sections opened", pending: "Content and success tracking are being prepared", patient: "Virtual patient", pretest: "Entry test", tests: "Branching test (first attempt)", cases: "Case studies completed", result: "Latest saved Module 1 activity results", none: "No results yet", first: "Correct on the first attempt", saved: "Data stays only in this browser. Visiting does not mean successful completion; no overall course grade is calculated yet.", continue: "Continue learning", start: "Open module", review: "Suggested review", good: "All first virtual-patient decisions were correct.", topics: ["symptom questions", "sensory examination", "provisional diagnosis"] },
+  KZ: { title: "Менің үлгерімім · бүкіл курс", scope: "23 модуль бойынша шолу", visited: "Қаралған модульдер", module: "Модуль", sections: "Ашылған бөлімдер", pending: "Материалдар мен нәтижені бақылау әзірленуде", patient: "Виртуалды пациент", pretest: "Кіріспе тест", tests: "Тармақталған тест (бірінші әрекет)", cases: "Аяқталған жағдаяттық тапсырмалар", result: "1-модуль тапсырмаларының соңғы сақталған нәтижелері", none: "Әзірше нәтиже жоқ", first: "Бірінші әрекеттен дұрыс", saved: "Деректер тек осы браузерде қалады. Бөлімді ашу оны сәтті аяқтауды білдірмейді; курстың жалпы бағасы әзірше есептелмейді.", continue: "Оқуды жалғастыру", start: "Модульді ашу", review: "Қайталау ұсынылады", good: "Виртуалды пациенттің алғашқы шешімдерінің бәрі дұрыс.", topics: ["симптомдар туралы сұрақтар", "сезімталдықты тексеру", "алдын ала диагноз"] },
 } as const;
 
-export default function ModuleProgress({ language }: { language: Language }) {
-  const [progress, setProgress] = useState<PatientProgress | null>(null);
-  useEffect(() => { setProgress(readPatientProgress()); }, []);
+export default function ModuleProgress({ language, moduleId }: { language: Language; moduleId: number }) {
+  const [data, setData] = useState<CourseProgressData | null>(null);
+  const [patient, setPatient] = useState<PatientProgress | null>(null);
+  useEffect(() => { recordVisit(moduleId, "progress"); setData(readCourseProgress()); setPatient(readPatientProgress()); }, [moduleId]);
   const c = copy[language];
-  const done = progress?.answers.filter(value => value !== null).length ?? 0;
-  const first = progress?.firstTryCorrect.filter(Boolean).length ?? 0;
-  const review = progress?.answers.map((answer, i) => answer === null || !progress.firstTryCorrect[i] ? i : -1).filter(i => i >= 0) ?? [];
+  const patientDone = patient?.answers.filter(value => value !== null).length ?? 0;
+  const patientFirst = patient?.firstTryCorrect.filter(Boolean).length ?? 0;
+  const review = patient?.answers.map((answer, i) => answer === null || !patient.firstTryCorrect[i] ? i : -1).filter(i => i >= 0) ?? [];
+  const results = data?.outcomes ?? {};
   return <section className={styles.patient}>
-    <h1>{c.title}</h1><p>{c.scope}</p>
-    <div className={styles.summary} aria-live="polite">
-      <p>{c.done}: <strong>{done} / 3</strong></p><progress aria-label={c.done} value={done} max={3} />
-      <p>{c.first}: <strong>{first} / 3</strong></p>
+    <h1>{c.title}</h1><p>{c.scope}. {c.saved}</p>
+    <div className={styles.summary}>
+      <p>{c.visited}: <strong>{data?.visitedModules.length ?? 0} / {modules[language].length}</strong></p>
+      <progress aria-label={c.visited} value={data?.visitedModules.length ?? 0} max={modules[language].length} />
     </div>
-    <p>{c.saved}</p>
-    {progress && (done === 0 ? <p>{c.empty}</p> : <div><h2>{c.review}</h2>{review.length > 0 ? <ul>{review.map(i => <li key={i}>{c.topics[i]}</li>)}</ul> : <p>{c.good}</p>}</div>)}
-    <Link href={`/modules/1/virtual-patient?lang=${language}`}>{c.continue}</Link>
+    <h2>{c.result}</h2>
+    <ul>
+      <li><Link href={`/modules/1/virtual-patient?lang=${language}`}>{c.patient}</Link>: {patientDone} / 3; {c.first.toLowerCase()}: {patientFirst} / 3.</li>
+      {results["1:pretest"] && <li>{c.pretest}: {results["1:pretest"].correct} / {results["1:pretest"].total}</li>}
+      {results["1:tests"] && <li>{c.tests}: {results["1:tests"].correct} / {results["1:tests"].total}</li>}
+      {results["1:cases"] && <li>{c.cases}: {results["1:cases"].correct} / {results["1:cases"].total}</li>}
+    </ul>
+    {patientDone > 0 && <div><h3>{c.review}</h3>{review.length ? <ul>{review.map(i => <li key={i}>{c.topics[i]}</li>)}</ul> : <p>{c.good}</p>}</div>}
+    <h2>{c.continue}</h2>
+    <div className={styles.courseModules}>{modules[language].map((title, index) => {
+      const id = index + 1;
+      const count = data?.visitedSections[id]?.length ?? 0;
+      const visited = data?.visitedModules.includes(id) ?? false;
+      return <div key={id}>
+        <h3>{c.module} {id}: {title}</h3>
+        <p>{id === 1 ? `${c.sections}: ${count}` : c.pending}{visited ? " ✓" : ""}</p>
+        <Link href={`/modules/${id}?lang=${language}`}>{c.start}</Link>
+      </div>;
+    })}</div>
   </section>;
 }
