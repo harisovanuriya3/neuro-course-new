@@ -8,6 +8,8 @@ import shared from "./PracticeContent.module.css";
 import styles from "./InteractiveContent.module.css";
 import { OrganizationVisual, PathwayVisual, SynapseVisual, IntegrationVisual } from "./InteractiveVisuals";
 import ReflexLab from "./ReflexLab";
+import { OrganizationSpecimens, SynapseSpecimen } from "./RealSpecimens";
+import SynapseLab from "./SynapseLab";
 
 type UI = InteractiveLesson["ui"];
 
@@ -59,6 +61,7 @@ function Organization({ diagram, ui, language }: { diagram: InteractiveLesson["o
   const node = group.nodes.find(node => node.id === selected)!;
   return <>
     <OrganizationVisual nodes={diagram.groups.flatMap(group => group.nodes)} selected={selected} language={language} onSelect={setSelected} />
+    <OrganizationSpecimens language={language} />
     <div className={styles.root}>{diagram.root}</div>
     <div className={styles.branches}>
       {diagram.groups.map(branch => <div className={styles.branch} key={branch.id} data-group={branch.id}>
@@ -84,6 +87,7 @@ function Synapse({ diagram, ui, language }: { diagram: InteractiveLesson["synaps
     <div id="synapse-model">
       <h3>{selected.title}</h3><p>{selected.note}</p>
       <Sequence key={mode} id={`synapse-${mode}`} nodes={selected.nodes} ui={ui} language={language} />
+      {mode === "chemical" && <SynapseSpecimen language={language} />}
     </div>
   </>;
 }
@@ -126,6 +130,7 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {card(lesson.pathway, <Sequence id="pathway" nodes={lesson.pathway.nodes} ui={ui} loop={lesson.pathway.loop} language={language} />)}
     <ReflexLab language={language} />
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
+    <SynapseLab language={language} />
     {card(lesson.integration, <Integration diagram={lesson.integration} ui={ui} language={language} />)}
   </article>;
 }

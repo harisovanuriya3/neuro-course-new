@@ -1,0 +1,12 @@
+.panel { margin: 22px 0; padding: 16px; border: 1px solid #bbd0dd; border-radius: 12px; background: #f5f9fb; }
+.panel h3 { margin: 0 0 8px; color: #16476a; }
+.panel p { margin: 8px 0 14px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.specimen { margin: 0; padding: 12px; border: 1px solid #cfdae2; border-radius: 10px; background: white; min-width: 0; }
+.specimen img { display: block; width: 100%; height: 260px; object-fit: contain; background: #eef2f4; border-radius: 6px; }
+.specimen figcaption { display: grid; gap: 8px; padding-top: 12px; font-size: .93em; }
+.specimen a, .synapse a { overflow-wrap: anywhere; }
+.synapse { display: grid; grid-template-columns: minmax(0, 433px) minmax(0, 1fr); gap: 16px; align-items: start; }
+.synapse img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.synapse p:first-child { margin-top: 0; }
+@media (max-width: 760px) { .grid, .synapse { grid-template-columns: 1fr; } .specimen img { height: 230px; } }
