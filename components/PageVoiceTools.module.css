@@ -1,0 +1,14 @@
+.tools { margin: 16px 0 24px; padding: 14px; border: 1px solid #c5dce9; border-radius: 12px; background: #f2f8fc; color: #17384c; min-width: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.player button, .inputToggle { padding: 8px 12px; border: 1px solid #005b96; border-radius: 8px; color: #fff; background: #005b96; cursor: pointer; font: inherit; }
+.player button:disabled { opacity: .55; cursor: default; }
+.player p { margin: 8px 0; font-size: .9rem; }
+.player p:empty { display: none; }
+.settings { margin: 10px 0; }
+.settings summary { cursor: pointer; font-weight: 700; }
+.settings label { display: block; margin-top: 10px; font-weight: 600; }
+.settings select { display: block; width: 100%; max-width: 520px; box-sizing: border-box; font: inherit; padding: 8px; border: 1px solid #b9cbd7; border-radius: 8px; margin-bottom: 8px; }
+.settings input[type=range] { display: block; width: min(100%, 340px); }
+.inputToggle { margin-top: 8px; }
+.tools [hidden] { display: none; }
+.player button:focus-visible, .inputToggle:focus-visible, .settings select:focus-visible, .settings input:focus-visible, .settings summary:focus-visible { outline: 3px solid #e49931; outline-offset: 2px; }

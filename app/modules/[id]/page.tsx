@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import CourseNavigation from "../../../components/CourseNavigation";
 import DocumentLanguage from "../../../components/DocumentLanguage";
 import CourseVisitTracker from "../../../components/CourseVisitTracker";
+import PageVoiceTools from "../../../components/PageVoiceTools";
 import { interfaceText } from "../../../lib/interface";
 import styles from "../../CourseLayout.module.css";
 
@@ -192,6 +193,8 @@ export default async function ModulePage({
             )}
           </nav>
         </div>
+
+        {moduleNumber === 1 && <PageVoiceTools key={lang} language={lang} contentId="top" />}
 
         {/* Титульный блок */}
 

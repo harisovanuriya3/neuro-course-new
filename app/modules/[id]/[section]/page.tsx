@@ -13,6 +13,7 @@ import ModuleProgress from "../../../../components/ModuleProgress";
 import VoiceContent from "../../../../components/VoiceContent";
 import NotesContent from "../../../../components/NotesContent";
 import BookmarkCurrent from "../../../../components/BookmarkCurrent";
+import PageVoiceTools from "../../../../components/PageVoiceTools";
 import CourseVisitTracker from "../../../../components/CourseVisitTracker";
 import { interfaceText } from "../../../../lib/interface";
 
@@ -192,8 +193,10 @@ export default async function SectionPage({
           {/* СУЩЕСТВУЮЩИЙ КОНТЕНТ */}
 
           <CourseVisitTracker moduleId={moduleNumber} section={section} />
+          {moduleNumber === 1 && <PageVoiceTools key={`${section}/${lang}`} language={lang} contentId="module1-page-content" section={section} />}
           {moduleNumber === 1 && section !== "notes" && <BookmarkCurrent section={section} language={lang} />}
 
+          <div id="module1-page-content">
           {moduleNumber === 1 && section === "virtual-patient" ? (
             <VirtualPatient language={lang} />
           ) : section === "progress" ? (
@@ -246,6 +249,7 @@ export default async function SectionPage({
               </p>
             </>
           )}
+          </div>
         </div>
 
         {/* ЕДИНАЯ НАВИГАЦИЯ:

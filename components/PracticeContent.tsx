@@ -83,7 +83,7 @@ function Sequence({ steps, ui }: { steps: string[]; ui: UI }) {
   );
 }
 
-function Worksheet({ block, ui }: { block: Extract<PracticeBlock, { type: "table" }>; ui: UI }) {
+function Worksheet({ block, ui, language }: { block: Extract<PracticeBlock, { type: "table" }>; ui: UI; language: Language }) {
   return (
     <>
       <div className={styles.tableScroll} role="region" aria-label={block.headers.join(" / ")} tabIndex={0}>
@@ -95,10 +95,7 @@ function Worksheet({ block, ui }: { block: Extract<PracticeBlock, { type: "table
                 <th scope="row">{structure}</th>
                 {[1, 2].map((column) => (
                   <td key={column}>
-                    <label>
-                      <span className={styles.srOnly}>{structure}: {block.headers[column]}</span>
-                      <textarea rows={3} placeholder={ui.input} />
-                    </label>
+                    <VoiceTextarea language={language} aria-label={`${structure}: ${block.headers[column]}`} rows={3} placeholder={ui.input} />
                   </td>
                 ))}
               </tr>
@@ -127,7 +124,7 @@ function Block({ block, ui, language, moduleId }: { block: PracticeBlock; ui: UI
     case "answer": return <Answers items={block.items} ui={ui} />;
     case "response": return <VoiceTextarea language={language} label={block.label} rows={4} placeholder={ui.input} />;
     case "sequence": return <Sequence steps={block.steps} ui={ui} />;
-    case "table": return <Worksheet block={block} ui={ui} />;
+    case "table": return <Worksheet block={block} ui={ui} language={language} />;
     case "checklist": return <div className={styles.checklist}>{block.items.map((item) => (
       <label key={item}><input type="checkbox" /> <span>{item}</span></label>
     ))}</div>;

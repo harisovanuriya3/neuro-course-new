@@ -60,6 +60,7 @@ export default function VoiceTextarea({ language, label, value, onValue, id, dis
     const Constructor = browser.SpeechRecognition || browser.webkitSpeechRecognition;
     if (!Constructor) return;
     window.dispatchEvent(new Event("neuro-dictation-stop"));
+    window.dispatchEvent(new Event("neuro-speech-stop"));
     if ("speechSynthesis" in window) window.speechSynthesis.cancel();
     const instance = new Constructor();
     recognition.current = instance;
@@ -76,7 +77,7 @@ export default function VoiceTextarea({ language, label, value, onValue, id, dis
     instance.onend = () => { if (recognition.current === instance) { setListening(false); recognition.current = null; } };
     try { instance.start(); setListening(true); } catch { setMessage("error"); setListening(false); }
   }
-  return <div className={styles.field}>
+  return <div className={styles.field} data-no-narration>
     {label && <label htmlFor={fieldId}>{label}</label>}
     <textarea {...props} id={fieldId} value={currentValue} disabled={disabled} maxLength={maxLength} onChange={event => change(event.target.value)} />
     {supported !== false && <button type="button" disabled={!supported || disabled} aria-pressed={listening} onClick={start}>{listening ? c.stop : c.start}</button>}
