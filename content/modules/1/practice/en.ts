@@ -68,10 +68,29 @@ const lesson: PracticeLesson = {
       { type: "response", label: "Identify a potentially impaired functional component and explain the limits of this conclusion." },
       { type: "answer", items: ["Within the teaching model, consider impairment of motor output: the efferent component or the mechanisms that execute a motor command. Preserved touch perception indicates preservation of the sensory channel tested, not of every sensory modality.", "This description alone cannot establish the site of a lesion or a medical diagnosis: voluntary movement depends on central motor systems, peripheral motor fibers, neuromuscular transmission, and the muscle itself. The case illustrates the distinction between afferent and efferent functions."] },
     ] },
-    { title: "12. Conclusion", blocks: [
+    { title: "12. Check the AI: find and explain errors", blocks: [
+      { type: "ai-audit", instructions: "These are deliberately written teaching examples that imitate an AI answer. Predict a possible error and rate your trust before checking. Then mark incorrect claims, explain your reasoning, and compare it with the feedback. Trust is not itself a correctness score.",
+        cases: [
+          { theoryAnchor: "principles", source: { label: "OpenStax: reflex response", href: "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-introduction" }, claims: [
+            { text: "On touching a hot object, sensory fibers carry a signal from the skin to the spinal cord.", isError: false, explanation: "Correct: sensory input travels toward the CNS." },
+            { text: "Before the hand can withdraw, the cerebral cortex must first consciously perceive pain.", isError: true, explanation: "Incorrect: spinal circuits can organize withdrawal before conscious perception; information also reaches the brain." },
+            { text: "The spinal cord can help organize the protective response.", isError: false, explanation: "Correct: spinal cord circuits form the central component of this reflex." },
+            { text: "After processing, the command to the muscle travels along an afferent pathway.", isError: true, explanation: "Incorrect: the command travels along an efferent motor pathway; afferent pathways bring input toward the CNS." },
+          ] },
+          { theoryAnchor: "cns-pns", source: { label: "OpenStax: nervous system organization", href: "https://openstax.org/books/introduction-behavioral-neuroscience/pages/1-2-organization-of-the-nervous-system" }, claims: [
+            { text: "The brain and spinal cord make up the central nervous system.", isError: false, explanation: "Correct: both structures belong to the CNS." },
+            { text: "Ganglia belong to the CNS because they contain neuron cell bodies.", isError: true, explanation: "Incorrect: ganglia lie outside the brain and spinal cord and belong to the PNS." },
+            { text: "Spinal nerves can contain both sensory and motor fibers.", isError: false, explanation: "Correct for mixed spinal nerves." },
+            { text: "If touch sensation is intact, an inability to move the fingers proves that only a peripheral motor nerve is damaged.", isError: true, explanation: "Incorrect: preservation of one sensory channel does not localize a motor deficit; central and other peripheral causes remain possible." },
+          ] },
+        ],
+        labels: { aiAnswer: "Sample AI answer", prediction: "Your prediction: where might the answer fail?", trust: "How much do you trust this answer? (1–5)", trustHint: "1 — very little; 5 — almost completely. Record your impression before checking.", lock: "Lock prediction", identify: "Mark incorrect statements. You may consult the theory and source before checking.", rationale: "Explain why your selected statements are wrong and how to correct them.", check: "Check my selection", missing: "Error.", result: "Answer review", found: "Errors found", missed: "Missed", markedCorrect: "Correct.", correct: "You identified every incorrect statement without flagging a correct one. Compare your explanation with the review below.", retry: "You missed an error or flagged a correct statement. Review the theory and source, then try a similar task.", theory: "Module 1 theory", modelAnswer: "Explanation of each statement:", nextCase: "Similar task", source: "Sources to check:" },
+      },
+    ] },
+    { title: "13. Conclusion", blocks: [
       { type: "paragraph", text: "The nervous system follows a structural and functional organization: central and peripheral structures jointly support reception, conduction, and integration of information and control of effectors. Afferent and efferent components transmit signals in different directions but operate in coordination. Feedback refines the outcome and supports adaptive neural regulation." },
     ] },
-    { title: "13. Self-Assessment", blocks: [
+    { title: "14. Self-Assessment", blocks: [
       { type: "paragraph", text: "After this lesson, I can:" },
       { type: "checklist", items: ["Distinguish the CNS and PNS.", "Explain the afferent pathway.", "Explain the efferent pathway.", "Construct a functional sequence of neural regulation.", "Explain the roles of integration and feedback."] },
     ] },

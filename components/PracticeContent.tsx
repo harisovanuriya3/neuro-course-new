@@ -3,6 +3,7 @@
 import { useId, useState, type ReactNode } from "react";
 import type { Language, PracticeBlock, PracticeLesson } from "../content/types";
 import styles from "./PracticeContent.module.css";
+import AIAuditPractice from "./AIAuditPractice";
 
 type UI = PracticeLesson["ui"] & { hideAnswer: string };
 
@@ -116,7 +117,7 @@ function Worksheet({ block, ui }: { block: Extract<PracticeBlock, { type: "table
   );
 }
 
-function Block({ block, ui }: { block: PracticeBlock; ui: UI }) {
+function Block({ block, ui, language, moduleId }: { block: PracticeBlock; ui: UI; language: Language; moduleId: string }) {
   switch (block.type) {
     case "paragraph": return <p>{block.text}</p>;
     case "subheading": return <h3>{block.text}</h3>;
@@ -129,10 +130,11 @@ function Block({ block, ui }: { block: PracticeBlock; ui: UI }) {
     case "checklist": return <div className={styles.checklist}>{block.items.map((item) => (
       <label key={item}><input type="checkbox" /> <span>{item}</span></label>
     ))}</div>;
+    case "ai-audit": return <AIAuditPractice block={block} language={language} moduleId={moduleId} />;
   }
 }
 
-export default function PracticeContent({ lesson, language }: { lesson: PracticeLesson; language: Language }) {
+export default function PracticeContent({ lesson, language, moduleId }: { lesson: PracticeLesson; language: Language; moduleId: string }) {
   const ui: UI = { ...lesson.ui, hideAnswer: hideAnswer[language] };
   return (
     <article className={styles.practice}>
@@ -141,7 +143,7 @@ export default function PracticeContent({ lesson, language }: { lesson: Practice
       {lesson.sections.map((section) => (
         <section key={section.title} className={styles.card}>
           <h2>{section.title}</h2>
-          {section.blocks.map((block, index) => <Block key={index} block={block} ui={ui} />)}
+          {section.blocks.map((block, index) => <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} />)}
         </section>
       ))}
     </article>

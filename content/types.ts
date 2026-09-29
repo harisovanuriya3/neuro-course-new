@@ -20,7 +20,23 @@ export type PracticeBlock = ContentBlock
   | { type: "response"; label: string }
   | { type: "sequence"; steps: string[] }
   | { type: "table"; headers: [string, string, string]; rows: [string, string, string][] }
-  | { type: "checklist"; items: string[] };
+  | { type: "checklist"; items: string[] }
+  | {
+      type: "ai-audit";
+      instructions: string;
+      cases: {
+        claims: { text: string; isError: boolean; explanation: string }[];
+        source: { label: string; href: string };
+        theoryAnchor: string;
+      }[];
+      labels: {
+        aiAnswer: string; prediction: string; trust: string; trustHint: string;
+        lock: string; identify: string; rationale: string; check: string;
+        missing: string; result: string; found: string; missed: string;
+        markedCorrect: string; correct: string; retry: string; theory: string;
+        modelAnswer: string; nextCase: string; source: string;
+      };
+    };
 
 export type PracticeLesson = {
   kind: "practice";

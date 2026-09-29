@@ -40,7 +40,7 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
           >
             {lesson.ui.theory}
           </Link>
-          <PracticeContent lesson={lesson} language={language} />
+          <PracticeContent lesson={lesson} language={language} moduleId={moduleId} />
         </>
       );
     case "cases":

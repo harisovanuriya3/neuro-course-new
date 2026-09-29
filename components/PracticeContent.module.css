@@ -49,6 +49,21 @@
 .checklist label { display: flex; align-items: flex-start; gap: 0.85rem; padding: 1rem; min-height: 32px; border: 1px solid #b6c9d9; border-radius: 8px; background: #f5f7fa; cursor: pointer; }
 .checklist label:has(input:checked) { background: #edf6ff; border-color: #00599c; }
 .checklist input { width: 20px; height: 20px; margin-top: 0.3rem; flex-shrink: 0; accent-color: #00599c; }
+.audit { margin-top: 1rem; }
+.aiResponse { padding: 1rem 1.25rem; border: 1px solid #b6c9d9; border-left: 4px solid #00599c; border-radius: 8px; background: #f5f9fc; }
+.aiResponse p { margin-bottom: 0; }
+.trust { margin: 1rem 0; padding: 1rem; border: 1px solid #b6c9d9; border-radius: 8px; }
+.trust legend { font-weight: 700; }
+.trust p { margin: 0 0 0.5rem; }
+.trustOptions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.trustOptions label { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem; cursor: pointer; }
+.auditClaims { display: grid; gap: 0.75rem; }
+.auditClaims label { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.75rem; border: 1px solid #b6c9d9; border-radius: 8px; cursor: pointer; }
+.auditClaims input { flex-shrink: 0; width: 20px; height: 20px; margin-top: 0.3rem; accent-color: #00599c; }
+.auditSource { margin: 1rem 0; }
+.auditSource a { color: #00599c; text-decoration: underline; }
+.auditResult { margin: 1.5rem 0 0; padding: 1rem 1.25rem; border: 1px solid #a9cfb6; border-radius: 8px; background: #eff8f3; }
+.auditResult h3 { margin-top: 0; }
 @media (max-width: 480px) {
   .practice { font-size: 1rem; }
   .card { padding: 12px; }
