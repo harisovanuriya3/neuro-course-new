@@ -1,5 +1,7 @@
 "use client";
 
+import VoiceIcon from "./VoiceIcon";
+
 import { useEffect, useId, useRef, useState } from "react";
 import type { Language } from "../content/course";
 import type { Section } from "../content/sections";
@@ -53,7 +55,7 @@ export default function PageVoiceTools({ language, contentId, section }: { langu
     <button className={styles.inputToggle} type="button" aria-expanded={open} aria-controls={`${id}-note`} onClick={() => {
       setOpen(value => !value);
       if (!open) requestAnimationFrame(() => panel.current?.querySelector('textarea')?.focus());
-    }}>{c.input}</button>
+    }}><VoiceIcon kind="microphone" />{c.input}</button>
     <div id={`${id}-note`} hidden={!open} ref={panel}>
       {open && <>
         <p>{c.hint}</p>

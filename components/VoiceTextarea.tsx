@@ -1,5 +1,7 @@
 "use client";
 
+import VoiceIcon from "./VoiceIcon";
+
 import { useEffect, useId, useRef, useState, type ComponentProps } from "react";
 import type { Language } from "../content/course";
 import styles from "./VoiceTextarea.module.css";
@@ -80,7 +82,7 @@ export default function VoiceTextarea({ language, label, value, onValue, id, dis
   return <div className={styles.field} data-no-narration>
     {label && <label htmlFor={fieldId}>{label}</label>}
     <textarea {...props} id={fieldId} value={currentValue} disabled={disabled} maxLength={maxLength} onChange={event => change(event.target.value)} />
-    {supported !== false && <button type="button" disabled={!supported || disabled} aria-pressed={listening} onClick={start}>{listening ? c.stop : c.start}</button>}
+    {supported !== false && <button type="button" disabled={!supported || disabled} aria-pressed={listening} onClick={start}><VoiceIcon kind="microphone" />{listening ? c.stop : c.start}</button>}
     <p className={styles.note}>{supported === false ? c.unsupported : c.note}</p>
     <p role="status" aria-live="polite">{listening ? c.listen : message ? c[message] : ""}</p>
   </div>;

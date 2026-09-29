@@ -1,5 +1,7 @@
 "use client";
 
+import VoiceIcon from "./VoiceIcon";
+
 import { useEffect, useId, useRef, useState } from "react";
 import type { Language } from "../content/course";
 import { languageVoices, speechChunks, speechLocales } from "../lib/speech";
@@ -95,7 +97,7 @@ export default function SpeechPlayer({ language, getText, playLabel }: { languag
   }
   return <div className={styles.player} data-no-narration>
     <div className={styles.actions}>
-      <button type="button" disabled={!canPlay || volume === 0} onClick={play}>{status === "paused" ? c.resume : playLabel ?? c.play}</button>
+      <button type="button" disabled={!canPlay || volume === 0} onClick={play}><VoiceIcon kind="speaker" />{status === "paused" ? c.resume : playLabel ?? c.play}</button>
       <button type="button" disabled={status !== "playing"} onClick={() => { window.speechSynthesis.pause(); setStatus("paused"); }}>{c.pause}</button>
       <button type="button" disabled={status !== "playing" && status !== "paused"} onClick={stop}>{c.stop}</button>
     </div>

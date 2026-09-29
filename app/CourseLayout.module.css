@@ -13,3 +13,10 @@
   .navigation > div { gap: 8px !important; }
   .navigation a { padding: 10px 6px !important; }
 }
+
+.cover {
+  background-image: linear-gradient(rgba(242,247,251,.70), rgba(238,245,249,.82)), url("/neuron-bg.jpg");
+  background-position: center top;
+  background-size: auto, auto 100vh;
+  background-repeat: no-repeat, repeat-y;
+}

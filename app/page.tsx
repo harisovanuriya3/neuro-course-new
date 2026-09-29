@@ -60,12 +60,12 @@ export default async function HomePage({
 
   return (
     <main
-      className={styles.page}
+      className={`${styles.page} ${styles.cover}`}
       lang={htmlLanguage[lang]}
       style={{
         minHeight: "100vh",
         padding: "48px 36px 70px",
-        background: "#f2f7fb",
+        backgroundColor: "#f2f7fb",
         color: "#003f73",
       }}
     >

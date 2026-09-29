@@ -102,13 +102,12 @@ export default async function ModulePage({
 
   return (
     <main
-      className={styles.page}
+      className={`${styles.page} ${styles.cover}`}
       id="top"
       style={{
         minHeight: "100vh",
         padding: "28px 36px 60px",
-        background:
-          "linear-gradient(180deg, #f2f7fb 0%, #eef5f9 100%)",
+        backgroundColor: "#f2f7fb",
         color: "#003f73",
       }}
     >
