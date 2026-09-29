@@ -17,7 +17,7 @@ const copy = {
     waiting: "Сначала выберите условие и прогноз.", running: "Опыт идёт", stopped: "Передача остановилась", finished: "Опыт завершён", blockedAt: { afferent: "Сенсорный сигнал не дошёл до спинного мозга", efferent: "Моторный сигнал не дошёл до мышц" },
     correct: "Прогноз подтвердился.", incorrect: "Прогноз не подтвердился.",
     outcome: { intact: "Оба пути работают: сенсорный сигнал достигает спинного мозга, а моторный ответ — мышц.", afferent: "Сигнал возник у рецептора, но не дошёл до спинного мозга по выбранному пути. Рефлекторный ответ в этой модели не запускается.", efferent: "Сенсорный сигнал достиг спинного мозга, но команда не прошла по моторному пути к мышцам. Рефлекторного сокращения нет." },
-    limit: "Учебная модель одного рефлекторного пути. Фото показывает внешнее движение, а ход нервного сигнала отображён словами; фото не изображает работу нейронов. Сознательное восприятие боли, другие пути и защитные реакции здесь не моделируются. Не проверяйте это на себе горячими предметами.",
+    limit: "Учебная модель одного рефлекторного пути. Анимация из изображений, созданных ИИ, показывает внешнее движение; ход нервного сигнала отображён словами. Сознательное восприятие боли, другие пути и защитные реакции здесь не моделируются. Не проверяйте это на себе горячими предметами.",
     photo: "Постановочные изображения, созданные ИИ для учебника", contactAlt: "Кисть у металлической чашки до отдёргивания", withdrawalAlt: "Та же кисть отведена от металлической чашки", source: "Физиология рефлекса: OpenStax, Anatomy and Physiology 2e, гл. 14",
   },
   EN: {
@@ -28,7 +28,7 @@ const copy = {
     waiting: "Choose a condition and make a prediction first.", running: "Experiment running", stopped: "Transmission stopped", finished: "Experiment complete", blockedAt: { afferent: "Sensory input did not reach the spinal cord", efferent: "Motor output did not reach the muscles" },
     correct: "Your prediction was supported.", incorrect: "Your prediction was not supported.",
     outcome: { intact: "Both pathways work: the sensory signal reaches the spinal cord and the motor output reaches the muscles.", afferent: "A signal arises at the receptor but cannot reach the spinal cord along the selected pathway. The modeled reflex response does not begin.", efferent: "Sensory input reaches the spinal cord, but the command cannot pass along the motor pathway to the muscles. No reflex contraction occurs." },
-    limit: "A teaching model of one reflex pathway. The photographs show external movement; the nerve signal is described in words, not photographed. Conscious pain perception, alternative pathways and other protective responses are outside this model. Do not try this with hot objects.",
+    limit: "A teaching model of one reflex pathway. An animation made from AI-generated images shows external movement; the nerve signal is described in words. Conscious pain perception, alternative pathways and other protective responses are outside this model. Do not try this with hot objects.",
     photo: "Staged AI-generated photographs for this textbook", contactAlt: "Hand by a metal cup before withdrawal", withdrawalAlt: "The same hand moved away from the metal cup", source: "Reflex physiology: OpenStax, Anatomy and Physiology 2e, ch. 14",
   },
   KZ: {
@@ -39,7 +39,7 @@ const copy = {
     waiting: "Алдымен шарт пен болжамды таңдаңыз.", running: "Тәжірибе жүріп жатыр", stopped: "Сигналдың өтуі тоқтады", finished: "Тәжірибе аяқталды", blockedAt: { afferent: "Сенсорлық сигнал жұлынға жетпеді", efferent: "Моторлық сигнал бұлшықеттерге жетпеді" },
     correct: "Болжамыңыз расталды.", incorrect: "Болжамыңыз расталмады.",
     outcome: { intact: "Екі жол да жұмыс істейді: сенсорлық сигнал жұлынға, ал моторлық жауап бұлшықеттерге жетеді.", afferent: "Рецепторда сигнал пайда болады, бірақ таңдалған жолмен жұлынға жетпейді. Бұл модельде рефлекстік жауап басталмайды.", efferent: "Сенсорлық сигнал жұлынға жетеді, бірақ бұйрық моторлық жолмен бұлшықеттерге өтпейді. Рефлекстік жиырылу болмайды." },
-    limit: "Бұл — бір рефлекс жолының оқу моделі. Фотосуреттер сыртқы қозғалысты көрсетеді, жүйке сигналы мәтінмен сипатталады; нейрондардың жұмысын фотосурет көрсетпейді. Ауырсынуды саналы сезіну, басқа жолдар мен қорғаныш реакциялары модельденбейді. Мұны ыстық заттармен өзіңізде сынамаңыз.",
+    limit: "Бұл — бір рефлекс жолының оқу моделі. ЖИ жасаған кескіндерден құралған анимация сыртқы қозғалысты көрсетеді; жүйке сигналы мәтінмен сипатталады. Ауырсынуды саналы сезіну, басқа жолдар мен қорғаныш реакциялары модельденбейді. Мұны ыстық заттармен өзіңізде сынамаңыз.",
     photo: "Оқулық үшін ЖИ жасаған қойылымдық фотосуреттер", contactAlt: "Қол тартылғанға дейін металл тостағанның жанында", withdrawalAlt: "Сол қол металл тостағаннан алыстатылған", source: "Рефлекс физиологиясы: OpenStax, Anatomy and Physiology 2e, 14-тарау",
   },
 } satisfies Record<Language, {
@@ -76,8 +76,11 @@ export default function ReflexLab({ language }: { language: Language }) {
   return <section id="reflex-lab" className={styles.lab} aria-labelledby="reflex-lab-title" lang={language === "KZ" ? "kk" : language.toLowerCase()}>
     <h2 id="reflex-lab-title">{c.title}</h2><p>{c.intro}</p>
     <figure className={styles.photo}>
-      <Image src={complete && condition === "intact" ? "/images/lab/reflex-withdrawal.webp" : "/images/lab/reflex-contact.webp"}
-        alt={complete && condition === "intact" ? c.withdrawalAlt : c.contactAlt} width={1536} height={1024} sizes="(max-width: 760px) 100vw, 760px" priority={false} />
+      <div className={styles.scene} role="img" aria-label={stage >= 4 && condition === "intact" ? c.withdrawalAlt : c.contactAlt}
+        data-withdrawn={stage >= 4 && condition === "intact"}>
+        <Image src="/images/lab/reflex-background.webp" alt="" aria-hidden="true" width={1536} height={1024} sizes="(max-width: 760px) 100vw, 760px" />
+        <Image className={styles.hand} src="/images/lab/reflex-hand.webp" alt="" aria-hidden="true" width={1536} height={1024} sizes="(max-width: 760px) 100vw, 760px" />
+      </div>
       <figcaption>{c.photo}</figcaption>
     </figure>
     <fieldset disabled={running || stage >= 0} className={styles.choices}>

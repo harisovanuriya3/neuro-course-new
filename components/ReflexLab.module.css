@@ -1,7 +1,10 @@
 .lab { margin: 24px 0; padding: clamp(16px, 3vw, 28px); border: 1px solid #b9d1e3; border-radius: 16px; background: #fff; scroll-margin-top: 20px; }
 .lab h2 { margin-top: 0; }
 .photo { margin: 18px 0 24px; overflow: hidden; border-radius: 12px; background: #eef3f5; }
-.photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.scene { position: relative; aspect-ratio: 3 / 2; overflow: hidden; }
+.scene img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.scene .hand { position: absolute; inset: 0; transform: translateX(-15%); transform-origin: 8% 46%; transition: transform 850ms cubic-bezier(.18,.72,.3,1); will-change: transform; }
+.scene[data-withdrawn="true"] .hand { transform: translate(-33%, -3%) rotate(-5deg); }
 .photo figcaption { padding: 8px 12px; color: #40566a; font-size: .85rem; }
 .choices { border: 0; padding: 0; margin: 18px 0; min-width: 0; }
 .choices legend { font-weight: 700; margin-bottom: 8px; }
@@ -21,3 +24,4 @@
 .lab a { color: #00599c; }
 .lab button:focus-visible, .lab input:focus-visible, .lab a:focus-visible { outline: 3px solid #a54b00; outline-offset: 3px; }
 @media (max-width: 600px) { .choices label { display: flex; margin-right: 0; } }
+@media (prefers-reduced-motion: reduce) { .scene .hand { transition: none; } }
