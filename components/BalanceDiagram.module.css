@@ -1,13 +1,7 @@
 .figure { max-width: 480px; margin: 16px auto; }
-.figure svg { display: block; width: 100%; height: auto; }
-.figure text { font: 13px system-ui, sans-serif; fill: #193a50; }
+.scene { position: relative; width: min(70vw, 280px); aspect-ratio: 646 / 809; margin: 0 auto; overflow: hidden; border-radius: 12px; background: #edf2ee; }
+.frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 420ms ease; }
+.active { opacity: 1; }
+.process { margin: 10px auto 0; padding: 8px 12px; border-radius: 8px; background: #edf6ff; color: #193a50; font-size: 0.9rem; text-align: center; }
 .figure figcaption { margin-top: 12px; font-weight: 600; }
-.body { transform-origin: 93px 240px; transition: transform 650ms ease; }
-.foot { transform-origin: 100px 240px; transition: transform 650ms ease; animation: contact 650ms ease both; }
-.flow { stroke-dasharray: 6 5; animation: signal 900ms linear 2; }
-@keyframes contact { from { translate: -16px -14px; } to { translate: 0 0; } }
-@keyframes signal { to { stroke-dashoffset: -22; } }
-@media (prefers-reduced-motion: reduce) {
-  .body, .foot { transition: none; animation: none; }
-  .flow { animation: none; }
-}
+@media (prefers-reduced-motion: reduce) { .frame { transition: none; } }
