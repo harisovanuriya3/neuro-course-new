@@ -75,33 +75,37 @@ export default function ReflexLab({ language }: { language: Language }) {
 
   return <section id="reflex-lab" className={styles.lab} aria-labelledby="reflex-lab-title" lang={language === "KZ" ? "kk" : language.toLowerCase()}>
     <h2 id="reflex-lab-title">{c.title}</h2><p>{c.intro}</p>
-    <figure className={styles.photo}>
-      <div className={styles.scene} role="img" aria-label={stage >= 4 && condition === "intact" ? c.withdrawalAlt : c.contactAlt}
-        data-withdrawn={stage >= 4 && condition === "intact"}>
-        <Image src="/images/lab/reflex-background.webp" alt="" aria-hidden="true" width={1536} height={1024} sizes="(max-width: 760px) 100vw, 760px" />
-        <Image className={styles.hand} src="/images/lab/reflex-hand.webp" alt="" aria-hidden="true" width={1536} height={1024} sizes="(max-width: 760px) 100vw, 760px" />
+    <div className={styles.workspace}>
+      <figure className={styles.photo}>
+        <div className={styles.scene} role="img" aria-label={stage >= 4 && condition === "intact" ? c.withdrawalAlt : c.contactAlt}
+          data-withdrawn={stage >= 4 && condition === "intact"}>
+          <Image src="/images/lab/reflex-background.webp" alt="" aria-hidden="true" width={1536} height={1024} sizes="(max-width: 760px) 100vw, 520px" />
+          <Image className={styles.hand} src="/images/lab/reflex-hand.webp" alt="" aria-hidden="true" width={1536} height={1024} sizes="(max-width: 760px) 100vw, 520px" />
+        </div>
+        <figcaption>{c.photo}</figcaption>
+      </figure>
+      <div className={styles.controls}>
+        <fieldset disabled={running || stage >= 0} className={styles.choices}>
+          <legend>{c.condition}</legend>
+          {(["intact", "afferent", "efferent"] as const).map(item => <label key={item}>
+            <input type="radio" name="reflex-condition" checked={condition === item} onChange={() => changeCondition(item)} />{c[item]}
+          </label>)}
+        </fieldset>
+        <fieldset disabled={running || stage >= 0} className={styles.choices}>
+          <legend>{c.predict}</legend>
+          {(["moves", "still"] as const).map(item => <label key={item}>
+            <input type="radio" name="reflex-prediction" checked={prediction === item} onChange={() => setPrediction(item)} />{c[item]}
+          </label>)}
+        </fieldset>
+        <div className={styles.actions}>
+          <button type="button" onClick={start} disabled={!prediction || running}>{stage < 0 ? c.run : c.replay}</button>
+          <button type="button" onClick={reset} disabled={running || stage < 0}>{c.reset}</button>
+        </div>
+        <div className={styles.results} aria-live="polite" aria-atomic="true">
+          <strong>{stage < 0 ? c.waiting : running ? c.running : condition === "intact" ? c.finished : c.stopped}</strong>
+          {stage >= 0 && <p>{complete && condition !== "intact" ? c.blockedAt[condition] : c.stages[stage]}.</p>}
+        </div>
       </div>
-      <figcaption>{c.photo}</figcaption>
-    </figure>
-    <fieldset disabled={running || stage >= 0} className={styles.choices}>
-      <legend>{c.condition}</legend>
-      {(["intact", "afferent", "efferent"] as const).map(item => <label key={item}>
-        <input type="radio" name="reflex-condition" checked={condition === item} onChange={() => changeCondition(item)} />{c[item]}
-      </label>)}
-    </fieldset>
-    <fieldset disabled={running || stage >= 0} className={styles.choices}>
-      <legend>{c.predict}</legend>
-      {(["moves", "still"] as const).map(item => <label key={item}>
-        <input type="radio" name="reflex-prediction" checked={prediction === item} onChange={() => setPrediction(item)} />{c[item]}
-      </label>)}
-    </fieldset>
-    <div className={styles.actions}>
-      <button type="button" onClick={start} disabled={!prediction || running}>{stage < 0 ? c.run : c.replay}</button>
-      <button type="button" onClick={reset} disabled={running || stage < 0}>{c.reset}</button>
-    </div>
-    <div className={styles.results} aria-live="polite" aria-atomic="true">
-      <strong>{stage < 0 ? c.waiting : running ? c.running : condition === "intact" ? c.finished : c.stopped}</strong>
-      {stage >= 0 && <p>{complete && condition !== "intact" ? c.blockedAt[condition] : c.stages[stage]}.</p>}
     </div>
     {complete && <div className={styles.feedback}>
       <h3>{prediction === (condition === "intact" ? "moves" : "still") ? c.correct : c.incorrect}</h3>
