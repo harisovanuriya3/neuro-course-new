@@ -7,6 +7,7 @@ import type { DiagramBase, DiagramNode, InteractiveLesson } from "../content/int
 import shared from "./PracticeContent.module.css";
 import styles from "./InteractiveContent.module.css";
 import { OrganizationVisual, PathwayVisual, SynapseVisual, IntegrationVisual } from "./InteractiveVisuals";
+import ReflexLab from "./ReflexLab";
 
 type UI = InteractiveLesson["ui"];
 
@@ -123,6 +124,7 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     <h1>{lesson.title}</h1><p>{lesson.introduction}</p><p className={styles.note}>{ui.keyboard}</p>
     {card(lesson.organization, <Organization diagram={lesson.organization} ui={ui} language={language} />)}
     {card(lesson.pathway, <Sequence id="pathway" nodes={lesson.pathway.nodes} ui={ui} loop={lesson.pathway.loop} language={language} />)}
+    <ReflexLab language={language} />
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
     {card(lesson.integration, <Integration diagram={lesson.integration} ui={ui} language={language} />)}
   </article>;

@@ -1,0 +1,23 @@
+.lab { margin: 24px 0; padding: clamp(16px, 3vw, 28px); border: 1px solid #b9d1e3; border-radius: 16px; background: #fff; scroll-margin-top: 20px; }
+.lab h2 { margin-top: 0; }
+.photo { margin: 18px 0 24px; overflow: hidden; border-radius: 12px; background: #eef3f5; }
+.photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.photo figcaption { padding: 8px 12px; color: #40566a; font-size: .85rem; }
+.choices { border: 0; padding: 0; margin: 18px 0; min-width: 0; }
+.choices legend { font-weight: 700; margin-bottom: 8px; }
+.choices label { display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; margin: 0 8px 8px 0; border: 1px solid #9bbad1; border-radius: 10px; cursor: pointer; }
+.choices label:has(input:checked) { border-color: #00599c; background: #e4f0fa; }
+.choices input { accent-color: #00599c; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0; }
+.actions button { flex: 1 1 160px; width: auto; }
+.results { min-height: 80px; padding: 16px; border-left: 4px solid #00599c; background: #f0f7fc; border-radius: 8px; }
+.results p { margin-bottom: 0; }
+.feedback { margin-top: 16px; padding: 16px; border-radius: 10px; background: #eff8f3; }
+.feedback h3 { margin-top: 0; }
+.feedback ol { padding-left: 24px; }
+.feedback li { margin: 6px 0; }
+.blocked { color: #6c3c31; }
+.limit { padding: 12px; background: #f3f7fa; border-radius: 8px; }
+.lab a { color: #00599c; }
+.lab button:focus-visible, .lab input:focus-visible, .lab a:focus-visible { outline: 3px solid #a54b00; outline-offset: 3px; }
+@media (max-width: 600px) { .choices label { display: flex; margin-right: 0; } }
