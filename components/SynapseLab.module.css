@@ -7,7 +7,33 @@
 .lab label:has(input:checked) { background: #e5f3fa; border-color: #00639b; }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .actions button { padding: 9px 12px; }
-.result { min-height: 140px; padding: 14px; border-left: 4px solid #00639b; background: #eef6fb; border-radius: 6px; }
+.visual { padding: 12px; border: 1px solid #c5d6e0; border-radius: 8px 8px 0 0; background: #f8fbfd; }
+.visual h3 { margin: 0 0 4px; font-size: 1rem; }
+.diagram { display: block; width: 100%; max-width: 390px; height: auto; margin: auto; }
+.axon, .membrane, .channel, .receptor { fill: none; stroke: #315a76; stroke-width: 4; stroke-linecap: round; }
+.terminal { fill: #e5f3fa; stroke: #315a76; stroke-width: 3; }
+.postCell { fill: #e7ecf8; stroke: #315a76; stroke-width: 3; }
+.vesicle { fill: #c5e8bc; stroke: #428356; stroke-width: 2; }
+.caLabel { fill: #23527a; font: 700 14px sans-serif; }
+.impulse { fill: #ef9634; animation: impulseTravel .7s ease-out both; }
+.calcium { fill: #1978b4; animation: calciumEntry .8s ease-in both; }
+.blockMark { fill: none; stroke: #bd4545; stroke-width: 5; stroke-linecap: round; animation: appear .3s ease-out both; }
+.transmitter { fill: #498958; animation: transmitterRelease .8s ease-out both; }
+.responsePulse { fill: none; stroke: #6e56af; stroke-width: 5; animation: responseGlow .8s ease-out both; }
+.timeline { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 14px; padding: 0; margin: 0; list-style: none; counter-reset: step; }
+.timeline li { min-width: 0; padding: 5px 7px; border-radius: 6px; color: #526473; font-size: .85rem; }
+.timeline li::before { counter-increment: step; content: counter(step) ". "; font-weight: 700; }
+.timeline .current { background: #d9edfb; color: #174c72; font-weight: 700; }
+.timeline .done { color: #267045; }
+.result { min-height: 68px; padding: 12px; border-left: 4px solid #00639b; background: #eef6fb; border-radius: 0 0 6px 6px; }
 .result p:first-child { margin-top: 0; }
+.result p:last-child { margin-bottom: 0; }
 .scope { margin-bottom: 0; padding-top: 10px; font-size: .92em; }
+@keyframes impulseTravel { from { transform: translateX(-28px); opacity: 0; } to { transform: translateX(32px); opacity: 1; } }
+@keyframes calciumEntry { from { transform: translateY(0); opacity: 0; } to { transform: translateY(-43px); opacity: 1; } }
+@keyframes transmitterRelease { from { transform: translateY(0); opacity: 0; } to { transform: translateY(40px); opacity: 1; } }
+@keyframes responseGlow { from { transform: scale(.2); transform-origin: 180px 188px; opacity: 0; } to { transform: scale(1); transform-origin: 180px 188px; opacity: 1; } }
+@keyframes appear { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .impulse, .calcium, .blockMark, .transmitter, .responsePulse { animation-duration: .01ms; } }
 @media (max-width: 760px) { .columns { grid-template-columns: 1fr; } }
+@media (max-width: 420px) { .timeline { grid-template-columns: 1fr; } }

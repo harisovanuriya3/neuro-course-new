@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Language } from "../content/course";
 import styles from "./SynapseLab.module.css";
 
@@ -17,6 +17,9 @@ const copy = {
     run: "Запустить опыт",
     reset: "Новый прогноз",
     choose: "Выберите условие и прогноз.",
+    visual: "Динамическая схема учебной модели",
+    steps: ["Импульс пришёл к окончанию", "Вход Ca²⁺", "Выделение медиатора", "Постсинаптический ответ"],
+    blockedSteps: ["Импульс пришёл к окончанию", "Вход Ca²⁺ заблокирован", "Вызванного выделения нет", "Вызванного ответа нет"],
     arrival: "Потенциал действия достиг окончания аксона.",
     normal: "Ca²⁺ входит → везикулы выделяют медиатор → возникает постсинаптический ответ в этой модели.",
     noCalcium: "Вход Ca²⁺ заблокирован → вызванное выделение медиатора не происходит → вызванного постсинаптического ответа нет.",
@@ -36,6 +39,9 @@ const copy = {
     run: "Run experiment",
     reset: "New prediction",
     choose: "Choose a condition and prediction.",
+    visual: "Animated teaching model",
+    steps: ["Impulse reaches the terminal", "Ca²⁺ enters", "Transmitter is released", "Postsynaptic response"],
+    blockedSteps: ["Impulse reaches the terminal", "Ca²⁺ entry is blocked", "No evoked release", "No evoked response"],
     arrival: "An action potential reached the axon terminal.",
     normal: "Ca²⁺ enters → vesicles release transmitter → a postsynaptic response occurs in this model.",
     noCalcium: "Ca²⁺ entry is blocked → evoked transmitter release does not occur → there is no evoked postsynaptic response.",
@@ -55,6 +61,9 @@ const copy = {
     run: "Тәжірибені бастау",
     reset: "Жаңа болжам",
     choose: "Шарт пен болжамды таңдаңыз.",
+    visual: "Оқу моделінің қозғалысты сызбасы",
+    steps: ["Импульс ұшқа жетті", "Ca²⁺ кіреді", "Медиатор бөлінеді", "Постсинапстық жауап"],
+    blockedSteps: ["Импульс ұшқа жетті", "Ca²⁺ кіруі бұғатталды", "Шақырылған бөліну жоқ", "Шақырылған жауап жоқ"],
     arrival: "Әрекет потенциалы аксон ұшына жетті.",
     normal: "Ca²⁺ кіреді → везикулалар медиатор бөледі → осы модельде постсинапстық жауап пайда болады.",
     noCalcium: "Ca²⁺ кіруі бұғатталған → медиатордың шақырылған бөлінуі болмайды → шақырылған постсинапстық жауап жоқ.",
@@ -69,7 +78,15 @@ export default function SynapseLab({ language }: { language: Language }) {
   const [condition, setCondition] = useState<"open" | "blocked">("open");
   const [prediction, setPrediction] = useState<"response" | "absent" | null>(null);
   const [result, setResult] = useState<{ condition: "open" | "blocked"; prediction: "response" | "absent" } | null>(null);
+  const [stage, setStage] = useState(-1);
+  useEffect(() => {
+    if (!result || stage >= 3) return;
+    const timer = window.setTimeout(() => setStage(current => current + 1), 850);
+    return () => window.clearTimeout(timer);
+  }, [result, stage]);
   const outcome = result?.condition === "open" ? "response" : "absent";
+  const steps = result?.condition === "blocked" ? c.blockedSteps : c.steps;
+  const open = result?.condition === "open";
   return <section className={styles.lab} aria-label={c.title}>
     <h2>{c.title}</h2><p>{c.intro}</p>
     <div className={styles.columns}>
@@ -85,13 +102,42 @@ export default function SynapseLab({ language }: { language: Language }) {
           </label>)}
         </fieldset>
         <div className={styles.actions}>
-          <button type="button" disabled={!prediction || !!result} onClick={() => { if (prediction) setResult({ condition, prediction }); }}>{c.run}</button>
-          <button type="button" disabled={!result} onClick={() => { setPrediction(null); setResult(null); }}>{c.reset}</button>
+          <button type="button" disabled={!prediction || !!result} onClick={() => { if (prediction) { setStage(0); setResult({ condition, prediction }); } }}>{c.run}</button>
+          <button type="button" disabled={!result} onClick={() => { setPrediction(null); setResult(null); setStage(-1); }}>{c.reset}</button>
         </div>
       </div>
-      <div className={styles.result} role="status" aria-live="polite">
-        {result ? <><p>{c.arrival}</p><p><strong>{result.condition === "open" ? c.normal : c.noCalcium}</strong></p>
-          <p>{result.prediction === outcome ? c.correct : c.revise}</p></> : <p>{c.choose}</p>}
+      <div>
+        <div className={styles.visual}>
+          <h3>{c.visual}</h3>
+          <svg className={styles.diagram} viewBox="0 0 360 220" role="img" aria-label={result ? steps[stage] : c.visual}>
+            <path className={styles.axon} d="M 12 70 H 68" />
+            <rect className={styles.terminal} x="67" y="29" width="226" height="88" rx="34" />
+            <path className={styles.membrane} d="M 75 118 H 167 M 193 118 H 285" />
+            <path className={styles.channel} d="M 168 108 V 126 M 192 108 V 126" />
+            <path className={styles.postCell} d="M 38 184 Q 180 157 322 184 V 215 H 38 Z" />
+            <path className={styles.receptor} d="M 168 171 V 186 H 192 V 171" />
+            <circle className={styles.vesicle} cx="113" cy="84" r="15" />
+            <circle className={styles.vesicle} cx="246" cy="84" r="15" />
+            <circle className={styles.vesicle} cx="145" cy="77" r="11" />
+            <text className={styles.caLabel} x="199" y="149">Ca²⁺</text>
+            {stage >= 0 && <circle className={styles.impulse} cx="45" cy="70" r="9" />}
+            {stage >= 1 && (open ? <g className={styles.calcium}>
+              <circle cx="175" cy="141" r="5" /><circle cx="185" cy="148" r="5" />
+            </g> : <g className={styles.blockMark}><path d="M 165 104 L 195 132 M 195 104 L 165 132" /></g>)}
+            {stage >= 2 && open && <g className={styles.transmitter}>
+              <circle cx="106" cy="116" r="4" /><circle cx="115" cy="122" r="4" />
+              <circle cx="243" cy="116" r="4" /><circle cx="252" cy="122" r="4" />
+            </g>}
+            {stage >= 3 && open && <circle className={styles.responsePulse} cx="180" cy="188" r="21" />}
+          </svg>
+          {result && <ol className={styles.timeline}>
+            {steps.map((step, index) => <li key={index} className={stage === index ? styles.current : stage > index ? styles.done : ""} aria-current={stage === index ? "step" : undefined}>{step}</li>)}
+          </ol>}
+        </div>
+        <div className={styles.result} role="status" aria-live="polite">
+          {result ? <><p>{steps[stage]}</p>{stage === 3 && <><p><strong>{result.condition === "open" ? c.normal : c.noCalcium}</strong></p>
+            <p>{result.prediction === outcome ? c.correct : c.revise}</p></>}</> : <p>{c.choose}</p>}
+        </div>
       </div>
     </div>
     <p className={styles.scope}>{c.scope}</p>
