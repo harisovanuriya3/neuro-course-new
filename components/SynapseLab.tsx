@@ -16,9 +16,10 @@ const copy = {
     absent: "Вызванного ответа не будет",
     run: "Запустить опыт",
     reset: "Новый прогноз",
+    replay: "Повторить движение",
     choose: "Выберите условие и прогноз.",
     visual: "Динамическая схема учебной модели",
-    steps: ["Импульс пришёл к окончанию", "Вход Ca²⁺", "Выделение медиатора", "Постсинаптический ответ"],
+    steps: ["Импульс пришёл к окончанию", "Ионы Ca²⁺ входят в окончание", "Выделение медиатора", "Постсинаптический ответ"],
     blockedSteps: ["Импульс пришёл к окончанию", "Вход Ca²⁺ заблокирован", "Вызванного выделения нет", "Вызванного ответа нет"],
     arrival: "Потенциал действия достиг окончания аксона.",
     normal: "Ca²⁺ входит → везикулы выделяют медиатор → возникает постсинаптический ответ в этой модели.",
@@ -38,9 +39,10 @@ const copy = {
     absent: "No evoked response will occur",
     run: "Run experiment",
     reset: "New prediction",
+    replay: "Replay movement",
     choose: "Choose a condition and prediction.",
     visual: "Animated teaching model",
-    steps: ["Impulse reaches the terminal", "Ca²⁺ enters", "Transmitter is released", "Postsynaptic response"],
+    steps: ["Impulse reaches the terminal", "Ca²⁺ ions enter the terminal", "Transmitter is released", "Postsynaptic response"],
     blockedSteps: ["Impulse reaches the terminal", "Ca²⁺ entry is blocked", "No evoked release", "No evoked response"],
     arrival: "An action potential reached the axon terminal.",
     normal: "Ca²⁺ enters → vesicles release transmitter → a postsynaptic response occurs in this model.",
@@ -60,9 +62,10 @@ const copy = {
     absent: "Шақырылған жауап болмайды",
     run: "Тәжірибені бастау",
     reset: "Жаңа болжам",
+    replay: "Қозғалысты қайталау",
     choose: "Шарт пен болжамды таңдаңыз.",
     visual: "Оқу моделінің қозғалысты сызбасы",
-    steps: ["Импульс ұшқа жетті", "Ca²⁺ кіреді", "Медиатор бөлінеді", "Постсинапстық жауап"],
+    steps: ["Импульс ұшқа жетті", "Ca²⁺ иондары ұшқа кіреді", "Медиатор бөлінеді", "Постсинапстық жауап"],
     blockedSteps: ["Импульс ұшқа жетті", "Ca²⁺ кіруі бұғатталды", "Шақырылған бөліну жоқ", "Шақырылған жауап жоқ"],
     arrival: "Әрекет потенциалы аксон ұшына жетті.",
     normal: "Ca²⁺ кіреді → везикулалар медиатор бөледі → осы модельде постсинапстық жауап пайда болады.",
@@ -81,7 +84,7 @@ export default function SynapseLab({ language }: { language: Language }) {
   const [stage, setStage] = useState(-1);
   useEffect(() => {
     if (!result || stage >= 3) return;
-    const timer = window.setTimeout(() => setStage(current => current + 1), 850);
+    const timer = window.setTimeout(() => setStage(current => current + 1), 1700);
     return () => window.clearTimeout(timer);
   }, [result, stage]);
   const outcome = result?.condition === "open" ? "response" : "absent";
@@ -104,6 +107,7 @@ export default function SynapseLab({ language }: { language: Language }) {
         <div className={styles.actions}>
           <button type="button" disabled={!prediction || !!result} onClick={() => { if (prediction) { setStage(0); setResult({ condition, prediction }); } }}>{c.run}</button>
           <button type="button" disabled={!result} onClick={() => { setPrediction(null); setResult(null); setStage(-1); }}>{c.reset}</button>
+          <button type="button" disabled={!result} onClick={() => setStage(0)}>{c.replay}</button>
         </div>
       </div>
       <div>
@@ -121,8 +125,9 @@ export default function SynapseLab({ language }: { language: Language }) {
             <circle className={styles.vesicle} cx="145" cy="77" r="11" />
             <text className={styles.caLabel} x="199" y="149">Ca²⁺</text>
             {stage >= 0 && <circle className={styles.impulse} cx="45" cy="70" r="9" />}
+            {stage >= 1 && open && <path className={styles.caRoute} d="M 180 154 V 89 M 173 98 L 180 89 L 187 98" />}
             {stage >= 1 && (open ? <g className={styles.calcium}>
-              <circle cx="175" cy="141" r="5" /><circle cx="185" cy="148" r="5" />
+              <circle cx="175" cy="150" r="6" /><circle cx="185" cy="159" r="6" />
             </g> : <g className={styles.blockMark}><path d="M 165 104 L 195 132 M 195 104 L 165 132" /></g>)}
             {stage >= 2 && open && <g className={styles.transmitter}>
               <circle cx="106" cy="116" r="4" /><circle cx="115" cy="122" r="4" />
