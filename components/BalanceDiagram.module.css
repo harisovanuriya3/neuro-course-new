@@ -1,0 +1,13 @@
+.figure { max-width: 480px; margin: 16px auto; }
+.figure svg { display: block; width: 100%; height: auto; }
+.figure text { font: 13px system-ui, sans-serif; fill: #193a50; }
+.figure figcaption { margin-top: 12px; font-weight: 600; }
+.body { transform-origin: 93px 240px; transition: transform 650ms ease; }
+.foot { transform-origin: 100px 240px; transition: transform 650ms ease; animation: contact 650ms ease both; }
+.flow { stroke-dasharray: 6 5; animation: signal 900ms linear 2; }
+@keyframes contact { from { translate: -16px -14px; } to { translate: 0 0; } }
+@keyframes signal { to { stroke-dashoffset: -22; } }
+@media (prefers-reduced-motion: reduce) {
+  .body, .foot { transition: none; animation: none; }
+  .flow { animation: none; }
+}

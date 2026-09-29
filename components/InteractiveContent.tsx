@@ -10,6 +10,7 @@ import { OrganizationVisual, PathwayVisual, SynapseVisual, IntegrationVisual } f
 import ReflexLab from "./ReflexLab";
 import { OrganizationSpecimens, SynapseSpecimen } from "./RealSpecimens";
 import SynapseLab from "./SynapseLab";
+import BalanceDiagram from "./BalanceDiagram";
 
 type UI = InteractiveLesson["ui"];
 
@@ -132,5 +133,6 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
     <SynapseLab language={language} />
     {card(lesson.integration, <Integration diagram={lesson.integration} ui={ui} language={language} />)}
+    {moduleId === "1" && <BalanceDiagram language={language} ui={ui} />}
   </article>;
 }
