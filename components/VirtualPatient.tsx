@@ -131,8 +131,9 @@ export default function VirtualPatient({ language }: { language: Language }) {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(reply);
     utterance.lang = language === "RU" ? "ru-RU" : language === "KZ" ? "kk-KZ" : "en-US";
-    utterance.rate = 0.92;
-    utterance.pitch = 0.9;
+    utterance.rate = 0.86;
+    utterance.pitch = 0.92;
+    utterance.volume = 1;
     window.speechSynthesis.speak(utterance);
   }
   function speakPatient(reply: string) {
@@ -140,15 +141,27 @@ export default function VirtualPatient({ language }: { language: Language }) {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(reply);
     utterance.lang = language === "RU" ? "ru-RU" : language === "KZ" ? "kk-KZ" : "en-US";
+    utterance.volume = 1;
     window.speechSynthesis.speak(utterance);
   }
   function reset() { if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel(); const cleared = emptyPatientProgress(); update(cleared); setStage(0); setShowOptions(false); setQuestionText(""); setDialogue([]); setDiagnosisAssessment(null); }
+  const teacherNow = stage === 0
+    ? (progress.asked.length >= 2 ? c.feedback[0] : c.hint)
+    : selected === null
+      ? (stage === 1 ? c.tasks[1] : diagnosisCopy[language].note)
+      : (stage > 0 ? c.optionFeedback[stage][selected] : c.feedback[stage]);
   return <article className={styles.patient}>
     <h1>{c.title}</h1><p>{c.intro}</p>
     <div className={styles.layout}>
-      <figure className={styles.photo}>
+      <figure className={`${styles.photo} ${styles[`photoStage${stage}`]}`}>
+        <div className={styles.stageBadge}>{c.stage} {stage + 1}</div>
         <Image src="/images/module1/virtual-patient.webp" width={1536} height={1024} sizes="(max-width: 700px) 100vw, 340px" alt="" />
         <figcaption>{c.image}</figcaption>
+        <aside className={styles.mentorCard} aria-live="polite">
+          <div className={styles.mentorPortrait} aria-hidden="true"><span>👨‍⚕️</span></div>
+          <div><strong>{d.teacher}</strong><p>{teacherNow}</p>
+          <button type="button" className={styles.mentorVoice} onClick={() => speakTeacher(teacherNow)}>🔊 {d.voiceTeacher}</button></div>
+        </aside>
       </figure>
       <div className={styles.work}>
         <p className={styles.situation}>{c.situation}</p>
