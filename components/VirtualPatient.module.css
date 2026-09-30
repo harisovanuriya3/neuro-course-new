@@ -112,3 +112,9 @@
 .branchTrail .activeBranch { border-color:#005b96; background:#e8f4fc; font-weight:800; }
 @media (max-width:1050px) { .clinicalDesk { grid-template-columns:minmax(220px,300px) 1fr; } .teacherPanel { position:static; grid-column:1/-1; display:grid; grid-template-columns:140px 1fr; gap:12px; } .teacherVisual { height:150px; grid-row:1/5; } }
 @media (max-width:700px) { .clinicalDesk { grid-template-columns:1fr; } .teacherPanel { grid-column:auto; display:block; } .teacherVisual { height:150px; } }
+
+.stageNav { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:6px; margin:0 0 14px; }
+.stageNav button { display:flex; align-items:center; justify-content:center; gap:6px; padding:8px 5px; border:1px solid #c7d9e5; border-radius:10px; background:#f7fbfe; font-size:.78rem; }
+.stageNav button span { display:grid; place-items:center; width:23px; height:23px; border-radius:50%; border:1px solid currentColor; font-weight:800; }
+.stageNav .activeStage { background:#e4f4ff; border-color:#005b96; color:#004b87; font-weight:800; }
+@media(max-width:900px){.stageNav{grid-template-columns:repeat(3,1fr)}} @media(max-width:520px){.stageNav{grid-template-columns:repeat(2,1fr)}}
