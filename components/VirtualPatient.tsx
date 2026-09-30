@@ -183,18 +183,13 @@ export default function VirtualPatient({ language }: { language: Language }) {
       </div>
       <p className={styles.mixerNote}>{language === "RU" ? "По умолчанию все каналы 100%. Итоговая громкость также зависит от системной громкости устройства и браузера." : language === "KZ" ? "Әдепкіде барлық арна 100%. Соңғы дыбыс құрылғы мен браузер дыбысына да байланысты." : "All channels default to 100%. Final loudness also depends on device and browser volume."}</p>
     </details>
-    <div className={styles.layout}>
-      <figure className={`${styles.photo} ${styles[`photoStage${stage}`]}`}>
+    <div className={styles.clinicalDesk}>
+      <figure className={`${styles.photo} ${styles.patientPanel} ${styles[`photoStage${stage}`]}`}>
         <div className={styles.stageBadge}>{c.stage} {stage + 1}</div>
         <Image src="/images/module1/virtual-patient.webp" width={1536} height={1024} sizes="(max-width: 700px) 100vw, 340px" alt="" />
         <figcaption>{c.image}</figcaption>
-        <aside className={styles.mentorCard} aria-live="polite">
-          <div className={styles.mentorPortrait} aria-hidden="true"><span>👨‍⚕️</span></div>
-          <div><strong>{d.teacher}</strong><p>{teacherNow}</p>
-          <button type="button" className={styles.mentorVoice} onClick={() => speakTeacher(teacherNow)}>🔊 {d.voiceTeacher}</button></div>
-        </aside>
       </figure>
-      <div className={styles.work}>
+      <div className={`${styles.work} ${styles.studentPanel}`}>
         <p className={styles.situation}>{c.situation}</p>
         <p className={styles.counter}>{c.stage} {stage + 1} / 3 · {answered} / 3</p>
         <progress value={answered} max={3} aria-label={c.stage} />
@@ -245,6 +240,17 @@ export default function VirtualPatient({ language }: { language: Language }) {
           {stage < 2 ? <button type="button" onClick={() => setStage(value => value + 1)} disabled={selected === null}>{c.next}</button> : answered === 3 ? <Link href={`/modules/1/progress?lang=${language}`}>{c.result}</Link> : null}
         </div>
       </div>
+      <aside className={styles.teacherPanel} aria-live="polite">
+        <div className={styles.teacherVisual} aria-hidden="true"><div className={styles.teacherHead}></div><div className={styles.teacherBody}></div></div>
+        <div className={styles.teacherIdentity}><strong>{d.teacher}</strong><span>{language === "RU" ? "Клинический наставник" : language === "KZ" ? "Клиникалық тәлімгер" : "Clinical mentor"}</span></div>
+        <div className={styles.teacherBubble}><p>{teacherNow}</p></div>
+        <button type="button" className={styles.mentorVoice} onClick={() => speakTeacher(teacherNow)}>🔊 {d.voiceTeacher}</button>
+        <div className={styles.branchTrail}><strong>{language === "RU" ? "Текущая ветвь" : language === "KZ" ? "Ағымдағы тармақ" : "Current branch"}</strong>
+          <span className={stage === 0 ? styles.activeBranch : ""}>{language === "RU" ? "Анамнез" : language === "KZ" ? "Анамнез" : "History"}</span>
+          <span className={stage === 1 ? styles.activeBranch : ""}>{language === "RU" ? "Локализация и осмотр" : language === "KZ" ? "Локализация және тексеру" : "Localization & exam"}</span>
+          <span className={stage === 2 ? styles.activeBranch : ""}>{language === "RU" ? "Диагностическое рассуждение" : language === "KZ" ? "Диагностикалық пайым" : "Diagnostic reasoning"}</span>
+        </div>
+      </aside>
     </div>
     {answered === 3 && <section role="status" className={styles.finished}><h3>{d.summary}</h3><p>{diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong}</p><button type="button" onClick={() => speakTeacher(diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong)}>🔊 {d.voiceTeacher}</button><p>{c.independent}: {progress.firstTryCorrect.filter(Boolean).length} / 3. {c.saved}</p><div className={styles.actions}><button type="button" onClick={() => { const wrong = progress.firstTryCorrect.map((v,i)=>v?null:i).filter(v=>v!==null) as number[]; const cleared = emptyPatientProgress(); update({...cleared, asked: wrong.includes(0)?[]:progress.asked}); setStage(wrong[0] ?? 0); setShowOptions(false); setDiagnosisAssessment(null); }}>{d.retry}</button><Link href={`/modules/1/theory?lang=${language}`}>{d.theory}</Link><Link href={`/modules/1/progress?lang=${language}`}>{c.progress}</Link></div></section>}
     <button type="button" className={styles.reset} onClick={reset}>{c.reset}</button>
