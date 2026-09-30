@@ -14,7 +14,32 @@ const diagnosisCopy = {
   KZ: { label: "Сіздің алдын ала диагнозыңыз және негіздемеңіз", compare: "Нұсқалармен салыстыру", note: "Алдымен өз жауабыңызды тұжырымдаңыз. Еркін мәтін автоматты бағаланбайды; кейін оны нұсқалармен және талдаумен салыстырыңыз." },
 } as const;
 
-const text = {
+
+type ReasoningLevel = "supported" | "partial" | "contradicted" | "uncertain";
+const dialogueCopy = {
+ RU:{label:"Спросите пациента своими словами",send:"Задать вопрос",student:"Студент",patient:"Пациент",unknown:"Я не совсем понял вопрос. Уточните, что именно вы хотите узнать.",supported:"Вывод согласуется с уже собранными данными. Какой следующий признак поможет его проверить?",partial:"В выводе есть верная часть, но данных пока недостаточно. Что ещё нужно уточнить?",contradicted:"Этот вывод не совпадает с частью собранных данных. Найдите признак, который ему противоречит.",uncertain:"Это пока гипотеза. Сформулируйте, каким наблюдением вы могли бы её проверить.",diagGood:"Диагноз и обоснование согласуются с локализацией и симптомами.",diagPartial:"Диагноз возможен, но обоснование неполное. Добавьте локализацию и ключевой признак.",diagWrong:"Диагноз противоречит собранным данным. Сопоставьте зоны срединного и локтевого нервов."},
+ EN:{label:"Ask the patient in your own words",send:"Ask",student:"Student",patient:"Patient",unknown:"I did not quite understand. Please clarify what you want to know.",supported:"Your inference fits the data collected so far. Which finding would test it next?",partial:"Part of the inference is reasonable, but the evidence is incomplete. What else should you clarify?",contradicted:"This inference conflicts with part of the collected data. Identify the finding that contradicts it.",uncertain:"Treat this as a hypothesis for now. What observation could test it?",diagGood:"The diagnosis and reasoning fit the localization and symptom pattern.",diagPartial:"The diagnosis may fit, but the reasoning is incomplete. Add the localization and a key finding.",diagWrong:"The diagnosis conflicts with the collected findings. Compare median and ulnar nerve territories."},
+ KZ:{label:"Пациентке өз сөзіңізбен сұрақ қойыңыз",send:"Сұрақ қою",student:"Студент",patient:"Пациент",unknown:"Сұрақты толық түсінбедім. Нені білгіңіз келетінін нақтылаңыз.",supported:"Қорытынды жиналған деректерге сәйкес. Оны келесі қандай белгімен тексеруге болады?",partial:"Қорытындының бір бөлігі дұрыс, бірақ дерек жеткіліксіз. Тағы нені нақтылау керек?",contradicted:"Бұл қорытынды жиналған деректердің бір бөлігіне қайшы. Қай белгі қайшы екенін табыңыз.",uncertain:"Әзірге бұл гипотеза. Оны қандай бақылаумен тексеруге болады?",diagGood:"Диагноз бен негіздеме локализация және симптомдармен сәйкес.",diagPartial:"Диагноз мүмкін, бірақ негіздеме толық емес. Локализация мен негізгі белгіні қосыңыз.",diagWrong:"Диагноз жиналған деректерге қайшы. Ортаңғы және шынтақ жүйке аймақтарын салыстырыңыз."}
+} as const;
+
+function classifyQuestion(q:string, language:Language){
+ const v=q.toLowerCase();
+ const groups=language==="RU"?[/пал|мизин|больш|указат|средн/,/ноч|когда|сон|время/,/ше[яи]|шей/,/слаб|держ|предмет|роня/]:
+ language==="KZ"?[/саусақ|шынашақ|бармақ|сұқ|ортаңғы/,/түн|қашан|ұйқы|уақыт/,/мойын/,/әлсіз|ұста|зат/]:
+ [/finger|thumb|index|middle|little|pinky/,/night|when|sleep|time/,/neck|cervical/,/weak|hold|grip|drop|object/];
+ return groups.findIndex(x=>x.test(v));
+}
+function classifyStatement(q:string, language:Language):ReasoningLevel{
+ const v=q.toLowerCase();
+ const median=language==="RU"?/средин|карпал|запяст/:language==="KZ"?/ортаңғы жүйке|карпал/:/median|carpal/;
+ const ulnar=language==="RU"?/локтев/:language==="KZ"?/шынтақ жүйке/:/ulnar/;
+ const evidence=language==="RU"?/пал|ноч|онем/:language==="KZ"?/саусақ|түн|ұю/:/finger|night|numb/;
+ if(ulnar.test(v)) return "contradicted";
+ if(median.test(v)&&evidence.test(v)) return "supported";
+ if(median.test(v)) return "partial";
+ return "uncertain";
+}
+\nconst text = {
   RU: {
     title: "Виртуальный пациент: онемение кисти",
     intro: "Синтетический учебный случай. Сначала задайте пациенту вопросы, затем выберите обследование и сформулируйте предварительный диагноз. Ответы можно исправлять.",
@@ -59,7 +84,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
   const [stage, setStage] = useState(0);
   const [showOptions, setShowOptions] = useState(false);
   const [questionText, setQuestionText] = useState("");
-  const [dialogue, setDialogue] = useState<Array<{ question: string; reply: string }>>([]);
+  const [dialogue, setDialogue] = useState<Array<{ question: string; reply: string; feedback?: string }>>([]);
   const [diagnosisAssessment, setDiagnosisAssessment] = useState<"good" | "partial" | "review" | null>(null);
   useEffect(() => { setProgress(readPatientProgress()); setReady(true); }, []);
   const c = text[language];\n  const d = dialogueCopy[language];
@@ -76,16 +101,19 @@ export default function VirtualPatient({ language }: { language: Language }) {
     const clean = questionText.trim();
     if (!clean) return;
     const index = classifyQuestion(clean, language);
-    const reply = index >= 0 ? c.replies[index] : d.unknown;
-    setDialogue(items => [...items, { question: clean, reply }]);
+    const looksLikeStatement = /(^|\\s)(думаю|считаю|полагаю|это|диагноз|because|think|diagnosis|болуы|деп ойлаймын)(\\s|$)/i.test(clean);
+    const reasoning = looksLikeStatement ? classifyStatement(clean, language) : null;
+    const reply = index >= 0 ? c.replies[index] : reasoning ? d[reasoning] : d.unknown;
+    setDialogue(items => [...items, { question: clean, reply, feedback: reasoning ? d[reasoning] : undefined }]);
     setQuestionText("");
     if (index >= 0) ask(index);
     speakPatient(reply);
   }
   function evaluateDiagnosis() {
-    const result = assessDiagnosis(progress.diagnosisText, language);
+    const level = classifyStatement(progress.diagnosisText, language);
+    const result = level === "supported" ? "good" : level === "partial" ? "partial" : "review";
     setDiagnosisAssessment(result);
-    if (result === "good") setShowOptions(true);
+    setShowOptions(true);
   }
   function select(index: number) {
     update({ ...progress, answers: progress.answers.map((answer, i) => i === stage ? index : answer), firstTryCorrect: progress.firstTryCorrect.map((correct, i) => i === stage && progress.answers[i] === null ? index === 0 : correct) });
@@ -114,9 +142,13 @@ export default function VirtualPatient({ language }: { language: Language }) {
           <VoiceTextarea language={language} label={diagnosisCopy[language].label} rows={4} maxLength={5000} value={progress.diagnosisText} disabled={!ready} onValue={text => update({ ...progress, diagnosisText: text })} />
           <p>{diagnosisCopy[language].note}</p>
           {!showOptions && selected === null && <button type="button" disabled={!progress.diagnosisText.trim()} onClick={evaluateDiagnosis}>{diagnosisCopy[language].compare}</button>}
-          {diagnosisAssessment && <div className={styles.feedback} role="status"><strong>{diagnosisAssessment === "good" ? d.diagnosisGood : diagnosisAssessment === "partial" ? d.diagnosisPartial : d.diagnosisReview}</strong></div>}
+          {diagnosisAssessment && <div className={styles.feedback} role="status"><strong>{diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong}</strong></div>}
         </div>}
         {stage === 0 ? <div>
+          <VoiceTextarea language={language} label={d.label} rows={2} maxLength={500} value={questionText} disabled={!ready} onValue={setQuestionText} />
+          <button type="button" disabled={!questionText.trim()} onClick={submitQuestion}>{d.send}</button>
+          {dialogue.length > 0 && <div className={styles.dialogue} aria-live="polite">{dialogue.map((turn,i)=><div key={i}><p><strong>{d.student}:</strong> {turn.question}</p><p><strong>{d.patient}:</strong> {turn.reply}</p></div>)}</div>}
+
           <p>{c.ask}</p>
           <div className={styles.questions}>{c.questions.map((question, i) => <div key={question}>
             <button type="button" disabled={!ready || progress.asked.includes(i)} onClick={() => ask(i)}>{question}</button>
