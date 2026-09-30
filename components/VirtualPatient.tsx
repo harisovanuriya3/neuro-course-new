@@ -156,7 +156,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
         {stage === 0 ? <div>
           <VoiceTextarea language={language} label={d.label} rows={2} maxLength={500} value={questionText} disabled={!ready} onValue={setQuestionText} />
           <button type="button" disabled={!questionText.trim()} onClick={submitQuestion}>{d.send}</button>
-          {dialogue.length > 0 && <div className={styles.dialogue} aria-live="polite">{dialogue.map((turn,i)=><div key={i}><p><strong>{d.student}:</strong> {turn.question}</p><p><strong>{d.patient}:</strong> {turn.reply}</p>{turn.feedback && <div className={styles.teacherFeedback}><p><strong>{d.teacher}:</strong> {turn.feedback}</p><button type="button" onClick={() => speakTeacher(turn.feedback!)}>🔊 {d.voiceTeacher}</button></div>}</div>)}</div>}
+          {dialogue.length > 0 && <div className={styles.dialogue} aria-live="polite">{dialogue.map((turn,i)=><div key={i}><p><strong>{d.student}:</strong> {turn.question}</p><p><strong>{d.patient}:</strong> {turn.reply}</p>{turn.feedback && <div className={styles.teacherFeedback}><div className={styles.teacherAvatar} aria-hidden="true"><span>👨‍⚕️</span></div><div><p><strong>{d.teacher}:</strong> {turn.feedback}</p><button type="button" onClick={() => speakTeacher(turn.feedback!)}>🔊 {d.voiceTeacher}</button></div></div>}</div>)}</div>}
 
           {progress.asked.length > 0 && <aside className={styles.findings}><strong>{d.known}:</strong><ul>{progress.asked.map(i => <li key={i}>{c.replies[i]}</li>)}</ul></aside>}
           <p>{c.ask}</p>
@@ -173,10 +173,16 @@ export default function VirtualPatient({ language }: { language: Language }) {
         </fieldset>}
         {stage === 1 && selected === 0 && <section className={styles.examMap}><h3>{c.examTitle}</h3>
           <div className={styles.handVisual} aria-label={d.handMap}>
-            <div className={styles.palm}>✋</div>
-            <div className={styles.sensoryLegend}><span className={styles.affected}>I–III</span><span className={styles.preserved}>V</span></div>
-          </div>
-          <div className={styles.findingGrid}>{c.examFindings.map((finding, index) => <div key={finding} className={index === 3 ? styles.preserved : styles.affected}>{finding}</div>)}</div><p><strong>{c.localization}</strong></p></section>}\n        {selected !== null && <div className={styles.feedback} role="status" aria-live="polite">
+            <svg className={styles.handSvg} viewBox="0 0 300 360" role="img" aria-label={d.handMap}>
+              <path className={styles.handBase} d="M92 330 C75 285 69 246 72 205 L67 123 C66 108 76 99 88 101 C99 103 103 112 104 124 L108 180 L113 67 C114 51 124 42 137 44 C149 46 154 56 153 70 L151 173 L160 48 C162 31 173 22 186 25 C199 28 203 39 201 54 L190 176 L205 73 C208 57 219 49 232 53 C244 57 247 68 244 82 L224 190 L238 126 C242 112 254 106 266 111 C277 116 279 128 274 141 L250 218 C243 244 235 278 224 330 Z"/>
+              <path className={styles.medianZone} d="M109 181 L113 67 C114 51 124 42 137 44 C149 46 154 56 153 70 L151 173 L160 48 C162 31 173 22 186 25 C199 28 203 39 201 54 L190 176 L205 73 C208 57 219 49 232 53 C244 57 247 68 244 82 L224 190 C214 209 202 225 187 239 C164 260 137 263 111 245 Z"/>
+              <path className={styles.thenarZone} d="M91 219 C101 191 125 180 145 193 C158 203 157 226 143 244 C127 264 105 266 91 250 Z"/>
+              <path className={styles.carpalZone} d="M103 278 Q158 258 220 278 L216 302 Q160 286 99 302 Z"/>
+              <text x="151" y="294" className={styles.svgLabel}>Median nerve / carpal tunnel</text>
+              <circle className={styles.pulsePoint} cx="159" cy="288" r="8"/>
+            </svg>
+            <div className={styles.sensoryLegend}><span className={styles.affected}>I–III ↓</span><span className={styles.preserved}>V ✓</span></div>
+          </div>\n          <div className={styles.findingGrid}>{c.examFindings.map((finding, index) => <div key={finding} className={index === 3 ? styles.preserved : styles.affected}>{finding}</div>)}</div><p><strong>{c.localization}</strong></p></section>}\n        {selected !== null && <div className={styles.feedback} role="status" aria-live="polite">
           {stage > 0 && <strong>{selected === 0 ? c.correct : c.revise}</strong>}
           <h3>{c.explanation}</h3>{stage > 0 && <p>{c.optionFeedback[stage][selected]}</p>}<p>{c.feedback[stage]}</p>
         </div>}
