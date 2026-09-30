@@ -4,8 +4,7 @@ import type { LocalizedLesson, PracticeLesson, SectionLesson } from '../types';
 import { topics, type Topic } from './topics';
 import { createFoundationCase, createFoundationTest } from './assessment';
 
-// This is an initial reading/worksheet layer. Absent sections remain absent;
-// tests and clinical cases require their own reviewed content and scoring.
+// Shared foundation for modules 2–25. Topic-specific content is progressively deepened while keeping one reusable architecture.
 export const foundationSections = ['objectives', 'pretest', 'theory', 'one-minute', 'clinical', 'practice', 'cases', 'tests', 'questions', 'glossary', 'references'] as const;
 const sources: Record<string, { title: string; href: string }> = {
   cns: { title: 'OpenStax · The Central Nervous System', href: 'https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system' },
@@ -133,7 +132,7 @@ function create(topic: Topic, section: typeof foundationSections[number], langua
     questions: [{ id: `module-${topic.id}-review`, prompt: question, explanation: `${mechanism} ${interpretation}`, target: { section: 'theory' } }],
   };
   if (section === 'references') {
-    const keys = [...topic.sources, ...(topic.id === 2 || topic.id === 18 ? ['methods'] : []), ...(topic.id === 21 ? ['learning'] : [])];
+    const keys = [...topic.sources, ...(topic.id === 2 || topic.id === 18 ? ['methods'] : []), ...(topic.id === 23 ? ['learning'] : [])];
     return {
       kind: 'references', title, introduction: c.referenceIntro,
       cards: [{ id: 'department-materials', title: c.materials, paragraphs: topic.materials.length ? topic.materials : [c.noMaterials], links }],
