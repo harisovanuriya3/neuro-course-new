@@ -69,3 +69,16 @@
 .teacherFeedback { display:flex; gap:12px; align-items:flex-start; }
 .teacherAvatar { flex:0 0 48px; width:48px; height:48px; display:grid; place-items:center; border:1px solid #d5dde3; border-radius:50%; background:#fff; font-size:28px; }
 @media (prefers-reduced-motion: reduce) { .pulsePoint { animation:none; } }
+
+.stageBadge { position:absolute; top:10px; left:10px; z-index:2; padding:6px 10px; border-radius:999px; background:rgba(0,75,135,.9); color:white; font-weight:800; }
+.photo { position:relative; }
+.photo img { transition:transform .7s ease, filter .7s ease; }
+.photoStage0 img { transform:scale(1); }
+.photoStage1 img { transform:scale(1.045); filter:contrast(1.04); }
+.photoStage2 img { transform:scale(1.02); filter:contrast(1.06) saturate(1.04); }
+.mentorCard { margin-top:14px; padding:14px; display:flex; gap:12px; border:2px solid #005b96; border-radius:12px; background:#f4faff; box-shadow:0 8px 24px rgba(0,75,135,.12); }
+.mentorCard p { margin:5px 0 10px; }
+.mentorPortrait { flex:0 0 64px; width:64px; height:64px; display:grid; place-items:center; border-radius:50%; background:white; border:2px solid #9fc5df; font-size:38px; animation:mentorEnter .45s ease both; }
+.mentorVoice { font:inherit; font-weight:800; padding:8px 11px; border-radius:8px; border:1px solid #005b96; background:#005b96; color:white; cursor:pointer; }
+@keyframes mentorEnter { from { opacity:0; transform:translateY(8px) scale(.96); } to { opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce) { .photo img,.mentorPortrait { transition:none; animation:none; transform:none; } }
