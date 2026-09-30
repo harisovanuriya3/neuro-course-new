@@ -96,3 +96,19 @@
 .mixerGrid input[type="range"] { width:100%; accent-color:#005b96; }
 .mixerNote { margin:10px 0 0; font-size:.86rem; color:#526b80; }
 @media (max-width:700px) { .mixerGrid { grid-template-columns:1fr; } }
+
+.clinicalDesk { display:grid; grid-template-columns:minmax(210px,280px) minmax(360px,1fr) minmax(220px,290px); gap:18px; align-items:start; }
+.patientPanel,.studentPanel,.teacherPanel { min-width:0; }
+.teacherPanel { position:sticky; top:18px; padding:16px; border:1px solid #b9d2e2; border-radius:16px; background:#f7fbfe; box-shadow:0 10px 30px rgba(0,75,135,.10); }
+.teacherVisual { height:180px; position:relative; overflow:hidden; border-radius:12px; background:linear-gradient(180deg,#dcecf5,#eef6fa); margin-bottom:12px; }
+.teacherHead { position:absolute; width:76px; height:88px; border-radius:45% 45% 48% 48%; background:#d8b49c; left:50%; top:20px; transform:translateX(-50%); box-shadow:inset 0 14px 0 #d8d9da; }
+.teacherBody { position:absolute; width:170px; height:110px; border-radius:60px 60px 0 0; background:white; left:50%; bottom:-25px; transform:translateX(-50%); border:1px solid #cbd9e2; }
+.teacherIdentity { display:grid; margin-bottom:10px; }
+.teacherIdentity span { font-size:.82rem; color:#526b80; }
+.teacherBubble { padding:11px 12px; background:white; border-left:4px solid #005b96; border-radius:9px; margin-bottom:10px; }
+.teacherBubble p { margin:0; }
+.branchTrail { display:grid; gap:7px; margin-top:14px; font-size:.86rem; }
+.branchTrail span { padding:7px 9px; border-radius:8px; background:white; border:1px solid #d5e2ea; }
+.branchTrail .activeBranch { border-color:#005b96; background:#e8f4fc; font-weight:800; }
+@media (max-width:1050px) { .clinicalDesk { grid-template-columns:minmax(220px,300px) 1fr; } .teacherPanel { position:static; grid-column:1/-1; display:grid; grid-template-columns:140px 1fr; gap:12px; } .teacherVisual { height:150px; grid-row:1/5; } }
+@media (max-width:700px) { .clinicalDesk { grid-template-columns:1fr; } .teacherPanel { grid-column:auto; display:block; } .teacherVisual { height:150px; } }
