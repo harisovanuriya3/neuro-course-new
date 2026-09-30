@@ -131,6 +131,18 @@ export default function VirtualPatient({ language }: { language: Language }) {
   function select(index: number) {
     update({ ...progress, answers: progress.answers.map((answer, i) => i === stage ? index : answer), firstTryCorrect: progress.firstTryCorrect.map((correct, i) => i === stage && progress.answers[i] === null ? index === 0 : correct) });
   }
+  const [masterVolume, setMasterVolume] = useState(1);
+  const [patientVolume, setPatientVolume] = useState(1);
+  const [teacherVolume, setTeacherVolume] = useState(1);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const raw = window.localStorage.getItem("neuro-course:voice-mixer");
+    if (raw) { try { const v = JSON.parse(raw); setMasterVolume(v.master ?? 1); setPatientVolume(v.patient ?? 1); setTeacherVolume(v.teacher ?? 1); } catch {} }
+  }, []);
+  function saveMixer(master:number, patient:number, teacher:number) {
+    setMasterVolume(master); setPatientVolume(patient); setTeacherVolume(teacher);
+    if (typeof window !== "undefined") window.localStorage.setItem("neuro-course:voice-mixer", JSON.stringify({master,patient,teacher}));
+  }
   function speakTeacher(reply: string) {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
     window.speechSynthesis.cancel();
@@ -138,7 +150,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
     utterance.lang = language === "RU" ? "ru-RU" : language === "KZ" ? "kk-KZ" : "en-US";
     utterance.rate = 0.86;
     utterance.pitch = 0.92;
-    utterance.volume = 1;
+    utterance.volume = Math.min(1, masterVolume * teacherVolume);
     window.speechSynthesis.speak(utterance);
   }
   function speakPatient(reply: string) {
@@ -146,7 +158,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(reply);
     utterance.lang = language === "RU" ? "ru-RU" : language === "KZ" ? "kk-KZ" : "en-US";
-    utterance.volume = 1;
+    utterance.volume = Math.min(1, masterVolume * patientVolume);
     window.speechSynthesis.speak(utterance);
   }
   function reset() { if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel(); const cleared = emptyPatientProgress(); update(cleared); setStage(0); setShowOptions(false); setQuestionText(""); setDialogue([]); setDiagnosisAssessment(null); }
@@ -162,6 +174,15 @@ export default function VirtualPatient({ language }: { language: Language }) {
         : diagnosisCopy[language].note;
   return <article className={styles.patient}>
     <h1>{c.title}</h1><p>{c.intro}</p>
+    <details className={styles.voiceMixer}>
+      <summary>🔊 {language === "RU" ? "Микшер голосов" : language === "KZ" ? "Дауыс микшері" : "Voice mixer"}</summary>
+      <div className={styles.mixerGrid}>
+        <label><span>{language === "RU" ? "Общая громкость" : language === "KZ" ? "Жалпы дыбыс" : "Master volume"}: {Math.round(masterVolume*100)}%</span><input type="range" min="0" max="1" step="0.05" value={masterVolume} onChange={e=>saveMixer(Number(e.target.value),patientVolume,teacherVolume)} /></label>
+        <label><span>{d.patient}: {Math.round(patientVolume*100)}%</span><input type="range" min="0" max="1" step="0.05" value={patientVolume} onChange={e=>saveMixer(masterVolume,Number(e.target.value),teacherVolume)} /></label>
+        <label><span>{d.teacher}: {Math.round(teacherVolume*100)}%</span><input type="range" min="0" max="1" step="0.05" value={teacherVolume} onChange={e=>saveMixer(masterVolume,patientVolume,Number(e.target.value))} /></label>
+      </div>
+      <p className={styles.mixerNote}>{language === "RU" ? "По умолчанию все каналы 100%. Итоговая громкость также зависит от системной громкости устройства и браузера." : language === "KZ" ? "Әдепкіде барлық арна 100%. Соңғы дыбыс құрылғы мен браузер дыбысына да байланысты." : "All channels default to 100%. Final loudness also depends on device and browser volume."}</p>
+    </details>
     <div className={styles.layout}>
       <figure className={`${styles.photo} ${styles[`photoStage${stage}`]}`}>
         <div className={styles.stageBadge}>{c.stage} {stage + 1}</div>
