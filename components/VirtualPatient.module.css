@@ -34,3 +34,10 @@
 .courseModules > div { padding: 12px; border: 1px solid #d6e4ec; border-radius: 10px; }
 .courseModules h3 { font-size: 1rem; margin: 0; }
 @media (max-width: 700px) { .layout { grid-template-columns: 1fr; } .photo { max-width: 430px; } }
+
+.examMap { margin: 16px 0; padding: 14px; border: 1px solid #c7d9e5; border-radius: 10px; background: #f7fbfd; }
+.examMap h3 { margin-top: 0; }
+.findingGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 8px; margin: 10px 0; }
+.findingGrid > div { padding: 10px; border-radius: 8px; border: 1px solid #c7d9e5; }
+.affected { background: #fff2e8; }
+.preserved { background: #e9f6ef; }
