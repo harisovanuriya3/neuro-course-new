@@ -49,3 +49,11 @@
 .teacherFeedback { margin-top: 8px; padding: 10px 12px; border-left: 4px solid currentColor; background: rgba(127,127,127,.08); border-radius: 8px; }
 .findings { margin: 14px 0; padding: 12px 14px; border: 1px solid #d5dde3; border-radius: 10px; }
 .findings ul { margin: 8px 0 0; padding-left: 20px; }
+
+.handVisual { display:flex; align-items:center; gap:18px; padding:14px; margin:12px 0; border:1px solid #d5dde3; border-radius:12px; overflow:hidden; }
+.palm { font-size:clamp(72px,14vw,150px); line-height:1; animation:patientHandPulse 2.4s ease-in-out infinite; }
+.sensoryLegend { display:grid; gap:10px; min-width:90px; }
+.sensoryLegend span { display:block; padding:8px 10px; border-radius:9px; font-weight:700; text-align:center; }
+@keyframes patientHandPulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.035); } }
+@media (prefers-reduced-motion: reduce) { .palm { animation:none; } }
+@media (max-width: 520px) { .handVisual { flex-direction:column; align-items:stretch; } .palm { text-align:center; } }
