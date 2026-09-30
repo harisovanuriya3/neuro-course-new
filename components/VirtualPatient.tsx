@@ -103,6 +103,8 @@ export default function VirtualPatient({ language }: { language: Language }) {
   const d = dialogueCopy[language];
   const answered = progress.answers.filter(value => value !== null).length;
   const selected = progress.answers[stage];
+  const stages = language === "RU" ? ["Анамнез","Осмотр","Локализация","Обследование","Диагноз","Итог"] : language === "KZ" ? ["Анамнез","Тексеру","Локализация","Зерттеу","Диагноз","Қорытынды"] : ["History","Exam","Localization","Investigation","Diagnosis","Summary"];
+  const branchOptions = language === "RU" ? [[],["Исследовать чувствительность I–V пальцев","Проверить только зрачки","Сразу перейти к диагнозу"],["Срединный нерв на уровне запястья","Локтевой нерв в области локтя","Шейный корешок без дальнейшей проверки"],["ЭНМГ/исследование проводимости при необходимости подтверждения","МРТ головного мозга как первый тест","Никаких исследований никогда не требуется"],["Синдром запястного канала","Изолированная локтевая невропатия","Диагноз доказан только жалобами"],["Сопоставить анамнез, осмотр, локализацию и ограничения гипотезы","Запомнить только название диагноза","Игнорировать противоречащие признаки"]] : language === "KZ" ? [[],["I–V саусақтардың сезімталдығын тексеру","Тек қарашықтарды тексеру","Бірден диагнозға өту"],["Білек деңгейіндегі ортаңғы жүйке","Шынтақ аймағындағы шынтақ жүйкесі","Қосымша тексерусіз мойын түбірі"],["Қажет болса ЭНМГ/өткізгіштікті зерттеу","Алғашқы тест ретінде ми МРТ","Зерттеу ешқашан қажет емес"],["Карпальды туннель синдромы","Оқшауланған шынтақ невропатиясы","Диагноз тек шағыммен дәлелденген"],["Анамнез, тексеру, локализация және гипотеза шектеулерін біріктіру","Тек диагноз атауын жаттау","Қайшы белгілерді елемеу"]] : [[],["Test sensation in digits I–V","Check pupils only","Jump directly to diagnosis"],["Median nerve at the wrist","Ulnar nerve at the elbow","Cervical root without further testing"],["Nerve-conduction study/EMG if confirmation is needed","Brain MRI as the first test","No investigation is ever needed"],["Carpal tunnel syndrome","Isolated ulnar neuropathy","Symptoms alone prove the diagnosis"],["Integrate history, exam, localization, and uncertainty","Memorize only the label","Ignore conflicting findings"]];
   function update(value: PatientProgress) { setProgress(value); savePatientProgress(value); }
   function ask(index: number) {
     if (progress.asked.includes(index)) return;
@@ -168,6 +170,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
     ? (lastAsked >= 0 ? tb.history[lastAsked] : c.hint)
     : stage === 1
       ? (selected === null ? c.tasks[1] : selected === 0 ? tb.examGood : tb.examWrong)
+      : stage < 4 ? (selected === null ? (language === "RU" ? "Выберите действие и объясните, проверяет ли оно вашу текущую гипотезу." : language === "KZ" ? "Әрекетті таңдап, оның гипотезаңызды тексеретінін түсіндіріңіз." : "Choose an action and explain whether it tests your current hypothesis.") : selected === 0 ? tb.examGood : tb.examWrong)
       : diagnosisAssessment === "good" ? tb.diagnosisGood
         : diagnosisAssessment === "partial" ? tb.diagnosisPartial
         : diagnosisAssessment === "review" ? tb.diagnosisWrong
@@ -191,10 +194,11 @@ export default function VirtualPatient({ language }: { language: Language }) {
       </figure>
       <div className={`${styles.work} ${styles.studentPanel}`}>
         <p className={styles.situation}>{c.situation}</p>
-        <p className={styles.counter}>{c.stage} {stage + 1} / 3 · {answered} / 3</p>
-        <progress value={answered} max={3} aria-label={c.stage} />
-        <h2>{c.tasks[stage]}</h2>
-        {stage === 2 && <div>
+        <nav className={styles.stageNav} aria-label={c.stage}>{stages.map((name,i)=><button key={name} type="button" className={i===stage?styles.activeStage:undefined} disabled={i>stage && progress.answers[i-1]===null} onClick={()=>setStage(i)}><span>{i+1}</span>{name}</button>)}</nav>
+        <p className={styles.counter}>{c.stage} {stage + 1} / 6 · {answered} / 6</p>
+        <progress value={answered} max={6} aria-label={c.stage} />
+        <h2>{stage===0?c.tasks[0]:stages[stage]}</h2>
+        {stage === 4 && <div>
           <VoiceTextarea language={language} label={diagnosisCopy[language].label} rows={4} maxLength={5000} value={progress.diagnosisText} disabled={!ready} onValue={text => update({ ...progress, diagnosisText: text })} />
           <p>{diagnosisCopy[language].note}</p>
           {!showOptions && selected === null && <button type="button" disabled={!progress.diagnosisText.trim()} onClick={evaluateDiagnosis}>{diagnosisCopy[language].compare}</button>}
@@ -212,13 +216,13 @@ export default function VirtualPatient({ language }: { language: Language }) {
             {progress.asked.includes(i) && <div><p><strong>{c.asked}:</strong> {c.replies[i]}</p><button type="button" onClick={() => speakPatient(c.replies[i])}>🔊 {c.voicePatient}</button></div>}
           </div>)}</div>
           {selected === null && <p>{c.hint}</p>}
-        </div> : (stage !== 2 || showOptions || selected !== null) && <fieldset disabled={!ready}>
+        </div> : (stage !== 4 || showOptions || selected !== null) && <fieldset disabled={!ready}>
           <legend>{c.choice}</legend>
-          {c.options[stage].map((option, index) => <label key={option} className={selected === index ? styles.selected : undefined}>
+          {branchOptions[stage].map((option, index) => <label key={option} className={selected === index ? styles.selected : undefined}>
             <input type="radio" name={`patient-${stage}`} checked={selected === index} onChange={() => select(index)} /> {option}
           </label>)}
         </fieldset>}
-        {stage === 1 && selected === 0 && <section className={styles.examMap}><h3>{c.examTitle}</h3>
+        {stage >= 1 && stage <= 3 && selected === 0 && <section className={styles.examMap}><h3>{c.examTitle}</h3>
           <div className={styles.handVisual} aria-label={d.handMap}>
             <svg className={styles.handSvg} viewBox="0 0 300 360" role="img" aria-label={d.handMap}>
               <path className={styles.handBase} d="M92 330 C75 285 69 246 72 205 L67 123 C66 108 76 99 88 101 C99 103 103 112 104 124 L108 180 L113 67 C114 51 124 42 137 44 C149 46 154 56 153 70 L151 173 L160 48 C162 31 173 22 186 25 C199 28 203 39 201 54 L190 176 L205 73 C208 57 219 49 232 53 C244 57 247 68 244 82 L224 190 L238 126 C242 112 254 106 266 111 C277 116 279 128 274 141 L250 218 C243 244 235 278 224 330 Z"/>
@@ -233,11 +237,11 @@ export default function VirtualPatient({ language }: { language: Language }) {
           <div className={styles.findingGrid}>{c.examFindings.map((finding, index) => <div key={finding} className={index === 3 ? styles.preserved : styles.affected}>{finding}</div>)}</div><p><strong>{c.localization}</strong></p></section>}
         {selected !== null && <div className={styles.feedback} role="status" aria-live="polite">
           {stage > 0 && <strong>{selected === 0 ? c.correct : c.revise}</strong>}<div className={styles.inlineMentor}><strong>{d.teacher}:</strong> {teacherNow} <button type="button" onClick={() => speakTeacher(teacherNow)}>🔊</button></div>
-          <h3>{c.explanation}</h3>{stage > 0 && <p>{c.optionFeedback[stage][selected]}</p>}<p>{c.feedback[stage]}</p>
+          <h3>{c.explanation}</h3>{stage > 0 && stage < 3 && <p>{c.optionFeedback[stage][selected]}</p>}<p>{stage < 3 ? c.feedback[stage] : teacherNow}</p>
         </div>}
         <div className={styles.actions}>
           <button type="button" onClick={() => setStage(value => value - 1)} disabled={stage === 0}>{c.previous}</button>
-          {stage < 2 ? <button type="button" onClick={() => setStage(value => value + 1)} disabled={selected === null}>{c.next}</button> : answered === 3 ? <Link href={`/modules/1/progress?lang=${language}`}>{c.result}</Link> : null}
+          {stage < 5 ? <button type="button" onClick={() => { if(stage===4 && diagnosisAssessment===null) evaluateDiagnosis(); setStage(value => value + 1); }} disabled={stage===4 ? !progress.diagnosisText.trim() : selected === null}>{c.next}</button> : answered >= 5 ? <Link href={`/modules/1/progress?lang=${language}`}>{c.result}</Link> : null}
         </div>
       </div>
       <aside className={styles.teacherPanel} aria-live="polite">
@@ -248,11 +252,11 @@ export default function VirtualPatient({ language }: { language: Language }) {
         <div className={styles.branchTrail}><strong>{language === "RU" ? "Текущая ветвь" : language === "KZ" ? "Ағымдағы тармақ" : "Current branch"}</strong>
           <span className={stage === 0 ? styles.activeBranch : ""}>{language === "RU" ? "Анамнез" : language === "KZ" ? "Анамнез" : "History"}</span>
           <span className={stage === 1 ? styles.activeBranch : ""}>{language === "RU" ? "Локализация и осмотр" : language === "KZ" ? "Локализация және тексеру" : "Localization & exam"}</span>
-          <span className={stage === 2 ? styles.activeBranch : ""}>{language === "RU" ? "Диагностическое рассуждение" : language === "KZ" ? "Диагностикалық пайым" : "Diagnostic reasoning"}</span>
+          <span className={stage >= 2 ? styles.activeBranch : ""}>{language === "RU" ? "Локализация → обследование → диагноз → итог" : language === "KZ" ? "Диагностикалық пайым" : "Diagnostic reasoning"}</span>
         </div>
       </aside>
     </div>
-    {answered === 3 && <section role="status" className={styles.finished}><h3>{d.summary}</h3><p>{diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong}</p><button type="button" onClick={() => speakTeacher(diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong)}>🔊 {d.voiceTeacher}</button><p>{c.independent}: {progress.firstTryCorrect.filter(Boolean).length} / 3. {c.saved}</p><div className={styles.actions}><button type="button" onClick={() => { const wrong = progress.firstTryCorrect.map((v,i)=>v?null:i).filter(v=>v!==null) as number[]; const cleared = emptyPatientProgress(); update({...cleared, asked: wrong.includes(0)?[]:progress.asked}); setStage(wrong[0] ?? 0); setShowOptions(false); setDiagnosisAssessment(null); }}>{d.retry}</button><Link href={`/modules/1/theory?lang=${language}`}>{d.theory}</Link><Link href={`/modules/1/progress?lang=${language}`}>{c.progress}</Link></div></section>}
+    {answered >= 5 && <section role="status" className={styles.finished}><h3>{d.summary}</h3><p>{diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong}</p><button type="button" onClick={() => speakTeacher(diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong)}>🔊 {d.voiceTeacher}</button><p>{c.independent}: {progress.firstTryCorrect.filter(Boolean).length} / 6. {c.saved}</p><div className={styles.actions}><button type="button" onClick={() => { const wrong = progress.firstTryCorrect.map((v,i)=>v?null:i).filter(v=>v!==null) as number[]; const cleared = emptyPatientProgress(); update({...cleared, asked: wrong.includes(0)?[]:progress.asked}); setStage(wrong[0] ?? 0); setShowOptions(false); setDiagnosisAssessment(null); }}>{d.retry}</button><Link href={`/modules/1/theory?lang=${language}`}>{d.theory}</Link><Link href={`/modules/1/progress?lang=${language}`}>{c.progress}</Link></div></section>}
     <button type="button" className={styles.reset} onClick={reset}>{c.reset}</button>
     <p className={styles.sources}>{c.sources}: <a href="https://www.niams.nih.gov/health-topics/carpal-tunnel-syndrome" target="_blank" rel="noopener noreferrer">NIAMS</a> · <a href="https://orthoinfo.aaos.org/globalassets/pdfs/plain-language-summary_carpal-tunnel-syndrome-2024.pdf" target="_blank" rel="noopener noreferrer">AAOS</a></p>
   </article>;
