@@ -87,3 +87,12 @@
 .teacherDecision p { margin:6px 0 10px; }
 .teacherDecision button,.inlineMentor button { font:inherit; cursor:pointer; }
 .inlineMentor { margin-top:10px; padding:10px 12px; border-radius:9px; background:#edf6ff; }
+
+.voiceMixer { margin:14px 0 20px; padding:12px 14px; border:1px solid #9fc5df; border-radius:12px; background:#f7fbfe; }
+.voiceMixer summary { cursor:pointer; font-weight:800; color:#004b87; }
+.mixerGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:14px; }
+.mixerGrid label { margin:0; padding:10px; cursor:default; }
+.mixerGrid span { display:block; font-weight:700; margin-bottom:7px; }
+.mixerGrid input[type="range"] { width:100%; accent-color:#005b96; }
+.mixerNote { margin:10px 0 0; font-size:.86rem; color:#526b80; }
+@media (max-width:700px) { .mixerGrid { grid-template-columns:1fr; } }
