@@ -12,6 +12,8 @@ const ui: Record<
     subtitle: string;
     module: string;
     open: string;
+    exam: string;
+    examDescription: string;
   }
 > = {
   RU: {
@@ -19,6 +21,8 @@ const ui: Record<
     subtitle: "Выберите учебный модуль",
     module: "Модуль",
     open: "Открыть модуль →",
+    exam: "Экзаменационный центр",
+    examDescription: "Итоговый контроль без подсказок во время попытки",
   },
 
   KZ: {
@@ -26,6 +30,8 @@ const ui: Record<
     subtitle: "Оқу модулін таңдаңыз",
     module: "Модуль",
     open: "Модульді ашу →",
+    exam: "Емтихан орталығы",
+    examDescription: "Талпыныс кезінде кеңессіз қорытынды бақылау",
   },
 
   EN: {
@@ -33,6 +39,8 @@ const ui: Record<
     subtitle: "Choose a learning module",
     module: "Module",
     open: "Open module →",
+    exam: "Exam Center",
+    examDescription: "Summative assessment without hints during the attempt",
   },
 };
 
@@ -132,7 +140,7 @@ export default async function HomePage({
           <p>{interfaceText[lang].author}: {interfaceText[lang].authorName}</p>
         </div>
 
-        {/* 23 модуля */}
+        {/* 25 modules */}
         <div
           style={{
             display: "grid",
@@ -200,6 +208,13 @@ export default async function HomePage({
             );
           })}
         </div>
+        <section style={{ marginTop: "32px", background: "#ffffff", border: "2px solid #b9d3e6", borderRadius: "18px", padding: "26px" }}>
+          <h2 style={{ marginTop: 0 }}>{t.exam}</h2>
+          <p style={{ color: "#60758a" }}>{t.examDescription}</p>
+          <Link href={`/exam?lang=${lang}`} style={{ color: "#0067ad", fontWeight: 700, textDecoration: "none" }}>
+            {t.exam} →
+          </Link>
+        </section>
       </section>
     </main>
   );
