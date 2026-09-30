@@ -58,8 +58,11 @@ export default function VirtualPatient({ language }: { language: Language }) {
   const [ready, setReady] = useState(false);
   const [stage, setStage] = useState(0);
   const [showOptions, setShowOptions] = useState(false);
+  const [questionText, setQuestionText] = useState("");
+  const [dialogue, setDialogue] = useState<Array<{ question: string; reply: string }>>([]);
+  const [diagnosisAssessment, setDiagnosisAssessment] = useState<"good" | "partial" | "review" | null>(null);
   useEffect(() => { setProgress(readPatientProgress()); setReady(true); }, []);
-  const c = text[language];
+  const c = text[language];\n  const d = dialogueCopy[language];
   const answered = progress.answers.filter(value => value !== null).length;
   const selected = progress.answers[stage];
   function update(value: PatientProgress) { setProgress(value); savePatientProgress(value); }
@@ -68,6 +71,21 @@ export default function VirtualPatient({ language }: { language: Language }) {
     const asked = [...progress.asked, index];
     const complete = asked.includes(0) && asked.includes(1);
     update({ ...progress, asked, answers: progress.answers.map((answer, i) => i === 0 && complete ? 0 : answer), firstTryCorrect: progress.firstTryCorrect.map((correct, i) => i === 0 && progress.asked.length === 0 ? index === 0 || index === 1 : correct) });
+  }
+  function submitQuestion() {
+    const clean = questionText.trim();
+    if (!clean) return;
+    const index = classifyQuestion(clean, language);
+    const reply = index >= 0 ? c.replies[index] : d.unknown;
+    setDialogue(items => [...items, { question: clean, reply }]);
+    setQuestionText("");
+    if (index >= 0) ask(index);
+    speakPatient(reply);
+  }
+  function evaluateDiagnosis() {
+    const result = assessDiagnosis(progress.diagnosisText, language);
+    setDiagnosisAssessment(result);
+    if (result === "good") setShowOptions(true);
   }
   function select(index: number) {
     update({ ...progress, answers: progress.answers.map((answer, i) => i === stage ? index : answer), firstTryCorrect: progress.firstTryCorrect.map((correct, i) => i === stage && progress.answers[i] === null ? index === 0 : correct) });
@@ -79,7 +97,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
     utterance.lang = language === "RU" ? "ru-RU" : language === "KZ" ? "kk-KZ" : "en-US";
     window.speechSynthesis.speak(utterance);
   }
-  function reset() { if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel(); const cleared = emptyPatientProgress(); update(cleared); setStage(0); setShowOptions(false); }
+  function reset() { if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel(); const cleared = emptyPatientProgress(); update(cleared); setStage(0); setShowOptions(false); setQuestionText(""); setDialogue([]); setDiagnosisAssessment(null); }
   return <article className={styles.patient}>
     <h1>{c.title}</h1><p>{c.intro}</p>
     <div className={styles.layout}>
@@ -95,7 +113,8 @@ export default function VirtualPatient({ language }: { language: Language }) {
         {stage === 2 && <div>
           <VoiceTextarea language={language} label={diagnosisCopy[language].label} rows={4} maxLength={5000} value={progress.diagnosisText} disabled={!ready} onValue={text => update({ ...progress, diagnosisText: text })} />
           <p>{diagnosisCopy[language].note}</p>
-          {!showOptions && selected === null && <button type="button" disabled={!progress.diagnosisText.trim()} onClick={() => setShowOptions(true)}>{diagnosisCopy[language].compare}</button>}
+          {!showOptions && selected === null && <button type="button" disabled={!progress.diagnosisText.trim()} onClick={evaluateDiagnosis}>{diagnosisCopy[language].compare}</button>}
+          {diagnosisAssessment && <div className={styles.feedback} role="status"><strong>{diagnosisAssessment === "good" ? d.diagnosisGood : diagnosisAssessment === "partial" ? d.diagnosisPartial : d.diagnosisReview}</strong></div>}
         </div>}
         {stage === 0 ? <div>
           <p>{c.ask}</p>
