@@ -208,14 +208,14 @@ export const sections = [
     slug: "progress",
     icon: "⭐",
     title: {
-      RU: "Мой прогресс",
-      KZ: "Менің прогресім",
-      EN: "My Progress",
+      RU: "Прогресс и оценивание",
+      KZ: "Прогресс және бағалау",
+      EN: "Progress and Assessment",
     },
     description: {
-      RU: "Результаты, ошибки и персональные рекомендации",
-      KZ: "Нәтижелер, қателер және жеке ұсыныстар",
-      EN: "Results, mistakes, and personalized recommendations",
+      RU: "Результаты, формирующее оценивание, ошибки и персональные рекомендации",
+      KZ: "Нәтижелер, қалыптастырушы бағалау, қателер және жеке ұсыныстар",
+      EN: "Results, formative assessment, mistakes, and personalized recommendations",
     },
   },
   {
