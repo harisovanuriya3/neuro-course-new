@@ -8,7 +8,7 @@ export type PatientProgress = {
 };
 
 export const emptyPatientProgress = (): PatientProgress => ({
-  asked: [], answers: [null, null, null], firstTryCorrect: [false, false, false], diagnosisText: "",
+  asked: [], answers: [null, null, null, null, null, null], firstTryCorrect: [false, false, false, false, false, false], diagnosisText: "",
 });
 
 export function readPatientProgress(): PatientProgress {
@@ -16,9 +16,9 @@ export function readPatientProgress(): PatientProgress {
     const value = JSON.parse(localStorage.getItem(patientProgressKey) || "null");
     if (!value || !Array.isArray(value.answers) || !Array.isArray(value.firstTryCorrect)) return emptyPatientProgress();
     return {
-      asked: Array.isArray(value.asked) ? [...new Set<number>(value.asked.filter((n: unknown) => Number.isInteger(n) && Number(n) >= 0 && Number(n) < 4))] : [],
-      answers: [0, 1, 2].map(i => Number.isInteger(value.answers[i]) && value.answers[i] >= 0 && value.answers[i] <= 2 ? value.answers[i] : null),
-      firstTryCorrect: [0, 1, 2].map(i => value.firstTryCorrect[i] === true),
+      asked: Array.isArray(value.asked) ? [...new Set<number>(value.asked.filter((n: unknown) => Number.isInteger(n) && Number(n) >= 0 && Number(n) < 8))] : [],
+      answers: [0, 1, 2, 3, 4, 5].map(i => Number.isInteger(value.answers[i]) && value.answers[i] >= 0 && value.answers[i] <= 2 ? value.answers[i] : null),
+      firstTryCorrect: [0, 1, 2, 3, 4, 5].map(i => value.firstTryCorrect[i] === true),
       diagnosisText: typeof value.diagnosisText === "string" ? value.diagnosisText.slice(0, 5000) : "",
     };
   } catch { return emptyPatientProgress(); }
