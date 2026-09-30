@@ -2,10 +2,11 @@ import { modules, type Language } from '../course';
 import { getSectionTitle, type Section } from '../sections';
 import type { LocalizedLesson, PracticeLesson, SectionLesson } from '../types';
 import { topics, type Topic } from './topics';
+import { createFoundationCase, createFoundationTest } from './assessment';
 
 // This is an initial reading/worksheet layer. Absent sections remain absent;
 // tests and clinical cases require their own reviewed content and scoring.
-export const foundationSections = ['objectives', 'pretest', 'theory', 'one-minute', 'clinical', 'practice', 'questions', 'glossary', 'references'] as const;
+export const foundationSections = ['objectives', 'pretest', 'theory', 'one-minute', 'clinical', 'practice', 'cases', 'tests', 'questions', 'glossary', 'references'] as const;
 const sources: Record<string, { title: string; href: string }> = {
   cns: { title: 'OpenStax · The Central Nervous System', href: 'https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system' },
   cells: { title: 'OpenStax · Nervous Tissue', href: 'https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue' },
@@ -112,6 +113,8 @@ function create(topic: Topic, section: typeof foundationSections[number], langua
       target: { section: 'theory' as const },
     })),
   };
+  if (section === 'cases') return createFoundationCase(topic, language, moduleTitle);
+  if (section === 'tests') return createFoundationTest(topic, language, moduleTitle);
   if (section === 'practice') {
     const ui: PracticeLesson['ui'] = {
       showAnswer: language === 'RU' ? 'Показать объяснение' : language === 'EN' ? 'Show explanation' : 'Түсіндірмені көрсету',
