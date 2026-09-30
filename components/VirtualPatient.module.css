@@ -82,3 +82,8 @@
 .mentorVoice { font:inherit; font-weight:800; padding:8px 11px; border-radius:8px; border:1px solid #005b96; background:#005b96; color:white; cursor:pointer; }
 @keyframes mentorEnter { from { opacity:0; transform:translateY(8px) scale(.96); } to { opacity:1; transform:none; } }
 @media (prefers-reduced-motion: reduce) { .photo img,.mentorPortrait { transition:none; animation:none; transform:none; } }
+
+.teacherDecision { margin:12px 0; padding:14px; border:2px solid #005b96; border-radius:12px; background:#f4faff; }
+.teacherDecision p { margin:6px 0 10px; }
+.teacherDecision button,.inlineMentor button { font:inherit; cursor:pointer; }
+.inlineMentor { margin-top:10px; padding:10px 12px; border-radius:9px; background:#edf6ff; }
