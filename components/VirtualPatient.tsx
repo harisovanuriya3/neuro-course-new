@@ -16,6 +16,11 @@ const diagnosisCopy = {
 
 
 type ReasoningLevel = "supported" | "partial" | "contradicted" | "uncertain";
+const teacherBranches = {
+ RU:{history:["Хорошее начало. Теперь уточните распределение симптомов по пальцам.","Вы выяснили время появления симптомов. Сопоставьте ночное усиление с возможным уровнем компрессии.","Отсутствие боли в шее уменьшает поддержку шейной гипотезы, но само по себе её не исключает.","Снижение ловкости — функционально важная находка. Теперь проверьте двигательную функцию тенара."],examGood:"Вы выбрали исследование, которое проверяет локализацию. Сначала сравните I–III пальцы с V пальцем, затем оцените тенар.",examWrong:"Этот выбор не проверяет вашу нейроанатомическую гипотезу. Вернитесь к территории чувствительности и двигательной функции.",diagnosisGood:"Локализация и ключевые признаки согласованы. Сформулируйте, какие данные всё ещё нужны для клинического подтверждения.",diagnosisPartial:"Название диагноза похоже на рабочую гипотезу, но преподавателю важно увидеть ход рассуждения: нерв, уровень поражения и два поддерживающих признака.",diagnosisWrong:"Не спешите менять весь диагноз. Сначала найдите конкретный признак, который противоречит выбранной локализации."},
+ EN:{history:["Good start. Now clarify the sensory distribution across the fingers.","You established the timing. Relate nocturnal worsening to a possible compression level.","Absence of neck pain weakens a cervical hypothesis but does not exclude it by itself.","Reduced dexterity is functionally important. Now test thenar motor function."],examGood:"This examination tests localization. Compare digits I–III with digit V, then assess the thenar muscles.",examWrong:"This choice does not test your neuroanatomical hypothesis. Return to sensory territory and motor function.",diagnosisGood:"Your localization and key findings are coherent. State what would still be needed for clinical confirmation.",diagnosisPartial:"The diagnostic label may fit, but show your reasoning: nerve, lesion level, and two supporting findings.",diagnosisWrong:"Do not replace the whole diagnosis yet. First identify the finding that contradicts your chosen localization."},
+ KZ:{history:["Жақсы бастама. Енді симптомдардың саусақтар бойынша таралуын нақтылаңыз.","Симптомдардың уақытын анықтадыңыз. Түнгі күшеюді ықтимал қысылу деңгейімен байланыстырыңыз.","Мойын ауыруының болмауы мойындық гипотезаны әлсіретеді, бірақ оны толық жоққа шығармайды.","Ептіліктің төмендеуі маңызды. Енді тенардың қозғалтқыш қызметін тексеріңіз."],examGood:"Бұл тексеру локализацияны бағалайды. I–III саусақтарды V саусақпен салыстырып, кейін тенарды тексеріңіз.",examWrong:"Бұл таңдау нейроанатомиялық гипотезаны тексермейді. Сезімталдық аймағы мен қозғалтқыш қызметіне оралыңыз.",diagnosisGood:"Локализация мен негізгі белгілер үйлеседі. Клиникалық растауға тағы қандай дерек керек екенін айтыңыз.",diagnosisPartial:"Диагноз атауы сәйкес болуы мүмкін, бірақ ойлау жолын көрсетіңіз: жүйке, зақым деңгейі және екі дәлел.",diagnosisWrong:"Диагнозды бірден ауыстырмаңыз. Алдымен таңдаған локализацияға қайшы келетін белгіні табыңыз."}
+} as const;
 const dialogueCopy = {
  RU:{label:"Спросите пациента своими словами",send:"Задать вопрос",student:"Студент",patient:"Пациент",teacher:"Преподаватель",known:"Уже выяснено",retry:"Повторить ошибочные решения",theory:"Повторить теорию",summary:"Итог преподавателя",voiceTeacher:"Озвучить комментарий преподавателя",handMap:"Динамическая карта чувствительности",unknown:"Я не совсем понял вопрос. Уточните, что именно вы хотите узнать.",supported:"Вывод согласуется с уже собранными данными. Какой следующий признак поможет его проверить?",partial:"В выводе есть верная часть, но данных пока недостаточно. Что ещё нужно уточнить?",contradicted:"Этот вывод не совпадает с частью собранных данных. Найдите признак, который ему противоречит.",uncertain:"Это пока гипотеза. Сформулируйте, каким наблюдением вы могли бы её проверить.",diagGood:"Диагноз и обоснование согласуются с локализацией и симптомами.",diagPartial:"Диагноз возможен, но обоснование неполное. Добавьте локализацию и ключевой признак.",diagWrong:"Диагноз противоречит собранным данным. Сопоставьте зоны срединного и локтевого нервов."},
  EN:{label:"Ask the patient in your own words",send:"Ask",student:"Student",patient:"Patient",teacher:"Teacher",known:"Findings collected",retry:"Retry incorrect decisions",theory:"Review theory",summary:"Teacher summary",voiceTeacher:"Speak teacher feedback",handMap:"Dynamic sensory map",unknown:"I did not quite understand. Please clarify what you want to know.",supported:"Your inference fits the data collected so far. Which finding would test it next?",partial:"Part of the inference is reasonable, but the evidence is incomplete. What else should you clarify?",contradicted:"This inference conflicts with part of the collected data. Identify the finding that contradicts it.",uncertain:"Treat this as a hypothesis for now. What observation could test it?",diagGood:"The diagnosis and reasoning fit the localization and symptom pattern.",diagPartial:"The diagnosis may fit, but the reasoning is incomplete. Add the localization and a key finding.",diagWrong:"The diagnosis conflicts with the collected findings. Compare median and ulnar nerve territories."},
@@ -145,11 +150,16 @@ export default function VirtualPatient({ language }: { language: Language }) {
     window.speechSynthesis.speak(utterance);
   }
   function reset() { if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel(); const cleared = emptyPatientProgress(); update(cleared); setStage(0); setShowOptions(false); setQuestionText(""); setDialogue([]); setDiagnosisAssessment(null); }
+  const tb = teacherBranches[language];
+  const lastAsked = progress.asked.length ? progress.asked[progress.asked.length - 1] : -1;
   const teacherNow = stage === 0
-    ? (progress.asked.length >= 2 ? c.feedback[0] : c.hint)
-    : selected === null
-      ? (stage === 1 ? c.tasks[1] : diagnosisCopy[language].note)
-      : (stage > 0 ? c.optionFeedback[stage][selected] : c.feedback[stage]);
+    ? (lastAsked >= 0 ? tb.history[lastAsked] : c.hint)
+    : stage === 1
+      ? (selected === null ? c.tasks[1] : selected === 0 ? tb.examGood : tb.examWrong)
+      : diagnosisAssessment === "good" ? tb.diagnosisGood
+        : diagnosisAssessment === "partial" ? tb.diagnosisPartial
+        : diagnosisAssessment === "review" ? tb.diagnosisWrong
+        : diagnosisCopy[language].note;
   return <article className={styles.patient}>
     <h1>{c.title}</h1><p>{c.intro}</p>
     <div className={styles.layout}>
@@ -172,7 +182,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
           <VoiceTextarea language={language} label={diagnosisCopy[language].label} rows={4} maxLength={5000} value={progress.diagnosisText} disabled={!ready} onValue={text => update({ ...progress, diagnosisText: text })} />
           <p>{diagnosisCopy[language].note}</p>
           {!showOptions && selected === null && <button type="button" disabled={!progress.diagnosisText.trim()} onClick={evaluateDiagnosis}>{diagnosisCopy[language].compare}</button>}
-          {diagnosisAssessment && <div className={styles.feedback} role="status"><strong>{diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong}</strong></div>}
+          {diagnosisAssessment && <div className={styles.teacherDecision} role="status"><strong>{d.teacher}:</strong><p>{teacherNow}</p><button type="button" onClick={() => speakTeacher(teacherNow)}>🔊 {d.voiceTeacher}</button></div>}
         </div>}
         {stage === 0 ? <div>
           <VoiceTextarea language={language} label={d.label} rows={2} maxLength={500} value={questionText} disabled={!ready} onValue={setQuestionText} />
@@ -206,7 +216,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
           </div>
           <div className={styles.findingGrid}>{c.examFindings.map((finding, index) => <div key={finding} className={index === 3 ? styles.preserved : styles.affected}>{finding}</div>)}</div><p><strong>{c.localization}</strong></p></section>}
         {selected !== null && <div className={styles.feedback} role="status" aria-live="polite">
-          {stage > 0 && <strong>{selected === 0 ? c.correct : c.revise}</strong>}
+          {stage > 0 && <strong>{selected === 0 ? c.correct : c.revise}</strong>}<div className={styles.inlineMentor}><strong>{d.teacher}:</strong> {teacherNow} <button type="button" onClick={() => speakTeacher(teacherNow)}>🔊</button></div>
           <h3>{c.explanation}</h3>{stage > 0 && <p>{c.optionFeedback[stage][selected]}</p>}<p>{c.feedback[stage]}</p>
         </div>}
         <div className={styles.actions}>
