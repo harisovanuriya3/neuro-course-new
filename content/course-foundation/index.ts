@@ -5,7 +5,7 @@ import { topics, type Topic } from './topics';
 
 // This is an initial reading/worksheet layer. Absent sections remain absent;
 // tests and clinical cases require their own reviewed content and scoring.
-export const foundationSections = ['objectives', 'theory', 'one-minute', 'practice', 'questions', 'references'] as const;
+export const foundationSections = ['objectives', 'pretest', 'theory', 'one-minute', 'clinical', 'practice', 'questions', 'glossary', 'references'] as const;
 const sources: Record<string, { title: string; href: string }> = {
   cns: { title: 'OpenStax · The Central Nervous System', href: 'https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system' },
   cells: { title: 'OpenStax · Nervous Tissue', href: 'https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue' },
@@ -78,6 +78,39 @@ function create(topic: Topic, section: typeof foundationSections[number], langua
     ],
     outcomes: { title: c.outcomes, introduction: c.goals, items: [question] },
     terms: { title: c.terms, items: topic.terms.map(term => term[language]) },
+  };
+  if (section === 'pretest') return {
+    kind: 'pretest', title, introduction: c.goals,
+    questions: [{
+      id: `module-${topic.id}-pretest`, topic: moduleTitle, prompt: question,
+      options: [
+        { id: 'a', text: mechanism, correct: true, feedback: interpretation },
+        { id: 'b', text: interpretation, correct: false, feedback: mechanism },
+        { id: 'c', text: c.noMaterials, correct: false, feedback: mechanism },
+      ],
+      target: { section: 'theory' },
+    }],
+  };
+  if (section === 'clinical') return {
+    kind: 'clinical', title, introduction: c.interpretation,
+    cards: [{
+      id: `module-${topic.id}-clinical`, title: question,
+      paragraphs: [topic.task[language], mechanism, interpretation],
+      links: [{ section: 'theory' as const }, { section: 'practice' as const }, { section: 'cases' as const }],
+    }],
+  };
+  if (section === 'glossary') return {
+    kind: 'glossary', title, introduction: c.terms,
+    terms: topic.terms.map((term, index) => ({
+      id: `module-${topic.id}-term-${index + 1}`,
+      term: term[language],
+      definition: language === 'RU'
+        ? `Ключевое понятие модуля «${modules.RU[topic.id - 1]}». Объясните его роль через механизм модуля, а не только определение.`
+        : language === 'EN'
+          ? `A key concept in “${modules.EN[topic.id - 1]}”. Explain its role through the module mechanism, not by definition alone.`
+          : `«${modules.KZ[topic.id - 1]}» модулінің негізгі ұғымы. Оның рөлін тек анықтамамен емес, модуль тетігі арқылы түсіндіріңіз.`,
+      target: { section: 'theory' as const },
+    })),
   };
   if (section === 'practice') {
     const ui: PracticeLesson['ui'] = {
