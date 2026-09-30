@@ -57,3 +57,15 @@
 @keyframes patientHandPulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.035); } }
 @media (prefers-reduced-motion: reduce) { .palm { animation:none; } }
 @media (max-width: 520px) { .handVisual { flex-direction:column; align-items:stretch; } .palm { text-align:center; } }
+
+.handSvg { width:min(100%,300px); height:auto; }
+.handBase { fill:#ead1bd; stroke:currentColor; stroke-width:3; }
+.medianZone { fill:rgba(220,70,70,.34); stroke:rgba(180,40,40,.8); stroke-width:2; transition:opacity .3s ease; }
+.thenarZone { fill:rgba(245,170,60,.38); stroke:rgba(190,120,30,.85); stroke-width:2; }
+.carpalZone { fill:rgba(70,120,220,.25); stroke:rgba(40,90,180,.9); stroke-width:2; }
+.svgLabel { font-size:10px; text-anchor:middle; fill:currentColor; }
+.pulsePoint { fill:currentColor; transform-origin:159px 288px; animation:nervePulse 1.8s ease-in-out infinite; }
+@keyframes nervePulse { 0%,100% { transform:scale(.75); opacity:.5; } 50% { transform:scale(1.5); opacity:1; } }
+.teacherFeedback { display:flex; gap:12px; align-items:flex-start; }
+.teacherAvatar { flex:0 0 48px; width:48px; height:48px; display:grid; place-items:center; border:1px solid #d5dde3; border-radius:50%; background:#fff; font-size:28px; }
+@media (prefers-reduced-motion: reduce) { .pulsePoint { animation:none; } }
