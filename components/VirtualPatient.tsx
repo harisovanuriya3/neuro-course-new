@@ -189,7 +189,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
     <div className={styles.clinicalDesk}>
       <figure className={`${styles.photo} ${styles.patientPanel} ${styles[`photoStage${stage}`]}`}>
         <div className={styles.stageBadge}>{c.stage} {stage + 1}</div>
-        <Image src="/images/module1/virtual-patient.webp" width={1536} height={1024} sizes="(max-width: 700px) 100vw, 340px" alt="" />
+        <Image src="/images/module1/virtual-patient-real.webp" width={1536} height={1024} sizes="(max-width: 700px) 100vw, 340px" alt="" />
         <figcaption>{c.image}</figcaption>
       </figure>
       <div className={`${styles.work} ${styles.studentPanel}`}>
@@ -245,7 +245,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
         </div>
       </div>
       <aside className={styles.teacherPanel} aria-live="polite">
-        <div className={styles.teacherVisual} aria-hidden="true"><div className={styles.teacherHead}></div><div className={styles.teacherBody}></div></div>
+        <div className={styles.teacherVisual}><Image src="/images/module1/virtual-teacher-real.webp" width={300} height={240} sizes="(max-width: 700px) 100vw, 290px" alt={language === "RU" ? "Виртуальный клинический преподаватель" : language === "KZ" ? "Виртуалды клиникалық оқытушы" : "Virtual clinical teacher"} /></div>
         <div className={styles.teacherIdentity}><strong>{d.teacher}</strong><span>{language === "RU" ? "Клинический наставник" : language === "KZ" ? "Клиникалық тәлімгер" : "Clinical mentor"}</span></div>
         <div className={styles.teacherBubble}><p>{teacherNow}</p></div>
         <button type="button" className={styles.mentorVoice} onClick={() => speakTeacher(teacherNow)}>🔊 {d.voiceTeacher}</button>
