@@ -39,11 +39,17 @@ const ui = (l: Language): CasesLesson["ui"] => ({
 export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):CasesLesson{
  const q=topic.question[l], mech=topic.mechanism[l], interp=topic.interpretation[l], task=clinicalVignettes[topic.id]?.[l] ?? topic.task[l];
  const termA=topic.terms[0][l], termB=topic.terms[1][l];
- const transferSituation=l==="RU"
-  ? `Новая ситуация по теме «${moduleTitle}»: измените одно условие, связанное с «${termA}», и предскажите, как это повлияет на «${termB}». Отделите наблюдаемое изменение от физиологической интерпретации.`
-  : l==="EN"
-   ? `New situation in “${moduleTitle}”: change one condition related to “${termA}” and predict how it affects “${termB}”. Separate the observed change from its physiological interpretation.`
-   : `«${moduleTitle}» тақырыбындағы жаңа жағдай: «${termA}» ұғымына қатысты бір шартты өзгертіп, оның «${termB}» ұғымына әсерін болжаңыз. Бақыланған өзгерісті физиологиялық түсіндіруден ажыратыңыз.`;
+ const transferSituation=topic.id===2
+  ? (l==="RU"
+    ? "При повторной ЭЭГ-записи медленные отклонения исчезают после контроля движений глаз, но ответ на повторяемый зрительный стимул остаётся воспроизводимым. Сравните спонтанную ЭЭГ и вызванный потенциал: какой сигнал связан со стимулом, что могло быть артефактом и какой вывод требует дополнительной проверки?"
+    : l==="EN"
+      ? "On repeat EEG recording, slow deflections disappear after eye movements are controlled, while the response to a repeated visual stimulus remains reproducible. Compare spontaneous EEG with the evoked potential: which signal is stimulus-related, what may have been artifact, and which conclusion still needs additional testing?"
+      : "ЭЭГ қайта тіркелгенде көз қозғалысы бақыланғаннан кейін баяу ауытқулар жоғалады, ал қайталанатын көру стимулына жауап тұрақты сақталады. Спонтанды ЭЭГ мен шақырылған потенциалды салыстырыңыз: қай сигнал стимулмен байланысты, қайсысы артефакт болуы мүмкін және қандай қорытынды қосымша тексеруді қажет етеді?")
+  : l==="RU"
+    ? `Новая ситуация по теме «${moduleTitle}»: измените одно условие, связанное с «${termA}», и предскажите, как это повлияет на «${termB}». Отделите наблюдаемое изменение от физиологической интерпретации.`
+    : l==="EN"
+      ? `New situation in “${moduleTitle}”: change one condition related to “${termA}” and predict how it affects “${termB}”. Separate the observed change from its physiological interpretation.`
+      : `«${moduleTitle}» тақырыбындағы жаңа жағдай: «${termA}» ұғымына қатысты бір шартты өзгертіп, оның «${termB}» ұғымына әсерін болжаңыз. Бақыланған өзгерісті физиологиялық түсіндіруден ажыратыңыз.`;
  return {kind:"cases",title:l==="RU"?"Ситуационные задачи":l==="EN"?"Case Problems":"Ситуациялық тапсырмалар",moduleTitle,introduction:l==="RU"?"Примените механизм к новой ситуации. Не угадывайте диагноз: сначала определите физиологическое звено и ожидаемое изменение.":l==="EN"?"Apply the mechanism to a new situation. Identify the physiological link and expected change before naming an interpretation.":"Тетікті жаңа жағдайға қолданыңыз. Алдымен физиологиялық буын мен күтілетін өзгерісті анықтаңыз.",ui:ui(l),cases:[
   {id:`m${topic.id}-mechanism`,title:q,situation:task,stages:[{title:l==="RU"?"Механизм":l==="EN"?"Mechanism":"Тетік",questions:[q,l==="RU"?"Какое звено изменилось и в каком направлении изменится результат?":l==="EN"?"Which link changed, and in which direction should the result change?":"Қай буын өзгерді және нәтиже қай бағытта өзгереді?"]},{title:l==="RU"?"Интерпретация":l==="EN"?"Interpretation":"Түсіндіру",questions:[l==="RU"?"Какие данные подтверждают вывод и чего по условию утверждать нельзя?":l==="EN"?"What evidence supports the conclusion, and what cannot be concluded from the scenario?":"Қандай дерек қорытындыны қолдайды және жағдайдан нені айтуға болмайды?"]}],explanation:[mech,interp]},
   {id:`m${topic.id}-transfer`,title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",situation:transferSituation,stages:[
