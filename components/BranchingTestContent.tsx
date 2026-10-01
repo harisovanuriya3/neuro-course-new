@@ -14,9 +14,25 @@ const labels = {
 };
 
 export default function BranchingTestContent({ test, language, moduleId }: { test: BranchingTest; language: Language; moduleId: number }) {
-  const [state, dispatch] = useReducer((state: TestState, action: TestAction) => transition(test, state, action), test, initialState);
+  const storageKey = `neuro-course:test:${moduleId}:${language}:v1`;
+  const [state, dispatch] = useReducer(
+    (state: TestState, action: TestAction) => transition(test, state, action),
+    test,
+    (value) => {
+      if (typeof window === "undefined") return initialState(value);
+      try {
+        const raw = JSON.parse(localStorage.getItem(storageKey) || "null") as TestState | null;
+        if (!raw || typeof raw !== "object" || typeof raw.current !== "string" || !["question","feedback","remediation","results"].includes(raw.phase)) return initialState(value);
+        if (raw.current !== "end" && !value.nodes[raw.current]) return initialState(value);
+        return { ...initialState(value), ...raw, selected: typeof raw.selected === "string" ? raw.selected : null };
+      } catch { return initialState(value); }
+    }
+  );
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => { heading.current?.focus(); }, [state.current, state.phase]);
+  useEffect(() => {
+    try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch { /* Optional local storage */ }
+  }, [state, storageKey]);
   const ui = test.ui;
   const copy = labels[language];
   const result = summarize(test, state);
