@@ -7,7 +7,7 @@ export default function FoundationMediaAnimation({moduleId,language}:{moduleId:n
  const [step,setStep]=useState(0);
  const labels=language==="RU"?["Исходное состояние","Изменение параметра","Физиологический ответ","Интерпретация"]:language==="EN"?["Baseline","Parameter change","Physiological response","Interpretation"]:["Бастапқы күй","Параметрді өзгерту","Физиологиялық жауап","Түсіндіру"];
  const value=[24,46,72,88][step];
- const group=moduleId===7?"reflex":moduleId===8?"pathway":moduleId===9?"spinal":moduleId===10?"arousal":moduleId===11?"motor":moduleId===12?"basal":moduleId===13?"cerebellum":moduleId===14?"thalamus":moduleId===15?"homeostasis":moduleId===16?"limbic":moduleId===17?"amygdala":moduleId===18?"cortex":moduleId===19?"somatic":moduleId===20?"vision":moduleId===21?"auditory":"signal";
+ const group=moduleId===7?"reflex":moduleId===8?"pathway":moduleId===9?"spinal":moduleId===10?"arousal":moduleId===11?"motor":moduleId===12?"basal":moduleId===13?"cerebellum":moduleId===14?"thalamus":moduleId===15?"homeostasis":moduleId===16?"limbic":moduleId===17?"amygdala":moduleId===18?"cortex":moduleId===19?"somatic":moduleId===20?"vision":moduleId===21?"auditory":moduleId===22?"autonomic":moduleId===23?"memory":moduleId===24?"sleep":moduleId===25?"plasticity":"signal";
  return <section style={{padding:16,borderRadius:16,background:"linear-gradient(145deg,#071a2c,#12364a)",color:"white"}}>
   <div style={{display:"flex",justifyContent:"space-between",gap:12,flexWrap:"wrap",alignItems:"center"}}>
    <strong>{labels[step]}</strong><span>{language==="RU"?"Модуль":language==="EN"?"Module":"Модуль"} {moduleId}</span>
@@ -31,6 +31,10 @@ export default function FoundationMediaAnimation({moduleId,language}:{moduleId:n
    {group==="somatic"&&<><circle cx="105" cy="90" r="18" fill="#f472b6"/><path d="M125 90 C220 30 300 150 390 90 S500 45 565 90" fill="none" stroke="#a78bfa" strokeWidth="5"/><circle cx={210+step*90} cy="90" r="10" fill="#fde047"/></>}
    {group==="vision"&&<><ellipse cx="120" cy="85" rx="45" ry="28" fill="#e0f2fe"/><circle cx="120" cy="85" r="13" fill="#0f172a"/><path d="M165 85 L310 85 L420 45 M310 85 L420 125" fill="none" stroke="#38bdf8" strokeWidth="5"/><rect x="485" y="35" width="90" height="100" rx="12" fill={step<2?"#334155":"#1d4ed8"}/></>}
    {group==="auditory"&&<><path d="M75 90 Q105 45 135 90 T195 90 T255 90" fill="none" stroke="#38bdf8" strokeWidth={3+step}/><circle cx="330" cy="90" r={25+step*3} fill="#fbbf24"/><path d="M360 90 C430 35 500 145 570 90" fill="none" stroke="#4ade80" strokeWidth="5"/></>}
+   {group==="autonomic"&&<><text x="70" y="55" fill="#bae6fd" fontSize="20">HR</text><text x="115" y="55" fill="white" fontSize="26">{72+[0,12,7,2][step]}</text><path d="M75 110 L135 110 L155 75 L180 140 L205 110 H565" fill="none" stroke="#4ade80" strokeWidth="5"/></>}
+   {group==="memory"&&<><rect x="75" y="55" width="110" height="70" rx="12" fill="#1d4ed8"/><rect x="265" y="55" width="110" height="70" rx="12" fill="#7c3aed"/><rect x="455" y="55" width="110" height="70" rx="12" fill="#0f766e"/><path d="M185 90 H265 M375 90 H455" stroke="#e2e8f0" strokeWidth={3+step}/></>}
+   {group==="sleep"&&<><path d="M70 105 C140 35 205 35 270 105 S400 175 470 105 S555 35 610 80" fill="none" stroke="#818cf8" strokeWidth="6"/><circle cx={115+step*135} cy={55+(step%2)*65} r="15" fill="#fde047"/></>}
+   {group==="plasticity"&&<><path d="M85 130 L220 80 L350 115 L510 55" fill="none" stroke="#64748b" strokeWidth="4"/><path d={`M85 130 L220 ${80-step*7} L350 ${115-step*13} L510 ${55+step*4}`} fill="none" stroke="#4ade80" strokeWidth={4+step}/>{[85,220,350,510].map((x,i)=><circle key={i} cx={x} cy={[130,80-step*7,115-step*13,55+step*4][i]} r={9+step} fill="#38bdf8"/>)}</>}
   </svg>
   <div style={{display:"flex",gap:8,marginTop:12,flexWrap:"wrap"}}>
    <button type="button" disabled={step===0} onClick={()=>setStep(v=>Math.max(0,v-1))}>{language==="RU"?"Назад":language==="EN"?"Back":"Артқа"}</button>
