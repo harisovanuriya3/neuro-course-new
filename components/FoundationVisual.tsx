@@ -13,6 +13,7 @@ import BrainstemLab from './BrainstemLab';
 import MotorControlLab from './MotorControlLab';
 import BasalGangliaLab from './BasalGangliaLab';
 import CerebellumLab from './CerebellumLab';
+import ThalamusLab from './ThalamusLab';
 import styles from './FoundationVisual.module.css';
 
 const copy = {
@@ -45,6 +46,7 @@ const copy = {
 export default function FoundationVisual({ moduleId, language }: { moduleId: number; language: Language }) {
   const c = copy[language];
   if (moduleId === 2) return <div className={styles.visual}><EEGLab language={language} /><REGLab language={language} /></div>;
+  if (moduleId === 14) return <div className={styles.visual}><ThalamusLab language={language} /></div>;
   if (moduleId === 13) return <div className={styles.visual}><CerebellumLab language={language} /></div>;
   if (moduleId === 12) return <div className={styles.visual}><BasalGangliaLab language={language} /></div>;
   if (moduleId === 11) return <div className={styles.visual}><MotorControlLab language={language} /></div>;
