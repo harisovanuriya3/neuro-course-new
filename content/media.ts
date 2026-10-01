@@ -11,7 +11,7 @@ export type MediaSource = {
 export type MediaBlock = {
   id: string; title: string; preview: string; transcript: string[];
   theoryAnchor: string; source?: MediaSource;
-  animation?: "organization";
+  animation?: "organization" | "foundation";
   question: {
     prompt: string; correctAnswer: string; explanation: string;
     options: { id: string; text: string; feedback: string }[];
