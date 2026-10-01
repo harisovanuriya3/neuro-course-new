@@ -389,27 +389,33 @@ function create(
   }
 
   if (section === 'clinical') {
+    const labels = language === 'RU'
+      ? { bridge: 'Клинический мост', observe: 'Что наблюдаем', explain: 'Как объяснить', limit: 'Граница вывода' }
+      : language === 'EN'
+        ? { bridge: 'Clinical bridge', observe: 'What we observe', explain: 'How to explain it', limit: 'Limit of inference' }
+        : { bridge: 'Клиникалық көпір', observe: 'Не байқаймыз', explain: 'Қалай түсіндіреміз', limit: 'Қорытынды шегі' };
     return {
       kind: 'clinical',
       title,
-      introduction: c.interpretation,
-
+      introduction: labels.bridge,
       cards: [
         {
-          id: `module-${topic.id}-clinical`,
-          title: question,
-
-          paragraphs: [
-            topic.task[language],
-            mechanism,
-            interpretation,
-          ],
-
-          links: [
-            { section: 'theory' as const },
-            { section: 'practice' as const },
-            { section: 'cases' as const },
-          ],
+          id: `module-${topic.id}-clinical-observation`,
+          title: labels.observe,
+          paragraphs: [topic.task[language]],
+          links: [{ section: 'practice' as const }],
+        },
+        {
+          id: `module-${topic.id}-clinical-mechanism`,
+          title: labels.explain,
+          paragraphs: [mechanism],
+          links: [{ section: 'theory' as const }, { section: 'cases' as const }],
+        },
+        {
+          id: `module-${topic.id}-clinical-limit`,
+          title: labels.limit,
+          paragraphs: [interpretation, question],
+          links: [{ section: 'cases' as const }, { section: 'tests' as const }],
         },
       ],
     };
