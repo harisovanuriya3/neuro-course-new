@@ -27,6 +27,23 @@ export default function BranchingTestContent({ test, language, moduleId }: { tes
         const mainAttempt = state.attempts.find(attempt => attempt.level === "main" && attempt.competency === competency);
         if (mainAttempt) recordOutcome(moduleId, `criterion:${competency}`, mainAttempt.correct ? 1 : 0, 1);
       }
+      // Module 1 is the richer pilot: preserve its ten topic competencies and
+      // aggregate them into the shared course-level assessment criteria.
+      if (moduleId === 1) {
+        const groups: Record<string, string[]> = {
+          concept: ["organization", "cns-pns", "effector"],
+          mechanism: ["afferent", "efferent", "excitation", "synapse"],
+          application: ["integration", "regulation"],
+          transfer: ["feedback", "integration"],
+          justification: ["organization", "feedback", "regulation"],
+        };
+        for (const [criterion, competencies] of Object.entries(groups)) {
+          const attempts = competencies
+            .map(competency => state.attempts.find(attempt => attempt.level === "main" && attempt.competency === competency))
+            .filter((attempt): attempt is NonNullable<typeof attempt> => Boolean(attempt));
+          if (attempts.length) recordOutcome(moduleId, `criterion:${criterion}`, attempts.filter(attempt => attempt.correct).length, attempts.length);
+        }
+      }
     }
   }, [state.phase, state.retryIds, result.firstCorrect, result.total, moduleId, state.attempts, test.competencies]);
   const node = test.nodes[state.current];
