@@ -69,18 +69,15 @@ export default function FoundationVisual({ moduleId, language }: { moduleId: num
   if (moduleId === 16) return <div className={styles.visual}><LimbicLab language={language} /></div>;
   if (moduleId === 15) return <div className={styles.visual}><HypothalamusLab language={language} /></div>;
   if (moduleId === 14) return <div className={styles.visual}><ThalamusLab language={language} /></div>;
-  if (moduleId === 13) return <div className={styles.visual}><CerebellumLab language={language} /></div>;
-  if (moduleId === 12) return <div className={styles.visual}><BasalGangliaLab language={language} /></div>;
+  if (moduleId === 13) return <div className={styles.visual}><CerebellumLab language={language} /><BalanceDiagram language={language} ui={createInteractiveLesson(language).ui} title={c.balance} /><p>{c.cerebellum}</p></div>;
+  if (moduleId === 12) return <div className={styles.visual}><BasalGangliaLab language={language} /><BalanceDiagram language={language} ui={createInteractiveLesson(language).ui} title={c.balance} /><p>{c.control}</p></div>;
   if (moduleId === 11) return <div className={styles.visual}><MotorControlLab language={language} /></div>;
   if (moduleId === 10) return <div className={styles.visual}><BrainstemLab language={language} /></div>;
   if (moduleId === 9) return <div className={styles.visual}><SpinalRegulationLab language={language} /></div>;
   if (moduleId === 8) return <div className={styles.visual}><PathwayLab language={language} /></div>;
   if (moduleId === 6) return <div className={styles.visual}><IntegrationLab language={language} /></div>;
+  if (moduleId === 5) return <div className={styles.visual}><SynapseLab language={language} /></div>;
   if (moduleId === 4) return <div className={styles.visual}><MembranePotentialLab language={language} /></div>;
-  if (moduleId === 12 || moduleId === 13) return <div className={styles.visual}>
-    <p>{moduleId === 12 ? c.control : c.cerebellum}</p>
-    <BalanceDiagram language={language} ui={createInteractiveLesson(language).ui} title={c.balance} />
-  </div>;
   const visual = moduleId === 3 ? {
     file: 'peripheral-nerve', caption: c.nerve,
     source: 'https://commons.wikimedia.org/wiki/File:Peripheral_nerve,_cross_section.jpg',
@@ -101,6 +98,6 @@ export default function FoundationVisual({ moduleId, language }: { moduleId: num
       <div className={styles.photo}><Image src={`/images/anatomy/${visual.file}.jpg`} alt={visual.caption} fill sizes="(max-width: 600px) 80vw, 520px" /></div>
       <figcaption><p>{visual.caption}</p><a href={visual.source}>{c.source}</a> · {visual.credit}</figcaption>
     </figure>
-    {moduleId === 6 && <SynapseLab language={language} />}
+
   </section>;
 }
