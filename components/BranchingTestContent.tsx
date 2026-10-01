@@ -23,6 +23,11 @@ export default function BranchingTestContent({ test, language, moduleId }: { tes
   useEffect(() => {
     if (state.phase === "results" && state.retryIds === null) {
       recordOutcome(moduleId, "tests", result.firstCorrect, result.total);
+      const initiallyWrong = [...new Set(state.attempts.filter(attempt => attempt.level === "main" && !attempt.correct).map(attempt => attempt.competency))];
+      const corrected = initiallyWrong.filter(competency =>
+        state.attempts.some(attempt => attempt.competency === competency && attempt.level !== "main" && attempt.correct)
+      );
+      if (initiallyWrong.length) recordOutcome(moduleId, "criterion:correction", corrected.length, initiallyWrong.length);
       for (const competency of Object.keys(test.competencies)) {
         const mainAttempt = state.attempts.find(attempt => attempt.level === "main" && attempt.competency === competency);
         if (mainAttempt) recordOutcome(moduleId, `criterion:${competency}`, mainAttempt.correct ? 1 : 0, 1);
