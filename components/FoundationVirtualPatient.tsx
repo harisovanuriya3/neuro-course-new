@@ -28,18 +28,32 @@ export default function FoundationVirtualPatient({moduleId,language}:{moduleId:n
  const [open,setOpen]=useState<boolean[]>([false,false,false]);
  const [answers,setAnswers]=useState(["","",""]);
  const [path,setPath]=useState<"mechanism"|"alternative"|null>(null);
+ const [examStep,setExamStep]=useState(0);
  if(!topic)return null;
  const c=ui[language], scenario=scenarioFor(moduleId), guides=[scenario.finding[language],topic.mechanism[language],topic.interpretation[language]];
  const speak=(value:string)=>{if(typeof window==="undefined"||!("speechSynthesis" in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(value);u.lang={RU:"ru-RU",EN:"en-US",KZ:"kk-KZ"}[language];window.speechSynthesis.speak(u)};
  const teacher=path==="mechanism"?topic.mechanism[language]:path==="alternative"?topic.interpretation[language]:"";
+ const pathResult=path==="mechanism"?scenario.test[language]:path==="alternative"?scenario.alternative[language]:"";
+ const stateLabels=language==="RU"?["Исходное состояние","После первого шага","После проверки"]:language==="EN"?["Baseline","After first step","After verification"]:["Бастапқы күй","Бірінші қадамнан кейін","Тексеруден кейін"];
+ const stateValues=path==="alternative"?[35,52,68]:[35,64,82];
  return <section>
   <h1>{c.title}</h1><p>{c.intro}</p><p><strong>{scenario.role[language]}</strong></p>
   <div style={{padding:18,border:"1px solid #b9d8e8",borderRadius:18,background:"linear-gradient(135deg,#e8f7ff,#f6f0ff)",margin:"18px 0"}}><strong>{scenario.finding[language]}</strong><div><button type="button" onClick={()=>speak(scenario.finding[language])} style={{marginTop:12}}>🔊 {language==="RU"?"Голос пациента":language==="EN"?"Patient voice":"Пациент дауысы"}</button></div></div>
   <section style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:12,margin:"18px 0"}}>
-   <button type="button" onClick={()=>setPath("mechanism")} style={{padding:16,borderRadius:14,border:"1px solid #78aeca",background:path==="mechanism"?"#dff3ff":"white",fontWeight:700}}>{scenario.test[language]}</button>
-   <button type="button" onClick={()=>setPath("alternative")} style={{padding:16,borderRadius:14,border:"1px solid #a993cf",background:path==="alternative"?"#eee6ff":"white",fontWeight:700}}>{scenario.alternative[language]}</button>
+   <button type="button" onClick={()=>{setPath("mechanism");setExamStep(0)}} style={{padding:16,borderRadius:14,border:"1px solid #78aeca",background:path==="mechanism"?"#dff3ff":"white",fontWeight:700}}>{scenario.test[language]}</button>
+   <button type="button" onClick={()=>{setPath("alternative");setExamStep(0)}} style={{padding:16,borderRadius:14,border:"1px solid #a993cf",background:path==="alternative"?"#eee6ff":"white",fontWeight:700}}>{scenario.alternative[language]}</button>
   </section>
-  {path&&<aside style={{padding:14,borderRadius:14,background:"#fff7dc",border:"1px solid #e8cf75",marginBottom:18}}><strong>{language==="RU"?"Комментарий преподавателя":language==="EN"?"Teacher feedback":"Оқытушы пікірі"}</strong><p>{teacher}</p><button type="button" onClick={()=>speak(teacher)}>🔊 {language==="RU"?"Озвучить комментарий":language==="EN"?"Speak feedback":"Пікірді дыбыстау"}</button></aside>}
+  {path&&<>
+   <section style={{padding:18,borderRadius:16,background:"#f5fbf7",border:"1px solid #b9d8c4",marginBottom:18}}>
+    <h2 style={{marginTop:0}}>{language==="RU"?"Динамика обследования":language==="EN"?"Examination dynamics":"Тексеру динамикасы"}</h2>
+    <p>{pathResult}</p>
+    <div aria-label={stateLabels[examStep]} style={{height:18,borderRadius:99,background:"#dce8ef",overflow:"hidden"}}><div style={{height:"100%",width:`${stateValues[examStep]}%`,background:"linear-gradient(90deg,#3b82f6,#22c55e)",transition:"width .5s ease"}} /></div>
+    <p><strong>{stateLabels[examStep]}</strong> · {stateValues[examStep]}%</p>
+    <button type="button" disabled={examStep>=2} onClick={()=>setExamStep(v=>Math.min(2,v+1))}>{language==="RU"?"Следующий этап обследования":language==="EN"?"Next examination step":"Тексерудің келесі кезеңі"}</button>
+    {examStep>0&&<button type="button" onClick={()=>setExamStep(v=>Math.max(0,v-1))} style={{marginLeft:8}}>{language==="RU"?"Назад":language==="EN"?"Back":"Артқа"}</button>}
+   </section>
+   <aside style={{padding:14,borderRadius:14,background:"#fff7dc",border:"1px solid #e8cf75",marginBottom:18}}><strong>{language==="RU"?"Комментарий преподавателя":language==="EN"?"Teacher feedback":"Оқытушы пікірі"}</strong><p>{teacher}</p><button type="button" onClick={()=>speak(teacher)}>🔊 {language==="RU"?"Озвучить комментарий":language==="EN"?"Speak feedback":"Пікірді дыбыстау"}</button></aside>
+  </>}
   {c.stage.map((title,i)=><section key={title} style={{margin:"18px 0",padding:18,border:"1px solid #dce8ef",borderRadius:16}}>
    <h2 style={{marginTop:0}}>{title}</h2><p>{c.prompt[i]}</p>
    <VoiceTextarea language={language} aria-label={c.prompt[i]} placeholder={c.note} value={answers[i]} onValue={value=>setAnswers(v=>v.map((x,j)=>j===i?value:x))} style={{width:"100%",minHeight:100,padding:12,border:"1px solid #bfd0dc",borderRadius:10}} />
