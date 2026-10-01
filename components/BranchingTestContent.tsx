@@ -21,8 +21,14 @@ export default function BranchingTestContent({ test, language, moduleId }: { tes
   const copy = labels[language];
   const result = summarize(test, state);
   useEffect(() => {
-    if (state.phase === "results" && state.retryIds === null) recordOutcome(moduleId, "tests", result.firstCorrect, result.total);
-  }, [state.phase, state.retryIds, result.firstCorrect, result.total, moduleId]);
+    if (state.phase === "results" && state.retryIds === null) {
+      recordOutcome(moduleId, "tests", result.firstCorrect, result.total);
+      for (const competency of Object.keys(test.competencies)) {
+        const mainAttempt = state.attempts.find(attempt => attempt.level === "main" && attempt.competency === competency);
+        if (mainAttempt) recordOutcome(moduleId, `criterion:${competency}`, mainAttempt.correct ? 1 : 0, 1);
+      }
+    }
+  }, [state.phase, state.retryIds, result.firstCorrect, result.total, moduleId, state.attempts, test.competencies]);
   const node = test.nodes[state.current];
   const attempts = state.retryIds === null ? state.attempts : state.retryAttempts;
   const last = attempts[attempts.length - 1];
