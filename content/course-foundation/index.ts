@@ -334,29 +334,27 @@ function create(
           id: `module-${topic.id}-pretest`,
           topic: moduleTitle,
           prompt: question,
-
           options: [
-            {
-              id: 'a',
-              text: mechanism,
-            },
-            {
-              id: 'b',
-              text: interpretation,
-            },
-            {
-              id: 'c',
-              text: c.noMaterials,
-            },
+            { id: 'a', text: mechanism },
+            { id: 'b', text: interpretation },
+            { id: 'c', text: c.noMaterials },
           ],
-
           correctAnswer: 'a',
-
           explanation: interpretation,
-
-          target: {
-            section: 'theory',
-          },
+          target: { section: 'theory' },
+        },
+        {
+          id: `module-${topic.id}-pretest-transfer`,
+          topic: moduleTitle,
+          prompt: language === 'RU' ? `Какой следующий шаг лучше всего проверит понимание темы «${modules.RU[topic.id - 1]}»?` : language === 'EN' ? `Which next step best checks understanding of “${modules.EN[topic.id - 1]}”?` : `«${modules.KZ[topic.id - 1]}» тақырыбын түсінуді қай келесі қадам жақсы тексереді?`,
+          options: [
+            { id: 'a', text: topic.task[language] },
+            { id: 'b', text: language === 'RU' ? 'Повторить название темы без объяснения механизма.' : language === 'EN' ? 'Repeat the topic title without explaining the mechanism.' : 'Тетікті түсіндірмей тақырып атауын қайталау.' },
+            { id: 'c', text: language === 'RU' ? 'Сделать вывод только по одному термину.' : language === 'EN' ? 'Draw a conclusion from one term alone.' : 'Бір ғана терминге сүйеніп қорытынды жасау.' },
+          ],
+          correctAnswer: 'a',
+          explanation: language === 'RU' ? 'Перенос механизма в задание показывает понимание лучше простого воспроизведения термина.' : language === 'EN' ? 'Applying the mechanism in a task demonstrates understanding better than recalling a term alone.' : 'Тетікті тапсырмада қолдану бір терминді жай қайталаудан гөрі түсінуді жақсы көрсетеді.',
+          target: { section: 'practice' },
         },
       ],
     };
