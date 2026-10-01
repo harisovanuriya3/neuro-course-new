@@ -546,6 +546,31 @@ function create(
         },
 
         {
+          title: language === 'RU' ? 'Прогноз → наблюдение → объяснение' : language === 'EN' ? 'Prediction → observation → explanation' : 'Болжам → бақылау → түсіндіру',
+          blocks: [
+            {
+              type: 'paragraph',
+              text: language === 'RU'
+                ? 'До выполнения задания запишите ожидаемый результат и причинный механизм. После выполнения отдельно зафиксируйте наблюдение: не подменяйте его объяснением.'
+                : language === 'EN'
+                  ? 'Before the task, record the expected result and causal mechanism. After the task, record the observation separately; do not replace observation with explanation.'
+                  : 'Тапсырмаға дейін күтілетін нәтижені және себептік тетікті жазыңыз. Орындағаннан кейін бақылауды бөлек тіркеңіз; бақылауды түсіндірумен алмастырмаңыз.',
+            },
+            { type: 'response', label: language === 'RU' ? 'Мой прогноз' : language === 'EN' ? 'My prediction' : 'Менің болжамым' },
+            { type: 'response', label: language === 'RU' ? 'Что я наблюдал(а)' : language === 'EN' ? 'What I observed' : 'Мен не байқадым' },
+            { type: 'response', label: language === 'RU' ? 'Моё физиологическое объяснение' : language === 'EN' ? 'My physiological explanation' : 'Менің физиологиялық түсіндірмем' },
+          ],
+        },
+        {
+          title: language === 'RU' ? 'Перенос и границы вывода' : language === 'EN' ? 'Transfer and limits of inference' : 'Тасымалдау және қорытынды шектері',
+          blocks: [
+            { type: 'paragraph', text: question },
+            { type: 'response', label: language === 'RU' ? 'Как изменится результат в новой ситуации и почему?' : language === 'EN' ? 'How would the result change in a new situation, and why?' : 'Жаңа жағдайда нәтиже қалай өзгереді және неге?' },
+            { type: 'response', label: language === 'RU' ? 'Что по этим данным утверждать нельзя?' : language === 'EN' ? 'What cannot be concluded from these data?' : 'Бұл деректерден қандай қорытынды жасауға болмайды?' },
+            { type: 'answer', items: [mechanism, interpretation] },
+          ],
+        },
+        {
           title: c.criteria,
 
           blocks: [
