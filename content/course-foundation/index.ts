@@ -1,6 +1,7 @@
 import { modules, type Language } from '../course';
 import { getSectionTitle, type Section } from '../sections';
 import type { LocalizedLesson, PracticeLesson, SectionLesson } from '../types';
+import type { MediaLesson } from '../media';
 import { topics, termDefinitions, type Topic } from './topics';
 import { createFoundationCase, createFoundationTest } from './assessment';
 
@@ -17,6 +18,7 @@ export const foundationSections = [
   'cases',
   'tests',
   'questions',
+  'media',
   'glossary',
   'references',
 ] as const;
@@ -623,6 +625,44 @@ function create(
         },
       ],
     };
+  }
+
+  if (section === 'media') {
+    const names: Record<number, Record<Language,string>> = {
+      2:{RU:'Сигнал или артефакт?',EN:'Signal or artifact?',KZ:'Сигнал ма, әлде артефакт па?'},
+      3:{RU:'Нейрон, глия и микроокружение',EN:'Neuron, glia, and microenvironment',KZ:'Нейрон, глия және микроорта'},
+      4:{RU:'От порога к потенциалу действия',EN:'From threshold to action potential',KZ:'Табалдырықтан әрекет потенциалына дейін'},
+      5:{RU:'Передача через химический синапс',EN:'Transmission across a chemical synapse',KZ:'Химиялық синапс арқылы берілу'},
+      6:{RU:'Баланс возбуждения и торможения',EN:'Excitation-inhibition balance',KZ:'Қозу мен тежелу тепе-теңдігі'},
+    };
+    const mediaTitle=names[topic.id]?.[language] ?? moduleTitle;
+    const ui:MediaLesson['ui']={
+      preview:language==='RU'?'Что проследить':language==='EN'?'What to follow':'Нені бақылау',
+      pending:'',unavailable:'',alternative:'',
+      duration:language==='RU'?'Длительность':language==='EN'?'Duration':'Ұзақтығы',
+      durationPending:'—',language:language==='RU'?'Язык':language==='EN'?'Language':'Тіл',
+      languageName:language==='RU'?'Русский':language==='EN'?'English':'Қазақша',
+      credit:language==='RU'?'Источник':language==='EN'?'Credit':'Дереккөз',
+      transcript:language==='RU'?'Текстовое сопровождение':language==='EN'?'Transcript':'Мәтіндік сүйемелдеу',
+      theory:language==='RU'?'Вернуться к теории':language==='EN'?'Return to theory':'Теорияға оралу',
+      question:language==='RU'?'Самопроверка':language==='EN'?'Self-check':'Өзін-өзі тексеру',
+      check:language==='RU'?'Проверить':language==='EN'?'Check':'Тексеру',
+      retry:language==='RU'?'Повторить':language==='EN'?'Retry':'Қайталау',
+      correct:language==='RU'?'Верно':language==='EN'?'Correct':'Дұрыс',
+      incorrect:language==='RU'?'Пересмотрите причинную связь':language==='EN'?'Review the causal link':'Себептік байланысты қайта қараңыз',
+      correctAnswer:language==='RU'?'Лучший ответ':language==='EN'?'Best answer':'Ең жақсы жауап',
+    };
+    const correct=language==='RU'?'Сначала отделить наблюдение от интерпретации и проверить причинный механизм.':language==='EN'?'First separate observation from interpretation and test the causal mechanism.':'Алдымен бақылауды түсіндіруден ажыратып, себептік тетікті тексеру.';
+    const wrong=language==='RU'?'Сразу назвать диагноз или структуру по одному изменению.':language==='EN'?'Immediately name a diagnosis or structure from one change.':'Бір өзгеріске қарап бірден диагноз немесе құрылымды атау.';
+    const intro=(language==='RU'?'Динамический разбор: ':language==='EN'?'Dynamic walkthrough: ':'Динамикалық талдау: ')+mediaTitle;
+    return {kind:'media',title,language,introduction:intro,ui,blocks:[{
+      id:'module-'+topic.id+'-dynamic-process',title:mediaTitle,preview:topic.task[language],
+      transcript:[topic.mechanism[language],topic.interpretation[language]],theoryAnchor:'mechanism',animation:'foundation',
+      question:{prompt:topic.question[language],correctAnswer:'a',explanation:topic.mechanism[language]+' '+topic.interpretation[language],options:[
+        {id:'a',text:correct,feedback:topic.mechanism[language]},
+        {id:'b',text:wrong,feedback:language==='RU'?'Один результат не локализует механизм без дополнительной проверки.':language==='EN'?'A single result does not localize the mechanism without an additional test.':'Бір нәтиже қосымша тексерусіз тетікті локализацияламайды.'},
+      ]}
+    }]};
   }
 
   if (section === 'references') {
