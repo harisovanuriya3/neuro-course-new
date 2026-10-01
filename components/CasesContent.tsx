@@ -10,7 +10,15 @@ import type { Language } from "../content/course";
 
 export default function CasesContent({ lesson, language, moduleId }: { lesson: CasesLesson; language: Language; moduleId: number }) {
   const [completed, setCompleted] = useState<string[]>([]);
+  const [checked, setChecked] = useState<Record<string, boolean>>({});
   const ui = lesson.ui;
+
+  function recordChecked(id: string, correct: boolean) {
+    const next = { ...checked, [id]: correct };
+    setChecked(next);
+    const results = Object.values(next);
+    if (results.length) recordOutcome(moduleId, "criterion:clinical", results.filter(Boolean).length, results.length);
+  }
 
   function mark(id: string, done: boolean) {
     const next = done ? [...new Set([...completed, id])] : completed.filter(value => value !== id);
@@ -35,7 +43,7 @@ export default function CasesContent({ lesson, language, moduleId }: { lesson: C
         </nav>
       </div>
       {lesson.cases.map((item, index) => (
-        <CaseCard key={item.id} item={item} number={index + 1} ui={ui} language={language} completed={completed.includes(item.id)} onComplete={(done) => mark(item.id, done)} />
+        <CaseCard key={item.id} item={item} number={index + 1} ui={ui} language={language} completed={completed.includes(item.id)} onComplete={(done) => mark(item.id, done)} onChecked={(correct) => recordChecked(item.id, correct)} />
       ))}
       {lesson.sources && <aside className={styles.sources}>
         <h2>{ui.sources}</h2>
