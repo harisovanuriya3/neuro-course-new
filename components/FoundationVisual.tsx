@@ -6,6 +6,7 @@ import SynapseLab from './SynapseLab';
 import MembranePotentialLab from './MembranePotentialLab';
 import EEGLab from './EEGLab';
 import REGLab from './REGLab';
+import IntegrationLab from './IntegrationLab';
 import styles from './FoundationVisual.module.css';
 
 const copy = {
@@ -38,6 +39,7 @@ const copy = {
 export default function FoundationVisual({ moduleId, language }: { moduleId: number; language: Language }) {
   const c = copy[language];
   if (moduleId === 2) return <div className={styles.visual}><EEGLab language={language} /><REGLab language={language} /></div>;
+  if (moduleId === 6) return <div className={styles.visual}><IntegrationLab language={language} /></div>;
   if (moduleId === 4) return <div className={styles.visual}><MembranePotentialLab language={language} /></div>;
   if (moduleId === 12 || moduleId === 13) return <div className={styles.visual}>
     <p>{moduleId === 12 ? c.control : c.cerebellum}</p>
