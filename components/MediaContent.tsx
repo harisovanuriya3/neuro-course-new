@@ -7,6 +7,7 @@ import type { Language } from "../content/course";
 import shared from "./PracticeContent.module.css";
 import styles from "./MediaContent.module.css";
 import OrganizationAnimation from "./OrganizationAnimation";
+import FoundationMediaAnimation from "./FoundationMediaAnimation";
 
 function durationLabel(seconds?: number) {
   if (seconds === undefined || !Number.isFinite(seconds) || seconds <= 0) return null;
@@ -80,6 +81,7 @@ export default function MediaContent({ lesson, moduleId, language }: { lesson: M
       <h2 id={`${block.id}-title`}>{index + 1}. {block.title}</h2>
       <p><strong>{ui.preview}: </strong>{block.preview}</p>
       {block.animation === "organization" ? <OrganizationAnimation key={language} language={language} />
+        : block.animation === "foundation" ? <FoundationMediaAnimation key={`${moduleId}-${language}-${block.id}`} moduleId={Number(moduleId)} language={language} />
         : <Player key={block.source?.videoUrl ?? "pending"} block={block} ui={ui} />}
       <details className={styles.transcript}>
         <summary id={`${block.id}-transcript-label`}>{ui.transcript}</summary>
