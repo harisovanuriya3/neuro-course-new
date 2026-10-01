@@ -4,7 +4,7 @@ const copy: ModuleTestCopy = {
   title: "Adaptive test. Introduction to neurophysiology", moduleTitle: "Module 1",
   ui: {
     introduction: "This formative assessment offers different learning routes. A correct solution leads to the next core topic. After an error, review the relevant theory and complete an additional task. The length of your route depends on your answers.",
-    languageWarning: "Changing the language will restart your current attempt.", localNote: "Progress is kept only on this page and resets on reload. Theory opens in a new tab: return here to continue the same attempt.",
+    languageWarning: "Changing the language will restart your current attempt.", localNote: "Your current attempt is saved in this browser and restored after reload. Theory opens in a new tab: return here to continue the same attempt.",
     mainProgress: "Main route", additional: "Additional task", basic: "Foundation task", competency: "Topic",
     check: "Check answer", select: "Select one option, then check your answer.", correct: "Correct", reviewNeeded: "Review needed",
     continue: "Continue the route", finish: "View results", review: "Review needed", detailedReview: "A closer explanation",
