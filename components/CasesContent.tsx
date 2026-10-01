@@ -8,14 +8,14 @@ import styles from "./CasesContent.module.css";
 import { recordOutcome } from "../lib/courseProgress";
 import type { Language } from "../content/course";
 
-export default function CasesContent({ lesson, language }: { lesson: CasesLesson; language: Language }) {
+export default function CasesContent({ lesson, language, moduleId }: { lesson: CasesLesson; language: Language; moduleId: number }) {
   const [completed, setCompleted] = useState<string[]>([]);
   const ui = lesson.ui;
 
   function mark(id: string, done: boolean) {
     const next = done ? [...new Set([...completed, id])] : completed.filter(value => value !== id);
     setCompleted(next);
-    recordOutcome(1, "cases", next.length, lesson.cases.length);
+    recordOutcome(moduleId, "cases", next.length, lesson.cases.length);
   }
 
   return (
