@@ -23,6 +23,30 @@ const scenarioFor=(id:number):Scenario=>{
  return{role:t("Пациент на нейрофизиологическом обследовании","Patient undergoing neurophysiological assessment","Нейрофизиологиялық тексерудегі пациент"),finding:t("В ходе задания меняется результат по сравнению с исходным состоянием.","Task performance changes relative to baseline.","Тапсырма барысында нәтиже бастапқы күймен салыстырғанда өзгереді."),test:t("Повторить задание с изменением одного условия и сравнить результат.","Repeat the task after changing one condition and compare the result.","Бір шартты өзгертіп, тапсырманы қайталап, нәтижені салыстыру."),alternative:t("Проверить альтернативное объяснение и указать пределы вывода.","Test an alternative explanation and state the limits of inference.","Балама түсіндіруді тексеріп, қорытынды шегін көрсету.")};
 };
 
+function ExamScene({moduleId,step,path,language}:{moduleId:number;step:number;path:"mechanism"|"alternative";language:Language}){
+ const kind=moduleId===2?"signal":moduleId<=6?"cell":moduleId<=14?"motor":moduleId<=18?"regulation":moduleId<=21?"sensory":moduleId===22?"autonomic":"cognitive";
+ const labels:{[key:string]:Record<Language,string>}={
+ signal:{RU:"Монитор функциональной регистрации",EN:"Functional recording monitor",KZ:"Функционалдық тіркеу мониторы"},
+ cell:{RU:"Нервно-мышечный ответ",EN:"Neuromuscular response",KZ:"Жүйке-бұлшықет жауабы"},
+ motor:{RU:"Двигательная проба",EN:"Motor examination",KZ:"Қозғалыс сынағы"},
+ regulation:{RU:"Регуляторная реакция",EN:"Regulatory response",KZ:"Реттеуші реакция"},
+ sensory:{RU:"Сенсорная проба",EN:"Sensory examination",KZ:"Сенсорлық сынақ"},
+ autonomic:{RU:"Вегетативный мониторинг",EN:"Autonomic monitoring",KZ:"Вегетативтік мониторинг"},
+ cognitive:{RU:"Когнитивная проба",EN:"Cognitive task",KZ:"Когнитивтік сынақ"}};
+ const amplitude=(path==="mechanism"?[28,55,78]:[28,43,61])[step];
+ return <figure style={{margin:"16px 0",padding:16,borderRadius:18,background:"linear-gradient(145deg,#071a2c,#12364a)",color:"white",boxShadow:"0 10px 24px rgba(7,26,44,.18)"}}>
+  <figcaption style={{fontWeight:800,marginBottom:12}}>{labels[kind][language]}</figcaption>
+  <svg viewBox="0 0 640 190" role="img" aria-label={labels[kind][language]} style={{display:"block",width:"100%",borderRadius:12,background:"#06131f"}}>
+   <defs><linearGradient id="vpGlow" x1="0" x2="1"><stop stopColor="#38bdf8"/><stop offset="1" stopColor="#4ade80"/></linearGradient></defs>
+   <path d={`M10 105 C55 ${105-amplitude/2},85 ${105+amplitude/3},125 105 S190 ${105-amplitude},230 105 S300 ${105+amplitude/2},345 105 S410 ${105-amplitude*.8},455 105 S535 ${105+amplitude/2},630 105`} fill="none" stroke="url(#vpGlow)" strokeWidth="5" style={{transition:"all .5s ease"}}/>
+   {kind==="motor"&&<><circle cx={110+step*120} cy={55} r="18" fill="#fbbf24"/><path d={`M${110+step*120} 73v48m0-30l-35 28m35-28l38 20m-38 14l-28 43m28-43l30 43`} stroke="#fde68a" strokeWidth="8" strokeLinecap="round"/></>}
+   {kind==="sensory"&&[0,1,2,3,4].map(i=><circle key={i} cx={170+i*55} cy={55+(i%2)*12} r={9+step*3} fill={i<=step+1?"#f472b6":"#475569"}/>)}
+   {kind==="autonomic"&&<><text x="28" y="45" fill="#bae6fd" fontSize="22">HR</text><text x="80" y="45" fill="white" fontSize="28">{72+step*(path==="mechanism"?9:5)}</text></>}
+   {kind==="cognitive"&&<><rect x="475" y="28" width="120" height="48" rx="10" fill="#312e81"/><text x="495" y="60" fill="white" fontSize="20">{step===0?"BASE":step===1?"TASK":"RETEST"}</text></>}
+  </svg>
+ </figure>;
+}
+
 export default function FoundationVirtualPatient({moduleId,language}:{moduleId:number;language:Language}){
  const topic=topics.find(x=>x.id===moduleId);
  const [open,setOpen]=useState<boolean[]>([false,false,false]);
@@ -47,6 +71,7 @@ export default function FoundationVirtualPatient({moduleId,language}:{moduleId:n
    <section style={{padding:18,borderRadius:16,background:"#f5fbf7",border:"1px solid #b9d8c4",marginBottom:18}}>
     <h2 style={{marginTop:0}}>{language==="RU"?"Динамика обследования":language==="EN"?"Examination dynamics":"Тексеру динамикасы"}</h2>
     <p>{pathResult}</p>
+    <ExamScene moduleId={moduleId} step={examStep} path={path} language={language} />
     <div aria-label={stateLabels[examStep]} style={{height:18,borderRadius:99,background:"#dce8ef",overflow:"hidden"}}><div style={{height:"100%",width:`${stateValues[examStep]}%`,background:"linear-gradient(90deg,#3b82f6,#22c55e)",transition:"width .5s ease"}} /></div>
     <p><strong>{stateLabels[examStep]}</strong> · {stateValues[examStep]}%</p>
     <button type="button" disabled={examStep>=2} onClick={()=>setExamStep(v=>Math.min(2,v+1))}>{language==="RU"?"Следующий этап обследования":language==="EN"?"Next examination step":"Тексерудің келесі кезеңі"}</button>
