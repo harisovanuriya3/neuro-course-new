@@ -592,15 +592,34 @@ function create(
 
       questions: [
         {
-          id: `module-${topic.id}-review`,
+          id: `module-${topic.id}-review-concept`,
           prompt: question,
-
-          explanation:
-            `${mechanism} ${interpretation}`,
-
-          target: {
-            section: 'theory',
-          },
+          explanation: `${mechanism} ${interpretation}`,
+          target: { section: 'theory' },
+        },
+        {
+          id: `module-${topic.id}-review-mechanism`,
+          prompt: language === 'RU' ? 'Опишите причинную цепочку механизма по шагам. Как изменение первого звена повлияет на результат?' : language === 'EN' ? 'Describe the causal mechanism step by step. How would changing the first link affect the result?' : 'Себептік тетікті қадамдап сипаттаңыз. Бірінші буын өзгерсе, нәтиже қалай өзгереді?',
+          explanation: mechanism,
+          target: { section: 'theory' },
+        },
+        {
+          id: `module-${topic.id}-review-interpretation`,
+          prompt: language === 'RU' ? 'Какой наблюдаемый результат согласуется с этим механизмом и что он сам по себе не доказывает?' : language === 'EN' ? 'Which observable result is consistent with this mechanism, and what does that result not prove by itself?' : 'Қандай байқалатын нәтиже осы тетікке сәйкес келеді және ол өздігінен нені дәлелдемейді?',
+          explanation: interpretation,
+          target: { section: 'practice' },
+        },
+        {
+          id: `module-${topic.id}-review-transfer`,
+          prompt: language === 'RU' ? 'Перенесите механизм в новую ситуацию: сначала сделайте прогноз, затем обоснуйте его причинной связью.' : language === 'EN' ? 'Transfer the mechanism to a new situation: make a prediction, then justify it causally.' : 'Тетікті жаңа жағдайға қолданыңыз: алдымен болжам жасаңыз, кейін оны себептік байланыспен негіздеңіз.',
+          explanation: topic.task[language],
+          target: { section: 'cases' },
+        },
+        {
+          id: `module-${topic.id}-review-justification`,
+          prompt: language === 'RU' ? 'Какое дополнительное наблюдение или сравнение усилило бы ваш вывод и почему?' : language === 'EN' ? 'What additional observation or comparison would strengthen your conclusion, and why?' : 'Қандай қосымша бақылау немесе салыстыру қорытындыңызды күшейтер еді және неге?',
+          explanation: `${mechanism} ${interpretation}`,
+          target: { section: 'tests' },
         },
       ],
     };
