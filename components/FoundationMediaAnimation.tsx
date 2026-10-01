@@ -7,7 +7,7 @@ export default function FoundationMediaAnimation({moduleId,language}:{moduleId:n
  const [step,setStep]=useState(0);
  const labels=language==="RU"?["Исходное состояние","Изменение параметра","Физиологический ответ","Интерпретация"]:language==="EN"?["Baseline","Parameter change","Physiological response","Interpretation"]:["Бастапқы күй","Параметрді өзгерту","Физиологиялық жауап","Түсіндіру"];
  const value=[24,46,72,88][step];
- const group=moduleId===7?"reflex":moduleId===8?"pathway":moduleId===9?"spinal":moduleId===10?"arousal":moduleId===11?"motor":moduleId===12?"basal":moduleId===13?"cerebellum":moduleId===14?"thalamus":"signal";
+ const group=moduleId===7?"reflex":moduleId===8?"pathway":moduleId===9?"spinal":moduleId===10?"arousal":moduleId===11?"motor":moduleId===12?"basal":moduleId===13?"cerebellum":moduleId===14?"thalamus":moduleId===15?"homeostasis":moduleId===16?"limbic":moduleId===17?"amygdala":moduleId===18?"cortex":moduleId===19?"somatic":moduleId===20?"vision":moduleId===21?"auditory":"signal";
  return <section style={{padding:16,borderRadius:16,background:"linear-gradient(145deg,#071a2c,#12364a)",color:"white"}}>
   <div style={{display:"flex",justifyContent:"space-between",gap:12,flexWrap:"wrap",alignItems:"center"}}>
    <strong>{labels[step]}</strong><span>{language==="RU"?"Модуль":language==="EN"?"Module":"Модуль"} {moduleId}</span>
@@ -24,6 +24,13 @@ export default function FoundationMediaAnimation({moduleId,language}:{moduleId:n
    {group==="basal"&&<><circle cx="280" cy="75" r={26+step*3} fill="#6366f1"/><circle cx="355" cy="92" r={22+step*2} fill="#8b5cf6"/><path d="M120 85 H250 M385 92 H560" stroke="#c4b5fd" strokeWidth="5"/></>}
    {group==="cerebellum"&&<><path d="M90 130 Q190 35 290 115 T500 85" fill="none" stroke="#fb7185" strokeWidth="5"/><path d="M90 130 Q190 70 290 100 T500 85" fill="none" stroke="#4ade80" strokeWidth="4"/></>}
    {group==="thalamus"&&<><ellipse cx="320" cy="90" rx={45+step*3} ry="34" fill="#0ea5e9"/><path d="M80 90 H270 M370 90 H570" stroke="#7dd3fc" strokeWidth="6"/></>}
+   {group==="homeostasis"&&<><line x1="90" y1="90" x2="550" y2="90" stroke="#64748b" strokeWidth="3"/><circle cx={160+step*105} cy={90-(step===1?35:step===2?18:0)} r="16" fill="#4ade80"/><path d="M475 55 Q545 90 475 125" fill="none" stroke="#fbbf24" strokeWidth="5"/></>}
+   {group==="limbic"&&<><circle cx="180" cy="85" r={22+step*3} fill="#f472b6"/><circle cx="320" cy="85" r={22+step*3} fill="#a78bfa"/><circle cx="460" cy="85" r={22+step*3} fill="#38bdf8"/><path d="M205 85 H295 M345 85 H435" stroke="#e2e8f0" strokeWidth="5"/></>}
+   {group==="amygdala"&&<><circle cx="150" cy="90" r="18" fill="#fbbf24"/><path d="M170 90 H300" stroke="#fbbf24" strokeWidth="5"/><ellipse cx="350" cy="90" rx={30+step*5} ry={22+step*3} fill="#fb7185"/><path d="M385 90 H550" stroke="#f472b6" strokeWidth="5"/></>}
+   {group==="cortex"&&[0,1,2,3,4].map(i=><circle key={i} cx={150+i*85} cy={60+(i%2)*55} r={12+(i<=step?8:0)} fill={i<=step?"#38bdf8":"#475569"}/>)}
+   {group==="somatic"&&<><circle cx="105" cy="90" r="18" fill="#f472b6"/><path d="M125 90 C220 30 300 150 390 90 S500 45 565 90" fill="none" stroke="#a78bfa" strokeWidth="5"/><circle cx={210+step*90} cy="90" r="10" fill="#fde047"/></>}
+   {group==="vision"&&<><ellipse cx="120" cy="85" rx="45" ry="28" fill="#e0f2fe"/><circle cx="120" cy="85" r="13" fill="#0f172a"/><path d="M165 85 L310 85 L420 45 M310 85 L420 125" fill="none" stroke="#38bdf8" strokeWidth="5"/><rect x="485" y="35" width="90" height="100" rx="12" fill={step<2?"#334155":"#1d4ed8"}/></>}
+   {group==="auditory"&&<><path d="M75 90 Q105 45 135 90 T195 90 T255 90" fill="none" stroke="#38bdf8" strokeWidth={3+step}/><circle cx="330" cy="90" r={25+step*3} fill="#fbbf24"/><path d="M360 90 C430 35 500 145 570 90" fill="none" stroke="#4ade80" strokeWidth="5"/></>}
   </svg>
   <div style={{display:"flex",gap:8,marginTop:12,flexWrap:"wrap"}}>
    <button type="button" disabled={step===0} onClick={()=>setStep(v=>Math.max(0,v-1))}>{language==="RU"?"Назад":language==="EN"?"Back":"Артқа"}</button>
