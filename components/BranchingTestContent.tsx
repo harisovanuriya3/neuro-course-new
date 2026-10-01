@@ -13,7 +13,7 @@ const labels = {
   EN: { retry: "Retry incorrect questions", retryResult: "Retry result", original: "Original attempt result", answer: "Correct answer", retryNote: "Retrying does not change the original attempt result." },
 };
 
-export default function BranchingTestContent({ test, language }: { test: BranchingTest; language: Language }) {
+export default function BranchingTestContent({ test, language, moduleId }: { test: BranchingTest; language: Language; moduleId: number }) {
   const [state, dispatch] = useReducer((state: TestState, action: TestAction) => transition(test, state, action), test, initialState);
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => { heading.current?.focus(); }, [state.current, state.phase]);
@@ -21,8 +21,8 @@ export default function BranchingTestContent({ test, language }: { test: Branchi
   const copy = labels[language];
   const result = summarize(test, state);
   useEffect(() => {
-    if (state.phase === "results" && state.retryIds === null) recordOutcome(1, "tests", result.firstCorrect, result.total);
-  }, [state.phase, state.retryIds, result.firstCorrect, result.total]);
+    if (state.phase === "results" && state.retryIds === null) recordOutcome(moduleId, "tests", result.firstCorrect, result.total);
+  }, [state.phase, state.retryIds, result.firstCorrect, result.total, moduleId]);
   const node = test.nodes[state.current];
   const attempts = state.retryIds === null ? state.attempts : state.retryAttempts;
   const last = attempts[attempts.length - 1];
