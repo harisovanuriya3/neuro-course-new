@@ -9,9 +9,15 @@ const ui = (l: Language): CasesLesson["ui"] => ({
 
 export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):CasesLesson{
  const q=topic.question[l], mech=topic.mechanism[l], interp=topic.interpretation[l], task=topic.task[l];
+ const termA=topic.terms[0][l], termB=topic.terms[1][l];
+ const transferSituation=l==="RU"
+  ? `Новая ситуация по теме «${moduleTitle}»: измените одно условие, связанное с «${termA}», и предскажите, как это повлияет на «${termB}». Отделите наблюдаемое изменение от физиологической интерпретации.`
+  : l==="EN"
+   ? `New situation in “${moduleTitle}”: change one condition related to “${termA}” and predict how it affects “${termB}”. Separate the observed change from its physiological interpretation.`
+   : `«${moduleTitle}» тақырыбындағы жаңа жағдай: «${termA}» ұғымына қатысты бір шартты өзгертіп, оның «${termB}» ұғымына әсерін болжаңыз. Бақыланған өзгерісті физиологиялық түсіндіруден ажыратыңыз.`;
  return {kind:"cases",title:l==="RU"?"Ситуационные задачи":l==="EN"?"Case Problems":"Ситуациялық тапсырмалар",moduleTitle,introduction:l==="RU"?"Примените механизм к новой ситуации. Не угадывайте диагноз: сначала определите физиологическое звено и ожидаемое изменение.":l==="EN"?"Apply the mechanism to a new situation. Identify the physiological link and expected change before naming an interpretation.":"Тетікті жаңа жағдайға қолданыңыз. Алдымен физиологиялық буын мен күтілетін өзгерісті анықтаңыз.",ui:ui(l),cases:[
   {id:`m${topic.id}-mechanism`,title:q,situation:task,stages:[{title:l==="RU"?"Механизм":l==="EN"?"Mechanism":"Тетік",questions:[q,l==="RU"?"Какое звено изменилось и в каком направлении изменится результат?":l==="EN"?"Which link changed, and in which direction should the result change?":"Қай буын өзгерді және нәтиже қай бағытта өзгереді?"]},{title:l==="RU"?"Интерпретация":l==="EN"?"Interpretation":"Түсіндіру",questions:[l==="RU"?"Какие данные подтверждают вывод и чего по условию утверждать нельзя?":l==="EN"?"What evidence supports the conclusion, and what cannot be concluded from the scenario?":"Қандай дерек қорытындыны қолдайды және жағдайдан нені айтуға болмайды?"]}],explanation:[mech,interp]},
-  {id:`m${topic.id}-transfer`,title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",situation:l==="RU"?`Условия изменились. Используйте тот же механизм темы «${moduleTitle}», но сначала сделайте прогноз, не открывая разбор.`:l==="EN"?`Conditions have changed. Apply the same mechanism from “${moduleTitle}”; predict the result before opening the analysis.`:`Жағдай өзгерді. «${moduleTitle}» тақырыбының сол тетігін қолданып, талдауды ашпай тұрып нәтижені болжаңыз.`,stages:[{title:l==="RU"?"Прогноз":l==="EN"?"Prediction":"Болжау",questions:[q]}],explanation:[mech,interp]}
+  {id:`m${topic.id}-transfer`,title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",situation:transferSituation,stages:[{title:l==="RU"?"Прогноз":l==="EN"?"Prediction":"Болжау",questions:[q]}],explanation:[mech,interp]}
  ]};
 }
 
@@ -23,9 +29,22 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
  const comp="mechanism", main="mechanism:main", corrective="mechanism:corrective", basic="mechanism:basic";
  const opts=(correct:string,wrong1:string,wrong2:string,wrong3:string)=>[{id:"a",text:correct},{id:"b",text:wrong1},{id:"c",text:wrong2},{id:"d",text:wrong3}];
  const mechanism=topic.mechanism[l], interpretation=topic.interpretation[l], question=topic.question[l];
- const wrong1=l==="RU"?"Результат определяется только названием структуры, механизм не важен.":l==="EN"?"The result is determined only by the structure name; mechanism is irrelevant.":"Нәтижені тек құрылым атауы анықтайды, тетік маңызды емес.";
- const wrong2=l==="RU"?"Любое изменение обязательно означает полный отказ всей системы.":l==="EN"?"Any change necessarily means complete failure of the whole system.":"Кез келген өзгеріс бүкіл жүйенің толық істен шығуын білдіреді.";
- const wrong3=l==="RU"?"По одному наблюдению можно сразу установить окончательный диагноз.":l==="EN"?"A single observation establishes a definitive diagnosis.":"Бір бақылау түпкілікті диагнозды бірден анықтайды.";
+ const termA=topic.terms[0][l], termB=topic.terms[1][l];
+ const wrong1=l==="RU"
+  ? `«${termA}» и «${termB}» можно считать взаимозаменяемыми; направление причинной связи не требуется.`
+  : l==="EN"
+   ? `“${termA}” and “${termB}” can be treated as interchangeable; the direction of causality is unnecessary.`
+   : `«${termA}» және «${termB}» өзара алмастырылады; себеп-салдар бағытын көрсету қажет емес.`;
+ const wrong2=l==="RU"
+  ? `Если меняется «${termA}», «${termB}» всегда изменяется в одном и том же направлении независимо от контекста и состояния системы.`
+  : l==="EN"
+   ? `If “${termA}” changes, “${termB}” always changes in the same direction regardless of context or system state.`
+   : `«${termA}» өзгерсе, контекст пен жүйе күйіне қарамастан «${termB}» әрқашан бір бағытта өзгереді.`;
+ const wrong3=l==="RU"
+  ? `Одного изменения «${termA}» достаточно для окончательного клинического вывода без проверки ограничений метода и альтернатив.`
+  : l==="EN"
+   ? `A change in “${termA}” alone is sufficient for a definitive clinical conclusion without checking method limits or alternatives.`
+   : `«${termA}» өзгерісінің өзі әдіс шектеулері мен баламаларды тексермей-ақ түпкілікті клиникалық қорытынды жасауға жеткілікті.`;
  const nodes:BranchingTest["nodes"]={
   [main]:{id:main,type:"question",level:"main",competency:comp,prompt:question,options:opts(mechanism,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"mechanism:review-1"},
   "mechanism:review-1":{id:"mechanism:review-1",type:"remediation",competency:comp,depth:1,text:mechanism,theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:corrective},
