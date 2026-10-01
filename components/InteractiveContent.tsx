@@ -10,6 +10,8 @@ import { OrganizationVisual, PathwayVisual, SynapseVisual, IntegrationVisual } f
 import ReflexLab from "./ReflexLab";
 import { OrganizationSpecimens, SynapseSpecimen } from "./RealSpecimens";
 import SynapseLab from "./SynapseLab";
+import EEGLab from "./EEGLab";
+import MembranePotentialLab from "./MembranePotentialLab";
 import BalanceDiagram from "./BalanceDiagram";
 
 type UI = InteractiveLesson["ui"];
@@ -129,9 +131,11 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     <h1>{lesson.title}</h1><p>{lesson.introduction}</p><p className={styles.note}>{ui.keyboard}</p>
     {card(lesson.organization, <Organization diagram={lesson.organization} ui={ui} language={language} />)}
     {card(lesson.pathway, <Sequence id="pathway" nodes={lesson.pathway.nodes} ui={ui} loop={lesson.pathway.loop} language={language} />)}
+    {moduleId === "2" && <EEGLab language={language} />}
+    {moduleId === "4" && <MembranePotentialLab language={language} />}
     <ReflexLab language={language} />
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
-    <SynapseLab language={language} />
+    {(moduleId === "1" || moduleId === "5") && <SynapseLab language={language} />}
     {card(lesson.integration, <Integration diagram={lesson.integration} ui={ui} language={language} />)}
     {moduleId === "1" && <BalanceDiagram language={language} ui={ui} />}
   </article>;
