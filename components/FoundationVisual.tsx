@@ -65,7 +65,7 @@ export default function FoundationVisual({ moduleId, language }: { moduleId: num
   if (moduleId === 21) return <div className={styles.visual}><SensorySystemsLab language={language} /></div>;
   if (moduleId === 20) return <div className={styles.visual}><VisionLab language={language} /></div>;
   if (moduleId === 19) return <div className={styles.visual}><SomatosensoryLab language={language} /></div>;
-  if (moduleId === 18) return <div className={styles.visual}><CortexLab language={language} /></div>;
+  if (moduleId === 18) return <div className={styles.visual}><CortexLab language={language} /><section><h2>{c.specimen}</h2><figure><div className={styles.photo}><Image src="/images/anatomy/brain-spinal-cord.jpg" alt={c.brain} fill sizes="(max-width: 600px) 80vw, 520px" /></div><figcaption><p>{c.brain}</p><a href="https://commons.wikimedia.org/wiki/File:Human_brain_and_spinal_cord.jpg">{c.source}</a> · Z22 · National Museum of Health and Medicine · CC BY-SA 4.0</figcaption></figure></section></div>;
   if (moduleId === 17) return <div className={styles.visual}><AmygdalaLab language={language} /></div>;
   if (moduleId === 16) return <div className={styles.visual}><LimbicLab language={language} /></div>;
   if (moduleId === 15) return <div className={styles.visual}><HypothalamusLab language={language} /></div>;
@@ -73,11 +73,11 @@ export default function FoundationVisual({ moduleId, language }: { moduleId: num
   if (moduleId === 13) return <div className={styles.visual}><CerebellumLab language={language} /><BalanceDiagram language={language} ui={createInteractiveLesson(language).ui} title={c.balance} /><p>{c.cerebellum}</p></div>;
   if (moduleId === 12) return <div className={styles.visual}><BasalGangliaLab language={language} /><BalanceDiagram language={language} ui={createInteractiveLesson(language).ui} title={c.balance} /><p>{c.control}</p></div>;
   if (moduleId === 11) return <div className={styles.visual}><MotorControlLab language={language} /></div>;
-  if (moduleId === 10) return <div className={styles.visual}><BrainstemLab language={language} /></div>;
+  if (moduleId === 10) return <div className={styles.visual}><BrainstemLab language={language} /><section><h2>{c.specimen}</h2><figure><div className={styles.photo}><Image src="/images/anatomy/brain-spinal-cord.jpg" alt={c.brain} fill sizes="(max-width: 600px) 80vw, 520px" /></div><figcaption><p>{c.brain}</p><a href="https://commons.wikimedia.org/wiki/File:Human_brain_and_spinal_cord.jpg">{c.source}</a> · Z22 · National Museum of Health and Medicine · CC BY-SA 4.0</figcaption></figure></section></div>;
   if (moduleId === 9) return <div className={styles.visual}><SpinalRegulationLab language={language} /></div>;
   if (moduleId === 8) return <div className={styles.visual}><PathwayLab language={language} /></div>;
   if (moduleId === 7) return <div className={styles.visual}><ReflexLab language={language} /></div>;
-  if (moduleId === 6) return <div className={styles.visual}><IntegrationLab language={language} /></div>;
+  if (moduleId === 6) return <div className={styles.visual}><IntegrationLab language={language} /><section><h2>{c.specimen}</h2><figure><div className={styles.photo}><Image src="/images/anatomy/neuromuscular-junction.jpg" alt={c.junction} fill sizes="(max-width: 600px) 80vw, 520px" /></div><figcaption><p>{c.junction}</p><a href="https://commons.wikimedia.org/wiki/File:Electron_micrograph_of_neuromuscular_junction_(cross-section).jpg">{c.source}</a> · National Institute of Mental Health · Public domain (US)</figcaption></figure></section></div>;
   if (moduleId === 5) return <div className={styles.visual}><SynapseLab language={language} /></div>;
   if (moduleId === 4) return <div className={styles.visual}><MembranePotentialLab language={language} /></div>;
   const visual = moduleId === 3 ? {
