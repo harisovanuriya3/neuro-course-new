@@ -7,9 +7,9 @@ import styles from "../CasesContent.module.css";
 import VoiceTextarea from "../VoiceTextarea";
 import type { Language } from "../../content/course";
 
-type Props = { item: CaseExercise; number: number; ui: CasesLesson["ui"]; language: Language; completed: boolean; onComplete: (done: boolean) => void };
+type Props = { item: CaseExercise; number: number; ui: CasesLesson["ui"]; language: Language; completed: boolean; onComplete: (done: boolean) => void; onChecked?: (correct: boolean) => void };
 
-export default function CaseCard({ item, number, ui, language, completed, onComplete }: Props) {
+export default function CaseCard({ item, number, ui, language, completed, onComplete, onChecked }: Props) {
   const [visible, setVisible] = useState(1);
   const [responses, setResponses] = useState<string[]>([]);
   const [selected, setSelected] = useState<number[]>([]);
@@ -50,6 +50,7 @@ export default function CaseCard({ item, number, ui, language, completed, onComp
       const success = selected.every((step, index) => step === index);
       setCorrect(success);
       setFeedback(success ? ui.correct : ui.incorrect);
+      onChecked?.(success);
     } else if (selection) {
       if (choice === null) {
         setCorrect(false);
@@ -58,6 +59,7 @@ export default function CaseCard({ item, number, ui, language, completed, onComp
       }
       setCorrect(selection.options[choice].correct);
       setFeedback(selection.options[choice].feedback);
+      onChecked?.(selection.options[choice].correct);
     }
     setChecked(true);
   }
