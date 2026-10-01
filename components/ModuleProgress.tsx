@@ -27,7 +27,7 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
   [c.transfer,level(criterion("transfer")?.correct??0,criterion("transfer")?.total??0)],
   [c.justification,level(criterion("justification")?.correct??0,criterion("justification")?.total??0)],
   [c.clinical,level(cOnly.correct,cOnly.total)],
-  [c.correction,level(tOnly.correct,tOnly.total)]
+  [c.correction,level(criterion("correction")?.correct??0,criterion("correction")?.total??0)]
  ];
  const label=(x:Level)=>x==="mastered"?c.mastered:x==="forming"?c.forming:x==="review"?c.review:c.none;
  return <section className={styles.patient}>
