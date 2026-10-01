@@ -17,6 +17,8 @@ import PageVoiceTools from "../../../../components/PageVoiceTools";
 import CourseVisitTracker from "../../../../components/CourseVisitTracker";
 import { interfaceText } from "../../../../lib/interface";
 import FoundationVisual from "../../../../components/FoundationVisual";
+import AnatomyReference from "../../../../components/AnatomyReference";
+import AdvancedAnatomyReference from "../../../../components/AdvancedAnatomyReference";
 
 const text = {
   RU: {
@@ -214,7 +216,13 @@ export default async function SectionPage({
                 moduleId={id}
                 language={lang}
               />
-              {section === 'theory' && moduleNumber > 1 && <FoundationVisual moduleId={moduleNumber} language={lang} />}
+              {section === 'theory' && moduleNumber > 1 && (
+                <>
+                  <FoundationVisual moduleId={moduleNumber} language={lang} />
+                  <AnatomyReference moduleId={moduleNumber} language={lang} />
+                  <AdvancedAnatomyReference moduleId={moduleNumber} language={lang} />
+                </>
+              )}
             </>
           ) : (
             <>
