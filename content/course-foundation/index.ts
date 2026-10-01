@@ -343,6 +343,34 @@ function create(
     };
   }
 
+  if (section === 'one-minute') {
+    return {
+      kind: 'one-minute',
+      title,
+      introduction: language === 'RU' ? 'Сформулируйте механизм за одну минуту: от причины к наблюдаемому результату.' : language === 'EN' ? 'Explain the mechanism in one minute, moving from cause to observable result.' : 'Тетікті бір минутта түсіндіріңіз: себептен байқалатын нәтижеге дейін.',
+      cards: [
+        {
+          id: `module-${topic.id}-one-minute-core`,
+          title: language === 'RU' ? 'Механизм' : language === 'EN' ? 'Mechanism' : 'Тетік',
+          paragraphs: [mechanism],
+          links: [{ section: 'theory' as const }],
+        },
+        {
+          id: `module-${topic.id}-one-minute-interpret`,
+          title: language === 'RU' ? 'Что означает результат' : language === 'EN' ? 'What the result means' : 'Нәтиже нені білдіреді',
+          paragraphs: [interpretation],
+          links: [{ section: 'theory' as const }, { section: 'practice' as const }],
+        },
+        {
+          id: `module-${topic.id}-one-minute-check`,
+          title: language === 'RU' ? 'Проверьте себя' : language === 'EN' ? 'Check yourself' : 'Өзіңізді тексеріңіз',
+          paragraphs: [question],
+          links: [{ section: 'tests' as const }],
+        },
+      ],
+    };
+  }
+
   if (section === 'clinical') {
     return {
       kind: 'clinical',
