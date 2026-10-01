@@ -53,6 +53,8 @@ export default function FoundationVirtualPatient({moduleId,language}:{moduleId:n
  const [answers,setAnswers]=useState(["","",""]);
  const [path,setPath]=useState<"mechanism"|"alternative"|null>(null);
  const [examStep,setExamStep]=useState(0);
+ const [decision,setDecision]=useState<"support"|"challenge"|null>(null);
+ const [revised,setRevised]=useState(false);
  if(!topic)return null;
  const c=ui[language], scenario=scenarioFor(moduleId), guides=[scenario.finding[language],topic.mechanism[language],topic.interpretation[language]];
  const speak=(value:string)=>{if(typeof window==="undefined"||!("speechSynthesis" in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(value);u.lang={RU:"ru-RU",EN:"en-US",KZ:"kk-KZ"}[language];window.speechSynthesis.speak(u)};
@@ -60,12 +62,13 @@ export default function FoundationVirtualPatient({moduleId,language}:{moduleId:n
  const pathResult=path==="mechanism"?scenario.test[language]:path==="alternative"?scenario.alternative[language]:"";
  const stateLabels=language==="RU"?["Исходное состояние","После первого шага","После проверки"]:language==="EN"?["Baseline","After first step","After verification"]:["Бастапқы күй","Бірінші қадамнан кейін","Тексеруден кейін"];
  const stateValues=path==="alternative"?[35,52,68]:[35,64,82];
+ const decisionFeedback=decision==="support"?topic.mechanism[language]:decision==="challenge"?topic.interpretation[language]:"";
  return <section>
   <h1>{c.title}</h1><p>{c.intro}</p><p><strong>{scenario.role[language]}</strong></p>
   <div style={{padding:18,border:"1px solid #b9d8e8",borderRadius:18,background:"linear-gradient(135deg,#e8f7ff,#f6f0ff)",margin:"18px 0"}}><strong>{scenario.finding[language]}</strong><div><button type="button" onClick={()=>speak(scenario.finding[language])} style={{marginTop:12}}>🔊 {language==="RU"?"Голос пациента":language==="EN"?"Patient voice":"Пациент дауысы"}</button></div></div>
   <section style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:12,margin:"18px 0"}}>
-   <button type="button" onClick={()=>{setPath("mechanism");setExamStep(0)}} style={{padding:16,borderRadius:14,border:"1px solid #78aeca",background:path==="mechanism"?"#dff3ff":"white",fontWeight:700}}>{scenario.test[language]}</button>
-   <button type="button" onClick={()=>{setPath("alternative");setExamStep(0)}} style={{padding:16,borderRadius:14,border:"1px solid #a993cf",background:path==="alternative"?"#eee6ff":"white",fontWeight:700}}>{scenario.alternative[language]}</button>
+   <button type="button" onClick={()=>{setPath("mechanism");setExamStep(0);setDecision(null);setRevised(false)}} style={{padding:16,borderRadius:14,border:"1px solid #78aeca",background:path==="mechanism"?"#dff3ff":"white",fontWeight:700}}>{scenario.test[language]}</button>
+   <button type="button" onClick={()=>{setPath("alternative");setExamStep(0);setDecision(null);setRevised(false)}} style={{padding:16,borderRadius:14,border:"1px solid #a993cf",background:path==="alternative"?"#eee6ff":"white",fontWeight:700}}>{scenario.alternative[language]}</button>
   </section>
   {path&&<>
    <section style={{padding:18,borderRadius:16,background:"#f5fbf7",border:"1px solid #b9d8c4",marginBottom:18}}>
@@ -76,6 +79,19 @@ export default function FoundationVirtualPatient({moduleId,language}:{moduleId:n
     <p><strong>{stateLabels[examStep]}</strong> · {stateValues[examStep]}%</p>
     <button type="button" disabled={examStep>=2} onClick={()=>setExamStep(v=>Math.min(2,v+1))}>{language==="RU"?"Следующий этап обследования":language==="EN"?"Next examination step":"Тексерудің келесі кезеңі"}</button>
     {examStep>0&&<button type="button" onClick={()=>setExamStep(v=>Math.max(0,v-1))} style={{marginLeft:8}}>{language==="RU"?"Назад":language==="EN"?"Back":"Артқа"}</button>}
+    {examStep===2&&<div style={{marginTop:18,paddingTop:16,borderTop:"1px solid #cbded2"}}>
+     <strong>{language==="RU"?"Как вы интерпретируете результат?":language==="EN"?"How do you interpret the result?":"Нәтижені қалай түсіндіресіз?"}</strong>
+     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(210px,1fr))",gap:10,marginTop:10}}>
+      <button type="button" onClick={()=>setDecision("support")} style={{padding:12,borderRadius:10}}>{language==="RU"?"Данные поддерживают механизм":language==="EN"?"Data support the mechanism":"Дерек тетікті қолдайды"}</button>
+      <button type="button" onClick={()=>setDecision("challenge")} style={{padding:12,borderRadius:10}}>{language==="RU"?"Нужно проверить альтернативу":language==="EN"?"Test an alternative":"Баламаны тексеру керек"}</button>
+     </div>
+     {decision&&<div style={{marginTop:12,padding:12,borderRadius:10,background:"#fff7dc"}}>
+      <strong>{language==="RU"?"Комментарий преподавателя":language==="EN"?"Teacher feedback":"Оқытушы пікірі"}</strong><p>{decisionFeedback}</p>
+      <button type="button" onClick={()=>speak(decisionFeedback)}>🔊 {language==="RU"?"Озвучить":language==="EN"?"Speak":"Дыбыстау"}</button>
+      <button type="button" onClick={()=>{setDecision(null);setExamStep(1);setRevised(true)}} style={{marginLeft:8}}>{language==="RU"?"Вернуться и исправить решение":language==="EN"?"Go back and revise":"Артқа оралып, шешімді түзету"}</button>
+      {revised&&<p><strong>{language==="RU"?"Повторная попытка отмечена: сравните новое решение с первым.":language==="EN"?"Revision recorded: compare the new decision with your first one.":"Қайталау белгіленді: жаңа шешімді алғашқы шешіммен салыстырыңыз."}</strong></p>}
+     </div>}
+    </div>}
    </section>
    <aside style={{padding:14,borderRadius:14,background:"#fff7dc",border:"1px solid #e8cf75",marginBottom:18}}><strong>{language==="RU"?"Комментарий преподавателя":language==="EN"?"Teacher feedback":"Оқытушы пікірі"}</strong><p>{teacher}</p><button type="button" onClick={()=>speak(teacher)}>🔊 {language==="RU"?"Озвучить комментарий":language==="EN"?"Speak feedback":"Пікірді дыбыстау"}</button></aside>
   </>}
