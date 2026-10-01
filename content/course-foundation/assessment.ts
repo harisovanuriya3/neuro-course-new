@@ -55,7 +55,8 @@ const testUi=(l:Language):TestUI=>({
 });
 
 export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):BranchingTest{
- const mechComp="mechanism", appComp="application";
+ const conceptComp="concept", mechComp="mechanism", appComp="application";
+ const cMain="concept:main", cCorrective="concept:corrective", cBasic="concept:basic";
  const mMain="mechanism:main", mCorrective="mechanism:corrective", mBasic="mechanism:basic";
  const aMain="application:main", aCorrective="application:corrective", aBasic="application:basic";
  const tMain="transfer:main", tCorrective="transfer:corrective", tBasic="transfer:basic";
@@ -93,7 +94,20 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   ? `Сохранить причинный механизм, заново определить направление изменения «${termA}» и на этой основе сделать новый прогноз для «${termB}».`
   : l==="EN" ? `Keep the causal mechanism, reassess the direction of change in “${termA}”, and use it to make a new prediction for “${termB}”.`
   : `Себептік тетікті сақтап, «${termA}» өзгерісінің бағытын қайта анықтап, соның негізінде «${termB}» үшін жаңа болжам жасау.`;
+ const conceptPrompt=l==="RU"
+  ? `Какое утверждение точнее всего различает «${termA}» и «${termB}» в теме «${moduleTitle}»?`
+  : l==="EN" ? `Which statement best distinguishes “${termA}” from “${termB}” in “${moduleTitle}”?`
+  : `«${moduleTitle}» тақырыбында «${termA}» мен «${termB}» ұғымдарын қай тұжырым ең дәл ажыратады?`;
+ const conceptCorrect=l==="RU"
+  ? `Это разные элементы физиологического объяснения; их нужно связывать через конкретный механизм, а не использовать как взаимозаменяемые названия.`
+  : l==="EN" ? `They are distinct elements of the physiological explanation and should be linked through a specific mechanism rather than treated as interchangeable labels.`
+  : `Олар физиологиялық түсіндірудің әртүрлі элементтері; оларды өзара алмастырылатын атаулар деп емес, нақты тетік арқылы байланыстыру керек.`;
  const nodes:BranchingTest["nodes"]={
+  [cMain]:{id:cMain,type:"question",level:"main",competency:conceptComp,prompt:conceptPrompt,options:opts(conceptCorrect,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:mechanism,onCorrect:mMain,onIncorrect:"concept:review-1"},
+  "concept:review-1":{id:"concept:review-1",type:"remediation",competency:conceptComp,depth:1,text:`${termA} ↔ ${termB}: ${mechanism}`,theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:cCorrective},
+  [cCorrective]:{id:cCorrective,type:"question",level:"corrective",competency:conceptComp,prompt:conceptPrompt,options:opts(conceptCorrect,wrong2,wrong1,wrong3),correctAnswer:"a",explanation:interpretation,onCorrect:mMain,onIncorrect:"concept:review-2"},
+  "concept:review-2":{id:"concept:review-2",type:"remediation",competency:conceptComp,depth:2,text:`${mechanism} ${interpretation}`,theoryTarget:{moduleId:topic.id,anchor:"interpretation"},next:cBasic},
+  [cBasic]:{id:cBasic,type:"question",level:"basic",competency:conceptComp,prompt:conceptPrompt,options:opts(conceptCorrect,wrong3,wrong2,wrong1),correctAnswer:"a",explanation:mechanism,onCorrect:mMain,onIncorrect:mMain},
   [mMain]:{id:mMain,type:"question",level:"main",competency:mechComp,prompt:question,options:opts(mechanism,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:interpretation,onCorrect:aMain,onIncorrect:"mechanism:review-1"},
   "mechanism:review-1":{id:"mechanism:review-1",type:"remediation",competency:mechComp,depth:1,text:mechanism,theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:mCorrective},
   [mCorrective]:{id:mCorrective,type:"question",level:"corrective",competency:mechComp,prompt:l==="RU"?"После повторения выберите причинно-следственный принцип.":l==="EN"?"After review, choose the causal principle.":"Қайталаудан кейін себеп-салдар қағидасын таңдаңыз.",options:opts(interpretation,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:mechanism,onCorrect:aMain,onIncorrect:"mechanism:review-2"},
@@ -110,7 +124,8 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   "transfer:review-2":{id:"transfer:review-2",type:"remediation",competency:"transfer",depth:2,text:`${mechanism} ${interpretation}`,theoryTarget:{moduleId:topic.id,anchor:"interpretation"},next:tBasic},
   [tBasic]:{id:tBasic,type:"question",level:"basic",competency:"transfer",prompt:transferPrompt,options:opts(transferCorrect,wrong3,wrong2,wrong1),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"end"}
  };
- return {kind:"tests",title:l==="RU"?"Ветвящийся тест":l==="EN"?"Branching Test":"Тармақталған тест",moduleTitle,ui:testUi(l),start:mMain,mainIds:[mMain,aMain,tMain],competencies:{
+ return {kind:"tests",title:l==="RU"?"Ветвящийся тест":l==="EN"?"Branching Test":"Тармақталған тест",moduleTitle,ui:testUi(l),start:cMain,mainIds:[cMain,mMain,aMain,tMain],competencies:{
+  [conceptComp]:{title:l==="RU"?"Ключевые понятия":l==="EN"?"Key concepts":"Негізгі ұғымдар",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [mechComp]:{title:l==="RU"?"Механизм":l==="EN"?"Mechanism":"Тетік",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [appComp]:{title:l==="RU"?"Применение и интерпретация":l==="EN"?"Application and interpretation":"Қолдану және түсіндіру",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}},
   transfer:{title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}}
