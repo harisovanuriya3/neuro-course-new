@@ -55,31 +55,49 @@ const testUi=(l:Language):TestUI=>({
 });
 
 export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):BranchingTest{
- const comp="mechanism", main="mechanism:main", corrective="mechanism:corrective", basic="mechanism:basic";
+ const mechComp="mechanism", appComp="application";
+ const mMain="mechanism:main", mCorrective="mechanism:corrective", mBasic="mechanism:basic";
+ const aMain="application:main", aCorrective="application:corrective", aBasic="application:basic";
  const opts=(correct:string,wrong1:string,wrong2:string,wrong3:string)=>[{id:"a",text:correct},{id:"b",text:wrong1},{id:"c",text:wrong2},{id:"d",text:wrong3}];
- const mechanism=topic.mechanism[l], interpretation=topic.interpretation[l], question=topic.question[l];
+ const mechanism=topic.mechanism[l], interpretation=topic.interpretation[l], question=topic.question[l], task=clinicalVignettes[topic.id]?.[l] ?? topic.task[l];
  const termA=topic.terms[0][l], termB=topic.terms[1][l];
  const wrong1=l==="RU"
   ? `«${termA}» и «${termB}» можно считать взаимозаменяемыми; направление причинной связи не требуется.`
-  : l==="EN"
-   ? `“${termA}” and “${termB}” can be treated as interchangeable; the direction of causality is unnecessary.`
-   : `«${termA}» және «${termB}» өзара алмастырылады; себеп-салдар бағытын көрсету қажет емес.`;
+  : l==="EN" ? `“${termA}” and “${termB}” can be treated as interchangeable; the direction of causality is unnecessary.`
+  : `«${termA}» және «${termB}» өзара алмастырылады; себеп-салдар бағытын көрсету қажет емес.`;
  const wrong2=l==="RU"
-  ? `Если меняется «${termA}», «${termB}» всегда изменяется в одном и том же направлении независимо от контекста и состояния системы.`
-  : l==="EN"
-   ? `If “${termA}” changes, “${termB}” always changes in the same direction regardless of context or system state.`
-   : `«${termA}» өзгерсе, контекст пен жүйе күйіне қарамастан «${termB}» әрқашан бір бағытта өзгереді.`;
+  ? `Если меняется «${termA}», «${termB}» всегда изменяется одинаково независимо от контекста и состояния системы.`
+  : l==="EN" ? `If “${termA}” changes, “${termB}” always changes identically regardless of context or system state.`
+  : `«${termA}» өзгерсе, контекст пен жүйе күйіне қарамастан «${termB}» әрқашан бірдей өзгереді.`;
  const wrong3=l==="RU"
-  ? `Одного изменения «${termA}» достаточно для окончательного клинического вывода без проверки ограничений метода и альтернатив.`
-  : l==="EN"
-   ? `A change in “${termA}” alone is sufficient for a definitive clinical conclusion without checking method limits or alternatives.`
-   : `«${termA}» өзгерісінің өзі әдіс шектеулері мен баламаларды тексермей-ақ түпкілікті клиникалық қорытынды жасауға жеткілікті.`;
+  ? `Одного изменения «${termA}» достаточно для окончательного клинического вывода без проверки ограничений и альтернатив.`
+  : l==="EN" ? `A change in “${termA}” alone is sufficient for a definitive clinical conclusion without checking limitations or alternatives.`
+  : `«${termA}» өзгерісінің өзі шектеулер мен баламаларды тексермей түпкілікті клиникалық қорытынды жасауға жеткілікті.`;
+ const appPrompt=l==="RU"
+  ? `${task} Какой подход к рассуждению наиболее физиологически обоснован?`
+  : l==="EN" ? `${task} Which reasoning approach is most physiologically justified?`
+  : `${task} Қай пайымдау тәсілі физиологиялық тұрғыдан ең негізді?`;
+ const appCorrect=l==="RU"
+  ? `Сначала связать изменение «${termA}» с механизмом, затем предсказать влияние на «${termB}» и только после этого интерпретировать наблюдение с учётом ограничений.`
+  : l==="EN" ? `First link the change in “${termA}” to the mechanism, then predict its effect on “${termB}”, and only then interpret the observation while considering limitations.`
+  : `Алдымен «${termA}» өзгерісін тетікпен байланыстырып, кейін оның «${termB}» әсерін болжау, содан соң ғана шектеулерді ескеріп бақылауды түсіндіру.`;
+ const appWrong1=l==="RU"?"Сразу выбрать окончательный диагноз по одному признаку.":l==="EN"?"Choose a definitive diagnosis immediately from one finding.":"Бір белгі бойынша бірден түпкілікті диагноз таңдау.";
+ const appWrong2=l==="RU"?"Игнорировать направление изменения и ориентироваться только на название структуры.":l==="EN"?"Ignore the direction of change and use only the structure name.":"Өзгеріс бағытын елемей, тек құрылым атауына сүйену.";
+ const appWrong3=l==="RU"?"Считать любое отклонение доказательством полного выключения системы.":l==="EN"?"Treat any deviation as proof of complete system failure.":"Кез келген ауытқуды жүйенің толық істен шығуының дәлелі деп санау.";
  const nodes:BranchingTest["nodes"]={
-  [main]:{id:main,type:"question",level:"main",competency:comp,prompt:question,options:opts(mechanism,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"mechanism:review-1"},
-  "mechanism:review-1":{id:"mechanism:review-1",type:"remediation",competency:comp,depth:1,text:mechanism,theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:corrective},
-  [corrective]:{id:corrective,type:"question",level:"corrective",competency:comp,prompt:l==="RU"?"Какой принцип лучше всего использовать после повторения?":l==="EN"?"Which principle is most appropriate after review?":"Қайталаудан кейін қай қағида дұрыс?",options:opts(interpretation,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:mechanism,onCorrect:"end",onIncorrect:"mechanism:review-2"},
-  "mechanism:review-2":{id:"mechanism:review-2",type:"remediation",competency:comp,depth:2,text:`${mechanism} ${interpretation}`,theoryTarget:{moduleId:topic.id,anchor:"interpretation"},next:basic},
-  [basic]:{id:basic,type:"question",level:"basic",competency:comp,prompt:question,options:opts(mechanism,wrong2,wrong1,wrong3),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"end"}
+  [mMain]:{id:mMain,type:"question",level:"main",competency:mechComp,prompt:question,options:opts(mechanism,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:interpretation,onCorrect:aMain,onIncorrect:"mechanism:review-1"},
+  "mechanism:review-1":{id:"mechanism:review-1",type:"remediation",competency:mechComp,depth:1,text:mechanism,theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:mCorrective},
+  [mCorrective]:{id:mCorrective,type:"question",level:"corrective",competency:mechComp,prompt:l==="RU"?"После повторения выберите причинно-следственный принцип.":l==="EN"?"After review, choose the causal principle.":"Қайталаудан кейін себеп-салдар қағидасын таңдаңыз.",options:opts(interpretation,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:mechanism,onCorrect:aMain,onIncorrect:"mechanism:review-2"},
+  "mechanism:review-2":{id:"mechanism:review-2",type:"remediation",competency:mechComp,depth:2,text:`${mechanism} ${interpretation}`,theoryTarget:{moduleId:topic.id,anchor:"interpretation"},next:mBasic},
+  [mBasic]:{id:mBasic,type:"question",level:"basic",competency:mechComp,prompt:question,options:opts(mechanism,wrong2,wrong1,wrong3),correctAnswer:"a",explanation:interpretation,onCorrect:aMain,onIncorrect:aMain},
+  [aMain]:{id:aMain,type:"question",level:"main",competency:appComp,prompt:appPrompt,options:opts(appCorrect,appWrong1,appWrong2,appWrong3),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"application:review-1"},
+  "application:review-1":{id:"application:review-1",type:"remediation",competency:appComp,depth:1,text:`${mechanism} ${interpretation}`,theoryTarget:{moduleId:topic.id,anchor:"interpretation"},next:aCorrective},
+  [aCorrective]:{id:aCorrective,type:"question",level:"corrective",competency:appComp,prompt:l==="RU"?"Как лучше проверить свой вывод?":l==="EN"?"How should you check your conclusion?":"Қорытындыңызды қалай тексерген дұрыс?",options:opts(appCorrect,appWrong1,appWrong2,appWrong3),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"application:review-2"},
+  "application:review-2":{id:"application:review-2",type:"remediation",competency:appComp,depth:2,text:interpretation,theoryTarget:{moduleId:topic.id,anchor:"interpretation"},next:aBasic},
+  [aBasic]:{id:aBasic,type:"question",level:"basic",competency:appComp,prompt:appPrompt,options:opts(appCorrect,appWrong2,appWrong1,appWrong3),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"end"}
  };
- return {kind:"tests",title:l==="RU"?"Ветвящийся тест":l==="EN"?"Branching Test":"Тармақталған тест",moduleTitle,ui:testUi(l),start:main,mainIds:[main],competencies:{[comp]:{title:question,theoryTarget:{moduleId:topic.id,anchor:"mechanism"}}},nodes};
+ return {kind:"tests",title:l==="RU"?"Ветвящийся тест":l==="EN"?"Branching Test":"Тармақталған тест",moduleTitle,ui:testUi(l),start:mMain,mainIds:[mMain,aMain],competencies:{
+  [mechComp]:{title:l==="RU"?"Механизм":l==="EN"?"Mechanism":"Тетік",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
+  [appComp]:{title:l==="RU"?"Применение и интерпретация":l==="EN"?"Application and interpretation":"Қолдану және түсіндіру",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}}
+ },nodes};
 }
