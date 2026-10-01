@@ -304,6 +304,25 @@ function create(
     };
   }
 
+  if (section === 'objectives') {
+    const action = language === 'RU'
+      ? ['объяснить причинный механизм', 'интерпретировать наблюдаемый результат', 'применить механизм к новой ситуации', 'указать границы вывода']
+      : language === 'EN'
+        ? ['explain the causal mechanism', 'interpret an observed result', 'apply the mechanism to a new situation', 'state the limits of inference']
+        : ['себептік тетікті түсіндіру', 'байқалған нәтижені түсіндіру', 'тетікті жаңа жағдайға қолдану', 'қорытындының шектерін көрсету'];
+    return {
+      kind: 'objectives',
+      title,
+      introduction: c.goals,
+      cards: action.map((item, index) => ({
+        id: `module-${topic.id}-objective-${index + 1}`,
+        title: `${index + 1}. ${item}`,
+        paragraphs: [index === 0 ? mechanism : index === 1 ? interpretation : index === 2 ? topic.task[language] : question],
+        links: index < 2 ? [{ section: 'theory' as const }] : [{ section: 'practice' as const }, { section: 'cases' as const }],
+      })),
+    };
+  }
+
   if (section === 'pretest') {
     return {
       kind: 'pretest',
