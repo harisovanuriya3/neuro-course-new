@@ -7,6 +7,7 @@ import MembranePotentialLab from './MembranePotentialLab';
 import EEGLab from './EEGLab';
 import REGLab from './REGLab';
 import IntegrationLab from './IntegrationLab';
+import ReflexLab from './ReflexLab';
 import PathwayLab from './PathwayLab';
 import SpinalRegulationLab from './SpinalRegulationLab';
 import BrainstemLab from './BrainstemLab';
@@ -75,6 +76,7 @@ export default function FoundationVisual({ moduleId, language }: { moduleId: num
   if (moduleId === 10) return <div className={styles.visual}><BrainstemLab language={language} /></div>;
   if (moduleId === 9) return <div className={styles.visual}><SpinalRegulationLab language={language} /></div>;
   if (moduleId === 8) return <div className={styles.visual}><PathwayLab language={language} /></div>;
+  if (moduleId === 7) return <div className={styles.visual}><ReflexLab language={language} /></div>;
   if (moduleId === 6) return <div className={styles.visual}><IntegrationLab language={language} /></div>;
   if (moduleId === 5) return <div className={styles.visual}><SynapseLab language={language} /></div>;
   if (moduleId === 4) return <div className={styles.visual}><MembranePotentialLab language={language} /></div>;
