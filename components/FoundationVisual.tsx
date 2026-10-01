@@ -14,6 +14,12 @@ import MotorControlLab from './MotorControlLab';
 import BasalGangliaLab from './BasalGangliaLab';
 import CerebellumLab from './CerebellumLab';
 import ThalamusLab from './ThalamusLab';
+import HypothalamusLab from './HypothalamusLab';
+import LimbicLab from './LimbicLab';
+import AmygdalaLab from './AmygdalaLab';
+import CortexLab from './CortexLab';
+import SomatosensoryLab from './SomatosensoryLab';
+import VisionLab from './VisionLab';
 import styles from './FoundationVisual.module.css';
 
 const copy = {
@@ -46,6 +52,12 @@ const copy = {
 export default function FoundationVisual({ moduleId, language }: { moduleId: number; language: Language }) {
   const c = copy[language];
   if (moduleId === 2) return <div className={styles.visual}><EEGLab language={language} /><REGLab language={language} /></div>;
+  if (moduleId === 20) return <div className={styles.visual}><VisionLab language={language} /></div>;
+  if (moduleId === 19) return <div className={styles.visual}><SomatosensoryLab language={language} /></div>;
+  if (moduleId === 18) return <div className={styles.visual}><CortexLab language={language} /></div>;
+  if (moduleId === 17) return <div className={styles.visual}><AmygdalaLab language={language} /></div>;
+  if (moduleId === 16) return <div className={styles.visual}><LimbicLab language={language} /></div>;
+  if (moduleId === 15) return <div className={styles.visual}><HypothalamusLab language={language} /></div>;
   if (moduleId === 14) return <div className={styles.visual}><ThalamusLab language={language} /></div>;
   if (moduleId === 13) return <div className={styles.visual}><CerebellumLab language={language} /></div>;
   if (moduleId === 12) return <div className={styles.visual}><BasalGangliaLab language={language} /></div>;
