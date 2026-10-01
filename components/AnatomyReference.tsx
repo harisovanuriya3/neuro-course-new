@@ -1,14 +1,175 @@
-import type {Language} from "../content/course";
-const refs:Record<number,{
-9:{file:"Cross-section_through_the_spinal_cord.jpg",page:"https://commons.wikimedia.org/wiki/File:Cross-section_through_the_spinal_cord.jpg",credit:"Didkov / Wikimedia Commons — CC BY-SA 4.0",alt:{RU:"Реальная микрофотография поперечного среза спинного мозга",EN:"Real micrograph of a spinal cord cross-section",KZ:"Жұлынның көлденең кесіндісінің нақты микрофотосы"}},
-12:{file:"Anatomy_of_the_basal_ganglia.jpg",page:"https://commons.wikimedia.org/wiki/File:Anatomy_of_the_basal_ganglia.jpg",credit:"Lim, Fiez & Holt / Wikimedia Commons — CC BY 3.0",alt:{RU:"Анатомическая локализация базальных ганглиев и таламуса",EN:"Anatomical location of the basal ganglia and thalamus",KZ:"Базальды ганглийлер мен таламустың анатомиялық орналасуы"}},
-13:{file:"Cerebellum_sagittal_planes.png",page:"https://commons.wikimedia.org/wiki/File:Cerebellum_sagittal_planes.png",credit:"Pallebage-Gamarallage et al. / Wikimedia Commons — CC BY 4.0",alt:{RU:"Сагиттальные срезы реального мозжечка с видимыми долями и зубчатым ядром",EN:"Sagittal sections of the real cerebellum showing lobes and the dentate nucleus",KZ:"Бөліктері мен тісті ядросы көрінетін нақты мишықтың сагитталды кесінділері"}},
-14:{file:"Thalmus.png",page:"https://commons.wikimedia.org/wiki/File:Thalmus.png",credit:"Madhero88 / Wikimedia Commons — CC BY-SA 3.0",alt:{RU:"Анатомическая схема таламуса и его ядер в головном мозге",EN:"Anatomical view of the thalamus and its nuclei in the brain",KZ:"Мидағы таламус пен оның ядроларының анатомиялық көрінісі"}},file:string;page:string;credit:string;alt:Record<Language,string>}>={
-15:{file:"LocationOfHypothalamus.jpg",page:"https://commons.wikimedia.org/wiki/File:LocationOfHypothalamus.jpg",credit:"NIH / Wikimedia Commons — public domain",alt:{RU:"Расположение гипоталамуса на сагиттальном изображении мозга",EN:"Location of the hypothalamus in a sagittal brain view",KZ:"Мидың сагитталды көрінісіндегі гипоталамус орналасуы"}},
-16:{file:"1511_The_Limbic_Lobe.svg",page:"https://commons.wikimedia.org/wiki/File:1511_The_Limbic_Lobe.svg",credit:"OpenStax College / Wikimedia Commons — CC BY 3.0",alt:{RU:"Анатомические структуры лимбической доли",EN:"Anatomical structures of the limbic lobe",KZ:"Лимбиялық бөліктің анатомиялық құрылымдары"}},
-17:{file:"Amygdala,_a_part_of_the_limbic_system.png",page:"https://commons.wikimedia.org/wiki/File:Amygdala,_a_part_of_the_limbic_system.png",credit:"LiberoWood / Wikimedia Commons — CC0",alt:{RU:"Анатомическое положение миндалины",EN:"Anatomical location of the amygdala",KZ:"Амигдаланың анатомиялық орналасуы"}},
-18:{file:"Brain_diagram_without_text.svg",page:"https://commons.wikimedia.org/wiki/File:Brain_diagram_without_text.svg",credit:"Gray's Anatomy / Mysid / Wikimedia Commons — public domain",alt:{RU:"Анатомический вид головного мозга и коры",EN:"Anatomical view of the brain and cerebral cortex",KZ:"Ми мен ми қыртысының анатомиялық көрінісі"}},
-19:{file:"BA312_-_Primary_Somatosensory_Cortex_-_with_homunculus.gif",page:"https://commons.wikimedia.org/wiki/File:BA312_-_Primary_Somatosensory_Cortex_-_with_homunculus.gif",credit:"DBCLS / Wikimedia Commons — CC BY-SA 2.1 JP",alt:{RU:"Анимированная 3D-соматотопия первичной соматосенсорной коры",EN:"Animated 3D somatotopy of primary somatosensory cortex",KZ:"Біріншілік соматосенсорлық қыртыстың анимациялық 3D соматотопиясы"}},
-20:{file:"EB1911_Eye_-_Fig._2.—Diagrammatic_section_through_the_retina.jpg",page:"https://commons.wikimedia.org/wiki/File:EB1911_Eye_-_Fig._2.%E2%80%94Diagrammatic_section_through_the_retina.jpg",credit:"Encyclopaedia Britannica 1911 / Wikimedia Commons — public domain",alt:{RU:"Послойное строение сетчатки",EN:"Layered structure of the retina",KZ:"Тор қабықтың қабаттық құрылысы"}}
+import type { Language } from "../content/course";
+
+type AnatomyRef = {
+  file: string;
+  page: string;
+  credit: string;
+  alt: Record<Language, string>;
 };
-export default function AnatomyReference({moduleId,language}:{moduleId:number;language:Language}){const r=refs[moduleId];if(!r)return null;const src=`https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(r.file)}`;return <figure style={{margin:"18px 0",padding:12,border:"1px solid #d9e3e8",borderRadius:14}}><img src={src} alt={r.alt[language]} loading="lazy" style={{display:"block",width:"100%",maxHeight:420,objectFit:"contain",background:"#fff"}}/><figcaption style={{fontSize:".85rem",marginTop:8}}>{r.alt[language]}. <a href={r.page} target="_blank" rel="noopener noreferrer">{r.credit}</a></figcaption></figure>}
+
+const refs: Record<number, AnatomyRef> = {
+  9: {
+    file: "Cross-section_through_the_spinal_cord.jpg",
+    page: "https://commons.wikimedia.org/wiki/File:Cross-section_through_the_spinal_cord.jpg",
+    credit: "Didkov / Wikimedia Commons — CC BY-SA 4.0",
+    alt: {
+      RU: "Реальная микрофотография поперечного среза спинного мозга",
+      EN: "Real micrograph of a spinal cord cross-section",
+      KZ: "Жұлынның көлденең кесіндісінің нақты микрофотосы",
+    },
+  },
+
+  12: {
+    file: "Anatomy_of_the_basal_ganglia.jpg",
+    page: "https://commons.wikimedia.org/wiki/File:Anatomy_of_the_basal_ganglia.jpg",
+    credit: "Lim, Fiez & Holt / Wikimedia Commons — CC BY 3.0",
+    alt: {
+      RU: "Анатомическая локализация базальных ганглиев и таламуса",
+      EN: "Anatomical location of the basal ganglia and thalamus",
+      KZ: "Базальды ганглийлер мен таламустың анатомиялық орналасуы",
+    },
+  },
+
+  13: {
+    file: "Cerebellum_sagittal_planes.png",
+    page: "https://commons.wikimedia.org/wiki/File:Cerebellum_sagittal_planes.png",
+    credit: "Pallebage-Gamarallage et al. / Wikimedia Commons — CC BY 4.0",
+    alt: {
+      RU: "Сагиттальные срезы реального мозжечка с видимыми долями и зубчатым ядром",
+      EN: "Sagittal sections of the real cerebellum showing lobes and the dentate nucleus",
+      KZ: "Бөліктері мен тісті ядросы көрінетін нақты мишықтың сагитталды кесінділері",
+    },
+  },
+
+  14: {
+    file: "Thalmus.png",
+    page: "https://commons.wikimedia.org/wiki/File:Thalmus.png",
+    credit: "Madhero88 / Wikimedia Commons — CC BY-SA 3.0",
+    alt: {
+      RU: "Анатомическая схема таламуса и его ядер в головном мозге",
+      EN: "Anatomical view of the thalamus and its nuclei in the brain",
+      KZ: "Мидағы таламус пен оның ядроларының анатомиялық көрінісі",
+    },
+  },
+
+  15: {
+    file: "LocationOfHypothalamus.jpg",
+    page: "https://commons.wikimedia.org/wiki/File:LocationOfHypothalamus.jpg",
+    credit: "NIH / Wikimedia Commons — public domain",
+    alt: {
+      RU: "Расположение гипоталамуса на сагиттальном изображении мозга",
+      EN: "Location of the hypothalamus in a sagittal brain view",
+      KZ: "Мидың сагитталды көрінісіндегі гипоталамус орналасуы",
+    },
+  },
+
+  16: {
+    file: "1511_The_Limbic_Lobe.svg",
+    page: "https://commons.wikimedia.org/wiki/File:1511_The_Limbic_Lobe.svg",
+    credit: "OpenStax College / Wikimedia Commons — CC BY 3.0",
+    alt: {
+      RU: "Анатомические структуры лимбической доли",
+      EN: "Anatomical structures of the limbic lobe",
+      KZ: "Лимбиялық бөліктің анатомиялық құрылымдары",
+    },
+  },
+
+  17: {
+    file: "Amygdala,_a_part_of_the_limbic_system.png",
+    page: "https://commons.wikimedia.org/wiki/File:Amygdala,_a_part_of_the_limbic_system.png",
+    credit: "LiberoWood / Wikimedia Commons — CC0",
+    alt: {
+      RU: "Анатомическое положение миндалины",
+      EN: "Anatomical location of the amygdala",
+      KZ: "Амигдаланың анатомиялық орналасуы",
+    },
+  },
+
+  18: {
+    file: "Brain_diagram_without_text.svg",
+    page: "https://commons.wikimedia.org/wiki/File:Brain_diagram_without_text.svg",
+    credit: "Gray's Anatomy / Mysid / Wikimedia Commons — public domain",
+    alt: {
+      RU: "Анатомический вид головного мозга и коры",
+      EN: "Anatomical view of the brain and cerebral cortex",
+      KZ: "Ми мен ми қыртысының анатомиялық көрінісі",
+    },
+  },
+
+  19: {
+    file: "BA312_-_Primary_Somatosensory_Cortex_-_with_homunculus.gif",
+    page: "https://commons.wikimedia.org/wiki/File:BA312_-_Primary_Somatosensory_Cortex_-_with_homunculus.gif",
+    credit: "DBCLS / Wikimedia Commons — CC BY-SA 2.1 JP",
+    alt: {
+      RU: "Анимированная 3D-соматотопия первичной соматосенсорной коры",
+      EN: "Animated 3D somatotopy of primary somatosensory cortex",
+      KZ: "Біріншілік соматосенсорлық қыртыстың анимациялық 3D соматотопиясы",
+    },
+  },
+
+  20: {
+    file: "EB1911_Eye_-_Fig._2.—Diagrammatic_section_through_the_retina.jpg",
+    page: "https://commons.wikimedia.org/wiki/File:EB1911_Eye_-_Fig._2.%E2%80%94Diagrammatic_section_through_the_retina.jpg",
+    credit: "Encyclopaedia Britannica 1911 / Wikimedia Commons — public domain",
+    alt: {
+      RU: "Послойное строение сетчатки",
+      EN: "Layered structure of the retina",
+      KZ: "Тор қабықтың қабаттық құрылысы",
+    },
+  },
+};
+
+export default function AnatomyReference({
+  moduleId,
+  language,
+}: {
+  moduleId: number;
+  language: Language;
+}) {
+  const r = refs[moduleId];
+
+  if (!r) return null;
+
+  const src =
+    `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(r.file)}`;
+
+  return (
+    <figure
+      style={{
+        margin: "18px 0",
+        padding: 12,
+        border: "1px solid #d9e3e8",
+        borderRadius: 14,
+      }}
+    >
+      <img
+        src={src}
+        alt={r.alt[language]}
+        loading="lazy"
+        style={{
+          display: "block",
+          width: "100%",
+          maxHeight: 420,
+          objectFit: "contain",
+          background: "#fff",
+        }}
+      />
+
+      <figcaption
+        style={{
+          fontSize: ".85rem",
+          marginTop: 8,
+        }}
+      >
+        {r.alt[language]}.{" "}
+        <a
+          href={r.page}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {r.credit}
+        </a>
+      </figcaption>
+    </figure>
+  );
+}
