@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { Language } from "../content/course";
+import ExperimentReflection from "./ExperimentReflection";
 import styles from "./ReflexLab.module.css";
 
 type Condition = "intact" | "afferent" | "efferent";
@@ -117,5 +118,5 @@ export default function ReflexLab({ language }: { language: Language }) {
     {rows.length > 0 && <div style={{overflowX:"auto"}}><h3>{c.journal}</h3><table><tbody>{rows.map((r,i)=><tr key={r.id}><td>{i+1}</td><td>{c[r.condition]}</td><td>{c[r.prediction]}</td><td>{c[r.actual]}</td><td><input aria-label={c.explanation} value={r.note} onChange={e=>setRows(xs=>xs.map(x=>x.id===r.id?{...x,note:e.target.value}:x))}/></td></tr>)}</tbody></table></div>}
     <p className={styles.limit}>{c.limit}</p>
     <p><a href="https://openstax.org/books/anatomy-and-physiology-2e/pages/14-introduction" target="_blank" rel="noopener noreferrer">{c.source}</a></p>
-  </section>;
+  <ExperimentReflection language={language} theoryHref={`/modules/7/theory?lang=${language}`} /></section>;
 }
