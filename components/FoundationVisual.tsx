@@ -9,6 +9,7 @@ import REGLab from './REGLab';
 import IntegrationLab from './IntegrationLab';
 import PathwayLab from './PathwayLab';
 import SpinalRegulationLab from './SpinalRegulationLab';
+import BrainstemLab from './BrainstemLab';
 import styles from './FoundationVisual.module.css';
 
 const copy = {
@@ -41,6 +42,7 @@ const copy = {
 export default function FoundationVisual({ moduleId, language }: { moduleId: number; language: Language }) {
   const c = copy[language];
   if (moduleId === 2) return <div className={styles.visual}><EEGLab language={language} /><REGLab language={language} /></div>;
+  if (moduleId === 10) return <div className={styles.visual}><BrainstemLab language={language} /></div>;
   if (moduleId === 9) return <div className={styles.visual}><SpinalRegulationLab language={language} /></div>;
   if (moduleId === 8) return <div className={styles.visual}><PathwayLab language={language} /></div>;
   if (moduleId === 6) return <div className={styles.visual}><IntegrationLab language={language} /></div>;
