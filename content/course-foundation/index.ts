@@ -1,7 +1,7 @@
 import { modules, type Language } from '../course';
 import { getSectionTitle, type Section } from '../sections';
 import type { LocalizedLesson, PracticeLesson, SectionLesson } from '../types';
-import { topics, type Topic } from './topics';
+import { topics, termDefinitions, type Topic } from './topics';
 import { createFoundationCase, createFoundationTest } from './assessment';
 
 // Shared foundation for modules 2–25.
@@ -351,11 +351,12 @@ function create(
         term: term[language],
 
         definition:
-          language === 'RU'
-            ? `Ключевое понятие модуля «${modules.RU[topic.id - 1]}». Объясните его роль через механизм модуля, а не только определение.`
+          termDefinitions[topic.id]?.[index]?.[language] ??
+          (language === 'RU'
+            ? `Ключевое понятие модуля «${modules.RU[topic.id - 1]}». Объясните его роль через механизм модуля.`
             : language === 'EN'
-              ? `A key concept in “${modules.EN[topic.id - 1]}”. Explain its role through the module mechanism, not by definition alone.`
-              : `«${modules.KZ[topic.id - 1]}» модулінің негізгі ұғымы. Оның рөлін тек анықтамамен емес, модуль тетігі арқылы түсіндіріңіз.`,
+              ? `A key concept in “${modules.EN[topic.id - 1]}”. Explain its role through the module mechanism.`
+              : `«${modules.KZ[topic.id - 1]}» модулінің негізгі ұғымы. Оның рөлін модуль тетігі арқылы түсіндіріңіз.`),
 
         target: {
           section: 'theory' as const,
