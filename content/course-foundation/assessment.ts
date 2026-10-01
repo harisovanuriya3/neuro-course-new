@@ -58,6 +58,7 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
  const mechComp="mechanism", appComp="application";
  const mMain="mechanism:main", mCorrective="mechanism:corrective", mBasic="mechanism:basic";
  const aMain="application:main", aCorrective="application:corrective", aBasic="application:basic";
+ const tMain="transfer:main", tCorrective="transfer:corrective", tBasic="transfer:basic";
  const opts=(correct:string,wrong1:string,wrong2:string,wrong3:string)=>[{id:"a",text:correct},{id:"b",text:wrong1},{id:"c",text:wrong2},{id:"d",text:wrong3}];
  const mechanism=topic.mechanism[l], interpretation=topic.interpretation[l], question=topic.question[l], task=clinicalVignettes[topic.id]?.[l] ?? topic.task[l];
  const termA=topic.terms[0][l], termB=topic.terms[1][l];
@@ -84,20 +85,34 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
  const appWrong1=l==="RU"?"Сразу выбрать окончательный диагноз по одному признаку.":l==="EN"?"Choose a definitive diagnosis immediately from one finding.":"Бір белгі бойынша бірден түпкілікті диагноз таңдау.";
  const appWrong2=l==="RU"?"Игнорировать направление изменения и ориентироваться только на название структуры.":l==="EN"?"Ignore the direction of change and use only the structure name.":"Өзгеріс бағытын елемей, тек құрылым атауына сүйену.";
  const appWrong3=l==="RU"?"Считать любое отклонение доказательством полного выключения системы.":l==="EN"?"Treat any deviation as proof of complete system failure.":"Кез келген ауытқуды жүйенің толық істен шығуының дәлелі деп санау.";
+ const transferPrompt=l==="RU"
+  ? `Условия изменены: параметр, связанный с «${termA}», меняется по сравнению с исходной ситуацией. Как следует перенести изученный механизм на прогноз для «${termB}»?`
+  : l==="EN" ? `Conditions change: a parameter related to “${termA}” differs from the original situation. How should the learned mechanism be transferred to predict “${termB}”?`
+  : `Жағдай өзгерді: «${termA}» ұғымына қатысты параметр бастапқы жағдайдан өзгеше. Үйренген тетікті «${termB}» болжауына қалай көшіру керек?`;
+ const transferCorrect=l==="RU"
+  ? `Сохранить причинный механизм, заново определить направление изменения «${termA}» и на этой основе сделать новый прогноз для «${termB}».`
+  : l==="EN" ? `Keep the causal mechanism, reassess the direction of change in “${termA}”, and use it to make a new prediction for “${termB}”.`
+  : `Себептік тетікті сақтап, «${termA}» өзгерісінің бағытын қайта анықтап, соның негізінде «${termB}» үшін жаңа болжам жасау.`;
  const nodes:BranchingTest["nodes"]={
   [mMain]:{id:mMain,type:"question",level:"main",competency:mechComp,prompt:question,options:opts(mechanism,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:interpretation,onCorrect:aMain,onIncorrect:"mechanism:review-1"},
   "mechanism:review-1":{id:"mechanism:review-1",type:"remediation",competency:mechComp,depth:1,text:mechanism,theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:mCorrective},
   [mCorrective]:{id:mCorrective,type:"question",level:"corrective",competency:mechComp,prompt:l==="RU"?"После повторения выберите причинно-следственный принцип.":l==="EN"?"After review, choose the causal principle.":"Қайталаудан кейін себеп-салдар қағидасын таңдаңыз.",options:opts(interpretation,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:mechanism,onCorrect:aMain,onIncorrect:"mechanism:review-2"},
   "mechanism:review-2":{id:"mechanism:review-2",type:"remediation",competency:mechComp,depth:2,text:`${mechanism} ${interpretation}`,theoryTarget:{moduleId:topic.id,anchor:"interpretation"},next:mBasic},
   [mBasic]:{id:mBasic,type:"question",level:"basic",competency:mechComp,prompt:question,options:opts(mechanism,wrong2,wrong1,wrong3),correctAnswer:"a",explanation:interpretation,onCorrect:aMain,onIncorrect:aMain},
-  [aMain]:{id:aMain,type:"question",level:"main",competency:appComp,prompt:appPrompt,options:opts(appCorrect,appWrong1,appWrong2,appWrong3),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"application:review-1"},
+  [aMain]:{id:aMain,type:"question",level:"main",competency:appComp,prompt:appPrompt,options:opts(appCorrect,appWrong1,appWrong2,appWrong3),correctAnswer:"a",explanation:interpretation,onCorrect:tMain,onIncorrect:"application:review-1"},
   "application:review-1":{id:"application:review-1",type:"remediation",competency:appComp,depth:1,text:`${mechanism} ${interpretation}`,theoryTarget:{moduleId:topic.id,anchor:"interpretation"},next:aCorrective},
-  [aCorrective]:{id:aCorrective,type:"question",level:"corrective",competency:appComp,prompt:l==="RU"?"Как лучше проверить свой вывод?":l==="EN"?"How should you check your conclusion?":"Қорытындыңызды қалай тексерген дұрыс?",options:opts(appCorrect,appWrong1,appWrong2,appWrong3),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"application:review-2"},
+  [aCorrective]:{id:aCorrective,type:"question",level:"corrective",competency:appComp,prompt:l==="RU"?"Как лучше проверить свой вывод?":l==="EN"?"How should you check your conclusion?":"Қорытындыңызды қалай тексерген дұрыс?",options:opts(appCorrect,appWrong1,appWrong2,appWrong3),correctAnswer:"a",explanation:interpretation,onCorrect:tMain,onIncorrect:"application:review-2"},
   "application:review-2":{id:"application:review-2",type:"remediation",competency:appComp,depth:2,text:interpretation,theoryTarget:{moduleId:topic.id,anchor:"interpretation"},next:aBasic},
-  [aBasic]:{id:aBasic,type:"question",level:"basic",competency:appComp,prompt:appPrompt,options:opts(appCorrect,appWrong2,appWrong1,appWrong3),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"end"}
+  [aBasic]:{id:aBasic,type:"question",level:"basic",competency:appComp,prompt:appPrompt,options:opts(appCorrect,appWrong2,appWrong1,appWrong3),correctAnswer:"a",explanation:interpretation,onCorrect:tMain,onIncorrect:tMain},
+  [tMain]:{id:tMain,type:"question",level:"main",competency:"transfer",prompt:transferPrompt,options:opts(transferCorrect,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:mechanism,onCorrect:"end",onIncorrect:"transfer:review-1"},
+  "transfer:review-1":{id:"transfer:review-1",type:"remediation",competency:"transfer",depth:1,text:mechanism,theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:tCorrective},
+  [tCorrective]:{id:tCorrective,type:"question",level:"corrective",competency:"transfer",prompt:transferPrompt,options:opts(transferCorrect,wrong2,wrong1,wrong3),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"transfer:review-2"},
+  "transfer:review-2":{id:"transfer:review-2",type:"remediation",competency:"transfer",depth:2,text:`${mechanism} ${interpretation}`,theoryTarget:{moduleId:topic.id,anchor:"interpretation"},next:tBasic},
+  [tBasic]:{id:tBasic,type:"question",level:"basic",competency:"transfer",prompt:transferPrompt,options:opts(transferCorrect,wrong3,wrong2,wrong1),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"end"}
  };
- return {kind:"tests",title:l==="RU"?"Ветвящийся тест":l==="EN"?"Branching Test":"Тармақталған тест",moduleTitle,ui:testUi(l),start:mMain,mainIds:[mMain,aMain],competencies:{
+ return {kind:"tests",title:l==="RU"?"Ветвящийся тест":l==="EN"?"Branching Test":"Тармақталған тест",moduleTitle,ui:testUi(l),start:mMain,mainIds:[mMain,aMain,tMain],competencies:{
   [mechComp]:{title:l==="RU"?"Механизм":l==="EN"?"Mechanism":"Тетік",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
-  [appComp]:{title:l==="RU"?"Применение и интерпретация":l==="EN"?"Application and interpretation":"Қолдану және түсіндіру",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}}
+  [appComp]:{title:l==="RU"?"Применение и интерпретация":l==="EN"?"Application and interpretation":"Қолдану және түсіндіру",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}},
+  transfer:{title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}}
  },nodes};
 }
