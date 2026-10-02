@@ -14,9 +14,9 @@ export type ExamQuestion = {
 };
 
 const ui: Record<Language, Record<string,string>> = {
- RU:{all:"Все 25 блоков",choose:"Выберите блок для экзамена",start:"Начать экзамен",restart:"Новый вариант",submit:"Завершить экзамен",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Ответьте на все вопросы перед завершением.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Экзамен завершён. Ниже доступен разбор.",bank:"В банке",items:"экзаменационных заданий",format:"В вариант случайно выбираются 50 заданий. Во время попытки правильные ответы и объяснения скрыты."},
- KZ:{all:"Барлық 25 блок",choose:"Емтихан блогын таңдаңыз",start:"Емтиханды бастау",restart:"Жаңа нұсқа",submit:"Емтиханды аяқтау",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Аяқтау алдында барлық сұраққа жауап беріңіз.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"Нұсқаға кездейсоқ 50 тапсырма таңдалады. Талпыныс кезінде дұрыс жауаптар мен түсіндірмелер жасырын."},
- EN:{all:"All 25 blocks",choose:"Choose an exam block",start:"Start exam",restart:"New version",submit:"Finish exam",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Answer every question before finishing.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Each version randomly selects 50 items. Correct answers and explanations stay hidden during the attempt."}
+ RU:{all:"Все 25 блоков",choose:"Выберите блок для экзамена",start:"Начать экзамен",restart:"Новый вариант",submit:"Завершить экзамен",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Есть неотвеченные вопросы. Возвращаю к первому пропущенному.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Экзамен завершён. Ниже доступен разбор.",bank:"В банке",items:"экзаменационных заданий",format:"В вариант случайно выбираются 50 заданий. Во время попытки правильные ответы и объяснения скрыты."},
+ KZ:{all:"Барлық 25 блок",choose:"Емтихан блогын таңдаңыз",start:"Емтиханды бастау",restart:"Жаңа нұсқа",submit:"Емтиханды аяқтау",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Жауап берілмеген сұрақтар бар. Бірінші өткізіп алған сұраққа қайтарамын.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"Нұсқаға кездейсоқ 50 тапсырма таңдалады. Талпыныс кезінде дұрыс жауаптар мен түсіндірмелер жасырын."},
+ EN:{all:"All 25 blocks",choose:"Choose an exam block",start:"Start exam",restart:"New version",submit:"Finish exam",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Some questions are unanswered. Returning to the first unanswered question.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Each version randomly selects 50 items. Correct answers and explanations stay hidden during the attempt."}
 };
 
 function shuffled<T>(items:T[]):T[]{
@@ -64,7 +64,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
    </div>
    <h2 style={{marginTop:30}}>{t.review}</h2>
    {version.map((q,i)=>{const a=answers[q.id]; const ok=a===q.correctAnswer; const find=(id:string)=>q.options.find(o=>o.id===id)?.text;
-    return <article key={q.id} style={{border:"1px solid #ccd9e3",borderRadius:14,padding:18,margin:"14px 0"}}>
+    return <article id={`exam-${q.id}`} key={q.id} style={{border:"1px solid #ccd9e3",borderRadius:14,padding:18,margin:"14px 0"}}>
       <div style={{fontSize:14,opacity:.75}}>{t.question} {i+1} · {t.module} {q.moduleId}: {q.moduleTitle}</div>
       <h3>{q.prompt}</h3>
       <p><strong>{t.your}:</strong> {a?find(a):t.unanswered} {ok?"✓":"✗"}</p>
@@ -84,6 +84,6 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
     </label>)}
    </article>)}
    {warning&&<p role="alert" style={{fontWeight:700}}>{warning}</p>}
-   <button onClick={()=>{if(Object.keys(answers).length<version.length){setWarning(t.finishWarn);return;}setFinished(true);window.scrollTo({top:0,behavior:"smooth"});}} style={{padding:"12px 18px",borderRadius:10,cursor:"pointer",fontWeight:700}}>{t.submit}</button>
+   <button onClick={()=>{if(Object.keys(answers).length<version.length){setWarning(t.finishWarn);const missing=version.find(q=>!answers[q.id]);if(missing){document.getElementById(`exam-${missing.id}`)?.scrollIntoView({behavior:"smooth",block:"center"});}return;}setFinished(true);window.scrollTo({top:0,behavior:"smooth"});}} style={{padding:"12px 18px",borderRadius:10,cursor:"pointer",fontWeight:700}}>{t.submit}</button>
  </section>;
 }
