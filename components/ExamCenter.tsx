@@ -14,9 +14,9 @@ export type ExamQuestion = {
 };
 
 const ui: Record<Language, Record<string,string>> = {
- RU:{start:"Начать экзамен",restart:"Новый вариант",submit:"Завершить экзамен",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Ответьте на все вопросы перед завершением.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Экзамен завершён. Ниже доступен разбор.",bank:"В банке",items:"экзаменационных заданий",format:"В вариант случайно выбираются 50 заданий. Во время попытки правильные ответы и объяснения скрыты."},
- KZ:{start:"Емтиханды бастау",restart:"Жаңа нұсқа",submit:"Емтиханды аяқтау",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Аяқтау алдында барлық сұраққа жауап беріңіз.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"Нұсқаға кездейсоқ 50 тапсырма таңдалады. Талпыныс кезінде дұрыс жауаптар мен түсіндірмелер жасырын."},
- EN:{start:"Start exam",restart:"New version",submit:"Finish exam",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Answer every question before finishing.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Each version randomly selects 50 items. Correct answers and explanations stay hidden during the attempt."}
+ RU:{all:"Все 25 блоков",choose:"Выберите блок для экзамена",start:"Начать экзамен",restart:"Новый вариант",submit:"Завершить экзамен",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Ответьте на все вопросы перед завершением.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Экзамен завершён. Ниже доступен разбор.",bank:"В банке",items:"экзаменационных заданий",format:"В вариант случайно выбираются 50 заданий. Во время попытки правильные ответы и объяснения скрыты."},
+ KZ:{all:"Барлық 25 блок",choose:"Емтихан блогын таңдаңыз",start:"Емтиханды бастау",restart:"Жаңа нұсқа",submit:"Емтиханды аяқтау",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Аяқтау алдында барлық сұраққа жауап беріңіз.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"Нұсқаға кездейсоқ 50 тапсырма таңдалады. Талпыныс кезінде дұрыс жауаптар мен түсіндірмелер жасырын."},
+ EN:{all:"All 25 blocks",choose:"Choose an exam block",start:"Start exam",restart:"New version",submit:"Finish exam",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Answer every question before finishing.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Each version randomly selects 50 items. Correct answers and explanations stay hidden during the attempt."}
 };
 
 function shuffled<T>(items:T[]):T[]{
@@ -41,12 +41,12 @@ function buildVersion(bank:ExamQuestion[], count=50){
 
 export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[]}){
  const t=ui[lang];
- const [version,setVersion]=useState<ExamQuestion[]|null>(null);
+ const [version,setVersion]=useState<ExamQuestion[]|null>(null);\n const [selectedModule,setSelectedModule]=useState<number>(0);
  const [answers,setAnswers]=useState<Record<string,string>>({});
  const [finished,setFinished]=useState(false);
  const [warning,setWarning]=useState("");
  const score=useMemo(()=>version?.reduce((n,q)=>n+(answers[q.id]===q.correctAnswer?1:0),0)??0,[version,answers]);
- const begin=()=>{setVersion(buildVersion(bank));setAnswers({});setFinished(false);setWarning("");};
+ const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,selectedModule===0?50:Math.min(20,pool.length)));setAnswers({});setFinished(false);setWarning("");};
  if(!version) return <section style={{marginTop:24,border:"2px solid #86aac4",borderRadius:16,padding:22}}>
    <p><strong>{t.bank}: {bank.length} {t.items}.</strong></p><p>{t.format}</p>
    <button onClick={begin} style={{padding:"12px 18px",borderRadius:10,cursor:"pointer",fontWeight:700}}>{t.start}</button>
