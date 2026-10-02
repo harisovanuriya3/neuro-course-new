@@ -84,8 +84,8 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
         <p><strong>{t.your}:</strong> {written[q.id]||t.unanswered}</p>
         <p><em>{lang==="RU"?"Письменный ответ сохранён. ИИ-оценка будет подключена отдельно и не имитируется локальной проверкой.":lang==="EN"?"Written answer saved. AI grading will be connected separately and is not simulated locally.":"Жазбаша жауап сақталды. AI бағалауы бөлек қосылады және жергілікті тексерумен алмастырылмайды."}</em></p>
       </>:<>
-        <p><strong>{t.your}:</strong> {a?find(a):t.unanswered} {ok?"✓":"✗"}</p>
-        {!ok&&<p><strong>{t.right}:</strong> {find(q.correctAnswer)}</p>}
+        <p><strong>{t.your}:</strong> <span style={{color:ok?"green":"crimson",fontWeight:800}}>{ok?"✓":"✗"} {a?find(a):t.unanswered}</span></p>
+        {!ok&&<p><strong>{t.right}:</strong> <span style={{color:"green",fontWeight:800}}>✓ {find(q.correctAnswer)}</span></p>}
         <p>{q.explanation}</p>
       </>}
     </article>})}
