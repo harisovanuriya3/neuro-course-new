@@ -41,7 +41,8 @@ function buildVersion(bank:ExamQuestion[], count=50){
 
 export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[]}){
  const t=ui[lang];
- const [version,setVersion]=useState<ExamQuestion[]|null>(null);\n const [selectedModule,setSelectedModule]=useState<number>(0);
+ const [version,setVersion]=useState<ExamQuestion[]|null>(null);
+ const [selectedModule,setSelectedModule]=useState<number>(0);
  const [answers,setAnswers]=useState<Record<string,string>>({});
  const [finished,setFinished]=useState(false);
  const [warning,setWarning]=useState("");
@@ -49,6 +50,11 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,selectedModule===0?50:Math.min(20,pool.length)));setAnswers({});setFinished(false);setWarning("");};
  if(!version) return <section style={{marginTop:24,border:"2px solid #86aac4",borderRadius:16,padding:22}}>
    <p><strong>{t.bank}: {bank.length} {t.items}.</strong></p><p>{t.format}</p>
+   <label style={{display:"block",fontWeight:700,margin:"18px 0 8px"}}>{t.choose}</label>
+   <select value={selectedModule} onChange={e=>setSelectedModule(Number(e.target.value))} style={{width:"100%",maxWidth:760,padding:"12px",borderRadius:10,marginBottom:16}}>
+    <option value={0}>{t.all}</option>
+    {[...new Map(bank.map(q=>[q.moduleId,q.moduleTitle])).entries()].sort((a,b)=>a[0]-b[0]).map(([id,title])=><option key={id} value={id}>{id}. {title}</option>)}
+   </select><br/>
    <button onClick={begin} style={{padding:"12px 18px",borderRadius:10,cursor:"pointer",fontWeight:700}}>{t.start}</button>
  </section>;
  if(finished) return <section style={{marginTop:24}}>
