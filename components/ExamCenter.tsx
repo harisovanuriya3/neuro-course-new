@@ -41,6 +41,18 @@ function buildVersion(bank:ExamQuestion[], count=10){
  return picked.map((q,i):ExamQuestion=>({...q,responseType:i>=Math.max(0,picked.length-3)?"written":"mcq"}));
 }
 
+function words(text:string){return new Set(text.toLowerCase().replace(/[^\\p{L}\\p{N}]+/gu," ").split(/\\s+/).filter(w=>w.length>=5));}
+function gradeWritten(q:ExamQuestion,answer:string){
+ const reference=words(q.options.find(o=>o.id===q.correctAnswer)?.text+" "+q.explanation);
+ const student=words(answer);
+ let hit=0; reference.forEach(w=>{if(student.has(w))hit++;});
+ const coverage=reference.size?hit/reference.size:0;
+ const connectors=/(потому|поэтому|привод|вызывает|вследствие|механизм|cause|because|therefore|leads|results|mechanism|себеп|сондықтан|әкел|механизм)/i.test(answer);
+ const detail=student.size>=12;
+ const score=Math.min(100,Math.round(coverage*70+(connectors?20:0)+(detail?10:0)));
+ return {score,points:Math.round(score/10),coverage,connectors,detail};
+}
+
 export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[]}){
  const t=ui[lang];
  const [version,setVersion]=useState<ExamQuestion[]|null>(null);
@@ -51,7 +63,9 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  const [warning,setWarning]=useState("");
  const score=useMemo(()=>version?.reduce((n,q)=>n+(q.responseType!=="written"&&answers[q.id]===q.correctAnswer?1:0),0)??0,[version,answers]);
  const mcqCount=version?.filter(q=>q.responseType!=="written").length??0;
- const percent=mcqCount?Math.round(score/mcqCount*100):0;
+ const writtenGrades=useMemo(()=>Object.fromEntries((version??[]).filter(q=>q.responseType==="written").map(q=>[q.id,gradeWritten(q,written[q.id]??"")])),[version,written]);
+ const writtenPoints=Object.values(writtenGrades).reduce((n,g)=>n+g.points,0);
+ const percent=version?Math.min(100,score*10+writtenPoints):0;
  const comment=lang==="RU"?(percent>=90?"Отличное владение материалом. Ошибки единичны.":percent>=75?"Хороший результат. Повторите блоки с ошибками.":percent>=60?"Базовый уровень достигнут, но есть темы для повторения.":"Необходимо повторить основные механизмы и причинно-следственные связи."):lang==="EN"?(percent>=90?"Excellent command of the material. Errors are isolated.":percent>=75?"Good result. Review the blocks with errors.":percent>=60?"Basic level achieved, but some topics need review.":"Review the core mechanisms and causal relationships."):percent>=90?"Материалды өте жақсы меңгерген. Қателер аз.":percent>=75?"Жақсы нәтиже. Қате жіберілген блоктарды қайталаңыз.":percent>=60?"Негізгі деңгейге жетті, бірақ кейбір тақырыптарды қайталау керек.":"Негізгі механизмдер мен себеп-салдар байланыстарын қайталау қажет.";
  const analysis=useMemo(()=>{if(!version)return [];const m=new Map<number,{title:string,total:number,correct:number}>();version.forEach(q=>{const x=m.get(q.moduleId)??{title:q.moduleTitle,total:0,correct:0};x.total++;if(answers[q.id]===q.correctAnswer)x.correct++;m.set(q.moduleId,x)});return [...m.entries()].map(([id,x])=>({id,...x,pct:Math.round(x.correct/x.total*100)})).sort((a,b)=>a.pct-b.pct);},[version,answers]);
  useEffect(()=>{if(!finished)return;history.pushState({examFinished:true},"",location.href);const lock=()=>history.pushState({examFinished:true},"",location.href);addEventListener("popstate",lock);return()=>removeEventListener("popstate",lock);},[finished]);
@@ -82,7 +96,11 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
       <h3>{q.prompt}</h3>
       {q.responseType==="written"?<>
         <p><strong>{t.your}:</strong> {written[q.id]||t.unanswered}</p>
-        <p><em>{lang==="RU"?"Письменный ответ сохранён. ИИ-оценка будет подключена отдельно и не имитируется локальной проверкой.":lang==="EN"?"Written answer saved. AI grading will be connected separately and is not simulated locally.":"Жазбаша жауап сақталды. AI бағалауы бөлек қосылады және жергілікті тексерумен алмастырылмайды."}</em></p>
+        {(()=>{const g=writtenGrades[q.id];return <div style={{borderLeft:"4px solid #86aac4",paddingLeft:12}}>
+          <p><strong>{lang==="RU"?"Локальная оценка":lang==="EN"?"Local rubric score":"Жергілікті бағалау"}:</strong> {g?.points??0}/10</p>
+          <p>{lang==="RU"?(g?.connectors?"✓ Причинно-следственная связь обозначена.":"✗ Нужно яснее показать причинно-следственную связь."):(lang==="EN"?(g?.connectors?"✓ Causal relationship is stated.":"✗ State the causal relationship more clearly."):(g?.connectors?"✓ Себеп-салдар байланысы көрсетілген.":"✗ Себеп-салдар байланысын анығырақ көрсетіңіз."))}</p>
+          <p>{lang==="RU"?"Проверка выполнена локальной рубрикой без ИИ/API; преподаватель может пересмотреть балл.":lang==="EN"?"Checked by a local rubric without AI/API; the teacher may review the score.":"AI/API қолданбай жергілікті рубрикамен тексерілді; оқытушы балды қайта қарай алады."}</p>
+        </div>})()}
       </>:<>
         <p><strong>{t.your}:</strong> <span style={{color:ok?"green":"crimson",fontWeight:800}}>{ok?"✓":"✗"} {a?find(a):t.unanswered}</span></p>
         {!ok&&<p><strong>{t.right}:</strong> <span style={{color:"green",fontWeight:800}}>✓ {find(q.correctAnswer)}</span></p>}
