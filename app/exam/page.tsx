@@ -28,7 +28,6 @@ export default async function ExamPage({searchParams}:Props){
     </section>
    </div>
    <ExamCenter lang={lang} bank={bank}/>
-   <h2 style={{marginTop:32}}>{lang==="RU"?"Охват курса":lang==="KZ"?"Курс қамтуы":"Course coverage"}</h2>
-   <ol>{modules[lang].map((m,i)=><li key={i} style={{marginBottom:6}}>{m}</li>)}</ol>
+   
  </main>
 }
