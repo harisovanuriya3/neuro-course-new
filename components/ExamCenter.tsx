@@ -48,7 +48,6 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  const [warning,setWarning]=useState("");
  const score=useMemo(()=>version?.reduce((n,q)=>n+(answers[q.id]===q.correctAnswer?1:0),0)??0,[version,answers]);
  const percent=version?.length?Math.round(score/version.length*100):0;
- const grade=percent>=90?"5":percent>=75?"4":percent>=60?"3":"2";
  const comment=lang==="RU"?(percent>=90?"Отличное владение материалом. Ошибки единичны.":percent>=75?"Хороший результат. Повторите блоки с ошибками.":percent>=60?"Базовый уровень достигнут, но есть темы для повторения.":"Необходимо повторить основные механизмы и причинно-следственные связи."):lang==="EN"?(percent>=90?"Excellent command of the material. Errors are isolated.":percent>=75?"Good result. Review the blocks with errors.":percent>=60?"Basic level achieved, but some topics need review.":"Review the core mechanisms and causal relationships."):percent>=90?"Материалды өте жақсы меңгерген. Қателер аз.":percent>=75?"Жақсы нәтиже. Қате жіберілген блоктарды қайталаңыз.":percent>=60?"Негізгі деңгейге жетті, бірақ кейбір тақырыптарды қайталау керек.":"Негізгі механизмдер мен себеп-салдар байланыстарын қайталау қажет.";
  const analysis=useMemo(()=>{if(!version)return [];const m=new Map<number,{title:string,total:number,correct:number}>();version.forEach(q=>{const x=m.get(q.moduleId)??{title:q.moduleTitle,total:0,correct:0};x.total++;if(answers[q.id]===q.correctAnswer)x.correct++;m.set(q.moduleId,x)});return [...m.entries()].map(([id,x])=>({id,...x,pct:Math.round(x.correct/x.total*100)})).sort((a,b)=>a.pct-b.pct);},[version,answers]);
  useEffect(()=>{if(!finished)return;history.pushState({examFinished:true},"",location.href);const lock=()=>history.pushState({examFinished:true},"",location.href);addEventListener("popstate",lock);return()=>removeEventListener("popstate",lock);},[finished]);
@@ -65,7 +64,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  if(finished) return <section style={{marginTop:24}}>
    <div style={{border:"2px solid #86aac4",borderRadius:16,padding:22}}>
     <h2>{t.result}: {score}/{version.length} ({percent}%)</h2>
-    <p><strong>{lang==="RU"?"Оценка":lang==="EN"?"Grade":"Баға"}: {grade}</strong></p>
+    <p><strong>{lang==="RU"?"Оценка":lang==="EN"?"Grade":"Баға"}: {percent}/100</strong></p>
     <p>{comment}</p>
     <h3>{lang==="RU"?"Анализ по блокам":lang==="EN"?"Analysis by block":"Блоктар бойынша талдау"}</h3>
     {analysis.map(x=><p key={x.id}><strong>{x.id}. {x.title}</strong>: {x.correct}/{x.total} ({x.pct}%)</p>)}
