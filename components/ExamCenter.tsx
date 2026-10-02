@@ -38,7 +38,7 @@ function buildVersion(bank:ExamQuestion[], count=10){
  const rest=shuffled(bank.filter(q=>!used.has(q.id)));
  chosen.push(...rest.slice(0,Math.max(0,count-chosen.length)));
  const picked=shuffled(chosen).slice(0,Math.min(count,bank.length)).map(q=>{const opts=shuffled(q.options);return {...q,options:opts,responseType:"mcq" as const};});
- return picked.map((q,i)=>({...q,responseType:i>=Math.max(0,picked.length-3)?"written":"mcq"}));
+ return picked.map((q,i):ExamQuestion=>({...q,responseType:i>=Math.max(0,picked.length-3)?"written":"mcq"}));
 }
 
 export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[]}){
@@ -67,7 +67,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  </section>;
  if(finished) return <section style={{marginTop:24}}>
    <div style={{border:"2px solid #86aac4",borderRadius:16,padding:22}}>
-    <h2>{t.result}: {score}/{version.length} ({percent}%)</h2>
+    <h2>{t.result}: {percent}/100</h2>
     <p><strong>{lang==="RU"?"Оценка":lang==="EN"?"Grade":"Баға"}: {percent}/100</strong></p>
     <p>{comment}</p>
     <h3>{lang==="RU"?"Анализ по блокам":lang==="EN"?"Analysis by block":"Блоктар бойынша талдау"}</h3>
@@ -80,14 +80,19 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
     return <article id={`exam-${q.id}`} key={q.id} style={{border:"1px solid #ccd9e3",borderRadius:14,padding:18,margin:"14px 0"}}>
       <div style={{fontSize:14,opacity:.75}}>{t.question} {i+1} · {t.module} {q.moduleId}: {q.moduleTitle}</div>
       <h3>{q.prompt}</h3>
-      <p><strong>{t.your}:</strong> {a?find(a):t.unanswered} {ok?"✓":"✗"}</p>
-      {!ok&&<p><strong>{t.right}:</strong> {find(q.correctAnswer)}</p>}
-      <p>{q.explanation}</p>
+      {q.responseType==="written"?<>
+        <p><strong>{t.your}:</strong> {written[q.id]||t.unanswered}</p>
+        <p><em>{lang==="RU"?"Письменный ответ сохранён. ИИ-оценка будет подключена отдельно и не имитируется локальной проверкой.":lang==="EN"?"Written answer saved. AI grading will be connected separately and is not simulated locally.":"Жазбаша жауап сақталды. AI бағалауы бөлек қосылады және жергілікті тексерумен алмастырылмайды."}</em></p>
+      </>:<>
+        <p><strong>{t.your}:</strong> {a?find(a):t.unanswered} {ok?"✓":"✗"}</p>
+        {!ok&&<p><strong>{t.right}:</strong> {find(q.correctAnswer)}</p>}
+        <p>{q.explanation}</p>
+      </>}
     </article>})}
  </section>;
  return <section style={{marginTop:24}}>
    <div style={{position:"sticky",top:0,zIndex:2,background:"white",border:"1px solid #ccd9e3",borderRadius:12,padding:12,marginBottom:18}}>
-    <strong>{t.answered}: {Object.keys(answers).length}/{version.length}</strong>
+    <strong>{t.answered}: {version.filter(q=>q.responseType==="written"?Boolean(written[q.id]?.trim()):Boolean(answers[q.id])).length}/{version.length}</strong>
    </div>
    {version.map((q,i)=><article id={`exam-${q.id}`} key={q.id} style={{border:"1px solid #ccd9e3",borderRadius:14,padding:18,margin:"14px 0"}}>
     <div style={{fontSize:14,opacity:.75}}>{t.question} {i+1} {t.of} {version.length} · {t.module} {q.moduleId}: {q.moduleTitle}</div>
