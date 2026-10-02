@@ -1,3 +1,2 @@
-export default function examPage() {
-    return <div>exam страница</div>;
-  }
+import { redirect } from "next/navigation";
+export default function ExamRoute(){ redirect("/exam"); }
