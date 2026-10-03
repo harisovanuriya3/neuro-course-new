@@ -21,6 +21,7 @@ import FoundationVisual from "../../../../components/FoundationVisual";
 import AnatomyReference from "../../../../components/AnatomyReference";
 import AdvancedAnatomyReference from "../../../../components/AdvancedAnatomyReference";
 import ModuleSidebar from "../../../../components/ModuleSidebar";
+import NerveFiberLab from "../../../../components/NerveFiberLab";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -214,6 +215,8 @@ export default async function SectionPage({
             <VoiceContent language={lang} />
           ) : section === "notes" ? (
             <NotesContent language={lang} />
+          ) : moduleNumber === 3 && section === "interactive" ? (
+            <NerveFiberLab language={lang} />
           ) : lesson ? (
             <>
               <SectionContent
