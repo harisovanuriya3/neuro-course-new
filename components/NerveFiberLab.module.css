@@ -5,3 +5,19 @@
 /* Explicit min-width guards keep intrinsic SVG and button sizes inside the mobile lab. */
 .workspace,.stage,.controls,.modePanel,.fibers{min-width:0;box-sizing:border-box}.fibers{grid-template-columns:repeat(6,minmax(0,1fr))}.fibers button{min-width:0}
 @media (max-width:760px){.tabs{max-width:100%}.workspace{grid-template-columns:minmax(0,1fr);width:100%}.stage,.controls,.modePanel{width:100%;max-width:100%}.fibers{grid-template-columns:repeat(3,minmax(0,1fr));width:100%}.anatomy{max-width:100%}.chart{grid-template-columns:minmax(0,1fr);overflow:hidden}}
+
+/* The reference patient remains the central stage; React/SVG layers supply the live physiology. */
+.anatomy{background:#06131e}
+.patientScene{position:relative;aspect-ratio:3/2;isolation:isolate;overflow:hidden;background:#06131e}
+.patientImage{object-fit:cover;z-index:0}
+.patientScene svg{position:absolute;inset:0;z-index:2;display:block;width:100%;height:100%;max-height:none}
+.patientScene .routeShadow{fill:none;stroke:#03121d;stroke-width:15;stroke-linecap:round;opacity:.82}
+.patientScene .route{fill:none;stroke-width:8;stroke-linecap:round;stroke-dasharray:12 6;filter:drop-shadow(0 0 7px var(--fiber))}
+.patientScene .pulse,.patientScene .pulseStill{filter:drop-shadow(0 0 9px var(--fiber));transition:offset-distance .08s linear}
+.reaction{position:absolute;z-index:3;display:flex;align-items:center;gap:7px;max-width:42%;padding:7px 9px;color:#f4fbff;background:#03121de8;border:1px solid color-mix(in srgb,var(--fiber),white 30%);border-radius:9px;font-size:clamp(.62rem,1.15vw,.82rem);font-weight:750;box-shadow:0 0 calc(8px + 18px * var(--progress)) color-mix(in srgb,var(--fiber),transparent 40%)}
+.reaction i{flex:0 0 auto;width:12px;height:12px;border-radius:50%;background:var(--fiber);box-shadow:0 0 calc(5px + 16px * var(--progress)) var(--fiber);animation:physiology 1.15s ease-in-out infinite}
+.reaction0{left:39%;top:58%}.reaction1{left:61%;top:11%}.reaction2{left:61%;top:69%}.reaction3{left:18%;top:76%}.reaction4{left:66%;top:60%}.reaction5{left:18%;top:79%}
+.sceneStatus{position:absolute;z-index:4;top:10px;left:10px;display:flex;gap:8px;align-items:center;padding:6px 9px;color:#fff;background:#03121dd9;border:1px solid var(--fiber);border-radius:9px}
+.sceneStatus b{font-size:1.1rem;color:var(--fiber)}
+@keyframes physiology{0%,100%{transform:scale(.78);opacity:.62}50%{transform:scale(1.35);opacity:1}}
+@media (max-width:760px){.patientScene{min-width:620px}.patientScene svg{min-width:0}.reaction{font-size:.68rem}}

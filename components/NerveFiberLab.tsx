@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Language } from "../content/course";
 import styles from "./NerveFiberLab.module.css";
@@ -35,12 +36,26 @@ const copy = {
 
 const tabs: Tab[] = ["lab","micro","clinical","history","teacher"];
 const ids = Object.keys(fibers) as FiberId[];
+const referencePaths = [
+  "M 760 470 C 650 430 570 390 505 350 C 455 315 430 350 390 440",
+  "M 760 470 C 650 430 560 390 505 350 C 500 260 505 170 500 90",
+  "M 505 350 C 580 390 650 430 725 510",
+  "M 780 480 C 665 440 570 390 505 350 C 515 265 525 170 505 85",
+  "M 505 350 C 580 360 645 400 700 430",
+  "M 780 500 C 665 455 570 405 505 355 C 520 270 525 175 505 90",
+] as const;
+const reactionCopy = {
+  RU: ["Проприоцепция: мышца стабилизирует положение руки", "Прикосновение и вибрация распознаются корой", "Мышечное веретено регулирует тонус", "Быстрая боль: защитная реакция отдёргивания", "Вегетативный ганглий меняет работу органа", "Медленная жгучая боль и локальное тепло"],
+  KZ: ["Проприоцепция: бұлшықет қол қалпын тұрақтандырады", "Жанасу мен дірілді қыртыс таниды", "Бұлшықет ұршығы тонусты реттейді", "Жылдам ауырсыну: қорғаныштық тартып алу", "Вегетативтік ганглий мүше жұмысын өзгертеді", "Баяу күйдіріп ауырсыну және жергілікті жылу"],
+  EN: ["Proprioception: muscle stabilizes the arm", "Touch and vibration reach conscious cortex", "Muscle spindle adjusts muscle tone", "Fast pain triggers protective withdrawal", "Autonomic ganglion changes organ activity", "Slow burning pain and local warmth"],
+} as const;
 
 export default function NerveFiberLab({ language }: { language: Language }) {
   const t=copy[language];
   const [tab,setTab]=useState<Tab>("lab"),[fiber,setFiber]=useState<FiberId>("Aδ"),[distance,setDistance]=useState(1),[temperature,setTemperature]=useState(37),[diameter,setDiameter]=useState(100),[myelin,setMyelin]=useState(1),[prediction,setPrediction]=useState<Prediction|"">(""),[runState,setRunState]=useState<RunState>("idle"),[progress,setProgress]=useState(0),[history,setHistory]=useState<RecordItem[]>([]),[compare,setCompare]=useState(false),[clinical,setClinical]=useState<"correct"|"retry"|"">(""),[micro,setMicro]=useState(false),[voiceOn,setVoiceOn]=useState(true),[volume,setVolume]=useState(1),[voices,setVoices]=useState<SpeechSynthesisVoice[]>([]),[voiceName,setVoiceName]=useState(""),[reduced,setReduced]=useState(false);
   const frame=useRef<number|null>(null),last=useRef(0);
   const current=fibers[fiber];
+  const fiberIndex=ids.indexOf(fiber),referencePath=referencePaths[fiberIndex],reaction=reactionCopy[language][fiberIndex];
   const calc=useCallback((id=fiber)=>{const f=fibers[id],tempFactor=Math.max(.45,1-(37-temperature)*.025),diameterFactor=Math.sqrt(diameter/100),myelinFactor=f.myelinated?myelin:1;const velocity=f.velocity*tempFactor*diameterFactor*myelinFactor;return {velocity,time:distance/velocity*1000};},[fiber,distance,temperature,diameter,myelin]);
   const result=calc();
   const speak=useCallback((text:string)=>{if(!voiceOn||typeof window==="undefined"||!("speechSynthesis" in window))return;window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(text);utterance.lang=language==="RU"?"ru-RU":language==="KZ"?"kk-KZ":"en-US";utterance.volume=volume;const selected=voices.find(v=>v.name===voiceName);if(selected)utterance.voice=selected;window.speechSynthesis.speak(utterance);},[language,voiceName,voiceOn,voices,volume]);
@@ -59,7 +74,18 @@ export default function NerveFiberLab({ language }: { language: Language }) {
     {tab==="lab"&&<div className={styles.workspace}>
       <main className={styles.stage}>
         <div className={styles.fibers} role="group" aria-label="Fiber type">{ids.map(id=><button type="button" key={id} data-fiber={id} aria-pressed={fiber===id} style={{"--fiber":fibers[id].color} as React.CSSProperties} onClick={()=>{setFiber(id);setProgress(0);setRunState("idle")}}>{id}<small>{fibers[id].velocity} m/s</small></button>)}</div>
-        <div className={styles.anatomy}><svg viewBox="0 0 900 320" role="img" aria-label={`${fiber}: ${t.routes[fiber]}`}><defs><linearGradient id="body" x1="0" x2="1"><stop stopColor="#e8f5fb"/><stop offset="1" stopColor="#f8e9dc"/></linearGradient></defs><rect x="18" y="18" width="864" height="284" rx="26" fill="url(#body)"/><g className={styles.landmarks}>{t.anatomy.map((label,i)=><g key={label} transform={`translate(${65+i*190} ${i===0?270:i===1?220:i===2?175:i===3?115:52})`}><circle r="22"/><text y="40" textAnchor="middle">{label}</text></g>)}</g><path d={current.path} className={styles.routeShadow}/><path d={current.path} className={styles.route} style={{stroke:current.color}}/><circle r="11" fill={current.color} className={reduced?undefined:styles.pulse} style={{offsetPath:`path('${current.path}')`,offsetDistance:`${progress*100}%`}} transform={reduced?`translate(${55+progress*785} ${285-progress*230})`:undefined}/></svg><div className={styles.routeText}><strong>{t.route}: {fiber}</strong><span>{t.routes[fiber]}</span></div></div>
+        <div className={styles.anatomy} data-scene-fiber={fiber} data-reaction={reaction} style={{"--fiber":current.color,"--progress":progress} as React.CSSProperties}>
+          <div className={styles.patientScene}>
+            <Image className={styles.patientImage} src="/images/module3/nerve-fiber-woman-reference.png" alt="" fill priority sizes="(max-width: 760px) 760px, (max-width: 1100px) 65vw, 900px"/>
+            <svg viewBox="0 0 1000 667" role="img" aria-label={`${fiber}: ${t.routes[fiber]}`}>
+              <path d={referencePath} className={styles.routeShadow}/><path d={referencePath} className={styles.route} style={{stroke:current.color}}/>
+              <circle r="11" fill={current.color} className={reduced?styles.pulseStill:styles.pulse} style={{offsetPath:`path('${referencePath}')`,offsetDistance:`${progress*100}%`}}/>
+            </svg>
+            <div className={`${styles.reaction} ${styles[`reaction${fiberIndex}`]}`} aria-live="polite"><i/><span>{reaction}</span></div>
+            <div className={styles.sceneStatus}><b>{fiber}</b><span>{runState==="running"?`${Math.round(progress*100)}%`:runState==="done"?"✓":"●"}</span></div>
+          </div>
+          <div className={styles.routeText}><strong>{t.route}: {fiber}</strong><span>{t.routes[fiber]}</span></div>
+        </div>
         <div className={styles.chart} aria-label={t.graph}><svg viewBox="0 0 360 135"><path d="M20 115H345M20 15V115"/><polyline points={graphPoints.map(p=>`${p.x},${p.y}`).join(" ")} /><path d={`M20,112 C80,${105-progress*65} 130,${110-progress*92} 185,${108-progress*20} S280,${110-progress*84} 345,${110-progress*30}`} className={styles.trace}/>{graphPoints.map(p=><g key={p.id}><circle cx={p.x} cy={p.y} r={fiber===p.id?6:4}/><text x={p.x} y="130" textAnchor="middle">{p.id}</text></g>)}</svg><div><b>{t.speed}: {result.velocity.toFixed(1)} m/s</b><span>{t.latency}: {result.time.toFixed(0)} ms</span></div></div>
       </main>
       <aside className={styles.controls}><div><h3>{fiber}</h3><span className={styles.badge}>{t.functions[fiber]}</span><p>{t.routes[fiber]}</p></div><label>{t.distance}: <b>{distance.toFixed(1)} m</b><input type="range" min=".2" max="2" step=".1" value={distance} onChange={e=>setDistance(Number(e.target.value))}/></label><label>{t.temperature}: <b>{temperature} °C</b><input type="range" min="20" max="42" value={temperature} onChange={e=>setTemperature(Number(e.target.value))}/></label><label>{t.diameter}: <b>{diameter}%</b><input type="range" min="30" max="170" value={diameter} onChange={e=>setDiameter(Number(e.target.value))}/></label><label>{t.myelin}<select disabled={!current.myelinated} value={myelin} onChange={e=>setMyelin(Number(e.target.value))}><option value="1">{t.normal}</option><option value=".6">{t.partial}</option><option value=".3">{t.severe}</option></select></label><fieldset><legend>{t.prediction}</legend><div className={styles.predictions}>{(["faster","slower","same"] as Prediction[]).map((p,i)=><button type="button" key={p} aria-pressed={prediction===p} onClick={()=>setPrediction(p)}>{[t.faster,t.slower,t.same][i]}</button>)}</div></fieldset><div className={styles.transport}><button type="button" onClick={play}>{t.start}</button><button type="button" disabled={runState!=="running"} onClick={()=>setRunState("paused")}>{t.pause}</button><button type="button" onClick={replay}>{t.replay}</button></div>{!prediction&&<p className={styles.hint}>{t.choose}</p>}<div className={styles.result}><b>{t.result}</b><span>{runState==="done"?`${result.velocity.toFixed(1)} m/s · ${result.time.toFixed(0)} ms`:runState==="running"?`${Math.round(progress*100)}%`:"—"}</span></div><button type="button" className={styles.compare} aria-pressed={compare} onClick={()=>setCompare(v=>!v)}>{t.compare}</button>{compare&&<div className={styles.comparison}>{ids.map(id=><div key={id}><b>{id}</b><span style={{width:`${Math.max(4,calc(id).velocity)}%`,background:fibers[id].color}}/><em>{calc(id).velocity.toFixed(1)}</em></div>)}</div>}</aside>
