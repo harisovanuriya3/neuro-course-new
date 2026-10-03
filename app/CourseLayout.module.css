@@ -2,6 +2,7 @@
 .page h1 { overflow-wrap: anywhere; }
 .navigation { min-width: 0; overflow-wrap: anywhere; }
 .navigation > div > * { min-width: 0; }
+.sectionShell { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: auto minmax(0,1fr); gap: 20px; align-items: start; }
 
 @media (max-width: 600px) {
   .page { padding: 24px 12px 40px !important; }
@@ -13,6 +14,7 @@
   .navigation > div { gap: 8px !important; }
   .navigation a { padding: 10px 6px !important; }
 }
+@media (max-width: 1050px) { .sectionShell { grid-template-columns: minmax(0,1fr); } }
 
 .cover {
   background-image: linear-gradient(rgba(242,247,251,.70), rgba(238,245,249,.82)), url("/neuron-bg.jpg");

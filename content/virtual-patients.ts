@@ -24,10 +24,21 @@ export type VirtualPatientScenario = {
   title: string;
   patient: string;
   profile: string;
+  visualProfile: PatientVisualProfile;
   opening: string;
   syntheticNote: string;
   stages: VirtualPatientStage[];
   mechanismSummary: string;
+};
+
+export type PatientSex = "female" | "male";
+export type PatientVisualAgeGroup = "young-adult" | "adult" | "senior-adult";
+export type PatientVisualProfile = {
+  age: number;
+  sex: PatientSex;
+  visualAgeGroup: PatientVisualAgeGroup;
+  patientVisual: string;
+  clinicalContext: "teaching-lab" | "neurology-clinic" | "rehabilitation";
 };
 
 type Seed = {
@@ -40,6 +51,29 @@ type Seed = {
 };
 
 const l = (RU: string, EN: string, KZ: string): Localized => ({ RU, EN, KZ });
+
+const patientDemographics: Record<number, { age: number; sex: PatientSex; clinicalContext?: PatientVisualProfile["clinicalContext"] }> = {
+  1:{age:42,sex:"female"}, 2:{age:24,sex:"female",clinicalContext:"teaching-lab"}, 3:{age:20,sex:"male",clinicalContext:"teaching-lab"},
+  4:{age:22,sex:"female",clinicalContext:"teaching-lab"}, 5:{age:25,sex:"male",clinicalContext:"teaching-lab"}, 6:{age:21,sex:"female",clinicalContext:"teaching-lab"},
+  7:{age:23,sex:"male",clinicalContext:"teaching-lab"}, 8:{age:36,sex:"female"}, 9:{age:31,sex:"male"}, 10:{age:47,sex:"female"},
+  11:{age:39,sex:"male"}, 12:{age:58,sex:"female"}, 13:{age:44,sex:"male"}, 14:{age:50,sex:"female"},
+  15:{age:28,sex:"male",clinicalContext:"teaching-lab"}, 16:{age:33,sex:"female"}, 17:{age:26,sex:"male",clinicalContext:"teaching-lab"},
+  18:{age:46,sex:"female"}, 19:{age:37,sex:"male"}, 20:{age:41,sex:"female"}, 21:{age:29,sex:"male"},
+  22:{age:34,sex:"female",clinicalContext:"teaching-lab"}, 23:{age:20,sex:"male",clinicalContext:"teaching-lab"},
+  24:{age:27,sex:"female",clinicalContext:"teaching-lab"}, 25:{age:52,sex:"male",clinicalContext:"rehabilitation"},
+};
+
+function patientVisualProfile(moduleId: number): PatientVisualProfile {
+  const patient = patientDemographics[moduleId];
+  const visualAgeGroup: PatientVisualAgeGroup = patient.age <= 30 ? "young-adult" : patient.age <= 50 ? "adult" : "senior-adult";
+  const fileAge = visualAgeGroup === "young-adult" ? "young" : visualAgeGroup === "senior-adult" ? "senior" : "adult";
+  return {
+    ...patient,
+    visualAgeGroup,
+    patientVisual: `/images/patients/${fileAge}-${patient.sex === "female" ? "woman" : "man"}.png`,
+    clinicalContext: patient.clinicalContext ?? "neurology-clinic",
+  };
+}
 
 const seeds: Seed[] = [
   { moduleId: 1, profile: l("Женщина, 42 года, офисный сотрудник", "Woman, 42, office worker", "42 жастағы әйел, кеңсе қызметкері"), opening: l("По ночам немеют большой, указательный и средний пальцы правой кисти; иногда трудно удерживать мелкие предметы.", "At night, the right thumb, index, and middle fingers become numb; small objects are sometimes difficult to hold.", "Түнде оң қолдың бас бармағы, сұқ және ортаңғы саусақтары ұйиды; кейде ұсақ заттарды ұстау қиындайды."), exam: l("Чувствительность снижена в I–III пальцах, V палец сохранён; сила мышц тенара слегка снижена.", "Sensation is reduced in digits I–III, digit V is spared, and thenar strength is mildly reduced.", "I–III саусақтардың сезімталдығы төмендеген, V саусақ сақталған, тенар бұлшықеттерінің күші сәл төмендеген."), investigation: l("Исследование проводимости срединного нерва через запястье выявляет замедление; данные нужно сопоставить с клинической картиной.", "Median-nerve conduction across the wrist is slowed; the result must be interpreted with the clinical pattern.", "Білек деңгейінде ортаңғы жүйкенің өткізгіштігі баяулаған; нәтижені клиникалық көрініспен салыстыру қажет."), conclusion: l("Рабочая локализация — компрессия срединного нерва на уровне запястья; это учебный случай, а не индивидуальное заключение.", "The working localization is median-nerve compression at the wrist; this is a teaching case, not an individual diagnosis.", "Жұмыс локализациясы — білек деңгейіндегі ортаңғы жүйкенің қысылуы; бұл жеке диагноз емес, оқу жағдайы.") },
@@ -484,6 +518,7 @@ export function getVirtualPatientScenario(moduleId: number, language: Language):
     title: `${c.title}: ${moduleTitle}`,
     patient: c.patient,
     profile: naturalProfile(seed.profile[language], language),
+    visualProfile: patientVisualProfile(moduleId),
     opening: seed.opening[language],
     syntheticNote: c.synthetic,
     mechanismSummary: `${mechanism} ${interpretation}`,

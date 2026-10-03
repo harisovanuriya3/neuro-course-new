@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import CourseNavigation from "../../../components/CourseNavigation";
 import DocumentLanguage from "../../../components/DocumentLanguage";
+import ModuleSidebar from "../../../components/ModuleSidebar";
 import CourseVisitTracker from "../../../components/CourseVisitTracker";
 import PageVoiceTools from "../../../components/PageVoiceTools";
 import { interfaceText } from "../../../lib/interface";
@@ -115,16 +116,16 @@ export default async function ModulePage({
       <DocumentLanguage language={lang} />
       <CourseVisitTracker moduleId={moduleNumber} />
       <div
+        className={styles.sectionShell}
         lang={
           lang === "KZ"
             ? "kk"
             : lang.toLowerCase()
         }
-        style={{
-          maxWidth: "1500px",
-          margin: "0 auto",
-        }}
+        style={{}}
       >
+        <ModuleSidebar moduleNumber={moduleNumber} lang={lang} />
+        <div style={{minWidth:0}}>
         {/* Верхняя строка */}
 
         <div
@@ -397,12 +398,13 @@ export default async function ModulePage({
           ))}
         </section>
 
-        {/* Единая навигация между 23 модулями */}
+        {/* Единая навигация между 25 модулями */}
 
         <CourseNavigation
           moduleNumber={moduleNumber}
           lang={lang}
         />
+        </div>
       </div>
     </main>
   );

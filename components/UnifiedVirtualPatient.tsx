@@ -117,8 +117,8 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
     </nav>
     <div className={styles.desk}>
       <aside className={styles.patientCard}>
-        <div className={styles.patientPortrait}>
-          <Image src="/images/module1/virtual-patient-clinic.png" width={1536} height={1024} priority sizes="(max-width: 700px) 100vw, (max-width: 900px) 320px, 280px" alt={`${c.case}: ${scenario.patient}`} />
+        <div className={styles.patientPortrait} data-patient-age={scenario.visualProfile.age} data-patient-sex={scenario.visualProfile.sex} data-patient-age-group={scenario.visualProfile.visualAgeGroup}>
+          <Image src={scenario.visualProfile.patientVisual} width={1536} height={1024} priority sizes="(max-width: 700px) 100vw, (max-width: 900px) 320px, 280px" alt={`${c.case}: ${scenario.profile}`} />
           <span>{c.stage} {state.current + 1}/6</span>
         </div>
         <VirtualPatientVisual moduleId={moduleId} stage={state.current + 1} selected={selected} language={language} />

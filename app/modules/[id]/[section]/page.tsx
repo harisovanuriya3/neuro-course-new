@@ -20,6 +20,8 @@ import { interfaceText } from "../../../../lib/interface";
 import FoundationVisual from "../../../../components/FoundationVisual";
 import AnatomyReference from "../../../../components/AnatomyReference";
 import AdvancedAnatomyReference from "../../../../components/AdvancedAnatomyReference";
+import ModuleSidebar from "../../../../components/ModuleSidebar";
+import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
   RU: {
@@ -91,16 +93,17 @@ export default async function SectionPage({
     >
       <DocumentLanguage language={lang} />
       <div
+        className={courseStyles.sectionShell}
         lang={
           lang === "KZ"
             ? "kk"
             : lang.toLowerCase()
         }
         style={{
-          maxWidth: "1000px",
-          margin: "0 auto",
         }}
       >
+        <ModuleSidebar moduleNumber={moduleNumber} currentSection={section} currentSectionTitle={getSectionTitle(section, lang)} lang={lang} />
+        <div style={{ minWidth: 0 }}>
         <div
           style={{
             padding: "clamp(22px, 4vw, 36px)",
@@ -266,13 +269,14 @@ export default async function SectionPage({
         </div>
 
         {/* ЕДИНАЯ НАВИГАЦИЯ:
-            17 РАЗДЕЛОВ + 23 МОДУЛЯ */}
+            17 РАЗДЕЛОВ + 25 МОДУЛЕЙ */}
 
         <CourseNavigation
           moduleNumber={moduleNumber}
           lang={lang}
           currentSection={section}
         />
+        </div>
       </div>
     </main>
   );
