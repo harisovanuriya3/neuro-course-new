@@ -385,9 +385,11 @@ export default async function ModulePage({
                   {moduleNumber > 1 && <p style={{ margin: '10px 0 0', fontSize: '13px', fontWeight: 700, color: '#486477' }}>
                     {getLesson(moduleNumber, item.slug, lang)
                       ? ({ RU: 'Стартовые материалы добавлены', EN: 'Initial materials available', KZ: 'Бастапқы материалдар қосылды' }[lang])
-                      : item.slug === 'progress'
-                        ? ({ RU: 'Посещения и обзор курса', EN: 'Visits and course overview', KZ: 'Қаралымдар және курс шолуы' }[lang])
-                        : ({ RU: 'Содержание готовится', EN: 'Content in preparation', KZ: 'Мазмұны дайындалуда' }[lang])}
+                      : item.slug === 'virtual-patient'
+                        ? ({ RU: 'Интерактивный пациент готов: сценарий, выбор пути, динамика обследования и комментарий преподавателя', EN: 'Interactive patient ready: scenario, pathway choice, examination dynamics, and teacher feedback', KZ: 'Интерактивті пациент дайын: сценарий, жолды таңдау, тексеру динамикасы және оқытушы пікірі' }[lang])
+                        : item.slug === 'progress'
+                          ? ({ RU: 'Посещения и обзор курса', EN: 'Visits and course overview', KZ: 'Қаралымдар және курс шолуы' }[lang])
+                          : ({ RU: 'Содержание готовится', EN: 'Content in preparation', KZ: 'Мазмұны дайындалуда' }[lang])}
                   </p>}
                 </div>
               </div>
