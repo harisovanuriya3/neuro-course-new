@@ -189,7 +189,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
     <div className={styles.clinicalDesk}>
       <figure className={`${styles.photo} ${styles.patientPanel} ${styles[`photoStage${stage}`]}`}>
         <div className={styles.stageBadge}>{c.stage} {stage + 1}</div>
-        <Image src="/images/module1/virtual-patient-real.webp" width={1536} height={1024} sizes="(max-width: 700px) 100vw, 340px" alt="" />
+        <Image src="/images/module1/virtual-patient-clinic.png" width={1536} height={1024} sizes="(max-width: 700px) 100vw, 340px" alt={language === "RU" ? "Пациентка в неврологическом кабинете" : language === "KZ" ? "Неврологиялық кабинеттегі пациент" : "Patient in a neurology examination room"} />
         <figcaption>{c.image}</figcaption>
       </figure>
       <div className={`${styles.work} ${styles.studentPanel}`}>
@@ -207,7 +207,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
         {stage === 0 ? <div>
           <VoiceTextarea language={language} label={d.label} rows={2} maxLength={500} value={questionText} disabled={!ready} onValue={setQuestionText} />
           <button type="button" disabled={!questionText.trim()} onClick={submitQuestion}>{d.send}</button>
-          {dialogue.length > 0 && <div className={styles.dialogue} aria-live="polite">{dialogue.map((turn,i)=><div key={i}><p><strong>{d.student}:</strong> {turn.question}</p><p><strong>{d.patient}:</strong> {turn.reply}</p>{turn.feedback && <div className={styles.teacherFeedback}><div className={styles.teacherAvatar} aria-hidden="true"><span>👨‍⚕️</span></div><div><p><strong>{d.teacher}:</strong> {turn.feedback}</p><button type="button" onClick={() => speakTeacher(turn.feedback!)}>🔊 {d.voiceTeacher}</button></div></div>}</div>)}</div>}
+          {dialogue.length > 0 && <div className={styles.dialogue} aria-live="polite">{dialogue.map((turn,i)=><div key={i}><p><strong>{d.student}:</strong> {turn.question}</p><p><strong>{d.patient}:</strong> {turn.reply}</p>{turn.feedback && <div className={styles.teacherFeedback}><Image className={styles.teacherAvatarImage} src="/images/module1/virtual-mentor-clinic.png" width={96} height={96} alt=""/><div><p><strong>{d.teacher}:</strong> {turn.feedback}</p><button type="button" onClick={() => speakTeacher(turn.feedback!)}>🔊 {d.voiceTeacher}</button></div></div>}</div>)}</div>}
 
           {progress.asked.length > 0 && <aside className={styles.findings}><strong>{d.known}:</strong><ul>{progress.asked.map(i => <li key={i}>{c.replies[i]}</li>)}</ul></aside>}
           <p>{c.ask}</p>
@@ -245,7 +245,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
         </div>
       </div>
       <aside className={styles.teacherPanel} aria-live="polite">
-        <div className={styles.teacherVisual}><Image src="/images/module1/virtual-teacher-real.webp" width={300} height={240} sizes="(max-width: 700px) 100vw, 290px" alt={language === "RU" ? "Виртуальный клинический преподаватель" : language === "KZ" ? "Виртуалды клиникалық оқытушы" : "Virtual clinical teacher"} /></div>
+        <div className={styles.teacherVisual}><Image src="/images/module1/virtual-mentor-clinic.png" width={1456} height={1024} sizes="(max-width: 700px) 100vw, 290px" alt={language === "RU" ? "Виртуальный клинический преподаватель" : language === "KZ" ? "Виртуалды клиникалық оқытушы" : "Virtual clinical teacher"} /></div>
         <div className={styles.teacherIdentity}><strong>{d.teacher}</strong><span>{language === "RU" ? "Клинический наставник" : language === "KZ" ? "Клиникалық тәлімгер" : "Clinical mentor"}</span></div>
         <div className={styles.teacherBubble}><p>{teacherNow}</p></div>
         <button type="button" className={styles.mentorVoice} onClick={() => speakTeacher(teacherNow)}>🔊 {d.voiceTeacher}</button>

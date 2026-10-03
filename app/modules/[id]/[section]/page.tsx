@@ -9,7 +9,7 @@ import SectionContent from "../../../../components/SectionContent";
 import CourseNavigation from "../../../../components/CourseNavigation";
 import DocumentLanguage from "../../../../components/DocumentLanguage";
 import VirtualPatient from "../../../../components/VirtualPatient";
-import FoundationVirtualPatient from "../../../../components/FoundationVirtualPatient";
+import UnifiedVirtualPatient from "../../../../components/UnifiedVirtualPatient";
 import ModuleProgress from "../../../../components/ModuleProgress";
 import VoiceContent from "../../../../components/VoiceContent";
 import NotesContent from "../../../../components/NotesContent";
@@ -203,8 +203,8 @@ export default async function SectionPage({
           <div id="module1-page-content">
           {moduleNumber === 1 && section === "virtual-patient" ? (
             <VirtualPatient language={lang} />
-          ) : moduleNumber > 1 && section === "virtual-patient" ? (
-            <FoundationVirtualPatient moduleId={moduleNumber} language={lang} />
+          ) : section === "virtual-patient" ? (
+            <UnifiedVirtualPatient moduleId={moduleNumber} language={lang} />
           ) : section === "progress" ? (
             <ModuleProgress language={lang} moduleId={moduleNumber} />
           ) : section === "voice" ? (

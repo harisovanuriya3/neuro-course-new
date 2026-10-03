@@ -269,3 +269,5 @@
   object-fit: cover;
   display: block;
 }
+
+.teacherAvatarImage { width: 58px; height: 58px; flex: 0 0 58px; border-radius: 12px; object-fit: cover; object-position: 42% 24%; }

@@ -1,0 +1,77 @@
+.patient { color: #17384c; line-height: 1.55; }
+.patient h1 { margin: 0; color: #004b87; font-size: clamp(1.55rem, 4vw, 2.2rem); }
+.patient h2 { font-size: 1.12rem; }
+.header { display: flex; justify-content: space-between; gap: 18px; align-items: start; }
+.header p { margin: 8px 0 14px; color: #526b80; }
+.progressText, .stageCount { font-weight: 800; color: #004b87; white-space: nowrap; }
+.patient > progress { display: block; width: 100%; height: 12px; accent-color: #005b96; margin-bottom: 16px; }
+.stageNav { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 7px; margin-bottom: 18px; }
+.stageNav button { min-width: 0; min-height: 68px; padding: 9px 6px; border: 1px solid #c7d9e5; border-radius: 10px; background: #f7fbfe; color: inherit; font: inherit; font-size: .78rem; line-height: 1.25; overflow-wrap: anywhere; hyphens: auto; white-space: normal; cursor: pointer; }
+.stageNav button span { display: grid; place-items: center; width: 24px; height: 24px; margin: 0 auto 4px; border: 1px solid currentColor; border-radius: 50%; font-weight: 800; }
+.stageNav button:disabled { opacity: .52; cursor: not-allowed; }
+.stageNav .activeStage { border-color: #005b96; background: #e4f4ff; color: #004b87; font-weight: 800; }
+.desk { display: grid; grid-template-columns: minmax(210px,280px) minmax(340px,1fr) minmax(210px,270px); gap: 18px; align-items: start; }
+.patientCard, .workspace, .mentorCard { min-width: 0; border: 1px solid #cfe0ea; border-radius: 16px; background: white; overflow: hidden; }
+.patientCard { padding-bottom: 16px; }
+.patientCard img, .mentorCard img { display: block; width: 100%; height: auto; object-fit: cover; }
+.patientPortrait { position: relative; overflow: hidden; background: #dce9ee; }
+.patientPortrait img { height: clamp(250px,25vw,340px); object-position: 34% center; }
+.patientPortrait::after { position: absolute; inset: auto 0 0; height: 42%; content: ""; background: linear-gradient(transparent,rgb(7 40 58 / 52%)); pointer-events: none; }
+.patientPortrait span { position: absolute; z-index: 1; right: 12px; bottom: 12px; padding: 5px 9px; border: 1px solid rgb(255 255 255 / 45%); border-radius: 999px; color: #fff; background: rgb(10 55 78 / 72%); font-size: .74rem; font-weight: 800; backdrop-filter: blur(5px); }
+.patientCard h2, .patientCard > p, .patientBubble { margin-left: 15px; margin-right: 15px; }
+.caseLabel { margin: 14px 15px 2px; color: #17648a; font-size: .72rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; overflow-wrap: anywhere; }
+.profile { padding: 8px 10px; border-radius: 8px; background: #f4f8fa; font-weight: 700; overflow-wrap: anywhere; }
+.patientBubble { padding: 12px; border-left: 4px solid #005b96; border-radius: 9px; background: #edf6ff; }
+.workspace { padding: clamp(16px,3vw,24px); }
+.workspace h2 { margin-top: 5px; color: #004b87; }
+.situationCard, .dataCard, .taskCard { margin: 12px 0; padding: 13px 15px; border-radius: 11px; overflow-wrap: anywhere; }
+.situationCard { border: 1px solid #d5e4eb; background: #f8fbfd; }
+.dataCard { border-left: 5px solid #287ba2; background: #edf7fb; }
+.taskCard { border-left: 5px solid #7356a8; background: #f5f1fb; }
+.situationCard h3, .dataCard h3, .taskCard h3, .feedbackGood h3, .feedbackReview h3 { margin: 0 0 6px; font-size: .9rem; color: #174f70; }
+.situationCard p, .dataCard p, .taskCard p { margin: 0; }
+.workspace fieldset { border: 0; padding: 0; margin: 16px 0; }
+.workspace legend { margin-bottom: 8px; font-weight: 800; }
+.workspace fieldset label { display: block; padding: 10px 12px; margin: 8px 0; border: 1px solid #c7d9e5; border-radius: 9px; cursor: pointer; }
+.workspace fieldset .selected { border-color: #005b96; background: #e8f4fc; }
+.reasoning { display: grid; gap: 7px; }
+.reasoning textarea { width: 100%; box-sizing: border-box; padding: 11px; border: 1px solid #bfd0dc; border-radius: 9px; font: inherit; resize: vertical; }
+.saved { color: #607b8d; font-size: .85rem; }
+.response, .feedbackGood, .feedbackReview, .final { margin-top: 14px; padding: 13px 15px; border-radius: 10px; }
+.response { background: #edf6ff; }
+.response h3 { margin: 0 0 5px; }
+.response button, .mentorCard button { padding: 8px 11px; border: 1px solid #005b96; border-radius: 8px; background: white; color: #005b96; font: inherit; font-weight: 700; cursor: pointer; }
+.response button:disabled, .mentorCard button:disabled { opacity: .48; cursor: not-allowed; }
+.audioText { max-height: 15rem; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+.audioText p { margin-top: 0; }
+.audioControls { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.responseHeaderControls { margin-bottom: 10px; }
+.responseHeaderControls h3 { margin-bottom: 0; }
+.responseHeaderControls .audioControls { margin-top: 7px; }
+.feedbackGood { border-left: 4px solid #25835a; background: #e9f6ef; }
+.feedbackReview { border-left: 4px solid #b77a15; background: #fff7dc; }
+.feedbackGood p, .feedbackReview p { overflow-wrap: anywhere; }
+.final { background: #edf7f1; border: 1px solid #a9d2bb; }
+.reviewList { display: grid; gap: 9px; margin: 14px 0 0; padding-left: 1.35rem; }
+.reviewList li { padding-left: 4px; }
+.reviewList span, .reviewList small { display: block; margin-top: 3px; }
+.reviewList small { color: #526b60; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.actions button, .reset { padding: 9px 14px; border: 1px solid #005b96; border-radius: 8px; background: #005b96; color: white; font: inherit; cursor: pointer; }
+.patient button:focus-visible, .patient input:focus-visible, .patient textarea:focus-visible, .patient summary:focus-visible { outline: 3px solid #f0a12b; outline-offset: 3px; }
+.actions button:disabled { opacity: .5; cursor: not-allowed; }
+.mentorCard { position: sticky; top: 18px; max-height: calc(100vh - 36px); padding-bottom: 16px; background: #f7fbfe; box-shadow: 0 10px 28px rgba(0,75,135,.09); }
+.mentorDetails { display: flex; min-height: 0; max-height: calc(100vh - 228px); flex-direction: column; }
+.mentorDetails summary { display: none; }
+.mentorHeaderControls { flex: 0 0 auto; padding: 13px 15px 10px; border-bottom: 1px solid #d7e5ed; background: #f7fbfe; }
+.mentorHeaderControls h2 { margin: 0; }
+.mentorText { min-height: 5rem; max-height: 42vh; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; padding: 0 15px; }
+.mentorText p { margin: 12px 0 15px; overflow-wrap: anywhere; }
+.mentorCard .audioControls { flex: 0 0 auto; margin: 8px 0 0; }
+.mentorCard .audioControls button { margin: 0; }
+.mentorCard img { height: 210px; object-position: 43% 30%; }
+.reset { margin-top: 18px; background: white; color: #005b96; }
+@media (max-width: 900px) { .desk { grid-template-columns: minmax(250px,320px) 1fr; } .mentorCard { position: static; grid-column: 1/-1; display: grid; max-height: none; grid-template-columns: 220px 1fr; gap: 0 14px; } .mentorCard img { grid-row: 1/2; height: 190px; } .mentorDetails { max-height: 24rem; } }
+@media (max-width: 1024px) { .stageNav { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+@media (max-width: 700px) { .header { display: block; } .desk { grid-template-columns: minmax(0,1fr); } .patientPortrait img { height: min(76vw,420px); } .mentorCard { grid-column: auto; display: block; max-height: none; padding-bottom: 0; } .mentorCard img { height: min(64vw,320px); object-position: 45% 25%; } .mentorDetails { display: block; max-height: none; } .mentorDetails summary { display: block; padding: 13px 15px; color: #004b87; font-weight: 800; cursor: pointer; } .mentorHeaderControls h2 { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } .mentorHeaderControls { padding-top: 8px; } .mentorText { max-height: 42vh; min-height: 0; padding: 0 15px; } .audioText { max-height: 38vh; } .workspace { padding: 14px; } }
+@media (max-width: 480px) { .stageNav { grid-template-columns: repeat(2,minmax(0,1fr)); } }
