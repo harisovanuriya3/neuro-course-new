@@ -30,12 +30,23 @@ function NeuronPhoto({language}:{language:Language}){
  </section>;
 }
 function ReflexPhoto({language}:{language:Language}){
- const c=words[language]; const [stage,setStage]=useState(0); const files=["reflex-contact.webp","reflex-withdrawal.webp"];
+ const c=words[language]; const [stage,setStage]=useState(0); const [running,setRunning]=useState(false);
+ const steps=language==="RU"?["Рецептор кожи","Афферентный нейрон","Спинной мозг","Эфферентный нейрон","Мышца сокращается"]:language==="EN"?["Skin receptor","Afferent neuron","Spinal cord","Efferent neuron","Muscle contracts"]:["Тері рецепторы","Афференттік нейрон","Жұлын","Эфференттік нейрон","Бұлшықет жиырылады"];
+ const files=["reflex-contact.webp","reflex-contact.webp","reflex-contact.webp","reflex-contact.webp","reflex-withdrawal.webp"];
+ function run(){setStage(0);setRunning(true);let i=0;const timer=window.setInterval(()=>{i+=1;setStage(i);if(i>=4){window.clearInterval(timer);setRunning(false)}},900)}
  return <section style={{border:"1px solid #b9d5e7",borderRadius:16,padding:16,background:"#f8fcff"}}>
   <h3>{c.reflex}</h3>
-  <div style={{position:"relative",height:380,borderRadius:12,overflow:"hidden"}}><Image src={"/images/lab/"+files[stage]} alt={[c.contact,c.withdraw][stage]} fill sizes="(max-width:760px) 95vw,800px" style={{objectFit:"cover"}}/></div>
-  <p><strong>{[c.contact,c.withdraw][stage]}</strong></p>
-  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{[c.contact,c.withdraw].map((x,i)=><button key={x} type="button" aria-pressed={stage===i} onClick={()=>setStage(i)}>{x}</button>)}</div>
+  <div style={{position:"relative",height:380,borderRadius:12,overflow:"hidden"}}>
+   <Image src={"/images/lab/"+files[stage]} alt={steps[stage]} fill sizes="(max-width:760px) 95vw,800px" style={{objectFit:"cover"}}/>
+   <svg viewBox="0 0 800 380" aria-hidden="true" style={{position:"absolute",inset:0,width:"100%",height:"100%"}}>
+    <defs><marker id="reflex-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff3030"/></marker></defs>
+    <path d="M115 270 C210 220 270 180 350 185 C430 190 505 230 620 270" fill="none" stroke="rgba(255,255,255,.8)" strokeWidth="13"/>
+    <path d="M115 270 C210 220 270 180 350 185 C430 190 505 230 620 270" fill="none" stroke="#ff3030" strokeWidth="7" strokeDasharray="18 12" markerEnd="url(#reflex-arrow)" style={{strokeDashoffset:String(-stage*30),transition:"stroke-dashoffset .7s ease"}}/>
+    <circle cx={115+stage*126} cy={stage<2?270-stage*43:185+(stage-2)*42} r="15" fill="#ffe600" stroke="#111" strokeWidth="4"/>
+   </svg>
+  </div>
+  <p aria-live="polite"><strong>{stage+1}/5 — {steps[stage]}</strong></p>
+  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}><button type="button" disabled={running} onClick={run}>{language==="RU"?"▶ Запустить рефлекс":language==="EN"?"▶ Run reflex":"▶ Рефлексті іске қосу"}</button><button type="button" disabled={running||stage===0} onClick={()=>setStage(0)}>{language==="RU"?"Сначала":language==="EN"?"Reset":"Басына"}</button></div>
  </section>;
 }
 export default function PracticeVisualMaterials({language}:{language:Language}){
