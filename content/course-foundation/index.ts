@@ -116,12 +116,12 @@ const copy = {
       'Запишите ответ перед открытием объяснения. Сравнивайте причинные связи, а не совпадение слов.',
 
     referenceIntro:
-      'Материалы кафедры использованы для подбора тем и адаптации заданий. Внешние источники помогают уточнить механизмы.',
+      'Рекомендуемые источники для уточнения физиологических механизмов и самостоятельного чтения.',
 
-    materials: 'Учебные материалы кафедры',
+    materials: 'Учебные материалы',
 
     noMaterials:
-      'В загруженных материалах нет отдельного занятия по этой теме; стартовый текст подготовлен по литературе.',
+      'Дополнительные материалы по теме не указаны.',
 
     sourceDescription:
       'Дополнительное чтение по теме. Исходный материал на английском языке.',
@@ -157,12 +157,12 @@ const copy = {
       'Write your answer before opening the explanation. Compare causal reasoning rather than matching words.',
 
     referenceIntro:
-      'Department materials guide topic selection and adapted exercises. External readings clarify the mechanisms.',
+      'Recommended sources for clarifying physiological mechanisms and further reading.',
 
-    materials: 'Department teaching materials',
+    materials: 'Learning materials',
 
     noMaterials:
-      'The uploaded materials do not contain a separate lesson on this topic; this initial text is based on the reading sources.',
+      'No additional topic materials are listed.',
 
     sourceDescription:
       'Further reading on this topic. Original source in English.',
@@ -198,12 +198,12 @@ const copy = {
       'Түсіндірмені ашудан бұрын жауап жазыңыз. Сөздердің ұқсастығын емес, себеп-салдар байланысын салыстырыңыз.',
 
     referenceIntro:
-      'Кафедра материалдары тақырыптарды таңдау және тапсырмаларды бейімдеу үшін қолданылды. Сыртқы дереккөздер тетіктерді нақтылауға көмектеседі.',
+      'Физиологиялық тетіктерді нақтылауға және қосымша оқуға ұсынылатын дереккөздер.',
 
-    materials: 'Кафедраның оқу материалдары',
+    materials: 'Оқу материалдары',
 
     noMaterials:
-      'Жүктелген материалдарда бұл тақырыпқа жеке сабақ жоқ; бастапқы мәтін әдебиет бойынша дайындалды.',
+      'Тақырып бойынша қосымша материалдар көрсетілмеген.',
 
     sourceDescription:
       'Тақырып бойынша қосымша оқу. Түпнұсқа ағылшын тілінде.',
@@ -702,19 +702,7 @@ function create(
       title,
       introduction: c.referenceIntro,
 
-      cards: [
-        {
-          id: 'department-materials',
-          title: c.materials,
-
-          paragraphs:
-            topic.materials.length
-              ? topic.materials
-              : [c.noMaterials],
-
-          links,
-        },
-      ],
+      cards: [],
 
       sources: [...new Set(keys)].map((key) => {
         if (!sources[key]) {
