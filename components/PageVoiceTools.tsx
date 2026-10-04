@@ -54,7 +54,7 @@ export default function PageVoiceTools({ language, contentId, section, moduleId 
   }
   return <section className={styles.tools} aria-label={c.title} data-no-narration data-testid="page-voice-tools">
     <SpeechPlayer language={language} getText={() => { const root = document.getElementById(contentId); return root ? visiblePageText(root) : []; }} />
-    {section === "interactive" && moduleId === 2 && <InteractiveVoiceDock language={language} contentId={contentId} />}
+    {section === "interactive" && moduleId !== 3 && <InteractiveVoiceDock language={language} contentId={contentId} />}
     <button className={styles.inputToggle} type="button" aria-expanded={open} aria-controls={`${id}-note`} onClick={() => {
       setOpen(value => !value);
       if (!open) requestAnimationFrame(() => panel.current?.querySelector('textarea')?.focus());
