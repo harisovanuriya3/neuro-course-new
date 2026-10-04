@@ -68,7 +68,8 @@ function DetailedReflexArc({language}:{language:Language}){
   <div style={{display:"flex",gap:10,flexWrap:"wrap",alignItems:"center",marginTop:12}}><button type="button" onClick={run} disabled={running}>{x.run}</button><button type="button" onClick={()=>setRunning(false)} disabled={!running}>{x.stop}</button><button type="button" onClick={()=>{setRunning(false);setStage(0)}}>{x.reset}</button><label>{x.speed}: <input aria-label={x.speed} type="range" min="600" max="1800" step="200" value={2400-speed} onChange={e=>setSpeed(2400-Number(e.target.value))}/></label></div>
  </section>
 }
-\nexport default function PracticeVisualMaterials({language}:{language:Language}){
+
+export default function PracticeVisualMaterials({language}:{language:Language}){
  const c=words[language];
  return <div style={{display:"grid",gap:16}}><div><h3>{c.title}</h3><p>{c.intro}</p></div>
   <OrganizationSpecimens language={language}/>
