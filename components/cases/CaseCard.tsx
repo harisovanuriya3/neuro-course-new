@@ -9,6 +9,13 @@ import type { Language } from "../../content/course";
 
 type Props = { item: CaseExercise; number: number; ui: CasesLesson["ui"]; language: Language; completed: boolean; onComplete: (done: boolean) => void; onChecked?: (correct: boolean) => void };
 
+const meaningful = (value: string) => (value.match(/[\p{L}\p{N}]/gu) ?? []).length >= 12;
+const attemptSaved: Record<Language, string> = {
+  RU: "Попытка сохранена. Теперь можно открыть разбор.",
+  EN: "Your attempt is saved. You may now open the explanation.",
+  KZ: "Талпыныс сақталды. Енді талдауды ашуға болады.",
+};
+
 export default function CaseCard({ item, number, ui, language, completed, onComplete, onChecked }: Props) {
   const [visible, setVisible] = useState(1);
   const [responses, setResponses] = useState<string[]>([]);
@@ -23,8 +30,8 @@ export default function CaseCard({ item, number, ui, language, completed, onComp
   const interaction = item.interaction;
   const sequence = interaction?.type === "sequence" ? interaction : undefined;
   const selection = interaction?.type === "choice" ? interaction : undefined;
-  const answered = sequence || item.stages.slice(0, visible).every((_, index) => responses[index]?.trim());
-  const ready = Boolean(answered && visible === item.stages.length && (!interaction || checked));
+  const answered = sequence || item.stages.slice(0, visible).every((_, index) => meaningful(responses[index] ?? ""));
+  const ready = Boolean(answered && visible === item.stages.length && checked);
   const hint = sequence ? ui.sequenceGate : selection ? ui.choiceGate : ui.gate;
 
   function invalidateReview() {
@@ -60,6 +67,8 @@ export default function CaseCard({ item, number, ui, language, completed, onComp
       setCorrect(selection.options[choice].correct);
       setFeedback(selection.options[choice].feedback);
       onChecked?.(selection.options[choice].correct);
+    } else if (!answered) {
+      return;
     }
     setChecked(true);
   }
@@ -105,7 +114,7 @@ export default function CaseCard({ item, number, ui, language, completed, onComp
         <p><strong>{ui.selected}</strong> ({selected.length}/{sequence.steps.length})</p>
         {selected.length ? <ol className={styles.selected}>{selected.map((index) => <li key={index}>{sequence.steps[index]}</li>)}</ol> : <p className={shared.empty}>{ui.empty}</p>}
         <div className={shared.actions}>
-          <button type="button" className={shared.primary} onClick={check}>{ui.check}</button>
+          <button type="button" className={shared.primary} disabled={selected.length !== sequence.steps.length} onClick={check}>{ui.check}</button>
           <button type="button" disabled={!selected.length} onClick={() => updateSequence(selected.slice(0, -1))}>{ui.undo}</button>
           <button type="button" disabled={!selected.length} onClick={() => updateSequence([])}>{ui.reset}</button>
         </div>
@@ -118,9 +127,13 @@ export default function CaseCard({ item, number, ui, language, completed, onComp
           }} />
           <span>{option.text}</span>
         </label>)}
-        <button type="button" className={shared.primary} onClick={check}>{ui.check}</button>
+        <button type="button" className={shared.primary} disabled={choice === null} onClick={check}>{ui.check}</button>
       </fieldset>}
+      {!interaction && visible === item.stages.length && <div className={shared.actions}>
+        <button type="button" className={shared.primary} disabled={!answered} onClick={check}>{ui.check}</button>
+      </div>}
       {interaction && <p role="status" className={feedback ? (correct ? shared.success : shared.retry) : shared.status}>{feedback}</p>}
+      {!interaction && checked && <p role="status" className={shared.success}>{attemptSaved[language]}</p>}
       <p id={`${id}-hint`} className={shared.note}>{hint}</p>
       <div className={shared.disclosure}>
         <button type="button" className={shared.answerButton} disabled={!ready} aria-expanded={open} aria-controls={`${id}-explanation`} aria-describedby={`${id}-hint`} onClick={() => {

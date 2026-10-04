@@ -123,7 +123,7 @@ export default function BranchingTestContent({ test, language, moduleId }: { tes
               <button data-action="continue" onClick={() => dispatch({ type: "continue" })}>{ui.continue}</button>
             </>
           )}
-          <p>{theory(test.competencies[node.competency].theoryTarget)}</p>
+          {state.phase !== "question" && <p>{theory(test.competencies[node.competency].theoryTarget)}</p>}
         </section>
       ) : (
         <section data-node={node.id}>
