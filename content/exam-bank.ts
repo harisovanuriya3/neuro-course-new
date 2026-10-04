@@ -11,4 +11,37 @@ KZ:{st:["Осы тақырыптағы физиологиялық байланы
 function rot<T>(a:T[],n:number){const k=n%a.length;return [...a.slice(k),...a.slice(0,k)]}
 function make(mid:number,title:string,n:number,prompt:string,correct:string,wrong:string[],explanation:string):ExamBankQuestion{const raw=rot([{k:"ok",text:correct},...wrong.map((text,i)=>({k:"w"+i,text}))],n);const options=raw.map((o,i)=>({id:"abcd"[i],text:o.text}));const writtenPrompt=prompt+" "+(mid===1?" Объясните причинную цепь от афферентного входа к центральной интеграции и ожидаемому функциональному результату.":"");return{id:"exam-m"+mid+"-q"+(n+1),moduleId:mid,moduleTitle:title,prompt,options,correctAnswer:options[raw.findIndex(o=>o.k==="ok")].id,explanation,writtenPrompt}}
 function firstModule(lang:Language){const s=S[lang],title=modules[lang][0],a=lang==="RU"?"афферентный вход":lang==="EN"?"afferent input":"афференттік кіріс",b=lang==="RU"?"центральная интеграция":lang==="EN"?"central integration":"орталық интеграция";return Array.from({length:40},(_,n)=>make(1,title,n,s.st[n%10]+" "+s.pair+" «"+a+" → "+b+"».",s.first,[s.swap,s.abs,s.dx],s.ex))}
-export function createExamBank(lang:Language):ExamBankQuestion[]{const s=S[lang],bank=[...firstModule(lang)];for(const topic of topics){const defs=termDefinitions[topic.id];if(!defs)continue;const title=modules[lang][topic.id-1],a=topic.terms[0][lang],b=topic.terms[1][lang];for(let n=0;n<40;n++){const mode=n%4;const clinical=clinicalVignettes[topic.id]?.[lang] ?? topic.task[lang];const context=mode===0?topic.question[lang]:mode===1?topic.mechanism[lang]:mode===2?clinical:topic.interpretation[lang];const correct=mode===0?topic.mechanism[lang]:mode===1?topic.interpretation[lang]:mode===2?topic.mechanism[lang]:topic.interpretation[lang];const q=make(topic.id,title,n,context,correct,[s.swap,s.abs,s.dx],s.ex+" "+(mode===3?topic.interpretation[lang]:topic.mechanism[lang]));q.writtenPrompt=(lang==="RU"?"Объясните причинно-следственную цепь для этой ситуации: исходное изменение → физиологический механизм → ожидаемый результат. ":""+(lang==="EN"?"Explain the causal chain for this situation: initial change → physiological mechanism → expected outcome. ":"Осы жағдайдың себеп-салдар тізбегін түсіндіріңіз: бастапқы өзгеріс → физиологиялық механизм → күтілетін нәтиже. "))+context;bank.push(q)} }return bank}
+export function createExamBank(lang:Language):ExamBankQuestion[]{
+ const s=S[lang],bank=[...firstModule(lang)];
+ for(const topic of topics){
+  const defs=termDefinitions[topic.id]; if(!defs)continue;
+  const title=modules[lang][topic.id-1], a=topic.terms[0][lang], b=topic.terms[1][lang];
+  const clinical=clinicalVignettes[topic.id]?.[lang] ?? topic.task[lang];
+  const prompts=[
+   topic.question[lang],
+   clinical,
+   topic.task[lang],
+   topic.interpretation[lang]
+  ];
+  const corrects=[
+   topic.mechanism[lang],
+   topic.mechanism[lang],
+   topic.interpretation[lang],
+   topic.interpretation[lang]
+  ];
+  const wrongSets=[
+   [s.swap,s.abs,s.dx],
+   [s.dx,s.abs,s.swap],
+   [s.abs,s.swap,s.dx],
+   [s.swap,s.dx,s.abs]
+  ];
+  for(let n=0;n<40;n++){
+   const mode=n%4;
+   const q=make(topic.id,title,n,prompts[mode],corrects[mode],wrongSets[mode],corrects[mode]);
+   const lead=lang==="RU"?"Объясните механизм в данной ситуации и укажите ожидаемый физиологический результат. ":lang==="EN"?"Explain the mechanism in this situation and state the expected physiological outcome. ":"Осы жағдайдағы механизмді түсіндіріп, күтілетін физиологиялық нәтижені көрсетіңіз. ";
+   q.writtenPrompt=lead+prompts[mode];
+   bank.push(q);
+  }
+ }
+ return bank;
+}
