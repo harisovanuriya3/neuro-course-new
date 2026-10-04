@@ -5,26 +5,40 @@ import Link from "next/link";
 import type { Language } from "../content/course";
 import { OrganizationSpecimens } from "./RealSpecimens";
 
-const words = {
- RU:{title:"Интерактивные материалы",intro:"Материалы встроены в практику — отдельный атлас не требуется.",system:"Нервная система: ЦНС и ПНС",neuron:"Нейрон: основные части",reflex:"Рефлекторная дуга",brain:"Головной мозг",cord:"Спинной мозг",nerves:"Периферические нервы",soma:"Тело нейрона",dend:"Дендриты",axon:"Аксон",rec:"Рецептор",aff:"Афферентный путь",eff:"Эфферентный путь",muscle:"Мышца",hint:"Нажимайте на подписи: соответствующая часть схемы подсвечивается.",theory:"Открыть Theory Модуля 1"},
- EN:{title:"Interactive materials",intro:"Materials are embedded in the practice; a separate atlas is not required.",system:"Nervous system: CNS and PNS",neuron:"Neuron: main parts",reflex:"Reflex arc",brain:"Brain",cord:"Spinal cord",nerves:"Peripheral nerves",soma:"Cell body",dend:"Dendrites",axon:"Axon",rec:"Receptor",aff:"Afferent pathway",eff:"Efferent pathway",muscle:"Muscle",hint:"Select a label to highlight the corresponding diagram part.",theory:"Open Module 1 Theory"},
- KZ:{title:"Интерактивті материалдар",intro:"Материалдар практикалық бөлімге енгізілген, бөлек атлас қажет емес.",system:"Жүйке жүйесі: ОЖЖ және ШЖЖ",neuron:"Нейрон: негізгі бөліктер",reflex:"Рефлекстік доға",brain:"Ми",cord:"Жұлын",nerves:"Шеткі жүйкелер",soma:"Нейрон денесі",dend:"Дендриттер",axon:"Аксон",rec:"Рецептор",aff:"Афференттік жол",eff:"Эфференттік жол",muscle:"Бұлшықет",hint:"Белгіні таңдаңыз: сызбаның тиісті бөлігі ерекшеленеді.",theory:"1-модуль теориясын ашу"}
+const words={
+ RU:{title:"Реальные интерактивные материалы",intro:"Работайте с анатомическими фотографиями и микрофотографиями. Выберите структуру или этап, чтобы изменить фокус изображения.",neuron:"Нейрон: реальная микрофотография после окраски по Гольджи",reflex:"Рефлекторная реакция: реальные кадры опыта",soma:"Тело нейрона",dend:"Дендриты",axon:"Аксон",contact:"Контакт с раздражителем",withdraw:"Отдёргивание руки",source:"Источник и лицензия",theory:"Открыть Theory Модуля 1",note:"Это реальное изображение нейрона, а не условная схема."},
+ EN:{title:"Real interactive materials",intro:"Work with anatomical photographs and micrographs. Select a structure or stage to change the image focus.",neuron:"Neuron: real Golgi-stained micrograph",reflex:"Reflex response: real experiment frames",soma:"Cell body",dend:"Dendrites",axon:"Axon",contact:"Stimulus contact",withdraw:"Hand withdrawal",source:"Source and licence",theory:"Open Module 1 Theory",note:"This is a real neuron image, not a schematic drawing."},
+ KZ:{title:"Нақты интерактивті материалдар",intro:"Анатомиялық фотосуреттермен және микрофотографиялармен жұмыс істеңіз. Кескін фокусын өзгерту үшін құрылымды немесе кезеңді таңдаңыз.",neuron:"Нейрон: Гольджи әдісімен боялған нақты микрофотография",reflex:"Рефлекстік жауап: тәжірибенің нақты кадрлары",soma:"Нейрон денесі",dend:"Дендриттер",axon:"Аксон",contact:"Тітіркендіргішпен жанасу",withdraw:"Қолды тартып алу",source:"Дереккөз және лицензия",theory:"1-модуль теориясын ашу",note:"Бұл шартты сызба емес, нейронның нақты бейнесі."}
 };
-function Diagram({title,labels,kind}:{title:string;labels:string[];kind:string}) {
- const [active,setActive]=useState(0);
- const hi=(n:number)=>active===n?"#ffd166":"#9bd3ee";
- return <section style={{border:"1px solid #b9d5e7",borderRadius:16,padding:16,background:"#f8fcff"}}><h3>{title}</h3>
- <svg viewBox="0 0 620 230" role="img" aria-label={title} style={{width:"100%",maxHeight:250}}>
- {kind==="system"&&<><circle cx="160" cy="60" r="40" fill={hi(0)}/><path d="M160 100v100" stroke={hi(1)} strokeWidth="18"/><g stroke={hi(2)} strokeWidth="6"><path d="M160 125L45 180M160 145L285 205M160 125L300 70"/></g></>}
- {kind==="neuron"&&<><g stroke={hi(1)} strokeWidth="7"><path d="M175 115L60 45M175 115L45 120M175 115L70 200M175 115L120 25"/></g><circle cx="195" cy="115" r="48" fill={hi(0)}/><path d="M240 115C350 115 410 80 540 115" stroke={hi(2)} strokeWidth="12" fill="none"/></>}
- {kind==="reflex"&&<><circle cx="55" cy="115" r="24" fill={hi(0)}/><path d="M80 115H225" stroke={hi(1)} strokeWidth="10"/><rect x="225" y="70" width="105" height="90" rx="28" fill={hi(2)}/><path d="M330 115H475" stroke={hi(3)} strokeWidth="10"/><ellipse cx="540" cy="115" rx="55" ry="32" fill={hi(4)}/></>}
- </svg><div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{labels.map((x,i)=><button key={x} type="button" onClick={()=>setActive(i)} aria-pressed={active===i}>{x}</button>)}</div></section>;
+
+function NeuronPhoto({language}:{language:Language}){
+ const c=words[language]; const [part,setPart]=useState(0);
+ const positions=["50% 50%","20% 45%","82% 50%"];
+ return <section style={{border:"1px solid #b9d5e7",borderRadius:16,padding:16,background:"#f8fcff"}}>
+  <h3>{c.neuron}</h3>
+  <div style={{height:300,overflow:"hidden",borderRadius:12,background:"#111"}}>
+   <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Neuron_upclose.jpg" alt={c.neuron} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:positions[part],transform:part===0?"scale(1.05)":"scale(1.45)",transition:"transform .35s ease, object-position .35s ease"}}/>
+  </div>
+  <p><strong>{[c.soma,c.dend,c.axon][part]}</strong> — {c.note}</p>
+  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{[c.soma,c.dend,c.axon].map((x,i)=><button key={x} type="button" aria-pressed={part===i} onClick={()=>setPart(i)}>{x}</button>)}</div>
+  <p><a href="https://commons.wikimedia.org/wiki/File:Neuron_upclose.jpg" target="_blank" rel="noreferrer">{c.source}</a> · Robert Huber · Creative Commons</p>
+ </section>;
 }
-export default function PracticeVisualMaterials({language}:{language:Language}) {
- const c=words[language]; return <div style={{display:"grid",gap:16}}><div><h3>{c.title}</h3><p>{c.intro} {c.hint}</p></div>
- <OrganizationSpecimens language={language}/>
- <Diagram title={c.system} kind="system" labels={[c.brain,c.cord,c.nerves]}/>
- <section style={{border:"1px solid #b9d5e7",borderRadius:16,padding:16,background:"#f8fcff"}}><h3>{c.neuron}</h3><div style={{position:"relative",minHeight:360,borderRadius:12,overflow:"hidden"}}><Image src="/neuron-bg.jpg" alt={c.neuron} fill sizes="(max-width: 760px) 95vw, 800px" style={{objectFit:"cover"}} /></div><p>{c.hint}</p><div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{[c.soma,c.dend,c.axon].map(x=><button key={x} type="button">{x}</button>)}</div></section>
- <section style={{border:"1px solid #b9d5e7",borderRadius:16,padding:16,background:"#f8fcff"}}><h3>{c.reflex}</h3><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:10}}>{["reflex-contact.webp","reflex-withdrawal.webp"].map((file,i)=><div key={file} style={{position:"relative",minHeight:260,borderRadius:12,overflow:"hidden"}}><Image src={`/images/lab/${file}`} alt={c.reflex+" "+(i+1)} fill sizes="(max-width: 760px) 90vw, 360px" style={{objectFit:"cover"}} /></div>)}</div><Diagram title={c.reflex} kind="reflex" labels={[c.rec,c.aff,c.cord,c.eff,c.muscle]}/></section>
- <Link href="/modules/1/theory">{c.theory} →</Link></div>;
+function ReflexPhoto({language}:{language:Language}){
+ const c=words[language]; const [stage,setStage]=useState(0); const files=["reflex-contact.webp","reflex-withdrawal.webp"];
+ return <section style={{border:"1px solid #b9d5e7",borderRadius:16,padding:16,background:"#f8fcff"}}>
+  <h3>{c.reflex}</h3>
+  <div style={{position:"relative",height:380,borderRadius:12,overflow:"hidden"}}><Image src={"/images/lab/"+files[stage]} alt={[c.contact,c.withdraw][stage]} fill sizes="(max-width:760px) 95vw,800px" style={{objectFit:"cover"}}/></div>
+  <p><strong>{[c.contact,c.withdraw][stage]}</strong></p>
+  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{[c.contact,c.withdraw].map((x,i)=><button key={x} type="button" aria-pressed={stage===i} onClick={()=>setStage(i)}>{x}</button>)}</div>
+ </section>;
+}
+export default function PracticeVisualMaterials({language}:{language:Language}){
+ const c=words[language];
+ return <div style={{display:"grid",gap:16}}><div><h3>{c.title}</h3><p>{c.intro}</p></div>
+  <OrganizationSpecimens language={language}/>
+  <NeuronPhoto language={language}/>
+  <ReflexPhoto language={language}/>
+  <Link href="/modules/1/theory">{c.theory} →</Link>
+ </div>;
 }
