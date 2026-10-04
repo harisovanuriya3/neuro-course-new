@@ -671,8 +671,8 @@ function create(
       incorrect:language==='RU'?'Пересмотрите причинную связь':language==='EN'?'Review the causal link':'Себептік байланысты қайта қараңыз',
       correctAnswer:language==='RU'?'Лучший ответ':language==='EN'?'Best answer':'Ең жақсы жауап',
     };
-    const correct=language==='RU'?'Сначала отделить наблюдение от интерпретации и проверить причинный механизм.':language==='EN'?'First separate observation from interpretation and test the causal mechanism.':'Алдымен бақылауды түсіндіруден ажыратып, себептік тетікті тексеру.';
-    const wrong=language==='RU'?'Сразу назвать диагноз или структуру по одному изменению.':language==='EN'?'Immediately name a diagnosis or structure from one change.':'Бір өзгеріске қарап бірден диагноз немесе құрылымды атау.';
+    const correct=topic.mechanism[language];
+    const wrong=language==='RU'?'Сделать вывод только по одному наблюдаемому изменению, не проверяя механизм и альтернативные объяснения.':language==='EN'?'Draw a conclusion from one observed change without testing the mechanism or alternative explanations.':'Тетікті және балама түсіндірмелерді тексермей, бір ғана байқалған өзгеріске сүйеніп қорытынды жасау.';
     const intro=(language==='RU'?'Динамический разбор: ':language==='EN'?'Dynamic walkthrough: ':'Динамикалық талдау: ')+mediaTitle;
     return {kind:'media',title,language,introduction:intro,ui,blocks:[{
       id:'module-'+topic.id+'-dynamic-process',title:mediaTitle,preview:topic.task[language],
