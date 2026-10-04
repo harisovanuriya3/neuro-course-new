@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+<defs>
+<radialGradient id="bg" cx="50%" cy="38%" r="78%"><stop offset="0" stop-color="#397aa4"/><stop offset=".55" stop-color="#174f79"/><stop offset="1" stop-color="#082c4d"/></radialGradient>
+<radialGradient id="warm"><stop offset="0" stop-color="#fff7cf"/><stop offset=".22" stop-color="#ffc76a"/><stop offset=".6" stop-color="#f28c55" stop-opacity=".55"/><stop offset="1" stop-color="#f28c55" stop-opacity="0"/></radialGradient>
+<radialGradient id="cool"><stop offset="0" stop-color="#fff"/><stop offset=".25" stop-color="#bcecff"/><stop offset=".65" stop-color="#67c7ff" stop-opacity=".5"/><stop offset="1" stop-color="#67c7ff" stop-opacity="0"/></radialGradient>
+<filter id="glow"><feGaussianBlur stdDeviation="8"/></filter>
+</defs>
+<rect width="1920" height="1080" fill="url(#bg)"/>
+<g fill="none" stroke="#8bd8ff" stroke-opacity=".42" stroke-width="3">
+<path d="M-80 300 C220 180 340 430 560 350 S900 120 1120 310 S1500 540 2020 240"/>
+<path d="M-60 720 C250 510 470 820 710 610 S1060 410 1290 590 S1600 820 1990 620"/>
+<path d="M120 1040 C250 790 390 650 650 700 S1000 900 1220 760 S1600 460 1960 520"/>
+<path d="M170 40 C300 240 400 320 610 280 S960 50 1200 190 S1510 400 1830 210"/>
+</g>
+<g stroke="#bfeaff" stroke-opacity=".55" stroke-width="4" fill="none">
+<path d="M250 390 C390 300 520 300 650 380 M250 390 C160 250 80 220 0 190 M250 390 C160 480 90 560 0 590 M250 390 C330 540 380 650 350 820"/>
+<path d="M1500 320 C1350 300 1240 360 1130 450 M1500 320 C1600 200 1710 150 1920 130 M1500 320 C1640 430 1760 510 1920 540 M1500 320 C1460 520 1420 640 1320 770"/>
+<path d="M900 760 C760 690 650 700 520 790 M900 760 C1010 630 1120 560 1250 560 M900 760 C990 850 1090 930 1230 1080"/>
+</g>
+<g>
+<circle cx="250" cy="390" r="105" fill="url(#warm)" opacity=".9"/><circle cx="250" cy="390" r="28" fill="#fff6d4"/>
+<circle cx="1500" cy="320" r="120" fill="url(#warm)" opacity=".9"/><circle cx="1500" cy="320" r="30" fill="#fff4d0"/>
+<circle cx="900" cy="760" r="95" fill="url(#cool)" opacity=".9"/><circle cx="900" cy="760" r="24" fill="#effcff"/>
+</g>
+<g fill="url(#cool)" opacity=".85">
+<circle cx="520" cy="250" r="38"/><circle cx="720" cy="430" r="26"/><circle cx="1120" cy="250" r="42"/><circle cx="1280" cy="620" r="34"/><circle cx="1650" cy="700" r="44"/><circle cx="430" cy="760" r="32"/>
+</g>
+<g fill="url(#warm)" opacity=".75">
+<circle cx="620" cy="580" r="34"/><circle cx="1050" cy="470" r="28"/><circle cx="1740" cy="410" r="38"/><circle cx="1350" cy="840" r="34"/>
+</g>
+</svg>
