@@ -46,4 +46,26 @@ const clinical={
 } as const;
 const ui={RU:{heading:"Прогноз → эксперимент → объяснение",label:"Ваш причинно-следственный прогноз",start:"Перейти к эксперименту",replay:"Новый прогноз",result:"Сопоставьте наблюдаемый результат с прогнозом и объясните механизм.",min:"Сформулируйте прогноз полным предложением (не менее 12 символов)."},KZ:{heading:"Болжам → тәжірибе → түсіндіру",label:"Себеп-салдарлық болжамыңыз",start:"Тәжірибеге өту",replay:"Жаңа болжам",result:"Бақыланған нәтижені болжаммен салыстырып, механизмді түсіндіріңіз.",min:"Болжамды толық сөйлеммен жазыңыз (кемінде 12 таңба)."},EN:{heading:"Prediction → experiment → explanation",label:"Your cause-and-effect prediction",start:"Proceed to experiment",replay:"New prediction",result:"Compare the observed result with your prediction and explain the mechanism.",min:"State the prediction as a complete sentence (at least 12 characters)."}} as const;
 
-export default function GuidedLabFrame({moduleId,language,children}:{moduleId:keyof typeof prompts;language:Language;children:ReactNode}){const t=ui[language],[prediction,setPrediction]=useState(""),[started,setStarted]=useState(false);return <div className={styles.frame} data-testid={`guided-lab-${moduleId}`}><section className={styles.predict}><h2>{t.heading}</h2><p>{prompts[moduleId][language]}</p><label>{t.label}<textarea rows={3} value={prediction} onChange={event=>setPrediction(event.target.value)}/></label><button type="button" disabled={prediction.trim().length<12} onClick={()=>setStarted(true)}>{t.start}</button>{prediction.trim().length>0&&prediction.trim().length<12&&<p role="status">{t.min}</p></section>{started&&<><div className={styles.experiment}>{children}</div><aside className={styles.result}><strong>{t.result}</strong><p>{clinical[moduleId][language]}</p><button type="button" onClick={()=>{setStarted(false);setPrediction("")}}>{t.replay}</button></aside></>}</div>}
+export default function GuidedLabFrame({moduleId,language,children}:{moduleId:keyof typeof prompts;language:Language;children:ReactNode}){
+  const t=ui[language];
+  const [prediction,setPrediction]=useState("");
+  const [started,setStarted]=useState(false);
+  const ready=prediction.trim().length>=12;
+  return <div className={styles.frame} data-testid={`guided-lab-${moduleId}`}>
+    <section className={styles.predict}>
+      <h2>{t.heading}</h2>
+      <p>{prompts[moduleId][language]}</p>
+      <label>{t.label}<textarea rows={3} value={prediction} onChange={event=>setPrediction(event.target.value)}/></label>
+      <button type="button" disabled={!ready} onClick={()=>setStarted(true)}>{t.start}</button>
+      {prediction.trim().length>0&&!ready&&<p role="status">{t.min}</p>}
+    </section>
+    {started&&<>
+      <div className={styles.experiment}>{children}</div>
+      <aside className={styles.result}>
+        <strong>{t.result}</strong>
+        <p>{clinical[moduleId][language]}</p>
+        <button type="button" onClick={()=>{setStarted(false);setPrediction("")}}>{t.replay}</button>
+      </aside>
+    </>}
+  </div>;
+}
