@@ -25,6 +25,9 @@ import NerveFiberLab from "../../../../components/NerveFiberLab";
 import MembraneElectrophysiologyLab from "../../../../components/MembraneElectrophysiologyLab";
 import SynapseExperimentLab from "../../../../components/SynapseExperimentLab";
 import IntegrationExperimentLab from "../../../../components/IntegrationExperimentLab";
+import ReflexLab from "../../../../components/ReflexLab";
+import PathwayLab from "../../../../components/PathwayLab";
+import SpinalRegulationLab from "../../../../components/SpinalRegulationLab";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -226,6 +229,12 @@ export default async function SectionPage({
             <SynapseExperimentLab language={lang} />
           ) : moduleNumber === 6 && section === "interactive" ? (
             <IntegrationExperimentLab language={lang} />
+          ) : moduleNumber === 7 && section === "interactive" ? (
+            <ReflexLab language={lang} />
+          ) : moduleNumber === 8 && section === "interactive" ? (
+            <PathwayLab language={lang} />
+          ) : moduleNumber === 9 && section === "interactive" ? (
+            <SpinalRegulationLab language={lang} />
           ) : lesson ? (
             <>
               <SectionContent
