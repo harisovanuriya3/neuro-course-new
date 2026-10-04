@@ -7,6 +7,7 @@ import styles from "./PracticeContent.module.css";
 import VoiceTextarea from "./VoiceTextarea";
 
 type Audit = Extract<PracticeBlock, { type: "ai-audit" }>;
+const meaningful = (value: string) => (value.match(/[\p{L}\p{N}]/gu) ?? []).length >= 12;
 
 export default function AIAuditPractice({ block, language, moduleId }: { block: Audit; language: Language; moduleId: string }) {
   const [caseIndex, setCaseIndex] = useState(0);
@@ -48,7 +49,7 @@ export default function AIAuditPractice({ block, language, moduleId }: { block: 
           </label>)}
         </div>
       </fieldset>
-      {!locked && <button type="button" className={styles.primary} disabled={!prediction.trim() || trust === null} onClick={() => setLocked(true)}>{l.lock}</button>}
+      {!locked && <button type="button" className={styles.primary} disabled={!meaningful(prediction) || trust === null} onClick={() => setLocked(true)}>{l.lock}</button>}
       {locked && <>
         <p><strong>{l.identify}</strong></p>
         <div className={styles.auditClaims}>
@@ -59,7 +60,7 @@ export default function AIAuditPractice({ block, language, moduleId }: { block: 
         </div>
         <VoiceTextarea language={language} label={l.rationale} value={rationale} onValue={setRationale} disabled={checked} rows={4} />
         <p className={styles.auditSource}>{l.source} <Link href={`/modules/${moduleId}/theory?lang=${language}#${current.theoryAnchor}`}>{l.theory}</Link> · <a href={current.source.href} target="_blank" rel="noopener noreferrer">{current.source.label}</a></p>
-        {!checked && <button type="button" className={styles.primary} disabled={!rationale.trim()} onClick={() => setChecked(true)}>{l.check}</button>}
+        {!checked && <button type="button" className={styles.primary} disabled={!selected.length || !meaningful(rationale)} onClick={() => setChecked(true)}>{l.check}</button>}
       </>}
       {checked && <div className={styles.auditResult} role="status" aria-live="polite">
         <h3>{l.result}</h3>

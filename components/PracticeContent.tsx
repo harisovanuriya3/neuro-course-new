@@ -8,28 +8,45 @@ import VoiceTextarea from "./VoiceTextarea";
 
 type UI = PracticeLesson["ui"] & { hideAnswer: string };
 
+const MIN_MEANINGFUL_CHARACTERS = 12;
+
+const attemptCopy = {
+  RU: { check: "Проверить ответ", ready: "Попытка сохранена. Теперь можно сравнить ответ с эталоном.", locked: "Сначала выполните задание и проверьте ответ.", short: "Введите не менее 12 содержательных букв или цифр." },
+  EN: { check: "Check answer", ready: "Your attempt is saved. You may now compare it with the model answer.", locked: "Complete the task and check your answer first.", short: "Enter at least 12 meaningful letters or digits." },
+  KZ: { check: "Жауапты тексеру", ready: "Талпынысыңыз сақталды. Енді жауабыңызды үлгімен салыстыруға болады.", locked: "Алдымен тапсырманы орындап, жауабыңызды тексеріңіз.", short: "Кемінде 12 мағыналы әріп немесе сан енгізіңіз." },
+} as const;
+
+function meaningfulLength(value: string) {
+  return (value.match(/[\p{L}\p{N}]/gu) ?? []).length;
+}
+
+function isMeaningful(value: string) {
+  return meaningfulLength(value) >= MIN_MEANINGFUL_CHARACTERS;
+}
+
 const hideAnswer = {
   RU: "Скрыть ответы и объяснения",
   KZ: "Жауаптар мен түсіндірмелерді жасыру",
   EN: "Hide answers and explanations",
 };
 
-function Disclosure({ children, ui }: { children: ReactNode; ui: UI }) {
+function Disclosure({ children, ui, unlocked = true, lockedLabel }: { children: ReactNode; ui: UI; unlocked?: boolean; lockedLabel?: string }) {
   const [open, setOpen] = useState(false);
   const id = useId();
   return (
     <div className={styles.disclosure}>
-      <button type="button" className={styles.answerButton} aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
+      <button type="button" className={styles.answerButton} disabled={!unlocked} aria-expanded={unlocked ? open : false} aria-controls={id} aria-describedby={!unlocked ? `${id}-locked` : undefined} onClick={() => setOpen(!open)}>
         {open ? ui.hideAnswer : ui.showAnswer}
       </button>
-      <div id={id} hidden={!open} className={styles.answers}>{children}</div>
+      {!unlocked && <p id={`${id}-locked`} className={styles.note}>{lockedLabel}</p>}
+      <div id={id} hidden={!unlocked || !open} className={styles.answers}>{children}</div>
     </div>
   );
 }
 
-function Answers({ items, ui }: { items: string[]; ui: UI }) {
+function Answers({ items, ui, unlocked, lockedLabel }: { items: string[]; ui: UI; unlocked: boolean; lockedLabel: string }) {
   return (
-    <Disclosure ui={ui}>
+    <Disclosure ui={ui} unlocked={unlocked} lockedLabel={lockedLabel}>
       <ul>{items.map((item) => <li key={item}>{item}</li>)}</ul>
     </Disclosure>
   );
@@ -38,6 +55,7 @@ function Answers({ items, ui }: { items: string[]; ui: UI }) {
 function Sequence({ steps, ui }: { steps: string[]; ui: UI }) {
   const [selected, setSelected] = useState<number[]>([]);
   const [feedback, setFeedback] = useState("");
+  const [checked, setChecked] = useState(false);
   // A stable mixed order keeps server rendering and hydration consistent.
   const options = steps.map((_, index) => index);
   const mixed = [...options.filter((index) => index % 2 === 1).reverse(), ...options.filter((index) => index % 2 === 0).reverse()];
@@ -45,9 +63,12 @@ function Sequence({ steps, ui }: { steps: string[]; ui: UI }) {
   function update(next: number[]) {
     setSelected(next);
     setFeedback("");
+    setChecked(false);
   }
 
   function check() {
+    if (selected.length !== steps.length) return;
+    setChecked(true);
     setFeedback(selected.length !== steps.length
       ? ui.incomplete
       : selected.every((value, index) => value === index) ? ui.correct : ui.incorrect);
@@ -71,19 +92,25 @@ function Sequence({ steps, ui }: { steps: string[]; ui: UI }) {
         </li>
       ))}</ol> : <p className={styles.empty}>{ui.empty}</p>}
       <div className={styles.actions}>
-        <button type="button" className={styles.primary} onClick={check}>{ui.check}</button>
+        <button type="button" className={styles.primary} disabled={selected.length !== steps.length} onClick={check}>{ui.check}</button>
         <button type="button" disabled={!selected.length} onClick={() => update(selected.slice(0, -1))}>{ui.undo}</button>
         <button type="button" disabled={!selected.length} onClick={() => update([])}>{ui.reset}</button>
       </div>
       <p role="status" aria-live="polite" className={feedback ? (feedback === ui.correct ? styles.success : styles.retry) : styles.status}>{feedback}</p>
-      <Disclosure ui={ui}>
+      {checked && <Disclosure ui={ui}>
         <ol>{steps.map((step) => <li key={step}>{step}</li>)}</ol>
-      </Disclosure>
+      </Disclosure>}
     </div>
   );
 }
 
 function Worksheet({ block, ui, language }: { block: Extract<PracticeBlock, { type: "table" }>; ui: UI; language: Language }) {
+  const [values, setValues] = useState<Record<string, string>>({});
+  const [checked, setChecked] = useState(false);
+  const c = attemptCopy[language];
+  const keys = block.rows.flatMap(([structure]) => [1, 2].map((column) => `${structure}-${column}`));
+  const ready = keys.every((key) => isMeaningful(values[key] ?? ""));
+  function update(key: string, value: string) { setValues(old => ({ ...old, [key]: value })); setChecked(false); }
   return (
     <>
       <div className={styles.tableScroll} role="region" aria-label={block.headers.join(" / ")} tabIndex={0}>
@@ -95,7 +122,7 @@ function Worksheet({ block, ui, language }: { block: Extract<PracticeBlock, { ty
                 <th scope="row">{structure}</th>
                 {[1, 2].map((column) => (
                   <td key={column}>
-                    <VoiceTextarea language={language} aria-label={`${structure}: ${block.headers[column]}`} rows={3} placeholder={ui.input} />
+                    <VoiceTextarea language={language} aria-label={`${structure}: ${block.headers[column]}`} value={values[`${structure}-${column}`] ?? ""} onValue={(value) => update(`${structure}-${column}`, value)} rows={3} placeholder={ui.input} />
                   </td>
                 ))}
               </tr>
@@ -103,26 +130,29 @@ function Worksheet({ block, ui, language }: { block: Extract<PracticeBlock, { ty
           </tbody>
         </table>
       </div>
-      <Disclosure ui={ui}>
+      <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={() => setChecked(true)}>{c.check}</button></div>
+      {!ready && <p className={styles.note}>{c.short}</p>}
+      {checked && <p role="status" aria-live="polite" className={styles.success}>{c.ready}</p>}
+      {checked && <Disclosure ui={ui}>
         <dl>{block.rows.map(([structure, category, purpose]) => (
           <div key={structure}>
             <dt><strong>{structure}</strong></dt>
             <dd><strong>{block.headers[1]}:</strong> {category}<br /><strong>{block.headers[2]}:</strong> {purpose}</dd>
           </div>
         ))}</dl>
-      </Disclosure>
+      </Disclosure>}
     </>
   );
 }
 
-function Block({ block, ui, language, moduleId }: { block: PracticeBlock; ui: UI; language: Language; moduleId: string }) {
+function Block({ block, ui, language, moduleId, responseValue = "", onResponse, answersUnlocked = false }: { block: PracticeBlock; ui: UI; language: Language; moduleId: string; responseValue?: string; onResponse?: (value: string) => void; answersUnlocked?: boolean }) {
   switch (block.type) {
     case "paragraph": return <p>{block.text}</p>;
     case "subheading": return <h3>{block.text}</h3>;
     case "list": return <ul>{block.items.map((item) => <li key={item}>{item}</li>)}</ul>;
     case "callout": return <aside className={styles.callout}><h3>{block.title}</h3><p>{block.text}</p></aside>;
-    case "answer": return <Answers items={block.items} ui={ui} />;
-    case "response": return <VoiceTextarea language={language} label={block.label} rows={4} placeholder={ui.input} />;
+    case "answer": return <Answers items={block.items} ui={ui} unlocked={answersUnlocked} lockedLabel={attemptCopy[language].locked} />;
+    case "response": return <VoiceTextarea language={language} label={block.label} value={responseValue} onValue={onResponse} rows={4} placeholder={ui.input} />;
     case "sequence": return <Sequence steps={block.steps} ui={ui} />;
     case "table": return <Worksheet block={block} ui={ui} language={language} />;
     case "checklist": return <div className={styles.checklist}>{block.items.map((item) => (
@@ -132,18 +162,33 @@ function Block({ block, ui, language, moduleId }: { block: PracticeBlock; ui: UI
   }
 }
 
+function PracticeSection({ section, ui, language, moduleId }: { section: PracticeLesson["sections"][number]; ui: UI; language: Language; moduleId: string }) {
+  const [responses, setResponses] = useState<Record<number, string>>({});
+  const [checked, setChecked] = useState(false);
+  const responseIndexes = section.blocks.flatMap((block, index) => block.type === "response" ? [index] : []);
+  const hasAnswers = section.blocks.some((block) => block.type === "answer");
+  const ready = responseIndexes.length > 0 && responseIndexes.every((index) => isMeaningful(responses[index] ?? ""));
+  const c = attemptCopy[language];
+  function update(index: number, value: string) { setResponses(old => ({ ...old, [index]: value })); setChecked(false); }
+  return <section className={styles.card}>
+    <h2>{section.title}</h2>
+    {section.blocks.map((block, index) => block.type === "answer" ? null : <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} responseValue={responses[index] ?? ""} onResponse={(value) => update(index, value)} answersUnlocked={checked} />)}
+    {hasAnswers && responseIndexes.length > 0 && <>
+      <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={() => setChecked(true)}>{c.check}</button></div>
+      {!ready && <p className={styles.note}>{c.short}</p>}
+      {checked && <p role="status" aria-live="polite" className={styles.success}>{c.ready}</p>}
+    </>}
+    {checked && section.blocks.map((block, index) => block.type === "answer" ? <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} answersUnlocked /> : null)}
+  </section>;
+}
+
 export default function PracticeContent({ lesson, language, moduleId }: { lesson: PracticeLesson; language: Language; moduleId: string }) {
   const ui: UI = { ...lesson.ui, hideAnswer: hideAnswer[language] };
   return (
     <article className={styles.practice}>
       <h1>{lesson.title}</h1>
       <p className={styles.note}>{lesson.ui.localNote}</p>
-      {lesson.sections.map((section) => (
-        <section key={section.title} className={styles.card}>
-          <h2>{section.title}</h2>
-          {section.blocks.map((block, index) => <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} />)}
-        </section>
-      ))}
+      {lesson.sections.map((section) => <PracticeSection key={section.title} section={section} ui={ui} language={language} moduleId={moduleId} />)}
     </article>
   );
 }
