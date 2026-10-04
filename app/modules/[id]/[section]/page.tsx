@@ -38,6 +38,9 @@ import LimbicLab from "../../../../components/LimbicLab";
 import AmygdalaLab from "../../../../components/AmygdalaLab";
 import CortexLab from "../../../../components/CortexLab";
 import SomatosensoryLab from "../../../../components/SomatosensoryLab";
+import VisionLab from "../../../../components/VisionLab";
+import SensorySystemsLab from "../../../../components/SensorySystemsLab";
+import AutonomicLab from "../../../../components/AutonomicLab";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -265,6 +268,12 @@ export default async function SectionPage({
             <CortexLab language={lang} />
           ) : moduleNumber === 19 && section === "interactive" ? (
             <SomatosensoryLab language={lang} />
+          ) : moduleNumber === 20 && section === "interactive" ? (
+            <VisionLab language={lang} />
+          ) : moduleNumber === 21 && section === "interactive" ? (
+            <SensorySystemsLab language={lang} />
+          ) : moduleNumber === 22 && section === "interactive" ? (
+            <AutonomicLab language={lang} />
           ) : lesson ? (
             <>
               <SectionContent
