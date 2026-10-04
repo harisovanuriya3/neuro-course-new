@@ -4,6 +4,7 @@ import { useId, useState, type ReactNode } from "react";
 import type { Language, PracticeBlock, PracticeLesson } from "../content/types";
 import styles from "./PracticeContent.module.css";
 import AIAuditPractice from "./AIAuditPractice";
+import PracticeVisualMaterials from "./PracticeVisualMaterials";
 import VoiceTextarea from "./VoiceTextarea";
 
 type UI = PracticeLesson["ui"] & { hideAnswer: string };
@@ -195,6 +196,7 @@ function Block({ block, ui, language, moduleId, responseValue = "", onResponse, 
     case "response": return <VoiceTextarea language={language} label={block.label} value={responseValue} onValue={onResponse} rows={4} placeholder={ui.input} />;
     case "sequence": return <Sequence steps={block.steps} ui={ui} />;
     case "table": return <Worksheet block={block} ui={ui} language={language} />;
+    case "visual-materials": return <PracticeVisualMaterials language={language} />;
     case "classification": return <Classification block={block} ui={ui} language={language} />;
     case "checklist": return <div className={styles.checklist}>{block.items.map((item) => (
       <label key={item}><input type="checkbox" /> <span>{item}</span></label>
