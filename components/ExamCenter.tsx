@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { Language } from "../content/course";
 
 export type ExamQuestion = {
@@ -93,7 +93,6 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  const percent=version?Math.min(100,score*10+writtenPoints):0;
  const comment=lang==="RU"?(percent>=90?"Отличное владение материалом. Ошибки единичны.":percent>=75?"Хороший результат. Повторите блоки с ошибками.":percent>=60?"Базовый уровень достигнут, но есть темы для повторения.":"Необходимо повторить основные механизмы и причинно-следственные связи."):lang==="EN"?(percent>=90?"Excellent command of the material. Errors are isolated.":percent>=75?"Good result. Review the blocks with errors.":percent>=60?"Basic level achieved, but some topics need review.":"Review the core mechanisms and causal relationships."):percent>=90?"Материалды өте жақсы меңгерген. Қателер аз.":percent>=75?"Жақсы нәтиже. Қате жіберілген блоктарды қайталаңыз.":percent>=60?"Негізгі деңгейге жетті, бірақ кейбір тақырыптарды қайталау керек.":"Негізгі механизмдер мен себеп-салдар байланыстарын қайталау қажет.";
  const analysis=useMemo(()=>{if(!version)return [];const m=new Map<number,{title:string,total:number,earned:number}>();version.forEach(q=>{const x=m.get(q.moduleId)??{title:q.moduleTitle,total:0,earned:0};x.total+=10;if(q.responseType==="written"){x.earned+=writtenGrades[q.id]?.points??0;}else if(answers[q.id]===q.correctAnswer){x.earned+=10;}m.set(q.moduleId,x)});return [...m.entries()].map(([id,x])=>({id,...x,pct:Math.round(x.earned/x.total*100)})).sort((a,b)=>a.pct-b.pct);},[version,answers,writtenGrades]);
- useEffect(()=>{if(!finished)return;history.pushState({examFinished:true},"",location.href);const lock=()=>history.pushState({examFinished:true},"",location.href);addEventListener("popstate",lock);return()=>removeEventListener("popstate",lock);},[finished]);
  const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,Math.min(10,pool.length)));setAnswers({});setWritten({});setFinished(false);setWarning("");};
  if(!version) return <section style={{marginTop:24,border:"2px solid #86aac4",borderRadius:16,padding:22}}>
    <p><strong>{t.bank}: {bank.length} {t.items}.</strong></p><p>{t.format}</p>
@@ -121,6 +120,8 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
       <h3>{q.prompt}</h3>
       {q.responseType==="written"?<>
         <p><strong>{t.your}:</strong> {written[q.id]||t.unanswered}</p>
+        <p><strong>{t.right}:</strong> {q.options.find(o=>o.id===q.correctAnswer)?.text}</p>
+        <p>{q.explanation}</p>
         {(()=>{const g=writtenGrades[q.id];return <div style={{borderLeft:"4px solid #86aac4",paddingLeft:12}}>
           <p><strong>{lang==="RU"?"Локальная оценка":lang==="EN"?"Local rubric score":"Жергілікті бағалау"}:</strong> {g?.points??0}/10</p>
           <p>{lang==="RU"?(g?.physiologicalElement?"✓ Назван релевантный физиологический элемент.":"✗ Укажите ключевой физиологический элемент."):(lang==="EN"?(g?.physiologicalElement?"✓ Relevant physiological element identified.":"✗ Identify the key physiological element."):(g?.physiologicalElement?"✓ Негізгі физиологиялық элемент көрсетілген.":"✗ Негізгі физиологиялық элементті көрсетіңіз."))}</p>
@@ -143,7 +144,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
    {version.map((q,i)=><article id={`exam-${q.id}`} key={q.id} style={{border:"1px solid #ccd9e3",borderRadius:14,padding:18,margin:"14px 0"}}>
     <div style={{fontSize:14,opacity:.75}}>{t.question} {i+1} {t.of} {version.length} · {t.module} {q.moduleId}: {q.moduleTitle}</div>
     <h3>{q.prompt}</h3>
-    {q.responseType==="written"?<><p><strong>{lang==="RU"?"Письменный ответ: объясните причину, механизм и следствие.":lang==="EN"?"Written answer: explain the cause, mechanism, and consequence.":"Жазбаша жауап: себеп, механизм және салдарды түсіндіріңіз."}</strong></p><textarea rows={7} value={written[q.id]??""} onChange={e=>setWritten(v=>({...v,[q.id]:e.target.value}))} style={{width:"100%",padding:12,borderRadius:10}} /></>:q.options.map(o=><label key={o.id} style={{display:"block",padding:"9px 0",cursor:"pointer"}}>
+    {q.responseType==="written"?<><p><strong>{lang==="RU"?"Письменный ответ: объясните причину, механизм и следствие.":lang==="EN"?"Written answer: explain the cause, mechanism, and consequence.":"Жазбаша жауап: себеп, механизм және салдарды түсіндіріңіз."}</strong></p><textarea aria-label={lang==="RU"?`Письменный ответ на вопрос ${i+1}`:lang==="EN"?`Written answer to question ${i+1}`:`${i+1}-сұраққа жазбаша жауап`} rows={7} value={written[q.id]??""} onChange={e=>setWritten(v=>({...v,[q.id]:e.target.value}))} style={{width:"100%",padding:12,borderRadius:10}} /></>:q.options.map(o=><label key={o.id} style={{display:"block",padding:"9px 0",cursor:"pointer"}}>
       <input type="radio" name={q.id} checked={answers[q.id]===o.id} onChange={()=>setAnswers(v=>({...v,[q.id]:o.id}))}/> <span style={{marginLeft:8}}>{o.text}</span>
     </label>)}
    </article>)}

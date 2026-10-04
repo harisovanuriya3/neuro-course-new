@@ -23,7 +23,7 @@ export default async function ExamPage({searchParams}:Props){
       <h2>{t.learning}</h2><p>{lang==="RU"?"Подсказки, возврат к теории и повтор ошибок остаются в обучающих тестах каждого блока.":lang==="KZ"?"Кеңестер, теорияға оралу және қателерді қайталау әр блоктың оқу тесттерінде қалады.":"Hints, theory review, and error retry remain in each block's learning tests."}</p>
     </section>
     <section style={{border:"2px solid #86aac4",borderRadius:16,padding:22}}>
-      <h2>{t.exam}</h2><p>{lang==="RU"?"Без подсказок, объяснений и переходов к теории во время попытки. Экзамен охватывает все 25 блоков.":lang==="KZ"?"Талпыныс кезінде кеңестер, түсіндірмелер және теорияға өту жоқ. Емтихан 25 блоктың барлығын қамтиды.":"No hints, explanations, or theory links during the attempt. The exam covers all 25 blocks."}</p>
+      <h2>{t.exam}</h2><p>{lang==="RU"?"Без подсказок, объяснений и переходов к теории во время попытки. Вариант выбирается из банка по всем 25 блокам.":lang==="KZ"?"Талпыныс кезінде кеңестер, түсіндірмелер және теорияға өту жоқ. Нұсқа барлық 25 блоктың банкінен таңдалады.":"No hints, explanations, or theory links during the attempt. Each version is drawn from a bank spanning all 25 blocks."}</p>
       <p><strong>{t.after}</strong></p>
     </section>
    </div>
