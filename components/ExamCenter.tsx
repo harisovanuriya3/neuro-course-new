@@ -12,6 +12,7 @@ export type ExamQuestion = {
   correctAnswer: string;
   explanation: string;
   responseType?: "mcq" | "written";
+  writtenPrompt?: string;
 };
 
 const ui: Record<Language, Record<string,string>> = {
