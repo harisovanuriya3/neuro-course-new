@@ -29,11 +29,12 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    topic.interpretation[lang],
    topic.interpretation[lang]
   ];
+  const defA=defs[0][lang], defB=defs[1][lang];
   const wrongSets=[
-   [s.swap,s.abs,s.dx],
-   [s.dx,s.abs,s.swap],
-   [s.abs,s.swap,s.dx],
-   [s.swap,s.dx,s.abs]
+   [defA,defB,s.dx],
+   [defB,topic.interpretation[lang],s.abs],
+   [defA,topic.mechanism[lang],s.swap],
+   [defB,topic.question[lang],s.dx]
   ];
   for(let n=0;n<40;n++){
    const mode=n%4;
