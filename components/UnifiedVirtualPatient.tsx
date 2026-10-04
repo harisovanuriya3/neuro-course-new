@@ -60,6 +60,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   const previousOption = previousSelection === null ? null : scenario.stages[state.current - 1].options[previousSelection];
   const complete = selected !== null;
   const reasoningComplete = state.notes[state.current].trim().length >= 12;
+  const decisionCommitted = complete && reasoningComplete;
 
   function speak(value: string, role: "patient" | "mentor") {
     if (!("speechSynthesis" in window)) return;
@@ -122,7 +123,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
           <Image src={scenario.visualProfile.patientVisual} width={1536} height={1024} priority sizes="(max-width: 700px) 100vw, (max-width: 900px) 320px, 280px" alt={`${c.case}: ${scenario.profile}`} />
           <span>{c.stage} {state.current + 1}/6</span>
         </div>
-        <VirtualPatientVisual moduleId={moduleId} stage={state.current + 1} selected={selected} language={language} />
+        <VirtualPatientVisual moduleId={moduleId} stage={state.current + 1} selected={decisionCommitted ? selected : null} language={language} />
         <div className={styles.caseLabel}>{c.case}</div><h2>{scenario.patient}</h2><p className={styles.profile}>{scenario.profile}</p><div className={styles.patientBubble}>{scenario.opening}</div>
       </aside>
       <section className={styles.workspace} aria-labelledby="vp-stage-title">
@@ -137,8 +138,9 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
         </fieldset>
         <label className={styles.reasoning}><strong>{c.answer}</strong><VoiceTextarea language={language} value={state.notes[state.current]} onValue={updateNote} placeholder={c.placeholder} rows={4} /></label>
         <p className={styles.saved}>{c.saved}</p>
-        {selectedOption && <div className={styles.response} role="status" aria-live="polite"><div className={styles.responseHeaderControls}><h3>{c.patient}</h3><AudioControls value={selectedOption.response} role="patient" /></div><div className={styles.audioText}><p>{selectedOption.response}</p></div></div>}
-        {selectedOption && <div className={selected === stage.correctOption ? styles.feedbackGood : styles.feedbackReview}><h3>{c.feedback}</h3><strong>{selected === stage.correctOption ? c.correct : c.revise}</strong><p>{selectedOption.feedback}</p><h3>{c.why}</h3><p>{stage.mechanism}</p></div>}
+        {selectedOption && !reasoningComplete && <p role="status" className={styles.saved}>{c.reasoningRequired}</p>}
+        {selectedOption && reasoningComplete && <div className={styles.response} role="status" aria-live="polite"><div className={styles.responseHeaderControls}><h3>{c.patient}</h3><AudioControls value={selectedOption.response} role="patient" /></div><div className={styles.audioText}><p>{selectedOption.response}</p></div></div>}
+        {selectedOption && reasoningComplete && <div className={selected === stage.correctOption ? styles.feedbackGood : styles.feedbackReview}><h3>{c.feedback}</h3><strong>{selected === stage.correctOption ? c.correct : c.revise}</strong><p>{selectedOption.feedback}</p><h3>{c.why}</h3><p>{stage.mechanism}</p></div>}
         {state.current === 5 && complete && reasoningComplete && <section className={styles.final} data-testid="virtual-patient-review">
           <h3>{c.final}</h3><p><strong>{c.completed}</strong></p>
           <p>{scenario.mechanismSummary}</p>
@@ -153,14 +155,14 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
             })}
           </ol>
         </section>}
-        <div className={styles.actions}><button type="button" disabled={state.current === 0} onClick={() => setState((value) => ({ ...value, current: value.current - 1 }))}>{c.previous}</button>{state.current < 5 && <><button type="button" disabled={!complete || !reasoningComplete} onClick={next}>{c.next}</button>{complete && !reasoningComplete && <span role="status">{c.reasoningRequired}</span>}</>}</div>
+        <div className={styles.actions}><button type="button" disabled={state.current === 0} onClick={() => setState((value) => ({ ...value, current: value.current - 1 }))}>{c.previous}</button>{state.current < 5 && <button type="button" disabled={!complete || !reasoningComplete} onClick={next}>{c.next}</button>}</div>
       </section>
       <aside className={styles.mentorCard} aria-live="polite">
         <Image src="/images/module1/virtual-mentor-clinic.png" width={1456} height={1024} sizes="(max-width: 700px) 100vw, 270px" alt={c.mentor} />
         <details className={styles.mentorDetails} open>
           <summary>{c.mentor}</summary>
-          <div className={styles.mentorHeaderControls}><h2>{c.mentor}</h2><AudioControls value={selectedOption ? selectedOption.feedback : stage.mentorPrompt} role="mentor" /></div>
-          <div className={styles.mentorText}><p>{selectedOption ? selectedOption.feedback : stage.mentorPrompt}</p></div>
+          <div className={styles.mentorHeaderControls}><h2>{c.mentor}</h2><AudioControls value={selectedOption && reasoningComplete ? selectedOption.feedback : stage.mentorPrompt} role="mentor" /></div>
+          <div className={styles.mentorText}><p>{selectedOption && reasoningComplete ? selectedOption.feedback : stage.mentorPrompt}</p></div>
         </details>
       </aside>
     </div>

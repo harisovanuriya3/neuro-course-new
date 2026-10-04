@@ -533,7 +533,7 @@ export function getVirtualPatientScenario(moduleId: number, language: Language):
         id: `vp-${moduleId}-stage-${index + 1}`,
         title,
         situation: stageNarrative[language][index],
-        mentorPrompt: `${observations[index]} ${interpretation}`,
+        mentorPrompt: c.good[index],
         task,
         newData: evidence[index],
         mechanism,
