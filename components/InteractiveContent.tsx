@@ -11,6 +11,28 @@ import { OrganizationSpecimens, SynapseSpecimen } from "./RealSpecimens";
 import SynapseLab from "./SynapseLab";
 import EEGLab from "./EEGLab";
 import BalanceDiagram from "./BalanceDiagram";
+import NerveFiberLab from "./NerveFiberLab";
+import MembranePotentialLab from "./MembranePotentialLab";
+import IntegrationExperimentLab from "./IntegrationExperimentLab";
+import ReflexLab from "./ReflexLab";
+import PathwayLab from "./PathwayLab";
+import SpinalRegulationLab from "./SpinalRegulationLab";
+import BrainstemLab from "./BrainstemLab";
+import MotorControlLab from "./MotorControlLab";
+import BasalGangliaLab from "./BasalGangliaLab";
+import CerebellumLab from "./CerebellumLab";
+import ThalamusLab from "./ThalamusLab";
+import HypothalamusLab from "./HypothalamusLab";
+import LimbicLab from "./LimbicLab";
+import AmygdalaLab from "./AmygdalaLab";
+import CortexLab from "./CortexLab";
+import SomatosensoryLab from "./SomatosensoryLab";
+import VisionLab from "./VisionLab";
+import SensorySystemsLab from "./SensorySystemsLab";
+import AutonomicLab from "./AutonomicLab";
+import LearningMemoryLab from "./LearningMemoryLab";
+import SleepRhythmLab from "./SleepRhythmLab";
+import PlasticityLab from "./PlasticityLab";
 
 type UI = InteractiveLesson["ui"];
 
@@ -130,6 +152,28 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {card(lesson.organization, <Organization diagram={lesson.organization} ui={ui} language={language} />)}
     {card(lesson.pathway, <Sequence id="pathway" nodes={lesson.pathway.nodes} ui={ui} loop={lesson.pathway.loop} language={language} />)}
     {moduleId === "2" && <EEGLab language={language} />}
+    {moduleId === "3" && <NerveFiberLab language={language} />}
+    {moduleId === "4" && <MembranePotentialLab language={language} />}
+    {moduleId === "6" && <IntegrationExperimentLab language={language} />}
+    {moduleId === "7" && <ReflexLab language={language} />}
+    {moduleId === "8" && <PathwayLab language={language} />}
+    {moduleId === "9" && <SpinalRegulationLab language={language} />}
+    {moduleId === "10" && <BrainstemLab language={language} />}
+    {moduleId === "11" && <MotorControlLab language={language} />}
+    {moduleId === "12" && <BasalGangliaLab language={language} />}
+    {moduleId === "13" && <CerebellumLab language={language} />}
+    {moduleId === "14" && <ThalamusLab language={language} />}
+    {moduleId === "15" && <HypothalamusLab language={language} />}
+    {moduleId === "16" && <LimbicLab language={language} />}
+    {moduleId === "17" && <AmygdalaLab language={language} />}
+    {moduleId === "18" && <CortexLab language={language} />}
+    {moduleId === "19" && <SomatosensoryLab language={language} />}
+    {moduleId === "20" && <VisionLab language={language} />}
+    {moduleId === "21" && <SensorySystemsLab language={language} />}
+    {moduleId === "22" && <AutonomicLab language={language} />}
+    {moduleId === "23" && <LearningMemoryLab language={language} />}
+    {moduleId === "24" && <SleepRhythmLab language={language} />}
+    {moduleId === "25" && <PlasticityLab language={language} />}
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
     {(moduleId === "1" || moduleId === "5") && <SynapseLab language={language} />}
     {card(lesson.integration, <Integration diagram={lesson.integration} ui={ui} language={language} />)}
