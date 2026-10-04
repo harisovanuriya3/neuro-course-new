@@ -383,17 +383,11 @@ const stagePurpose: Record<Language, string[]> = {
 
 function cleanLearnerTask(value: string, language: Language) {
   if (language === "RU") return value
-    .replace(/^По (?:разделу|заданию) силлабуса /u, "")
-    .replace(/ из силлабуса/gu, "")
     .replace(/^По СРО \d+(?:–\d+)? /u, "")
-    .replace(/^По СРОП \d+(?:–\d+)? /u, "")
     .replace(/^По СРО \d+ и ПЗ \d+ /u, "")
     .replace(/По СРО \d+(?:–\d+)? /gu, "");
   if (language === "KZ") return value
-    .replace(/Силлабус кестесін/gu, "Кестені")
-    .replace(/силлабус/giu, "оқу материалы")
     .replace(/^СРО \d+(?:–\d+)? (?:мен ПЗ \d+ )?бойынша /u, "")
-    .replace(/^СРОП \d+(?:–\d+)? бойынша /u, "")
     .replace(/СРО \d+(?:–\d+)? бойынша /gu, "");
   return value
     .replace(/^Using ISW \d+(?:–\d+)?,? /u, "")
