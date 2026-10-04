@@ -28,18 +28,40 @@ function shuffled<T>(items:T[]):T[]{
 }
 
 function buildVersion(bank:ExamQuestion[], count=10){
+ const mcqTarget=Math.min(7,count);
+ const writtenTarget=Math.min(3,Math.max(0,count-mcqTarget));
  const byModule=new Map<number,ExamQuestion[]>();
  bank.forEach(q=>byModule.set(q.moduleId,[...(byModule.get(q.moduleId)??[]),q]));
- const chosen:ExamQuestion[]=[];
- [...byModule.keys()].sort((a,b)=>a-b).forEach(id=>{
+ const modules=shuffled([...byModule.keys()]);
+ const mcq:ExamQuestion[]=[];
+ for(const id of modules){
    const pool=shuffled(byModule.get(id)??[]);
-   if(pool[0]) chosen.push(pool[0]);
- });
- const used=new Set(chosen.map(q=>q.id));
- const rest=shuffled(bank.filter(q=>!used.has(q.id)));
- chosen.push(...rest.slice(0,Math.max(0,count-chosen.length)));
- const picked=shuffled(chosen).slice(0,Math.min(count,bank.length)).map(q=>{const opts=shuffled(q.options);return {...q,options:opts,responseType:"mcq" as const};});
- return picked.map((q,i):ExamQuestion=>({...q,responseType:i>=Math.max(0,picked.length-3)?"written":"mcq"}));
+   if(pool[0]&&mcq.length<mcqTarget) mcq.push({...pool[0],options:shuffled(pool[0].options),responseType:"mcq"});
+ }
+ const used=new Set(mcq.map(q=>q.id));
+ if(mcq.length<mcqTarget){
+   for(const q of shuffled(bank.filter(q=>!used.has(q.id))).slice(0,mcqTarget-mcq.length)){
+     mcq.push({...q,options:shuffled(q.options),responseType:"mcq"});
+     used.add(q.id);
+   }
+ }
+ const written:ExamQuestion[]=[];
+ const writtenModules=shuffled([...byModule.keys()]);
+ for(const id of writtenModules){
+   const pool=shuffled((byModule.get(id)??[]).filter(q=>q.writtenPrompt&&!used.has(q.id)));
+   const q=pool[0];
+   if(q&&written.length<writtenTarget){
+     written.push({...q,prompt:q.writtenPrompt!,responseType:"written"});
+     used.add(q.id);
+   }
+ }
+ if(written.length<writtenTarget){
+   for(const q of shuffled(bank.filter(q=>q.writtenPrompt&&!used.has(q.id))).slice(0,writtenTarget-written.length)){
+     written.push({...q,prompt:q.writtenPrompt!,responseType:"written"});
+     used.add(q.id);
+   }
+ }
+ return shuffled([...mcq,...written]).slice(0,count);
 }
 
 function words(text:string){return new Set(text.toLowerCase().replace(/[^\\p{L}\\p{N}]+/gu," ").split(/\\s+/).filter(w=>w.length>=5));}
@@ -101,7 +123,10 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
         <p><strong>{t.your}:</strong> {written[q.id]||t.unanswered}</p>
         {(()=>{const g=writtenGrades[q.id];return <div style={{borderLeft:"4px solid #86aac4",paddingLeft:12}}>
           <p><strong>{lang==="RU"?"Локальная оценка":lang==="EN"?"Local rubric score":"Жергілікті бағалау"}:</strong> {g?.points??0}/10</p>
+          <p>{lang==="RU"?(g?.physiologicalElement?"✓ Назван релевантный физиологический элемент.":"✗ Укажите ключевой физиологический элемент."):(lang==="EN"?(g?.physiologicalElement?"✓ Relevant physiological element identified.":"✗ Identify the key physiological element."):(g?.physiologicalElement?"✓ Негізгі физиологиялық элемент көрсетілген.":"✗ Негізгі физиологиялық элементті көрсетіңіз."))}</p>
           <p>{lang==="RU"?(g?.causalDirection?"✓ Причинно-следственная связь обозначена.":"✗ Нужно яснее показать причинно-следственную связь."):(lang==="EN"?(g?.causalDirection?"✓ Causal relationship is stated.":"✗ State the causal relationship more clearly."):(g?.causalDirection?"✓ Себеп-салдар байланысы көрсетілген.":"✗ Себеп-салдар байланысын анығырақ көрсетіңіз."))}</p>
+          <p>{lang==="RU"?(g?.mechanism?"✓ Механизм раскрыт.":"✗ Раскройте физиологический механизм."):(lang==="EN"?(g?.mechanism?"✓ Mechanism explained.":"✗ Explain the physiological mechanism."):(g?.mechanism?"✓ Механизм түсіндірілген.":"✗ Физиологиялық механизмді түсіндіріңіз."))}</p>
+          <p>{lang==="RU"?(g?.interpretation?"✓ Указан ожидаемый результат/следствие.":"✗ Добавьте ожидаемый результат или следствие."):(lang==="EN"?(g?.interpretation?"✓ Expected result/consequence stated.":"✗ Add the expected result or consequence."):(g?.interpretation?"✓ Күтілетін нәтиже/салдар көрсетілген.":"✗ Күтілетін нәтиже немесе салдарды қосыңыз."))}</p>
           <p>{lang==="RU"?"Проверка выполнена локальной рубрикой без ИИ/API; преподаватель может пересмотреть балл.":lang==="EN"?"Checked by a local rubric without AI/API; the teacher may review the score.":"AI/API қолданбай жергілікті рубрикамен тексерілді; оқытушы балды қайта қарай алады."}</p>
         </div>})()}
       </>:<>
