@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { Language } from "../content/course";
+import { OrganizationSpecimens } from "./RealSpecimens";
 
 const words = {
  RU:{title:"Интерактивные материалы",intro:"Материалы встроены в практику — отдельный атлас не требуется.",system:"Нервная система: ЦНС и ПНС",neuron:"Нейрон: основные части",reflex:"Рефлекторная дуга",brain:"Головной мозг",cord:"Спинной мозг",nerves:"Периферические нервы",soma:"Тело нейрона",dend:"Дендриты",axon:"Аксон",rec:"Рецептор",aff:"Афферентный путь",eff:"Эфферентный путь",muscle:"Мышца",hint:"Нажимайте на подписи: соответствующая часть схемы подсвечивается.",theory:"Открыть Theory Модуля 1"},
@@ -20,6 +21,7 @@ function Diagram({title,labels,kind}:{title:string;labels:string[];kind:string})
 }
 export default function PracticeVisualMaterials({language}:{language:Language}) {
  const c=words[language]; return <div style={{display:"grid",gap:16}}><div><h3>{c.title}</h3><p>{c.intro} {c.hint}</p></div>
+ <OrganizationSpecimens language={language}/>
  <Diagram title={c.system} kind="system" labels={[c.brain,c.cord,c.nerves]}/>
  <Diagram title={c.neuron} kind="neuron" labels={[c.soma,c.dend,c.axon]}/>
  <Diagram title={c.reflex} kind="reflex" labels={[c.rec,c.aff,c.cord,c.eff,c.muscle]}/>
