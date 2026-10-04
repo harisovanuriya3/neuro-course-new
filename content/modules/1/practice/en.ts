@@ -29,9 +29,10 @@ const lesson: PracticeLesson = {
     ] },
     { title: "5. Practical Task 1. Structural Organization of the Nervous System", blocks: [
       { type: "paragraph", text: "Assign the structures to two groups: CNS and PNS. Briefly state the common feature that justifies each grouping." },
-      { type: "list", items: ["Ganglia.", "Brain.", "Cranial nerves.", "Nerve endings.", "Spinal cord.", "Spinal nerves."] },
-      { type: "response", label: "List the CNS and PNS structures and explain your classification." },
-      { type: "answer", items: ["CNS: the brain and spinal cord. These structures contain central networks for information processing and integration.", "PNS: cranial nerves, spinal nerves, ganglia, and nerve endings. In this introductory scheme, these are grouped as peripheral structures connecting organs and tissues with central structures.", "Anatomical qualification: despite its name, the optic nerve (cranial nerve II) belongs to the CNS in its structure and development. The general statement about cranial nerves in this task is an educational simplification."] },
+      { type: "classification", groups: ["CNS", "PNS"], items: [
+        { label: "Ganglia", group: 1 }, { label: "Brain", group: 0 }, { label: "Cranial nerves", group: 1 },
+        { label: "Nerve endings", group: 1 }, { label: "Spinal cord", group: 0 }, { label: "Spinal nerves", group: 1 }
+      ], reasonLabels: ["Common feature of the CNS", "Common feature of the PNS"], answer: ["CNS: brain and spinal cord. These contain central neuronal networks for information processing and integration.", "PNS: cranial and spinal nerves, ganglia, and nerve endings — peripheral structures linking the CNS with receptors, organs, and tissues.", "Note: the optic nerve (CN II), despite its name, is developmentally and structurally part of the CNS; grouping cranial nerves with the PNS here is an introductory teaching simplification."] },
     ] },
     { title: "6. Practical Task 2. Afferent and Efferent Components", blocks: [
       { type: "paragraph", text: "A person accidentally touches a hot object and rapidly withdraws their hand. Analyze this protective reflex: identify the stimulus, receptor, afferent pathway, central component, efferent pathway, effector, and response." },
