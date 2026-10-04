@@ -101,7 +101,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
         <p><strong>{t.your}:</strong> {written[q.id]||t.unanswered}</p>
         {(()=>{const g=writtenGrades[q.id];return <div style={{borderLeft:"4px solid #86aac4",paddingLeft:12}}>
           <p><strong>{lang==="RU"?"Локальная оценка":lang==="EN"?"Local rubric score":"Жергілікті бағалау"}:</strong> {g?.points??0}/10</p>
-          <p>{lang==="RU"?(g?.connectors?"✓ Причинно-следственная связь обозначена.":"✗ Нужно яснее показать причинно-следственную связь."):(lang==="EN"?(g?.connectors?"✓ Causal relationship is stated.":"✗ State the causal relationship more clearly."):(g?.connectors?"✓ Себеп-салдар байланысы көрсетілген.":"✗ Себеп-салдар байланысын анығырақ көрсетіңіз."))}</p>
+          <p>{lang==="RU"?(g?.causalDirection?"✓ Причинно-следственная связь обозначена.":"✗ Нужно яснее показать причинно-следственную связь."):(lang==="EN"?(g?.causalDirection?"✓ Causal relationship is stated.":"✗ State the causal relationship more clearly."):(g?.causalDirection?"✓ Себеп-салдар байланысы көрсетілген.":"✗ Себеп-салдар байланысын анығырақ көрсетіңіз."))}</p>
           <p>{lang==="RU"?"Проверка выполнена локальной рубрикой без ИИ/API; преподаватель может пересмотреть балл.":lang==="EN"?"Checked by a local rubric without AI/API; the teacher may review the score.":"AI/API қолданбай жергілікті рубрикамен тексерілді; оқытушы балды қайта қарай алады."}</p>
         </div>})()}
       </>:<>
