@@ -28,6 +28,9 @@ import IntegrationExperimentLab from "../../../../components/IntegrationExperime
 import ReflexLab from "../../../../components/ReflexLab";
 import PathwayLab from "../../../../components/PathwayLab";
 import SpinalRegulationLab from "../../../../components/SpinalRegulationLab";
+import BrainstemLab from "../../../../components/BrainstemLab";
+import MotorControlLab from "../../../../components/MotorControlLab";
+import BasalGangliaLab from "../../../../components/BasalGangliaLab";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -235,6 +238,12 @@ export default async function SectionPage({
             <PathwayLab language={lang} />
           ) : moduleNumber === 9 && section === "interactive" ? (
             <SpinalRegulationLab language={lang} />
+          ) : moduleNumber === 10 && section === "interactive" ? (
+            <BrainstemLab language={lang} />
+          ) : moduleNumber === 11 && section === "interactive" ? (
+            <MotorControlLab language={lang} />
+          ) : moduleNumber === 12 && section === "interactive" ? (
+            <BasalGangliaLab language={lang} />
           ) : lesson ? (
             <>
               <SectionContent
