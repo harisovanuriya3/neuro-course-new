@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import type { Language } from "../content/course";
 import { OrganizationSpecimens } from "./RealSpecimens";
@@ -23,7 +24,7 @@ export default function PracticeVisualMaterials({language}:{language:Language}) 
  const c=words[language]; return <div style={{display:"grid",gap:16}}><div><h3>{c.title}</h3><p>{c.intro} {c.hint}</p></div>
  <OrganizationSpecimens language={language}/>
  <Diagram title={c.system} kind="system" labels={[c.brain,c.cord,c.nerves]}/>
- <Diagram title={c.neuron} kind="neuron" labels={[c.soma,c.dend,c.axon]}/>
- <Diagram title={c.reflex} kind="reflex" labels={[c.rec,c.aff,c.cord,c.eff,c.muscle]}/>
+ <section style={{border:"1px solid #b9d5e7",borderRadius:16,padding:16,background:"#f8fcff"}}><h3>{c.neuron}</h3><div style={{position:"relative",minHeight:360,borderRadius:12,overflow:"hidden"}}><Image src="/neuron-bg.jpg" alt={c.neuron} fill sizes="(max-width: 760px) 95vw, 800px" style={{objectFit:"cover"}} /></div><p>{c.hint}</p><div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{[c.soma,c.dend,c.axon].map(x=><button key={x} type="button">{x}</button>)}</div></section>
+ <section style={{border:"1px solid #b9d5e7",borderRadius:16,padding:16,background:"#f8fcff"}}><h3>{c.reflex}</h3><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:10}}>{["reflex-contact.webp","reflex-withdrawal.webp"].map((file,i)=><div key={file} style={{position:"relative",minHeight:260,borderRadius:12,overflow:"hidden"}}><Image src={`/images/lab/${file}`} alt={c.reflex+" "+(i+1)} fill sizes="(max-width: 760px) 90vw, 360px" style={{objectFit:"cover"}} /></div>)}</div><Diagram title={c.reflex} kind="reflex" labels={[c.rec,c.aff,c.cord,c.eff,c.muscle]}/></section>
  <Link href="/modules/1/theory">{c.theory} →</Link></div>;
 }
