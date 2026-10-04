@@ -86,7 +86,7 @@ export function createMediaLesson(language: Language): MediaLesson {
     introduction: t(["Четыре учебных медиаблока по теории Модуля 1. Пока видео готовятся, прочитайте текстовые версии и выполните самопроверку: просмотр не является условием доступа к вопросам. Ответы не сохраняются после ухода со страницы или смены языка.", "Four learning media blocks based on Module 1 theory. While videos are being prepared, read the text alternatives and answer the self-check questions: viewing is not required to unlock them. Answers are not saved after leaving the page or changing language.", "Модуль 1 теориясына негізделген төрт оқу медиаблогы. Бейнелер дайындалып жатқанда мәтіндік нұсқаларды оқып, өзін-өзі тексеру сұрақтарына жауап беріңіз: сұрақтарды ашу үшін бейнені көру міндетті емес. Беттен шыққанда немесе тіл өзгергенде жауаптар сақталмайды."]),
     ui: {
       preview: t(["Что вы увидите", "What you will see", "Не көресіз"]),
-      pending: t(["Учебное видео будет добавлено", "Learning video will be added", "Оқу бейнесі кейін қосылады"]),
+      pending: t(["Интерактивная учебная визуализация", "Interactive learning visualisation", "Интерактивті оқу визуализациясы"]),
       unavailable: t(["Не удалось загрузить видео", "Video could not be loaded", "Бейнені жүктеу мүмкін болмады"]),
       alternative: t(["Текстовая версия и самопроверка доступны ниже.", "The text alternative and self-check are available below.", "Мәтіндік нұсқа мен өзін-өзі тексеру төменде қолжетімді."]),
       duration: t(["Продолжительность", "Duration", "Ұзақтығы"]),
