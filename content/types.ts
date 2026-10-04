@@ -21,6 +21,7 @@ export type PracticeBlock = ContentBlock
   | { type: "sequence"; steps: string[] }
   | { type: "table"; headers: [string, string, string]; rows: [string, string, string][] }
   | { type: "checklist"; items: string[] }
+  | { type: "classification"; groups: [string, string]; items: { label: string; group: 0 | 1 }[]; reasonLabels: [string, string]; answer: string[] }
   | {
       type: "ai-audit";
       instructions: string;
