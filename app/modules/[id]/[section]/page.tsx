@@ -31,6 +31,9 @@ import SpinalRegulationLab from "../../../../components/SpinalRegulationLab";
 import BrainstemLab from "../../../../components/BrainstemLab";
 import MotorControlLab from "../../../../components/MotorControlLab";
 import BasalGangliaLab from "../../../../components/BasalGangliaLab";
+import CerebellumLab from "../../../../components/CerebellumLab";
+import ThalamusLab from "../../../../components/ThalamusLab";
+import HypothalamusLab from "../../../../components/HypothalamusLab";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -244,6 +247,12 @@ export default async function SectionPage({
             <MotorControlLab language={lang} />
           ) : moduleNumber === 12 && section === "interactive" ? (
             <BasalGangliaLab language={lang} />
+          ) : moduleNumber === 13 && section === "interactive" ? (
+            <CerebellumLab language={lang} />
+          ) : moduleNumber === 14 && section === "interactive" ? (
+            <ThalamusLab language={lang} />
+          ) : moduleNumber === 15 && section === "interactive" ? (
+            <HypothalamusLab language={lang} />
           ) : lesson ? (
             <>
               <SectionContent
