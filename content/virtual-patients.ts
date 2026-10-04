@@ -165,7 +165,7 @@ const caseDecisions: Record<number, Localized[]> = {
     l("Раздельно проверить вибрацию, тонкое осязание, боль и температуру", "Test vibration, fine touch, pain, and temperature separately", "Дірілді, нәзік жанасуды, ауырсынуды және температураны бөлек тексеру"),
     l("Учесть заднеканатиковый перекрёст в продолговатом мозге", "Account for dorsal-column crossing in the medulla", "Артқы баған жолының сопақша мида айқасуын ескеру"),
     l("Учесть сегментарный перекрёст спиноталамического пути", "Account for segmental crossing of the spinothalamic pathway", "Спиноталамустық жолдың сегменттік айқасуын ескеру"),
-    l("Сопоставить правую слабость с двусторонним рисунком чувствительности", "Relate right-sided weakness to the bilateral sensory pattern", "Оң жақ әлсіздікті екі жақты сезімталдық үлгісімен байланыстыру"),
+    l("Сопоставить уровень чувствительного дефицита с анатомией проводящих путей", "Relate the sensory-deficit level to the anatomy of the ascending pathways", "Сезімталдық тапшылығының деңгейін өрлеме жолдар анатомиясымен байланыстыру"),
     l("Назвать сторону и уровень очага с указанием ограничений", "State lesion side and level while acknowledging limits", "Ошақтың жағы мен деңгейін шектеулерімен бірге көрсету")),
   9: decisions(
     l("Измерить ответ на стандартизированное растяжение мышцы", "Measure the response to standardized muscle stretch", "Стандартталған бұлшықет созылуына жауапты өлшеу"),
