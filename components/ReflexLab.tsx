@@ -19,7 +19,7 @@ const copy = {
     correct: "Прогноз подтвердился.", incorrect: "Прогноз не подтвердился.",
     outcome: { intact: "Оба пути работают: сенсорный сигнал достигает спинного мозга, а моторный ответ — мышц.", afferent: "Сигнал возник у рецептора, но не дошёл до спинного мозга по выбранному пути. Рефлекторный ответ в этой модели не запускается.", efferent: "Сенсорный сигнал достиг спинного мозга, но команда не прошла по моторному пути к мышцам. Рефлекторного сокращения нет." },
     limit: "Учебная модель одного рефлекторного пути. Анимация из изображений, созданных ИИ, показывает внешнее движение; ход нервного сигнала отображён словами. Сознательное восприятие боли, другие пути и защитные реакции здесь не моделируются. Не проверяйте это на себе горячими предметами.",
-    photo: "Постановочные изображения, созданные ИИ для учебника", contactAlt: "Кисть у металлической чашки до отдёргивания", withdrawalAlt: "Та же кисть отведена от металлической чашки", record: "Записать результат", journal: "Журнал опытов", explanation: "Почему рефлекс возник или прервался?", source: "Физиология рефлекса: OpenStax, Anatomy and Physiology 2e, гл. 14",
+    anatomy: ["Ноцицептор кожи","Чувствительный нейрон","Задний корешок","Вставочный нейрон","Мотонейрон переднего рога","Передний корешок","Мышца-сгибатель"], ascending: "Коллатераль к восходящим путям: осознание боли не требуется для запуска спинального ответа", photo: "Постановочные изображения, созданные ИИ для учебника", contactAlt: "Кисть у металлической чашки до отдёргивания", withdrawalAlt: "Та же кисть отведена от металлической чашки", record: "Записать результат", journal: "Журнал опытов", explanation: "Почему рефлекс возник или прервался?", source: "Физиология рефлекса: OpenStax, Anatomy and Physiology 2e, гл. 14",
   },
   EN: {
     title: "Laboratory: where does the reflex stop?", intro: "Model hand withdrawal from a painfully hot surface. Choose the state of one pathway, predict movement, and run the experiment.",
@@ -30,7 +30,7 @@ const copy = {
     correct: "Your prediction was supported.", incorrect: "Your prediction was not supported.",
     outcome: { intact: "Both pathways work: the sensory signal reaches the spinal cord and the motor output reaches the muscles.", afferent: "A signal arises at the receptor but cannot reach the spinal cord along the selected pathway. The modeled reflex response does not begin.", efferent: "Sensory input reaches the spinal cord, but the command cannot pass along the motor pathway to the muscles. No reflex contraction occurs." },
     limit: "A teaching model of one reflex pathway. An animation made from AI-generated images shows external movement; the nerve signal is described in words. Conscious pain perception, alternative pathways and other protective responses are outside this model. Do not try this with hot objects.",
-    photo: "Staged AI-generated photographs for this textbook", contactAlt: "Hand by a metal cup before withdrawal", withdrawalAlt: "The same hand moved away from the metal cup", record: "Record result", journal: "Experiment log", explanation: "Why did the reflex occur or stop?", source: "Reflex physiology: OpenStax, Anatomy and Physiology 2e, ch. 14",
+    anatomy: ["Skin nociceptor","Sensory neuron","Dorsal root","Interneuron","Ventral-horn motor neuron","Ventral root","Flexor muscle"], ascending: "Collateral to ascending pathways: conscious pain perception is not required to initiate the spinal response", photo: "Staged AI-generated photographs for this textbook", contactAlt: "Hand by a metal cup before withdrawal", withdrawalAlt: "The same hand moved away from the metal cup", record: "Record result", journal: "Experiment log", explanation: "Why did the reflex occur or stop?", source: "Reflex physiology: OpenStax, Anatomy and Physiology 2e, ch. 14",
   },
   KZ: {
     title: "Зертхана: рефлекс қай жерде үзіледі?", intro: "Қолды ауырсындыратын ыстық беттен тартып алу жағдайын модельдеңіз. Жолдың күйін таңдап, қозғалысты болжаңыз және тәжірибені бастаңыз.",
@@ -41,12 +41,12 @@ const copy = {
     correct: "Болжамыңыз расталды.", incorrect: "Болжамыңыз расталмады.",
     outcome: { intact: "Екі жол да жұмыс істейді: сенсорлық сигнал жұлынға, ал моторлық жауап бұлшықеттерге жетеді.", afferent: "Рецепторда сигнал пайда болады, бірақ таңдалған жолмен жұлынға жетпейді. Бұл модельде рефлекстік жауап басталмайды.", efferent: "Сенсорлық сигнал жұлынға жетеді, бірақ бұйрық моторлық жолмен бұлшықеттерге өтпейді. Рефлекстік жиырылу болмайды." },
     limit: "Бұл — бір рефлекс жолының оқу моделі. ЖИ жасаған кескіндерден құралған анимация сыртқы қозғалысты көрсетеді; жүйке сигналы мәтінмен сипатталады. Ауырсынуды саналы сезіну, басқа жолдар мен қорғаныш реакциялары модельденбейді. Мұны ыстық заттармен өзіңізде сынамаңыз.",
-    photo: "Оқулық үшін ЖИ жасаған қойылымдық фотосуреттер", contactAlt: "Қол тартылғанға дейін металл тостағанның жанында", withdrawalAlt: "Сол қол металл тостағаннан алыстатылған", record: "Нәтижені жазу", journal: "Тәжірибелер журналы", explanation: "Рефлекс неге пайда болды немесе үзілді?", source: "Рефлекс физиологиясы: OpenStax, Anatomy and Physiology 2e, 14-тарау",
+    anatomy: ["Тері ноцицепторы","Сезімтал нейрон","Артқы түбір","Аралық нейрон","Алдыңғы мүйіз мотонейроны","Алдыңғы түбір","Бүккіш бұлшықет"], ascending: "Жоғарылаушы жолдарға коллатераль: жұлындық жауаптың басталуы үшін ауырсынуды саналы сезіну міндетті емес", photo: "Оқулық үшін ЖИ жасаған қойылымдық фотосуреттер", contactAlt: "Қол тартылғанға дейін металл тостағанның жанында", withdrawalAlt: "Сол қол металл тостағаннан алыстатылған", record: "Нәтижені жазу", journal: "Тәжірибелер журналы", explanation: "Рефлекс неге пайда болды немесе үзілді?", source: "Рефлекс физиологиясы: OpenStax, Anatomy and Physiology 2e, 14-тарау",
   },
 } satisfies Record<Language, {
   title: string; intro: string; condition: string; intact: string; afferent: string; efferent: string; predict: string; moves: string; still: string; run: string; replay: string; reset: string;
   stages: string[]; waiting: string; running: string; stopped: string; finished: string; blockedAt: Record<"afferent" | "efferent", string>; correct: string; incorrect: string;
-  outcome: Record<Condition, string>; limit: string; photo: string; contactAlt: string; withdrawalAlt: string; record: string; journal: string; explanation: string; source: string;
+  outcome: Record<Condition, string>; limit: string; anatomy: string[]; ascending: string; photo: string; contactAlt: string; withdrawalAlt: string; record: string; journal: string; explanation: string; source: string;
 }>;
 
 const lastStage: Record<Condition, number> = { intact: 4, afferent: 1, efferent: 3 };
@@ -109,6 +109,18 @@ export default function ReflexLab({ language }: { language: Language }) {
         </div>
       </div>
     </div>
+    <figure style={{margin:"20px 0",padding:16,border:"1px solid #cfe0ea",borderRadius:16}}>
+      <svg viewBox="0 0 900 260" style={{width:"100%",height:"auto"}} role="img" aria-label={c.anatomy.join(" → ")}>
+        <defs><marker id="reflexArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
+        {c.anatomy.map((label,i)=>{const x=60+i*125; const active=stage>=Math.min(i,4); const blocked=(condition==="afferent"&&i>=2)||(condition==="efferent"&&i>=5); return <g key={label} opacity={blocked&&complete?.35:1}>
+          {i<c.anatomy.length-1&&<line x1={x+34} y1="95" x2={x+91} y2="95" stroke="currentColor" strokeWidth={active?6:2} markerEnd="url(#reflexArrow)"/>}
+          <circle cx={x} cy="95" r={active?25:20} fill="white" stroke="currentColor" strokeWidth={active?5:2}/>
+          <text x={x} y="145" textAnchor="middle" fontSize="13">{label}</text>
+        </g>})}
+        <path d="M435 70 C470 15 560 15 610 45" fill="none" stroke="currentColor" strokeWidth={stage>=2?4:2} strokeDasharray="7 6" markerEnd="url(#reflexArrow)"/>
+        <text x="650" y="28" textAnchor="middle" fontSize="12">{c.ascending}</text>
+      </svg>
+    </figure>
     {complete && <div className={styles.feedback}>
       <h3>{prediction === (condition === "intact" ? "moves" : "still") ? c.correct : c.incorrect}</h3>
       <p>{c.outcome[condition]}</p>
