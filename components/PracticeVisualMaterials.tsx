@@ -19,9 +19,9 @@ function NeuronPhoto({language}:{language:Language}){
   <div style={{position:"relative",height:360,borderRadius:12,overflow:"hidden",background:"#eef5f8"}}>
    <Image src="/images/anatomy/peripheral-nerve.jpg" alt={c.neuron} fill priority sizes="(max-width:760px) 95vw,800px" style={{objectFit:"cover"}}/>
    <svg viewBox="0 0 800 360" aria-hidden="true" style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}>
-    <defs><marker id="neuron-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffdf32"/></marker></defs>
-    <path d={part===0?"M170 70 L555 175":part===1?"M170 70 L360 125":"M170 70 L675 245"} stroke="#ffdf32" strokeWidth="7" fill="none" markerEnd="url(#neuron-arrow)"/>
-    <rect x="18" y="18" width="190" height="48" rx="10" fill="rgba(0,0,0,.72)"/><text x="32" y="50" fill="white" fontSize="23" fontWeight="700">{labels[part]}</text>
+    <defs><marker id="neuron-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ff2d2d"/></marker></defs>
+    <path d={part===0?"M215 55 L625 155":part===1?"M215 55 L500 105":"M215 55 L705 245"} stroke="#ff2d2d" strokeWidth="10" fill="none" markerEnd="url(#neuron-arrow)"/>
+    <rect x="18" y="18" width="250" height="52" rx="10" fill="rgba(0,0,0,.72)"/><text x="32" y="50" fill="white" fontSize="23" fontWeight="700">{labels[part]}</text>
    </svg>
   </div>
   <p><strong>{labels[part]}</strong></p>
