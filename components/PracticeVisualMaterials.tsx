@@ -13,15 +13,14 @@ const words={
 
 function NeuronPhoto({language}:{language:Language}){
  const c=words[language]; const [part,setPart]=useState(0);
- const positions=["50% 50%","20% 45%","82% 50%"];
+ const positions=["50% 50%","32% 42%","72% 52%"];
  return <section style={{border:"1px solid #b9d5e7",borderRadius:16,padding:16,background:"#f8fcff"}}>
   <h3>{c.neuron}</h3>
-  <div style={{height:300,overflow:"hidden",borderRadius:12,background:"#111"}}>
-   <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Neuron_upclose.jpg" alt={c.neuron} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:positions[part],transform:part===0?"scale(1.05)":"scale(1.45)",transition:"transform .35s ease, object-position .35s ease"}}/>
+  <div style={{height:360,overflow:"hidden",borderRadius:12,background:"#eef5f8",position:"relative"}}>
+   <Image src="/neuron-bg.jpg" alt={c.neuron} fill priority sizes="(max-width:760px) 95vw,800px" style={{objectFit:"cover",objectPosition:positions[part],transform:part===0?"scale(1.05)":"scale(1.35)",transition:"transform .35s ease, object-position .35s ease"}}/>
   </div>
-  <p><strong>{[c.soma,c.dend,c.axon][part]}</strong> — {c.note}</p>
+  <p><strong>{[c.soma,c.dend,c.axon][part]}</strong></p>
   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{[c.soma,c.dend,c.axon].map((x,i)=><button key={x} type="button" aria-pressed={part===i} onClick={()=>setPart(i)}>{x}</button>)}</div>
-  <p><a href="https://commons.wikimedia.org/wiki/File:Neuron_upclose.jpg" target="_blank" rel="noreferrer">{c.source}</a> · Robert Huber · Creative Commons</p>
  </section>;
 }
 function ReflexPhoto({language}:{language:Language}){
