@@ -34,6 +34,10 @@ import BasalGangliaLab from "../../../../components/BasalGangliaLab";
 import CerebellumLab from "../../../../components/CerebellumLab";
 import ThalamusLab from "../../../../components/ThalamusLab";
 import HypothalamusLab from "../../../../components/HypothalamusLab";
+import LimbicLab from "../../../../components/LimbicLab";
+import AmygdalaLab from "../../../../components/AmygdalaLab";
+import CortexLab from "../../../../components/CortexLab";
+import SomatosensoryLab from "../../../../components/SomatosensoryLab";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -253,6 +257,14 @@ export default async function SectionPage({
             <ThalamusLab language={lang} />
           ) : moduleNumber === 15 && section === "interactive" ? (
             <HypothalamusLab language={lang} />
+          ) : moduleNumber === 16 && section === "interactive" ? (
+            <LimbicLab language={lang} />
+          ) : moduleNumber === 17 && section === "interactive" ? (
+            <AmygdalaLab language={lang} />
+          ) : moduleNumber === 18 && section === "interactive" ? (
+            <CortexLab language={lang} />
+          ) : moduleNumber === 19 && section === "interactive" ? (
+            <SomatosensoryLab language={lang} />
           ) : lesson ? (
             <>
               <SectionContent
