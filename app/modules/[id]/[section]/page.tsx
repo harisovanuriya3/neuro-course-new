@@ -273,11 +273,11 @@ export default async function SectionPage({
           ) : moduleNumber === 19 && section === "interactive" ? (
             <GuidedLabFrame moduleId={19} language={lang}><SomatosensoryLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 20 && section === "interactive" ? (
-            <VisionLab language={lang} />
+            <GuidedLabFrame moduleId={20} language={lang}><VisionLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 21 && section === "interactive" ? (
-            <SensorySystemsLab language={lang} />
+            <GuidedLabFrame moduleId={21} language={lang}><SensorySystemsLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 22 && section === "interactive" ? (
-            <AutonomicLab language={lang} />
+            <GuidedLabFrame moduleId={22} language={lang}><AutonomicLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 23 && section === "interactive" ? (
             <LearningMemoryLab language={lang} />
           ) : moduleNumber === 24 && section === "interactive" ? (
