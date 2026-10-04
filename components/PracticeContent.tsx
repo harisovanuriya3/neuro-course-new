@@ -110,17 +110,18 @@ function Classification({ block, ui, language }: { block: Extract<PracticeBlock,
   const [choices, setChoices] = useState<Record<number, number>>({});
   const [reasons, setReasons] = useState<[string, string]>(["", ""]);
   const [checked, setChecked] = useState(false);
+  const [showCorrect, setShowCorrect] = useState(false);
   const copy = {
-    RU: { instruction: "Выберите ЦНС или ПНС для каждой структуры, затем обоснуйте обе группы.", check: "Проверить распределение", complete: "Сначала распределите все структуры и заполните оба обоснования.", correct: "Распределение верное.", retry: "Есть ошибки в распределении. Исправьте выделенные строки и проверьте снова." },
-    EN: { instruction: "Assign each structure to the CNS or PNS, then justify both groups.", check: "Check classification", complete: "Classify every structure and complete both justifications first.", correct: "The classification is correct.", retry: "Some classifications are incorrect. Correct the marked rows and check again." },
-    KZ: { instruction: "Әр құрылымды ОЖЖ немесе ШЖЖ тобына бөліп, екі топты да негіздеңіз.", check: "Бөлуді тексеру", complete: "Алдымен барлық құрылымды бөліп, екі негіздемені де толтырыңыз.", correct: "Бөлу дұрыс.", retry: "Бөлуде қателер бар. Белгіленген жолдарды түзетіп, қайта тексеріңіз." },
+    RU: { show: "Посмотреть правильный ответ", instruction: "Выберите ЦНС или ПНС для каждой структуры, затем обоснуйте обе группы.", check: "Проверить распределение", complete: "Сначала распределите все структуры и заполните оба обоснования.", correct: "Распределение верное.", retry: "Есть ошибки в распределении. Исправьте выделенные строки и проверьте снова." },
+    EN: { show: "Show correct answer", instruction: "Assign each structure to the CNS or PNS, then justify both groups.", check: "Check classification", complete: "Classify every structure and complete both justifications first.", correct: "The classification is correct.", retry: "Some classifications are incorrect. Correct the marked rows and check again." },
+    KZ: { show: "Дұрыс жауапты көру", instruction: "Әр құрылымды ОЖЖ немесе ШЖЖ тобына бөліп, екі топты да негіздеңіз.", check: "Бөлуді тексеру", complete: "Алдымен барлық құрылымды бөліп, екі негіздемені де толтырыңыз.", correct: "Бөлу дұрыс.", retry: "Бөлуде қателер бар. Белгіленген жолдарды түзетіп, қайта тексеріңіз." },
   }[language];
   const allChosen = block.items.every((_, index) => choices[index] === 0 || choices[index] === 1);
   const reasonsReady = reasons.every(isMeaningful);
   const ready = allChosen && reasonsReady;
   const allCorrect = block.items.every((item, index) => choices[index] === item.group);
-  function choose(index: number, group: number) { setChoices(old => ({ ...old, [index]: group })); setChecked(false); }
-  function reason(index: 0 | 1, value: string) { setReasons(old => index === 0 ? [value, old[1]] : [old[0], value]); setChecked(false); }
+  function choose(index: number, group: number) { setChoices(old => ({ ...old, [index]: group })); setChecked(false); setShowCorrect(false); }
+  function reason(index: 0 | 1, value: string) { setReasons(old => index === 0 ? [value, old[1]] : [old[0], value]); setChecked(false); setShowCorrect(false); }
   return <div className={styles.sequence}>
     <p>{copy.instruction}</p>
     <div className={styles.tableScroll} role="region" tabIndex={0}>
@@ -141,7 +142,8 @@ function Classification({ block, ui, language }: { block: Extract<PracticeBlock,
     <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={() => setChecked(true)}>{copy.check}</button></div>
     {!ready && <p className={styles.note}>{copy.complete}</p>}
     {checked && <p role="status" aria-live="polite" className={allCorrect ? styles.success : styles.retry}>{allCorrect ? copy.correct : copy.retry}</p>}
-    {checked && allCorrect && <Disclosure ui={ui}><ul>{block.answer.map(item => <li key={item}>{item}</li>)}</ul></Disclosure>}
+    {checked && !allCorrect && <div className={styles.actions}><button type="button" onClick={() => setShowCorrect(true)}>{copy.show}</button></div>}
+    {checked && (allCorrect || showCorrect) && <Disclosure ui={ui}><ul>{block.answer.map(item => <li key={item}>{item}</li>)}</ul></Disclosure>}
   </div>;
 }
 
