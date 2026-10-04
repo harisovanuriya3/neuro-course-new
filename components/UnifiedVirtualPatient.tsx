@@ -9,9 +9,9 @@ import VirtualPatientVisual from "./VirtualPatientVisual";
 import styles from "./UnifiedVirtualPatient.module.css";
 
 const interfaceCopy = {
-  RU: { stage: "Этап", case: "Пациент / учебный случай", situation: "Ситуация", newData: "Новые данные", task: "Задача студента", why: "Почему это происходит", answer: "Ваше обоснование", placeholder: "Запишите наблюдение или ход рассуждения…", patient: "Результат / реакция", mentor: "Клинический наставник", feedback: "Комментарий наставника", next: "Следующий этап", previous: "Предыдущий этап", reset: "Начать случай заново", listen: "Слушать", stop: "Остановить", restartAudio: "Сначала", choose: "Варианты решения", correct: "Выбор согласуется с задачей.", revise: "Сопоставьте выбор с задачей и данными случая.", locked: "Сначала завершите предыдущий этап.", final: "Итоговое объяснение механизма", saved: "Ответы сохраняются при переходе между этапами.", history: "Последствие предыдущего решения" },
-  EN: { stage: "Stage", case: "Patient / teaching case", situation: "Situation", newData: "New data", task: "Student task", why: "Why this happens", answer: "Your reasoning", placeholder: "Record your observation or reasoning…", patient: "Result / response", mentor: "Clinical mentor", feedback: "Mentor comment", next: "Next stage", previous: "Previous stage", reset: "Restart case", listen: "Listen", stop: "Stop", restartAudio: "Restart", choose: "Decision options", correct: "The choice fits the task.", revise: "Compare the choice with the task and case data.", locked: "Complete the previous stage first.", final: "Final mechanism explanation", saved: "Answers are retained while moving between stages.", history: "Consequence of the previous decision" },
-  KZ: { stage: "Кезең", case: "Пациент / оқу жағдайы", situation: "Жағдай", newData: "Жаңа деректер", task: "Студент тапсырмасы", why: "Бұл неліктен болады", answer: "Сіздің негіздемеңіз", placeholder: "Бақылауыңызды немесе ойлау жолын жазыңыз…", patient: "Нәтиже / реакция", mentor: "Клиникалық тәлімгер", feedback: "Тәлімгер пікірі", next: "Келесі кезең", previous: "Алдыңғы кезең", reset: "Жағдайды қайта бастау", listen: "Тыңдау", stop: "Тоқтату", restartAudio: "Басынан", choose: "Шешім нұсқалары", correct: "Таңдау тапсырмаға сәйкес келеді.", revise: "Таңдауды тапсырма және жағдай деректерімен салыстырыңыз.", locked: "Алдымен алдыңғы кезеңді аяқтаңыз.", final: "Механизмнің қорытынды түсіндірмесі", saved: "Кезеңдер арасында өткенде жауаптар сақталады.", history: "Алдыңғы шешімнің салдары" },
+  RU: { stage: "Этап", case: "Пациент / учебный случай", situation: "Ситуация", newData: "Новые данные", task: "Задача студента", why: "Почему это происходит", answer: "Ваше обоснование", placeholder: "Запишите наблюдение или ход рассуждения…", patient: "Результат / реакция", mentor: "Клинический наставник", feedback: "Комментарий наставника", next: "Следующий этап", previous: "Предыдущий этап", reset: "Начать случай заново", listen: "Слушать", stop: "Остановить", restartAudio: "Сначала", choose: "Варианты решения", correct: "Выбор согласуется с задачей.", revise: "Сопоставьте выбор с задачей и данными случая.", locked: "Сначала завершите предыдущий этап.", final: "Итоговое объяснение механизма", saved: "Ответы сохраняются при переходе между этапами.", history: "Последствие предыдущего решения", reasoningRequired: "Перед переходом кратко обоснуйте своё решение." },
+  EN: { stage: "Stage", case: "Patient / teaching case", situation: "Situation", newData: "New data", task: "Student task", why: "Why this happens", answer: "Your reasoning", placeholder: "Record your observation or reasoning…", patient: "Result / response", mentor: "Clinical mentor", feedback: "Mentor comment", next: "Next stage", previous: "Previous stage", reset: "Restart case", listen: "Listen", stop: "Stop", restartAudio: "Restart", choose: "Decision options", correct: "The choice fits the task.", revise: "Compare the choice with the task and case data.", locked: "Complete the previous stage first.", final: "Final mechanism explanation", saved: "Answers are retained while moving between stages.", history: "Consequence of the previous decision", reasoningRequired: "Before continuing, briefly justify your decision." },
+  KZ: { stage: "Кезең", case: "Пациент / оқу жағдайы", situation: "Жағдай", newData: "Жаңа деректер", task: "Студент тапсырмасы", why: "Бұл неліктен болады", answer: "Сіздің негіздемеңіз", placeholder: "Бақылауыңызды немесе ойлау жолын жазыңыз…", patient: "Нәтиже / реакция", mentor: "Клиникалық тәлімгер", feedback: "Тәлімгер пікірі", next: "Келесі кезең", previous: "Алдыңғы кезең", reset: "Жағдайды қайта бастау", listen: "Тыңдау", stop: "Тоқтату", restartAudio: "Басынан", choose: "Шешім нұсқалары", correct: "Таңдау тапсырмаға сәйкес келеді.", revise: "Таңдауды тапсырма және жағдай деректерімен салыстырыңыз.", locked: "Алдымен алдыңғы кезеңді аяқтаңыз.", final: "Механизмнің қорытынды түсіндірмесі", saved: "Кезеңдер арасында өткенде жауаптар сақталады.", history: "Алдыңғы шешімнің салдары", reasoningRequired: "Келесі кезеңге өтпес бұрын шешіміңізді қысқаша негіздеңіз." },
 } as const;
 
 type StoredState = { current: number; unlocked: number; selected: (number | null)[]; notes: string[] };
@@ -59,6 +59,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   const previousSelection = state.current > 0 ? state.selected[state.current - 1] : null;
   const previousOption = previousSelection === null ? null : scenario.stages[state.current - 1].options[previousSelection];
   const complete = selected !== null;
+  const reasoningComplete = state.notes[state.current].trim().length >= 12;
 
   function speak(value: string, role: "patient" | "mentor") {
     if (!("speechSynthesis" in window)) return;
@@ -97,7 +98,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   }
 
   function next() {
-    if (!complete || state.current === 5) return;
+    if (!complete || !reasoningComplete || state.current === 5) return;
     setState((value) => ({ ...value, current: value.current + 1, unlocked: Math.max(value.unlocked, value.current + 1) }));
   }
 
@@ -152,7 +153,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
             })}
           </ol>
         </section>}
-        <div className={styles.actions}><button type="button" disabled={state.current === 0} onClick={() => setState((value) => ({ ...value, current: value.current - 1 }))}>{c.previous}</button>{state.current < 5 && <button type="button" disabled={!complete} onClick={next}>{c.next}</button>}</div>
+        <div className={styles.actions}><button type="button" disabled={state.current === 0} onClick={() => setState((value) => ({ ...value, current: value.current - 1 }))}>{c.previous}</button>{state.current < 5 && <><button type="button" disabled={!complete || !reasoningComplete} onClick={next}>{c.next}</button>{complete && !reasoningComplete && <span role="status">{c.reasoningRequired}</span>}</>}</div>
       </section>
       <aside className={styles.mentorCard} aria-live="polite">
         <Image src="/images/module1/virtual-mentor-clinic.png" width={1456} height={1024} sizes="(max-width: 700px) 100vw, 270px" alt={c.mentor} />
