@@ -22,6 +22,9 @@ import AnatomyReference from "../../../../components/AnatomyReference";
 import AdvancedAnatomyReference from "../../../../components/AdvancedAnatomyReference";
 import ModuleSidebar from "../../../../components/ModuleSidebar";
 import NerveFiberLab from "../../../../components/NerveFiberLab";
+import MembraneElectrophysiologyLab from "../../../../components/MembraneElectrophysiologyLab";
+import SynapseExperimentLab from "../../../../components/SynapseExperimentLab";
+import IntegrationExperimentLab from "../../../../components/IntegrationExperimentLab";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -217,6 +220,12 @@ export default async function SectionPage({
             <NotesContent language={lang} />
           ) : moduleNumber === 3 && section === "interactive" ? (
             <NerveFiberLab language={lang} />
+          ) : moduleNumber === 4 && section === "interactive" ? (
+            <MembraneElectrophysiologyLab language={lang} />
+          ) : moduleNumber === 5 && section === "interactive" ? (
+            <SynapseExperimentLab language={lang} />
+          ) : moduleNumber === 6 && section === "interactive" ? (
+            <IntegrationExperimentLab language={lang} />
           ) : lesson ? (
             <>
               <SectionContent
