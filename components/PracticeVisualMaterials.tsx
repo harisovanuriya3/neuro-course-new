@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Language } from "../content/course";
@@ -49,13 +49,32 @@ function ReflexPhoto({language}:{language:Language}){
   <p aria-live="polite"><strong>{t.steps[stage]}.</strong> {t.desc[stage]}</p><div style={{display:"flex",gap:8,flexWrap:"wrap"}}><button type="button" disabled={running} onClick={run}>{t.run}</button><button type="button" onClick={()=>{setRunning(false);setStage(0)}}>{t.reset}</button></div>
  </section>;
 }
-export default function PracticeVisualMaterials({language}:{language:Language}){
+
+function DetailedReflexArc({language}:{language:Language}){
+ const [stage,setStage]=useState(0); const [running,setRunning]=useState(false); const [speed,setSpeed]=useState(1100);
+ const x={RU:{title:"Рефлекторная дуга: от раздражения к ответу",sub:"Интерактивная анатомическая модель",run:"▶ Запустить рефлекс",stop:"■ Остановить",reset:"↻ Сбросить",speed:"Скорость",steps:["Рецептор","Афферентный нейрон","Интеграция","Эфферентный нейрон","Ответ"],desc:["Тепловое/болевое раздражение активирует свободные нервные окончания кожи.","Импульс по чувствительному волокну идёт через спинномозговой ганглий и задний корешок.","В сером веществе спинного мозга сигнал переключается в рефлекторной сети.","Импульс мотонейрона выходит через передний корешок к скелетной мышце.","Сокращение сгибателей вызывает быстрое отдёргивание руки."]},EN:{title:"Reflex arc: from stimulus to response",sub:"Interactive anatomical model",run:"▶ Run reflex",stop:"■ Stop",reset:"↻ Reset",speed:"Speed",steps:["Receptor","Afferent neuron","Integration","Efferent neuron","Response"],desc:["Thermal/pain stimulation activates free nerve endings in skin.","The sensory impulse travels through the dorsal root ganglion and dorsal root.","In spinal gray matter the signal is relayed through the reflex network.","The motor-neuron impulse leaves through the ventral root toward skeletal muscle.","Flexor contraction produces rapid withdrawal of the hand."]},KZ:{title:"Рефлекстік доға: тітіркенуден жауапқа дейін",sub:"Интерактивті анатомиялық модель",run:"▶ Рефлексті іске қосу",stop:"■ Тоқтату",reset:"↻ Қалпына келтіру",speed:"Жылдамдық",steps:["Рецептор","Афференттік нейрон","Интеграция","Эфференттік нейрон","Жауап"],desc:["Жылулық/ауырсыну тітіркенуі терідегі бос жүйке ұштарын белсендіреді.","Сезімтал импульс жұлын түйіні мен артқы түбір арқылы өтеді.","Жұлынның сұр затында сигнал рефлекстік желі арқылы ауысады.","Мотонейрон импульсі алдыңғы түбір арқылы қаңқа бұлшықетіне барады.","Бүккіштердің жиырылуы қолдың тез тартылуын туғызады."]}}[language];
+ function run(){setStage(0);setRunning(true)}
+ useEffect(()=>{if(!running)return;const id=window.setTimeout(()=>{if(stage>=4)setRunning(false);else setStage(v=>v+1)},speed);return()=>window.clearTimeout(id)},[running,stage,speed]);
+ const p=[[11,72],[31,56],[50,48],[70,57],[88,33]][stage];
+ return <section style={{border:"1px solid #b9d5e7",borderRadius:18,padding:16,background:"#fff"}}><h3>{x.title}</h3><p>{x.sub}</p>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(150px,1fr))",gap:8,marginBottom:12}}>{x.steps.map((s,i)=><button key={s} type="button" onClick={()=>{setRunning(false);setStage(i)}} aria-pressed={stage===i} style={{minHeight:72,fontWeight:stage===i?800:600}}><b>{i+1}</b><br/>{s}</button>)}</div>
+  <div style={{position:"relative",height:500,borderRadius:16,overflow:"hidden",background:"#15202a"}}>
+   <Image src={stage===4?"/images/lab/reflex-withdrawal.webp":"/images/lab/reflex-contact.webp"} alt={x.steps[stage]} fill sizes="(max-width:760px) 95vw,1000px" style={{objectFit:"cover"}}/>
+   <div style={{position:"absolute",inset:0,background:"linear-gradient(90deg,rgba(0,0,0,.08),rgba(0,0,0,.18))"}}/>
+   <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style={{position:"absolute",inset:0,width:"100%",height:"100%"}}><path d="M11 72 C20 70 24 60 31 56 C38 51 43 48 50 48 C58 49 63 55 70 57 C78 58 82 42 88 33" fill="none" stroke="#fff" strokeWidth="1.6" strokeDasharray="2.5 1.5"/><path d="M11 72 C20 70 24 60 31 56 C38 51 43 48 50 48" fill="none" stroke="#1987ff" strokeWidth="2.6" opacity={stage>=1?1:.25}/><path d="M50 48 C58 49 63 55 70 57 C78 58 82 42 88 33" fill="none" stroke="#ff3030" strokeWidth="2.6" opacity={stage>=3?1:.25}/></svg>
+   <div style={{position:"absolute",left:`calc(${p[0]}% - 22px)`,top:`calc(${p[1]}% - 22px)`,width:44,height:44,borderRadius:"50%",border:"6px solid #ffe000",boxShadow:"0 0 0 6px rgba(220,30,30,.8),0 0 28px #ffe000",transition:"left .65s ease,top .65s ease"}}/>
+   <div style={{position:"absolute",left:12,right:12,bottom:12,padding:12,borderRadius:10,background:"rgba(0,0,0,.76)",color:"white"}}><b>{stage+1}. {x.steps[stage]}</b><br/>{x.desc[stage]}</div>
+  </div>
+  <div style={{display:"flex",gap:10,flexWrap:"wrap",alignItems:"center",marginTop:12}}><button type="button" onClick={run} disabled={running}>{x.run}</button><button type="button" onClick={()=>setRunning(false)} disabled={!running}>{x.stop}</button><button type="button" onClick={()=>{setRunning(false);setStage(0)}}>{x.reset}</button><label>{x.speed}: <input aria-label={x.speed} type="range" min="600" max="1800" step="200" value={2400-speed} onChange={e=>setSpeed(2400-Number(e.target.value))}/></label></div>
+ </section>
+}
+\nexport default function PracticeVisualMaterials({language}:{language:Language}){
  const c=words[language];
  return <div style={{display:"grid",gap:16}}><div><h3>{c.title}</h3><p>{c.intro}</p></div>
   <OrganizationSpecimens language={language}/>
   <NeuronPhoto language={language}/>
   <section style={{border:"1px solid #b9d5e7",borderRadius:16,padding:16,background:"#f8fcff"}}><h3>{c.syn}</h3><div style={{position:"relative",minHeight:300}}><Image src="/images/anatomy/neuromuscular-junction.jpg" alt={c.syn} fill sizes="(max-width:760px) 95vw,800px" style={{objectFit:"contain"}}/></div></section>
-  <ReflexPhoto language={language}/>
+  <DetailedReflexArc language={language}/>\n  <ReflexPhoto language={language}/>
   <Link href="/modules/1/theory">{c.theory} →</Link>
  </div>;
 }
