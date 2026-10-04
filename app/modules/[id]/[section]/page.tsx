@@ -44,6 +44,7 @@ import AutonomicLab from "../../../../components/AutonomicLab";
 import LearningMemoryLab from "../../../../components/LearningMemoryLab";
 import SleepRhythmLab from "../../../../components/SleepRhythmLab";
 import PlasticityLab from "../../../../components/PlasticityLab";
+import GuidedLabFrame from "../../../../components/GuidedLabFrame";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -252,17 +253,17 @@ export default async function SectionPage({
           ) : moduleNumber === 9 && section === "interactive" ? (
             <SpinalRegulationLab language={lang} />
           ) : moduleNumber === 10 && section === "interactive" ? (
-            <BrainstemLab language={lang} />
+            <GuidedLabFrame moduleId={10} language={lang}><BrainstemLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 11 && section === "interactive" ? (
-            <MotorControlLab language={lang} />
+            <GuidedLabFrame moduleId={11} language={lang}><MotorControlLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 12 && section === "interactive" ? (
-            <BasalGangliaLab language={lang} />
+            <GuidedLabFrame moduleId={12} language={lang}><BasalGangliaLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 13 && section === "interactive" ? (
-            <CerebellumLab language={lang} />
+            <GuidedLabFrame moduleId={13} language={lang}><CerebellumLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 14 && section === "interactive" ? (
-            <ThalamusLab language={lang} />
+            <GuidedLabFrame moduleId={14} language={lang}><ThalamusLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 15 && section === "interactive" ? (
-            <HypothalamusLab language={lang} />
+            <GuidedLabFrame moduleId={15} language={lang}><HypothalamusLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 16 && section === "interactive" ? (
             <LimbicLab language={lang} />
           ) : moduleNumber === 17 && section === "interactive" ? (
