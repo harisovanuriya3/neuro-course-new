@@ -82,6 +82,7 @@ export default function MediaContent({ lesson, moduleId, language }: { lesson: M
       <p><strong>{ui.preview}: </strong>{block.preview}</p>
       {block.animation === "organization" ? <OrganizationAnimation key={language} language={language} />
         : block.animation === "foundation" ? <FoundationMediaAnimation key={`${moduleId}-${language}-${block.id}`} moduleId={Number(moduleId)} language={language} />
+        : moduleId === "1" && !block.source?.videoUrl?.trim() ? <FoundationMediaAnimation key={`1-${language}-${block.id}`} moduleId={block.id === "synapse" ? 5 : block.id === "integration" ? 6 : 7} language={language} />
         : <Player key={block.source?.videoUrl ?? "pending"} block={block} ui={ui} />}
       <details className={styles.transcript}>
         <summary id={`${block.id}-transcript-label`}>{ui.transcript}</summary>
