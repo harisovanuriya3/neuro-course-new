@@ -41,6 +41,9 @@ import SomatosensoryLab from "../../../../components/SomatosensoryLab";
 import VisionLab from "../../../../components/VisionLab";
 import SensorySystemsLab from "../../../../components/SensorySystemsLab";
 import AutonomicLab from "../../../../components/AutonomicLab";
+import LearningMemoryLab from "../../../../components/LearningMemoryLab";
+import SleepRhythmLab from "../../../../components/SleepRhythmLab";
+import PlasticityLab from "../../../../components/PlasticityLab";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -274,6 +277,12 @@ export default async function SectionPage({
             <SensorySystemsLab language={lang} />
           ) : moduleNumber === 22 && section === "interactive" ? (
             <AutonomicLab language={lang} />
+          ) : moduleNumber === 23 && section === "interactive" ? (
+            <LearningMemoryLab language={lang} />
+          ) : moduleNumber === 24 && section === "interactive" ? (
+            <SleepRhythmLab language={lang} />
+          ) : moduleNumber === 25 && section === "interactive" ? (
+            <PlasticityLab language={lang} />
           ) : lesson ? (
             <>
               <SectionContent
