@@ -27,7 +27,7 @@
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: linear-gradient(rgba(242,247,251,.70), rgba(238,245,249,.82)), url("/neuron-bg.jpg");
+  background-image: linear-gradient(rgba(242,247,251,.70), rgba(238,245,249,.82)), url("/neuron-bg-clean.svg");
   background-position: center, center;
   background-size: cover, cover;
   background-repeat: no-repeat, no-repeat;
