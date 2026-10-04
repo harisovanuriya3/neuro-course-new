@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Language } from "../content/course";
+import ExperimentReflection from "./ExperimentReflection";
 import styles from "./NerveFiberLab.module.css";
 
 type FiberId = "Aα" | "Aβ" | "Aγ" | "Aδ" | "B" | "C";
@@ -65,6 +66,7 @@ const classificationCopy = {
 
 export default function NerveFiberLab({ language }: { language: Language }) {
   const t=copy[language];
+  const modelNotice={RU:"Модельная скорость и модельное время проведения — результаты упрощённого учебного расчёта, а не физиологические измерения.",EN:"Modelled velocity and modelled conduction time are outputs of a simplified teaching calculation, not physiological measurements.",KZ:"Модельдік жылдамдық пен модельдік өткізу уақыты — физиологиялық өлшем емес, оңайлатылған оқу есебінің нәтижелері."}[language];
   const [tab,setTab]=useState<Tab>("lab"),[fiber,setFiber]=useState<FiberId>("Aδ"),[overviewFiber,setOverviewFiber]=useState<FiberId>("Aα"),[distance,setDistance]=useState(1),[temperature,setTemperature]=useState(37),[diameter,setDiameter]=useState(100),[myelin,setMyelin]=useState(1),[prediction,setPrediction]=useState<Prediction|"">(""),[runState,setRunState]=useState<RunState>("idle"),[progress,setProgress]=useState(0),[history,setHistory]=useState<RecordItem[]>([]),[compare,setCompare]=useState(false),[clinical,setClinical]=useState<"correct"|"retry"|"">(""),[micro,setMicro]=useState(false),[voiceOn,setVoiceOn]=useState(true),[volume,setVolume]=useState(1),[voices,setVoices]=useState<SpeechSynthesisVoice[]>([]),[voiceName,setVoiceName]=useState(""),[reduced,setReduced]=useState(false);
   const frame=useRef<number|null>(null),last=useRef(0);
   const current=fibers[fiber];
@@ -83,6 +85,7 @@ export default function NerveFiberLab({ language }: { language: Language }) {
   const graphPoints=useMemo(()=>ids.map((id,index)=>{const value=calc(id).velocity;return {id,value,x:25+index*55,y:112-Math.min(100,value)};}),[calc]);
 
   return <section className={styles.lab} data-testid="nerve-fiber-lab" data-language={language} data-run-state={runState}>
+    <p>{modelNotice}</p>
     <header className={styles.header}><div><span className={styles.eyebrow}>Module 3 · Lab</span><h2>{t.title}</h2><p>{t.subtitle}</p></div><div className={styles.audio}><button type="button" onClick={()=>{setVoiceOn(v=>!v);window.speechSynthesis?.cancel()}}>{voiceOn?t.voiceOn:t.voiceOff}</button><label>{t.volume}<input aria-label={t.volume} type="range" min="0" max="1" step=".05" value={volume} onChange={e=>setVolume(Number(e.target.value))}/><b>{Math.round(volume*100)}%</b></label><label>{t.voice}<select value={voiceName} onChange={e=>setVoiceName(e.target.value)}><option value="">{t.auto}</option>{voices.filter(v=>v.lang.toLowerCase().startsWith(language==="RU"?"ru":language==="KZ"?"kk":"en")).map(v=><option key={`${v.name}-${v.lang}`} value={v.name}>{v.name} ({v.lang})</option>)}</select></label></div></header>
     <nav className={styles.tabs} aria-label={t.title}>{tabs.map((id,i)=><button type="button" key={id} aria-selected={tab===id} onClick={()=>setTab(id)}>{t.tabs[i]}</button>)}</nav>
     {tab==="lab"&&<>
@@ -120,6 +123,7 @@ export default function NerveFiberLab({ language }: { language: Language }) {
     {tab==="clinical"&&<div className={styles.modePanel}><h3>{t.tabs[2]}</h3><p>{t.clinical}</p><div className={styles.clinicalButtons}><button onClick={()=>{setClinical("correct");speak(t.correct)}}>{t.slower}</button><button onClick={()=>{setClinical("retry");speak(t.retry)}}>{t.same}</button></div>{clinical&&<div role="status" className={clinical==="correct"?styles.correct:styles.retry}>{clinical==="correct"?t.correct:t.retry}</div>}</div>}
     {tab==="history"&&<div className={styles.modePanel}><h3>{t.history}</h3>{history.length===0?<p>{t.empty}</p>:<div className={styles.tableWrap}><table><thead><tr><th>№</th><th>{t.function}</th><th>{t.conditions}</th><th>{t.prediction}</th><th>{t.speed}</th><th>{t.latency}</th></tr></thead><tbody>{history.map((row,i)=><tr key={row.id}><td>{history.length-i}</td><td>{row.fiber}</td><td>{row.conditions}</td><td>{row.prediction}</td><td>{row.velocity.toFixed(1)} m/s</td><td>{row.time.toFixed(0)} ms</td></tr>)}</tbody></table></div>}</div>}
     {tab==="teacher"&&<div className={styles.modePanel}><h3>{t.teacher}</h3><div className={styles.teacherGrid}>{ids.map(id=><button key={id} aria-pressed={fiber===id} onClick={()=>setFiber(id)}>{id}<small>{t.functions[id]}</small></button>)}</div><p className={styles.teacherText}>{teacherText}</p><button onClick={()=>speak(teacherText)}>{t.explain}</button></div>}
+    <ExperimentReflection language={language} theoryHref={`/modules/3/theory?lang=${language}`} />
     <footer className={styles.footer}><button type="button" aria-pressed={reduced} onClick={()=>setReduced(v=>!v)}>{reduced?t.reduced:t.normalMotion}</button><span>Aα · Aβ · Aγ · Aδ · B · C</span></footer>
   </section>;
 }

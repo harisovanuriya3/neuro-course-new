@@ -7,13 +7,10 @@ import type { DiagramBase, DiagramNode, InteractiveLesson } from "../content/int
 import shared from "./PracticeContent.module.css";
 import styles from "./InteractiveContent.module.css";
 import { OrganizationVisual, PathwayVisual, SynapseVisual, IntegrationVisual } from "./InteractiveVisuals";
-import ReflexLab from "./ReflexLab";
 import { OrganizationSpecimens, SynapseSpecimen } from "./RealSpecimens";
 import SynapseLab from "./SynapseLab";
 import EEGLab from "./EEGLab";
-import MembranePotentialLab from "./MembranePotentialLab";
 import BalanceDiagram from "./BalanceDiagram";
-import NerveFiberLab from "./NerveFiberLab";
 
 type UI = InteractiveLesson["ui"];
 
@@ -133,9 +130,6 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {card(lesson.organization, <Organization diagram={lesson.organization} ui={ui} language={language} />)}
     {card(lesson.pathway, <Sequence id="pathway" nodes={lesson.pathway.nodes} ui={ui} loop={lesson.pathway.loop} language={language} />)}
     {moduleId === "2" && <EEGLab language={language} />}
-    {moduleId === "3" && <NerveFiberLab language={language} />}
-    {moduleId === "4" && <MembranePotentialLab language={language} />}
-    <ReflexLab language={language} />
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
     {(moduleId === "1" || moduleId === "5") && <SynapseLab language={language} />}
     {card(lesson.integration, <Integration diagram={lesson.integration} ui={ui} language={language} />)}
