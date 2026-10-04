@@ -29,6 +29,7 @@ export default function SpeechPlayer({ language, getText, playLabel }: { languag
   const [voiceURI, setVoiceURI] = useState("");
   const [volume, setVolume] = useState(1);
   const [rate, setRate] = useState(1);
+  const [voiceOn, setVoiceOn] = useState(true);
   const [status, setStatus] = useState<Status>("stopped");
   const run = useRef(0);
   const active = useRef<SpeechSynthesisUtterance | null>(null);
@@ -97,7 +98,8 @@ export default function SpeechPlayer({ language, getText, playLabel }: { languag
   }
   return <div className={styles.player} data-no-narration>
     <div className={styles.actions}>
-      <button type="button" disabled={!canPlay || volume === 0} onClick={play}><VoiceIcon kind="speaker" />{status === "paused" ? c.resume : playLabel ?? c.play}</button>
+      <button type="button" aria-pressed={voiceOn} onClick={() => { const next=!voiceOn; setVoiceOn(next); if(!next) stop(); }}>{voiceOn ? (language==="RU"?"Голос включён":language==="KZ"?"Дауыс қосулы":"Voice on") : (language==="RU"?"Голос выключен":language==="KZ"?"Дауыс өшірулі":"Voice off")}</button>
+      <button type="button" disabled={!voiceOn || !canPlay || volume === 0} onClick={play}><VoiceIcon kind="speaker" />{status === "paused" ? c.resume : playLabel ?? c.play}</button>
       <button type="button" disabled={status !== "playing"} onClick={() => { window.speechSynthesis.pause(); setStatus("paused"); }}>{c.pause}</button>
       <button type="button" disabled={status !== "playing" && status !== "paused"} onClick={stop}>{c.stop}</button>
     </div>
