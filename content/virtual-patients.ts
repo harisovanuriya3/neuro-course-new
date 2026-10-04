@@ -210,10 +210,10 @@ const caseDecisions: Record<number, Localized[]> = {
     l("Отделить релейную передачу от сетевой фильтрации", "Distinguish relay transmission from network filtering", "Релейлік берілісті желілік сүзгіден ажырату"),
     l("Объяснить таламус как узел распределённой петли", "Explain the thalamus as a node in a distributed loop", "Таламусты таралған ілмектің түйіні ретінде түсіндіру")),
   15: decisions(
-    l("Зафиксировать исходные осмоляльность 285 мОсм/кг и диурез", "Record baseline osmolality of 285 mOsm/kg and urine output", "Бастапқы 285 мОсм/кг осмолялдық пен диурезді тіркеу"),
+    l("Зафиксировать исходные осмоляльность и диурез", "Record baseline osmolality and urine output", "Бастапқы осмолялдық пен диурезді тіркеу"),
     l("После водной депривации сравнить осмоляльность, жажду и АДГ", "After water deprivation compare osmolality, thirst, and ADH", "Су шектеуінен кейін осмолялдықты, шөлді және АДГ-ны салыстыру"),
     l("Разделить осмосенсорный вход и гипоталамическую интеграцию", "Separate osmosensory input from hypothalamic integration", "Осмосенсорлық кірісті гипоталамустық интеграциядан ажырату"),
-    l("Измерить концентрацию мочи после повышения АДГ", "Measure urine concentration after ADH rises", "АДГ жоғарылағаннан кейін несеп концентрациясын өлшеу"),
+    l("Сопоставить концентрацию мочи с изменением уровня АДГ", "Relate urine concentration to the change in ADH level", "Несеп концентрациясын АДГ деңгейінің өзгеруімен салыстыру"),
     l("Проверить возврат осмоляльности к диапазону после питья", "Test return of osmolality toward range after drinking", "Су ішкеннен кейін осмолялдықтың қалыпты ауқымға қайтуын тексеру"),
     l("Объяснить отрицательную обратную связь без единственного «центра»", "Explain negative feedback without invoking a single autonomous center", "Бір ғана автономды «орталықсыз» теріс кері байланысты түсіндіру")),
   16: decisions(
