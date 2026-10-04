@@ -265,13 +265,13 @@ export default async function SectionPage({
           ) : moduleNumber === 15 && section === "interactive" ? (
             <GuidedLabFrame moduleId={15} language={lang}><HypothalamusLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 16 && section === "interactive" ? (
-            <LimbicLab language={lang} />
+            <GuidedLabFrame moduleId={16} language={lang}><LimbicLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 17 && section === "interactive" ? (
-            <AmygdalaLab language={lang} />
+            <GuidedLabFrame moduleId={17} language={lang}><AmygdalaLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 18 && section === "interactive" ? (
-            <CortexLab language={lang} />
+            <GuidedLabFrame moduleId={18} language={lang}><CortexLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 19 && section === "interactive" ? (
-            <SomatosensoryLab language={lang} />
+            <GuidedLabFrame moduleId={19} language={lang}><SomatosensoryLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 20 && section === "interactive" ? (
             <VisionLab language={lang} />
           ) : moduleNumber === 21 && section === "interactive" ? (
