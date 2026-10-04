@@ -17,9 +17,18 @@
 @media (max-width: 1050px) { .sectionShell { grid-template-columns: minmax(0,1fr); } }
 
 .cover {
+  position: relative;
+  isolation: isolate;
+  background-color: #f2f7fb !important;
+  background-image: none !important;
+}
+.cover::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   background-image: linear-gradient(rgba(242,247,251,.70), rgba(238,245,249,.82)), url("/neuron-bg.jpg");
-  background-position: center top, center top;
-  background-size: auto, cover;
+  background-position: center, center;
+  background-size: cover, cover;
   background-repeat: no-repeat, no-repeat;
-  background-attachment: scroll, fixed;
 }
