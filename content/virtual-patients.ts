@@ -249,7 +249,7 @@ const caseDecisions: Record<number, Localized[]> = {
     l("Проверить, соблюдает ли граница вертикальный меридиан", "Determine whether the defect respects the vertical meridian", "Ақау шекарасы тік меридианды сақтайтынын анықтау"),
     l("Проследить носовые волокна через хиазму, а височные — ипсилатерально", "Trace nasal fibers across the chiasm and temporal fibers ipsilaterally", "Мұрындық талшықтарды хиазма арқылы, самайлықтарды ипсилатералды қадағалау"),
     l("Сравнить зрачковую реакцию и поле зрения", "Compare pupillary responses with the visual-field pattern", "Қарашық реакциясын көру өрісі үлгісімен салыстыру"),
-    l("Локализовать гомонимную гемианопсию позади хиазмы", "Localize a homonymous hemianopia posterior to the chiasm", "Гомонимді гемианопсияны хиазмадан кейін локализациялау"),
+    l("Локализовать дефект относительно хиазмы по рисунку полей обоих глаз", "Localize the deficit relative to the chiasm from both visual-field patterns", "Екі көздің көру өрісі үлгісі бойынша ақауды хиазмаға қатысты локализациялау"),
     l("Объяснить дефект ретинотопической организацией пути", "Explain the deficit through retinotopic pathway organization", "Ақауды жолдың ретинотопиялық ұйымдасуымен түсіндіру")),
   21: decisions(
     l("Уточнить, ухудшается ли равновесие именно в темноте", "Determine whether balance worsens specifically in darkness", "Тепе-теңдік дәл қараңғыда нашарлайтынын анықтау"),
