@@ -13,14 +13,15 @@ const words={
 
 function NeuronPhoto({language}:{language:Language}){
  const c=words[language]; const [part,setPart]=useState(0);
- const positions=["50% 50%","32% 42%","72% 52%"];
+ const labels=[c.soma,c.dend,c.axon];
  return <section style={{border:"1px solid #b9d5e7",borderRadius:16,padding:16,background:"#f8fcff"}}>
   <h3>{c.neuron}</h3>
-  <div style={{height:360,overflow:"hidden",borderRadius:12,background:"#eef5f8",position:"relative"}}>
-   <Image src="/neuron-bg.jpg" alt={c.neuron} fill priority sizes="(max-width:760px) 95vw,800px" style={{objectFit:"cover",objectPosition:positions[part],transform:part===0?"scale(1.05)":"scale(1.35)",transition:"transform .35s ease, object-position .35s ease"}}/>
+  <div style={{position:"relative",height:360,borderRadius:12,overflow:"hidden",background:"#eef5f8"}}>
+   <Image src="/images/anatomy/peripheral-nerve.jpg" alt={c.neuron} fill priority sizes="(max-width:760px) 95vw,800px" style={{objectFit:"cover",transform:part===0?"scale(1)":"scale(1.35)",transition:"transform .35s ease"}}/>
   </div>
-  <p><strong>{[c.soma,c.dend,c.axon][part]}</strong></p>
-  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{[c.soma,c.dend,c.axon].map((x,i)=><button key={x} type="button" aria-pressed={part===i} onClick={()=>setPart(i)}>{x}</button>)}</div>
+  <p><strong>{labels[part]}</strong></p>
+  <p>{language==="RU"?"Важно: это реальная микрофотография нервной ткани. Она используется как реальный морфологический материал; отдельный нейрон на этом срезе не следует выдавать за полностью прослеживаемые тело, дендриты и аксон.":language==="EN"?"Important: this is a real micrograph of nerve tissue. It is morphological material; a complete soma, dendrites and axon cannot be traced as one neuron in this section.":"Маңызды: бұл жүйке тінінің нақты микрофотосы. Бұл морфологиялық материал; осы кесіндіде бір нейронның денесін, дендриттері мен аксонын толық қадағалау мүмкін емес."}</p>
+  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{labels.map((x,i)=><button key={x} type="button" aria-pressed={part===i} onClick={()=>setPart(i)}>{x}</button>)}</div>
  </section>;
 }
 function ReflexPhoto({language}:{language:Language}){
