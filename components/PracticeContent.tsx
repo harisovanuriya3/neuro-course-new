@@ -104,6 +104,46 @@ function Sequence({ steps, ui }: { steps: string[]; ui: UI }) {
   );
 }
 
+
+function Classification({ block, ui, language }: { block: Extract<PracticeBlock, { type: "classification" }>; ui: UI; language: Language }) {
+  const [choices, setChoices] = useState<Record<number, number>>({});
+  const [reasons, setReasons] = useState<[string, string]>(["", ""]);
+  const [checked, setChecked] = useState(false);
+  const copy = {
+    RU: { instruction: "Выберите ЦНС или ПНС для каждой структуры, затем обоснуйте обе группы.", check: "Проверить распределение", complete: "Сначала распределите все структуры и заполните оба обоснования.", correct: "Распределение верное.", retry: "Есть ошибки в распределении. Исправьте выделенные строки и проверьте снова." },
+    EN: { instruction: "Assign each structure to the CNS or PNS, then justify both groups.", check: "Check classification", complete: "Classify every structure and complete both justifications first.", correct: "The classification is correct.", retry: "Some classifications are incorrect. Correct the marked rows and check again." },
+    KZ: { instruction: "Әр құрылымды ОЖЖ немесе ШЖЖ тобына бөліп, екі топты да негіздеңіз.", check: "Бөлуді тексеру", complete: "Алдымен барлық құрылымды бөліп, екі негіздемені де толтырыңыз.", correct: "Бөлу дұрыс.", retry: "Бөлуде қателер бар. Белгіленген жолдарды түзетіп, қайта тексеріңіз." },
+  }[language];
+  const allChosen = block.items.every((_, index) => choices[index] === 0 || choices[index] === 1);
+  const reasonsReady = reasons.every(isMeaningful);
+  const ready = allChosen && reasonsReady;
+  const allCorrect = block.items.every((item, index) => choices[index] === item.group);
+  function choose(index: number, group: number) { setChoices(old => ({ ...old, [index]: group })); setChecked(false); }
+  function reason(index: 0 | 1, value: string) { setReasons(old => index === 0 ? [value, old[1]] : [old[0], value]); setChecked(false); }
+  return <div className={styles.sequence}>
+    <p>{copy.instruction}</p>
+    <div className={styles.tableScroll} role="region" tabIndex={0}>
+      <table>
+        <thead><tr><th scope="col"></th>{block.groups.map(group => <th scope="col" key={group}>{group}</th>)}</tr></thead>
+        <tbody>{block.items.map((item, index) => {
+          const wrong = checked && choices[index] !== item.group;
+          return <tr key={item.label}>
+            <th scope="row">{item.label}{wrong ? " ✕" : ""}</th>
+            {block.groups.map((group, groupIndex) => <td key={group}>
+              <label><input type="radio" name={`classification-${item.label}`} checked={choices[index] === groupIndex} onChange={() => choose(index, groupIndex)} /> <span>{group}</span></label>
+            </td>)}
+          </tr>;
+        })}</tbody>
+      </table>
+    </div>
+    {([0, 1] as const).map(index => <VoiceTextarea key={block.groups[index]} language={language} label={block.reasonLabels[index]} value={reasons[index]} onValue={(value) => reason(index, value)} rows={3} placeholder={ui.input} />)}
+    <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={() => setChecked(true)}>{copy.check}</button></div>
+    {!ready && <p className={styles.note}>{copy.complete}</p>}
+    {checked && <p role="status" aria-live="polite" className={allCorrect ? styles.success : styles.retry}>{allCorrect ? copy.correct : copy.retry}</p>}
+    {checked && allCorrect && <Disclosure ui={ui}><ul>{block.answer.map(item => <li key={item}>{item}</li>)}</ul></Disclosure>}
+  </div>;
+}
+
 function Worksheet({ block, ui, language }: { block: Extract<PracticeBlock, { type: "table" }>; ui: UI; language: Language }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [checked, setChecked] = useState(false);
@@ -155,6 +195,7 @@ function Block({ block, ui, language, moduleId, responseValue = "", onResponse, 
     case "response": return <VoiceTextarea language={language} label={block.label} value={responseValue} onValue={onResponse} rows={4} placeholder={ui.input} />;
     case "sequence": return <Sequence steps={block.steps} ui={ui} />;
     case "table": return <Worksheet block={block} ui={ui} language={language} />;
+    case "classification": return <Classification block={block} ui={ui} language={language} />;
     case "checklist": return <div className={styles.checklist}>{block.items.map((item) => (
       <label key={item}><input type="checkbox" /> <span>{item}</span></label>
     ))}</div>;
