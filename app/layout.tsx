@@ -2,8 +2,8 @@ import { headers } from "next/headers";
 import DemoAuthGuard from "../components/DemoAuthGuard";
 
 export const metadata = {
-  title: "Neuro Course",
-  description: "Учебный проект на Next.js",
+  title: "Интерактивный учебник по нейрофизиологии",
+  description: "Интерактивный учебник по нейрофизиологии: теория, виртуальные лаборатории, клинические задачи, виртуальные пациенты и формирующее оценивание.",
 };
 
 export default async function RootLayout({
