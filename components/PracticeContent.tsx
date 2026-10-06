@@ -207,7 +207,7 @@ function Block({ block, ui, language, moduleId, responseValue = "", onResponse, 
   }
 }
 
-function PracticeSection({ section, ui, language, moduleId }: { section: PracticeLesson["sections"][number]; ui: UI; language: Language; moduleId: string }) {
+function PracticeSection({ section, ui, language, moduleId, index, total }: { section: PracticeLesson["sections"][number]; ui: UI; language: Language; moduleId: string; index: number; total: number }) {
   const [responses, setResponses] = useState<Record<number, string>>({});
   const [checked, setChecked] = useState(false);
   const responseIndexes = section.blocks.flatMap((block, index) => block.type === "response" ? [index] : []);
@@ -223,6 +223,7 @@ function PracticeSection({ section, ui, language, moduleId }: { section: Practic
       {!ready && <p className={styles.note}>{c.short}</p>}
       {checked && <p role="status" aria-live="polite" className={styles.success}>{c.ready}</p>}
     </>}
+    <div className={styles.taskProgress}><span>{language==="RU"?"Прогресс":language==="KZ"?"Прогресс":"Progress"}: <strong>{index + 1} / {total}</strong></span><progress value={index + 1} max={total} /></div>
     {checked && section.blocks.map((block, index) => block.type === "answer" ? <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} answersUnlocked /> : null)}
   </section>;
 }
@@ -233,7 +234,7 @@ export default function PracticeContent({ lesson, language, moduleId }: { lesson
     <article className={styles.practice}>
       <h1>{lesson.title}</h1>
       <p className={styles.note}>{lesson.ui.localNote}</p>
-      {lesson.sections.map((section) => <PracticeSection key={section.title} section={section} ui={ui} language={language} moduleId={moduleId} />)}
+      {lesson.sections.map((section, index) => <PracticeSection key={section.title} section={section} ui={ui} language={language} moduleId={moduleId} index={index} total={lesson.sections.length} />)}
     </article>
   );
 }
