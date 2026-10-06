@@ -49,7 +49,7 @@ export default function CasesContent({ lesson, language, moduleId }: { lesson: C
     setChecked(next);
     persist(completed, next);
     const results = Object.values(next);
-    if (results.length) recordOutcome(moduleId, "criterion:clinical", results.filter(Boolean).length, results.length);
+    if (results.length) recordOutcome(moduleId, "criterion:clinical:cases", results.filter(Boolean).length, results.length);
   }
 
   function mark(id: string, done: boolean) {
