@@ -102,6 +102,17 @@ export default async function ModulePage({
   }
 
   const t = ui[lang];
+  const stageCopy = {
+    RU: { orient:"1. Ориентир", learn:"2. Понимание", apply:"3. Применение", assess:"4. Контроль", support:"Дополнительно", path:"Рекомендуемый маршрут", pathHint:"Идите по этапам слева направо. Дополнительные разделы можно открывать в любой момент." },
+    KZ: { orient:"1. Бағдар", learn:"2. Түсіну", apply:"3. Қолдану", assess:"4. Бақылау", support:"Қосымша", path:"Ұсынылатын бағыт", pathHint:"Кезеңдер бойынша солдан оңға жүріңіз. Қосымша бөлімдерді кез келген уақытта ашуға болады." },
+    EN: { orient:"1. Orient", learn:"2. Understand", apply:"3. Apply", assess:"4. Assess", support:"Support", path:"Recommended path", pathHint:"Move through the stages from left to right. Support sections can be opened at any time." },
+  }[lang];
+  const stageFor = (slug: string) =>
+    ["objectives","pretest"].includes(slug) ? stageCopy.orient :
+    ["theory","one-minute","clinical","interactive"].includes(slug) ? stageCopy.learn :
+    ["practice","cases","virtual-patient"].includes(slug) ? stageCopy.apply :
+    ["tests","questions","progress"].includes(slug) ? stageCopy.assess :
+    stageCopy.support;
 
   return (
     <main
@@ -199,6 +210,27 @@ export default async function ModulePage({
         <PageVoiceTools key={`${id}/${lang}`} moduleId={moduleNumber} language={lang} contentId="top" />
 
         <ContinueLearning moduleId={moduleNumber} language={lang} />
+
+        <section
+          aria-label={stageCopy.path}
+          style={{
+            marginTop:"18px",
+            padding:"18px",
+            border:"1px solid #d6e3eb",
+            borderRadius:"16px",
+            background:"#ffffff",
+          }}
+        >
+          <h2 style={{margin:"0 0 6px",fontSize:"18px",color:"#064a73"}}>{stageCopy.path}</h2>
+          <p style={{margin:"0 0 14px",color:"#61798b",lineHeight:1.55}}>{stageCopy.pathHint}</p>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(150px,1fr))",gap:"10px"}}>
+            {[stageCopy.orient,stageCopy.learn,stageCopy.apply,stageCopy.assess].map((label,index)=>(
+              <div key={label} style={{padding:"12px 14px",borderRadius:"12px",background:"#f2f7fb",color:"#175d86",fontWeight:800}}>
+                <span aria-hidden="true">{["🎯","🧠","🧪","✅"][index]} </span>{label}
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* Титульный блок */}
 
@@ -354,15 +386,17 @@ export default async function ModulePage({
                   <div
                     style={{
                       marginBottom: "7px",
+                      display:"flex",
+                      alignItems:"center",
+                      gap:"8px",
+                      flexWrap:"wrap",
                       color: "#7790a4",
                       fontSize: "12px",
                       fontWeight: 800,
                     }}
                   >
-                    {String(index + 1).padStart(
-                      2,
-                      "0"
-                    )}
+                    <span>{String(index + 1).padStart(2,"0")}</span>
+                    <span style={{padding:"3px 7px",borderRadius:"999px",background:"#eef5f9",color:"#3b6d8a"}}>{stageFor(item.slug)}</span>
                   </div>
 
                   <h2
