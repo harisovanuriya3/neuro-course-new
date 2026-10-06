@@ -2,6 +2,7 @@
 import {useState} from "react";
 import type {Language} from "../content/course";
 import styles from "./NeuroPracticalStation.module.css";
+import ExperimentReflection from "./ExperimentReflection";
 
 type Station={title:Record<Language,string>;goal:Record<Language,string>;steps:Record<Language,string[]>;observe:Record<Language,string[]>;interpret:Record<Language,string[]>};
 const S:Record<number,Station>={
@@ -26,5 +27,6 @@ export default function NeuroPracticalStation({moduleId,language}:{moduleId:numb
    <article><h3>{language==="RU"?"Что наблюдаем":language==="KZ"?"Нені бақылаймыз":"What to observe"}</h3><ul>{s.observe[language].map(x=><li key={x}>{x}</li>)}</ul></article>
    <article><h3>{language==="RU"?"Физиологическая интерпретация":language==="KZ"?"Физиологиялық түсіндіру":"Physiological interpretation"}</h3><ul>{s.interpret[language].map(x=><li key={x}>{x}</li>)}</ul></article>
   </div>
+  {complete===5&&<ExperimentReflection language={language} theoryHref={`/modules/${moduleId}/theory?lang=${language}`} moduleId={moduleId}/>} 
  </section>
 }
