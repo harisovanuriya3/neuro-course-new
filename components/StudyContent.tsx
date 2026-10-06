@@ -51,14 +51,46 @@ function Pretest({ lesson, ...context }: Context & { lesson: PretestLesson }) {
     {!checked ? <><button className={shared.primary} data-action="check" disabled={selected === null} aria-describedby={selected===null?"pretest-choice-hint":undefined} onClick={() => { if (selected !== null) setAnswers(previous => [...previous, selected]); }}>{ui.check}</button>{selected===null&&<p id="pretest-choice-hint" className={shared.note}>{ui.chooseFirst}</p>}</> : <><div role="status" className={selected === question.correctAnswer ? shared.success : shared.retry}><strong>{selected === question.correctAnswer ? ui.correct : ui.incorrect}</strong><p>{question.explanation}</p></div><p><MaterialLink target={question.target} {...context} /></p><button data-action="next" onClick={() => { setIndex(index + 1); setSelected(null); }}>{index + 1 === lesson.questions.length ? ui.finish : ui.next}</button></>}
   </section>;
 }
-function ReviewQuestion({ question, index, total, ...context }: Context & { question: QuestionsLesson["questions"][number]; index: number; total: number }) {
+function ReviewQuestion({ question, index, total, onComplete, ...context }: Context & { question: QuestionsLesson["questions"][number]; index: number; total: number; onComplete: (done: boolean) => void }) {
   const ui = labels[context.language];
   const [answer, setAnswer] = useState("");
   const [checked, setChecked] = useState(false);
   const [open, setOpen] = useState(false);
   const meaningful = (answer.match(/[\p{L}\p{N}]/gu) ?? []).length >= 12;
-  return <section className={shared.card} id={question.id}><p><strong>{context.language==="RU"?"Прогресс":context.language==="KZ"?"Прогресс":"Progress"}: {index + 1} / {total}</strong></p><progress value={index + 1} max={total} aria-label="progress"/><h2>{question.prompt}</h2><VoiceTextarea language={context.language} label={ui.answer} id={`${question.id}-answer`} value={answer} rows={4} onValue={text => { setAnswer(text); setChecked(false); setOpen(false); }} /><p id={`${question.id}-hint`} className={shared.note}>{checked ? ui.attempt : ui.gate}</p>{!checked ? <button className={shared.primary} aria-describedby={`${question.id}-hint`} disabled={!meaningful} onClick={() => setChecked(true)}>{ui.check}</button> : <button aria-describedby={`${question.id}-hint`} aria-expanded={open} aria-controls={`${question.id}-explanation`} onClick={() => setOpen(!open)}>{open ? ui.hide : ui.show}</button>}<div id={`${question.id}-explanation`} hidden={!checked || !open} className={shared.answers}>{checked && open && <><h3>{ui.result}</h3><p>{question.explanation}</p><MaterialLink target={question.target} {...context} /></>}</div></section>;
+  return <section className={shared.card} id={question.id}><p><strong>{context.language==="RU"?"Вопрос":context.language==="KZ"?"Сұрақ":"Question"}: {index + 1} / {total}{checked ? (context.language==="RU"?" · выполнено":context.language==="KZ"?" · орындалды":" · completed") : ""}</strong></p><h2>{question.prompt}</h2><VoiceTextarea language={context.language} label={ui.answer} id={`${question.id}-answer`} value={answer} rows={4} onValue={text => { setAnswer(text); setChecked(false); setOpen(false); onComplete(false); }} /><p id={`${question.id}-hint`} className={shared.note}>{checked ? ui.attempt : ui.gate}</p>{!checked ? <button className={shared.primary} aria-describedby={`${question.id}-hint`} disabled={!meaningful} onClick={() => { setChecked(true); onComplete(true); }}>{ui.check}</button> : <button aria-describedby={`${question.id}-hint`} aria-expanded={open} aria-controls={`${question.id}-explanation`} onClick={() => setOpen(!open)}>{open ? ui.hide : ui.show}</button>}<div id={`${question.id}-explanation`} hidden={!checked || !open} className={shared.answers}>{checked && open && <><h3>{ui.result}</h3><p>{question.explanation}</p><MaterialLink target={question.target} {...context} /></>}</div></section>;
 }
+function ReviewQuestions({ lesson, ...context }: Context & { lesson: QuestionsLesson }) {
+  const [completed, setCompleted] = useState<Record<number, boolean>>({});
+  const storageKey = `neuro-course:questions:${context.moduleId}:${context.language}:v1`;
+  useEffect(() => {
+    try {
+      const raw = JSON.parse(localStorage.getItem(storageKey) || "{}");
+      if (!raw || typeof raw !== "object") return;
+      const restored: Record<number, boolean> = {};
+      for (const [key, value] of Object.entries(raw)) {
+        const index = Number(key);
+        if (Number.isInteger(index) && index >= 0 && index < lesson.questions.length && value === true) restored[index] = true;
+      }
+      setCompleted(restored);
+    } catch { /* Optional local storage */ }
+  }, [storageKey, lesson.questions.length]);
+  const done = Object.values(completed).filter(Boolean).length;
+  function mark(index: number, value: boolean) {
+    setCompleted(old => {
+      const next = { ...old, [index]: value };
+      const count = Object.values(next).filter(Boolean).length;
+      recordOutcome(Number(context.moduleId), "questions", count, lesson.questions.length);
+      try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch { /* Optional local storage */ }
+      return next;
+    });
+  }
+  const label = context.language==="RU"?"Выполнено контрольных вопросов":context.language==="KZ"?"Орындалған бақылау сұрақтары":"Review questions completed";
+  return <>
+    <div className={shared.taskProgress}><span>{label}: <strong>{done} / {lesson.questions.length}</strong></span><progress value={done} max={lesson.questions.length} aria-label={label}/></div>
+    {lesson.questions.map((question,index) => <ReviewQuestion key={question.id} question={question} index={index} total={lesson.questions.length} onComplete={(value)=>mark(index,value)} {...context} />)}
+  </>;
+}
+
 function Glossary({ lesson, ...context }: Context & { lesson: GlossaryLesson }) {
   const ui = labels[context.language];
   const [search, setSearch] = useState("");
@@ -70,7 +102,7 @@ export default function StudyContent({ lesson, ...context }: Context & { lesson:
   let content;
   switch (lesson.kind) {
     case "pretest": content = <Pretest lesson={lesson} {...context} />; break;
-    case "questions": content = lesson.questions.map((question,index) => <ReviewQuestion key={question.id} question={question} index={index} total={lesson.questions.length} {...context} />); break;
+    case "questions": content = <ReviewQuestions lesson={lesson} {...context} />; break;
     case "glossary": content = <Glossary lesson={lesson} {...context} />; break;
     case "objectives": case "one-minute": case "clinical": case "references": content = <Reading lesson={lesson} {...context} />; break;
     default: { const exhaustive: never = lesson; throw Error(`Unsupported study content: ${exhaustive}`); }
