@@ -121,51 +121,31 @@ export default function ReflexLab({ language }: { language: Language }) {
     <figure className={styles.anatomyPanel} data-running={running} data-stage={stage}>
       <h3>{c.anatomyTitle}</h3>
       <div className={styles.statusStrip}>{(["receptor","afferent","spinal","efferent"] as const).map((part,i) => <button type="button" key={part} disabled={running || stage>=0} aria-pressed={excluded.has(part)} onClick={()=>togglePart(part)} data-off={excluded.has(part)}><strong>{c.anatomy[[0,1,3,5][i]]}</strong><small>{excluded.has(part) ? "✕ " + c.disabled : "✓ " + c.enabled}</small></button>)}</div>
-      <div className={styles.realAnatomyScene}><Image src="/images/lab/reflex-background.webp" alt="" aria-hidden="true" fill sizes="100vw" className={styles.realSceneBg}/><div className={styles.realSpinalCord} aria-hidden="true"><span className={styles.grayMatter}/></div><div className={styles.skinInset} aria-hidden="true"/><svg viewBox="0 0 1100 430" className={styles.arcSvg} role="img" aria-label={c.anatomy.join(" → ")}>
-        <defs>
-          <marker id="reflexArrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="currentColor"/></marker>
-          <filter id="pulseGlow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        {/* skin and nociceptor */}
-        <path d="M20 245 Q90 215 175 242 L175 330 L20 330 Z" fill="#d9a17e" stroke="currentColor" strokeWidth="2"/>
-        <path d="M45 260 C75 235 100 295 130 255 M65 290 C85 260 115 315 150 278" fill="none" stroke="#8a4d38" strokeWidth="5"/>
-        <path d="M118 270 C130 250 145 250 155 230" fill="none" stroke="#d69b00" strokeWidth="6"/>
-        <text x="95" y="355" textAnchor="middle" fontSize="15">{c.anatomy[0]}</text>
-        {/* afferent nerve and DRG */}
-        <path d="M155 230 C245 170 315 160 390 185" fill="none" stroke="#2377b9" strokeWidth="13"/>
-        <ellipse cx="330" cy="173" rx="35" ry="23" fill="#c89b62" stroke="currentColor" strokeWidth="2"/>
-        <text x="275" y="125" textAnchor="middle" fontSize="15">{c.anatomy[1]}</text>
-        <text x="370" y="145" textAnchor="middle" fontSize="14">{c.anatomy[2]}</text>
-        {/* spinal cord anatomical cross-section */}
-        <ellipse cx="560" cy="215" rx="155" ry="175" fill="#eadcc8" stroke="currentColor" strokeWidth="4"/>
-        <path d="M510 95 C545 120 552 155 560 175 C568 155 575 120 610 95 C635 135 620 175 590 205 C625 240 635 285 605 320 C575 292 570 255 560 238 C550 255 545 292 515 320 C485 285 495 240 530 205 C500 175 485 135 510 95Z" fill="#9d948b" opacity=".85"/>
-        <path d="M390 185 C445 185 475 190 515 205" fill="none" stroke="#2377b9" strokeWidth="11"/>
-        <path d="M515 205 C535 215 545 225 558 240" fill="none" stroke="#35a853" strokeWidth="9"/>
-        <path d="M558 240 C590 260 620 275 690 280" fill="none" stroke="#d95135" strokeWidth="11"/>
-        <text x="480" y="62" fontSize="13">{c.anatomy[3]}</text>
-        <text x="585" y="345" fontSize="13">{c.anatomy[4]}</text>
-        {/* ventral root, peripheral motor nerve, flexor muscle */}
-        <path d="M690 280 C775 285 825 300 890 315" fill="none" stroke="#d95135" strokeWidth="13"/>
-        <text x="755" y="260" fontSize="13">{c.anatomy[5]}</text>
-        <path d="M890 285 C965 260 1040 285 1070 320 C1035 365 950 375 885 338 C870 322 873 300 890 285Z" fill="#b94f45" stroke="currentColor" strokeWidth="2"/>
-        <path d="M900 300 C950 285 1010 300 1050 325 M900 320 C955 305 1015 325 1045 345" fill="none" stroke="#f2b1a8" strokeWidth="5"/>
-        <text x="975" y="395" textAnchor="middle" fontSize="15">{c.anatomy[6]}</text>
-        {/* ascending collateral */}
-        <path d="M535 180 C535 125 600 80 680 70" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray="8 7" markerEnd="url(#reflexArrow)"/>
-        <foreignObject x="680" y="18" width="390" height="70"><div style={{fontSize:12,lineHeight:1.25,textAlign:"center",overflowWrap:"anywhere"}}>{c.ascending}</div></foreignObject>
-        {/* moving impulse follows anatomical route; no schematic circles */}
-        {stage>=0&&<circle r="9" fill={stage<3?"#36a7ff":"#ff6a35"} filter="url(#pulseGlow)">
-          <animateMotion dur={slow?"3s":"1.7s"} repeatCount={running?"indefinite":"1"} path={stage<2?"M155 230 C245 170 315 160 390 185 C445 185 475 190 515 205":stage<4?"M515 205 C535 215 545 225 558 240 C590 260 620 275 690 280":"M690 280 C775 285 825 300 890 315"}/>
-        </circle>}
-        {excluded.has("receptor")&&stage>=0&&<path d="M130 210 L165 250 M165 210 L130 250" stroke="#b00020" strokeWidth="9"/>}
-        {excluded.has("afferent")&&stage>=1&&<path d="M380 160 L410 210 M410 160 L380 210" stroke="#b00020" strokeWidth="9"/>}
-        {excluded.has("spinal")&&stage>=2&&<path d="M535 215 L580 265 M580 215 L535 265" stroke="#b00020" strokeWidth="9"/>}
-        {excluded.has("efferent")&&stage>=3&&<path d="M675 255 L705 305 M705 255 L675 305" stroke="#b00020" strokeWidth="9"/>}
-        {/* bright signal bands make conduction visible on phones */}
-        {stage>=0&&stage<=1&&<path className={styles.signalBand} d="M155 230 C245 170 315 160 390 185 C445 185 475 190 515 205"/>}
-        {stage>=2&&stage<=3&&<path className={styles.signalBandMotor} d="M515 205 C535 215 545 225 558 240 C590 260 620 275 690 280"/>}
-        {stage>=3&&<path className={styles.signalBandMotor} d="M690 280 C775 285 825 300 890 315"/>}
-      </svg></div>\n      <div className={styles.stageRail} aria-hidden="true">{c.stages.map((label,i)=><span key={label} data-active={stage===i} data-done={stage>i}>{i+1}</span>)}</div>
+      <div className={styles.realAnatomyScene} data-stage={stage} data-condition={condition}>
+        <Image src="/images/lab/reflex-background.webp" alt="" aria-hidden="true" fill sizes="(max-width:760px) 100vw, 900px" className={styles.realSceneBg}/>
+        <div className={styles.skinPhoto} aria-hidden="true"><span className={styles.receptorGlow}/></div>
+        <div className={styles.cordPhoto} aria-hidden="true"><span className={styles.grayMatter}/></div>
+        <div className={styles.musclePhoto} aria-hidden="true"/>
+        <svg viewBox="0 0 1000 650" className={styles.realOverlay} role="img" aria-label={c.anatomyTitle}>
+          <defs><filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <path className={styles.afferentBase} d="M155 360 C245 300 315 265 430 295 C470 300 490 315 505 335"/>
+          <path className={styles.interneuronBase} d="M505 335 C535 300 565 305 590 345"/>
+          <path className={styles.efferentBase} d="M590 345 C680 385 745 405 865 435"/>
+          {stage>=0&&!excluded.has("receptor")&&<path className={styles.afferentPulse} d="M155 360 C245 300 315 265 430 295 C470 300 490 315 505 335"/>}
+          {stage>=2&&!excluded.has("spinal")&&<path className={styles.interneuronPulse} d="M505 335 C535 300 565 305 590 345"/>}
+          {stage>=3&&!excluded.has("efferent")&&<path className={styles.efferentPulse} d="M590 345 C680 385 745 405 865 435"/>}
+          <path className={styles.ascBase} d="M535 310 C560 245 575 190 585 100"/>
+          <text x="82" y="410">{c.anatomy[0]}</text><text x="250" y="270">{c.anatomy[1]}</text>
+          <text x="430" y="265">{c.anatomy[2]}</text><text x="505" y="395">{c.anatomy[3]}</text>
+          <text x="610" y="390">{c.anatomy[4]}</text><text x="790" y="490">{c.anatomy[5]}</text>
+          {excluded.has("receptor")&&<g className={styles.lesion}><path d="M135 335l35 35M170 335l-35 35"/></g>}
+          {excluded.has("afferent")&&<g className={styles.lesion}><path d="M315 275l35 35M350 275l-35 35"/></g>}
+          {excluded.has("spinal")&&<g className={styles.lesion}><path d="M510 315l35 35M545 315l-35 35"/></g>}
+          {excluded.has("efferent")&&<g className={styles.lesion}><path d="M700 385l35 35M735 385l-35 35"/></g>}
+        </svg>
+        <div className={styles.withdrawHand} data-active={stage>=4&&condition==="intact"} aria-hidden="true"/>
+      </div>
+      <div className={styles.stageRail} aria-hidden="true">{c.stages.map((label,i)=><span key={label} data-active={stage===i} data-done={stage>i}>{i+1}</span>)}</div>
       <figcaption>{stage < 0 ? c.waiting : c.stages[Math.max(0,stage)]}</figcaption>
     </figure>
     {complete && <div className={styles.feedback}>
