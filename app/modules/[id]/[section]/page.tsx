@@ -235,7 +235,7 @@ export default async function SectionPage({
           ) : section === "progress" ? (
             <ModuleProgress language={lang} moduleId={moduleNumber} />
           ) : section === "voice" ? (
-            <VoiceContent language={lang} />
+            <VoiceContent language={lang} moduleId={moduleNumber} />
           ) : section === "notes" ? (
             <NotesContent language={lang} />
           ) : moduleNumber === 3 && section === "interactive" ? (
