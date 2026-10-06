@@ -9,6 +9,7 @@ EN:{st:["Which statement most accurately describes the physiological relationshi
 KZ:{st:["Осы тақырыптағы физиологиялық байланысты қай тұжырым ең дәл сипаттайды?","Физиологиялық қағидадан қай қорытынды дұрыс шығады?","Жүйенің бір буыны өзгергенде оны қалай түсіндіру керек?","Қай нұсқа механизмнің себеп-салдар логикасын дұрыс сақтайды?","Механизмді жаңа жағдайға көшіруде қай пайымдау дұрыс?","Қай тәсіл ерте клиникалық қорытындыдан сақтайды?","Қай тұжырым механизм мен бақыланатын нәтижені жақсы ажыратады?","Қай қорытынды физиологиялық түсіндіру шектеулерін ескереді?","Жүйе элементтері арасындағы болжамды байланысты қалай тексеру керек?","Қай нұсқа физиологиялық талдау бағытын дұрыс сипаттайды?"],pair:"Байланысты қарастырыңыз",first:"Алдымен екі элементтің физиологиялық рөлін анықтап, кейін себептік бағытты белгілеп, оны деректермен тексеру керек.",swap:"Алдымен элементтердің физиологиялық рөлдерін салыстырып, кейін оларды өзара алмастырылатын деп санап, әсер бағытын анықтамау.",abs:"Алдымен өзгерген буынды анықтап, кейін оның әсерін жүйенің бастапқы күйіне қарамастан тұрақты және бірдей деп санау.",dx:"Алдымен байқалған өзгерісті бөліп алып, кейін баламаларды тексермей оны қорытынды жасауға жеткілікті негіз деп санау.",ex:"Дұрыс жауап элементтер айырмасын, себептік бағытты және түсіндіру шектеулерін сақтайды."}
 };
 function rot<T>(a:T[],n:number){const k=n%a.length;return [...a.slice(k),...a.slice(0,k)]}
+function firstSentence(value:string){const match=value.trim().match(/^.*?[.!?](?:\s|$)/u);return (match?.[0]??value).trim()}
 function make(mid:number,title:string,n:number,prompt:string,correct:string,wrong:string[],explanation:string):ExamBankQuestion{const raw=rot([{k:"ok",text:correct},...wrong.map((text,i)=>({k:"w"+i,text}))],n);const options=raw.map((o,i)=>({id:"abcd"[i],text:o.text}));const writtenPrompt=prompt+" "+(mid===1?" Объясните причинную цепь от афферентного входа к центральной интеграции и ожидаемому функциональному результату.":"");return{id:"exam-m"+mid+"-q"+(n+1),moduleId:mid,moduleTitle:title,prompt,options,correctAnswer:options[raw.findIndex(o=>o.k==="ok")].id,explanation,writtenPrompt}}
 function firstModule(lang:Language){
  const title=modules[lang][0];
@@ -60,7 +61,15 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    topic.task[lang],
    topic.interpretation[lang]
   ];
+  const conciseMechanism=firstSentence(topic.mechanism[lang]);
+  const conciseInterpretation=firstSentence(topic.interpretation[lang]);
   const corrects=[
+   conciseMechanism,
+   conciseMechanism,
+   conciseInterpretation,
+   conciseInterpretation
+  ];
+  const explanations=[
    topic.mechanism[lang],
    topic.mechanism[lang],
    topic.interpretation[lang],
@@ -78,7 +87,7 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    const core=lang==="RU"?RU_CORE[topic.id]:undefined;
    const frame=s.st[Math.floor(n/4)%s.st.length];
    const framedPrompt=`${frame} ${prompts[mode]}`;
-   const q=core&&n===0?make(topic.id,title,n,core.p,core.c,[...core.w],core.e):make(topic.id,title,n,framedPrompt,corrects[mode],wrongSets[mode],corrects[mode]);
+   const q=core&&n===0?make(topic.id,title,n,core.p,core.c,[...core.w],core.e):make(topic.id,title,n,framedPrompt,corrects[mode],wrongSets[mode],explanations[mode]);
    const lead=lang==="RU"?"Объясните механизм в данной ситуации и укажите ожидаемый физиологический результат. ":lang==="EN"?"Explain the mechanism in this situation and state the expected physiological outcome. ":"Осы жағдайдағы механизмді түсіндіріп, күтілетін физиологиялық нәтижені көрсетіңіз. ";
    q.writtenPrompt=lead+q.prompt;
    bank.push(q);
