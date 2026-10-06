@@ -206,7 +206,7 @@ function Block({ block, ui, language, moduleId, responseValue = "", onResponse, 
     case "checklist": return <div className={styles.checklist}>{block.items.map((item) => (
       <label key={item}><input type="checkbox" /> <span>{item}</span></label>
     ))}</div>;
-    case "ai-audit": return <AIAuditPractice block={block} language={language} moduleId={moduleId} />;
+    case "ai-audit": return <AIAuditPractice block={block} language={language} moduleId={moduleId} onComplete={onComplete} />;
   }
 }
 
@@ -215,7 +215,7 @@ function PracticeSection({ section, ui, language, moduleId, index, total, onComp
   const [checked, setChecked] = useState(false);
   const [blockDone, setBlockDone] = useState<Record<number, boolean>>({});
   const responseIndexes = section.blocks.flatMap((block, index) => block.type === "response" ? [index] : []);
-  const interactiveIndexes = section.blocks.flatMap((block, index) => ["sequence","table","classification"].includes(block.type) ? [index] : []);
+  const interactiveIndexes = section.blocks.flatMap((block, index) => ["sequence","table","classification","ai-audit"].includes(block.type) ? [index] : []);
   const hasAnswers = section.blocks.some((block) => block.type === "answer");
   const ready = responseIndexes.length > 0 && responseIndexes.every((index) => isMeaningful(responses[index] ?? ""));
   const c = attemptCopy[language];
