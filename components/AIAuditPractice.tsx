@@ -40,7 +40,7 @@ export default function AIAuditPractice({ block, language, moduleId, onComplete 
     setResults(nextResults);
     setChecked(true);
     const attempted = Object.values(nextResults);
-    recordOutcome(Number(moduleId), "criterion:justification", attempted.filter(Boolean).length, attempted.length);
+    recordOutcome(Number(moduleId), "criterion:justification:ai-audit", attempted.filter(Boolean).length, attempted.length);
     onComplete?.(Object.keys(nextResults).length === block.cases.length);
   }
 
