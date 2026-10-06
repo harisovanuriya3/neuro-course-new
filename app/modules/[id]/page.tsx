@@ -422,12 +422,18 @@ export default async function ModulePage({
                   </p>
                   {moduleNumber > 1 && <p style={{ margin: '10px 0 0', fontSize: '13px', fontWeight: 700, color: '#486477' }}>
                     {getLesson(moduleNumber, item.slug, lang)
-                      ? ({ RU: 'Стартовые материалы добавлены', EN: 'Initial materials available', KZ: 'Бастапқы материалдар қосылды' }[lang])
+                      ? ({ RU: 'Материалы доступны', EN: 'Materials available', KZ: 'Материалдар қолжетімді' }[lang])
                       : item.slug === 'virtual-patient'
-                        ? ({ RU: 'Интерактивный пациент готов: сценарий, выбор пути, динамика обследования и комментарий преподавателя', EN: 'Interactive patient ready: scenario, pathway choice, examination dynamics, and teacher feedback', KZ: 'Интерактивті пациент дайын: сценарий, жолды таңдау, тексеру динамикасы және оқытушы пікірі' }[lang])
+                        ? ({ RU: 'Виртуальный пациент готов', EN: 'Virtual patient ready', KZ: 'Виртуалды пациент дайын' }[lang])
                         : item.slug === 'progress'
-                          ? ({ RU: 'Посещения и обзор курса', EN: 'Visits and course overview', KZ: 'Қаралымдар және курс шолуы' }[lang])
-                          : ({ RU: 'Содержание готовится', EN: 'Content in preparation', KZ: 'Мазмұны дайындалуда' }[lang])}
+                          ? ({ RU: 'Прогресс и профиль освоения готовы', EN: 'Progress and mastery profile ready', KZ: 'Прогресс пен меңгеру профилі дайын' }[lang])
+                          : item.slug === 'voice'
+                            ? ({ RU: 'Задание «Механизм своими словами» готово', EN: 'Explain-the-mechanism task ready', KZ: '«Механизмді өз сөзіңізбен» тапсырмасы дайын' }[lang])
+                            : item.slug === 'notes'
+                              ? ({ RU: 'Заметки и закладки доступны', EN: 'Notes and bookmarks available', KZ: 'Жазбалар мен бетбелгілер қолжетімді' }[lang])
+                              : item.slug === 'interactive' && moduleNumber >= 3
+                                ? ({ RU: 'Интерактивная лаборатория готова', EN: 'Interactive laboratory ready', KZ: 'Интерактивті зертхана дайын' }[lang])
+                                : ({ RU: 'Содержание готовится', EN: 'Content in preparation', KZ: 'Мазмұны дайындалуда' }[lang])}
                   </p>}
                 </div>
               </div>
