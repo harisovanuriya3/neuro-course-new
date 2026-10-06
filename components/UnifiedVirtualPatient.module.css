@@ -5,9 +5,9 @@
 .header p { margin: 8px 0 14px; color: #526b80; }
 .progressText, .stageCount { font-weight: 800; color: #004b87; white-space: nowrap; }
 .patient > progress { display: block; width: 100%; height: 12px; accent-color: #005b96; margin-bottom: 16px; }
-.stageNav { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 7px; margin-bottom: 18px; }
-.stageNav button { min-width: 0; min-height: 68px; padding: 9px 6px; border: 1px solid #c7d9e5; border-radius: 10px; background: #f7fbfe; color: inherit; font: inherit; font-size: .78rem; line-height: 1.25; overflow-wrap: anywhere; hyphens: auto; white-space: normal; cursor: pointer; }
-.stageNav button span { display: grid; place-items: center; width: 24px; height: 24px; margin: 0 auto 4px; border: 1px solid currentColor; border-radius: 50%; font-weight: 800; }
+.stageNav { display:grid; grid-template-columns:repeat(auto-fit,minmax(118px,1fr)); gap:8px; margin-bottom:18px; container-type:inline-size; }
+.stageNav button { min-width:0; width:100%; min-height:72px; padding:8px 7px; border:1px solid #c7d9e5; border-radius:10px; background:#f7fbfe; color:inherit; font:inherit; font-size:.78rem; line-height:1.18; display:grid; grid-template-rows:auto 1fr; align-items:center; justify-items:center; text-align:center; overflow:hidden; white-space:normal; overflow-wrap:break-word; word-break:normal; hyphens:auto; cursor:pointer; }
+.stageNav button span { display:grid; place-items:center; width:24px; height:24px; margin:0 auto 4px; border:1px solid currentColor; border-radius:50%; font-weight:800; flex:none; }
 .stageNav button:disabled { opacity: .52; cursor: not-allowed; }
 .stageNav .activeStage { border-color: #005b96; background: #e4f4ff; color: #004b87; font-weight: 800; }
 .desk { display: grid; grid-template-columns: minmax(210px,280px) minmax(340px,1fr) minmax(210px,270px); gap: 18px; align-items: start; }
@@ -72,6 +72,6 @@
 .mentorCard img { height: 210px; object-position: 43% 30%; }
 .reset { margin-top: 18px; background: white; color: #005b96; }
 @media (max-width: 900px) { .desk { grid-template-columns: minmax(250px,320px) 1fr; } .mentorCard { position: static; grid-column: 1/-1; display: grid; max-height: none; grid-template-columns: 220px 1fr; gap: 0 14px; } .mentorCard img { grid-row: 1/2; height: 190px; } .mentorDetails { max-height: 24rem; } }
-@media (max-width: 1024px) { .stageNav { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+@media (max-width: 1024px) { .stageNav { grid-template-columns:repeat(auto-fit,minmax(112px,1fr)); } }
 @media (max-width: 700px) { .header { display: block; } .desk { grid-template-columns: minmax(0,1fr); } .patientPortrait img { height: min(76vw,420px); } .mentorCard { grid-column: auto; display: block; max-height: none; padding-bottom: 0; } .mentorCard img { height: min(64vw,320px); object-position: 45% 25%; } .mentorDetails { display: block; max-height: none; } .mentorDetails summary { display: block; padding: 13px 15px; color: #004b87; font-weight: 800; cursor: pointer; } .mentorHeaderControls h2 { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } .mentorHeaderControls { padding-top: 8px; } .mentorText { max-height: 42vh; min-height: 0; padding: 0 15px; } .audioText { max-height: 38vh; } .workspace { padding: 14px; } }
-@media (max-width: 480px) { .stageNav { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 480px) { .stageNav { grid-template-columns:repeat(2,minmax(0,1fr)); } .stageNav button{font-size:.75rem;min-height:68px;padding:7px 5px;} }
