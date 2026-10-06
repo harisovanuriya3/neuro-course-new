@@ -165,3 +165,13 @@
  .photo{max-width:100%}
  .anatomyPanel{width:100%;max-width:100%;margin:16px 0;padding:10px;overflow:hidden}
 }
+
+/* Anatomical backdrop v5 */
+.atlasBackdrop{position:absolute;inset:0;overflow:hidden;pointer-events:none;background:linear-gradient(145deg,#6e5548,#c69b7c 48%,#7a594b);z-index:0}
+.atlasSkin{position:absolute;left:-4%;bottom:9%;width:72%;height:35%;border-radius:45% 55% 35% 50%;background:linear-gradient(180deg,#e4ad91,#b97863 58%,#8f594c);transform:rotate(5deg);box-shadow:inset 0 -18px 28px #633c3655}
+.atlasNerves{position:absolute;left:11%;top:34%;width:72%;height:26%;border-radius:50%;border-top:10px solid #d49b27;border-bottom:7px solid #e7b844;transform:rotate(-5deg);filter:drop-shadow(0 2px 2px #5e3c1d)}
+.atlasCord{position:absolute;left:43%;top:15%;width:28%;aspect-ratio:1;border-radius:48%;background:radial-gradient(ellipse at center,#655f5d 0 14%,#d9c2a8 15% 48%,#b98662 49% 65%,#664a3f 66% 72%,#c89b77 73%);box-shadow:0 10px 28px #0008,inset 0 0 16px #fff6}
+.atlasCord:after{content:"";position:absolute;inset:28%;background:#625c5a;clip-path:polygon(50% 34%,82% 3%,72% 43%,98% 62%,67% 61%,52% 96%,48% 96%,33% 61%,2% 62%,28% 43%,18% 3%)}
+.atlasMuscle{position:absolute;right:-2%;bottom:8%;width:40%;height:25%;border-radius:58% 20% 58% 22%;background:repeating-linear-gradient(168deg,#8d241f 0 7px,#d44b3c 8px 13px,#f07b61 14px 16px);transform:rotate(-7deg);box-shadow:0 8px 20px #0007}
+.reflexAtlas .atlasSvg{position:relative;z-index:2}.reflexAtlas .atlasHand{z-index:3}
+@media(max-width:760px){.atlasCord{left:38%;top:18%;width:38%}.atlasSkin{width:78%;bottom:12%}.atlasMuscle{width:46%;bottom:9%}.atlasNerves{left:8%;width:82%}}
