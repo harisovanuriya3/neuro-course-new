@@ -107,7 +107,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
     if (!ready || answered !== 6) return;
     const correct = progress.firstTryCorrect.filter(Boolean).length;
     recordOutcome(1, "virtual-patient", correct, 6);
-    recordOutcome(1, "criterion:clinical", correct, 6);
+    recordOutcome(1, "criterion:clinical:virtual-patient", correct, 6);
   }, [ready, answered, progress.firstTryCorrect]);
   const selected = progress.answers[stage];
   const firstIncomplete = progress.answers.findIndex(value => value === null);
