@@ -110,7 +110,7 @@ export default function ReflexLab({ language }: { language: Language }) {
       </div>
     </div>
     <figure style={{margin:"20px 0",padding:16,border:"1px solid #cfe0ea",borderRadius:16,overflowX:"auto"}}>
-      <svg viewBox="0 0 1100 430" style={{width:"100%",minWidth:760,height:"auto"}} role="img" aria-label={c.anatomy.join(" → ")}>
+      <svg viewBox="0 0 1100 430" className={styles.arcSvg} role="img" aria-label={c.anatomy.join(" → ")}>
         <defs>
           <marker id="reflexArrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="currentColor"/></marker>
           <filter id="pulseGlow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -131,17 +131,17 @@ export default function ReflexLab({ language }: { language: Language }) {
         <path d="M390 185 C445 185 475 190 515 205" fill="none" stroke="#2377b9" strokeWidth="11"/>
         <path d="M515 205 C535 215 545 225 558 240" fill="none" stroke="#35a853" strokeWidth="9"/>
         <path d="M558 240 C590 260 620 275 690 280" fill="none" stroke="#d95135" strokeWidth="11"/>
-        <text x="480" y="62" fontSize="14">{c.anatomy[3]}</text>
-        <text x="585" y="345" fontSize="14">{c.anatomy[4]}</text>
+        <text x="480" y="62" fontSize="13">{c.anatomy[3]}</text>
+        <text x="585" y="345" fontSize="13">{c.anatomy[4]}</text>
         {/* ventral root, peripheral motor nerve, flexor muscle */}
         <path d="M690 280 C775 285 825 300 890 315" fill="none" stroke="#d95135" strokeWidth="13"/>
-        <text x="755" y="260" fontSize="14">{c.anatomy[5]}</text>
+        <text x="755" y="260" fontSize="13">{c.anatomy[5]}</text>
         <path d="M890 285 C965 260 1040 285 1070 320 C1035 365 950 375 885 338 C870 322 873 300 890 285Z" fill="#b94f45" stroke="currentColor" strokeWidth="2"/>
         <path d="M900 300 C950 285 1010 300 1050 325 M900 320 C955 305 1015 325 1045 345" fill="none" stroke="#f2b1a8" strokeWidth="5"/>
         <text x="975" y="395" textAnchor="middle" fontSize="15">{c.anatomy[6]}</text>
         {/* ascending collateral */}
         <path d="M535 180 C535 125 600 80 680 70" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray="8 7" markerEnd="url(#reflexArrow)"/>
-        <text x="790" y="65" textAnchor="middle" fontSize="12">{c.ascending}</text>
+        <foreignObject x="680" y="18" width="390" height="70"><div xmlns="http://www.w3.org/1999/xhtml" style={{fontSize:12,lineHeight:1.25,textAlign:"center",overflowWrap:"anywhere"}}>{c.ascending}</div></foreignObject>
         {/* moving impulse follows anatomical route; no schematic circles */}
         {stage>=0&&<circle r="9" fill={stage<3?"#36a7ff":"#ff6a35"} filter="url(#pulseGlow)">
           <animateMotion dur="1.7s" repeatCount={running?"indefinite":"1"} path={stage<2?"M155 230 C245 170 315 160 390 185 C445 185 475 190 515 205":stage<4?"M515 205 C535 215 545 225 558 240 C590 260 620 275 690 280":"M690 280 C775 285 825 300 890 315"}/>
