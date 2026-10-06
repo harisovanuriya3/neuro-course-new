@@ -90,6 +90,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  const [finished,setFinished]=useState(false);
  const [warning,setWarning]=useState("");
  const [hydrated,setHydrated]=useState(false);
+ const [restored,setRestored]=useState(false);
  const storageKey=`neuro-course:exam:${lang}:v2`;
  const score=useMemo(()=>version?.reduce((n,q)=>n+(q.responseType!=="written"&&answers[q.id]===q.correctAnswer?1:0),0)??0,[version,answers]);
  const mcqCount=version?.filter(q=>q.responseType!=="written").length??0;
@@ -109,6 +110,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
        setAnswers(raw.answers&&typeof raw.answers==="object"?raw.answers:{});
        setWritten(raw.written&&typeof raw.written==="object"?raw.written:{});
        setFinished(raw.finished===true);
+       setRestored(true);
      }
    }catch{/* Optional local storage */}
    setHydrated(true);
@@ -129,7 +131,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  },[hydrated,version,finished]);
 
 
- const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,Math.min(10,pool.length)));setAnswers({});setWritten({});setFinished(false);setWarning("");window.scrollTo({top:0,behavior:"smooth"});};
+ const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,Math.min(10,pool.length)));setAnswers({});setWritten({});setFinished(false);setWarning("");setRestored(false);window.scrollTo({top:0,behavior:"smooth"});};
  if(!version) return <section style={{marginTop:24,border:"2px solid #86aac4",borderRadius:16,padding:22}}>
    <p><strong>{t.bank}: {bank.length} {t.items}.</strong></p><p>{t.format}</p>
    <label style={{display:"block",fontWeight:700,margin:"18px 0 8px"}}>{t.choose}</label>
@@ -174,7 +176,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
     </article>})}
  </section>;
  return <section style={{marginTop:24}}>
-   {hydrated&&<p role="status" style={{fontWeight:700,color:"#49697c"}}>{t.resume}</p>}
+   {hydrated&&restored&&<p role="status" style={{fontWeight:700,color:"#49697c"}}>{t.resume}</p>}
    <div style={{position:"sticky",top:0,zIndex:2,background:"white",border:"1px solid #ccd9e3",borderRadius:12,padding:12,marginBottom:18}}>
     <strong>{t.answered}: {version.filter(q=>q.responseType==="written"?Boolean(written[q.id]?.trim()):Boolean(answers[q.id])).length}/{version.length}</strong>
    </div>
