@@ -8,7 +8,7 @@ const lesson: PracticeLesson = {
     showAnswer: "Show answers and explanations", check: "Check sequence", reset: "Start again", undo: "Remove last step",
     correct: "Correct: the steps are in the right order.", incorrect: "The order is not yet correct. Review the direction of information flow and try again.",
     incomplete: "Arrange all steps first.", available: "Choose the next step", selected: "Your sequence", empty: "No steps selected yet.",
-    input: "Your answer", theory: "Open Module 1 theory", localNote: "Answers and check marks are for independent study. They are not saved after reloading the page or changing language.",
+    input: "Your answer", theory: "Open Module 1 theory", localNote: "Task completion is saved in this browser. Written responses may reset after reloading or changing language, so save important wording in a note.",
   },
   sections: [
     { title: "1. Aim of the Lesson", blocks: [
