@@ -226,7 +226,7 @@ export default async function SectionPage({
 
           <CourseVisitTracker moduleId={moduleNumber} section={section} />
           <PageVoiceTools key={`${id}/${section}/${lang}`} moduleId={moduleNumber} language={lang} contentId="module1-page-content" section={section} />
-          {section !== "notes" && <BookmarkCurrent section={section} language={lang} />}
+          {section !== "notes" && <BookmarkCurrent section={section} language={lang} moduleId={moduleNumber} />}
 
           <div id="module1-page-content">
           {moduleNumber === 1 && section === "virtual-patient" ? (
