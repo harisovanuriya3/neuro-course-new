@@ -24,7 +24,12 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const test=outcomes[`${moduleId}:tests`], cases=outcomes[`${moduleId}:cases`], practice=outcomes[`${moduleId}:practice`], questions=outcomes[`${moduleId}:questions`], patient=outcomes[`${moduleId}:virtual-patient`];
  const combined=(items:({correct:number;total:number}|undefined)[])=>{const x=items.filter(Boolean) as {correct:number;total:number}[];return {correct:x.reduce((a,b)=>a+b.correct,0),total:x.reduce((a,b)=>a+b.total,0)}};
  const tc=combined([test,cases]), tOnly=combined([test]), cOnly=combined([cases]);
- const criterion=(name:string)=>outcomes[`${moduleId}:criterion:${name}`];
+ const criterion=(name:string)=>{
+   const prefix=`${moduleId}:criterion:${name}`;
+   const values=Object.entries(outcomes).filter(([key])=>key===prefix||key.startsWith(prefix+":")).map(([,value])=>value);
+   if(!values.length)return undefined;
+   return {correct:values.reduce((sum,value)=>sum+value.correct,0),total:values.reduce((sum,value)=>sum+value.total,0)};
+ };
  const rows:[string,Level][]=[
   [c.concept,level(criterion("concept")?.correct??0,criterion("concept")?.total??0)],
   [c.mechanism,level(criterion("mechanism")?.correct??tc.correct,criterion("mechanism")?.total??tc.total)],
