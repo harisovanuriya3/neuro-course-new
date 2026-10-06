@@ -247,21 +247,16 @@
   .teacherVisual { height: 150px; }
 }
 
-.stageNav { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 6px; margin: 0 0 14px; }
+.stageNav { display:grid; grid-template-columns:repeat(auto-fit,minmax(118px,1fr)); gap:8px; margin:0 0 14px; }
 
-.stageNav button { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 5px; border: 1px solid #c7d9e5; border-radius: 10px; background: #f7fbfe; font-size: .78rem; }
+.stageNav button { min-width:0; width:100%; min-height:64px; display:grid; grid-template-columns:26px minmax(0,1fr); align-items:center; justify-items:start; gap:6px; padding:8px 7px; border:1px solid #c7d9e5; border-radius:10px; background:#f7fbfe; font-size:.78rem; line-height:1.15; text-align:left; white-space:normal; overflow:hidden; overflow-wrap:break-word; word-break:normal; }
 
-.stageNav button span { display: grid; place-items: center; width: 23px; height: 23px; border-radius: 50%; border: 1px solid currentColor; font-weight: 800; }
+.stageNav button span { display:grid; place-items:center; width:23px; height:23px; border-radius:50%; border:1px solid currentColor; font-weight:800; flex:none; }
 
 .stageNav .activeStage { background: #e4f4ff; border-color: #005b96; color: #004b87; font-weight: 800; }
 
-@media (max-width: 900px) {
-  .stageNav { grid-template-columns: repeat(3,1fr); }
-}
-
-@media (max-width: 520px) {
-  .stageNav { grid-template-columns: repeat(2,1fr); }
-}
+@media (max-width:900px){.stageNav{grid-template-columns:repeat(3,minmax(0,1fr));}.stageNav button{grid-template-columns:24px minmax(0,1fr);font-size:.76rem;}}
+@media (max-width:520px){.stageNav{grid-template-columns:repeat(2,minmax(0,1fr));}.stageNav button{min-height:58px;font-size:.74rem;padding:7px 6px;}}
 
 .teacherVisual img {
   width: 100%;
