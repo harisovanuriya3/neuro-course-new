@@ -2,7 +2,7 @@
 import {useEffect,useState} from "react";
 import Link from "next/link";
 import type {Language} from "../content/course";
-import {sectionOrder,getSectionTitle,type Section} from "../content/sections";
+import {getSectionTitle,type Section} from "../content/sections";
 import {readCourseProgress} from "../lib/courseProgress";
 
 const copy={
@@ -20,16 +20,17 @@ export default function ContinueLearning({moduleId,language}:{moduleId:number;la
  const[ready,setReady]=useState(false);
  const[next,setNext]=useState<Section>("objectives");
  const[visitedCount,setVisitedCount]=useState(0);
+ const[coreVisited,setCoreVisited]=useState(0);
  useEffect(()=>{
    const data=readCourseProgress();
    const visited=data.visitedSections[moduleId]??[];
    setVisitedCount(visited.length);
+   setCoreVisited(coreLearningOrder.filter(s=>visited.includes(s)).length);
    const candidate=coreLearningOrder.find(s=>!visited.includes(s)) ?? "progress";
    setNext(candidate);
    setReady(true);
  },[moduleId]);
  const c=copy[language];
- const coreVisited=coreLearningOrder.filter(s=>(readCourseProgress().visitedSections[moduleId]??[]).includes(s)).length;
  const corePercent=Math.round((coreVisited/coreLearningOrder.length)*100);
  return <section style={{marginTop:18,padding:"16px 18px",border:"1px solid #cfe0ea",borderRadius:14,background:"#f8fcff"}}>
    <div style={{display:"flex",justifyContent:"space-between",gap:12,alignItems:"center",flexWrap:"wrap",marginBottom:8}}>
