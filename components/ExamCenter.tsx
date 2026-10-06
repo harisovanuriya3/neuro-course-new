@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Language } from "../content/course";
 
 export type ExamQuestion = {
@@ -86,14 +86,39 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  const [written,setWritten]=useState<Record<string,string>>({});
  const [finished,setFinished]=useState(false);
  const [warning,setWarning]=useState("");
+ const [hydrated,setHydrated]=useState(false);
+ const storageKey=`neuro-course:exam:${lang}:v2`;
  const score=useMemo(()=>version?.reduce((n,q)=>n+(q.responseType!=="written"&&answers[q.id]===q.correctAnswer?1:0),0)??0,[version,answers]);
  const mcqCount=version?.filter(q=>q.responseType!=="written").length??0;
  const writtenGrades=useMemo(()=>Object.fromEntries((version??[]).filter(q=>q.responseType==="written").map(q=>[q.id,gradeWritten(q,written[q.id]??"")])),[version,written]);
  const writtenPoints=Object.values(writtenGrades).reduce((n,g)=>n+g.points,0);
- const percent=version?Math.min(100,score*10+writtenPoints):0;
+ const earnedPoints=score*10+writtenPoints;
+ const maxPoints=version?version.length*10:0;
+ const percent=maxPoints?Math.min(100,Math.round(earnedPoints/maxPoints*100)):0;
  const comment=lang==="RU"?(percent>=90?"Отличное владение материалом. Ошибки единичны.":percent>=75?"Хороший результат. Повторите блоки с ошибками.":percent>=60?"Базовый уровень достигнут, но есть темы для повторения.":"Необходимо повторить основные механизмы и причинно-следственные связи."):lang==="EN"?(percent>=90?"Excellent command of the material. Errors are isolated.":percent>=75?"Good result. Review the blocks with errors.":percent>=60?"Basic level achieved, but some topics need review.":"Review the core mechanisms and causal relationships."):percent>=90?"Материалды өте жақсы меңгерген. Қателер аз.":percent>=75?"Жақсы нәтиже. Қате жіберілген блоктарды қайталаңыз.":percent>=60?"Негізгі деңгейге жетті, бірақ кейбір тақырыптарды қайталау керек.":"Негізгі механизмдер мен себеп-салдар байланыстарын қайталау қажет.";
  const analysis=useMemo(()=>{if(!version)return [];const m=new Map<number,{title:string,total:number,earned:number}>();version.forEach(q=>{const x=m.get(q.moduleId)??{title:q.moduleTitle,total:0,earned:0};x.total+=10;if(q.responseType==="written"){x.earned+=writtenGrades[q.id]?.points??0;}else if(answers[q.id]===q.correctAnswer){x.earned+=10;}m.set(q.moduleId,x)});return [...m.entries()].map(([id,x])=>({id,...x,pct:Math.round(x.earned/x.total*100)})).sort((a,b)=>a.pct-b.pct);},[version,answers,writtenGrades]);
- const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,Math.min(10,pool.length)));setAnswers({});setWritten({});setFinished(false);setWarning("");};
+ useEffect(()=>{
+   try{
+     const raw=JSON.parse(localStorage.getItem(storageKey)||"null");
+     if(raw&&typeof raw==="object"&&Array.isArray(raw.version)){
+       setVersion(raw.version);
+       setSelectedModule(Number.isInteger(raw.selectedModule)?raw.selectedModule:0);
+       setAnswers(raw.answers&&typeof raw.answers==="object"?raw.answers:{});
+       setWritten(raw.written&&typeof raw.written==="object"?raw.written:{});
+       setFinished(raw.finished===true);
+     }
+   }catch{/* Optional local storage */}
+   setHydrated(true);
+ },[storageKey]);
+ useEffect(()=>{
+   if(!hydrated)return;
+   try{
+     if(!version)localStorage.removeItem(storageKey);
+     else localStorage.setItem(storageKey,JSON.stringify({version,selectedModule,answers,written,finished}));
+   }catch{/* Optional local storage */}
+ },[hydrated,storageKey,version,selectedModule,answers,written,finished]);
+
+ const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,Math.min(10,pool.length)));setAnswers({});setWritten({});setFinished(false);setWarning("");window.scrollTo({top:0,behavior:"smooth"});};
  if(!version) return <section style={{marginTop:24,border:"2px solid #86aac4",borderRadius:16,padding:22}}>
    <p><strong>{t.bank}: {bank.length} {t.items}.</strong></p><p>{t.format}</p>
    <label style={{display:"block",fontWeight:700,margin:"18px 0 8px"}}>{t.choose}</label>
