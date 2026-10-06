@@ -24,7 +24,7 @@ export default function VoiceContent({language,moduleId}:{language:Language;modu
  const missing=checks.filter(x=>!x.ok).map(x=>x.label);
  function evaluate(){
    setChecked(true);
-   if(answer.trim().length>=12) recordOutcome(moduleId,"criterion:mechanism",done,3);
+   if(answer.trim().length>=12) recordOutcome(moduleId,"criterion:mechanism:self-explanation",done,3);
  }
  return <article className={styles.tool}>
    <h1>{c.title}</h1>
