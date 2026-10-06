@@ -49,7 +49,7 @@ const ui={RU:{heading:"Прогноз → эксперимент → объяс�
 export default function GuidedLabFrame({moduleId,language,children}:{moduleId:keyof typeof prompts;language:Language;children:ReactNode}){
   const t=ui[language];
   const [prediction,setPrediction]=useState("");
-  const [started,setStarted]=useState(false);
+  const [started,setStarted]=useState(moduleId===21);
   const ready=prediction.trim().length>=12;
   return <div className={styles.frame} data-testid={`guided-lab-${moduleId}`}>
     <section className={styles.predict}>
