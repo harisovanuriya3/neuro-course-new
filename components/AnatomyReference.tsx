@@ -8,6 +8,17 @@ type AnatomyRef = {
 };
 
 const refs: Record<number, AnatomyRef> = {
+  2: {
+    file: "EEG.png",
+    page: "https://commons.wikimedia.org/wiki/File:EEG.png",
+    credit: "Alexhvl15 / Wikimedia Commons — CC BY-SA 4.0",
+    alt: {
+      RU: "Реальная фотография проведения ЭЭГ у добровольца с электродами на голове",
+      EN: "Real photograph of an EEG recording in a volunteer with scalp electrodes",
+      KZ: "Бас терісіне электродтар қойылған еріктіде ЭЭГ тіркеуінің нақты фотосы",
+    },
+  },
+
   4: {
     file: "Patch_rig.png",
     page: "https://commons.wikimedia.org/wiki/File:Patch_rig.png",
