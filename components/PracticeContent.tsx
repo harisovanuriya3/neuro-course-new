@@ -174,7 +174,7 @@ function Worksheet({ block, ui, language }: { block: Extract<PracticeBlock, { ty
           </tbody>
         </table>
       </div>
-      <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={checkSection}>{c.check}</button></div>
+      <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={() => setChecked(true)}>{c.check}</button></div>
       {!ready && <p className={styles.note}>{c.short}</p>}
       {checked && <p role="status" aria-live="polite" className={styles.success}>{c.ready}</p>}
       {checked && <Disclosure ui={ui}>
@@ -221,7 +221,7 @@ function PracticeSection({ section, ui, language, moduleId, index, total, onComp
     <h2>{section.title}</h2>
     {section.blocks.map((block, index) => block.type === "answer" ? null : <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} responseValue={responses[index] ?? ""} onResponse={(value) => update(index, value)} answersUnlocked={checked} />)}
     {hasAnswers && responseIndexes.length > 0 && <>
-      <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={() => setChecked(true)}>{c.check}</button></div>
+      <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={checkSection}>{c.check}</button></div>
       {!ready && <p className={styles.note}>{c.short}</p>}
       {checked && <p role="status" aria-live="polite" className={styles.success}>{c.ready}</p>}
     </>}
