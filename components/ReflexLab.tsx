@@ -123,40 +123,27 @@ export default function ReflexLab({ language }: { language: Language }) {
     <figure className={styles.anatomyPanel} data-running={running} data-stage={stage}>
       <h3>{c.anatomyTitle}</h3>
       <div className={styles.statusStrip}>{(["receptor","afferent","spinal","efferent"] as const).map((part,i) => <button type="button" key={part} disabled={running || stage>=0} aria-pressed={excluded.has(part)} onClick={()=>togglePart(part)} data-off={excluded.has(part)}><span className={styles.segmentIcon} data-part={part}>{part==="receptor"?"◉":part==="afferent"?"⚡":part==="spinal"?"🧠":"▰"}</span><strong>{[language==="RU"?"Рецептор (кожа)":language==="KZ"?"Рецептор (тері)":"Receptor (skin)",language==="RU"?"Афферентный нейрон":language==="KZ"?"Афференттік нейрон":"Afferent neuron",language==="RU"?"Спинальный центр":language==="KZ"?"Жұлын орталығы":"Spinal center",language==="RU"?"Эфферентный нейрон / мышца":language==="KZ"?"Эфференттік нейрон / бұлшықет":"Efferent neuron / muscle"][i]}</strong><small><i className={styles.toggleDot}/>{excluded.has(part) ? c.disabled : c.enabled}</small></button>)}</div>
-      <div className={styles.reflexAtlas} data-withdraw={stage>=4&&condition==="intact"}><div className={styles.atlasBackdrop} aria-hidden="true"><span className={styles.atlasSkin}/><span className={styles.atlasNerves}/><span className={styles.atlasCord}/><span className={styles.atlasMuscle}/></div>
-        <svg viewBox="0 0 1000 720" className={styles.atlasSvg} role="img" aria-label={c.anatomyTitle}>
-          <defs>
-            <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#f3c2a7"/><stop offset="1" stopColor="#a96858"/></linearGradient>
-            <radialGradient id="cord"><stop stopColor="#7a6c69"/><stop offset=".34" stopColor="#ead5bd"/><stop offset=".78" stopColor="#c18d69"/><stop offset="1" stopColor="#674a40"/></radialGradient>
-            <filter id="signalGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-          <path className={styles.armAnatomy} d="M30 445 C145 380 245 385 365 425 C475 462 565 500 705 505 C825 510 900 475 970 430 L990 560 C890 610 780 620 655 600 C515 578 405 525 300 500 C190 474 105 495 35 540 Z"/>
-          <path className={styles.flexor} d="M650 500 C735 455 840 455 930 485 C870 535 760 555 665 535 Z"/>
-          <path className={styles.extensor} d="M650 565 C760 548 850 550 930 575 C850 608 745 610 655 590 Z"/>
-          <ellipse className={styles.cordOuter} cx="520" cy="275" rx="142" ry="128"/>
-          <path className={styles.grayButterfly} d="M520 244 C480 195 445 185 432 215 C423 242 458 260 476 276 C450 294 426 322 444 344 C468 368 500 328 520 306 C540 328 572 368 596 344 C614 322 590 294 564 276 C582 260 617 242 608 215 C595 185 560 195 520 244 Z"/>
-          <path className={styles.dorsalRoot} d="M300 410 C365 350 408 315 455 296"/>
-          <ellipse className={styles.drg} cx="378" cy="344" rx="35" ry="22"/>
-          <path className={styles.afferentBase} d="M110 430 C205 395 260 398 300 410 C365 350 408 315 455 296"/>
-          <path className={styles.interneuronBase} d="M455 296 C486 273 505 265 526 282 C548 300 555 326 575 346"/>
-          <path className={styles.efferentBase} d="M575 346 C620 392 628 440 660 505 C720 520 805 520 890 505"/>
-          <path className={styles.inhibitoryBase} d="M525 304 C548 350 570 388 600 414 C640 452 690 548 770 570"/>
-          <path className={styles.ascBase} d="M486 260 C470 205 466 145 480 80"/>
-          {stage>=0&&!excluded.has("receptor")&&!excluded.has("afferent")&&<path className={styles.afferentPulse} d="M110 430 C205 395 260 398 300 410 C365 350 408 315 455 296"/>}
-          {stage>=2&&!excluded.has("receptor")&&!excluded.has("afferent")&&!excluded.has("spinal")&&<path className={styles.interneuronPulse} d="M455 296 C486 273 505 265 526 282 C548 300 555 326 575 346"/>}
-          {stage>=3&&!excluded.has("receptor")&&!excluded.has("afferent")&&!excluded.has("spinal")&&!excluded.has("efferent")&&<path className={styles.efferentPulse} d="M575 346 C620 392 628 440 660 505 C720 520 805 520 890 505"/>}
-          <g className={styles.nociceptor}><circle cx="110" cy="430" r="22"/><path d="M110 430l-22-35m22 35l20-38m-20 38l-38-8"/></g>
-          <g className={styles.motorCell}><circle cx="575" cy="346" r="18"/><path d="M575 328l-20-30m30 34l25-28m-18 46l34 10"/></g>
-          {excluded.has("receptor")&&<g className={styles.lesion}><path d="M85 405l50 50M135 405l-50 50"/></g>}
-          {excluded.has("afferent")&&<g className={styles.lesion}><path d="M280 385l45 45M325 385l-45 45"/></g>}
-          {excluded.has("spinal")&&<g className={styles.lesion}><path d="M500 270l48 48M548 270l-48 48"/></g>}
-          {excluded.has("efferent")&&<g className={styles.lesion}><path d="M655 470l48 48M703 470l-48 48"/></g>}
-          <text x="35" y="390">{c.anatomy[0]}</text><text x="180" y="365">{c.anatomy[1]}</text><text x="315" y="315">{c.anatomy[2]}</text>
-          <text x="405" y="125">{c.ascending}</text><text x="430" y="455">{c.anatomy[3]}</text><text x="570" y="315">{c.anatomy[4]}</text>
-          <text x="625" y="445">{c.anatomy[5]}</text><text x="755" y="480">{c.anatomy[6]}</text>
-          <text className={styles.inhibitionLabel} x="690" y="610">{language==="RU"?"Торможение разгибателя":language==="KZ"?"Жазғышты тежеу":"Extensor inhibition"}</text>
-        </svg>
-        <div className={styles.atlasHand} aria-hidden="true"><span/><span/><span/><span/><span/></div>
+      <div className={styles.reflexAtlas} data-withdraw={stage>=4&&condition==="intact"}>
+        <div className={styles.reflexPhotoScene} aria-label={c.anatomyTitle}>
+          <div className={styles.reflexPhotoOverlay}/>
+          <div className={styles.photoSpinal}><span/></div>
+          <div className={styles.photoHand} aria-hidden="true"><i/><i/><i/><i/><i/></div>
+          <div className={styles.stimulusPoint}/>
+          <svg viewBox="0 0 1000 560" className={styles.photoSignals} aria-hidden="true">
+            <defs><filter id="photoGlow"><feGaussianBlur stdDeviation="5" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+            <path className={styles.photoAfferent} d="M170 365 C300 330 405 335 505 270 C585 218 635 190 700 210"/>
+            <path className={styles.photoInterneuron} d="M700 210 C730 235 742 275 730 315"/>
+            <path className={styles.photoEfferent} d="M730 315 C680 365 630 410 545 435 C445 462 350 448 270 420"/>
+            {stage>=0&&!excluded.has("receptor")&&!excluded.has("afferent")&&<path className={styles.photoPulseBlue} d="M170 365 C300 330 405 335 505 270 C585 218 635 190 700 210"/>}
+            {stage>=2&&!excluded.has("spinal")&&<path className={styles.photoPulsePurple} d="M700 210 C730 235 742 275 730 315"/>}
+            {stage>=3&&!excluded.has("efferent")&&<path className={styles.photoPulseOrange} d="M730 315 C680 365 630 410 545 435 C445 462 350 448 270 420"/>}
+          </svg>
+          <div className={styles.sceneCallout} data-callout="stimulus"><b>1</b><span>{language==="RU"?"Болевой стимул → рецептор":language==="KZ"?"Ауырсыну стимулы → рецептор":"Painful stimulus → receptor"}</span></div>
+          <div className={styles.sceneCallout} data-callout="afferent"><b>2</b><span>{language==="RU"?"Афферентный путь":language==="KZ"?"Афференттік жол":"Afferent pathway"}</span></div>
+          <div className={styles.sceneCallout} data-callout="center"><b>3</b><span>{language==="RU"?"Спинальный центр":language==="KZ"?"Жұлын орталығы":"Spinal center"}</span></div>
+          <div className={styles.sceneCallout} data-callout="motor"><b>4</b><span>{language==="RU"?"Эфферентный путь":language==="KZ"?"Эфференттік жол":"Efferent pathway"}</span></div>
+          <div className={styles.sceneCallout} data-callout="response"><b>6</b><span>{language==="RU"?"Сокращение сгибателя → отдёргивание":language==="KZ"?"Бүккіш жиырылады → қол тартылады":"Flexor contracts → withdrawal"}</span></div>
+        </div>
       </div>
       <div className={styles.stageRail} aria-hidden="true">{[language==="RU"?"Стимул (укол)":language==="KZ"?"Стимул":"Stimulus",language==="RU"?"Рецептор":language==="KZ"?"Рецептор":"Receptor",language==="RU"?"Афферентный нейрон":language==="KZ"?"Афференттік нейрон":"Afferent neuron",language==="RU"?"Спинальный центр":language==="KZ"?"Жұлын орталығы":"Spinal center",language==="RU"?"Эфферентный нейрон":language==="KZ"?"Эфференттік нейрон":"Efferent neuron",language==="RU"?"Ответ (движение)":language==="KZ"?"Жауап (қозғалыс)":"Response (movement)"].map((label,i)=><span key={label} data-active={(stage+1)===i} data-done={(stage+1)>i}><b>{i+1}</b><small>{label}</small></span>)}</div>
       <figcaption>{stage < 0 ? c.waiting : c.stages[Math.max(0,stage)]}</figcaption>
