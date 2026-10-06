@@ -8,6 +8,28 @@ type AnatomyRef = {
 };
 
 const refs: Record<number, AnatomyRef> = {
+  4: {
+    file: "Patch_rig.png",
+    page: "https://commons.wikimedia.org/wiki/File:Patch_rig.png",
+    credit: "Peter Duncan / Wikimedia Commons — CC BY-SA 4.0",
+    alt: {
+      RU: "Реальная фотография установки patch-clamp для электрофизиологической регистрации мембранных токов",
+      EN: "Real photograph of a patch-clamp rig used for electrophysiological recording of membrane currents",
+      KZ: "Мембраналық токтарды электрофизиологиялық тіркеуге арналған patch-clamp қондырғысының нақты фотосы",
+    },
+  },
+
+  11: {
+    file: "Marker.und.EMG.jpg",
+    page: "https://commons.wikimedia.org/wiki/File:Marker.und.EMG.jpg",
+    credit: "Jakarandatree / Wikimedia Commons — CC0",
+    alt: {
+      RU: "Реальная фотография поверхностных ЭМГ-электродов и предусилителей на конечности",
+      EN: "Real photograph of surface EMG electrodes and preamplifiers placed on a limb",
+      KZ: "Аяқ-қолға орналастырылған беткей ЭМГ электродтары мен алдын ала күшейткіштердің нақты фотосы",
+    },
+  },
+
   5: {
     file: "Electron_micrograph_of_neuromuscular_junction_(cross-section).jpg",
     page: "https://commons.wikimedia.org/wiki/File:Electron_micrograph_of_neuromuscular_junction_(cross-section).jpg",
