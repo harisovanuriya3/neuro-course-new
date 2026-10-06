@@ -109,17 +109,47 @@ export default function ReflexLab({ language }: { language: Language }) {
         </div>
       </div>
     </div>
-    <figure style={{margin:"20px 0",padding:16,border:"1px solid #cfe0ea",borderRadius:16}}>
-      <svg viewBox="0 0 900 260" style={{width:"100%",height:"auto"}} role="img" aria-label={c.anatomy.join(" → ")}>
-        <defs><marker id="reflexArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
-        {c.anatomy.map((label,i)=>{const x=60+i*125; const active=stage>=Math.min(i,4); const blocked=(condition==="afferent"&&i>=2)||(condition==="efferent"&&i>=5); return <g key={label} opacity={blocked&&complete?.35:1}>
-          {i<c.anatomy.length-1&&<line x1={x+34} y1="95" x2={x+91} y2="95" stroke="currentColor" strokeWidth={active?6:2} markerEnd="url(#reflexArrow)"/>}
-          <circle cx={x} cy="95" r={active?25:20} fill="white" stroke="currentColor" strokeWidth={active?5:2}/>
-          <text x={x} y="145" textAnchor="middle" fontSize="13">{label}</text>
-        </g>})}
-        <path d="M435 70 C470 15 560 15 610 45" fill="none" stroke="currentColor" strokeWidth={stage>=2?4:2} strokeDasharray="7 6" markerEnd="url(#reflexArrow)"/>
-        <text x="650" y="28" textAnchor="middle" fontSize="12">{c.ascending}</text>
+    <figure style={{margin:"20px 0",padding:16,border:"1px solid #cfe0ea",borderRadius:16,overflowX:"auto"}}>
+      <svg viewBox="0 0 1100 430" style={{width:"100%",minWidth:760,height:"auto"}} role="img" aria-label={c.anatomy.join(" → ")}>
+        <defs>
+          <marker id="reflexArrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="currentColor"/></marker>
+          <filter id="pulseGlow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        {/* skin and nociceptor */}
+        <path d="M20 245 Q90 215 175 242 L175 330 L20 330 Z" fill="#d9a17e" stroke="currentColor" strokeWidth="2"/>
+        <path d="M45 260 C75 235 100 295 130 255 M65 290 C85 260 115 315 150 278" fill="none" stroke="#8a4d38" strokeWidth="5"/>
+        <path d="M118 270 C130 250 145 250 155 230" fill="none" stroke="#d69b00" strokeWidth="6"/>
+        <text x="95" y="355" textAnchor="middle" fontSize="15">{c.anatomy[0]}</text>
+        {/* afferent nerve and DRG */}
+        <path d="M155 230 C245 170 315 160 390 185" fill="none" stroke="#2377b9" strokeWidth="13"/>
+        <ellipse cx="330" cy="173" rx="35" ry="23" fill="#c89b62" stroke="currentColor" strokeWidth="2"/>
+        <text x="275" y="125" textAnchor="middle" fontSize="15">{c.anatomy[1]}</text>
+        <text x="370" y="145" textAnchor="middle" fontSize="14">{c.anatomy[2]}</text>
+        {/* spinal cord anatomical cross-section */}
+        <ellipse cx="560" cy="215" rx="155" ry="175" fill="#eadcc8" stroke="currentColor" strokeWidth="4"/>
+        <path d="M510 95 C545 120 552 155 560 175 C568 155 575 120 610 95 C635 135 620 175 590 205 C625 240 635 285 605 320 C575 292 570 255 560 238 C550 255 545 292 515 320 C485 285 495 240 530 205 C500 175 485 135 510 95Z" fill="#9d948b" opacity=".85"/>
+        <path d="M390 185 C445 185 475 190 515 205" fill="none" stroke="#2377b9" strokeWidth="11"/>
+        <path d="M515 205 C535 215 545 225 558 240" fill="none" stroke="#35a853" strokeWidth="9"/>
+        <path d="M558 240 C590 260 620 275 690 280" fill="none" stroke="#d95135" strokeWidth="11"/>
+        <text x="480" y="62" fontSize="14">{c.anatomy[3]}</text>
+        <text x="585" y="345" fontSize="14">{c.anatomy[4]}</text>
+        {/* ventral root, peripheral motor nerve, flexor muscle */}
+        <path d="M690 280 C775 285 825 300 890 315" fill="none" stroke="#d95135" strokeWidth="13"/>
+        <text x="755" y="260" fontSize="14">{c.anatomy[5]}</text>
+        <path d="M890 285 C965 260 1040 285 1070 320 C1035 365 950 375 885 338 C870 322 873 300 890 285Z" fill="#b94f45" stroke="currentColor" strokeWidth="2"/>
+        <path d="M900 300 C950 285 1010 300 1050 325 M900 320 C955 305 1015 325 1045 345" fill="none" stroke="#f2b1a8" strokeWidth="5"/>
+        <text x="975" y="395" textAnchor="middle" fontSize="15">{c.anatomy[6]}</text>
+        {/* ascending collateral */}
+        <path d="M535 180 C535 125 600 80 680 70" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray="8 7" markerEnd="url(#reflexArrow)"/>
+        <text x="790" y="65" textAnchor="middle" fontSize="12">{c.ascending}</text>
+        {/* moving impulse follows anatomical route; no schematic circles */}
+        {stage>=0&&<circle r="9" fill={stage<3?"#36a7ff":"#ff6a35"} filter="url(#pulseGlow)">
+          <animateMotion dur="1.7s" repeatCount={running?"indefinite":"1"} path={stage<2?"M155 230 C245 170 315 160 390 185 C445 185 475 190 515 205":stage<4?"M515 205 C535 215 545 225 558 240 C590 260 620 275 690 280":"M690 280 C775 285 825 300 890 315"}/>
+        </circle>}
+        {condition==="afferent"&&stage>=1&&<path d="M380 160 L410 210 M410 160 L380 210" stroke="#b00020" strokeWidth="9"/>}
+        {condition==="efferent"&&stage>=3&&<path d="M675 255 L705 305 M705 255 L675 305" stroke="#b00020" strokeWidth="9"/>}
       </svg>
+      <figcaption>{c.stages[Math.max(0,stage)]}</figcaption>
     </figure>
     {complete && <div className={styles.feedback}>
       <h3>{prediction === (condition === "intact" ? "moves" : "still") ? c.correct : c.incorrect}</h3>
