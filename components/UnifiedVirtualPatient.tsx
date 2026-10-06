@@ -7,11 +7,18 @@ import { getVirtualPatientScenario } from "../content/virtual-patients";
 import VoiceTextarea from "./VoiceTextarea";
 import VirtualPatientVisual from "./VirtualPatientVisual";
 import styles from "./UnifiedVirtualPatient.module.css";
+import { recordOutcome } from "../lib/courseProgress";
 
 const interfaceCopy = {
   RU: { stage: "Этап", case: "Пациент / учебный случай", situation: "Ситуация", newData: "Новые данные", task: "Задача студента", why: "Почему это происходит", answer: "Ваше обоснование", placeholder: "Запишите наблюдение или ход рассуждения…", patient: "Результат / реакция", mentor: "Клинический наставник", feedback: "Комментарий наставника", next: "Следующий этап", previous: "Предыдущий этап", reset: "Начать случай заново", listen: "Слушать", stop: "Остановить", restartAudio: "Сначала", choose: "Варианты решения", correct: "Выбор согласуется с задачей.", revise: "Сопоставьте выбор с задачей и данными случая.", locked: "Сначала завершите предыдущий этап.", final: "Итоговое объяснение механизма", saved: "Ответы сохраняются при переходе между этапами.", history: "Последствие предыдущего решения", completed: "Случай завершён: все 6 решений и обоснований сохранены.", reasoningRequired: "Перед переходом кратко обоснуйте своё решение.", stagesLocked: "Этапы открываются по порядку. Завершите текущий этап, чтобы открыть следующий." },
   EN: { stage: "Stage", case: "Patient / teaching case", situation: "Situation", newData: "New data", task: "Student task", why: "Why this happens", answer: "Your reasoning", placeholder: "Record your observation or reasoning…", patient: "Result / response", mentor: "Clinical mentor", feedback: "Mentor comment", next: "Next stage", previous: "Previous stage", reset: "Restart case", listen: "Listen", stop: "Stop", restartAudio: "Restart", choose: "Decision options", correct: "The choice fits the task.", revise: "Compare the choice with the task and case data.", locked: "Complete the previous stage first.", final: "Final mechanism explanation", saved: "Answers are retained while moving between stages.", history: "Consequence of the previous decision", completed: "Case complete: all 6 decisions and rationales are saved.", reasoningRequired: "Before continuing, briefly justify your decision.", stagesLocked: "Stages open in order. Complete the current stage to unlock the next one." },
   KZ: { stage: "Кезең", case: "Пациент / оқу жағдайы", situation: "Жағдай", newData: "Жаңа деректер", task: "Студент тапсырмасы", why: "Бұл неліктен болады", answer: "Сіздің негіздемеңіз", placeholder: "Бақылауыңызды немесе ойлау жолын жазыңыз…", patient: "Нәтиже / реакция", mentor: "Клиникалық тәлімгер", feedback: "Тәлімгер пікірі", next: "Келесі кезең", previous: "Алдыңғы кезең", reset: "Жағдайды қайта бастау", listen: "Тыңдау", stop: "Тоқтату", restartAudio: "Басынан", choose: "Шешім нұсқалары", correct: "Таңдау тапсырмаға сәйкес келеді.", revise: "Таңдауды тапсырма және жағдай деректерімен салыстырыңыз.", locked: "Алдымен алдыңғы кезеңді аяқтаңыз.", final: "Механизмнің қорытынды түсіндірмесі", saved: "Кезеңдер арасында өткенде жауаптар сақталады.", history: "Алдыңғы шешімнің салдары", completed: "Жағдай аяқталды: 6 шешім мен негіздеменің барлығы сақталды.", reasoningRequired: "Келесі кезеңге өтпес бұрын шешіміңізді қысқаша негіздеңіз.", stagesLocked: "Кезеңдер ретімен ашылады. Келесі кезеңді ашу үшін ағымдағы кезеңді аяқтаңыз." },
+} as const;
+
+const decisionCopy = {
+  RU: { profile:"Профиль решений", correct:"Согласованных решений", strong:"Клиническое мышление сформировано", forming:"Клиническое мышление формируется", review:"Нужно повторить механизм", next:"Рекомендация", strongNext:"Переходите к следующему модулю или итоговому контролю.", formingNext:"Повторите этапы с ошибками и ещё раз объясните механизм.", reviewNext:"Вернитесь к теории и клиническому мосту, затем пройдите пациента повторно.", errorStage:"Требует разбора" },
+  EN: { profile:"Decision profile", correct:"Aligned decisions", strong:"Clinical reasoning is strong", forming:"Clinical reasoning is developing", review:"Mechanism needs review", next:"Recommendation", strongNext:"Continue to the next module or final assessment.", formingNext:"Retry the stages with errors and explain the mechanism again.", reviewNext:"Return to theory and the clinical bridge, then repeat the patient case.", errorStage:"Needs review" },
+  KZ: { profile:"Шешімдер профилі", correct:"Сәйкес шешімдер", strong:"Клиникалық ойлау қалыптасты", forming:"Клиникалық ойлау қалыптасуда", review:"Механизмді қайталау қажет", next:"Ұсыныс", strongNext:"Келесі модульге немесе қорытынды бақылауға өтіңіз.", formingNext:"Қате кезеңдерді қайталап, механизмді қайта түсіндіріңіз.", reviewNext:"Теория мен клиникалық көпірге оралып, пациент жағдайын қайта өтіңіз.", errorStage:"Талдау қажет" },
 } as const;
 
 type StoredState = { current: number; unlocked: number; selected: (number | null)[]; notes: string[] };
@@ -61,6 +68,11 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   const complete = selected !== null;
   const reasoningComplete = state.notes[state.current].trim().length >= 12;
   const decisionCommitted = complete && reasoningComplete;
+  const d = decisionCopy[language];
+  const correctDecisions = scenario.stages.reduce((sum, reviewStage, index) => sum + (state.selected[index] === reviewStage.correctOption ? 1 : 0), 0);
+  const decisionPercent = Math.round((correctDecisions / scenario.stages.length) * 100);
+  const decisionLevel = decisionPercent >= 80 ? d.strong : decisionPercent >= 50 ? d.forming : d.review;
+  const decisionAdvice = decisionPercent >= 80 ? d.strongNext : decisionPercent >= 50 ? d.formingNext : d.reviewNext;
 
   function speak(value: string, role: "patient" | "mentor") {
     if (!("speechSynthesis" in window)) return;
@@ -100,6 +112,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
 
   function next() {
     if (!complete || !reasoningComplete || state.current === 5) return;
+    recordOutcome(moduleId, "criterion:clinical", state.selected[state.current] === stage.correctOption ? 1 : 0, 1);
     setState((value) => ({ ...value, current: value.current + 1, unlocked: Math.max(value.unlocked, value.current + 1) }));
   }
 
@@ -147,6 +160,13 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
         {selectedOption && reasoningComplete && <div className={selected === stage.correctOption ? styles.feedbackGood : styles.feedbackReview}><h3>{c.feedback}</h3><strong>{selected === stage.correctOption ? c.correct : c.revise}</strong><p>{selectedOption.feedback}</p><h3>{c.why}</h3><p>{stage.mechanism}</p></div>}
         {state.current === 5 && complete && reasoningComplete && <section className={styles.final} data-testid="virtual-patient-review">
           <h3>{c.final}</h3><p><strong>{c.completed}</strong></p>
+          <div style={{margin:"14px 0",padding:"14px 16px",border:"1px solid #d6e3eb",borderRadius:12,background:"#f8fcff"}}>
+            <h4 style={{margin:"0 0 8px"}}>{d.profile}</h4>
+            <p style={{margin:"0 0 6px"}}><strong>{d.correct}: {correctDecisions}/6 · {decisionPercent}%</strong></p>
+            <progress value={correctDecisions} max={6} aria-label={d.profile} style={{width:"100%"}} />
+            <p style={{margin:"8px 0 4px"}}>{decisionLevel}</p>
+            <p style={{margin:0}}><strong>{d.next}:</strong> {decisionAdvice}</p>
+          </div>
           <p>{scenario.mechanismSummary}</p>
           <ol className={styles.reviewList}>
             {scenario.stages.map((reviewStage, index) => {
@@ -154,7 +174,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
               const reviewOption = reviewSelection === null ? null : reviewStage.options[reviewSelection];
               return <li key={reviewStage.id}>
                 <strong>{index + 1}. {reviewStage.title}</strong>
-                {reviewOption && <><span>{reviewOption.text}</span><small>{reviewOption.response}</small></>}
+                {reviewOption && <><span>{reviewOption.text}</span><small>{reviewOption.response}</small>{reviewSelection !== reviewStage.correctOption && <small><strong>{d.errorStage}</strong></small>}</>}
               </li>;
             })}
           </ol>
