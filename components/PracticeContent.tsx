@@ -254,12 +254,26 @@ function PracticeSection({ section, ui, language, moduleId, index, total, onComp
 export default function PracticeContent({ lesson, language, moduleId }: { lesson: PracticeLesson; language: Language; moduleId: string }) {
   const ui: UI = { ...lesson.ui, hideAnswer: hideAnswer[language] };
   const [completed, setCompleted] = useState<Record<number, boolean>>({});
+  const storageKey = `neuro-course:practice:${moduleId}:${language}:v1`;
+  useEffect(() => {
+    try {
+      const raw = JSON.parse(localStorage.getItem(storageKey) || "{}");
+      if (!raw || typeof raw !== "object") return;
+      const restored: Record<number, boolean> = {};
+      for (const [key, value] of Object.entries(raw)) {
+        const index = Number(key);
+        if (Number.isInteger(index) && index >= 0 && index < lesson.sections.length && value === true) restored[index] = true;
+      }
+      setCompleted(restored);
+    } catch { /* Optional local storage */ }
+  }, [storageKey, lesson.sections.length]);
   const completedCount = Object.values(completed).filter(Boolean).length;
   function markComplete(index: number, value: boolean) {
     setCompleted(old => {
       const next = { ...old, [index]: value };
       const count = Object.values(next).filter(Boolean).length;
       recordOutcome(Number(moduleId), "practice", count, lesson.sections.length);
+      try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch { /* Optional local storage */ }
       return next;
     });
   }
