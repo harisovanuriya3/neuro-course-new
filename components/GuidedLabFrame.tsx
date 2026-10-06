@@ -52,7 +52,6 @@ const ui={
 } as const;
 
 export default function GuidedLabFrame({moduleId,language,children}:{moduleId:keyof typeof prompts;language:Language;children:ReactNode}){
-  if(moduleId===21) return <>{children}</>;
   const t=ui[language];
   const [prediction,setPrediction]=useState("");
   const [started,setStarted]=useState(false);
