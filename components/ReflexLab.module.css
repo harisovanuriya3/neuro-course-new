@@ -44,3 +44,21 @@
 .statusStrip button[data-off="true"] { background:#fdeaea; color:#8b1e1e; border-color:#d98989; }
 .statusStrip button:disabled { cursor:not-allowed; opacity:.72; }
 @media (max-width:760px) { .statusStrip { grid-template-columns:1fr 1fr; } .languageBar { align-items:flex-start; } }
+
+.anatomyViewport { width:100%; overflow-x:auto; overflow-y:hidden; border-radius:14px; background:radial-gradient(circle at 50% 45%,#fff 0,#f0f7fb 72%); box-shadow:inset 0 0 0 1px #d5e4ee; }
+.signalBand,.signalBandMotor { fill:none; stroke-linecap:round; stroke-width:20; stroke-dasharray:28 22; animation:reflexSignal .65s linear infinite; filter:drop-shadow(0 0 7px currentColor); pointer-events:none; }
+.signalBand { stroke:#00a7ff; color:#00a7ff; }
+.signalBandMotor { stroke:#ff4f28; color:#ff4f28; }
+.stageRail { display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin:12px 0 6px; }
+.stageRail span { display:grid; place-items:center; min-height:34px; border-radius:999px; background:#e8edf1; font-weight:800; }
+.stageRail span[data-done="true"] { background:#dff3e5; }
+.stageRail span[data-active="true"] { background:#00599c; color:#fff; transform:scale(1.08); box-shadow:0 0 0 4px #d7ecfb; }
+@keyframes reflexSignal { to { stroke-dashoffset:-50; } }
+@media (max-width:760px) {
+  .anatomyPanel { padding:12px 8px; margin-inline:-6px; }
+  .anatomyViewport { overflow-x:auto; scroll-snap-type:x proximity; }
+  .arcSvg { min-width:900px; width:900px; max-width:none; }
+  .anatomyPanel figcaption { position:sticky; left:0; font-size:1.05rem; font-weight:700; padding:12px 6px 4px; }
+  .statusStrip button { min-height:76px; font-size:.92rem; }
+}
+@media (prefers-reduced-motion:reduce) { .signalBand,.signalBandMotor { animation:none; } .stageRail span[data-active="true"] { transform:none; } }
