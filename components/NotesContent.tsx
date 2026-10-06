@@ -14,15 +14,15 @@ const copy = {
   KZ: { title: "Бетбелгілер мен жазбалар", intro: "Модуль бөлімдеріне сілтемелерді және өз жазбаңызды сақтаңыз. Деректер тек осы браузерде қалады.", pick: "Бөлім", add: "Бетбелгі қосу", remove: "Бетбелгіні өшіру", note: "Менің жазбам", saved: "Сақталды", failed: "Браузерде сақтау мүмкін болмады. Мәтін тек бет жабылғанға дейін қалады.", bookmarks: "Менің бетбелгілерім", empty: "Әлі бетбелгі жоқ", open: "Бөлімді ашу" },
 } as const;
 
-export default function NotesContent({ language }: { language: Language }) {
+export default function NotesContent({ language, moduleId }: { language: Language; moduleId: number }) {
   const [value, setValue] = useState<ModuleNotes>(emptyModuleNotes);
   const [selected, setSelected] = useState<Section>("theory");
   const [ready, setReady] = useState(false);
   const [persisted, setPersisted] = useState(true);
-  useEffect(() => { setValue(readModuleNotes()); setReady(true); }, []);
+  useEffect(() => { setValue(readModuleNotes(moduleId)); setReady(true); }, [moduleId]);
   const c = copy[language];
   const bookmarked = value.bookmarks.includes(selected);
-  const update = (next: ModuleNotes) => { setValue(next); setPersisted(saveModuleNotes(next)); };
+  const update = (next: ModuleNotes) => { setValue(next); setPersisted(saveModuleNotes(moduleId,next)); };
   return <article className={styles.tool}>
     <h1>{c.title}</h1><p>{c.intro}</p>
     <label htmlFor="notes-section">{c.pick}</label>
@@ -31,12 +31,12 @@ export default function NotesContent({ language }: { language: Language }) {
     </select>
     <div className={styles.row}>
       <button type="button" disabled={!ready} onClick={() => update({ ...value, bookmarks: bookmarked ? value.bookmarks.filter(item => item !== selected) : [...value.bookmarks, selected] })}>{bookmarked ? c.remove : c.add}</button>
-      <Link href={`/modules/1/${selected}?lang=${language}`}>{c.open}</Link>
+      <Link href={`/modules/${moduleId}/${selected}?lang=${language}`}>{c.open}</Link>
     </div>
     <label htmlFor="section-note">{c.note}</label>
     <VoiceTextarea key={selected} language={language} id="section-note" disabled={!ready} maxLength={5000} rows={7} value={value.notes[selected] ?? ""} onValue={text => update({ ...value, notes: { ...value.notes, [selected]: text } })} />
     <p role="status">{ready ? persisted ? c.saved : c.failed : ""}</p>
     <h2>{c.bookmarks}</h2>
-    {value.bookmarks.length ? <ul>{value.bookmarks.map(section => <li key={section}><Link href={`/modules/1/${section}?lang=${language}`}>{getSectionTitle(section, language)}</Link></li>)}</ul> : <p>{c.empty}</p>}
+    {value.bookmarks.length ? <ul>{value.bookmarks.map(section => <li key={section}><Link href={`/modules/${moduleId}/${section}?lang=${language}`}>{getSectionTitle(section, language)}</Link></li>)}</ul> : <p>{c.empty}</p>}
   </article>;
 }
