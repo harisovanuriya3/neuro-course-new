@@ -14,6 +14,16 @@ export default function CasesContent({ lesson, language, moduleId }: { lesson: C
   const [completed, setCompleted] = useState<string[]>([]);
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const ui = lesson.ui;
+  const feedback = {
+    RU:{accuracy:"Точность решений",mastered:"Клиническое применение сформировано",forming:"Клиническое применение формируется",review:"Нужно повторить механизм",next:"Следующий шаг",good:"Переходите к виртуальному пациенту.",mid:"Разберите ошибочные кейсы и объясните механизм ещё раз.",low:"Вернитесь к клиническому мосту и теории, затем повторите кейсы."},
+    EN:{accuracy:"Decision accuracy",mastered:"Clinical application is strong",forming:"Clinical application is developing",review:"Mechanism needs review",next:"Next step",good:"Continue to the virtual patient.",mid:"Review incorrect cases and explain the mechanism again.",low:"Return to the clinical bridge and theory, then retry the cases."},
+    KZ:{accuracy:"Шешім дәлдігі",mastered:"Клиникалық қолдану қалыптасты",forming:"Клиникалық қолдану қалыптасуда",review:"Механизмді қайталау қажет",next:"Келесі қадам",good:"Виртуалды пациентке өтіңіз.",mid:"Қате кейстерді талдап, механизмді қайта түсіндіріңіз.",low:"Клиникалық көпір мен теорияға оралып, кейстерді қайталаңыз."}
+  }[language];
+  const checkedValues=Object.values(checked);
+  const correctCount=checkedValues.filter(Boolean).length;
+  const accuracy=checkedValues.length?Math.round((correctCount/checkedValues.length)*100):0;
+  const level=accuracy>=80?feedback.mastered:accuracy>=50?feedback.forming:feedback.review;
+  const advice=accuracy>=80?feedback.good:accuracy>=50?feedback.mid:feedback.low;
 
   useEffect(() => {
     try {
@@ -57,6 +67,11 @@ export default function CasesContent({ lesson, language, moduleId }: { lesson: C
       <div className={styles.progress}>
         <p role="status">{ui.progress}: <strong>{completed.length} / {lesson.cases.length}</strong> {ui.completed}</p>
         <progress aria-label={ui.progress} value={completed.length} max={lesson.cases.length} />
+        {checkedValues.length>0&&<div style={{marginTop:12,padding:"12px 14px",border:"1px solid #d6e3eb",borderRadius:12,background:"#f8fcff"}}>
+          <p style={{margin:"0 0 6px"}}><strong>{feedback.accuracy}: {correctCount}/{checkedValues.length} · {accuracy}%</strong></p>
+          <p style={{margin:"0 0 6px"}}>{level}</p>
+          <p style={{margin:0}}><strong>{feedback.next}:</strong> {advice}</p>
+        </div>}
         <nav aria-label={ui.navigation} className={styles.navigation}>
           {lesson.cases.map((item, index) => (
             <a key={item.id} href={`#case-${item.id}`} aria-label={`${ui.case} ${index + 1}: ${item.title}${completed.includes(item.id) ? ` — ${ui.done}` : ""}`} className={completed.includes(item.id) ? styles.doneLink : undefined}>
