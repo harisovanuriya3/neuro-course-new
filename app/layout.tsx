@@ -1,5 +1,4 @@
 import { headers } from "next/headers";
-import DemoAuthGuard from "../components/DemoAuthGuard";
 
 export const metadata = {
   title: "Интерактивный учебник по нейрофизиологии",
@@ -15,7 +14,7 @@ export default async function RootLayout({
   return (
     <html lang={language === "en" || language === "kk" ? language : "ru"}>
       <body>
-        <DemoAuthGuard>{children}</DemoAuthGuard>
+        {children}
       </body>
     </html>
   );
