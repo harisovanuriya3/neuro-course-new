@@ -13,9 +13,9 @@ type UI = PracticeLesson["ui"] & { hideAnswer: string };
 const MIN_MEANINGFUL_CHARACTERS = 12;
 
 const attemptCopy = {
-  RU: { check: "Проверить ответ", ready: "Попытка сохранена. Теперь можно сравнить ответ с эталоном.", locked: "Сначала выполните задание и проверьте ответ.", short: "Введите не менее 12 содержательных букв или цифр." },
-  EN: { check: "Check answer", ready: "Your attempt is saved. You may now compare it with the model answer.", locked: "Complete the task and check your answer first.", short: "Enter at least 12 meaningful letters or digits." },
-  KZ: { check: "Жауапты тексеру", ready: "Талпынысыңыз сақталды. Енді жауабыңызды үлгімен салыстыруға болады.", locked: "Алдымен тапсырманы орындап, жауабыңызды тексеріңіз.", short: "Кемінде 12 мағыналы әріп немесе сан енгізіңіз." },
+  RU: { check: "Проверить ответ", complete: "Завершить задание", ready: "Попытка сохранена. Теперь можно сравнить ответ с эталоном.", completed: "Задание выполнено и учтено в прогрессе.", locked: "Сначала выполните задание и проверьте ответ.", short: "Введите не менее 12 содержательных букв или цифр." },
+  EN: { check: "Check answer", complete: "Complete task", ready: "Your attempt is saved. You may now compare it with the model answer.", completed: "Task completed and included in your progress.", locked: "Complete the task and check your answer first.", short: "Enter at least 12 meaningful letters or digits." },
+  KZ: { check: "Жауапты тексеру", complete: "Тапсырманы аяқтау", ready: "Талпынысыңыз сақталды. Енді жауабыңызды үлгімен салыстыруға болады.", completed: "Тапсырма аяқталды және прогреске енгізілді.", locked: "Алдымен тапсырманы орындап, жауабыңызды тексеріңіз.", short: "Кемінде 12 мағыналы әріп немесе сан енгізіңіз." },
 } as const;
 
 function meaningfulLength(value: string) {
@@ -232,7 +232,7 @@ function PracticeSection({ section, ui, language, moduleId, index, total, onComp
   function update(index: number, value: string) { setResponses(old => ({ ...old, [index]: value })); setChecked(false); }
   function checkSection() { setChecked(true); }
   function markBlock(index: number, done: boolean) { setBlockDone(old => ({ ...old, [index]: done })); }
-  const hasTextTask = hasAnswers && responseIndexes.length > 0;
+  const hasTextTask = responseIndexes.length > 0;
   const textDone = !hasTextTask || checked;
   const interactiveDone = interactiveIndexes.every(index => blockDone[index]);
   const sectionHasTask = hasTextTask || interactiveIndexes.length > 0;
@@ -241,10 +241,10 @@ function PracticeSection({ section, ui, language, moduleId, index, total, onComp
   return <section className={styles.card}>
     <h2>{section.title}</h2>
     {section.blocks.map((block, index) => block.type === "answer" ? null : <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} responseValue={responses[index] ?? ""} onResponse={(value) => update(index, value)} answersUnlocked={checked} onComplete={(done) => markBlock(index, done)} />)}
-    {hasAnswers && responseIndexes.length > 0 && <>
-      <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={checkSection}>{c.check}</button></div>
+    {responseIndexes.length > 0 && <>
+      <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={checkSection}>{hasAnswers ? c.check : c.complete}</button></div>
       {!ready && <p className={styles.note}>{c.short}</p>}
-      {checked && <p role="status" aria-live="polite" className={styles.success}>{c.ready}</p>}
+      {checked && <p role="status" aria-live="polite" className={styles.success}>{hasAnswers ? c.ready : c.completed}</p>}
     </>}
     <div className={styles.taskProgress}><span>{language==="RU"?"Задание":language==="KZ"?"Тапсырма":"Task"}: <strong>{index + 1} / {total}</strong>{sectionDone ? (language==="RU"?" · выполнено":language==="KZ"?" · орындалды":" · completed") : ""}</span></div>
     {checked && section.blocks.map((block, index) => block.type === "answer" ? <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} answersUnlocked /> : null)}
