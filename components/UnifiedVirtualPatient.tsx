@@ -73,6 +73,13 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   const decisionPercent = Math.round((correctDecisions / scenario.stages.length) * 100);
   const decisionLevel = decisionPercent >= 80 ? d.strong : decisionPercent >= 50 ? d.forming : d.review;
   const decisionAdvice = decisionPercent >= 80 ? d.strongNext : decisionPercent >= 50 ? d.formingNext : d.reviewNext;
+  const allStagesCompleted = state.selected.every(value => value !== null) && state.notes.every(note => note.trim().length >= 12);
+  useEffect(() => {
+    if (!scenario || !allStagesCompleted) return;
+    const correct = scenario.stages.reduce((sum, reviewStage, index) => sum + (state.selected[index] === reviewStage.correctOption ? 1 : 0), 0);
+    recordOutcome(moduleId, "virtual-patient", correct, scenario.stages.length);
+    recordOutcome(moduleId, "criterion:clinical", correct, scenario.stages.length);
+  }, [scenario, allStagesCompleted, moduleId, state.selected]);
 
   function speak(value: string, role: "patient" | "mentor") {
     if (!("speechSynthesis" in window)) return;
@@ -112,7 +119,6 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
 
   function next() {
     if (!complete || !reasoningComplete || state.current === 5) return;
-    recordOutcome(moduleId, "criterion:clinical", state.selected[state.current] === stage.correctOption ? 1 : 0, 1);
     setState((value) => ({ ...value, current: value.current + 1, unlocked: Math.max(value.unlocked, value.current + 1) }));
   }
 
