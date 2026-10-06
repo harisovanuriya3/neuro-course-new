@@ -5,11 +5,12 @@ import { useState } from "react";
 import type { Language, PracticeBlock } from "../content/types";
 import styles from "./PracticeContent.module.css";
 import VoiceTextarea from "./VoiceTextarea";
+import { recordOutcome } from "../lib/courseProgress";
 
 type Audit = Extract<PracticeBlock, { type: "ai-audit" }>;
 const meaningful = (value: string) => (value.match(/[\p{L}\p{N}]/gu) ?? []).length >= 12;
 
-export default function AIAuditPractice({ block, language, moduleId }: { block: Audit; language: Language; moduleId: string }) {
+export default function AIAuditPractice({ block, language, moduleId, onComplete }: { block: Audit; language: Language; moduleId: string; onComplete?: (done: boolean) => void }) {
   const [caseIndex, setCaseIndex] = useState(0);
   const [prediction, setPrediction] = useState("");
   const [trust, setTrust] = useState<number | null>(null);
@@ -17,6 +18,7 @@ export default function AIAuditPractice({ block, language, moduleId }: { block: 
   const [selected, setSelected] = useState<number[]>([]);
   const [rationale, setRationale] = useState("");
   const [checked, setChecked] = useState(false);
+  const [results, setResults] = useState<Record<number, boolean>>({});
   const current = block.cases[caseIndex];
   const l = block.labels;
   const missed = current.claims.some((claim, index) => claim.isError && !selected.includes(index));
@@ -30,6 +32,16 @@ export default function AIAuditPractice({ block, language, moduleId }: { block: 
     setSelected([]);
     setRationale("");
     setChecked(false);
+  }
+
+  function checkAudit() {
+    const success = !missed && !falseAlarm;
+    const nextResults = { ...results, [caseIndex]: success };
+    setResults(nextResults);
+    setChecked(true);
+    const attempted = Object.values(nextResults);
+    recordOutcome(Number(moduleId), "criterion:justification", attempted.filter(Boolean).length, attempted.length);
+    onComplete?.(Object.keys(nextResults).length === block.cases.length);
   }
 
   return (
@@ -60,7 +72,7 @@ export default function AIAuditPractice({ block, language, moduleId }: { block: 
         </div>
         <VoiceTextarea language={language} label={l.rationale} value={rationale} onValue={setRationale} disabled={checked} rows={4} />
         <p className={styles.auditSource}>{l.source} <Link href={`/modules/${moduleId}/theory?lang=${language}#${current.theoryAnchor}`}>{l.theory}</Link> · <a href={current.source.href} target="_blank" rel="noopener noreferrer">{current.source.label}</a></p>
-        {!checked && <button type="button" className={styles.primary} disabled={!selected.length || !meaningful(rationale)} onClick={() => setChecked(true)}>{l.check}</button>}
+        {!checked && <button type="button" className={styles.primary} disabled={!selected.length || !meaningful(rationale)} onClick={checkAudit}>{l.check}</button>}
       </>}
       {checked && <div className={styles.auditResult} role="status" aria-live="polite">
         <h3>{l.result}</h3>
