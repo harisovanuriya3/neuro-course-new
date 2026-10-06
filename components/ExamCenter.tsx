@@ -46,7 +46,10 @@ function buildVersion(bank:ExamQuestion[], count=10){
    }
  }
  const written:ExamQuestion[]=[];
- const writtenModules=shuffled([...byModule.keys()]);
+ const usedModules=new Set(mcq.map(q=>q.moduleId));
+ const unusedModules=shuffled([...byModule.keys()].filter(id=>!usedModules.has(id)));
+ const repeatedModules=shuffled([...byModule.keys()].filter(id=>usedModules.has(id)));
+ const writtenModules=[...unusedModules,...repeatedModules];
  for(const id of writtenModules){
    const pool=shuffled((byModule.get(id)??[]).filter(q=>q.writtenPrompt&&!used.has(q.id)));
    const q=pool[0];
