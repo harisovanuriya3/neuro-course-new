@@ -6,6 +6,7 @@ import styles from "./PracticeContent.module.css";
 import AIAuditPractice from "./AIAuditPractice";
 import PracticeVisualMaterials from "./PracticeVisualMaterials";
 import VoiceTextarea from "./VoiceTextarea";
+import { recordOutcome } from "../lib/courseProgress";
 
 type UI = PracticeLesson["ui"] & { hideAnswer: string };
 
@@ -173,7 +174,7 @@ function Worksheet({ block, ui, language }: { block: Extract<PracticeBlock, { ty
           </tbody>
         </table>
       </div>
-      <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={() => setChecked(true)}>{c.check}</button></div>
+      <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={checkSection}>{c.check}</button></div>
       {!ready && <p className={styles.note}>{c.short}</p>}
       {checked && <p role="status" aria-live="polite" className={styles.success}>{c.ready}</p>}
       {checked && <Disclosure ui={ui}>
@@ -207,14 +208,15 @@ function Block({ block, ui, language, moduleId, responseValue = "", onResponse, 
   }
 }
 
-function PracticeSection({ section, ui, language, moduleId, index, total }: { section: PracticeLesson["sections"][number]; ui: UI; language: Language; moduleId: string; index: number; total: number }) {
+function PracticeSection({ section, ui, language, moduleId, index, total, onComplete }: { section: PracticeLesson["sections"][number]; ui: UI; language: Language; moduleId: string; index: number; total: number; onComplete: (value: boolean) => void }) {
   const [responses, setResponses] = useState<Record<number, string>>({});
   const [checked, setChecked] = useState(false);
   const responseIndexes = section.blocks.flatMap((block, index) => block.type === "response" ? [index] : []);
   const hasAnswers = section.blocks.some((block) => block.type === "answer");
   const ready = responseIndexes.length > 0 && responseIndexes.every((index) => isMeaningful(responses[index] ?? ""));
   const c = attemptCopy[language];
-  function update(index: number, value: string) { setResponses(old => ({ ...old, [index]: value })); setChecked(false); }
+  function update(index: number, value: string) { setResponses(old => ({ ...old, [index]: value })); setChecked(false); onComplete(false); }
+  function checkSection() { setChecked(true); onComplete(true); }
   return <section className={styles.card}>
     <h2>{section.title}</h2>
     {section.blocks.map((block, index) => block.type === "answer" ? null : <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} responseValue={responses[index] ?? ""} onResponse={(value) => update(index, value)} answersUnlocked={checked} />)}
@@ -223,18 +225,33 @@ function PracticeSection({ section, ui, language, moduleId, index, total }: { se
       {!ready && <p className={styles.note}>{c.short}</p>}
       {checked && <p role="status" aria-live="polite" className={styles.success}>{c.ready}</p>}
     </>}
-    <div className={styles.taskProgress}><span>{language==="RU"?"Прогресс":language==="KZ"?"Прогресс":"Progress"}: <strong>{index + 1} / {total}</strong></span><progress value={index + 1} max={total} /></div>
+    <div className={styles.taskProgress}><span>{language==="RU"?"Задание":language==="KZ"?"Тапсырма":"Task"}: <strong>{index + 1} / {total}</strong>{checked ? (language==="RU"?" · выполнено":language==="KZ"?" · орындалды":" · completed") : ""}</span></div>
     {checked && section.blocks.map((block, index) => block.type === "answer" ? <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} answersUnlocked /> : null)}
   </section>;
 }
 
 export default function PracticeContent({ lesson, language, moduleId }: { lesson: PracticeLesson; language: Language; moduleId: string }) {
   const ui: UI = { ...lesson.ui, hideAnswer: hideAnswer[language] };
+  const [completed, setCompleted] = useState<Record<number, boolean>>({});
+  const completedCount = Object.values(completed).filter(Boolean).length;
+  function markComplete(index: number, value: boolean) {
+    setCompleted(old => {
+      const next = { ...old, [index]: value };
+      const count = Object.values(next).filter(Boolean).length;
+      recordOutcome(Number(moduleId), "practice", count, lesson.sections.length);
+      return next;
+    });
+  }
+  const progressLabel = language === "RU" ? "Выполнено практических заданий" : language === "KZ" ? "Орындалған практикалық тапсырмалар" : "Practice tasks completed";
   return (
     <article className={styles.practice}>
       <h1>{lesson.title}</h1>
       <p className={styles.note}>{lesson.ui.localNote}</p>
-      {lesson.sections.map((section, index) => <PracticeSection key={section.title} section={section} ui={ui} language={language} moduleId={moduleId} index={index} total={lesson.sections.length} />)}
+      <div className={styles.taskProgress}>
+        <span>{progressLabel}: <strong>{completedCount} / {lesson.sections.length}</strong></span>
+        <progress value={completedCount} max={lesson.sections.length} aria-label={progressLabel} />
+      </div>
+      {lesson.sections.map((section, index) => <PracticeSection key={section.title} section={section} ui={ui} language={language} moduleId={moduleId} index={index} total={lesson.sections.length} onComplete={(value) => markComplete(index, value)} />)}
     </article>
   );
 }
