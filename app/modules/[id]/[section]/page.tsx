@@ -238,7 +238,7 @@ export default async function SectionPage({
           ) : section === "voice" ? (
             <VoiceContent language={lang} moduleId={moduleNumber} />
           ) : section === "notes" ? (
-            <NotesContent language={lang} />
+            <NotesContent language={lang} moduleId={moduleNumber} />
           ) : moduleNumber === 3 && section === "interactive" ? (
             <><NerveFiberLab language={lang} /><NeuroPracticalStation moduleId={3} language={lang} /></>
           ) : moduleNumber === 4 && section === "interactive" ? (
