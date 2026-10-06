@@ -8,9 +8,9 @@ import { recordOutcome } from "../lib/courseProgress";
 import styles from "./BranchingTestContent.module.css";
 
 const labels = {
-  RU: { retry: "Повторить ошибочные задания", retryResult: "Результат повторения", original: "Результат основного прохождения", answer: "Правильный ответ", retryNote: "Повторение не изменяет результат основного прохождения." },
-  KZ: { retry: "Қате орындалған тапсырмаларды қайталау", retryResult: "Қайталау нәтижесі", original: "Негізгі өту нәтижесі", answer: "Дұрыс жауап", retryNote: "Қайталау негізгі өту нәтижесін өзгертпейді." },
-  EN: { retry: "Retry incorrect questions", retryResult: "Retry result", original: "Original attempt result", answer: "Correct answer", retryNote: "Retrying does not change the original attempt result." },
+  RU: { retry: "Повторить ошибочные задания", retryResult: "Результат повторения", original: "Результат основного прохождения", answer: "Правильный ответ", retryNote: "Повторение не изменяет результат основного прохождения.", score:"Результат", mastered:"Освоено", forming:"Формируется", review:"Требует повторения", next:"Следующий шаг", nextGood:"Перейдите к ситуационным задачам или виртуальному пациенту.", nextForming:"Повторите слабые темы и выполните ошибочные задания ещё раз.", nextReview:"Вернитесь к теории по слабым темам, затем повторите тест." },
+  KZ: { retry: "Қате орындалған тапсырмаларды қайталау", retryResult: "Қайталау нәтижесі", original: "Негізгі өту нәтижесі", answer: "Дұрыс жауап", retryNote: "Қайталау негізгі өту нәтижесін өзгертпейді.", score:"Нәтиже", mastered:"Меңгерілді", forming:"Қалыптасуда", review:"Қайталау қажет", next:"Келесі қадам", nextGood:"Жағдаяттық тапсырмаларға немесе виртуалды пациентке өтіңіз.", nextForming:"Әлсіз тақырыптарды қайталап, қате тапсырмаларды қайта орындаңыз.", nextReview:"Әлсіз тақырыптар бойынша теорияға оралып, содан кейін тестті қайталаңыз." },
+  EN: { retry: "Retry incorrect questions", retryResult: "Retry result", original: "Original attempt result", answer: "Correct answer", retryNote: "Retrying does not change the original attempt result.", score:"Score", mastered:"Mastered", forming:"Developing", review:"Needs review", next:"Next step", nextGood:"Continue to case problems or the virtual patient.", nextForming:"Review weak topics and retry the incorrect questions.", nextReview:"Return to theory for weak topics, then repeat the test." },
 };
 
 export default function BranchingTestContent({ test, language, moduleId }: { test: BranchingTest; language: Language; moduleId: number }) {
@@ -36,6 +36,9 @@ export default function BranchingTestContent({ test, language, moduleId }: { tes
   const ui = test.ui;
   const copy = labels[language];
   const result = summarize(test, state);
+  const percent = result.total ? Math.round((result.firstCorrect / result.total) * 100) : 0;
+  const levelLabel = percent >= 80 ? copy.mastered : percent >= 50 ? copy.forming : copy.review;
+  const nextAdvice = percent >= 80 ? copy.nextGood : percent >= 50 ? copy.nextForming : copy.nextReview;
   useEffect(() => {
     if (state.phase === "results" && state.retryIds === null) {
       recordOutcome(moduleId, "tests", result.firstCorrect, result.total);
@@ -87,6 +90,11 @@ export default function BranchingTestContent({ test, language, moduleId }: { tes
         <section data-testid="results">
           <h2 ref={heading} tabIndex={-1}>{ui.complete}</h2>
           <h3>{copy.original}</h3>
+          <div style={{margin:"0 0 18px",padding:"16px",border:"1px solid #d6e3eb",borderRadius:"14px",background:"#f8fcff"}}>
+            <p style={{margin:"0 0 6px",fontSize:"18px"}}><strong>{copy.score}: {percent}% · {levelLabel}</strong></p>
+            <progress value={result.firstCorrect} max={result.total} aria-label={copy.score} style={{width:"100%"}} />
+            <p style={{margin:"10px 0 0"}}><strong>{copy.next}:</strong> {nextAdvice}</p>
+          </div>
           <dl className={styles.metrics}>
             <div><dt>{ui.firstAttempt}</dt><dd>{result.firstCorrect} / {result.total}</dd></div>
             <div><dt>{ui.mastery}</dt><dd>{result.mastered} / {result.total}</dd></div>
