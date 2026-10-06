@@ -431,7 +431,7 @@ export default async function ModulePage({
                             ? ({ RU: 'Задание «Механизм своими словами» готово', EN: 'Explain-the-mechanism task ready', KZ: '«Механизмді өз сөзіңізбен» тапсырмасы дайын' }[lang])
                             : item.slug === 'notes'
                               ? ({ RU: 'Заметки и закладки доступны', EN: 'Notes and bookmarks available', KZ: 'Жазбалар мен бетбелгілер қолжетімді' }[lang])
-                              : item.slug === 'interactive' && moduleNumber >= 3
+                              : item.slug === 'interactive' && moduleNumber >= 2
                                 ? ({ RU: 'Интерактивная лаборатория готова', EN: 'Interactive laboratory ready', KZ: 'Интерактивті зертхана дайын' }[lang])
                                 : ({ RU: 'Содержание готовится', EN: 'Content in preparation', KZ: 'Мазмұны дайындалуда' }[lang])}
                   </p>}
