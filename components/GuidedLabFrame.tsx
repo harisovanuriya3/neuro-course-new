@@ -47,6 +47,7 @@ const clinical={
 const ui={RU:{heading:"Прогноз → эксперимент → объяснение",label:"Ваш причинно-следственный прогноз",start:"Перейти к эксперименту",replay:"Новый прогноз",result:"Сопоставьте наблюдаемый результат с прогнозом и объясните механизм.",min:"Сформулируйте прогноз полным предложением (не менее 12 символов)."},KZ:{heading:"Болжам → тәжірибе → түсіндіру",label:"Себеп-салдарлық болжамыңыз",start:"Тәжірибеге өту",replay:"Жаңа болжам",result:"Бақыланған нәтижені болжаммен салыстырып, механизмді түсіндіріңіз.",min:"Болжамды толық сөйлеммен жазыңыз (кемінде 12 таңба)."},EN:{heading:"Prediction → experiment → explanation",label:"Your cause-and-effect prediction",start:"Proceed to experiment",replay:"New prediction",result:"Compare the observed result with your prediction and explain the mechanism.",min:"State the prediction as a complete sentence (at least 12 characters)."}} as const;
 
 export default function GuidedLabFrame({moduleId,language,children}:{moduleId:keyof typeof prompts;language:Language;children:ReactNode}){
+  if(moduleId===21) return <>{children}</>;
   const t=ui[language];
   const [prediction,setPrediction]=useState("");
   const [started,setStarted]=useState(moduleId===21);
