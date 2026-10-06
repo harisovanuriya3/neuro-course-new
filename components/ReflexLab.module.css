@@ -175,3 +175,10 @@
 .atlasMuscle{position:absolute;right:-2%;bottom:8%;width:40%;height:25%;border-radius:58% 20% 58% 22%;background:repeating-linear-gradient(168deg,#8d241f 0 7px,#d44b3c 8px 13px,#f07b61 14px 16px);transform:rotate(-7deg);box-shadow:0 8px 20px #0007}
 .reflexAtlas .atlasSvg{position:relative;z-index:2}.reflexAtlas .atlasHand{z-index:3}
 @media(max-width:760px){.atlasCord{left:38%;top:18%;width:38%}.atlasSkin{width:78%;bottom:12%}.atlasMuscle{width:46%;bottom:9%}.atlasNerves{left:8%;width:82%}}
+
+/* Approved-reference composition v6: photographic anatomy under animated physiology */
+.reflexAtlas{background-image:linear-gradient(90deg,rgba(3,12,22,.08),rgba(3,12,22,.02)),url("/images/lab/reflex-background.webp");background-size:cover;background-position:center;isolation:isolate}
+.reflexAtlas .atlasBackdrop{display:none}
+.reflexAtlas .atlasSvg{background:transparent}
+.reflexAtlas .atlasSvg path,.reflexAtlas .atlasSvg circle,.reflexAtlas .atlasSvg ellipse{filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
+@media(max-width:760px){.reflexAtlas{aspect-ratio:1.15/1;background-position:center}.reflexAtlas .atlasSvg{object-fit:contain}}
