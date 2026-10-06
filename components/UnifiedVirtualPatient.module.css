@@ -8,7 +8,7 @@
 .stageNav { display:grid; grid-template-columns:repeat(auto-fit,minmax(118px,1fr)); gap:8px; margin-bottom:18px; container-type:inline-size; }
 .stageNav button { min-width:0; width:100%; min-height:72px; padding:8px 7px; border:1px solid #c7d9e5; border-radius:10px; background:#f7fbfe; color:inherit; font:inherit; font-size:.78rem; line-height:1.18; display:grid; grid-template-rows:auto 1fr; align-items:center; justify-items:center; text-align:center; overflow:hidden; white-space:normal; overflow-wrap:break-word; word-break:normal; hyphens:auto; cursor:pointer; }
 .stageNav button span { display:grid; place-items:center; width:24px; height:24px; margin:0 auto 4px; border:1px solid currentColor; border-radius:50%; font-weight:800; flex:none; }
-.stageNav button:disabled { opacity: .52; cursor: not-allowed; }
+.stageNav button:disabled { opacity: .52; cursor: default; }
 .stageNav .activeStage { border-color: #005b96; background: #e4f4ff; color: #004b87; font-weight: 800; }
 .desk { display: grid; grid-template-columns: minmax(210px,280px) minmax(340px,1fr) minmax(210px,270px); gap: 18px; align-items: start; }
 .patientCard, .workspace, .mentorCard { min-width: 0; border: 1px solid #cfe0ea; border-radius: 16px; background: white; overflow: hidden; }
