@@ -8,6 +8,17 @@ type AnatomyRef = {
 };
 
 const refs: Record<number, AnatomyRef> = {
+  5: {
+    file: "Electron_micrograph_of_neuromuscular_junction_(cross-section).jpg",
+    page: "https://commons.wikimedia.org/wiki/File:Electron_micrograph_of_neuromuscular_junction_(cross-section).jpg",
+    credit: "National Institute of Mental Health / NIH — public domain",
+    alt: {
+      RU: "Реальная электронная микрофотография химического нервно-мышечного синапса; это периферический контакт нейрона с мышцей, а не межнейронный синапс ЦНС",
+      EN: "Real electron micrograph of a chemical neuromuscular synapse; this is a peripheral neuron-to-muscle junction, not a CNS neuron-to-neuron synapse",
+      KZ: "Химиялық жүйке-бұлшықет синапсының нақты электрондық микрофотосы; бұл ОЖЖ нейрондары арасындағы емес, шеткі нейрон-бұлшықет түйісуі",
+    },
+  },
+
   9: {
     file: "Cross-section_through_the_spinal_cord.jpg",
     page: "https://commons.wikimedia.org/wiki/File:Cross-section_through_the_spinal_cord.jpg",
