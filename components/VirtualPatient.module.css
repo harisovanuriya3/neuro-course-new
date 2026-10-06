@@ -266,3 +266,8 @@
 }
 
 .teacherAvatarImage { width: 58px; height: 58px; flex: 0 0 58px; border-radius: 12px; object-fit: cover; object-position: 42% 24%; }
+
+.stageNav button[data-locked="true"]{opacity:.58;background:#f3f6f8;color:#7b8b96;cursor:default}
+.stageNav button b{min-width:0;font:inherit;font-weight:inherit;overflow-wrap:break-word}
+.stageNav button i{font-style:normal;font-size:.85rem;justify-self:end}
+.stageHelp{margin:-5px 0 14px;color:#60798a;font-size:.84rem}
