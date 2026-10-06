@@ -149,6 +149,7 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
   }
   return <article className={`${shared.practice} ${styles.interactive}`} data-testid="interactive-diagrams" lang={language === "KZ" ? "kk" : language.toLowerCase()}>
     <h1>{lesson.title}</h1><p>{lesson.introduction}</p><p className={styles.note}>{ui.keyboard}</p>
+    {moduleId === "21" && <SensorySystemsLab language={language} />}
     {card(lesson.organization, <Organization diagram={lesson.organization} ui={ui} language={language} />)}
     {card(lesson.pathway, <Sequence id="pathway" nodes={lesson.pathway.nodes} ui={ui} loop={lesson.pathway.loop} language={language} />)}
     {moduleId === "2" && <EEGLab language={language} />}
@@ -169,7 +170,6 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "18" && <CortexLab language={language} />}
     {moduleId === "19" && <SomatosensoryLab language={language} />}
     {moduleId === "20" && <VisionLab language={language} />}
-    {moduleId === "21" && <SensorySystemsLab language={language} />}
     {moduleId === "22" && <AutonomicLab language={language} />}
     {moduleId === "23" && <LearningMemoryLab language={language} />}
     {moduleId === "24" && <SleepRhythmLab language={language} />}
