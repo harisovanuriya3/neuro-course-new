@@ -80,7 +80,7 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    const framedPrompt=`${frame} ${prompts[mode]}`;
    const q=core&&n===0?make(topic.id,title,n,core.p,core.c,[...core.w],core.e):make(topic.id,title,n,framedPrompt,corrects[mode],wrongSets[mode],corrects[mode]);
    const lead=lang==="RU"?"Объясните механизм в данной ситуации и укажите ожидаемый физиологический результат. ":lang==="EN"?"Explain the mechanism in this situation and state the expected physiological outcome. ":"Осы жағдайдағы механизмді түсіндіріп, күтілетін физиологиялық нәтижені көрсетіңіз. ";
-   q.writtenPrompt=lead+prompts[mode];
+   q.writtenPrompt=lead+q.prompt;
    bank.push(q);
   }
  }
