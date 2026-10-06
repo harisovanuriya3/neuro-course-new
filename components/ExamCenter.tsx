@@ -154,7 +154,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
    </div>
    <h2 style={{marginTop:30}}>{t.review}</h2>
    {version.map((q,i)=>{const a=answers[q.id]; const ok=a===q.correctAnswer; const find=(id:string)=>q.options.find(o=>o.id===id)?.text;
-    return <article id={`exam-${q.id}`} key={q.id} style={{border:"1px solid #ccd9e3",borderRadius:14,padding:18,margin:"14px 0"}}>
+    return <article id={`exam-${q.id}`} key={q.id} style={{border:"1px solid #ccd9e3",borderRadius:14,padding:18,margin:"14px 0",overflowWrap:"anywhere",minWidth:0}}>
       <div style={{fontSize:14,opacity:.75}}>{t.question} {i+1} · {t.module} {q.moduleId}: {q.moduleTitle}</div>
       <h3>{q.prompt}</h3>
       {q.responseType==="written"?<>
@@ -185,7 +185,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
    {version.map((q,i)=><article id={`exam-${q.id}`} key={q.id} style={{border:"1px solid #ccd9e3",borderRadius:14,padding:18,margin:"14px 0"}}>
     <div style={{fontSize:14,opacity:.75}}>{t.question} {i+1} {t.of} {version.length} · {t.module} {q.moduleId}: {q.moduleTitle}</div>
     <h3>{q.prompt}</h3>
-    {q.responseType==="written"?<><p><strong>{lang==="RU"?"Письменный ответ: объясните причину, механизм и следствие.":lang==="EN"?"Written answer: explain the cause, mechanism, and consequence.":"Жазбаша жауап: себеп, механизм және салдарды түсіндіріңіз."}</strong></p><textarea aria-label={lang==="RU"?`Письменный ответ на вопрос ${i+1}`:lang==="EN"?`Written answer to question ${i+1}`:`${i+1}-сұраққа жазбаша жауап`} rows={7} value={written[q.id]??""} onChange={e=>setWritten(v=>({...v,[q.id]:e.target.value}))} style={{width:"100%",padding:12,borderRadius:10}} /></>:q.options.map(o=><label key={o.id} style={{display:"block",padding:"9px 0",cursor:"pointer"}}>
+    {q.responseType==="written"?<><p><strong>{lang==="RU"?"Письменный ответ: объясните причину, механизм и следствие.":lang==="EN"?"Written answer: explain the cause, mechanism, and consequence.":"Жазбаша жауап: себеп, механизм және салдарды түсіндіріңіз."}</strong></p><textarea aria-label={lang==="RU"?`Письменный ответ на вопрос ${i+1}`:lang==="EN"?`Written answer to question ${i+1}`:`${i+1}-сұраққа жазбаша жауап`} rows={7} value={written[q.id]??""} onChange={e=>setWritten(v=>({...v,[q.id]:e.target.value}))} style={{width:"100%",maxWidth:"100%",boxSizing:"border-box",padding:12,borderRadius:10,resize:"vertical"}} /></>:q.options.map(o=><label key={o.id} style={{display:"block",padding:"9px 0",cursor:"pointer"}}>
       <input type="radio" name={q.id} checked={answers[q.id]===o.id} onChange={()=>setAnswers(v=>({...v,[q.id]:o.id}))}/> <span style={{marginLeft:8}}>{o.text}</span>
     </label>)}
    </article>)}
