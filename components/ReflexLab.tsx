@@ -20,7 +20,7 @@ const copy = {
     waiting: "Сначала выберите условие и прогноз.", running: "Опыт идёт", stopped: "Передача остановилась", finished: "Опыт завершён", blockedAt: { receptor: "Ноцицептор выключен: афферентный сигнал не возникает", afferent: "Сенсорный сигнал не дошёл до спинного мозга", spinal: "Спинальный центр выключен: моторная команда не сформирована", efferent: "Моторный сигнал не дошёл до мышц" },
     correct: "Прогноз подтвердился.", incorrect: "Прогноз не подтвердился.",
     outcome: { intact: "Все звенья дуги работают: сенсорный сигнал достигает спинного мозга, а моторный ответ — мышцы.", receptor: "При выключенном ноцицепторе сигнал не возникает, поэтому рефлекс не запускается.", afferent: "Сигнал возник у рецептора, но не дошёл до спинного мозга по выбранному пути. Рефлекторный ответ в этой модели не запускается.", spinal: "Афферентный сигнал достигает спинного мозга, но при выключенном спинальном центре моторный ответ не формируется.", efferent: "Сенсорный сигнал достиг спинного мозга, но команда не прошла по моторному пути к мышцам. Рефлекторного сокращения нет." },
-    limit: "Учебная модель одного рефлекторного пути. Анимация из изображений, созданных ИИ, показывает внешнее движение; ход нервного сигнала отображён словами. Сознательное восприятие боли, другие пути и защитные реакции здесь не моделируются. Не проверяйте это на себе горячими предметами.",
+    limit: "Учебная модель одного рефлекторного пути. Анимация показывает движение руки и распространение нервного сигнала по анатомической схеме. Сознательное восприятие боли, другие пути и защитные реакции здесь не моделируются. Не проверяйте это на себе горячими предметами.",
     anatomy: ["Ноцицептор кожи","Чувствительный нейрон","Задний корешок","Вставочный нейрон","Мотонейрон переднего рога","Передний корешок","Мышца-сгибатель"], ascending: "Коллатераль к восходящим путям: осознание боли не требуется для запуска спинального ответа", photo: "Постановочные изображения, созданные ИИ для учебника", contactAlt: "Кисть у металлической чашки до отдёргивания", withdrawalAlt: "Та же кисть отведена от металлической чашки", record: "Записать результат", journal: "Журнал опытов", explanation: "Почему рефлекс возник или прервался?", source: "Физиология рефлекса: OpenStax, Anatomy and Physiology 2e, гл. 14",
   },
   EN: {
@@ -32,7 +32,7 @@ const copy = {
     waiting: "Choose a condition and make a prediction first.", running: "Experiment running", stopped: "Transmission stopped", finished: "Experiment complete", blockedAt: { receptor: "Nociceptor disabled: no afferent signal is generated", afferent: "Sensory input did not reach the spinal cord", spinal: "Spinal center disabled: no motor command is formed", efferent: "Motor output did not reach the muscles" },
     correct: "Your prediction was supported.", incorrect: "Your prediction was not supported.",
     outcome: { intact: "All reflex-arc links work: sensory input reaches the spinal cord and motor output reaches the muscle.", receptor: "With the nociceptor disabled, no afferent signal is generated and the reflex does not start.", afferent: "A signal arises at the receptor but cannot reach the spinal cord along the selected pathway. The modeled reflex response does not begin.", spinal: "Afferent input reaches the spinal cord, but with the spinal center disabled no motor response is formed.", efferent: "Sensory input reaches the spinal cord, but the command cannot pass along the motor pathway to the muscles. No reflex contraction occurs." },
-    limit: "A teaching model of one reflex pathway. An animation made from AI-generated images shows external movement; the nerve signal is described in words. Conscious pain perception, alternative pathways and other protective responses are outside this model. Do not try this with hot objects.",
+    limit: "A teaching model of one reflex pathway. The animation shows hand withdrawal and nerve-signal propagation along the anatomical diagram. Conscious pain perception, alternative pathways and other protective responses are outside this model. Do not try this with hot objects.",
     anatomy: ["Skin nociceptor","Sensory neuron","Dorsal root","Interneuron","Ventral-horn motor neuron","Ventral root","Flexor muscle"], ascending: "Collateral to ascending pathways: conscious pain perception is not required to initiate the spinal response", photo: "Staged AI-generated photographs for this textbook", contactAlt: "Hand by a metal cup before withdrawal", withdrawalAlt: "The same hand moved away from the metal cup", record: "Record result", journal: "Experiment log", explanation: "Why did the reflex occur or stop?", source: "Reflex physiology: OpenStax, Anatomy and Physiology 2e, ch. 14",
   },
   KZ: {
@@ -44,7 +44,7 @@ const copy = {
     waiting: "Алдымен шарт пен болжамды таңдаңыз.", running: "Тәжірибе жүріп жатыр", stopped: "Сигналдың өтуі тоқтады", finished: "Тәжірибе аяқталды", blockedAt: { receptor: "Ноцицептор өшірілді: афференттік сигнал пайда болмайды", afferent: "Сенсорлық сигнал жұлынға жетпеді", spinal: "Жұлын орталығы өшірілді: моторлық команда қалыптаспайды", efferent: "Моторлық сигнал бұлшықеттерге жетпеді" },
     correct: "Болжамыңыз расталды.", incorrect: "Болжамыңыз расталмады.",
     outcome: { intact: "Рефлекс доғасының барлық буыны жұмыс істейді: сенсорлық сигнал жұлынға, моторлық жауап бұлшықетке жетеді.", receptor: "Ноцицептор өшірілсе, афференттік сигнал пайда болмайды және рефлекс басталмайды.", afferent: "Рецепторда сигнал пайда болады, бірақ таңдалған жолмен жұлынға жетпейді. Бұл модельде рефлекстік жауап басталмайды.", spinal: "Афференттік сигнал жұлынға жетеді, бірақ жұлын орталығы өшірілсе моторлық жауап қалыптаспайды.", efferent: "Сенсорлық сигнал жұлынға жетеді, бірақ бұйрық моторлық жолмен бұлшықеттерге өтпейді. Рефлекстік жиырылу болмайды." },
-    limit: "Бұл — бір рефлекс жолының оқу моделі. ЖИ жасаған кескіндерден құралған анимация сыртқы қозғалысты көрсетеді; жүйке сигналы мәтінмен сипатталады. Ауырсынуды саналы сезіну, басқа жолдар мен қорғаныш реакциялары модельденбейді. Мұны ыстық заттармен өзіңізде сынамаңыз.",
+    limit: "Бұл — бір рефлекс жолының оқу моделі. Анимация қолдың қозғалысын және анатомиялық сызба бойымен жүйке сигналының таралуын көрсетеді. Ауырсынуды саналы сезіну, басқа жолдар мен қорғаныш реакциялары модельденбейді. Мұны ыстық заттармен өзіңізде сынамаңыз.",
     anatomy: ["Тері ноцицепторы","Сезімтал нейрон","Артқы түбір","Аралық нейрон","Алдыңғы мүйіз мотонейроны","Алдыңғы түбір","Бүккіш бұлшықет"], ascending: "Жоғарылаушы жолдарға коллатераль: жұлындық жауаптың басталуы үшін ауырсынуды саналы сезіну міндетті емес", photo: "Оқулық үшін ЖИ жасаған қойылымдық фотосуреттер", contactAlt: "Қол тартылғанға дейін металл тостағанның жанында", withdrawalAlt: "Сол қол металл тостағаннан алыстатылған", record: "Нәтижені жазу", journal: "Тәжірибелер журналы", explanation: "Рефлекс неге пайда болды немесе үзілді?", source: "Рефлекс физиологиясы: OpenStax, Anatomy and Physiology 2e, 14-тарау",
   },
 } satisfies Record<Language, {
@@ -118,10 +118,10 @@ export default function ReflexLab({ language }: { language: Language }) {
         </div>
       </div>
     </div>
-    <figure className={styles.anatomyPanel}>
+    <figure className={styles.anatomyPanel} data-running={running} data-stage={stage}>
       <h3>{c.anatomyTitle}</h3>
       <div className={styles.statusStrip}>{(["receptor","afferent","spinal","efferent"] as const).map((part,i) => <button type="button" key={part} disabled={running || stage>=0} aria-pressed={excluded.has(part)} onClick={()=>togglePart(part)} data-off={excluded.has(part)}><strong>{c.anatomy[[0,1,3,5][i]]}</strong><small>{excluded.has(part) ? "✕ " + c.disabled : "✓ " + c.enabled}</small></button>)}</div>
-      <svg viewBox="0 0 1100 430" className={styles.arcSvg} role="img" aria-label={c.anatomy.join(" → ")}>
+      <div className={styles.anatomyViewport}><svg viewBox="0 0 1100 430" className={styles.arcSvg} role="img" aria-label={c.anatomy.join(" → ")}>
         <defs>
           <marker id="reflexArrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="currentColor"/></marker>
           <filter id="pulseGlow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -161,7 +161,12 @@ export default function ReflexLab({ language }: { language: Language }) {
         {excluded.has("afferent")&&stage>=1&&<path d="M380 160 L410 210 M410 160 L380 210" stroke="#b00020" strokeWidth="9"/>}
         {excluded.has("spinal")&&stage>=2&&<path d="M535 215 L580 265 M580 215 L535 265" stroke="#b00020" strokeWidth="9"/>}
         {excluded.has("efferent")&&stage>=3&&<path d="M675 255 L705 305 M705 255 L675 305" stroke="#b00020" strokeWidth="9"/>}
-      </svg>
+        {/* bright signal bands make conduction visible on phones */}
+        {stage>=0&&stage<=1&&<path className={styles.signalBand} d="M155 230 C245 170 315 160 390 185 C445 185 475 190 515 205"/>}
+        {stage>=2&&stage<=3&&<path className={styles.signalBandMotor} d="M515 205 C535 215 545 225 558 240 C590 260 620 275 690 280"/>}
+        {stage>=3&&<path className={styles.signalBandMotor} d="M690 280 C775 285 825 300 890 315"/>}
+      </svg></div>
+      <div className={styles.stageRail} aria-hidden="true">{c.stages.map((label,i)=><span key={label} data-active={stage===i} data-done={stage>i}>{i+1}</span>)}</div>
       <figcaption>{stage < 0 ? c.waiting : c.stages[Math.max(0,stage)]}</figcaption>
     </figure>
     {complete && <div className={styles.feedback}>
