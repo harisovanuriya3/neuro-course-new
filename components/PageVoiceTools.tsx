@@ -30,7 +30,7 @@ export default function PageVoiceTools({ language, contentId, section, moduleId 
   const noteKey = moduleId === 1 ? titleNoteKey : `neuro-course:module-${moduleId}:page-note:${section ?? 'title'}:v1`;
   useEffect(() => {
     setReady(false);
-    if (moduleId === 1 && section) setNote(readModuleNotes().notes[section] ?? "");
+    if (section) setNote(readModuleNotes(moduleId).notes[section] ?? "");
     else { try { setNote(localStorage.getItem(noteKey) ?? ""); } catch { setNote(""); } }
     setReady(true);
   }, [section, moduleId, noteKey]);
@@ -49,7 +49,7 @@ export default function PageVoiceTools({ language, contentId, section, moduleId 
   }, [contentId, language]);
   function update(text: string) {
     setNote(text);
-    if (moduleId === 1 && section) { const current = readModuleNotes(); setSaved(saveModuleNotes({ ...current, notes: { ...current.notes, [section]: text } })); }
+    if (section) { const current = readModuleNotes(moduleId); setSaved(saveModuleNotes(moduleId,{ ...current, notes: { ...current.notes, [section]: text } })); }
     else { try { localStorage.setItem(noteKey, text); setSaved(true); } catch { setSaved(false); } }
   }
   return <section className={styles.tools} aria-label={c.title} data-no-narration data-testid="page-voice-tools">
