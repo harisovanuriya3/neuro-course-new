@@ -38,6 +38,9 @@
 .anatomyPanel { margin:20px 0; padding:16px; border:1px solid #cfe0ea; border-radius:16px; overflow:hidden; background:linear-gradient(180deg,#f7fbfe,#fff); }
 .anatomyPanel h3 { margin:0 0 10px; }
 .statusStrip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-bottom:12px; }
-.statusStrip span { padding:8px; border-radius:9px; background:#e8f5ec; text-align:center; font-size:.82rem; font-weight:700; }
-.statusStrip span[data-off="true"] { background:#fdeaea; color:#8b1e1e; }
+.statusStrip button { padding:10px 8px; border:2px solid #b8d9c1; border-radius:12px; background:#e8f5ec; text-align:center; cursor:pointer; min-height:64px; }
+.statusStrip button strong,.statusStrip button small { display:block; }
+.statusStrip button small { margin-top:4px; font-size:.76rem; }
+.statusStrip button[data-off="true"] { background:#fdeaea; color:#8b1e1e; border-color:#d98989; }
+.statusStrip button:disabled { cursor:not-allowed; opacity:.72; }
 @media (max-width:760px) { .statusStrip { grid-template-columns:1fr 1fr; } .languageBar { align-items:flex-start; } }
