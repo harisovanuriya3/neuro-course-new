@@ -121,7 +121,7 @@ export default function ReflexLab({ language }: { language: Language }) {
     <figure className={styles.anatomyPanel} data-running={running} data-stage={stage}>
       <h3>{c.anatomyTitle}</h3>
       <div className={styles.statusStrip}>{(["receptor","afferent","spinal","efferent"] as const).map((part,i) => <button type="button" key={part} disabled={running || stage>=0} aria-pressed={excluded.has(part)} onClick={()=>togglePart(part)} data-off={excluded.has(part)}><strong>{c.anatomy[[0,1,3,5][i]]}</strong><small>{excluded.has(part) ? "✕ " + c.disabled : "✓ " + c.enabled}</small></button>)}</div>
-      <div className={styles.anatomyViewport}><svg viewBox="0 0 1100 430" className={styles.arcSvg} role="img" aria-label={c.anatomy.join(" → ")}>
+      <div className={styles.realAnatomyScene}><Image src="/images/lab/reflex-background.webp" alt="" aria-hidden="true" fill sizes="100vw" className={styles.realSceneBg}/><div className={styles.realSpinalCord} aria-hidden="true"><span className={styles.grayMatter}/></div><div className={styles.skinInset} aria-hidden="true"/><svg viewBox="0 0 1100 430" className={styles.arcSvg} role="img" aria-label={c.anatomy.join(" → ")}>
         <defs>
           <marker id="reflexArrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="currentColor"/></marker>
           <filter id="pulseGlow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -165,8 +165,7 @@ export default function ReflexLab({ language }: { language: Language }) {
         {stage>=0&&stage<=1&&<path className={styles.signalBand} d="M155 230 C245 170 315 160 390 185 C445 185 475 190 515 205"/>}
         {stage>=2&&stage<=3&&<path className={styles.signalBandMotor} d="M515 205 C535 215 545 225 558 240 C590 260 620 275 690 280"/>}
         {stage>=3&&<path className={styles.signalBandMotor} d="M690 280 C775 285 825 300 890 315"/>}
-      </svg></div>
-      <div className={styles.stageRail} aria-hidden="true">{c.stages.map((label,i)=><span key={label} data-active={stage===i} data-done={stage>i}>{i+1}</span>)}</div>
+      </svg></div>\n      <div className={styles.stageRail} aria-hidden="true">{c.stages.map((label,i)=><span key={label} data-active={stage===i} data-done={stage>i}>{i+1}</span>)}</div>
       <figcaption>{stage < 0 ? c.waiting : c.stages[Math.max(0,stage)]}</figcaption>
     </figure>
     {complete && <div className={styles.feedback}>
