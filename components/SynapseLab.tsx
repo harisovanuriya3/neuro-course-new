@@ -151,5 +151,5 @@ export default function SynapseLab({ language }: { language: Language }) {
     <h3>{c.journal}</h3>
     {rows.length > 0 && <div style={{overflowX:"auto"}}><table><thead><tr><th>#</th><th>{c.condition}</th><th>{c.prediction}</th><th>{c.visual}</th><th>{c.explanation}</th></tr></thead><tbody>{rows.map((r,i)=><tr key={r.id}><td>{i+1}</td><td>{c[r.condition]}</td><td>{c[r.prediction]}</td><td>{c[r.outcome]}</td><td><input aria-label={c.explanation} value={r.note} onChange={e=>setRows(xs=>xs.map(x=>x.id===r.id?{...x,note:e.target.value}:x))}/></td></tr>)}</tbody></table></div>}
     <p className={styles.scope}>{c.scope}</p>
-  <ExperimentReflection language={language} theoryHref={`/modules/5/theory?lang=${language}`} /></section>;
+  <ExperimentReflection language={language} theoryHref={`/modules/5/theory?lang=${language}`} moduleId={5}/></section>;
 }
