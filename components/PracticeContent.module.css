@@ -75,3 +75,5 @@
   .practice .chain li { flex-direction: column; align-items: stretch; gap: 0.4rem; }
   .arrow { align-self: center; transform: rotate(90deg); }
 }
+
+.taskProgress{margin-top:16px;padding-top:12px;border-top:1px solid #dbe7ee;display:grid;grid-template-columns:auto minmax(120px,1fr);gap:10px;align-items:center;color:#486275}.taskProgress progress{width:100%;height:10px}@media(max-width:560px){.taskProgress{grid-template-columns:1fr}.taskProgress progress{width:100%}}
