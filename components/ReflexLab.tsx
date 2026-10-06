@@ -12,7 +12,7 @@ type Prediction = "moves" | "still";
 
 const copy = {
   RU: {
-    languages: "Язык лаборатории", anatomyTitle: "Динамическая анатомия рефлекторной дуги", enabled: "Включено", disabled: "Исключено",
+    languages: "Язык лаборатории", slow: "Замедленно", normal: "Обычная скорость", anatomyTitle: "Динамическая анатомия рефлекторной дуги", enabled: "Включено", disabled: "Исключено",
     title: "Лаборатория: где прервётся рефлекс?", intro: "Смоделируйте отдёргивание руки от болезненно горячей поверхности. Выберите состояние одного пути, предскажите движение и запустите опыт.",
     condition: "Включение / исключение участка дуги", intact: "✓ Вся дуга включена", receptor: "✕ Выключить рецептор", afferent: "✕ Выключить афферентный путь", spinal: "✕ Выключить спинальный центр", efferent: "✕ Выключить эфферентный путь",
     predict: "Ваш прогноз до опыта", moves: "Рука отдёрнется", still: "Рефлекторного движения не будет", run: "Запустить опыт", replay: "Повторить", reset: "Новый прогноз",
@@ -24,7 +24,7 @@ const copy = {
     anatomy: ["Ноцицептор кожи","Чувствительный нейрон","Задний корешок","Вставочный нейрон","Мотонейрон переднего рога","Передний корешок","Мышца-сгибатель"], ascending: "Коллатераль к восходящим путям: осознание боли не требуется для запуска спинального ответа", photo: "Постановочные изображения, созданные ИИ для учебника", contactAlt: "Кисть у металлической чашки до отдёргивания", withdrawalAlt: "Та же кисть отведена от металлической чашки", record: "Записать результат", journal: "Журнал опытов", explanation: "Почему рефлекс возник или прервался?", source: "Физиология рефлекса: OpenStax, Anatomy and Physiology 2e, гл. 14",
   },
   EN: {
-    languages: "Laboratory language", anatomyTitle: "Dynamic anatomy of the reflex arc", enabled: "Enabled", disabled: "Excluded",
+    languages: "Laboratory language", slow: "Slow motion", normal: "Normal speed", anatomyTitle: "Dynamic anatomy of the reflex arc", enabled: "Enabled", disabled: "Excluded",
     title: "Laboratory: where does the reflex stop?", intro: "Model hand withdrawal from a painfully hot surface. Choose the state of one pathway, predict movement, and run the experiment.",
     condition: "Include / exclude reflex-arc segment", intact: "✓ Entire arc enabled", receptor: "✕ Disable receptor", afferent: "✕ Disable afferent pathway", spinal: "✕ Disable spinal center", efferent: "✕ Disable efferent pathway",
     predict: "Your prediction before the run", moves: "The hand withdraws", still: "No reflex movement", run: "Run experiment", replay: "Replay", reset: "New prediction",
@@ -36,7 +36,7 @@ const copy = {
     anatomy: ["Skin nociceptor","Sensory neuron","Dorsal root","Interneuron","Ventral-horn motor neuron","Ventral root","Flexor muscle"], ascending: "Collateral to ascending pathways: conscious pain perception is not required to initiate the spinal response", photo: "Staged AI-generated photographs for this textbook", contactAlt: "Hand by a metal cup before withdrawal", withdrawalAlt: "The same hand moved away from the metal cup", record: "Record result", journal: "Experiment log", explanation: "Why did the reflex occur or stop?", source: "Reflex physiology: OpenStax, Anatomy and Physiology 2e, ch. 14",
   },
   KZ: {
-    languages: "Зертхана тілі", anatomyTitle: "Рефлекс доғасының динамикалық анатомиясы", enabled: "Қосулы", disabled: "Алып тасталды",
+    languages: "Зертхана тілі", slow: "Баяу", normal: "Қалыпты жылдамдық", anatomyTitle: "Рефлекс доғасының динамикалық анатомиясы", enabled: "Қосулы", disabled: "Алып тасталды",
     title: "Зертхана: рефлекс қай жерде үзіледі?", intro: "Қолды ауырсындыратын ыстық беттен тартып алу жағдайын модельдеңіз. Жолдың күйін таңдап, қозғалысты болжаңыз және тәжірибені бастаңыз.",
     condition: "Доға бөлігін қосу / алып тастау", intact: "✓ Бүкіл доға қосулы", receptor: "✕ Рецепторды өшіру", afferent: "✕ Афференттік жолды өшіру", spinal: "✕ Жұлын орталығын өшіру", efferent: "✕ Эфференттік жолды өшіру",
     predict: "Тәжірибеге дейінгі болжамыңыз", moves: "Қол тартылады", still: "Рефлекстік қозғалыс болмайды", run: "Тәжірибені бастау", replay: "Қайталау", reset: "Жаңа болжам",
@@ -48,7 +48,7 @@ const copy = {
     anatomy: ["Тері ноцицепторы","Сезімтал нейрон","Артқы түбір","Аралық нейрон","Алдыңғы мүйіз мотонейроны","Алдыңғы түбір","Бүккіш бұлшықет"], ascending: "Жоғарылаушы жолдарға коллатераль: жұлындық жауаптың басталуы үшін ауырсынуды саналы сезіну міндетті емес", photo: "Оқулық үшін ЖИ жасаған қойылымдық фотосуреттер", contactAlt: "Қол тартылғанға дейін металл тостағанның жанында", withdrawalAlt: "Сол қол металл тостағаннан алыстатылған", record: "Нәтижені жазу", journal: "Тәжірибелер журналы", explanation: "Рефлекс неге пайда болды немесе үзілді?", source: "Рефлекс физиологиясы: OpenStax, Anatomy and Physiology 2e, 14-тарау",
   },
 } satisfies Record<Language, {
-  languages: string; anatomyTitle: string; enabled: string; disabled: string; title: string; intro: string; condition: string; intact: string; afferent: string; efferent: string; predict: string; moves: string; still: string; run: string; replay: string; reset: string;
+  languages: string; slow: string; normal: string; anatomyTitle: string; enabled: string; disabled: string; title: string; intro: string; condition: string; intact: string; afferent: string; efferent: string; predict: string; moves: string; still: string; run: string; replay: string; reset: string;
   stages: string[]; waiting: string; running: string; stopped: string; finished: string; blockedAt: Record<Exclude<Condition,"intact">, string>; correct: string; incorrect: string;
   outcome: Record<Condition, string>; limit: string; anatomy: string[]; ascending: string; photo: string; contactAlt: string; withdrawalAlt: string; record: string; journal: string; explanation: string; source: string;
 }>;
@@ -61,6 +61,7 @@ export default function ReflexLab({ language }: { language: Language }) {
   const [prediction, setPrediction] = useState<Prediction | null>(null);
   const [stage, setStage] = useState(-1);
   const [running, setRunning] = useState(false);
+  const [slow, setSlow] = useState(false);
   const [rows, setRows] = useState<{id:number;condition:Condition;prediction:Prediction;actual:Prediction;note:string}[]>([]);
   const complete = stage === lastStage[condition] && !running;
 
@@ -71,9 +72,9 @@ export default function ReflexLab({ language }: { language: Language }) {
         if (current >= lastStage[condition]) { setRunning(false); return current; }
         return current + 1;
       });
-    }, 850);
+    }, slow ? 1500 : 850);
     return () => window.clearInterval(timer);
-  }, [condition, running]);
+  }, [condition, running, slow]);
 
   function changeCondition(next: Condition) { setCondition(next); setPrediction(null); setStage(-1); setRunning(false); }
   function start() { if (!prediction) return; setStage(0); setRunning(true); }
@@ -107,6 +108,7 @@ export default function ReflexLab({ language }: { language: Language }) {
         <div className={styles.actions}>
           <button type="button" onClick={start} disabled={!prediction || running}>{stage < 0 ? c.run : c.replay}</button>
           <button type="button" onClick={reset} disabled={running || stage < 0}>{c.reset}</button>
+          <button type="button" onClick={()=>setSlow(v=>!v)} aria-pressed={slow}>{slow ? c.normal : c.slow}</button>
         </div>
         <div className={styles.results} aria-live="polite" aria-atomic="true">
           <strong>{stage < 0 ? c.waiting : running ? c.running : condition === "intact" ? c.finished : c.stopped}</strong>
@@ -151,7 +153,7 @@ export default function ReflexLab({ language }: { language: Language }) {
         <foreignObject x="680" y="18" width="390" height="70"><div xmlns="http://www.w3.org/1999/xhtml" style={{fontSize:12,lineHeight:1.25,textAlign:"center",overflowWrap:"anywhere"}}>{c.ascending}</div></foreignObject>
         {/* moving impulse follows anatomical route; no schematic circles */}
         {stage>=0&&<circle r="9" fill={stage<3?"#36a7ff":"#ff6a35"} filter="url(#pulseGlow)">
-          <animateMotion dur="1.7s" repeatCount={running?"indefinite":"1"} path={stage<2?"M155 230 C245 170 315 160 390 185 C445 185 475 190 515 205":stage<4?"M515 205 C535 215 545 225 558 240 C590 260 620 275 690 280":"M690 280 C775 285 825 300 890 315"}/>
+          <animateMotion dur={slow?"3s":"1.7s"} repeatCount={running?"indefinite":"1"} path={stage<2?"M155 230 C245 170 315 160 390 185 C445 185 475 190 515 205":stage<4?"M515 205 C535 215 545 225 558 240 C590 260 620 275 690 280":"M690 280 C775 285 825 300 890 315"}/>
         </circle>}
         {condition==="receptor"&&stage>=0&&<path d="M130 210 L165 250 M165 210 L130 250" stroke="#b00020" strokeWidth="9"/>}
         {condition==="afferent"&&stage>=1&&<path d="M380 160 L410 210 M410 160 L380 210" stroke="#b00020" strokeWidth="9"/>}
