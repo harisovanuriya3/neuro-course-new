@@ -16,7 +16,7 @@ function firstModule(lang:Language){
   {p:"При прикосновении к горячему предмету рука быстро отдёргивается ещё до осознанной оценки боли. Какая последовательность лучше описывает нервную организацию ответа?",c:"Рецепторный вход передаётся по афферентным волокнам в ЦНС, интегрируется в спинальных цепях и формирует эфферентную команду мышцам.",w:["Сначала возникает сознательное решение в коре, и только затем активируются кожные рецепторы.","Мышца самостоятельно обнаруживает температуру и посылает команду спинному мозгу.","Эфферентный нейрон передаёт сигнал от кожи к ЦНС, а афферентный — от ЦНС к мышце."],e:"Организация ответа включает сенсорный вход, центральную интеграцию и моторный выход; быстрый защитный рефлекс не требует предварительного сознательного решения."},
   {p:"Почему повреждение афферентного звена может нарушить рефлекторный ответ при сохранных мышцах и мотонейронах?",c:"Центральная сеть не получает необходимую сенсорную информацию о стимуле и поэтому не может нормально запустить соответствующий ответ.",w:["Афферентные нейроны нужны только для произвольных движений и не участвуют в рефлексах.","При сохранной мышце любой рефлекс обязательно остаётся нормальным независимо от сенсорного входа.","Афферентное звено в норме передаёт команду от спинного мозга непосредственно к мышце."],e:"Без адекватного входного сигнала центральная интеграция не получает информацию, необходимую для формирования соответствующего ответа."}
  ];
- if(lang==="RU") return Array.from({length:40},(_,n)=>{const x=ru[n%ru.length];return make(1,title,n,x.p,x.c,x.w,x.e)});
+ if(lang==="RU") return Array.from({length:40},(_,n)=>{const x=ru[n%ru.length];const frame=S.RU.st[Math.floor(n/ru.length)%S.RU.st.length];const prompt=n<ru.length?x.p:`${frame} ${x.p}`;return make(1,title,n,prompt,x.c,x.w,x.e)});
  const s=S[lang],a=lang==="EN"?"afferent input":"афференттік кіріс",b=lang==="EN"?"central integration":"орталық интеграция";
  return Array.from({length:40},(_,n)=>make(1,title,n,s.st[n%10]+" "+s.pair+" «"+a+" → "+b+"».",s.first,[s.swap,s.abs,s.dx],s.ex));
 }
@@ -76,7 +76,9 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
   for(let n=0;n<40;n++){
    const mode=n%4;
    const core=lang==="RU"?RU_CORE[topic.id]:undefined;
-   const q=core&&n<10?make(topic.id,title,n,core.p,core.c,[...core.w],core.e):make(topic.id,title,n,prompts[mode],corrects[mode],wrongSets[mode],corrects[mode]);
+   const frame=s.st[Math.floor(n/4)%s.st.length];
+   const framedPrompt=`${frame} ${prompts[mode]}`;
+   const q=core&&n===0?make(topic.id,title,n,core.p,core.c,[...core.w],core.e):make(topic.id,title,n,framedPrompt,corrects[mode],wrongSets[mode],corrects[mode]);
    const lead=lang==="RU"?"Объясните механизм в данной ситуации и укажите ожидаемый физиологический результат. ":lang==="EN"?"Explain the mechanism in this situation and state the expected physiological outcome. ":"Осы жағдайдағы механизмді түсіндіріп, күтілетін физиологиялық нәтижені көрсетіңіз. ";
    q.writtenPrompt=lead+prompts[mode];
    bank.push(q);
