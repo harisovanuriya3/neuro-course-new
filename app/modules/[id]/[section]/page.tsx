@@ -45,6 +45,7 @@ import LearningMemoryLab from "../../../../components/LearningMemoryLab";
 import SleepRhythmLab from "../../../../components/SleepRhythmLab";
 import PlasticityLab from "../../../../components/PlasticityLab";
 import GuidedLabFrame from "../../../../components/GuidedLabFrame";
+import NeuroPracticalStation from "../../../../components/NeuroPracticalStation";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -239,7 +240,7 @@ export default async function SectionPage({
           ) : section === "notes" ? (
             <NotesContent language={lang} />
           ) : moduleNumber === 3 && section === "interactive" ? (
-            <NerveFiberLab language={lang} />
+            <><NerveFiberLab language={lang} /><NeuroPracticalStation moduleId={3} language={lang} /></>
           ) : moduleNumber === 4 && section === "interactive" ? (
             <MembraneElectrophysiologyLab language={lang} />
           ) : moduleNumber === 5 && section === "interactive" ? (
@@ -255,7 +256,7 @@ export default async function SectionPage({
           ) : moduleNumber === 10 && section === "interactive" ? (
             <GuidedLabFrame moduleId={10} language={lang}><BrainstemLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 11 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={11} language={lang}><MotorControlLab language={lang} /></GuidedLabFrame>
+            <><GuidedLabFrame moduleId={11} language={lang}><MotorControlLab language={lang} /></GuidedLabFrame><NeuroPracticalStation moduleId={11} language={lang} /></>
           ) : moduleNumber === 12 && section === "interactive" ? (
             <GuidedLabFrame moduleId={12} language={lang}><BasalGangliaLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 13 && section === "interactive" ? (
@@ -271,13 +272,13 @@ export default async function SectionPage({
           ) : moduleNumber === 18 && section === "interactive" ? (
             <GuidedLabFrame moduleId={18} language={lang}><CortexLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 19 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={19} language={lang}><SomatosensoryLab language={lang} /></GuidedLabFrame>
+            <><GuidedLabFrame moduleId={19} language={lang}><SomatosensoryLab language={lang} /></GuidedLabFrame><NeuroPracticalStation moduleId={19} language={lang} /></>
           ) : moduleNumber === 20 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={20} language={lang}><VisionLab language={lang} /></GuidedLabFrame>
+            <><GuidedLabFrame moduleId={20} language={lang}><VisionLab language={lang} /></GuidedLabFrame><NeuroPracticalStation moduleId={20} language={lang} /></>
           ) : moduleNumber === 21 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={21} language={lang}><SensorySystemsLab language={lang} /></GuidedLabFrame>
+            <><GuidedLabFrame moduleId={21} language={lang}><SensorySystemsLab language={lang} /></GuidedLabFrame><NeuroPracticalStation moduleId={21} language={lang} /></>
           ) : moduleNumber === 22 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={22} language={lang}><AutonomicLab language={lang} /></GuidedLabFrame>
+            <><GuidedLabFrame moduleId={22} language={lang}><AutonomicLab language={lang} /></GuidedLabFrame><NeuroPracticalStation moduleId={22} language={lang} /></>
           ) : moduleNumber === 23 && section === "interactive" ? (
             <GuidedLabFrame moduleId={23} language={lang}><LearningMemoryLab language={lang} /></GuidedLabFrame>
           ) : moduleNumber === 24 && section === "interactive" ? (
