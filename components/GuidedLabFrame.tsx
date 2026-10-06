@@ -61,8 +61,8 @@ export default function GuidedLabFrame({moduleId,language,children}:{moduleId:ke
   const explanationReady=explanation.trim().length>=20;
   function finish(){
     setFinished(true);
-    recordOutcome(Number(moduleId),"criterion:application",1,1);
-    recordOutcome(Number(moduleId),"criterion:transfer",1,1);
+    recordOutcome(Number(moduleId),"criterion:application:guided-lab",1,1);
+    recordOutcome(Number(moduleId),"criterion:transfer:guided-lab",1,1);
   }
   return <div className={styles.frame} data-testid={`guided-lab-${moduleId}`}>
     <section className={styles.predict}>
