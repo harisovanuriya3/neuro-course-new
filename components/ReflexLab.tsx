@@ -58,6 +58,7 @@ const lastStage: Record<Condition, number> = { intact: 4, receptor: 0, afferent:
 export default function ReflexLab({ language }: { language: Language }) {
   const c = copy[language];
   const [condition, setCondition] = useState<Condition>("intact");
+  const [excluded, setExcluded] = useState<Set<Exclude<Condition,"intact">>>(new Set());
   const [prediction, setPrediction] = useState<Prediction | null>(null);
   const [stage, setStage] = useState(-1);
   const [running, setRunning] = useState(false);
@@ -76,7 +77,8 @@ export default function ReflexLab({ language }: { language: Language }) {
     return () => window.clearInterval(timer);
   }, [condition, running, slow]);
 
-  function changeCondition(next: Condition) { setCondition(next); setPrediction(null); setStage(-1); setRunning(false); }
+  function changeCondition(next: Condition) { setCondition(next); setExcluded(next === "intact" ? new Set() : new Set([next])); setPrediction(null); setStage(-1); setRunning(false); }
+  function togglePart(part: Exclude<Condition,"intact">) { if (running || stage >= 0) return; const next = new Set(excluded); if (next.has(part)) next.delete(part); else next.add(part); setExcluded(next); const first = (["receptor","afferent","spinal","efferent"] as const).find(x=>next.has(x)); setCondition(first ?? "intact"); setPrediction(null); }
   function start() { if (!prediction) return; setStage(0); setRunning(true); }
   function reset() { setPrediction(null); setStage(-1); setRunning(false); }
 
@@ -118,7 +120,7 @@ export default function ReflexLab({ language }: { language: Language }) {
     </div>
     <figure className={styles.anatomyPanel}>
       <h3>{c.anatomyTitle}</h3>
-      <div className={styles.statusStrip}>{(["receptor","afferent","spinal","efferent"] as const).map(part => <span key={part} data-off={condition===part}>{condition===part ? "✕ " + c.disabled : "✓ " + c.enabled}</span>)}</div>
+      <div className={styles.statusStrip}>{(["receptor","afferent","spinal","efferent"] as const).map((part,i) => <button type="button" key={part} disabled={running || stage>=0} aria-pressed={excluded.has(part)} onClick={()=>togglePart(part)} data-off={excluded.has(part)}><strong>{c.anatomy[[0,1,3,5][i]]}</strong><small>{excluded.has(part) ? "✕ " + c.disabled : "✓ " + c.enabled}</small></button>)}</div>
       <svg viewBox="0 0 1100 430" className={styles.arcSvg} role="img" aria-label={c.anatomy.join(" → ")}>
         <defs>
           <marker id="reflexArrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="currentColor"/></marker>
@@ -155,10 +157,10 @@ export default function ReflexLab({ language }: { language: Language }) {
         {stage>=0&&<circle r="9" fill={stage<3?"#36a7ff":"#ff6a35"} filter="url(#pulseGlow)">
           <animateMotion dur={slow?"3s":"1.7s"} repeatCount={running?"indefinite":"1"} path={stage<2?"M155 230 C245 170 315 160 390 185 C445 185 475 190 515 205":stage<4?"M515 205 C535 215 545 225 558 240 C590 260 620 275 690 280":"M690 280 C775 285 825 300 890 315"}/>
         </circle>}
-        {condition==="receptor"&&stage>=0&&<path d="M130 210 L165 250 M165 210 L130 250" stroke="#b00020" strokeWidth="9"/>}
-        {condition==="afferent"&&stage>=1&&<path d="M380 160 L410 210 M410 160 L380 210" stroke="#b00020" strokeWidth="9"/>}
-        {condition==="spinal"&&stage>=2&&<path d="M535 215 L580 265 M580 215 L535 265" stroke="#b00020" strokeWidth="9"/>}
-        {condition==="efferent"&&stage>=3&&<path d="M675 255 L705 305 M705 255 L675 305" stroke="#b00020" strokeWidth="9"/>}
+        {excluded.has("receptor")&&stage>=0&&<path d="M130 210 L165 250 M165 210 L130 250" stroke="#b00020" strokeWidth="9"/>}
+        {excluded.has("afferent")&&stage>=1&&<path d="M380 160 L410 210 M410 160 L380 210" stroke="#b00020" strokeWidth="9"/>}
+        {excluded.has("spinal")&&stage>=2&&<path d="M535 215 L580 265 M580 215 L535 265" stroke="#b00020" strokeWidth="9"/>}
+        {excluded.has("efferent")&&stage>=3&&<path d="M675 255 L705 305 M705 255 L675 305" stroke="#b00020" strokeWidth="9"/>}
       </svg>
       <figcaption>{stage < 0 ? c.waiting : c.stages[Math.max(0,stage)]}</figcaption>
     </figure>
