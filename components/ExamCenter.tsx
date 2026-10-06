@@ -16,9 +16,9 @@ export type ExamQuestion = {
 };
 
 const ui: Record<Language, Record<string,string>> = {
- RU:{all:"Все 25 блоков",choose:"Выберите блок для экзамена",start:"Начать экзамен",restart:"Новый вариант",submit:"Завершить экзамен",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Есть неотвеченные вопросы. Возвращаю к первому пропущенному.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Экзамен завершён. Ниже доступен разбор.",bank:"В банке",items:"экзаменационных заданий",format:"В вариант случайно выбираются 10 заданий: 7 тестовых и 3 письменных. Правильные ответы и объяснения скрыты до завершения."},
- KZ:{all:"Барлық 25 блок",choose:"Емтихан блогын таңдаңыз",start:"Емтиханды бастау",restart:"Жаңа нұсқа",submit:"Емтиханды аяқтау",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Жауап берілмеген сұрақтар бар. Бірінші өткізіп алған сұраққа қайтарамын.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"Нұсқаға кездейсоқ 10 тапсырма таңдалады: 7 тест және 3 жазбаша. Дұрыс жауаптар мен түсіндірмелер аяқталғанға дейін жасырын."},
- EN:{all:"All 25 blocks",choose:"Choose an exam block",start:"Start exam",restart:"New version",submit:"Finish exam",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Some questions are unanswered. Returning to the first unanswered question.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Each version randomly selects 10 items: 7 multiple-choice and 3 written. Correct answers and explanations stay hidden until completion."}
+ RU:{all:"Все 25 блоков",choose:"Выберите блок для экзамена",start:"Начать экзамен",restart:"Новый вариант",submit:"Завершить экзамен",resume:"Незавершённая попытка восстановлена. Продолжайте с первого неотвеченного задания.",locked:"Попытка зафиксирована. Ответы больше нельзя изменять; для новой попытки создайте новый вариант.",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Есть неотвеченные вопросы. Возвращаю к первому пропущенному.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Экзамен завершён. Ниже доступен разбор.",bank:"В банке",items:"экзаменационных заданий",format:"В вариант случайно выбираются 10 заданий: 7 тестовых и 3 письменных. Правильные ответы и объяснения скрыты до завершения."},
+ KZ:{all:"Барлық 25 блок",choose:"Емтихан блогын таңдаңыз",start:"Емтиханды бастау",restart:"Жаңа нұсқа",submit:"Емтиханды аяқтау",resume:"Аяқталмаған талпыныс қалпына келтірілді. Бірінші жауап берілмеген тапсырмадан жалғастырыңыз.",locked:"Талпыныс бекітілді. Жауаптарды енді өзгертуге болмайды; жаңа талпыныс үшін жаңа нұсқа жасаңыз.",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Жауап берілмеген сұрақтар бар. Бірінші өткізіп алған сұраққа қайтарамын.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"Нұсқаға кездейсоқ 10 тапсырма таңдалады: 7 тест және 3 жазбаша. Дұрыс жауаптар мен түсіндірмелер аяқталғанға дейін жасырын."},
+ EN:{all:"All 25 blocks",choose:"Choose an exam block",start:"Start exam",restart:"New version",submit:"Finish exam",resume:"Your unfinished attempt was restored. Continue from the first unanswered item.",locked:"This attempt is finalized. Answers can no longer be changed; start a new version for another attempt.",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Some questions are unanswered. Returning to the first unanswered question.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Each version randomly selects 10 items: 7 multiple-choice and 3 written. Correct answers and explanations stay hidden until completion."}
 };
 
 function shuffled<T>(items:T[]):T[]{
@@ -117,6 +117,14 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
      else localStorage.setItem(storageKey,JSON.stringify({version,selectedModule,answers,written,finished}));
    }catch{/* Optional local storage */}
  },[hydrated,storageKey,version,selectedModule,answers,written,finished]);
+ useEffect(()=>{
+   if(!hydrated||!version||finished)return;
+   const missing=version.find(q=>q.responseType==="written"?!written[q.id]?.trim():!answers[q.id]);
+   if(!missing)return;
+   const id=`exam-${missing.id}`;
+   requestAnimationFrame(()=>document.getElementById(id)?.scrollIntoView({block:"center"}));
+ },[hydrated,version,finished]);
+
 
  const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,Math.min(10,pool.length)));setAnswers({});setWritten({});setFinished(false);setWarning("");window.scrollTo({top:0,behavior:"smooth"});};
  if(!version) return <section style={{marginTop:24,border:"2px solid #86aac4",borderRadius:16,padding:22}}>
@@ -135,7 +143,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
     <p>{comment}</p>
     <h3>{lang==="RU"?"Анализ по блокам":lang==="EN"?"Analysis by block":"Блоктар бойынша талдау"}</h3>
     {analysis.map(x=><p key={x.id}><strong>{x.id}. {x.title}</strong>: {x.earned}/{x.total} ({x.pct}%)</p>)}
-    <p>{t.pass}</p>
+    <p>{t.pass}</p><p><strong>{t.locked}</strong></p>
     <button onClick={begin} style={{padding:"10px 16px",borderRadius:10,cursor:"pointer"}}>{t.restart}</button>
    </div>
    <h2 style={{marginTop:30}}>{t.review}</h2>
@@ -163,6 +171,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
     </article>})}
  </section>;
  return <section style={{marginTop:24}}>
+   {hydrated&&<p role="status" style={{fontWeight:700,color:"#49697c"}}>{t.resume}</p>}
    <div style={{position:"sticky",top:0,zIndex:2,background:"white",border:"1px solid #ccd9e3",borderRadius:12,padding:12,marginBottom:18}}>
     <strong>{t.answered}: {version.filter(q=>q.responseType==="written"?Boolean(written[q.id]?.trim()):Boolean(answers[q.id])).length}/{version.length}</strong>
    </div>
