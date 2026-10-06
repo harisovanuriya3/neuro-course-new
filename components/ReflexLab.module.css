@@ -71,3 +71,24 @@
 .realAnatomyScene .arcSvg{position:absolute;inset:0;width:100%;height:100%;min-width:0}
 .realAnatomyScene .arcSvg>path:first-of-type,.realAnatomyScene .arcSvg>path:nth-of-type(2),.realAnatomyScene .arcSvg>ellipse,.realAnatomyScene .arcSvg>text{opacity:.16}
 @media(max-width:760px){.realAnatomyScene{aspect-ratio:4/5;min-height:520px}.realAnatomyScene .arcSvg{width:150%;height:100%;left:-25%;max-width:none}.realSpinalCord{left:39%;top:18%;width:38%}.skinInset{left:4%;top:28%;width:26%}}
+
+/* Realistic reflex-arc scene: phone-first, no horizontal scrolling */
+.realAnatomyScene{position:relative;width:100%;aspect-ratio:10/6.5;min-height:0;overflow:hidden;border-radius:18px;background:linear-gradient(145deg,#3b2922,#8b6650);box-shadow:0 12px 30px #23374426;isolation:isolate}
+.realSceneBg{object-fit:cover;opacity:.28;filter:saturate(.75) contrast(1.08) brightness(.62);z-index:-4}
+.skinPhoto{position:absolute;left:3%;top:35%;width:19%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 48% 62%,#ffcfb7 0 22%,#d98266 23% 35%,#f4b69a 36% 54%,#b85c4c 55% 60%,#eeb59b 61%);border:3px solid #fff;box-shadow:0 7px 22px #0008;z-index:-1}
+.receptorGlow{position:absolute;left:43%;top:45%;width:18%;aspect-ratio:1;border-radius:50%;background:#ffd229;box-shadow:0 0 18px 7px #ff8b20}
+.cordPhoto{position:absolute;left:42%;top:17%;width:25%;aspect-ratio:1/1.1;border-radius:48%;background:radial-gradient(ellipse,#a89a91 0 10%,#6e6764 11% 23%,#ead1b5 24% 68%,#b78361 69% 77%,#674b3e 78%);box-shadow:0 8px 24px #0009,inset 0 0 18px #fff6;z-index:-1}
+.cordPhoto .grayMatter{position:absolute;inset:23%;background:#686462;clip-path:polygon(50% 37%,78% 5%,72% 42%,98% 63%,67% 61%,52% 94%,48% 94%,33% 61%,2% 63%,28% 42%,22% 5%)}
+.musclePhoto{position:absolute;right:3%;bottom:13%;width:20%;height:27%;border-radius:50% 18% 50% 18%;background:repeating-linear-gradient(165deg,#b72f28 0 7px,#e26652 8px 12px);box-shadow:0 8px 20px #0007;z-index:-1;transform:rotate(-10deg)}
+.realOverlay{position:absolute;inset:0;width:100%;height:100%}
+.realOverlay text{fill:#fff;font-size:21px;font-weight:800;paint-order:stroke;stroke:#263238;stroke-width:5px;stroke-linejoin:round}
+.afferentBase,.interneuronBase,.efferentBase,.ascBase{fill:none;stroke:#d9e2e8;stroke-width:9;stroke-linecap:round;opacity:.65}
+.afferentBase{stroke:#50b8e8}.interneuronBase{stroke:#78c96c}.efferentBase{stroke:#ff9b43}.ascBase{stroke-dasharray:10 10;stroke-width:5}
+.afferentPulse,.interneuronPulse,.efferentPulse{fill:none;stroke-width:15;stroke-linecap:round;stroke-dasharray:25 35;filter:url(#glow);animation:realImpulse .65s linear infinite}
+.afferentPulse{stroke:#00c8ff}.interneuronPulse{stroke:#72ff64}.efferentPulse{stroke:#ff542e}
+.lesion{stroke:#ff1e1e;stroke-width:15;stroke-linecap:round;filter:drop-shadow(0 0 6px #fff)}
+.withdrawHand{position:absolute;right:1%;bottom:3%;width:18%;height:10%;border-radius:60% 40% 50% 50%;background:#e5ae8d;opacity:0;transform:translate(30px,20px) rotate(8deg);transition:.7s ease;box-shadow:0 5px 15px #0006}
+.withdrawHand[data-active="true"]{opacity:.9;transform:translate(-25px,-45px) rotate(-18deg)}
+@keyframes realImpulse{to{stroke-dashoffset:-60}}
+@media(max-width:760px){.realAnatomyScene{aspect-ratio:4/5;width:100%;min-height:0}.realOverlay text{font-size:27px}.skinPhoto{left:2%;top:37%;width:24%}.cordPhoto{left:38%;top:20%;width:35%}.musclePhoto{right:2%;bottom:12%;width:27%;height:23%}.realOverlay{width:100%;height:100%}.anatomyPanel{overflow:visible}}
+@media(prefers-reduced-motion:reduce){.afferentPulse,.interneuronPulse,.efferentPulse{animation:none}.withdrawHand{transition:none}}
