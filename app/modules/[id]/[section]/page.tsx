@@ -22,6 +22,7 @@ import AnatomyReference from "../../../../components/AnatomyReference";
 import AdvancedAnatomyReference from "../../../../components/AdvancedAnatomyReference";
 import ModuleSidebar from "../../../../components/ModuleSidebar";
 import NerveFiberLab from "../../../../components/NerveFiberLab";
+import EEGLab from "../../../../components/EEGLab";
 import MembraneElectrophysiologyLab from "../../../../components/MembraneElectrophysiologyLab";
 import SynapseExperimentLab from "../../../../components/SynapseExperimentLab";
 import IntegrationExperimentLab from "../../../../components/IntegrationExperimentLab";
@@ -239,6 +240,8 @@ export default async function SectionPage({
             <VoiceContent language={lang} moduleId={moduleNumber} />
           ) : section === "notes" ? (
             <NotesContent language={lang} moduleId={moduleNumber} />
+          ) : moduleNumber === 2 && section === "interactive" ? (
+            <EEGLab language={lang} />
           ) : moduleNumber === 3 && section === "interactive" ? (
             <><NerveFiberLab language={lang} /><NeuroPracticalStation moduleId={3} language={lang} /></>
           ) : moduleNumber === 4 && section === "interactive" ? (
