@@ -50,7 +50,7 @@ export default function GuidedLabFrame({moduleId,language,children}:{moduleId:ke
   if(moduleId===21) return <>{children}</>;
   const t=ui[language];
   const [prediction,setPrediction]=useState("");
-  const [started,setStarted]=useState(moduleId===21);
+  const [started,setStarted]=useState(false);
   const ready=prediction.trim().length>=12;
   return <div className={styles.frame} data-testid={`guided-lab-${moduleId}`}>
     <section className={styles.predict}>
