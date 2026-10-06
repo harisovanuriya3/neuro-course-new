@@ -3,6 +3,7 @@
 import {useState,type ReactNode} from "react";
 import type {Language} from "../content/course";
 import styles from "./GuidedLabFrame.module.css";
+import {recordOutcome} from "../lib/courseProgress";
 
 const prompts={
  8:{RU:"Как место перекрёста выбранного пути определит сторону дефицита ниже спинального поражения?",KZ:"Таңдалған жолдың айқасу орны жұлын зақымынан төмен тапшылық жағын қалай анықтайды?",EN:"How will the selected tract's decussation determine the side of deficit below a spinal lesion?"},
@@ -44,14 +45,26 @@ const clinical={
  24:{RU:"Клиническая связь: бессонница, циркадное рассогласование и нарушения дыхания во сне требуют различной интерпретации и не сводятся к одной шкале сонливости.",KZ:"Клиникалық байланыс: ұйқысыздық, циркадалық сәйкессіздік және ұйқыдағы тыныс бұзылыстары әртүрлі түсіндіруді қажет етеді және бір ұйқышылдық шкаласына сыймайды.",EN:"Clinical link: insomnia, circadian misalignment, and sleep-disordered breathing require different interpretations and cannot be reduced to one sleepiness scale."},
  25:{RU:"Клиническая связь: пластичность поддерживает обучение и восстановление, но её направление зависит от времени, контекста и состояния сети; усиление не всегда полезно.",KZ:"Клиникалық байланыс: пластикалылық үйрену мен қалпына келуді қолдайды, бірақ оның бағыты уақытқа, контекстке және желі күйіне тәуелді; күшею әрдайым пайдалы емес.",EN:"Clinical link: plasticity supports learning and recovery, but its direction depends on timing, context, and network state; potentiation is not always beneficial."}
 } as const;
-const ui={RU:{heading:"Прогноз → эксперимент → объяснение",label:"Ваш причинно-следственный прогноз",start:"Перейти к эксперименту",replay:"Новый прогноз",result:"Сопоставьте наблюдаемый результат с прогнозом и объясните механизм.",min:"Сформулируйте прогноз полным предложением (не менее 12 символов)."},KZ:{heading:"Болжам → тәжірибе → түсіндіру",label:"Себеп-салдарлық болжамыңыз",start:"Тәжірибеге өту",replay:"Жаңа болжам",result:"Бақыланған нәтижені болжаммен салыстырып, механизмді түсіндіріңіз.",min:"Болжамды толық сөйлеммен жазыңыз (кемінде 12 таңба)."},EN:{heading:"Prediction → experiment → explanation",label:"Your cause-and-effect prediction",start:"Proceed to experiment",replay:"New prediction",result:"Compare the observed result with your prediction and explain the mechanism.",min:"State the prediction as a complete sentence (at least 12 characters)."}} as const;
+const ui={
+ RU:{heading:"Прогноз → эксперимент → объяснение → вывод",label:"Ваш причинно-следственный прогноз",start:"Перейти к эксперименту",replay:"Новый прогноз",result:"Сопоставьте наблюдаемый результат с прогнозом и объясните механизм.",min:"Сформулируйте прогноз полным предложением (не менее 12 символов).",explain:"Объясните, почему получился такой результат",finish:"Завершить опыт",done:"Опыт завершён. Ваше объяснение учтено в профиле освоения.",explainMin:"Объяснение должно содержать не менее 20 символов."},
+ KZ:{heading:"Болжам → тәжірибе → түсіндіру → қорытынды",label:"Себеп-салдарлық болжамыңыз",start:"Тәжірибеге өту",replay:"Жаңа болжам",result:"Бақыланған нәтижені болжаммен салыстырып, механизмді түсіндіріңіз.",min:"Болжамды толық сөйлеммен жазыңыз (кемінде 12 таңба).",explain:"Неліктен осындай нәтиже шыққанын түсіндіріңіз",finish:"Тәжірибені аяқтау",done:"Тәжірибе аяқталды. Түсіндірмеңіз меңгеру профиліне енгізілді.",explainMin:"Түсіндіру кемінде 20 таңбадан тұруы керек."},
+ EN:{heading:"Prediction → experiment → explanation → conclusion",label:"Your cause-and-effect prediction",start:"Proceed to experiment",replay:"New prediction",result:"Compare the observed result with your prediction and explain the mechanism.",min:"State the prediction as a complete sentence (at least 12 characters).",explain:"Explain why this result occurred",finish:"Complete experiment",done:"Experiment completed. Your explanation is included in the mastery profile.",explainMin:"Enter an explanation of at least 20 characters."}
+} as const;
 
 export default function GuidedLabFrame({moduleId,language,children}:{moduleId:keyof typeof prompts;language:Language;children:ReactNode}){
   if(moduleId===21) return <>{children}</>;
   const t=ui[language];
   const [prediction,setPrediction]=useState("");
   const [started,setStarted]=useState(false);
+  const [explanation,setExplanation]=useState("");
+  const [finished,setFinished]=useState(false);
   const ready=prediction.trim().length>=12;
+  const explanationReady=explanation.trim().length>=20;
+  function finish(){
+    setFinished(true);
+    recordOutcome(Number(moduleId),"criterion:application",1,1);
+    recordOutcome(Number(moduleId),"criterion:transfer",1,1);
+  }
   return <div className={styles.frame} data-testid={`guided-lab-${moduleId}`}>
     <section className={styles.predict}>
       <h2>{t.heading}</h2>
@@ -64,8 +77,16 @@ export default function GuidedLabFrame({moduleId,language,children}:{moduleId:ke
       <div className={styles.experiment}>{children}</div>
       <aside className={styles.result}>
         <strong>{t.result}</strong>
-        <p>{clinical[moduleId][language]}</p>
-        <button type="button" onClick={()=>{setStarted(false);setPrediction("")}}>{t.replay}</button>
+        <label style={{display:"block",marginTop:12}}>{t.explain}
+          <textarea rows={4} value={explanation} onChange={event=>{setExplanation(event.target.value);setFinished(false)}} style={{display:"block",width:"100%",marginTop:8}}/>
+        </label>
+        {!explanationReady&&explanation.trim().length>0&&<p role="status">{t.explainMin}</p>}
+        <button type="button" disabled={!explanationReady} onClick={finish}>{t.finish}</button>
+        {finished&&<>
+          <p role="status"><strong>{t.done}</strong></p>
+          <p>{clinical[moduleId][language]}</p>
+        </>}
+        <button type="button" onClick={()=>{setStarted(false);setPrediction("");setExplanation("");setFinished(false)}}>{t.replay}</button>
       </aside>
     </>}
   </div>;
