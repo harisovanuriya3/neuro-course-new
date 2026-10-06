@@ -191,6 +191,18 @@ function Worksheet({ block, ui, language, onComplete }: { block: Extract<Practic
   );
 }
 
+function Checklist({ items, onComplete }: { items: string[]; onComplete?: (done: boolean) => void }) {
+  const [selected, setSelected] = useState<number[]>([]);
+  function toggle(index: number) {
+    const next = selected.includes(index) ? selected.filter(value => value !== index) : [...selected, index];
+    setSelected(next);
+    onComplete?.(next.length === items.length);
+  }
+  return <div className={styles.checklist}>{items.map((item, index) => (
+    <label key={item}><input type="checkbox" checked={selected.includes(index)} onChange={() => toggle(index)} /> <span>{item}</span></label>
+  ))}</div>;
+}
+
 function Block({ block, ui, language, moduleId, responseValue = "", onResponse, answersUnlocked = false, onComplete }: { block: PracticeBlock; ui: UI; language: Language; moduleId: string; responseValue?: string; onResponse?: (value: string) => void; answersUnlocked?: boolean; onComplete?: (done: boolean) => void }) {
   switch (block.type) {
     case "paragraph": return <p>{block.text}</p>;
@@ -203,9 +215,7 @@ function Block({ block, ui, language, moduleId, responseValue = "", onResponse, 
     case "table": return <Worksheet block={block} ui={ui} language={language} onComplete={onComplete} />;
     case "visual-materials": return <PracticeVisualMaterials language={language} />;
     case "classification": return <Classification block={block} ui={ui} language={language} onComplete={onComplete} />;
-    case "checklist": return <div className={styles.checklist}>{block.items.map((item) => (
-      <label key={item}><input type="checkbox" /> <span>{item}</span></label>
-    ))}</div>;
+    case "checklist": return <Checklist items={block.items} onComplete={onComplete} />;
     case "ai-audit": return <AIAuditPractice block={block} language={language} moduleId={moduleId} onComplete={onComplete} />;
   }
 }
@@ -215,7 +225,7 @@ function PracticeSection({ section, ui, language, moduleId, index, total, onComp
   const [checked, setChecked] = useState(false);
   const [blockDone, setBlockDone] = useState<Record<number, boolean>>({});
   const responseIndexes = section.blocks.flatMap((block, index) => block.type === "response" ? [index] : []);
-  const interactiveIndexes = section.blocks.flatMap((block, index) => ["sequence","table","classification","ai-audit"].includes(block.type) ? [index] : []);
+  const interactiveIndexes = section.blocks.flatMap((block, index) => ["sequence","table","classification","checklist","ai-audit"].includes(block.type) ? [index] : []);
   const hasAnswers = section.blocks.some((block) => block.type === "answer");
   const ready = responseIndexes.length > 0 && responseIndexes.every((index) => isMeaningful(responses[index] ?? ""));
   const c = attemptCopy[language];
