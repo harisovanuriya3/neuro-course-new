@@ -48,7 +48,7 @@ const copy = {
     anatomy: ["Тері ноцицепторы","Сезімтал нейрон","Артқы түбір","Аралық нейрон","Алдыңғы мүйіз мотонейроны","Алдыңғы түбір","Бүккіш бұлшықет"], ascending: "Жоғарылаушы жолдарға коллатераль: жұлындық жауаптың басталуы үшін ауырсынуды саналы сезіну міндетті емес", photo: "Оқулық үшін ЖИ жасаған қойылымдық фотосуреттер", contactAlt: "Қол тартылғанға дейін металл тостағанның жанында", withdrawalAlt: "Сол қол металл тостағаннан алыстатылған", record: "Нәтижені жазу", journal: "Тәжірибелер журналы", explanation: "Рефлекс неге пайда болды немесе үзілді?", source: "Рефлекс физиологиясы: OpenStax, Anatomy and Physiology 2e, 14-тарау",
   },
 } satisfies Record<Language, {
-  languages: string; slow: string; normal: string; anatomyTitle: string; enabled: string; disabled: string; title: string; intro: string; condition: string; intact: string; afferent: string; efferent: string; predict: string; moves: string; still: string; run: string; replay: string; reset: string;
+  languages: string; slow: string; normal: string; anatomyTitle: string; enabled: string; disabled: string; title: string; intro: string; condition: string; intact: string; receptor: string; afferent: string; spinal: string; efferent: string; predict: string; moves: string; still: string; run: string; replay: string; reset: string;
   stages: string[]; waiting: string; running: string; stopped: string; finished: string; blockedAt: Record<Exclude<Condition,"intact">, string>; correct: string; incorrect: string;
   outcome: Record<Condition, string>; limit: string; anatomy: string[]; ascending: string; photo: string; contactAlt: string; withdrawalAlt: string; record: string; journal: string; explanation: string; source: string;
 }>;
@@ -150,7 +150,7 @@ export default function ReflexLab({ language }: { language: Language }) {
         <text x="975" y="395" textAnchor="middle" fontSize="15">{c.anatomy[6]}</text>
         {/* ascending collateral */}
         <path d="M535 180 C535 125 600 80 680 70" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray="8 7" markerEnd="url(#reflexArrow)"/>
-        <foreignObject x="680" y="18" width="390" height="70"><div xmlns="http://www.w3.org/1999/xhtml" style={{fontSize:12,lineHeight:1.25,textAlign:"center",overflowWrap:"anywhere"}}>{c.ascending}</div></foreignObject>
+        <foreignObject x="680" y="18" width="390" height="70"><div style={{fontSize:12,lineHeight:1.25,textAlign:"center",overflowWrap:"anywhere"}}>{c.ascending}</div></foreignObject>
         {/* moving impulse follows anatomical route; no schematic circles */}
         {stage>=0&&<circle r="9" fill={stage<3?"#36a7ff":"#ff6a35"} filter="url(#pulseGlow)">
           <animateMotion dur={slow?"3s":"1.7s"} repeatCount={running?"indefinite":"1"} path={stage<2?"M155 230 C245 170 315 160 390 185 C445 185 475 190 515 205":stage<4?"M515 205 C535 215 545 225 558 240 C590 260 620 275 690 280":"M690 280 C775 285 825 300 890 315"}/>
