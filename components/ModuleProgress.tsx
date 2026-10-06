@@ -16,8 +16,11 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const [data,setData]=useState<CourseProgressData|null>(null);
  useEffect(()=>{recordVisit(moduleId,"progress");setData(readCourseProgress())},[moduleId]);
  const c=C[language], outcomes=data?.outcomes??{};
- const currentVisited=data?.visitedSections[moduleId]?.length??0;
- const currentPercent=Math.round((currentVisited/17)*100);
+ const visitedSections=data?.visitedSections[moduleId]??[];
+ const coreSections=["objectives","pretest","theory","one-minute","clinical","interactive","practice","cases","tests","questions","virtual-patient"] as const;
+ const coreVisited=coreSections.filter(section=>visitedSections.includes(section)).length;
+ const supportVisited=visitedSections.length-coreVisited;
+ const currentPercent=Math.round((coreVisited/coreSections.length)*100);
  const test=outcomes[`${moduleId}:tests`], cases=outcomes[`${moduleId}:cases`];
  const combined=(items:({correct:number;total:number}|undefined)[])=>{const x=items.filter(Boolean) as {correct:number;total:number}[];return {correct:x.reduce((a,b)=>a+b.correct,0),total:x.reduce((a,b)=>a+b.total,0)}};
  const tc=combined([test,cases]), tOnly=combined([test]), cOnly=combined([cases]);
@@ -39,7 +42,13 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const recommendation=available.length===0?c.none:reviewCount>0?c.low:masteredCount===available.length?c.strong:c.mid;
  return <section className={styles.patient}>
   <h1>{c.title}</h1><p>{c.scope}. {c.saved}</p>
-  <div className={styles.summary}><p>{c.visited}: <strong>{data?.visitedModules.length??0} / {modules[language].length}</strong></p><progress aria-label={c.visited} value={data?.visitedModules.length??0} max={modules[language].length}/><p>{language==="RU"?"Текущий модуль":language==="KZ"?"Ағымдағы модуль":"Current module"}: <strong>{currentVisited}/17 · {currentPercent}%</strong></p><progress aria-label="module progress" value={currentVisited} max={17}/></div>
+  <div className={styles.summary}>
+    <p>{c.visited}: <strong>{data?.visitedModules.length??0} / {modules[language].length}</strong></p>
+    <progress aria-label={c.visited} value={data?.visitedModules.length??0} max={modules[language].length}/>
+    <p>{language==="RU"?"Основной маршрут":language==="KZ"?"Негізгі маршрут":"Core learning path"}: <strong>{coreVisited}/{coreSections.length} · {currentPercent}%</strong></p>
+    <progress aria-label="core module progress" value={coreVisited} max={coreSections.length}/>
+    <p>{language==="RU"?"Дополнительные разделы":language==="KZ"?"Қосымша бөлімдер":"Additional sections"}: <strong>{supportVisited}/6</strong></p>
+  </div>
   <h2>{c.assessment} · {c.module} {moduleId}</h2>
   <p>{c.exam}</p>
   <section style={{margin:"16px 0 20px",padding:"16px",border:"1px solid #d6e3eb",borderRadius:14,background:"#f8fcff"}}>
