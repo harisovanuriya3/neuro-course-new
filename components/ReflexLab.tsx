@@ -131,9 +131,9 @@ export default function ReflexLab({ language }: { language: Language }) {
           <path className={styles.afferentBase} d="M155 360 C245 300 315 265 430 295 C470 300 490 315 505 335"/>
           <path className={styles.interneuronBase} d="M505 335 C535 300 565 305 590 345"/>
           <path className={styles.efferentBase} d="M590 345 C680 385 745 405 865 435"/>
-          {stage>=0&&!excluded.has("receptor")&&<path className={styles.afferentPulse} d="M155 360 C245 300 315 265 430 295 C470 300 490 315 505 335"/>}
-          {stage>=2&&!excluded.has("spinal")&&<path className={styles.interneuronPulse} d="M505 335 C535 300 565 305 590 345"/>}
-          {stage>=3&&!excluded.has("efferent")&&<path className={styles.efferentPulse} d="M590 345 C680 385 745 405 865 435"/>}
+          {stage>=0&&!excluded.has("receptor")&&!excluded.has("afferent")&&<path className={styles.afferentPulse} d="M155 360 C245 300 315 265 430 295 C470 300 490 315 505 335"/>}
+          {stage>=2&&!excluded.has("receptor")&&!excluded.has("afferent")&&!excluded.has("spinal")&&<path className={styles.interneuronPulse} d="M505 335 C535 300 565 305 590 345"/>}
+          {stage>=3&&!excluded.has("receptor")&&!excluded.has("afferent")&&!excluded.has("spinal")&&!excluded.has("efferent")&&<path className={styles.efferentPulse} d="M590 345 C680 385 745 405 865 435"/>}
           <path className={styles.ascBase} d="M535 310 C560 245 575 190 585 100"/>
           <text x="82" y="410">{c.anatomy[0]}</text><text x="250" y="270">{c.anatomy[1]}</text>
           <text x="430" y="265">{c.anatomy[2]}</text><text x="505" y="395">{c.anatomy[3]}</text>
