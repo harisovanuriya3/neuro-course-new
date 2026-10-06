@@ -30,3 +30,14 @@
 
 .arcSvg { width: 100%; min-width: 760px; height: auto; }
 @media (max-width: 760px) { .arcSvg { min-width: 0; width: 100%; } }
+
+.languageBar { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:16px; padding:10px 12px; border-radius:12px; background:#eef6fb; }
+.languageBar > div { display:flex; gap:8px; }
+.languageButton,.languageActive { display:inline-flex; min-width:48px; min-height:42px; align-items:center; justify-content:center; border:1px solid #8fb2cb; border-radius:10px; text-decoration:none; font-weight:800; }
+.languageActive { background:#00599c; color:white !important; border-color:#00599c; }
+.anatomyPanel { margin:20px 0; padding:16px; border:1px solid #cfe0ea; border-radius:16px; overflow:hidden; background:linear-gradient(180deg,#f7fbfe,#fff); }
+.anatomyPanel h3 { margin:0 0 10px; }
+.statusStrip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-bottom:12px; }
+.statusStrip span { padding:8px; border-radius:9px; background:#e8f5ec; text-align:center; font-size:.82rem; font-weight:700; }
+.statusStrip span[data-off="true"] { background:#fdeaea; color:#8b1e1e; }
+@media (max-width:760px) { .statusStrip { grid-template-columns:1fr 1fr; } .languageBar { align-items:flex-start; } }
