@@ -125,10 +125,16 @@ export default function ReflexLab({ language }: { language: Language }) {
       <div className={styles.statusStrip}>{(["receptor","afferent","spinal","efferent"] as const).map((part,i) => <button type="button" key={part} disabled={running || stage>=0} aria-pressed={excluded.has(part)} onClick={()=>togglePart(part)} data-off={excluded.has(part)}><span className={styles.segmentIcon} data-part={part}>{part==="receptor"?"◉":part==="afferent"?"⚡":part==="spinal"?"🧠":"▰"}</span><strong>{[language==="RU"?"Рецептор (кожа)":language==="KZ"?"Рецептор (тері)":"Receptor (skin)",language==="RU"?"Афферентный нейрон":language==="KZ"?"Афференттік нейрон":"Afferent neuron",language==="RU"?"Спинальный центр":language==="KZ"?"Жұлын орталығы":"Spinal center",language==="RU"?"Эфферентный нейрон / мышца":language==="KZ"?"Эфференттік нейрон / бұлшықет":"Efferent neuron / muscle"][i]}</strong><small><i className={styles.toggleDot}/>{excluded.has(part) ? c.disabled : c.enabled}</small></button>)}</div>
       <div className={styles.reflexAtlas} data-withdraw={stage>=4&&condition==="intact"}>
         <div className={styles.reflexPhotoScene} aria-label={c.anatomyTitle}>
+          <div className={styles.reflexLeft} data-withdrawn={stage>=4&&condition==="intact"}>
+            <Image className={styles.reflexBg} src="/images/lab/reflex-background.webp" alt="" aria-hidden="true" width={1536} height={1024}/>
+            <Image className={styles.realReflexHand} src="/images/lab/reflex-hand.webp" alt="" aria-hidden="true" width={1536} height={1024}/>
+            <div className={styles.stimulusPoint}/>
+          </div>
+          <div className={styles.reflexRight}>
+            <div className={styles.spinalBackdrop}/>
+            <div className={styles.photoSpinal}><span/></div>
+          </div>
           <div className={styles.reflexPhotoOverlay}/>
-          <div className={styles.photoSpinal}><span/></div>
-          <div className={styles.photoHand} aria-hidden="true"><i/><i/><i/><i/><i/></div>
-          <div className={styles.stimulusPoint}/>
           <svg viewBox="0 0 1000 560" className={styles.photoSignals} aria-hidden="true">
             <defs><filter id="photoGlow"><feGaussianBlur stdDeviation="5" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
             <path className={styles.photoAfferent} d="M170 365 C300 330 405 335 505 270 C585 218 635 190 700 210"/>
