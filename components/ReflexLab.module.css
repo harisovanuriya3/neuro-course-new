@@ -202,3 +202,35 @@
 .sceneCallout b{display:grid;place-items:center;flex:0 0 28px;height:28px;border-radius:50%;background:#1676d2;font-size:15px}.sceneCallout[data-callout="stimulus"]{left:4%;top:16%}.sceneCallout[data-callout="afferent"]{left:32%;top:11%}.sceneCallout[data-callout="center"]{right:7%;top:6%}.sceneCallout[data-callout="motor"]{right:4%;top:56%}.sceneCallout[data-callout="response"]{left:36%;bottom:5%}.sceneCallout[data-callout="stimulus"] b,.sceneCallout[data-callout="response"] b{background:#d52d26}.sceneCallout[data-callout="center"] b{background:#7440a2}.sceneCallout[data-callout="motor"] b{background:#ed5b21}
 @media(max-width:760px){.reflexPhotoScene{aspect-ratio:1/1.08;background-position:center}.sceneCallout{max-width:44%;font-size:10px;padding:5px}.sceneCallout b{flex-basis:22px;height:22px;font-size:12px}.sceneCallout[data-callout="afferent"]{left:34%;top:17%}.sceneCallout[data-callout="center"]{right:3%;top:3%}.sceneCallout[data-callout="motor"]{right:2%;top:62%}.sceneCallout[data-callout="response"]{left:27%;bottom:3%}.photoSpinal{right:7%;top:24%;width:34%}.photoHand{left:4%;bottom:20%;width:38%;height:24%}[data-withdraw="true"] .photoHand{transform:translate(-10px,-48px) rotate(-20deg)}}
 @media(prefers-reduced-motion:reduce){.photoPulseBlue,.photoPulsePurple,.photoPulseOrange{animation:none}.photoHand{transition:none}}
+
+/* v8 approved layout: real hand left, spinal cord right */
+.reflexPhotoScene{display:grid;grid-template-columns:1.05fr .95fr;position:relative;width:100%;aspect-ratio:16/8.2;overflow:hidden;border-radius:18px;background:#101820}
+.reflexLeft,.reflexRight{position:relative;overflow:hidden;min-width:0}
+.reflexLeft{background:#1d1d1d}
+.reflexRight{background:radial-gradient(circle at 50% 42%,#dfc3a6 0 18%,#b77c59 19% 36%,#725044 37% 55%,#263746 56% 100%)}
+.reflexBg,.realReflexHand{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.realReflexHand{transform:translateX(-15%);transform-origin:10% 48%;transition:transform .72s cubic-bezier(.2,.85,.2,1);z-index:2}
+.reflexLeft[data-withdrawn="true"] .realReflexHand{transform:translate(-34%,-7%) rotate(-6deg)}
+.reflexRight .photoSpinal{right:50%;top:50%;transform:translate(50%,-50%);width:54%;z-index:2}
+.spinalBackdrop{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.12),transparent 60%)}
+.reflexPhotoOverlay{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 48%,rgba(255,255,255,.08) 50%,transparent 52%);z-index:3}
+.reflexPhotoScene .stimulusPoint{left:11%;bottom:24%;z-index:6}
+.photoSignals{z-index:5}
+.sceneCallout{z-index:7}
+.sceneCallout[data-callout="stimulus"]{left:3%;top:10%}
+.sceneCallout[data-callout="afferent"]{left:29%;top:9%}
+.sceneCallout[data-callout="center"]{right:4%;top:7%}
+.sceneCallout[data-callout="motor"]{right:4%;top:57%}
+.sceneCallout[data-callout="response"]{left:27%;bottom:5%}
+@media(max-width:760px){
+ .reflexPhotoScene{grid-template-columns:1fr;grid-template-rows:1fr 1fr;aspect-ratio:1/1.45}
+ .reflexRight .photoSpinal{width:42%}
+ .sceneCallout{max-width:46%}
+ .sceneCallout[data-callout="stimulus"]{left:3%;top:4%}
+ .sceneCallout[data-callout="afferent"]{left:45%;top:8%}
+ .sceneCallout[data-callout="center"]{right:3%;top:53%}
+ .sceneCallout[data-callout="motor"]{right:3%;top:76%}
+ .sceneCallout[data-callout="response"]{left:4%;bottom:2%}
+ .reflexLeft[data-withdrawn="true"] .realReflexHand{transform:translate(-28%,-6%) rotate(-6deg)}
+}
+@media(prefers-reduced-motion:reduce){.realReflexHand{transition:none}}
