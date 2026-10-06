@@ -63,7 +63,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
     if (!scenario || !allStagesCompleted) return;
     const correct = scenario.stages.reduce((sum, reviewStage, index) => sum + (state.selected[index] === reviewStage.correctOption ? 1 : 0), 0);
     recordOutcome(moduleId, "virtual-patient", correct, scenario.stages.length);
-    recordOutcome(moduleId, "criterion:clinical", correct, scenario.stages.length);
+    recordOutcome(moduleId, "criterion:clinical:virtual-patient", correct, scenario.stages.length);
   }, [scenario, allStagesCompleted, moduleId, state.selected]);
 
   if (!scenario) return null;
