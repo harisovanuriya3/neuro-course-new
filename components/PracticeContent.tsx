@@ -227,7 +227,7 @@ function PracticeSection({ section, ui, language, moduleId, index, total, onComp
   const interactiveDone = interactiveIndexes.every(index => blockDone[index]);
   const sectionHasTask = hasTextTask || interactiveIndexes.length > 0;
   const sectionDone = sectionHasTask && textDone && interactiveDone;
-  useEffect(() => { onComplete(sectionDone); }, [sectionDone, onComplete]);
+  useEffect(() => { onComplete(sectionDone); }, [sectionDone]);
   return <section className={styles.card}>
     <h2>{section.title}</h2>
     {section.blocks.map((block, index) => block.type === "answer" ? null : <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} responseValue={responses[index] ?? ""} onResponse={(value) => update(index, value)} answersUnlocked={checked} onComplete={(done) => markBlock(index, done)} />)}
