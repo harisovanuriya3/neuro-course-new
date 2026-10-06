@@ -7,6 +7,7 @@ import type { Language } from "../content/course";
 import { emptyPatientProgress, readPatientProgress, savePatientProgress, type PatientProgress } from "../lib/virtualPatientProgress";
 import styles from "./VirtualPatient.module.css";
 import VoiceTextarea from "./VoiceTextarea";
+import {recordOutcome} from "../lib/courseProgress";
 
 const diagnosisCopy = {
   RU: { label: "Ваш предварительный диагноз и обоснование", compare: "Сравнить с вариантами", note: "Сначала сформулируйте свой ответ. Свободный текст не оценивается автоматически; затем сравните его с вариантами и разбором." },
@@ -102,6 +103,12 @@ export default function VirtualPatient({ language }: { language: Language }) {
   const c = text[language];
   const d = dialogueCopy[language];
   const answered = progress.answers.filter(value => value !== null).length;
+  useEffect(() => {
+    if (!ready || answered !== 6) return;
+    const correct = progress.firstTryCorrect.filter(Boolean).length;
+    recordOutcome(1, "virtual-patient", correct, 6);
+    recordOutcome(1, "criterion:clinical", correct, 6);
+  }, [ready, answered, progress.firstTryCorrect]);
   const selected = progress.answers[stage];
   const firstIncomplete = progress.answers.findIndex(value => value === null);
   const unlockedStage = firstIncomplete < 0 ? 5 : Math.min(5, firstIncomplete);
@@ -243,7 +250,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
         </div>}
         <div className={styles.actions}>
           <button type="button" onClick={() => setStage(value => value - 1)} disabled={stage === 0}>{c.previous}</button>
-          {stage < 5 ? <button type="button" onClick={() => { if(stage===4 && diagnosisAssessment===null) evaluateDiagnosis(); setStage(value => value + 1); }} disabled={stage===4 ? !progress.diagnosisText.trim() : selected === null}>{c.next}</button> : answered >= 5 ? <Link href={`/modules/1/progress?lang=${language}`}>{c.result}</Link> : null}
+          {stage < 5 ? <button type="button" onClick={() => setStage(value => value + 1)} disabled={selected === null}>{c.next}</button> : answered === 6 ? <Link href={`/modules/1/progress?lang=${language}`}>{c.result}</Link> : null}
         </div>
       </div>
       <aside className={styles.teacherPanel} aria-live="polite">
@@ -258,7 +265,7 @@ export default function VirtualPatient({ language }: { language: Language }) {
         </div>
       </aside>
     </div>
-    {answered >= 5 && <section role="status" className={styles.finished}><h3>{d.summary}</h3><p>{diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong}</p><button type="button" onClick={() => speakTeacher(diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong)}>🔊 {d.voiceTeacher}</button><p>{c.independent}: {progress.firstTryCorrect.filter(Boolean).length} / 6. {c.saved}</p><div className={styles.actions}><button type="button" onClick={() => { const wrong = progress.firstTryCorrect.map((v,i)=>v?null:i).filter(v=>v!==null) as number[]; const cleared = emptyPatientProgress(); update({...cleared, asked: wrong.includes(0)?[]:progress.asked}); setStage(wrong[0] ?? 0); setShowOptions(false); setDiagnosisAssessment(null); }}>{d.retry}</button><Link href={`/modules/1/theory?lang=${language}`}>{d.theory}</Link><Link href={`/modules/1/progress?lang=${language}`}>{c.progress}</Link></div></section>}
+    {answered === 6 && <section role="status" className={styles.finished}><h3>{d.summary}</h3><p>{diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong}</p><button type="button" onClick={() => speakTeacher(diagnosisAssessment === "good" ? d.diagGood : diagnosisAssessment === "partial" ? d.diagPartial : d.diagWrong)}>🔊 {d.voiceTeacher}</button><p>{c.independent}: {progress.firstTryCorrect.filter(Boolean).length} / 6. {c.saved}</p><div className={styles.actions}><button type="button" onClick={() => { const wrong = progress.firstTryCorrect.map((v,i)=>v?null:i).filter(v=>v!==null) as number[]; const cleared = emptyPatientProgress(); update({...cleared, asked: wrong.includes(0)?[]:progress.asked}); setStage(wrong[0] ?? 0); setShowOptions(false); setDiagnosisAssessment(null); }}>{d.retry}</button><Link href={`/modules/1/theory?lang=${language}`}>{d.theory}</Link><Link href={`/modules/1/progress?lang=${language}`}>{c.progress}</Link></div></section>}
     <button type="button" className={styles.reset} onClick={reset}>{c.reset}</button>
     <p className={styles.sources}>{c.sources}: <a href="https://www.niams.nih.gov/health-topics/carpal-tunnel-syndrome" target="_blank" rel="noopener noreferrer">NIAMS</a> · <a href="https://orthoinfo.aaos.org/globalassets/pdfs/plain-language-summary_carpal-tunnel-syndrome-2024.pdf" target="_blank" rel="noopener noreferrer">AAOS</a></p>
   </article>;
