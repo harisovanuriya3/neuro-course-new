@@ -129,3 +129,16 @@
 @keyframes atlasImpulse{to{stroke-dashoffset:-54}}
 @media(max-width:760px){.reflexAtlas{aspect-ratio:4/5}.atlasSvg{transform:scale(1.04);transform-origin:center}.reflexAtlas text{font-size:27px}.atlasHand{width:19%;height:14%;top:50%}.anatomyPanel{overflow:hidden}}
 @media(prefers-reduced-motion:reduce){.reflexAtlas .afferentPulse,.reflexAtlas .interneuronPulse,.reflexAtlas .efferentPulse{animation:none}.atlasHand{transition:none}}
+
+/* Approved-reference UI */
+.statusStrip button{background:#e9f8ef;border-color:#cdebd8;color:#10251b;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:8px}
+.segmentIcon{display:grid;place-items:center;width:100%;height:70px;border-radius:10px;background:#fff;font-size:42px;box-shadow:inset 0 0 0 1px #d9e6df}
+.segmentIcon[data-part="afferent"]{color:#0878dc}.segmentIcon[data-part="spinal"]{color:#6d625c}.segmentIcon[data-part="efferent"]{color:#c52f2f}
+.statusStrip button small{display:flex!important;align-items:center;justify-content:center;gap:8px;color:#087f35;font-size:.9rem;font-weight:800}
+.toggleDot{width:42px;height:24px;border-radius:999px;background:#08a943;position:relative;display:inline-block}.toggleDot:after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:white;right:3px;top:3px;box-shadow:0 1px 3px #0005}
+.statusStrip button[data-off="true"] .toggleDot{background:#b8c0c4}.statusStrip button[data-off="true"] .toggleDot:after{right:21px}
+.actions{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;align-items:stretch}.actions>button:first-child{background:#0878e8;color:#fff;font-size:1.08rem;font-weight:800}
+.speedControl{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:6px;padding:8px 12px;border:1px solid #cbd9e4;border-radius:10px;font-weight:800}.speedControl small{grid-column:1/-1;text-align:center}
+.stageRail{grid-template-columns:repeat(6,1fr);background:#edf6fc;border:1px solid #cde2f2;border-radius:14px;padding:7px}
+.stageRail span{border-radius:12px;min-height:58px;display:grid;grid-template-columns:32px 1fr;gap:5px;align-items:center;padding:5px;background:#e2f1fd;color:#145a91}.stageRail span b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:white;border:3px solid #1886df}.stageRail span small{font-size:.72rem;font-weight:800}.stageRail span:first-child{background:#fff0df;color:#d95516}.stageRail span:first-child b{border-color:#ff6b19}
+@media(max-width:760px){.statusStrip{grid-template-columns:1fr 1fr}.statusStrip button{min-height:130px}.actions{grid-template-columns:1fr 1fr}.actions>button:first-child,.speedControl{grid-column:1/-1}.stageRail{grid-template-columns:repeat(3,1fr)}.stageRail span{grid-template-columns:28px 1fr}.stageRail span b{width:28px;height:28px}}
