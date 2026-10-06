@@ -62,3 +62,12 @@
   .statusStrip button { min-height:76px; font-size:.92rem; }
 }
 @media (prefers-reduced-motion:reduce) { .signalBand,.signalBandMotor { animation:none; } .stageRail span[data-active="true"] { transform:none; } }
+
+.realAnatomyScene{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:16px;background:linear-gradient(135deg,#342a27,#745747);isolation:isolate}
+.realSceneBg{object-fit:cover;filter:saturate(.78) brightness(.48);opacity:.45;z-index:-3}
+.realSpinalCord{position:absolute;left:47%;top:9%;width:27%;aspect-ratio:1/1.12;border-radius:48% 48% 44% 44%;background:radial-gradient(ellipse at center,#b9aaa0 0 12%,#746b67 13% 25%,#e7d0b6 26% 68%,#c89f77 69% 76%,#745a49 77%);box-shadow:0 10px 30px #0008,inset 0 0 20px #fff7;z-index:-1}
+.grayMatter{position:absolute;inset:23% 25%;background:#716a68;clip-path:polygon(50% 37%,78% 5%,72% 42%,98% 63%,67% 61%,52% 94%,48% 94%,33% 61%,2% 63%,28% 42%,22% 5%);filter:drop-shadow(0 1px 2px #0008)}
+.skinInset{position:absolute;left:3%;top:20%;width:18%;aspect-ratio:1;border-radius:50%;border:4px solid #fff;background:radial-gradient(circle at 52% 70%,#f0b39b 0 28%,#d8896d 29% 42%,#f1c3ad 43% 60%,#b85d4b 61% 66%,#efb99e 67%);box-shadow:0 8px 24px #0008;z-index:0}
+.realAnatomyScene .arcSvg{position:absolute;inset:0;width:100%;height:100%;min-width:0}
+.realAnatomyScene .arcSvg>path:first-of-type,.realAnatomyScene .arcSvg>path:nth-of-type(2),.realAnatomyScene .arcSvg>ellipse,.realAnatomyScene .arcSvg>text{opacity:.16}
+@media(max-width:760px){.realAnatomyScene{aspect-ratio:4/5;min-height:520px}.realAnatomyScene .arcSvg{width:150%;height:100%;left:-25%;max-width:none}.realSpinalCord{left:39%;top:18%;width:38%}.skinInset{left:4%;top:28%;width:26%}}
