@@ -63,11 +63,12 @@ export default function ReflexLab({ language }: { language: Language }) {
   const [stage, setStage] = useState(-1);
   const [running, setRunning] = useState(false);
   const [slow, setSlow] = useState(false);
+  const [paused, setPaused] = useState(false);
   const [rows, setRows] = useState<{id:number;condition:Condition;prediction:Prediction;actual:Prediction;note:string}[]>([]);
   const complete = stage === lastStage[condition] && !running;
 
   useEffect(() => {
-    if (!running) return;
+    if (!running || paused) return;
     const timer = window.setInterval(() => {
       setStage(current => {
         if (current >= lastStage[condition]) { setRunning(false); return current; }
@@ -75,12 +76,12 @@ export default function ReflexLab({ language }: { language: Language }) {
       });
     }, slow ? 1500 : 850);
     return () => window.clearInterval(timer);
-  }, [condition, running, slow]);
+  }, [condition, running, slow, paused]);
 
   function changeCondition(next: Condition) { setCondition(next); setExcluded(next === "intact" ? new Set() : new Set([next])); setPrediction(null); setStage(-1); setRunning(false); }
   function togglePart(part: Exclude<Condition,"intact">) { if (running || stage >= 0) return; const next = new Set(excluded); if (next.has(part)) next.delete(part); else next.add(part); setExcluded(next); const first = (["receptor","afferent","spinal","efferent"] as const).find(x=>next.has(x)); setCondition(first ?? "intact"); setPrediction(null); }
-  function start() { if (!prediction) return; setStage(0); setRunning(true); }
-  function reset() { setPrediction(null); setStage(-1); setRunning(false); }
+  function start() { if (!prediction) return; setPaused(false); setStage(0); setRunning(true); }
+  function reset() { setPrediction(null); setStage(-1); setRunning(false); setPaused(false); }
 
   return <section id="reflex-lab" className={styles.lab} aria-labelledby="reflex-lab-title" lang={language === "KZ" ? "kk" : language.toLowerCase()}>
     <div className={styles.languageBar}><strong>{c.languages}</strong><div>{(["RU","KZ","EN"] as const).map(code => <Link key={code} className={language===code?styles.languageActive:styles.languageButton} href={`/modules/7/interactive?lang=${code}#reflex-lab`}>{code}</Link>)}</div></div>
@@ -108,9 +109,10 @@ export default function ReflexLab({ language }: { language: Language }) {
           </label>)}
         </fieldset>
         <div className={styles.actions}>
-          <button type="button" onClick={start} disabled={!prediction || running}>{stage < 0 ? c.run : c.replay}</button>
-          <button type="button" onClick={reset} disabled={running || stage < 0}>{c.reset}</button>
-          <button type="button" onClick={()=>setSlow(v=>!v)} aria-pressed={slow}>{slow ? c.normal : c.slow}</button>
+          <button type="button" onClick={start} disabled={!prediction || running}>{stage < 0 ? "▶ " + c.run : "↻ " + c.replay}</button>
+          <button type="button" onClick={()=>setPaused(v=>!v)} disabled={!running}>{paused ? "▶" : "Ⅱ"} {language==="RU"?(paused?"Продолжить":"Пауза"):language==="KZ"?(paused?"Жалғастыру":"Үзіліс"):(paused?"Resume":"Pause")}</button>
+          <button type="button" onClick={reset} disabled={stage < 0}>↻ {language==="RU"?"Сброс":language==="KZ"?"Қалпына келтіру":"Reset"}</button>
+          <label className={styles.speedControl}>{language==="RU"?"Скорость":language==="KZ"?"Жылдамдық":"Speed"}<input type="range" min="0" max="1" step="1" value={slow?0:1} onChange={e=>setSlow(e.target.value==="0")}/><small>{slow ? c.slow : c.normal}</small></label>
         </div>
         <div className={styles.results} aria-live="polite" aria-atomic="true">
           <strong>{stage < 0 ? c.waiting : running ? c.running : condition === "intact" ? c.finished : c.stopped}</strong>
@@ -120,7 +122,7 @@ export default function ReflexLab({ language }: { language: Language }) {
     </div>
     <figure className={styles.anatomyPanel} data-running={running} data-stage={stage}>
       <h3>{c.anatomyTitle}</h3>
-      <div className={styles.statusStrip}>{(["receptor","afferent","spinal","efferent"] as const).map((part,i) => <button type="button" key={part} disabled={running || stage>=0} aria-pressed={excluded.has(part)} onClick={()=>togglePart(part)} data-off={excluded.has(part)}><strong>{c.anatomy[[0,1,3,5][i]]}</strong><small>{excluded.has(part) ? "✕ " + c.disabled : "✓ " + c.enabled}</small></button>)}</div>
+      <div className={styles.statusStrip}>{(["receptor","afferent","spinal","efferent"] as const).map((part,i) => <button type="button" key={part} disabled={running || stage>=0} aria-pressed={excluded.has(part)} onClick={()=>togglePart(part)} data-off={excluded.has(part)}><span className={styles.segmentIcon} data-part={part}>{part==="receptor"?"◉":part==="afferent"?"⚡":part==="spinal"?"🧠":"▰"}</span><strong>{[language==="RU"?"Рецептор (кожа)":language==="KZ"?"Рецептор (тері)":"Receptor (skin)",language==="RU"?"Афферентный нейрон":language==="KZ"?"Афференттік нейрон":"Afferent neuron",language==="RU"?"Спинальный центр":language==="KZ"?"Жұлын орталығы":"Spinal center",language==="RU"?"Эфферентный нейрон / мышца":language==="KZ"?"Эфференттік нейрон / бұлшықет":"Efferent neuron / muscle"][i]}</strong><small><i className={styles.toggleDot}/>{excluded.has(part) ? c.disabled : c.enabled}</small></button>)}</div>
       <div className={styles.reflexAtlas} data-withdraw={stage>=4&&condition==="intact"}>
         <svg viewBox="0 0 1000 720" className={styles.atlasSvg} role="img" aria-label={c.anatomyTitle}>
           <defs>
@@ -156,7 +158,7 @@ export default function ReflexLab({ language }: { language: Language }) {
         </svg>
         <div className={styles.atlasHand} aria-hidden="true"><span/><span/><span/><span/><span/></div>
       </div>
-      <div className={styles.stageRail} aria-hidden="true">{c.stages.map((label,i)=><span key={label} data-active={stage===i} data-done={stage>i}>{i+1}</span>)}</div>
+      <div className={styles.stageRail} aria-hidden="true">{[language==="RU"?"Стимул (укол)":language==="KZ"?"Стимул":"Stimulus",language==="RU"?"Рецептор":language==="KZ"?"Рецептор":"Receptor",language==="RU"?"Афферентный нейрон":language==="KZ"?"Афференттік нейрон":"Afferent neuron",language==="RU"?"Спинальный центр":language==="KZ"?"Жұлын орталығы":"Spinal center",language==="RU"?"Эфферентный нейрон":language==="KZ"?"Эфференттік нейрон":"Efferent neuron",language==="RU"?"Ответ (движение)":language==="KZ"?"Жауап (қозғалыс)":"Response (movement)"].map((label,i)=><span key={label} data-active={(stage+1)===i} data-done={(stage+1)>i}><b>{i+1}</b><small>{label}</small></span>)}</div>
       <figcaption>{stage < 0 ? c.waiting : c.stages[Math.max(0,stage)]}</figcaption>
     </figure>
     {complete && <div className={styles.feedback}>
