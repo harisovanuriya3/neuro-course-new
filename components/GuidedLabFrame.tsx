@@ -46,9 +46,9 @@ const clinical={
  25:{RU:"Клиническая связь: пластичность поддерживает обучение и восстановление, но её направление зависит от времени, контекста и состояния сети; усиление не всегда полезно.",KZ:"Клиникалық байланыс: пластикалылық үйрену мен қалпына келуді қолдайды, бірақ оның бағыты уақытқа, контекстке және желі күйіне тәуелді; күшею әрдайым пайдалы емес.",EN:"Clinical link: plasticity supports learning and recovery, but its direction depends on timing, context, and network state; potentiation is not always beneficial."}
 } as const;
 const ui={
- RU:{heading:"Прогноз → эксперимент → объяснение → вывод",label:"Ваш причинно-следственный прогноз",start:"Перейти к эксперименту",replay:"Новый прогноз",result:"Сопоставьте наблюдаемый результат с прогнозом и объясните механизм.",min:"Сформулируйте прогноз полным предложением (не менее 12 символов).",explain:"Объясните, почему получился такой результат",finish:"Завершить опыт",done:"Опыт завершён. Ваше объяснение учтено в профиле освоения.",explainMin:"Объяснение должно содержать не менее 20 символов."},
- KZ:{heading:"Болжам → тәжірибе → түсіндіру → қорытынды",label:"Себеп-салдарлық болжамыңыз",start:"Тәжірибеге өту",replay:"Жаңа болжам",result:"Бақыланған нәтижені болжаммен салыстырып, механизмді түсіндіріңіз.",min:"Болжамды толық сөйлеммен жазыңыз (кемінде 12 таңба).",explain:"Неліктен осындай нәтиже шыққанын түсіндіріңіз",finish:"Тәжірибені аяқтау",done:"Тәжірибе аяқталды. Түсіндірмеңіз меңгеру профиліне енгізілді.",explainMin:"Түсіндіру кемінде 20 таңбадан тұруы керек."},
- EN:{heading:"Prediction → experiment → explanation → conclusion",label:"Your cause-and-effect prediction",start:"Proceed to experiment",replay:"New prediction",result:"Compare the observed result with your prediction and explain the mechanism.",min:"State the prediction as a complete sentence (at least 12 characters).",explain:"Explain why this result occurred",finish:"Complete experiment",done:"Experiment completed. Your explanation is included in the mastery profile.",explainMin:"Enter an explanation of at least 20 characters."}
+ RU:{heading:"Прогноз → эксперимент → объяснение → вывод",label:"Ваш причинно-следственный прогноз",start:"Перейти к эксперименту",replay:"Новый прогноз",result:"Сопоставьте наблюдаемый результат с прогнозом и объясните механизм.",min:"Сформулируйте прогноз полным предложением (не менее 12 символов).",explain:"Объясните, почему получился такой результат",finish:"Проверить объяснение",done:"Объяснение содержит причинную связь и физиологический механизм. Результат учтён в профиле освоения.",revise:"Объяснение пока требует доработки: укажите что изменилось → какой физиологический механизм сработал → к какому результату это привело.",explainMin:"Объяснение должно содержать не менее 20 символов."},
+ KZ:{heading:"Болжам → тәжірибе → түсіндіру → қорытынды",label:"Себеп-салдарлық болжамыңыз",start:"Тәжірибеге өту",replay:"Жаңа болжам",result:"Бақыланған нәтижені болжаммен салыстырып, механизмді түсіндіріңіз.",min:"Болжамды толық сөйлеммен жазыңыз (кемінде 12 таңба).",explain:"Неліктен осындай нәтиже шыққанын түсіндіріңіз",finish:"Түсіндірмені тексеру",done:"Түсіндірмеде себеп-салдар байланысы мен физиологиялық механизм бар. Нәтиже меңгеру профиліне енгізілді.",revise:"Түсіндірмені толықтырыңыз: не өзгерді → қандай физиологиялық механизм іске қосылды → ол қандай нәтижеге әкелді.",explainMin:"Түсіндіру кемінде 20 таңбадан тұруы керек."},
+ EN:{heading:"Prediction → experiment → explanation → conclusion",label:"Your cause-and-effect prediction",start:"Proceed to experiment",replay:"New prediction",result:"Compare the observed result with your prediction and explain the mechanism.",min:"State the prediction as a complete sentence (at least 12 characters).",explain:"Explain why this result occurred",finish:"Check explanation",done:"Your explanation includes a causal link and physiological mechanism. The result is included in the mastery profile.",revise:"Strengthen the explanation: what changed → which physiological mechanism acted → what result followed.",explainMin:"Enter an explanation of at least 20 characters."}
 } as const;
 
 export default function GuidedLabFrame({moduleId,language,children}:{moduleId:keyof typeof prompts;language:Language;children:ReactNode}){
@@ -59,10 +59,14 @@ export default function GuidedLabFrame({moduleId,language,children}:{moduleId:ke
   const [finished,setFinished]=useState(false);
   const ready=prediction.trim().length>=12;
   const explanationReady=explanation.trim().length>=20;
+  const explanationLower=explanation.toLowerCase();
+  const causal=["потому","поэтому","привод","вызывает","завис","because","therefore","leads","causes","depends","себеп","сондықтан","әкел","туғыз","тәуел"].some(word=>explanationLower.includes(word));
+  const mechanism=["механизм","рецептор","канал","нейрон","синап","тормож","возбуж","провод","обратн","дофамин","талам","гипоталам","адаптац","пластич","mechanism","receptor","channel","neuron","synap","inhib","excit","conduct","feedback","dopamin","thalam","hypothalam","adapt","plastic","арна","нейрон","синап","тежел","қоз","өткіз","кері байланыс","дофамин","талам","гипоталам","бейімдел","пластик"].some(word=>explanationLower.includes(word));
+  const strongExplanation=explanationReady&&causal&&mechanism;
   function finish(){
     setFinished(true);
-    recordOutcome(Number(moduleId),"criterion:application:guided-lab",1,1);
-    recordOutcome(Number(moduleId),"criterion:transfer:guided-lab",1,1);
+    recordOutcome(Number(moduleId),"criterion:application:guided-lab",strongExplanation?1:0,1);
+    recordOutcome(Number(moduleId),"criterion:transfer:guided-lab",strongExplanation?1:0,1);
   }
   return <div className={styles.frame} data-testid={`guided-lab-${moduleId}`}>
     <section className={styles.predict}>
@@ -82,8 +86,8 @@ export default function GuidedLabFrame({moduleId,language,children}:{moduleId:ke
         {!explanationReady&&explanation.trim().length>0&&<p role="status">{t.explainMin}</p>}
         <button type="button" disabled={!explanationReady} onClick={finish}>{t.finish}</button>
         {finished&&<>
-          <p role="status"><strong>{t.done}</strong></p>
-          <p>{clinical[moduleId][language]}</p>
+          <p role="status"><strong>{strongExplanation?t.done:t.revise}</strong></p>
+          {strongExplanation&&<p>{clinical[moduleId][language]}</p>}
         </>}
         <button type="button" onClick={()=>{setStarted(false);setPrediction("");setExplanation("");setFinished(false)}}>{t.replay}</button>
       </aside>
