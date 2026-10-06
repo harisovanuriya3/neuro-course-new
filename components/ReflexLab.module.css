@@ -92,3 +92,12 @@
 @keyframes realImpulse{to{stroke-dashoffset:-60}}
 @media(max-width:760px){.realAnatomyScene{aspect-ratio:4/5;width:100%;min-height:0}.realOverlay text{font-size:27px}.skinPhoto{left:2%;top:37%;width:24%}.cordPhoto{left:38%;top:20%;width:35%}.musclePhoto{right:2%;bottom:12%;width:27%;height:23%}.realOverlay{width:100%;height:100%}.anatomyPanel{overflow:visible}}
 @media(prefers-reduced-motion:reduce){.afferentPulse,.interneuronPulse,.efferentPulse{animation:none}.withdrawHand{transition:none}}
+
+/* Anatomical reflex scene v2: deliberately independent of the legacy reflex-background image */
+.realAnatomyScene{background:radial-gradient(circle at 52% 42%,#f7e8d7 0 18%,#d9b89b 19% 36%,#75564a 68%,#2b2423 100%)}
+.bodySilhouette{position:absolute;inset:0;z-index:-3;background:linear-gradient(90deg,transparent 0 7%,#b9866d55 8% 88%,transparent 89%)}
+.armShape{position:absolute;left:7%;top:39%;width:82%;height:18%;border-radius:45% 55% 45% 55%;background:linear-gradient(180deg,#dba68b,#b97862 58%,#8f5a4d);transform:rotate(5deg);box-shadow:inset 0 -12px 22px #6f413b55,0 10px 24px #0005}
+.handShape{position:absolute;left:2%;top:34%;width:18%;height:24%;border-radius:55% 42% 48% 52%;background:linear-gradient(145deg,#e4b095,#a96c59);transform:rotate(-10deg);box-shadow:0 8px 18px #0005}
+.drgPhoto{position:absolute;left:37.5%;top:42%;width:7%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 38% 35%,#ffe3ad,#d99b51 45%,#7d4b32 78%);border:2px solid #f5d5a7;box-shadow:0 0 15px #ffcf7b99;z-index:0}
+.inhibitoryBase{fill:none;stroke:#b98ad9;stroke-width:7;stroke-linecap:round;stroke-dasharray:8 8;opacity:.9}
+@media(max-width:760px){.bodySilhouette{background:linear-gradient(90deg,transparent 0 3%,#b9866d55 4% 94%,transparent 95%)}.armShape{left:3%;width:92%;top:43%;height:13%}.handShape{left:0;top:38%;width:24%;height:19%}.drgPhoto{left:34%;top:43%;width:10%}}
