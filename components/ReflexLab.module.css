@@ -27,3 +27,6 @@
 .lab button:focus-visible, .lab input:focus-visible, .lab a:focus-visible { outline: 3px solid #a54b00; outline-offset: 3px; }
 @media (max-width: 760px) { .workspace { grid-template-columns: 1fr; } .photo { margin: 0 auto; } }
 @media (prefers-reduced-motion: reduce) { .scene .hand { transition: none; } }
+
+.arcSvg { width: 100%; min-width: 760px; height: auto; }
+@media (max-width: 760px) { .arcSvg { min-width: 0; width: 100%; } }
