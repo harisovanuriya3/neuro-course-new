@@ -14,3 +14,5 @@
 .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; }
 .metrics div { padding: 14px; border: 1px solid #cbdce8; border-radius: 8px; }
 .metrics dd { margin: 0; font-weight: bold; font-size: 1.3rem; }
+
+.actionHint { margin: 8px 0 0; color: #607b8d; font-size: .92rem; }
