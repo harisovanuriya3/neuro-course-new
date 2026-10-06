@@ -1,6 +1,6 @@
 .tools { margin: 16px 0 24px; padding: 14px; border: 1px solid #c5dce9; border-radius: 12px; background: #f2f8fc; color: #17384c; min-width: 0; }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.player button, .inputToggle { padding: 8px 12px; border: 1px solid #005b96; border-radius: 8px; color: #fff; background: #005b96; cursor: pointer; font: inherit; }
+.player button, .inputToggle { max-width:100%; overflow-wrap:anywhere;  padding: 8px 12px; border: 1px solid #005b96; border-radius: 8px; color: #fff; background: #005b96; cursor: pointer; font: inherit; }
 .player button:disabled { opacity: .55; cursor: default; }
 .player p { margin: 8px 0; font-size: .9rem; }
 .player p:empty { display: none; }
