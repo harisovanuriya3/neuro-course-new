@@ -5,6 +5,7 @@ import DocumentLanguage from "../../../components/DocumentLanguage";
 import ModuleSidebar from "../../../components/ModuleSidebar";
 import CourseVisitTracker from "../../../components/CourseVisitTracker";
 import PageVoiceTools from "../../../components/PageVoiceTools";
+import ContinueLearning from "../../../components/ContinueLearning";
 import { interfaceText } from "../../../lib/interface";
 import styles from "../../CourseLayout.module.css";
 
@@ -196,6 +197,8 @@ export default async function ModulePage({
         </div>
 
         <PageVoiceTools key={`${id}/${lang}`} moduleId={moduleNumber} language={lang} contentId="top" />
+
+        <ContinueLearning moduleId={moduleNumber} language={lang} />
 
         {/* Титульный блок */}
 
