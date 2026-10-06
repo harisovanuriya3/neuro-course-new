@@ -101,3 +101,31 @@
 .drgPhoto{position:absolute;left:37.5%;top:42%;width:7%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 38% 35%,#ffe3ad,#d99b51 45%,#7d4b32 78%);border:2px solid #f5d5a7;box-shadow:0 0 15px #ffcf7b99;z-index:0}
 .inhibitoryBase{fill:none;stroke:#b98ad9;stroke-width:7;stroke-linecap:round;stroke-dasharray:8 8;opacity:.9}
 @media(max-width:760px){.bodySilhouette{background:linear-gradient(90deg,transparent 0 3%,#b9866d55 4% 94%,transparent 95%)}.armShape{left:3%;width:92%;top:43%;height:13%}.handShape{left:0;top:38%;width:24%;height:19%}.drgPhoto{left:34%;top:43%;width:10%}}
+
+/* Reflex atlas v3 — independent replacement of the former scene */
+.reflexAtlas{position:relative;width:100%;aspect-ratio:1000/720;overflow:hidden;border-radius:18px;background:radial-gradient(circle at 52% 38%,#fff8ee 0,#ead8c5 44%,#c7ad98 72%,#856b5e 100%);box-shadow:inset 0 0 0 1px #8e7768,0 12px 30px #23374424}
+.atlasSvg{display:block;width:100%;height:100%}
+.armAnatomy{fill:url(#skin);stroke:#744d45;stroke-width:4}
+.flexor{fill:#b94238;stroke:#72231f;stroke-width:4;opacity:.92}
+.extensor{fill:#8d2f32;stroke:#5d2022;stroke-width:4;opacity:.82}
+.cordOuter{fill:url(#cord);stroke:#624d43;stroke-width:8}
+.grayButterfly{fill:#756a68;stroke:#514846;stroke-width:4}
+.dorsalRoot{fill:none;stroke:#f2c95d;stroke-width:12;stroke-linecap:round}
+.drg{fill:#e3ad58;stroke:#75512f;stroke-width:5}
+.nociceptor{fill:#ffcb39;stroke:#a34a18;stroke-width:7;stroke-linecap:round}
+.motorCell{fill:#ff7a35;stroke:#9c311b;stroke-width:6;stroke-linecap:round}
+.reflexAtlas .afferentBase,.reflexAtlas .interneuronBase,.reflexAtlas .efferentBase,.reflexAtlas .ascBase{fill:none;stroke-linecap:round}
+.reflexAtlas .afferentBase{stroke:#147fc1;stroke-width:12}.reflexAtlas .interneuronBase{stroke:#3a9c55;stroke-width:11}.reflexAtlas .efferentBase{stroke:#d64c31;stroke-width:13}.reflexAtlas .ascBase{stroke:#6b70b9;stroke-width:7;stroke-dasharray:14 12}
+.reflexAtlas .inhibitoryBase{fill:none;stroke:#76509a;stroke-width:9;stroke-dasharray:12 10}
+.reflexAtlas .afferentPulse,.reflexAtlas .interneuronPulse,.reflexAtlas .efferentPulse{fill:none;stroke-width:20;stroke-linecap:round;stroke-dasharray:24 30;filter:url(#signalGlow);animation:atlasImpulse .55s linear infinite}
+.reflexAtlas .afferentPulse{stroke:#00d8ff}.reflexAtlas .interneuronPulse{stroke:#65ff79}.reflexAtlas .efferentPulse{stroke:#ff3e24}
+.reflexAtlas text{fill:#1e2930;font-size:21px;font-weight:850;paint-order:stroke;stroke:#fff8ee;stroke-width:5px;stroke-linejoin:round}
+.reflexAtlas .inhibitionLabel{fill:#5d2b79;font-size:18px}
+.reflexAtlas .lesion{stroke:#e31616;stroke-width:18;stroke-linecap:round;filter:drop-shadow(0 0 5px #fff)}
+.atlasHand{position:absolute;left:1.5%;top:48%;width:15%;height:17%;border-radius:48% 44% 52% 48%;background:linear-gradient(145deg,#e8b399,#ad715f);transform-origin:90% 55%;transition:transform .7s cubic-bezier(.2,.8,.2,1);box-shadow:0 6px 12px #0004}
+.atlasHand span{position:absolute;left:-13%;width:72%;height:13%;border-radius:999px;background:#d99e83;transform-origin:right center}
+.atlasHand span:nth-child(1){top:4%;transform:rotate(-22deg)}.atlasHand span:nth-child(2){top:23%;transform:rotate(-10deg)}.atlasHand span:nth-child(3){top:42%}.atlasHand span:nth-child(4){top:61%;transform:rotate(8deg)}.atlasHand span:nth-child(5){top:80%;width:55%;transform:rotate(18deg)}
+.reflexAtlas[data-withdraw="true"] .atlasHand{transform:translate(-5%,-55%) rotate(-28deg)}
+@keyframes atlasImpulse{to{stroke-dashoffset:-54}}
+@media(max-width:760px){.reflexAtlas{aspect-ratio:4/5}.atlasSvg{transform:scale(1.04);transform-origin:center}.reflexAtlas text{font-size:27px}.atlasHand{width:19%;height:14%;top:50%}.anatomyPanel{overflow:hidden}}
+@media(prefers-reduced-motion:reduce){.reflexAtlas .afferentPulse,.reflexAtlas .interneuronPulse,.reflexAtlas .efferentPulse{animation:none}.atlasHand{transition:none}}
