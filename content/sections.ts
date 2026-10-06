@@ -194,14 +194,14 @@ export const sections = [
     slug: "voice",
     icon: "🔊",
     title: {
-      RU: "Голосовое сопровождение",
-      KZ: "Дауыстық сүйемелдеу",
-      EN: "Audio Guide",
+      RU: "Механизм своими словами",
+      KZ: "Механизмді өз сөзіңізбен",
+      EN: "Explain the Mechanism",
     },
     description: {
-      RU: "Аудиосопровождение учебных материалов",
-      KZ: "Оқу материалдарының аудио сүйемелдеуі",
-      EN: "Audio support for the learning materials",
+      RU: "Кратко объясните ключевой физиологический механизм модуля своими словами",
+      KZ: "Модульдің негізгі физиологиялық механизмін өз сөзіңізбен қысқаша түсіндіріңіз",
+      EN: "Explain the module’s key physiological mechanism in your own words",
     },
   },
   {
