@@ -2,6 +2,7 @@
 
 import {useState} from "react";
 import type {Language} from "../content/course";
+import {recordOutcome} from "../lib/courseProgress";
 
 type Domain="mental"|"cranial"|"motor"|"sensory"|"coordination";
 const T={
@@ -31,7 +32,7 @@ const T={
 export default function NeurologicalExamLab({language}:{language:Language}){
  const t=T[language]; const [domain,setDomain]=useState<Domain>("mental"); const d=t.domains[domain];
  return <section style={{margin:"26px 0",padding:18,border:"1px solid #cfe0ea",borderRadius:16,background:"#fff"}}>
-  <h2>{t.title}</h2><p>{t.intro}</p><div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{(Object.keys(t.domains) as Domain[]).map(k=><button key={k} type="button" aria-pressed={domain===k} onClick={()=>setDomain(k)}>{t.domains[k][0]}</button>)}</div>
+  <h2>{t.title}</h2><p>{t.intro}</p><div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{(Object.keys(t.domains) as Domain[]).map(k=><button key={k} type="button" aria-pressed={domain===k} onClick={()=>{setDomain(k);recordOutcome(25,"interactive",1,1);recordOutcome(25,"criterion:clinical:neurological-exam",1,1)}}>{t.domains[k][0]}</button>)}</div>
   <div style={{marginTop:12,display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:10}}>
    <article style={{padding:12,borderRadius:12,background:"#f8fcff"}}><h3>{t.test}</h3><p>{d[1]}</p></article>
    <article style={{padding:12,borderRadius:12,background:"#f8fcff"}}><h3>{t.link}</h3><p>{d[2]}</p></article>
