@@ -1,6 +1,6 @@
 "use client";
 
-import {useMemo,useState} from "react";
+import {useState} from "react";
 import type {Language} from "../content/course";
 import AnatomyReference from "./AnatomyReference";
 
