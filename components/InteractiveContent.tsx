@@ -182,7 +182,8 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "24" && <><SleepRhythmLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
     {moduleId === "25" && <><PlasticityLab language={language} /><CerebralHomeostasisLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
-    {(moduleId === "1" || moduleId === "5") && <SynapseLab language={language} />}
+    {moduleId === "1" && <SynapseLab language={language} />}
+    {moduleId === "5" && <><SynapseLab language={language} /><NeuromuscularJunctionLab language={language} /></>}
     {card(lesson.integration, <Integration diagram={lesson.integration} ui={ui} language={language} />)}
     {moduleId === "1" && <BalanceDiagram language={language} ui={ui} />}
   </article>;
