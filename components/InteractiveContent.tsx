@@ -40,6 +40,8 @@ import CerebralHomeostasisLab from "./CerebralHomeostasisLab";
 import AgeNeurophysiologyPanel from "./AgeNeurophysiologyPanel";
 import NeuromuscularJunctionLab from "./NeuromuscularJunctionLab";
 import NeurologicalExamLab from "./NeurologicalExamLab";
+import SketchPad from "./SketchPad";
+import BlockPathBuilder, {type BuilderItem} from "./BlockPathBuilder";
 
 type UI = InteractiveLesson["ui"];
 
@@ -146,6 +148,58 @@ function Integration({ diagram, ui, language }: { diagram: InteractiveLesson["in
 
 export default function InteractiveContent({ lesson, moduleId, language }: { lesson: InteractiveLesson; moduleId: string; language: Language }) {
   const ui = lesson.ui;
+  const builderSets:Partial<Record<string,{items:BuilderItem[];order:string[]}>>={
+    "5":{
+      items:[
+        {id:"ap",labels:{RU:"Потенциал действия мотонейрона",EN:"Motor-neuron action potential",KZ:"Мотонейрон әрекет потенциалы"}},
+        {id:"ca",labels:{RU:"Вход Ca²⁺",EN:"Ca²⁺ entry",KZ:"Ca²⁺ кіруі"}},
+        {id:"ach",labels:{RU:"Выделение ацетилхолина",EN:"Acetylcholine release",KZ:"Ацетилхолин бөлінуі"}},
+        {id:"rec",labels:{RU:"Никотиновые рецепторы",EN:"Nicotinic receptors",KZ:"Никотиндік рецепторлар"}},
+        {id:"muscle",labels:{RU:"Потенциал действия мышцы",EN:"Muscle action potential",KZ:"Бұлшықет әрекет потенциалы"}},
+        {id:"contract",labels:{RU:"Сокращение",EN:"Contraction",KZ:"Жиырылу"}}
+      ],order:["ap","ca","ach","rec","muscle","contract"]
+    },
+    "7":{
+      items:[
+        {id:"receptor",labels:{RU:"Рецептор",EN:"Receptor",KZ:"Рецептор"}},
+        {id:"afferent",labels:{RU:"Афферентное волокно",EN:"Afferent fiber",KZ:"Афференттік талшық"}},
+        {id:"center",labels:{RU:"Центр интеграции",EN:"Integration center",KZ:"Интеграция орталығы"}},
+        {id:"efferent",labels:{RU:"Эфферентное волокно",EN:"Efferent fiber",KZ:"Эфференттік талшық"}},
+        {id:"effector",labels:{RU:"Эффектор",EN:"Effector",KZ:"Эффектор"}}
+      ],order:["receptor","afferent","center","efferent","effector"]
+    },
+    "10":{
+      items:[
+        {id:"retina",labels:{RU:"Сетчатка",EN:"Retina",KZ:"Торқабық"}},
+        {id:"optic",labels:{RU:"Зрительный нерв (II)",EN:"Optic nerve (II)",KZ:"Көру нерві (II)"}},
+        {id:"pretectal",labels:{RU:"Претектальная область",EN:"Pretectal area",KZ:"Претекталдық аймақ"}},
+        {id:"ew",labels:{RU:"Ядро Эдингера–Вестфаля",EN:"Edinger–Westphal nucleus",KZ:"Эдингер–Вестфаль ядросы"}},
+        {id:"oculo",labels:{RU:"Глазодвигательный нерв (III)",EN:"Oculomotor nerve (III)",KZ:"Көз қимылдатқыш нерв (III)"}},
+        {id:"pupil",labels:{RU:"Сужение зрачка",EN:"Pupil constriction",KZ:"Қарашықтың тарылуы"}}
+      ],order:["retina","optic","pretectal","ew","oculo","pupil"]
+    },
+    "18":{
+      items:[
+        {id:"heard",labels:{RU:"Слышим/читаем слово",EN:"Hear/read a word",KZ:"Сөзді естиміз/оқимыз"}},
+        {id:"understand",labels:{RU:"Понимание смысла",EN:"Understand meaning",KZ:"Мағынасын түсіну"}},
+        {id:"plan",labels:{RU:"План речи",EN:"Speech plan",KZ:"Сөйлеу жоспары"}},
+        {id:"motor",labels:{RU:"Моторная программа речи",EN:"Motor speech program",KZ:"Сөйлеудің моторлық бағдарламасы"}},
+        {id:"speak",labels:{RU:"Произнесение",EN:"Speech output",KZ:"Айту"}}
+      ],order:["heard","understand","plan","motor","speak"]
+    },
+    "22":{
+      items:[
+        {id:"sensor",labels:{RU:"Висцеральный рецептор",EN:"Visceral receptor",KZ:"Висцералдық рецептор"}},
+        {id:"afferent",labels:{RU:"Висцеральный афферент",EN:"Visceral afferent",KZ:"Висцералдық афферент"}},
+        {id:"cns",labels:{RU:"Центральная интеграция",EN:"Central integration",KZ:"Орталық интеграция"}},
+        {id:"pregang",labels:{RU:"Преганглионарный нейрон",EN:"Preganglionic neuron",KZ:"Преганглионарлық нейрон"}},
+        {id:"ganglion",labels:{RU:"Вегетативный ганглий",EN:"Autonomic ganglion",KZ:"Вегетативтік ганглий"}},
+        {id:"target",labels:{RU:"Орган-мишень",EN:"Target organ",KZ:"Нысана мүше"}}
+      ],order:["sensor","afferent","cns","pregang","ganglion","target"]
+    }
+  };
+  const builder=builderSets[moduleId];
+
   function card(diagram: DiagramBase, children: ReactNode) {
     return <section id={diagram.id} className={`${shared.card} ${styles.card}`} aria-labelledby={`${diagram.id}-title`}>
       <h2 id={`${diagram.id}-title`}>{diagram.title}</h2>
@@ -181,6 +235,8 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "23" && <><LearningMemoryLab language={language} /><ReflexLearningLab language={language} /><FunctionalCentersLab language={language} moduleId={23} /><AgeNeurophysiologyPanel language={language} /></>}
     {moduleId === "24" && <><SleepRhythmLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
     {moduleId === "25" && <><PlasticityLab language={language} /><CerebralHomeostasisLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
+    {builder && <BlockPathBuilder language={language} items={builder.items} correctOrder={builder.order} />}
+    {["5","7","10","18","22"].includes(moduleId) && <SketchPad language={language} storageKey={`neuro-course:sketch:${moduleId}:${language}`} />}
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
     {moduleId === "1" && <SynapseLab language={language} />}
     {moduleId === "5" && <><SynapseLab language={language} /><NeuromuscularJunctionLab language={language} /></>}
