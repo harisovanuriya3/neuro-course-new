@@ -38,6 +38,8 @@ import CranialNerveFiberLab from "./CranialNerveFiberLab";
 import FunctionalCentersLab from "./FunctionalCentersLab";
 import CerebralHomeostasisLab from "./CerebralHomeostasisLab";
 import AgeNeurophysiologyPanel from "./AgeNeurophysiologyPanel";
+import NeuromuscularJunctionLab from "./NeuromuscularJunctionLab";
+import NeurologicalExamLab from "./NeurologicalExamLab";
 
 type UI = InteractiveLesson["ui"];
 
@@ -154,7 +156,7 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
   }
   return <article className={`${shared.practice} ${styles.interactive}`} data-testid="interactive-diagrams" lang={language === "KZ" ? "kk" : language.toLowerCase()}>
     <h1>{lesson.title}</h1><p>{lesson.introduction}</p><p className={styles.note}>{ui.keyboard}</p>
-    {moduleId === "21" && <SensorySystemsLab language={language} />}
+    {moduleId === "21" && <><SensorySystemsLab language={language} /><NeurologicalExamLab language={language} /></>}
     {card(lesson.organization, <Organization diagram={lesson.organization} ui={ui} language={language} />)}
     {card(lesson.pathway, <Sequence id="pathway" nodes={lesson.pathway.nodes} ui={ui} loop={lesson.pathway.loop} language={language} />)}
     {moduleId === "2" && <EEGLab language={language} />}
@@ -164,16 +166,16 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "7" && <><ReflexLab language={language} /><ReflexLearningLab language={language} /></>}
     {moduleId === "8" && <PathwayLab language={language} />}
     {moduleId === "9" && <SpinalRegulationLab language={language} />}
-    {moduleId === "10" && <><BrainstemLab language={language} /><CranialNerveFiberLab language={language} /><FunctionalCentersLab language={language} moduleId={10} /></>}
-    {moduleId === "11" && <MotorControlLab language={language} />}
+    {moduleId === "10" && <><BrainstemLab language={language} /><CranialNerveFiberLab language={language} /><FunctionalCentersLab language={language} moduleId={10} /><NeurologicalExamLab language={language} /></>}
+    {moduleId === "11" && <><MotorControlLab language={language} /><NeuromuscularJunctionLab language={language} /></>}
     {moduleId === "12" && <BasalGangliaLab language={language} />}
     {moduleId === "13" && <CerebellumLab language={language} />}
     {moduleId === "14" && <ThalamusLab language={language} />}
     {moduleId === "15" && <HypothalamusLab language={language} />}
     {moduleId === "16" && <LimbicLab language={language} />}
     {moduleId === "17" && <AmygdalaLab language={language} />}
-    {moduleId === "18" && <><CortexLab language={language} /><FunctionalCentersLab language={language} /></>}
-    {moduleId === "19" && <SomatosensoryLab language={language} />}
+    {moduleId === "18" && <><CortexLab language={language} /><FunctionalCentersLab language={language} /><NeurologicalExamLab language={language} /></>}
+    {moduleId === "19" && <><SomatosensoryLab language={language} /><NeurologicalExamLab language={language} /></>}
     {moduleId === "20" && <VisionLab language={language} />}
     {moduleId === "22" && <AutonomicLab language={language} />}
     {moduleId === "23" && <><LearningMemoryLab language={language} /><ReflexLearningLab language={language} /><FunctionalCentersLab language={language} moduleId={23} /><AgeNeurophysiologyPanel language={language} /></>}
