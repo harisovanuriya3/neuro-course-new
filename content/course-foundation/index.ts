@@ -279,6 +279,69 @@ function create(
             },
           ],
         },
+        ...(topic.id === 3 ? [{
+          id: 'brain-microenvironment',
+          title: language === 'RU' ? 'Микросреда мозга: ГЭБ и ликвор' : language === 'EN' ? 'Brain microenvironment: BBB and CSF' : 'Ми микроортасы: ГЭБ және ликвор',
+          blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+            ? 'Гематоэнцефалический барьер помогает сохранять стабильную химическую среду нервной ткани, ограничивая переход многих веществ из крови. Ликвор образуется преимущественно сосудистыми сплетениями, циркулирует по желудочкам и субарахноидальному пространству и участвует в механической защите и поддержании среды мозга. Глия, сосуды, внеклеточная жидкость и нейроны работают как единая система.'
+            : language === 'EN'
+              ? 'The blood–brain barrier helps maintain a stable chemical environment for neural tissue by limiting entry of many substances from blood. Cerebrospinal fluid is produced mainly by the choroid plexuses, circulates through ventricles and the subarachnoid space, and contributes to mechanical protection and brain homeostasis. Glia, vessels, extracellular fluid, and neurons function as one system.'
+              : 'Гематоэнцефалдық бөгет көптеген заттардың қаннан өтуін шектеп, жүйке тінінің химиялық ортасының тұрақтылығын сақтауға көмектеседі. Ликвор негізінен тамыр өрімдерінде түзіліп, қарыншалар мен субарахноидтық кеңістікте айналады және миды механикалық қорғауға әрі тұрақты ортаға қатысады. Глия, тамырлар, жасушааралық сұйықтық және нейрондар бір жүйе ретінде жұмыс істейді.' }],
+        }] : []),
+        ...(topic.id === 5 ? [{
+          id: 'neuromuscular-junction',
+          title: language === 'RU' ? 'Нервно-мышечная передача' : language === 'EN' ? 'Neuromuscular transmission' : 'Жүйке-бұлшықет берілуі',
+          blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+            ? 'В нервно-мышечном синапсе потенциал действия мотонейрона открывает пресинаптические Ca²⁺-каналы, что запускает выделение ацетилхолина. Ацетилхолин активирует никотиновые рецепторы концевой пластинки, создаёт деполяризацию и при достаточной величине запускает потенциал действия мышечного волокна. Ацетилхолинэстераза завершает сигнал.'
+            : language === 'EN'
+              ? 'At the neuromuscular junction, a motor-neuron action potential opens presynaptic Ca²⁺ channels and triggers acetylcholine release. Acetylcholine activates nicotinic end-plate receptors, producing depolarization that can trigger a muscle action potential. Acetylcholinesterase terminates the signal.'
+              : 'Жүйке-бұлшықет синапсында мотонейрон әрекет потенциалы пресинапстық Ca²⁺ арналарының ашылуын және ацетилхолин бөлінуін туғызады. Ацетилхолин соңғы пластинканың никотиндік рецепторларын белсендіріп, бұлшықет әрекет потенциалын іске қосатын деполяризация жасайды. Ацетилхолинэстераза сигналды аяқтайды.' }],
+        }] : []),
+        ...(topic.id === 7 ? [{
+          id: 'conditioned-reflexes',
+          title: language === 'RU' ? 'Безусловные и условные рефлексы' : language === 'EN' ? 'Unconditioned and conditioned reflexes' : 'Шартсыз және шартты рефлекстер',
+          blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+            ? 'Безусловный рефлекс — врождённая реакция, для которой не требуется предварительное обучение. Условный рефлекс формируется, когда ранее нейтральный сигнал приобретает предсказательное значение после сочетаний с биологически значимым стимулом. Условная реакция может ослабевать при угасании, различаться при дифференцировке, временно подавляться новым сильным стимулом и смещаться по времени при запаздывательном торможении.'
+            : language === 'EN'
+              ? 'An unconditioned reflex is an innate response that does not require prior learning. A conditioned reflex develops when a previously neutral cue gains predictive value after pairing with a biologically meaningful stimulus. The conditioned response can weaken during extinction, become selective through discrimination, be temporarily suppressed by a novel strong stimulus, and shift in time with delay conditioning.'
+              : 'Шартсыз рефлекс — алдын ала үйренуді қажет етпейтін туа біткен жауап. Шартты рефлекс бұрын бейтарап болған сигнал биологиялық маңызды стимулмен жұптасқаннан кейін болжаушы мәнге ие болғанда қалыптасады. Шартты реакция өшу кезінде әлсірейді, ажырату арқылы нақтыланады, жаңа күшті стимулмен уақытша тежелуі және кешігу жағдайында уақыт бойынша ығысуы мүмкін.' }],
+        }] : []),
+        ...(topic.id === 10 ? [{
+          id: 'cranial-nerves',
+          title: language === 'RU' ? 'Черепные нервы и ядра ствола' : language === 'EN' ? 'Cranial nerves and brainstem nuclei' : 'Бассүйек нервтері және ми бағаны ядролары',
+          blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+            ? 'Черепные нервы несут разные функциональные компоненты: соматические и висцеральные, чувствительные и двигательные, а также специальные сенсорные волокна. Их ядра распределены по среднему мозгу, мосту и продолговатому мозгу. Поражение нерва, ядра или соседнего проводящего пути может давать разные сочетания симптомов, поэтому функцию нужно связывать с анатомией.'
+            : language === 'EN'
+              ? 'Cranial nerves carry different functional components: somatic and visceral, sensory and motor, as well as special sensory fibers. Their nuclei are distributed through the midbrain, pons, and medulla. Damage to a nerve, its nucleus, or a neighboring tract can produce different combinations of deficits, so function must be linked to anatomy.'
+              : 'Бассүйек нервтері соматикалық және висцералдық, сезімтал және қозғалтқыш, сондай-ақ арнайы сезімтал талшықтарды өткізеді. Олардың ядролары ортаңғы ми, көпір және сопақша мида орналасқан. Нерв, оның ядросы немесе көрші өткізгіш жол зақымданса, әртүрлі белгілер қосарлануы мүмкін, сондықтан қызметті анатомиямен байланыстыру қажет.' }],
+        }] : []),
+        ...(topic.id === 18 ? [{
+          id: 'language-centers',
+          title: language === 'RU' ? 'Речь: Брока, Вернике и сеть языка' : language === 'EN' ? 'Language: Broca, Wernicke, and the language network' : 'Сөйлеу: Брока, Вернике және тіл желісі',
+          blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+            ? 'Зона Брока в доминантной лобной доле особенно важна для моторного программирования речи, а задние височно-теменные языковые области, традиционно связываемые с зоной Вернике, — для понимания и смысловой обработки. Современная модель рассматривает речь как работу распределённой сети, а не двух изолированных центров.'
+            : language === 'EN'
+              ? 'Broca region in the dominant frontal lobe is especially important for motor programming of speech, while posterior temporoparietal language regions traditionally linked with Wernicke area contribute to comprehension and semantic processing. Modern models treat language as a distributed network rather than two isolated centers.'
+              : 'Доминантты маңдай бөлігіндегі Брока аймағы сөйлеудің моторлық бағдарламасына маңызды, ал Вернике аймағымен дәстүрлі байланыстырылатын артқы самай-төбе тіл аймақтары түсіну мен мағыналық өңдеуге қатысады. Қазіргі модель тілді екі оқшауланған орталық емес, таралған желі жұмысы ретінде қарастырады.' }],
+        }] : []),
+        ...(topic.id === 23 ? [{
+          id: 'memory-emotion-learning',
+          title: language === 'RU' ? 'Память, эмоции и условное обучение' : language === 'EN' ? 'Memory, emotion, and conditioned learning' : 'Жад, эмоция және шартты үйрену',
+          blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+            ? 'Гиппокамп особенно важен для формирования новых декларативных воспоминаний и контекстной памяти; миндалина участвует в эмоциональной значимости и эмоциональном обучении; префронтальная кора поддерживает рабочую память, планирование и контроль поведения. Эти системы взаимодействуют при обучении, а условные связи зависят от подкрепления, контекста и предыдущего опыта.'
+            : language === 'EN'
+              ? 'The hippocampus is especially important for forming new declarative memories and contextual memory; the amygdala contributes to emotional salience and emotional learning; the prefrontal cortex supports working memory, planning, and behavioral control. These systems interact during learning, while conditioned associations depend on reinforcement, context, and prior experience.'
+              : 'Гиппокамп жаңа декларативті естеліктер мен контекстік жадты қалыптастыруға маңызды; амигдала эмоциялық маңыз бен эмоциялық үйренуге қатысады; префронталдық қыртыс жұмыс жады, жоспарлау және мінез-құлықты бақылауды қолдайды. Бұл жүйелер үйрену кезінде өзара әрекеттеседі, ал шартты байланыстар нығайтуға, контекстке және бұрынғы тәжірибеге тәуелді.' }],
+        }] : []),
+        ...(topic.id === 25 ? [{
+          id: 'cerebral-homeostasis',
+          title: language === 'RU' ? 'Мозговой кровоток, ликвор и метаболизм' : language === 'EN' ? 'Cerebral blood flow, CSF, and metabolism' : 'Ми қанайналымы, ликвор және метаболизм',
+          blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+            ? 'Мозг требует непрерывного кровотока для доставки кислорода и глюкозы. Перфузия зависит от системного давления, внутричерепного давления, сосудистого сопротивления и ауторегуляции. Ликвор и гематоэнцефалический барьер участвуют в поддержании стабильной среды. Нарушение кровотока, барьерной функции или баланса объёма внутри черепа может нарушать работу нейронных сетей даже без первичной гибели нейронов.'
+            : language === 'EN'
+              ? 'The brain requires continuous blood flow to deliver oxygen and glucose. Perfusion depends on systemic pressure, intracranial pressure, vascular resistance, and autoregulation. CSF and the blood–brain barrier help maintain a stable environment. Disturbance of blood flow, barrier function, or intracranial volume balance can impair neural networks even without primary neuronal death.'
+              : 'Миға оттегі мен глюкоза жеткізу үшін үздіксіз қанайналым қажет. Перфузия жүйелік қысымға, бассүйекішілік қысымға, тамыр кедергісіне және аутореттелуге тәуелді. Ликвор мен гематоэнцефалдық бөгет тұрақты ортаны сақтауға қатысады. Қанайналым, бөгет қызметі немесе бассүйек ішіндегі көлем теңгерімі бұзылса, нейрондардың бастапқы өлімінсіз де жүйке желілері бұзылуы мүмкін.' }],
+        }] : []),
         ...(topic.id === 2 ? [{
           id: 'method-selection',
           title: language === 'RU' ? 'Как выбирать метод исследования' : language === 'EN' ? 'How to choose a research method' : 'Зерттеу әдісін қалай таңдау керек',
