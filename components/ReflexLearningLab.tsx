@@ -24,7 +24,7 @@ const copy={
   task:"Проверьте себя",scenario:"Звонок несколько раз сочетали с пищей. Позже звонок сам вызывает слюноотделение. Затем звонок много раз предъявляют без пищи. Что произойдёт?",
   a:"Реакция постепенно ослабеет — это угасательное торможение.",b:"Реакция станет врождённой.",c:"Слюноотделение будет усиливаться бесконечно.",
   good:"Верно: отсутствие подкрепления постепенно ослабляет условную реакцию.",bad:"Посмотрите, есть ли подкрепление. Если условный сигнал повторяется без него, реакция угасает.",
-  note:"Важно: «центр условного рефлекса» — не одна точка мозга. Формирование условных связей зависит от распределённых корковых и подкорковых сетей, мотивации, подкрепления и состояния организма."
+  note:"Важно: «центр условного рефлекса» — не одна точка мозга. Формирование условных связей зависит от распределённых корковых и подкорковых сетей, мотивации, подкрепления и состояния организма.",lab:"Виртуальный опыт",pairings:"Число сочетаний сигнала с подкреплением",reinforce:"Есть подкрепление",run:"Запустить опыт",strength:"Сила условной реакции",predict:"Ваш прогноз",predictHint:"Напишите, усилится или ослабеет реакция и почему.",result:"Результат опыта",explain:"Объясните результат простыми словами"
  },
  EN:{
   title:"Reflexes: from innate response to learning",intro:"Compare unconditioned and conditioned reflexes, then see how a conditioned response forms and is inhibited.",
@@ -42,7 +42,7 @@ const copy={
   task:"Check yourself",scenario:"A bell is repeatedly paired with food. Later the bell alone causes salivation. Then the bell is presented many times without food. What happens?",
   a:"The response gradually weakens — extinction.",b:"The response becomes innate.",c:"Salivation increases without limit.",
   good:"Correct: without reinforcement, the conditioned response gradually weakens.",bad:"Check whether reinforcement is still present. Repeated presentation without reinforcement produces extinction.",
-  note:"Important: there is no single anatomical 'center' for a conditioned reflex. Learning depends on distributed cortical and subcortical networks, motivation, reinforcement, and the organism's state."
+  note:"Important: there is no single anatomical 'center' for a conditioned reflex. Learning depends on distributed cortical and subcortical networks, motivation, reinforcement, and the organism's state.",lab:"Virtual experiment",pairings:"Number of cue–reinforcement pairings",reinforce:"Reinforcement present",run:"Run experiment",strength:"Conditioned-response strength",predict:"Your prediction",predictHint:"Write whether the response will become stronger or weaker and why.",result:"Experiment result",explain:"Explain the result in simple words"
  },
  KZ:{
   title:"Рефлекстер: туа біткен жауаптан үйренуге дейін",intro:"Шартсыз және шартты рефлексті салыстырып, шартты жауаптың қалай қалыптасатынын және тежелетінін көріңіз.",
@@ -60,7 +60,7 @@ const copy={
   task:"Өзіңізді тексеріңіз",scenario:"Қоңырау бірнеше рет тағаммен бірге берілді. Кейін қоңыраудың өзі сілекей бөлінуін туғызды. Содан соң қоңырау тағамсыз көп рет берілді. Не болады?",
   a:"Реакция біртіндеп әлсірейді — бұл өшу тежелуі.",b:"Реакция туа біткен болады.",c:"Сілекей бөлінуі шексіз күшейеді.",
   good:"Дұрыс: нығайтусыз шартты реакция біртіндеп әлсірейді.",bad:"Нығайту бар ма, соны тексеріңіз. Нығайтусыз қайталану реакцияның өшуіне әкеледі.",
-  note:"Маңызды: шартты рефлекстің бір ғана анатомиялық «орталығы» жоқ. Үйрену қыртыстық және қыртысасты желілерге, мотивацияға, нығайтуға және ағза күйіне тәуелді."
+  note:"Маңызды: шартты рефлекстің бір ғана анатомиялық «орталығы» жоқ. Үйрену қыртыстық және қыртысасты желілерге, мотивацияға, нығайтуға және ағза күйіне тәуелді.",lab:"Виртуалды тәжірибе",pairings:"Сигнал мен нығайтудың жұптасу саны",reinforce:"Нығайту бар",run:"Тәжірибені бастау",strength:"Шартты реакция күші",predict:"Сіздің болжамыңыз",predictHint:"Реакция күшейе ме әлде әлсірей ме және неліктен екенін жазыңыз.",result:"Тәжірибе нәтижесі",explain:"Нәтижені қарапайым сөзбен түсіндіріңіз"
  }
 } as const;
 
@@ -70,6 +70,12 @@ export default function ReflexLearningLab({language}:{language:Language}){
  const [inh,setInh]=useState<Inhibition>("extinction");
  const [answer,setAnswer]=useState<string>("");
  const [checked,setChecked]=useState(false);
+ const [pairings,setPairings]=useState(4);
+ const [reinforced,setReinforced]=useState(true);
+ const [prediction,setPrediction]=useState("");
+ const [ran,setRan]=useState(false);
+ const [explanation,setExplanation]=useState("");
+ const responseStrength=Math.max(0,Math.min(100,reinforced?15+pairings*14:70-pairings*12));
  const inhibitionText=useMemo(()=>({external:t.externalText,extinction:t.extinctionText,differentiation:t.differentiationText,delay:t.delayText}[inh]),[inh,t]);
  return <section style={{margin:"24px 0",padding:18,border:"1px solid #cfe0ea",borderRadius:16,background:"#fff"}}>
   <h2>{t.title}</h2><p>{t.intro}</p>
@@ -90,6 +96,12 @@ export default function ReflexLearningLab({language}:{language:Language}){
   </div>
   <p style={{marginTop:10}}>{inhibitionText}</p>
   <aside style={{padding:"12px 14px",background:"#f8fcff",borderRadius:12}}>{t.note}</aside>
+  <h3>{t.lab}</h3>
+  <label>{t.predict}<textarea rows={2} value={prediction} placeholder={t.predictHint} onChange={e=>{setPrediction(e.target.value);setRan(false)}} style={{width:"100%"}}/></label>
+  <label style={{display:"block",marginTop:10}}>{t.pairings}: <strong>{pairings}</strong><input type="range" min="0" max="6" value={pairings} onChange={e=>{setPairings(+e.target.value);setRan(false)}} style={{width:"100%"}}/></label>
+  <label style={{display:"block",margin:"10px 0"}}><input type="checkbox" checked={reinforced} onChange={e=>{setReinforced(e.target.checked);setRan(false)}}/> {t.reinforce}</label>
+  <button type="button" disabled={prediction.trim().length<8} onClick={()=>setRan(true)}>{t.run}</button>
+  {ran&&<div style={{marginTop:12,padding:"14px",border:"1px solid #d6e3eb",borderRadius:12,background:"#f8fcff"}}><p><strong>{t.result}: {t.strength} — {responseStrength}%</strong></p><div style={{height:16,borderRadius:999,background:"#e6eef3",overflow:"hidden"}}><div style={{height:"100%",width:`${responseStrength}%`,background:"linear-gradient(90deg,#8fb9d4,#3d7ba5)",transition:"width .5s ease"}}/></div><label style={{display:"block",marginTop:12}}>{t.explain}<textarea rows={3} value={explanation} onChange={e=>setExplanation(e.target.value)} style={{width:"100%"}}/></label></div>}
   <h3>{t.task}</h3><p>{t.scenario}</p>
   {[["a",t.a],["b",t.b],["c",t.c]].map(([id,label])=><label key={id} style={{display:"block",padding:"7px 0"}}><input type="radio" name="reflex-check" checked={answer===id} onChange={()=>{setAnswer(id);setChecked(false)}}/> {label}</label>)}
   <button type="button" disabled={!answer} onClick={()=>setChecked(true)}>{language==="RU"?"Проверить":language==="KZ"?"Тексеру":"Check"}</button>
