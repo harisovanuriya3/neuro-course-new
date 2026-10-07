@@ -3,6 +3,7 @@
 import {useState} from "react";
 import type {Language} from "../content/course";
 import AnatomyReference from "./AnatomyReference";
+import {recordOutcome} from "../lib/courseProgress";
 
 type Fiber="GSE"|"SVE"|"GVE"|"GSA"|"GVA"|"SSA"|"SVA";
 const copy={
@@ -76,6 +77,8 @@ export default function CranialNerveFiberLab({language}:{language:Language}){
  const [fiber,setFiber]=useState<Fiber>("GSA");
  const [nerve,setNerve]=useState("V");
  const [lesion,setLesion]=useState(false);
+ const [prediction,setPrediction]=useState("");
+ const [reflection,setReflection]=useState("");
  const f=t.fibers[fiber];
  const n=t.nerves[nerve as keyof typeof t.nerves];
  const fiberKeys=Object.keys(t.fibers) as Fiber[];
@@ -88,12 +91,12 @@ export default function CranialNerveFiberLab({language}:{language:Language}){
    <p><strong>{fiber} — {f[0]}</strong></p><p><strong>{t.function}:</strong> {f[1]}</p><p><strong>{t.examples}:</strong> {f[2]}</p>
   </div>
   <h3>{t.nerve}</h3>
-  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{nerveKeys.map(k=><button key={k} type="button" aria-pressed={nerve===k} onClick={()=>setNerve(k)}>{k}</button>)}</div>
+  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{nerveKeys.map(k=><button key={k} type="button" aria-pressed={nerve===k} onClick={()=>{setNerve(k);setLesion(false);setPrediction("");setReflection("")}}>{k}</button>)}</div>
   <div style={{marginTop:10,padding:"12px 14px",background:"#f8fcff",borderRadius:12}}>
    <p><strong>{nerve}. {n[0]}</strong></p><p><strong>{t.composition}:</strong> {n[1]}</p><p>{n[2]}</p>
-   <button type="button" aria-pressed={lesion} onClick={()=>setLesion(v=>!v)}>{t.lesion}</button>
+   <label style={{display:"block",margin:"10px 0"}}>{language==="RU"?"До выключения нерва предскажите дефицит":language==="KZ"?"Нервті ажыратпас бұрын тапшылықты болжаңыз":"Predict the deficit before switching off the nerve"}<textarea rows={2} value={prediction} onChange={e=>setPrediction(e.target.value)} style={{width:"100%"}} /></label><button type="button" disabled={prediction.trim().length<20} aria-pressed={lesion} onClick={()=>{const next=!lesion;setLesion(next);if(next){recordOutcome(10,"interactive",1,1);recordOutcome(10,"criterion:clinical:cranial-nerve-lesion",1,1);recordOutcome(10,"criterion:mechanism:cranial-nerve-prediction",1,1)}}}>{t.lesion}</button>
    <p style={{marginTop:10}}><strong>{lesion?t.deficit:t.normal}:</strong> {lesion?t.deficits[nerve as keyof typeof t.deficits]:n[2]}</p>
-  </div>
+  </div>{lesion&&<label style={{display:"block",marginTop:12}}>{language==="RU"?"Сравните прогноз с результатом и объясните локализацию":language==="KZ"?"Болжамды нәтижемен салыстырып, локализацияны түсіндіріңіз":"Compare your prediction with the result and explain the localization"}<textarea rows={3} value={reflection} onChange={e=>{const v=e.target.value;setReflection(v);if(v.trim().length>=30){recordOutcome(10,"criterion:justification:cranial-nerve",1,1);recordOutcome(10,"criterion:correction:cranial-nerve",1,1)}}} style={{width:"100%"}} /></label>}
   <p style={{fontSize:14}}>{t.note}</p>
  </section>;
 }
