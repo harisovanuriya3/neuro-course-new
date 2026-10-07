@@ -33,6 +33,9 @@ import AutonomicLab from "./AutonomicLab";
 import LearningMemoryLab from "./LearningMemoryLab";
 import SleepRhythmLab from "./SleepRhythmLab";
 import PlasticityLab from "./PlasticityLab";
+import ReflexLearningLab from "./ReflexLearningLab";
+import CranialNerveFiberLab from "./CranialNerveFiberLab";
+import FunctionalCentersLab from "./FunctionalCentersLab";
 
 type UI = InteractiveLesson["ui"];
 
@@ -156,10 +159,10 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "3" && <NerveFiberLab language={language} />}
     {moduleId === "4" && <MembranePotentialLab language={language} />}
     {moduleId === "6" && <IntegrationExperimentLab language={language} />}
-    {moduleId === "7" && <ReflexLab language={language} />}
+    {moduleId === "7" && <><ReflexLab language={language} /><ReflexLearningLab language={language} /></>}
     {moduleId === "8" && <PathwayLab language={language} />}
     {moduleId === "9" && <SpinalRegulationLab language={language} />}
-    {moduleId === "10" && <BrainstemLab language={language} />}
+    {moduleId === "10" && <><BrainstemLab language={language} /><CranialNerveFiberLab language={language} /></>}
     {moduleId === "11" && <MotorControlLab language={language} />}
     {moduleId === "12" && <BasalGangliaLab language={language} />}
     {moduleId === "13" && <CerebellumLab language={language} />}
@@ -167,11 +170,11 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "15" && <HypothalamusLab language={language} />}
     {moduleId === "16" && <LimbicLab language={language} />}
     {moduleId === "17" && <AmygdalaLab language={language} />}
-    {moduleId === "18" && <CortexLab language={language} />}
+    {moduleId === "18" && <><CortexLab language={language} /><FunctionalCentersLab language={language} /></>}
     {moduleId === "19" && <SomatosensoryLab language={language} />}
     {moduleId === "20" && <VisionLab language={language} />}
     {moduleId === "22" && <AutonomicLab language={language} />}
-    {moduleId === "23" && <LearningMemoryLab language={language} />}
+    {moduleId === "23" && <><LearningMemoryLab language={language} /><ReflexLearningLab language={language} /><FunctionalCentersLab language={language} /></>}
     {moduleId === "24" && <SleepRhythmLab language={language} />}
     {moduleId === "25" && <PlasticityLab language={language} />}
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
