@@ -6,9 +6,9 @@ import ExamCenter, { type ExamQuestion } from "../../components/ExamCenter";
 type Props = { searchParams: Promise<{ lang?: string | string[] }> };
 
 const copy: Record<Language, { title:string; intro:string; learning:string; exam:string; after:string; back:string }> = {
- RU:{title:"Экзаменационный центр",intro:"Итоговая проверка знаний по курсу нейрофизиологии.",learning:"Учебный режим",exam:"Экзаменационный режим",after:"Разбор ошибок и объяснения доступны только после завершения попытки.",back:"← К содержанию курса"},
- KZ:{title:"Емтихан орталығы",intro:"Нейрофизиология курсы бойынша қорытынды білімді тексеру.",learning:"Оқу режимі",exam:"Емтихан режимі",after:"Қателерді талдау мен түсіндірмелер талпыныс аяқталғаннан кейін ғана қолжетімді.",back:"← Курс мазмұнына"},
- EN:{title:"Exam Center",intro:"Summative knowledge check for the neurophysiology course.",learning:"Learning mode",exam:"Exam mode",after:"Error review and explanations become available only after the attempt is completed.",back:"← Course contents"}
+ RU:{title:"Экзаменационный центр",intro:"Проверьте, насколько вы понимаете основные механизмы курса и умеете применять их в новых ситуациях.",learning:"Учебный режим",exam:"Экзаменационный режим",after:"Сначала завершите попытку. После этого вы увидите ошибки, правильные ответы и объяснения.",back:"← К содержанию курса"},
+ KZ:{title:"Емтихан орталығы",intro:"Курстың негізгі механизмдерін қаншалықты түсінетініңізді және оларды жаңа жағдайда қолдана алатыныңызды тексеріңіз.",learning:"Оқу режимі",exam:"Емтихан режимі",after:"Алдымен талпынысты аяқтаңыз. Содан кейін қателер, дұрыс жауаптар және түсіндірмелер көрсетіледі.",back:"← Курс мазмұнына"},
+ EN:{title:"Exam Center",intro:"Check how well you understand the course mechanisms and can use them in new situations.",learning:"Learning mode",exam:"Exam mode",after:"Finish the attempt first. Then you will see errors, correct answers, and explanations.",back:"← Course contents"}
 };
 
 export default async function ExamPage({searchParams}:Props){
@@ -20,10 +20,10 @@ export default async function ExamPage({searchParams}:Props){
    <h1>{t.title}</h1><p>{t.intro}</p>
    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:18,marginTop:28}}>
     <section style={{border:"1px solid #ccd9e3",borderRadius:16,padding:22}}>
-      <h2>{t.learning}</h2><p>{lang==="RU"?"Подсказки, возврат к теории и повтор ошибок остаются в обучающих тестах каждого блока.":lang==="KZ"?"Кеңестер, теорияға оралу және қателерді қайталау әр блоктың оқу тесттерінде қалады.":"Hints, theory review, and error retry remain in each block's learning tests."}</p>
+      <h2>{t.learning}</h2><p>{lang==="RU"?"Здесь можно учиться без риска: после ошибки вы получите объяснение и сможете повторить тему.":lang==="KZ"?"Мұнда қатеден қорықпай үйренуге болады: қатеден кейін түсіндірме алып, тақырыпты қайталай аласыз.":"Use this mode to learn without pressure: after an error, you get an explanation and can review the topic."}</p>
     </section>
     <section style={{border:"2px solid #86aac4",borderRadius:16,padding:22}}>
-      <h2>{t.exam}</h2><p>{lang==="RU"?"Без подсказок, объяснений и переходов к теории во время попытки. Вариант выбирается из банка по всем 25 блокам.":lang==="KZ"?"Талпыныс кезінде кеңестер, түсіндірмелер және теорияға өту жоқ. Нұсқа барлық 25 блоктың банкінен таңдалады.":"No hints, explanations, or theory links during the attempt. Each version is drawn from a bank spanning all 25 blocks."}</p>
+      <h2>{t.exam}</h2><p>{lang==="RU"?"Во время попытки подсказок нет. Вопросы выбираются случайно из банка по 25 блокам. Разбор появится после завершения.":lang==="KZ"?"Талпыныс кезінде кеңес болмайды. Сұрақтар 25 блоктың банкінен кездейсоқ таңдалады. Талдау аяқталғаннан кейін ашылады.":"There are no hints during the attempt. Questions are drawn randomly from all 25 blocks, and review appears after you finish."}</p>
       <p><strong>{t.after}</strong></p>
     </section>
    </div>
