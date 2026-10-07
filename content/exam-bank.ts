@@ -2,7 +2,7 @@ import type { Language } from "./course";
 import { modules } from "./course";
 import { topics, termDefinitions } from "./course-foundation/topics";
 import { clinicalVignettes } from "./course-foundation/assessment";
-export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[]};
+export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[];taskType?:"standard"|"situation"|"sequence"};
 const S={
 RU:{st:["Что здесь происходит с точки зрения физиологии?","Какой вывод лучше всего следует из этих данных?","Если это звено изменится, что произойдёт дальше?","Какой вариант лучше всего показывает цепочку «причина → изменение → результат»?","Как применить тот же механизм в новой ситуации?","Какой ответ не делает слишком поспешный вывод?","Какой вариант правильно отличает механизм от наблюдаемого результата?","Какой вывод учитывает то, чего мы пока не знаем?","Что лучше проверить, чтобы подтвердить предполагаемую связь?","Как лучше рассуждать в этой ситуации?"],pair:"Посмотрите на связь",first:"Сначала определите роль каждого элемента, затем решите, что на что влияет, и проверьте это по данным.",swap:"Считать два элемента одинаковыми и не учитывать направление влияния.",abs:"Считать, что изменение одного элемента всегда даёт одинаковый результат независимо от состояния системы.",dx:"Сделать окончательный вывод по одному изменению, не проверяя другие возможные объяснения.",ex:"Хороший ответ показывает, чем элементы отличаются, как они связаны и чего эти данные ещё не доказывают."},
 EN:{st:["What is happening here physiologically?","Which conclusion best follows from these data?","If this part changes, what happens next?","Which option best shows the chain “cause → change → result”?","How would the same mechanism work in a new situation?","Which answer avoids jumping to a conclusion too early?","Which option correctly separates the mechanism from the observed result?","Which conclusion also considers what is still unknown?","What should be checked to test the proposed link?","What is the best way to reason through this situation?"],pair:"Look at the link",first:"First identify the role of each element, then decide what affects what and check this against the data.",swap:"Treat the two elements as the same thing and ignore the direction of influence.",abs:"Assume that changing one element always gives the same result regardless of the state of the system.",dx:"Make a final conclusion from one change without checking other possible explanations.",ex:"A good answer shows how the elements differ, how they are linked, and what the data still do not prove."},
@@ -10,7 +10,7 @@ KZ:{st:["Бұл жерде физиология тұрғысынан не бол
 }
 function rot<T>(a:T[],n:number){const k=n%a.length;return [...a.slice(k),...a.slice(0,k)]}
 function firstSentence(value:string){const match=value.trim().match(/^.*?[.!?](?:\s|$)/u);return (match?.[0]??value).trim()}
-function make(mid:number,title:string,n:number,prompt:string,correct:string,wrong:string[],explanation:string):ExamBankQuestion{const raw=rot([{k:"ok",text:correct},...wrong.map((text,i)=>({k:"w"+i,text}))],n);const options=raw.map((o,i)=>({id:"abcd"[i],text:o.text}));const writtenPrompt=prompt+" "+(mid===1?" Объясните простыми шагами: какой сигнал поступает в ЦНС, что там происходит и какой ответ ожидается.":"");return{id:"exam-m"+mid+"-q"+(n+1),moduleId:mid,moduleTitle:title,prompt,options,correctAnswer:options[raw.findIndex(o=>o.k==="ok")].id,explanation,writtenPrompt}}
+function make(mid:number,title:string,n:number,prompt:string,correct:string,wrong:string[],explanation:string):ExamBankQuestion{const raw=rot([{k:"ok",text:correct},...wrong.map((text,i)=>({k:"w"+i,text}))],n);const options=raw.map((o,i)=>({id:"abcd"[i],text:o.text}));const writtenPrompt=prompt+" "+(mid===1?" Объясните простыми шагами: какой сигнал поступает в ЦНС, что там происходит и какой ответ ожидается.":"");return{id:"exam-m"+mid+"-q"+(n+1),moduleId:mid,moduleTitle:title,prompt,options,correctAnswer:options[raw.findIndex(o=>o.k==="ok")].id,explanation,writtenPrompt,taskType:"standard"}}
 function firstModule(lang:Language){
  const title=modules[lang][0];
  const ru=[
@@ -137,6 +137,7 @@ function createExamBank(lang:Language):ExamBankQuestion[]{
    const q=core&&n===0?make(topic.id,title,n,core.p,core.c,[...core.w],core.e):make(topic.id,title,n,framedPrompt,corrects[mode],wrongSets[mode],explanations[mode]);
    const lead=lang==="RU"?"Объясните простыми шагами: что изменилось, почему и к какому результату это приводит. ":lang==="EN"?"Explain in simple steps: what changed, why, and what result follows. ":"Қарапайым қадамдармен түсіндіріңіз: не өзгерді, неліктен және қандай нәтижеге әкеледі. ";
    q.writtenPrompt=lead+q.prompt;
+   if(mode===1) q.taskType="situation";
    bank.push(q);
   }
  }
