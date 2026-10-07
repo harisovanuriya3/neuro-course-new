@@ -96,7 +96,7 @@ export function sequenceQuestions(lang:Language):ExamBankQuestion[]{
  ];
 }
 
-function createExamBank(lang:Language):ExamBankQuestion[]{
+export function createExamBank(lang:Language):ExamBankQuestion[]{
  const s=S[lang],bank=[...firstModule(lang)];
  for(const topic of topics){
   const defs=termDefinitions[topic.id]; if(!defs)continue;
