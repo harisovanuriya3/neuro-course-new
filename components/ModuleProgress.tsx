@@ -21,6 +21,10 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const coreVisited=coreSections.filter(section=>visitedSections.includes(section)).length;
  const supportVisited=visitedSections.length-coreVisited;
  const currentPercent=Math.round((coreVisited/coreSections.length)*100);
+ const allModules=modules[language].map((title,index)=>{const id=index+1;const sections=data?.visitedSections[id]??[];const core=coreSections.filter(s=>sections.includes(s)).length;const o=data?.outcomes??{};const evidence=Object.entries(o).filter(([k])=>k.startsWith(id+":")&&!k.includes(":pretest")).map(([,v])=>v);const correct=evidence.reduce((s,v)=>s+v.correct,0),total=evidence.reduce((s,v)=>s+v.total,0);const mastery=total?Math.round(correct/total*100):0;return{id,title,core,completion:Math.round(core/coreSections.length*100),mastery,total}});
+ const courseCompletion=Math.round(allModules.reduce((s,m)=>s+m.completion,0)/allModules.length);
+ const assessed=allModules.filter(m=>m.total>0);const courseMastery=assessed.length?Math.round(assessed.reduce((s,m)=>s+m.mastery,0)/assessed.length):0;
+ const needsAttention=allModules.filter(m=>m.total>0&&m.mastery<55).sort((a,b)=>a.mastery-b.mastery).slice(0,5);
  const test=outcomes[`${moduleId}:tests`], cases=outcomes[`${moduleId}:cases`], practice=outcomes[`${moduleId}:practice`], questions=outcomes[`${moduleId}:questions`], patient=outcomes[`${moduleId}:virtual-patient`], sketch=outcomes[`${moduleId}:criterion:application:sketch`], builder=outcomes[`${moduleId}:criterion:application:path-builder`];
  const combined=(items:({correct:number;total:number}|undefined)[])=>{const x=items.filter(Boolean) as {correct:number;total:number}[];return {correct:x.reduce((a,b)=>a+b.correct,0),total:x.reduce((a,b)=>a+b.total,0)}};
  const tc=combined([test,cases]), tOnly=combined([test]), cOnly=combined([cases]);
@@ -54,6 +58,12 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     <progress aria-label="core module progress" value={coreVisited} max={coreSections.length}/>
     <p>{language==="RU"?"Дополнительные разделы":language==="KZ"?"Қосымша бөлімдер":"Additional sections"}: <strong>{supportVisited}/6</strong></p>
   </div>
+  <section style={{margin:"18px 0",padding:"16px",border:"2px solid #b9d3e6",borderRadius:14,background:"#fff"}}>
+    <h2 style={{marginTop:0}}>{language==="RU"?"Панель курса":language==="KZ"?"Курс панелі":"Course dashboard"}</h2>
+    <p>{language==="RU"?"Завершение учебного маршрута":language==="KZ"?"Оқу маршрутының аяқталуы":"Learning-path completion"}: <strong>{courseCompletion}%</strong></p><progress value={courseCompletion} max={100} style={{width:"100%"}}/>
+    <p>{language==="RU"?"Освоение по выполненным оцениваниям":language==="KZ"?"Орындалған бағалаулар бойынша меңгеру":"Mastery from completed assessments"}: <strong>{courseMastery}%</strong></p><progress value={courseMastery} max={100} style={{width:"100%"}}/>
+    {needsAttention.length>0&&<><h3>{language==="RU"?"Приоритет повторения":language==="KZ"?"Қайталау басымдығы":"Review priority"}</h3><p>{needsAttention.map(m=>`${m.id}. ${m.title} — ${m.mastery}%`).join(" · ")}</p></>}
+  </section>
   <h2>{c.assessment} · {c.module} {moduleId}</h2>
   <p>{c.exam}</p>
   <section style={{margin:"16px 0 20px",padding:"16px",border:"1px solid #d6e3eb",borderRadius:14,background:"#f8fcff"}}>
@@ -76,6 +86,6 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     {[[c.practice,practice],[c.questions,questions],[c.tests,test],[c.cases,cases],[c.patient,patient],[c.sketch,sketch],[c.builder,builder]].map(([name,value])=><div key={String(name)} style={{padding:"12px",border:"1px solid #dce8ef",borderRadius:10,background:"#fff"}}><strong>{String(name)}</strong><p style={{margin:"5px 0 0"}}>{value && typeof value==="object" ? `${value.correct}/${value.total} · ${Math.round(value.correct/value.total*100)}%` : c.none}</p></div>)}
   </div>
   <h2 style={{marginTop:28}}>{c.criteria}</h2>
-  <div className={styles.courseModules}>{modules[language].map((title,index)=>{const id=index+1,count=data?.visitedSections[id]?.length??0;return <div key={id}><h3>{c.module} {id}: {title}</h3><p>{c.sections}: {count}</p><Link href={`/modules/${id}?lang=${language}`}>{c.start}</Link></div>})}</div>
+  <div className={styles.courseModules}>{allModules.map(m=>{const count=data?.visitedSections[m.id]?.length??0;return <div key={m.id}><h3>{c.module} {m.id}: {m.title}</h3><p>{c.sections}: {count} · {language==="RU"?"маршрут":language==="KZ"?"маршрут":"path"} {m.completion}% · {language==="RU"?"освоение":language==="KZ"?"меңгеру":"mastery"} {m.total?m.mastery+"%":c.none}</p><progress value={m.completion} max={100} style={{width:"100%"}}/><br/><Link href={`/modules/${m.id}?lang=${language}`}>{c.start}</Link></div>})}</div>
  </section>
 }
