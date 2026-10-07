@@ -93,7 +93,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  const [warning,setWarning]=useState("");
  const [hydrated,setHydrated]=useState(false);
  const [restored,setRestored]=useState(false);
- const storageKey=`neuro-course:exam:${lang}:v2`;
+ const storageKey=`neuro-course:exam:${lang}:v3`;
  const score=useMemo(()=>version?.reduce((n,q)=>n+(q.responseType==="mcq"&&answers[q.id]===q.correctAnswer?1:0),0)??0,[version,answers]);
  const mcqCount=version?.filter(q=>q.responseType==="mcq").length??0;
  const writtenGrades=useMemo(()=>Object.fromEntries((version??[]).filter(q=>q.responseType==="written").map(q=>[q.id,gradeWritten(q,written[q.id]??"")])),[version,written]);
@@ -135,7 +135,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
    if(!missing)return;
    const id=`exam-${missing.id}`;
    requestAnimationFrame(()=>document.getElementById(id)?.scrollIntoView({block:"center"}));
- },[hydrated,version,finished]);
+ },[hydrated,version,finished,answers,written,sequences]);
 
 
  const firstMissing=version?.find(q=>q.responseType==="written"?!written[q.id]?.trim():q.responseType==="sequence"?(sequences[q.id]?.length??0)!==(q.sequenceItems?.length??0):!answers[q.id]);
@@ -176,7 +176,16 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
           <p>{lang==="RU"?(g?.interpretation?"✓ Указано, к какому результату это приводит.":"✗ Добавьте, к какому результату это приводит."):(lang==="EN"?(g?.interpretation?"✓ Expected result/consequence stated.":"✗ Add the expected result or consequence."):(g?.interpretation?"✓ Күтілетін нәтиже/салдар көрсетілген.":"✗ Күтілетін нәтиже немесе салдарды қосыңыз."))}</p>
           <p>{lang==="RU"?"Проверка выполнена локальной рубрикой без ИИ/API; преподаватель может пересмотреть балл.":lang==="EN"?"Checked by a local rubric without AI/API; the teacher may review the score.":"AI/API қолданбай жергілікті рубрикамен тексерілді; оқытушы балды қайта қарай алады."}</p>
         </div>})()}
-      </>:<>
+      </>:q.responseType==="sequence"?(()=>{
+        const aseq=sequences[q.id]??[];
+        const seqOk=q.correctOrder?.length===aseq.length&&q.correctOrder.every((id,idx)=>aseq[idx]===id);
+        const label=(id:string)=>q.sequenceItems?.find(x=>x.id===id)?.text??id;
+        return <div>
+          <p><strong>{t.your}:</strong> <span style={{color:seqOk?"green":"crimson",fontWeight:800}}>{seqOk?"✓":"✗"} {aseq.map((id,idx)=>`${idx+1}. ${label(id)}`).join(" → ")||t.unanswered}</span></p>
+          {!seqOk&&<p><strong>{t.right}:</strong> <span style={{color:"green",fontWeight:800}}>✓ {(q.correctOrder??[]).map((id,idx)=>`${idx+1}. ${label(id)}`).join(" → ")}</span></p>}
+          <p>{q.explanation}</p>
+        </div>
+      })():<>
         <p><strong>{t.your}:</strong> <span style={{color:ok?"green":"crimson",fontWeight:800}}>{ok?"✓":"✗"} {a?find(a):t.unanswered}</span></p>
         {!ok&&<p><strong>{t.right}:</strong> <span style={{color:"green",fontWeight:800}}>✓ {find(q.correctAnswer)}</span></p>}
         <p>{q.explanation}</p>
