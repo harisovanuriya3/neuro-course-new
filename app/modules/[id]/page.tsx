@@ -33,7 +33,7 @@ const ui: Record<
     author: "Автор",
     authorName: interfaceText.RU.authorName,
     intro:
-      "Выберите раздел модуля. Материалы организованы от целей обучения и входной диагностики к теории, клиническому применению, практике и контролю знаний.",
+      "Начните с короткого знакомства с темой, затем разберитесь в механизме, попробуйте применить знания и проверьте себя. Можно двигаться по порядку или открыть нужный раздел.",
     structure: "Структура модуля",
     sectionCount: "17 учебных разделов",
   },
@@ -45,7 +45,7 @@ const ui: Record<
     author: "Автор",
     authorName: interfaceText.KZ.authorName,
     intro:
-      "Модуль бөлімін таңдаңыз. Материалдар оқу мақсаттары мен бастапқы диагностикадан теорияға, клиникалық қолдануға, практикаға және білімді бақылауға дейін ұйымдастырылған.",
+      "Алдымен тақырыппен қысқаша танысыңыз, кейін механизмді түсініңіз, білімді қолданып көріңіз және өзіңізді тексеріңіз. Бөлімдерді ретімен де, қажетіне қарай да ашуға болады.",
     structure: "Модуль құрылымы",
     sectionCount: "17 оқу бөлімі",
   },
@@ -57,7 +57,7 @@ const ui: Record<
     author: "Author",
     authorName: interfaceText.EN.authorName,
     intro:
-      "Choose a module section. The learning materials progress from objectives and initial diagnostics to theory, clinical application, practice, and knowledge assessment.",
+      "Start with a quick introduction, understand the mechanism, try using the knowledge, and then check yourself. You can follow the order or open the section you need.",
     structure: "Module Structure",
     sectionCount: "17 learning sections",
   },
@@ -103,9 +103,9 @@ export default async function ModulePage({
 
   const t = ui[lang];
   const stageCopy = {
-    RU: { orient:"1. Ориентир", learn:"2. Понимание", apply:"3. Применение", assess:"4. Контроль", support:"Дополнительно", path:"Рекомендуемый маршрут", pathHint:"Идите по этапам слева направо. Дополнительные разделы можно открывать в любой момент." },
-    KZ: { orient:"1. Бағдар", learn:"2. Түсіну", apply:"3. Қолдану", assess:"4. Бақылау", support:"Қосымша", path:"Ұсынылатын бағыт", pathHint:"Кезеңдер бойынша солдан оңға жүріңіз. Қосымша бөлімдерді кез келген уақытта ашуға болады." },
-    EN: { orient:"1. Orient", learn:"2. Understand", apply:"3. Apply", assess:"4. Assess", support:"Support", path:"Recommended path", pathHint:"Move through the stages from left to right. Support sections can be opened at any time." },
+    RU: { orient:"1. С чего начать", learn:"2. Разобраться", apply:"3. Попробовать", assess:"4. Проверить себя", support:"Полезное", path:"Как пройти модуль", pathHint:"Удобный порядок: сначала познакомьтесь с темой, затем разберитесь, попробуйте применить знания и проверьте себя." },
+    KZ: { orient:"1. Неден бастау", learn:"2. Түсіну", apply:"3. Қолданып көру", assess:"4. Өзіңді тексеру", support:"Пайдалы", path:"Модульді қалай өтуге болады", pathHint:"Ыңғайлы рет: тақырыппен танысыңыз, түсініңіз, білімді қолданып көріңіз және өзіңізді тексеріңіз." },
+    EN: { orient:"1. Start here", learn:"2. Understand", apply:"3. Try it", assess:"4. Check yourself", support:"Useful extras", path:"How to work through this module", pathHint:"A simple path: get oriented, understand the topic, try using the knowledge, then check yourself." },
   }[lang];
   const stageFor = (slug: string) =>
     ["objectives","pretest"].includes(slug) ? stageCopy.orient :
