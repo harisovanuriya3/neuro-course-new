@@ -68,14 +68,14 @@ export const sections = [
     slug: "clinical",
     icon: "🩺",
     title: {
-      RU: "Клинический мост",
-      KZ: "Клиникалық көпір",
-      EN: "Clinical Bridge",
+      RU: "Связь с клиникой",
+      KZ: "Клиникамен байланыс",
+      EN: "Clinical Connection",
     },
     description: {
-      RU: "Связь физиологических механизмов с клинической практикой",
-      KZ: "Физиологиялық механизмдердің клиникалық тәжірибемен байланысы",
-      EN: "Connecting physiological mechanisms with clinical practice",
+      RU: "Как этот механизм проявляется у человека и зачем он нужен врачу",
+      KZ: "Бұл механизм адамда қалай көрінеді және дәрігерге не үшін қажет",
+      EN: "How the mechanism appears in people and why it matters clinically",
     },
   },
   {
@@ -124,14 +124,14 @@ export const sections = [
     slug: "tests",
     icon: "📝",
     title: {
-      RU: "Ветвящиеся тесты",
-      KZ: "Тармақталған тесттер",
-      EN: "Branching Tests",
+      RU: "Тесты с разбором",
+      KZ: "Түсіндірмесі бар тесттер",
+      EN: "Tests with Feedback",
     },
     description: {
-      RU: "Тесты с разными траекториями в зависимости от ответа",
-      KZ: "Жауапқа байланысты әртүрлі бағыттары бар тесттер",
-      EN: "Adaptive question paths based on your answers",
+      RU: "После ответа вы сразу увидите объяснение и сможете исправить ошибку",
+      KZ: "Жауаптан кейін түсіндірме көріп, қатені түзете аласыз",
+      EN: "Get an explanation after each answer and a chance to correct mistakes",
     },
   },
   {
@@ -213,9 +213,9 @@ export const sections = [
       EN: "Progress and Assessment",
     },
     description: {
-      RU: "Результаты, формирующее оценивание, ошибки и персональные рекомендации",
-      KZ: "Нәтижелер, қалыптастырушы бағалау, қателер және жеке ұсыныстар",
-      EN: "Results, formative assessment, mistakes, and personalized recommendations",
+      RU: "Что уже получается, что стоит повторить и что делать дальше",
+      KZ: "Не меңгерілді, нені қайталау керек және әрі қарай не істеу керек",
+      EN: "What is going well, what needs review, and what to do next",
     },
   },
   {
