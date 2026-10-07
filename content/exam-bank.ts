@@ -286,5 +286,26 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    bank.push(q);
   }
  }
- return [...bank,...sequenceQuestions(lang),...whatsappCaseQuestions(lang)];
+ const sequences=sequenceQuestions(lang);
+ const existingSeq=new Set(sequences.map(q=>q.moduleId));
+ const L=(ru:string,en:string,kz:string)=>lang==="RU"?ru:lang==="EN"?en:kz;
+ const generated:ExamBankQuestion[]=[];
+ for(const topic of topics){
+   if(existingSeq.has(topic.id))continue;
+   const defs=termDefinitions[topic.id]; if(!defs||defs.length<2)continue;
+   const a=topic.terms[0][lang],b=topic.terms[1][lang];
+   generated.push({
+     id:`exam-seq-m${topic.id}-mechanism`,moduleId:topic.id,moduleTitle:modules[lang][topic.id-1],
+     prompt:L("Соберите причинно-следственную последовательность механизма.","Build the cause-and-effect sequence of the mechanism.","Механизмнің себеп-салдар ретін құрастырыңыз."),
+     options:[],correctAnswer:"",taskType:"sequence",
+     sequenceItems:[
+       {id:"stimulus",text:L("Исходное физиологическое изменение","Initial physiological change","Бастапқы физиологиялық өзгеріс")},
+       {id:"a",text:a},{id:"b",text:b},
+       {id:"response",text:L("Функциональный результат","Functional result","Функциялық нәтиже")}
+     ],
+     correctOrder:["stimulus","a","b","response"],
+     explanation:topic.mechanism[lang]
+   });
+ }
+ return [...bank,...sequences,...generated,...whatsappCaseQuestions(lang)];
 }
