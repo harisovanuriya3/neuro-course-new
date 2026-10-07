@@ -186,7 +186,7 @@ const copy = {
       'Дополнительные материалы по теме не указаны.',
 
     sourceDescription:
-      'Дополнительное чтение по теме. Исходный материал на английском языке.',
+      'Дополнительное чтение по теме из учебников, университетских библиотек и открытых академических ресурсов.',
   },
 
   EN: {
@@ -227,7 +227,7 @@ const copy = {
       'No additional topic materials are listed.',
 
     sourceDescription:
-      'Further reading on this topic. Original source in English.',
+      'Further reading from textbooks, university libraries, and open academic resources.',
   },
 
   KZ: {
