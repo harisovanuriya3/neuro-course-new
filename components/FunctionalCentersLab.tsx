@@ -9,9 +9,9 @@ type CenterKey="broca"|"wernicke"|"motor"|"somato"|"visual"|"auditory"|"hippocam
 
 const copy={
  RU:{
-  title:"Функциональные центры: норма и нарушения",
-  intro:"Выберите центр. Сначала посмотрите его нормальную роль, затем — какие признаки могут появиться при повреждении или дисфункции.",
-  normal:"В норме",pathology:"При нарушении",location:"Где находится",note:"Важно: большинство функций выполняется не одной точкой, а сетью областей. Здесь показаны основные учебные связи.",
+  title:"Виртуальная лаборатория центров: норма и поражение",
+  intro:"Выберите центр и переключите состояние «норма / поражение». Сравните функцию и ожидаемые признаки нарушения.",
+  normal:"В норме",pathology:"При нарушении",location:"Где находится",simulate:"Смоделировать поражение",restore:"Вернуть норму",observe:"Что наблюдаем",note:"Важно: большинство функций выполняется не одной точкой, а сетью областей. Здесь показаны основные учебные связи.",
   centers:{
    broca:["Центр Брока","Нижняя лобная извилина доминантного полушария","Программирование моторной речи: построение и произнесение фраз.","Экспрессивная афазия: речь замедлена и трудна, понимание относительно лучше сохранено."],
    wernicke:["Зона Вернике","Задние отделы верхней височной извилины и прилежащая теменно-височная сеть доминантного полушария","Понимание речевого смысла и связывание слов с содержанием.","Рецептивная афазия: речь беглая, но смысл нарушен; понимание обращённой речи страдает."],
@@ -34,9 +34,9 @@ const copy={
   }
  },
  EN:{
-  title:"Functional centers: normal function and dysfunction",
-  intro:"Choose a center. First see its normal role, then the typical effect of damage or dysfunction.",
-  normal:"Normal function",pathology:"If impaired",location:"Location",note:"Most functions are produced by networks rather than a single point. These are the main teaching associations.",
+  title:"Virtual centers lab: normal function and lesion",
+  intro:"Choose a center and switch between normal function and a simulated lesion. Compare function with the expected deficit.",
+  normal:"Normal function",pathology:"If impaired",location:"Location",simulate:"Simulate lesion",restore:"Restore normal",observe:"What you observe",note:"Most functions are produced by networks rather than a single point. These are the main teaching associations.",
   centers:{
    broca:["Broca area","Inferior frontal gyrus of the dominant hemisphere","Motor programming of speech and phrase production.","Expressive aphasia: speech is effortful and nonfluent, while comprehension is relatively better preserved."],
    wernicke:["Wernicke area","Posterior superior temporal region and adjacent temporoparietal language network of the dominant hemisphere","Language comprehension and linking words with meaning.","Receptive aphasia: speech may remain fluent but loses meaning; comprehension is impaired."],
@@ -59,9 +59,9 @@ const copy={
   }
  },
  KZ:{
-  title:"Функциялық орталықтар: норма және бұзылыс",
-  intro:"Орталықты таңдаңыз. Алдымен қалыпты қызметін, кейін зақымдану немесе дисфункция кезінде не болатынын көріңіз.",
-  normal:"Қалыптыда",pathology:"Бұзылғанда",location:"Орналасуы",note:"Көптеген қызметтер бір нүктемен емес, жүйелермен орындалады. Мұнда негізгі оқу байланыстары көрсетілген.",
+  title:"Орталықтардың виртуалды зертханасы: норма және зақым",
+  intro:"Орталықты таңдап, «қалыпты / зақым» күйін ауыстырыңыз. Қызмет пен күтілетін бұзылысты салыстырыңыз.",
+  normal:"Қалыптыда",pathology:"Бұзылғанда",location:"Орналасуы",simulate:"Зақымды модельдеу",restore:"Қалыпты күйге қайтару",observe:"Не байқаймыз",note:"Көптеген қызметтер бір нүктемен емес, жүйелермен орындалады. Мұнда негізгі оқу байланыстары көрсетілген.",
   centers:{
    broca:["Брока аймағы","Доминантты жартышардың төменгі маңдай иірімі","Сөйлеудің моторлық бағдарламасын құру және фразаны айту.","Экспрессивті афазия: сөйлеу баяу және қиын, түсіну салыстырмалы жақсы сақталады."],
    wernicke:["Вернике аймағы","Доминантты жартышардың артқы жоғарғы самай аймағы және оған жақын темпоро-париеталдық тіл желісі","Сөйлеу мағынасын түсіну және сөзді мазмұнмен байланыстыру.","Рецептивті афазия: сөйлеу еркін болуы мүмкін, бірақ мағынасы бұзылады және түсіну нашарлайды."],
@@ -88,18 +88,21 @@ export default function FunctionalCentersLab({language,moduleId=18}:{language:La
  const t=copy[language];
  const keys=Object.keys(t.centers) as CenterKey[];
  const [selected,setSelected]=useState<CenterKey>("broca");
+ const [lesion,setLesion]=useState(false);
  const c=t.centers[selected];
  return <section style={{margin:"24px 0",padding:18,border:"1px solid #cfe0ea",borderRadius:16,background:"#fff"}}>
   <h2>{t.title}</h2><p>{t.intro}</p>{moduleId===23?<AdvancedAnatomyReference moduleId={23} language={language}/>:<AnatomyReference moduleId={18} language={language}/>}<div aria-hidden="true" style={{height:6,borderRadius:999,background:"linear-gradient(90deg,#dceefa,#9ac4de,#dceefa)",backgroundSize:"200% 100%",animation:"centerFlow 3s linear infinite",margin:"12px 0 18px"}}/>
   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-   {keys.map(k=><button key={k} type="button" aria-pressed={selected===k} onClick={()=>setSelected(k)}>{t.centers[k][0]}</button>)}
+   {keys.map(k=><button key={k} type="button" aria-pressed={selected===k} onClick={()=>{setSelected(k);setLesion(false)}}>{t.centers[k][0]}</button>)}
   </div>
+  <button type="button" onClick={()=>setLesion(v=>!v)} style={{marginTop:14,padding:"10px 14px",borderRadius:10,fontWeight:700}}>{lesion?t.restore:t.simulate}</button>
   <div style={{marginTop:14,display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(230px,1fr))",gap:12}}>
    <article style={{padding:14,borderRadius:12,background:"#f8fcff"}}>
     <h3>{c[0]}</h3><p><strong>{t.location}:</strong> {c[1]}</p><p><strong>{t.normal}:</strong> {c[2]}</p>
    </article>
-   <article style={{padding:14,borderRadius:12,background:"#fff8f5",border:"1px solid #f0d6c8"}}>
-    <h3>{t.pathology}</h3><p>{c[3]}</p>
+   <article style={{padding:14,borderRadius:12,background:lesion?"#fff1ec":"#f7fbfd",border:lesion?"2px solid #e6a88b":"1px solid #d6e3eb",transition:"all .25s ease"}}>
+    <h3>{t.observe}: {lesion?t.pathology:t.normal}</h3><p>{lesion?c[3]:c[2]}</p>
+    <div aria-hidden="true" style={{height:10,borderRadius:999,background:"#e4edf2",overflow:"hidden"}}><div style={{height:"100%",width:lesion?"35%":"100%",background:lesion?"#b86d51":"#6fa7c6",transition:"width .5s ease"}}/></div>
    </article>
   </div>
   <p style={{fontSize:14}}>{t.note}</p>
