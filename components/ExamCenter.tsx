@@ -15,12 +15,13 @@ export type ExamQuestion = {
   writtenPrompt?: string;
   sequenceItems?: { id: string; text: string }[];
   correctOrder?: string[];
+  taskType?: "standard" | "situation" | "sequence";
 };
 
 const ui: Record<Language, Record<string,string>> = {
- RU:{all:"Все 25 блоков",choose:"Выберите блок",start:"Начать",restart:"Новый вариант",submit:"Завершить попытку",jump:"К первому пропущенному",resume:"Незавершённая попытка восстановлена. Продолжайте с первого пропущенного задания.",locked:"Попытка завершена. Ответы больше нельзя менять; для новой попытки создайте новый вариант.",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Есть пропущенные задания. Возвращаю к первому из них.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Попытка завершена. Ниже можно спокойно разобрать ошибки.",bank:"В банке",items:"заданий",format:"Выберите быстрый вариант на 10 заданий или полный на 25. В заданиях используются выбор ответа, письменное объяснение и сборка физиологической последовательности.",sequence:"Соберите последовательность",undo:"Отменить",reset:"Сначала",size:"Объём экзамена",quick:"Быстрый — 10 заданий",full:"Полный — 25 заданий"},
- KZ:{all:"Барлық 25 блок",choose:"Блокты таңдаңыз",start:"Бастау",restart:"Жаңа нұсқа",submit:"Талпынысты аяқтау",jump:"Бірінші өткізіп алған сұраққа",resume:"Аяқталмаған талпыныс қалпына келтірілді. Бірінші жауап берілмеген тапсырмадан жалғастырыңыз.",locked:"Талпыныс бекітілді. Жауаптарды енді өзгертуге болмайды; жаңа талпыныс үшін жаңа нұсқа жасаңыз.",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Жауап берілмеген сұрақтар бар. Бірінші өткізіп алған сұраққа қайтарамын.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"10 тапсырмалық жылдам немесе 25 тапсырмалық толық нұсқаны таңдаңыз. Жауап таңдау, жазбаша түсіндіру және физиологиялық тізбек құрастыру қолданылады.",sequence:"Тізбекті құрастырыңыз",undo:"Болдырмау",reset:"Басынан",size:"Емтихан көлемі",quick:"Жылдам — 10 тапсырма",full:"Толық — 25 тапсырма"},
- EN:{all:"All 25 blocks",choose:"Choose a block",start:"Start",restart:"New version",submit:"Finish attempt",jump:"Go to first unanswered",resume:"Your unfinished attempt was restored. Continue from the first unanswered item.",locked:"This attempt is finalized. Answers can no longer be changed; start a new version for another attempt.",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Some questions are unanswered. Returning to the first unanswered question.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Choose a quick 10-item version or a full 25-item version. Items include answer selection, written explanation, and building physiological sequences.",sequence:"Build the sequence",undo:"Undo",reset:"Reset",size:"Exam length",quick:"Quick — 10 items",full:"Full — 25 items"}
+ RU:{all:"Все 25 блоков",choose:"Выберите блок",start:"Начать",restart:"Новый вариант",submit:"Завершить попытку",jump:"К первому пропущенному",resume:"Незавершённая попытка восстановлена. Продолжайте с первого пропущенного задания.",locked:"Попытка завершена. Ответы больше нельзя менять; для новой попытки создайте новый вариант.",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Есть пропущенные задания. Возвращаю к первому из них.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Попытка завершена. Ниже можно спокойно разобрать ошибки.",bank:"В банке",items:"заданий",format:"Выберите быстрый вариант на 10 заданий или полный на 25. Вариант обязательно включает ситуационные задачи, а также тесты, письменное объяснение и сборку физиологической последовательности.",sequence:"Соберите последовательность",undo:"Отменить",reset:"Сначала",size:"Объём экзамена",quick:"Быстрый — 10 заданий",full:"Полный — 25 заданий",situation:"Ситуационная задача"},
+ KZ:{all:"Барлық 25 блок",choose:"Блокты таңдаңыз",start:"Бастау",restart:"Жаңа нұсқа",submit:"Талпынысты аяқтау",jump:"Бірінші өткізіп алған сұраққа",resume:"Аяқталмаған талпыныс қалпына келтірілді. Бірінші жауап берілмеген тапсырмадан жалғастырыңыз.",locked:"Талпыныс бекітілді. Жауаптарды енді өзгертуге болмайды; жаңа талпыныс үшін жаңа нұсқа жасаңыз.",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Жауап берілмеген сұрақтар бар. Бірінші өткізіп алған сұраққа қайтарамын.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"10 тапсырмалық жылдам немесе 25 тапсырмалық толық нұсқаны таңдаңыз. Нұсқа міндетті түрде жағдаяттық есептерді, тесттерді, жазбаша түсіндіруді және физиологиялық тізбекті қамтиды.",sequence:"Тізбекті құрастырыңыз",undo:"Болдырмау",reset:"Басынан",size:"Емтихан көлемі",quick:"Жылдам — 10 тапсырма",full:"Толық — 25 тапсырма",situation:"Жағдаяттық есеп"},
+ EN:{all:"All 25 blocks",choose:"Choose a block",start:"Start",restart:"New version",submit:"Finish attempt",jump:"Go to first unanswered",resume:"Your unfinished attempt was restored. Continue from the first unanswered item.",locked:"This attempt is finalized. Answers can no longer be changed; start a new version for another attempt.",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Some questions are unanswered. Returning to the first unanswered question.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Choose a quick 10-item version or a full 25-item version. Each version includes situational tasks plus answer selection, written explanation, and physiological sequence building.",sequence:"Build the sequence",undo:"Undo",reset:"Reset",size:"Exam length",quick:"Quick — 10 items",full:"Full — 25 items",situation:"Situational task"}
 };
 
 function shuffled<T>(items:T[]):T[]{
@@ -31,8 +32,9 @@ function shuffled<T>(items:T[]):T[]{
 
 function buildVersion(bank:ExamQuestion[], count=10){
  const sequenceTarget=Math.min(count>=20?3:2,bank.filter(q=>q.sequenceItems?.length&&q.correctOrder?.length).length,count);
- const writtenTarget=Math.min(count>=20?5:2,Math.max(0,count-sequenceTarget));
- const mcqTarget=Math.max(0,count-sequenceTarget-writtenTarget);
+ const situationTarget=Math.min(count>=20?5:2,Math.max(0,count-sequenceTarget));
+ const writtenTarget=Math.min(count>=20?4:2,Math.max(0,count-sequenceTarget-situationTarget));
+ const mcqTarget=Math.max(0,count-sequenceTarget-situationTarget-writtenTarget);
  const used=new Set<string>();
  const usedModules=new Set<number>();
  const sequence:ExamQuestion[]=[];
@@ -41,27 +43,33 @@ function buildVersion(bank:ExamQuestion[], count=10){
    if(usedModules.has(q.moduleId))continue;
    sequence.push({...q,responseType:"sequence"});used.add(q.id);usedModules.add(q.moduleId);
  }
+ const situations:ExamQuestion[]=[];
+ for(const q of shuffled(bank.filter(q=>q.taskType==="situation"&&!used.has(q.id)))){
+   if(situations.length>=situationTarget)break;
+   if(usedModules.has(q.moduleId))continue;
+   situations.push({...q,options:shuffled(q.options),responseType:"mcq"});used.add(q.id);usedModules.add(q.moduleId);
+ }
  const allModules=shuffled([...new Set(bank.map(q=>q.moduleId))]);
  const written:ExamQuestion[]=[];
  const writtenModuleOrder=[...allModules.filter(id=>!usedModules.has(id)),...allModules.filter(id=>usedModules.has(id))];
  for(const id of writtenModuleOrder){
    if(written.length>=writtenTarget)break;
-   const q=shuffled(bank.filter(x=>x.moduleId===id&&x.writtenPrompt&&!x.sequenceItems&&!used.has(x.id)))[0];
+   const q=shuffled(bank.filter(x=>x.moduleId===id&&x.writtenPrompt&&!x.sequenceItems&&x.taskType!=="situation"&&!used.has(x.id)))[0];
    if(q){written.push({...q,prompt:q.writtenPrompt!,responseType:"written"});used.add(q.id);usedModules.add(id);}
  }
  const mcq:ExamQuestion[]=[];
  const mcqModuleOrder=[...allModules.filter(id=>!usedModules.has(id)),...allModules.filter(id=>usedModules.has(id))];
  for(const id of mcqModuleOrder){
    if(mcq.length>=mcqTarget)break;
-   const q=shuffled(bank.filter(x=>x.moduleId===id&&x.options.length>=2&&!x.sequenceItems&&!used.has(x.id)))[0];
+   const q=shuffled(bank.filter(x=>x.moduleId===id&&x.options.length>=2&&!x.sequenceItems&&x.taskType!=="situation"&&!used.has(x.id)))[0];
    if(q){mcq.push({...q,options:shuffled(q.options),responseType:"mcq"});used.add(q.id);usedModules.add(id);}
  }
  if(mcq.length<mcqTarget){
-   for(const q of shuffled(bank.filter(q=>!used.has(q.id)&&q.options.length>=2&&!q.sequenceItems)).slice(0,mcqTarget-mcq.length)){
+   for(const q of shuffled(bank.filter(q=>!used.has(q.id)&&q.options.length>=2&&!q.sequenceItems&&q.taskType!=="situation")).slice(0,mcqTarget-mcq.length)){
      mcq.push({...q,options:shuffled(q.options),responseType:"mcq"});used.add(q.id);
    }
  }
- let result=[...sequence,...written,...mcq];
+ let result=[...sequence,...situations,...written,...mcq];
  if(result.length<count){
    const extras=shuffled(bank.filter(q=>!used.has(q.id)&&q.options.length>=2&&!q.sequenceItems)).slice(0,count-result.length).map(q=>({...q,options:shuffled(q.options),responseType:"mcq" as const}));
    result=[...result,...extras];
@@ -170,7 +178,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
    <h2 style={{marginTop:30}}>{t.review}</h2>
    {version.map((q,i)=>{const a=answers[q.id]; const ok=a===q.correctAnswer; const find=(id:string)=>q.options.find(o=>o.id===id)?.text;
     return <article id={`exam-${q.id}`} key={q.id} style={{border:"1px solid #ccd9e3",borderRadius:14,padding:18,margin:"14px 0",overflowWrap:"anywhere",minWidth:0}}>
-      <div style={{fontSize:14,opacity:.75}}>{t.question} {i+1} · {t.module} {q.moduleId}: {q.moduleTitle}</div>
+      <div style={{fontSize:14,opacity:.75}}>{t.question} {i+1} · {t.module} {q.moduleId}: {q.moduleTitle}{q.taskType==="situation"?` · ${t.situation}`:""}</div>
       <h3>{q.prompt}</h3>
       {q.responseType==="written"?<>
         <p><strong>{t.your}:</strong> {written[q.id]||t.unanswered}</p>
@@ -207,7 +215,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
     {firstMissing&&<button type="button" onClick={()=>document.getElementById(`exam-${firstMissing.id}`)?.scrollIntoView({behavior:"smooth",block:"center"})} style={{marginLeft:12,padding:"7px 10px",borderRadius:8,cursor:"pointer"}}>{t.jump}</button>}
    </div>
    {version.map((q,i)=><article id={`exam-${q.id}`} key={q.id} style={{border:"1px solid #ccd9e3",borderRadius:14,padding:18,margin:"14px 0"}}>
-    <div style={{fontSize:14,opacity:.75}}>{t.question} {i+1} {t.of} {version.length} · {t.module} {q.moduleId}: {q.moduleTitle}</div>
+    <div style={{fontSize:14,opacity:.75}}>{t.question} {i+1} {t.of} {version.length} · {t.module} {q.moduleId}: {q.moduleTitle}{q.taskType==="situation"?` · ${t.situation}`:""}</div>
     <h3>{q.prompt}</h3>
     {q.responseType==="written"?<><p><strong>{lang==="RU"?"Письменный ответ: напишите простыми шагами — что изменилось, почему и что получилось.":lang==="EN"?"Written answer: explain in simple steps — what changed, why, and what happened.":"Жазбаша жауап: қарапайым қадамдармен жазыңыз — не өзгерді, неліктен және не болды."}</strong></p><textarea aria-label={lang==="RU"?`Письменный ответ на вопрос ${i+1}`:lang==="EN"?`Written answer to question ${i+1}`:`${i+1}-сұраққа жазбаша жауап`} rows={7} value={written[q.id]??""} onChange={e=>setWritten(v=>({...v,[q.id]:e.target.value}))} style={{width:"100%",maxWidth:"100%",boxSizing:"border-box",padding:12,borderRadius:10,resize:"vertical"}} /></>:q.responseType==="sequence"?<div>
       <p><strong>{t.sequence}</strong></p>
