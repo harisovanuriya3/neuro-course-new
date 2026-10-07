@@ -236,8 +236,8 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "23" && <><LearningMemoryLab language={language} /><ReflexLearningLab language={language} /><FunctionalCentersLab language={language} moduleId={23} /><AgeNeurophysiologyPanel language={language} /></>}
     {moduleId === "24" && <><SleepRhythmLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
     {moduleId === "25" && <><PlasticityLab language={language} /><CerebralHomeostasisLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
-    {builder && <BlockPathBuilder language={language} items={builder.items} correctOrder={builder.order} />}
-    {["5","7","10","18","22"].includes(moduleId) && <SketchPad language={language} storageKey={`neuro-course:sketch:${moduleId}:${language}`} />}
+    {builder && <BlockPathBuilder language={language} items={builder.items} correctOrder={builder.order} moduleId={Number(moduleId)} />}
+    {["5","7","10","18","22"].includes(moduleId) && <SketchPad language={language} storageKey={`neuro-course:sketch:${moduleId}:${language}`} moduleId={Number(moduleId)} />}
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
     {moduleId === "1" && <SynapseLab language={language} />}
     {moduleId === "5" && <><SynapseLab language={language} /><NeuromuscularJunctionLab language={language} /></>}
