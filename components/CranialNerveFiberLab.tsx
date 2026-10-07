@@ -2,6 +2,7 @@
 
 import {useMemo,useState} from "react";
 import type {Language} from "../content/course";
+import AnatomyReference from "./AnatomyReference";
 
 type Fiber="GSE"|"SVE"|"GVE"|"GSA"|"GVA"|"SSA"|"SVA";
 const copy={
@@ -80,7 +81,7 @@ export default function CranialNerveFiberLab({language}:{language:Language}){
  const fiberKeys=Object.keys(t.fibers) as Fiber[];
  const nerveKeys=Object.keys(t.nerves);
  return <section style={{margin:"24px 0",padding:18,border:"1px solid #cfe0ea",borderRadius:16,background:"#fff"}}>
-  <h2>{t.title}</h2><p>{t.intro}</p>
+  <h2>{t.title}</h2><p>{t.intro}</p><AnatomyReference moduleId={10} language={language}/>
   <h3>{t.fiber}</h3>
   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{fiberKeys.map(k=><button key={k} type="button" aria-pressed={fiber===k} onClick={()=>setFiber(k)}>{k}</button>)}</div>
   <div style={{marginTop:10,padding:"12px 14px",background:"#f8fcff",borderRadius:12}}>
