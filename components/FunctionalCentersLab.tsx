@@ -91,7 +91,7 @@ export default function FunctionalCentersLab({language,moduleId=18}:{language:La
  const [lesion,setLesion]=useState(false);
  const c=t.centers[selected];
  return <section style={{margin:"24px 0",padding:18,border:"1px solid #cfe0ea",borderRadius:16,background:"#fff"}}>
-  <h2>{t.title}</h2><p>{t.intro}</p>{moduleId===23?<AdvancedAnatomyReference moduleId={23} language={language}/>:<AnatomyReference moduleId={18} language={language}/>}<div aria-hidden="true" style={{height:6,borderRadius:999,background:"linear-gradient(90deg,#dceefa,#9ac4de,#dceefa)",backgroundSize:"200% 100%",animation:"centerFlow 3s linear infinite",margin:"12px 0 18px"}}/>
+  <h2>{t.title}</h2><p>{t.intro}</p>{moduleId===23?<AdvancedAnatomyReference moduleId={23} language={language}/>:<><AnatomyReference moduleId={18} language={language}/><AdvancedAnatomyReference moduleId={18} language={language}/></>}<div aria-hidden="true" style={{height:6,borderRadius:999,background:"linear-gradient(90deg,#dceefa,#9ac4de,#dceefa)",backgroundSize:"200% 100%",animation:"centerFlow 3s linear infinite",margin:"12px 0 18px"}}/>
   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
    {keys.map(k=><button key={k} type="button" aria-pressed={selected===k} onClick={()=>{setSelected(k);setLesion(false)}}>{t.centers[k][0]}</button>)}
   </div>
