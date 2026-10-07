@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Language } from "../content/course";
 import ExperimentReflection from "./ExperimentReflection";
+import {recordOutcome} from "../lib/courseProgress";
 import styles from "./NerveFiberLab.module.css";
 
 type FiberId = "Aα" | "Aβ" | "Aγ" | "Aδ" | "B" | "C";
