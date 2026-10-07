@@ -24,6 +24,25 @@ export const foundationSections = [
 ] as const;
 
 const sources: Record<string, { title: string; href: string }> = {
+  guyton: {
+    title: 'Guyton & Hall · Textbook of Medical Physiology, 15th ed.',
+    href: 'https://shop.elsevier.com/books/guyton-and-hall-textbook-of-medical-physiology/hall/978-0-443-11101-3',
+  },
+
+  boron: {
+    title: 'Boron & Boulpaep · Concise Medical Physiology',
+    href: 'https://shop.elsevier.com/books/boron-and-boulpaep-concise-medical-physiology/boron/978-0-323-65530-9',
+  },
+
+  kzphysiology: {
+    title: 'Қалыпты физиология · ҚазҰМУ ғылыми кітапханасы каталогы',
+    href: 'https://lib.kaznmu.edu.kz/wp-content/uploads/2022/10/katalog-gjeotar-2021-2022-gg-5.pdf',
+  },
+
+  kznervous: {
+    title: 'Жүйке жүйесі / Нервная система · интегрированный учебник · ҚазҰМУ кітапханасы',
+    href: 'https://lib.kaznmu.edu.kz/en/novye-postupleniYa-za-sentYabr-mesYac-2018/',
+  },
   cns: {
     title: 'OpenStax · The Central Nervous System',
     href: 'https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system',
@@ -698,6 +717,10 @@ function create(
 
   if (section === 'references') {
     const keys = [
+      'guyton',
+      'boron',
+      'kzphysiology',
+      'kznervous',
       ...topic.sources,
 
       ...(topic.id === 2 || topic.id === 18
