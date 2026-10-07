@@ -88,10 +88,47 @@ export function sequenceQuestions(lang:Language):ExamBankQuestion[]{
    [["receptor",L("Висцеральный рецептор","Visceral receptor","Висцералдық рецептор")],["afferent",L("Висцеральный афферент","Visceral afferent","Висцералдық афферент")],["cns",L("Центральная интеграция","Central integration","Орталық интеграция")],["pre",L("Преганглионарный нейрон","Preganglionic neuron","Преганглионарлық нейрон")],["ganglion",L("Вегетативный ганглий","Autonomic ganglion","Вегетативтік ганглий")],["target",L("Орган-мишень","Target organ","Нысана мүше")]],
    L("Вегетативный эфферентный путь обычно включает преганглионарный и постганглионарный этапы, в отличие от прямого соматического выхода к скелетной мышце.","Autonomic efferent output usually includes preganglionic and postganglionic stages, unlike direct somatic motor output to skeletal muscle.","Вегетативтік эфференттік жол әдетте преганглионарлық және постганглионарлық кезеңдерді қамтиды, бұл қаңқа бұлшықетіне тікелей соматикалық шығудан өзгеше.")
   ),
-  makeSeq(23,"conditioning",
+  makeSeq(21,"conditioning",
    L("Соберите последовательность формирования простого условного рефлекса.","Build the sequence for forming a simple conditioned reflex.","Қарапайым шартты рефлекстің қалыптасу ретін құрастырыңыз."),
    [["neutral",L("Нейтральный сигнал","Neutral cue","Бейтарап сигнал")],["pair",L("Сочетание с безусловным раздражителем","Pairing with an unconditioned stimulus","Шартсыз тітіркендіргішпен жұптастыру")],["repeat",L("Повторные сочетания","Repeated pairings","Қайталап жұптастыру")],["predictive",L("Сигнал приобретает предсказательное значение","Cue gains predictive value","Сигнал болжаушы мәнге ие болады")],["response",L("Сигнал сам вызывает условную реакцию","Cue alone evokes the conditioned response","Сигналдың өзі шартты реакция туғызады")]],
    L("Условная реакция возникает благодаря обучению: нейтральный сигнал после повторных сочетаний начинает предсказывать значимое событие.","Conditioning occurs through learning: after repeated pairings, a neutral cue begins to predict a meaningful event.","Шартты реакция үйрену арқылы пайда болады: қайталанған жұптастырудан кейін бейтарап сигнал маңызды оқиғаны болжай бастайды.")
+  )
+ ];
+}
+
+function whatsappCaseQuestions(lang:Language):ExamBankQuestion[]{
+ const L=(ru:string,en:string,kz:string)=>lang==="RU"?ru:lang==="EN"?en:kz;
+ const q=(moduleId:number,id:string,prompt:string,correct:string,wrong:string[],explanation:string):ExamBankQuestion=>{
+  const title=modules[lang][moduleId-1];
+  const item=make(moduleId,title,80+moduleId,prompt,correct,wrong,explanation);
+  item.id=`exam-wa-m${moduleId}-${id}`; item.taskType="situation";
+  item.writtenPrompt=L("Объясните цепочку: локализация/механизм → нарушение функции → наблюдаемый симптом.","Explain the chain: localization/mechanism → functional disturbance → observed symptom.","Тізбекті түсіндіріңіз: локализация/механизм → функцияның бұзылысы → байқалатын симптом.");
+  return item;
+ };
+ return [
+  q(18,"broca",
+   L("Пациент понимает обращённую речь и знает, что хочет сказать, но говорит медленно, короткими фразами с выраженным усилием. Какой сетевой компонент речи преимущественно нарушен?","A patient understands spoken language and knows what they want to say, but speech is slow, effortful, and consists of short phrases. Which language-network component is predominantly impaired?","Пациент айтылған сөзді түсінеді және не айтқысы келетінін біледі, бірақ сөзі баяу, күшпен және қысқа тіркестермен шығады. Сөйлеу желісінің қай компоненті басым бұзылған?"),
+   L("Планирование и моторная организация речевого высказывания в доминантной лобной речевой сети (классически связанной с областью Брока).","Planning and motor organization of speech in the dominant frontal language network (classically associated with Broca's area).","Доминантты маңдай сөйлеу желісіндегі сөйлеуді жоспарлау және моторлық ұйымдастыру (классикалық түрде Брока аймағымен байланысты)."),
+   [L("Первичная обработка зрительного сигнала в затылочной коре.","Primary visual processing in occipital cortex.","Шүйде қыртысындағы бастапқы көру өңдеуі."),L("Периферическая передача звука во внутреннем ухе.","Peripheral sound transmission in the inner ear.","Ішкі құлақтағы дыбыстың шеткі берілуі."),L("Изолированная потеря силы дыхательных мышц как единственная причина речевого дефицита.","Isolated loss of respiratory-muscle strength as the sole cause of the language deficit.","Сөйлеу бұзылысының жалғыз себебі ретінде тыныс бұлшықеттері күшінің оқшауланған жоғалуы.")],
+   L("Такой профиль соответствует преимущественно нарушению экспрессивной речевой сети; современная интерпретация рассматривает речь как работу распределённой сети, а не одного изолированного «центра».","This profile predominantly implicates the expressive language network; modern interpretation treats language as a distributed network rather than a single isolated center.","Бұл профиль экспрессивті сөйлеу желісінің басым бұзылуын көрсетеді; қазіргі түсінік сөйлеуді бір ғана оқшауланған орталық емес, таралған желі жұмысы деп қарастырады.")
+  ),
+  q(18,"wernicke",
+   L("Пациент говорит бегло и с нормальной артикуляцией, но содержание речи малоинформативно; понимание обращённой речи резко снижено. Какой механизм лучше объясняет картину?","A patient speaks fluently with normal articulation, but speech content is poorly informative and comprehension is markedly impaired. Which mechanism best explains the pattern?","Пациент еркін және анық сөйлейді, бірақ сөйлеу мазмұны аз ақпаратты, ал айтылған сөзді түсіну айқын төмендеген. Бұл көріністі қай механизм жақсы түсіндіреді?"),
+   L("Нарушение обработки и связывания языкового смысла в доминантной височно-теменной речевой сети (классически связанной с областью Вернике).","Impaired processing and integration of linguistic meaning in the dominant temporoparietal language network (classically associated with Wernicke's area).","Доминантты самай-төбе сөйлеу желісінде тілдік мағынаны өңдеу және біріктірудің бұзылысы (классикалық түрде Вернике аймағымен байланысты)."),
+   [L("Изолированное поражение первичной моторной коры ноги.","An isolated lesion of the leg area of primary motor cortex.","Бастапқы моторлық қыртыстың аяқ аймағының оқшауланған зақымдануы."),L("Потеря вестибулоокулярного рефлекса.","Loss of the vestibulo-ocular reflex.","Вестибулоокулярлық рефлекстің жоғалуы."),L("Нарушение нервно-мышечной передачи при сохранной языковой обработке.","Neuromuscular transmission failure with intact language processing.","Тілдік өңдеу сақталған кезде жүйке-бұлшықет берілуінің бұзылысы.")],
+   L("Сочетание беглой речи с выраженным нарушением понимания указывает на нарушение семантико-языковой обработки в доминантной задней речевой сети.","Fluent speech with markedly impaired comprehension points to dysfunction of semantic-language processing in the dominant posterior language network.","Еркін сөйлеу мен түсінудің айқын бұзылысы доминантты артқы сөйлеу желісіндегі семантикалық-тілдік өңдеу дисфункциясын көрсетеді.")
+  ),
+  q(21,"extinction",
+   L("После многократного сочетания звука с пищей звук вызывает слюноотделение. Затем звук многократно предъявляют без пищи, и реакция постепенно ослабевает. Что произошло?","After repeated pairing of a tone with food, the tone elicits salivation. The tone is then repeatedly presented without food and the response gradually weakens. What occurred?","Дыбысты тағаммен бірнеше рет жұптастырғаннан кейін дыбыс сілекей бөлінуін туғызады. Кейін дыбыс тағамсыз бірнеше рет беріліп, реакция біртіндеп әлсірейді. Не болды?"),
+   L("Угасание: новое обучение снижает предсказательную ценность условного сигнала; исходная ассоциация не обязательно стирается.","Extinction: new learning reduces the predictive value of the conditioned cue; the original association is not necessarily erased.","Өшу: жаңа үйрену шартты сигналдың болжаушы мәнін төмендетеді; бастапқы ассоциация міндетті түрде жойылмайды."),
+   [L("Полное разрушение слухового анализатора.","Complete destruction of the auditory system.","Есту жүйесінің толық бұзылуы."),L("Безусловный рефлекс стал сильнее.","The unconditioned reflex became stronger.","Шартсыз рефлекс күшейді."),L("Исходная память мгновенно и полностью удалена.","The original memory was instantly and completely erased.","Бастапқы жад бірден және толық жойылды.")],
+   L("Угасание — активное новое обучение при изменении подкрепления, а не доказательство стирания первоначальной ассоциации.","Extinction is active new learning after reinforcement changes, not proof that the original association was erased.","Өшу — нығайтудың өзгеруінен кейінгі белсенді жаңа үйрену; ол бастапқы ассоциацияның жойылғанын дәлелдемейді.")
+  ),
+  q(21,"generalization",
+   L("Условная реакция была выработана на тон 1000 Гц. Сначала похожие тоны тоже вызывают реакцию, но после обучения без подкрепления на них ответ становится избирательным к 1000 Гц. Какие два процесса показаны?","A conditioned response was trained to a 1000-Hz tone. Initially similar tones also evoke the response, but after differential training without reinforcement to those tones the response becomes selective for 1000 Hz. Which two processes are shown?","Шартты реакция 1000 Гц дыбысқа қалыптастырылды. Алғашында ұқсас дыбыстар да реакция туғызады, бірақ оларды нығайтусыз ажыратып үйреткеннен кейін жауап 1000 Гц-ке таңдамалы болады. Қандай екі процесс көрсетілген?"),
+   L("Сначала генерализация, затем дифференцировка условных сигналов.","First stimulus generalization, then discrimination of conditioned cues.","Алдымен стимул генерализациясы, кейін шартты сигналдарды дифференциациялау."),
+   [L("Сначала сенситизация, затем денервация.","First sensitization, then denervation.","Алдымен сенситизация, кейін денервация."),L("Только мышечное утомление.","Muscle fatigue only.","Тек бұлшықет шаршауы."),L("Сначала безусловное торможение, затем потеря слуха.","First unconditioned inhibition, then hearing loss.","Алдымен шартсыз тежелу, кейін естудің жоғалуы.")],
+   L("Генерализация переносит реакцию на сходные стимулы; дифференциальное обучение повышает специфичность ответа к предсказывающему сигналу.","Generalization extends responding to similar stimuli; differential learning increases specificity for the predictive cue.","Генерализация жауапты ұқсас стимулдарға таратады; дифференциалды үйрену болжаушы сигналға жауаптың нақтылығын арттырады.")
   )
  ];
 }
@@ -141,5 +178,5 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    bank.push(q);
   }
  }
- return [...bank,...sequenceQuestions(lang)];
+ return [...bank,...sequenceQuestions(lang),...whatsappCaseQuestions(lang)];
 }
