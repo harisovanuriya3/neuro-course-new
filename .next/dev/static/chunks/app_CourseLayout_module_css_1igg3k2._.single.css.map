@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/app/CourseLayout.module.css"],"sourcesContent":[".page { overflow-wrap: anywhere; }\n.page h1 { overflow-wrap: anywhere; }\n.navigation { min-width: 0; overflow-wrap: anywhere; }\n.navigation > div > * { min-width: 0; }\n\n@media (max-width: 600px) {\n  .page { padding: 24px 12px 40px !important; }\n  .title { padding: 24px 18px !important; }\n  .title h1 { font-size: clamp(1.5rem, 7vw, 2rem) !important; }\n  .languages { flex-wrap: wrap; gap: 8px !important; }\n  .languages a { min-width: 42px !important; padding: 9px 12px !important; box-sizing: border-box; }\n  .navigation { padding: 14px !important; }\n  .navigation > div { gap: 8px !important; }\n  .navigation a { padding: 10px 6px !important; }\n}\n"],"names":[],"mappings":"AAAA;;;;AAEA;;;;;AACA;;;;AAEA;EACE;;;;EACA;;;;EACA;;;;EACA;;;;;EACA;;;;;;EACA;;;;EACA;;;;EACA"}}]
-}
