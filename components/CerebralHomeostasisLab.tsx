@@ -2,6 +2,7 @@
 
 import {useMemo,useState} from "react";
 import type {Language} from "../content/course";
+import {recordOutcome} from "../lib/courseProgress";
 
 const T={
  RU:{title:"Виртуальная лаборатория: мозговой кровоток, ликвор и ГЭБ",intro:"Изменяйте артериальное давление и внутричерепное давление. Сначала сделайте прогноз, затем сравните его с моделью.",map:"Среднее артериальное давление",icp:"Внутричерепное давление",cpp:"Условное перфузионное давление",predict:"Ваш прогноз",run:"Запустить модель",result:"Что получилось",bbb:"Гематоэнцефалический барьер",bbbNormal:"ГЭБ избирательно ограничивает переход многих веществ из крови в нервную ткань и помогает сохранять стабильную микросреду.",bbbLeak:"При нарушении барьерной функции в ткань легче проходят вода и некоторые вещества; это может способствовать отёку и нарушению нейронной функции.",toggle:"Смоделировать нарушение ГЭБ",restore:"Вернуть норму",csf:"Ликвор",csfText:"Ликвор образуется преимущественно сосудистыми сплетениями, циркулирует по желудочкам и субарахноидальному пространству и участвует в механической защите и поддержании среды мозга.",note:"Учебная модель: перфузия мозга зависит не только от разности давлений, но и от сосудистого сопротивления, ауторегуляции, газового состава крови и состояния сосудов. Проценты здесь не являются клиническими порогами."},
@@ -19,7 +20,7 @@ export default function CerebralHomeostasisLab({language}:{language:Language}){
   <label>{t.predict}<textarea rows={2} value={prediction} onChange={e=>{setPrediction(e.target.value);setRan(false)}} style={{width:"100%"}}/></label>
   <label style={{display:"block",marginTop:10}}>{t.map}: <strong>{map}</strong><input type="range" min="50" max="130" value={map} onChange={e=>{setMap(+e.target.value);setRan(false)}} style={{width:"100%"}}/></label>
   <label style={{display:"block",marginTop:10}}>{t.icp}: <strong>{icp}</strong><input type="range" min="5" max="40" value={icp} onChange={e=>{setIcp(+e.target.value);setRan(false)}} style={{width:"100%"}}/></label>
-  <button type="button" disabled={prediction.trim().length<8} onClick={()=>setRan(true)} style={{marginTop:10}}>{t.run}</button>
+  <button type="button" disabled={prediction.trim().length<20} onClick={()=>{setRan(true);recordOutcome(25,"interactive",1,1);recordOutcome(25,"criterion:mechanism:cerebral-perfusion",1,1)}} style={{marginTop:10}}>{t.run}</button>
   {ran&&<div style={{marginTop:12,padding:14,borderRadius:12,background:"#f8fcff"}}><p><strong>{t.result}: {t.cpp} ≈ {cpp}; {index}%</strong></p><div style={{height:14,borderRadius:999,background:"#e5edf2",overflow:"hidden"}}><div style={{height:"100%",width:`${index}%`,background:"linear-gradient(90deg,#9ec8df,#39799f)",transition:"width .5s ease"}}/></div></div>}
   <h3>{t.bbb}</h3><button type="button" aria-pressed={bbbLeak} onClick={()=>setBbbLeak(v=>!v)}>{bbbLeak?t.restore:t.toggle}</button><p style={{padding:"12px 14px",borderRadius:12,background:bbbLeak?"#fff1ec":"#f8fcff"}}>{bbbLeak?t.bbbLeak:t.bbbNormal}</p>
   <h3>{t.csf}</h3><p>{t.csfText}</p><p><small>{t.note}</small></p>
