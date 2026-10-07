@@ -2,6 +2,7 @@
 import {useEffect,useMemo,useState} from "react";
 import type {Language} from "../content/course";
 import styles from "./SensorySystemsLab.module.css";
+import {recordOutcome} from "../lib/courseProgress";
 
 type Analyzer={
  id:string;icon:string;ru:string;en:string;kz:string;
@@ -40,10 +41,12 @@ export default function SensorySystemsLab({language}:{language:Language}){
  const[lesion,setLesion]=useState<number|null>(null);
  const[speed,setSpeed]=useState(1);
  const[compare,setCompare]=useState(1);
+ const[prediction,setPrediction]=useState("");
+ const[reflection,setReflection]=useState("");
  const a=A[selected], b=A[compare];
  useEffect(()=>{if(!running||paused)return; const delay=[1400,850,520][speed]; const id=setTimeout(()=>setActive(s=>{if(mode===1&&lesion!==null&&s>=lesion){setRunning(false);return lesion} if(s>=4){setRunning(false);return 4} return s+1}),delay); return()=>clearTimeout(id)},[running,paused,active,speed,mode,lesion]);
- function choose(i:number){setSelected(i);setActive(0);setRunning(false);setPaused(false);setLesion(null)}
- function run(){setActive(0);if(mode!==1)setLesion(null);setPaused(false);setRunning(true)}
+ function choose(i:number){setSelected(i);setActive(0);setRunning(false);setPaused(false);setLesion(null);setPrediction("");setReflection("")}
+ function run(){setActive(0);if(mode!==1)setLesion(null);setPaused(false);setRunning(true);recordOutcome(21,"interactive",1,1);if(mode===1&&lesion!==null){recordOutcome(21,"criterion:clinical:sensory-lesion",prediction.trim().length>=20?1:0,1)}}
  const nodeText=useMemo(()=>[a.receptor,a.path,a.center,a.cortex,a.cortex],[a]);
  return <section className={styles.lab}>
   <div className={styles.header}><div><h2>{t.title}</h2><p>{t.intro}</p></div></div>
@@ -65,9 +68,9 @@ export default function SensorySystemsLab({language}:{language:Language}){
        </svg>
        <div className={styles.stageRail}>{a.nodes.map((n,i)=><button key={n} type="button" data-active={active===i} data-done={active>i} data-lesion={lesion===i} onClick={()=>{setActive(i);if(mode===1)setLesion(i)}}><b>{i+1}</b><span>{n}</span></button>)}</div>
       </div>
-      {mode===1&&<div className={styles.damageHint}><strong>{t.selectLesion}</strong><span>{language==="RU"?"После выбора нажмите «Запустить». Импульс остановится на повреждённом уровне.":language==="KZ"?"Таңдағаннан кейін «Іске қосу» басыңыз. Импульс зақым деңгейінде тоқтайды.":"Then press Start. The impulse will stop at the damaged level."}</span></div>}
-      <div className={styles.controls}><button type="button" onClick={run} disabled={mode===1&&lesion===null}>▶ {t.run}</button><button type="button" onClick={()=>setPaused(p=>!p)} disabled={!running}>{paused?"▶ "+t.resume:"Ⅱ "+t.pause}</button><button type="button" onClick={()=>{setRunning(false);setPaused(false);setActive(0);setLesion(null)}}>↻ {t.reset}</button><label>{t.speed}<select value={speed} onChange={e=>setSpeed(+e.target.value)}><option value={0}>{t.slow}</option><option value={1}>{t.normal}</option><option value={2}>{t.fast}</option></select></label></div>
-      <div className={styles.infoPanel}><div><strong>{t.organ}</strong><p>{a.nodes[active]}</p></div><div><strong>{t.function}</strong><p>{active===0?a.receptor:active===1?a.path:active===2?a.center:active===3?a.cortex:a.cortex}</p></div>{mode===1&&<div className={styles.lesionBox}><strong>{t.lesion}</strong><p>{lesion===null?t.selectLesion:<><b>{a.nodes[lesion]}</b>. {a.lesion}</>}</p></div>}</div>
+      {mode===1&&<><label style={{display:"block",margin:"12px 0",fontWeight:700}}>{language==="RU"?"До запуска предскажите дефицит при выбранном повреждении":language==="KZ"?"Іске қоспас бұрын таңдалған зақым кезіндегі тапшылықты болжаңыз":"Before starting, predict the deficit from the selected lesion"}<textarea value={prediction} onChange={e=>setPrediction(e.target.value)} rows={2} style={{width:"100%",marginTop:6}} /></label><div className={styles.damageHint}><strong>{t.selectLesion}</strong><span>{language==="RU"?"После выбора нажмите «Запустить». Импульс остановится на повреждённом уровне.":language==="KZ"?"Таңдағаннан кейін «Іске қосу» басыңыз. Импульс зақым деңгейінде тоқтайды.":"Then press Start. The impulse will stop at the damaged level."}</span></div></>}
+      <div className={styles.controls}><button type="button" onClick={run} disabled={mode===1&&(lesion===null||prediction.trim().length<20)}>▶ {t.run}</button><button type="button" onClick={()=>setPaused(p=>!p)} disabled={!running}>{paused?"▶ "+t.resume:"Ⅱ "+t.pause}</button><button type="button" onClick={()=>{setRunning(false);setPaused(false);setActive(0);setLesion(null)}}>↻ {t.reset}</button><label>{t.speed}<select value={speed} onChange={e=>setSpeed(+e.target.value)}><option value={0}>{t.slow}</option><option value={1}>{t.normal}</option><option value={2}>{t.fast}</option></select></label></div>
+      <div className={styles.infoPanel}><div><strong>{t.organ}</strong><p>{a.nodes[active]}</p></div><div><strong>{t.function}</strong><p>{active===0?a.receptor:active===1?a.path:active===2?a.center:active===3?a.cortex:a.cortex}</p></div>{mode===1&&<div className={styles.lesionBox}><strong>{t.lesion}</strong><p>{lesion===null?t.selectLesion:<><b>{a.nodes[lesion]}</b>. {a.lesion}</>}</p></div>}</div>{mode===1&&lesion!==null&&<label style={{display:"block",marginTop:12}}>{language==="RU"?"После опыта объясните, почему возник именно такой дефицит":language==="KZ"?"Тәжірибеден кейін бұл тапшылықтың неліктен пайда болғанын түсіндіріңіз":"After the experiment, explain why this deficit occurs"}<textarea value={reflection} onChange={e=>{const v=e.target.value;setReflection(v);if(v.trim().length>=30){recordOutcome(21,"criterion:justification:sensory-lesion",1,1);recordOutcome(21,"criterion:correction:sensory-reflection",1,1)}}} rows={3} style={{width:"100%",marginTop:6}} /></label>}
     </>}
     {mode===2&&<div className={styles.compareMode}><label>{t.compare}: <select value={compare} onChange={e=>setCompare(+e.target.value)}>{A.map((x,i)=><option value={i} key={x.id}>{name(x,language)}</option>)}</select></label><div className={styles.compareCards}><article><h3>{a.icon} {name(a,language)}</h3><p><b>{a.nodes[0]}:</b> {a.receptor}</p><p><b>{a.nodes[2]}:</b> {a.center}</p><p><b>{a.nodes[4]}:</b> {a.cortex}</p></article><article><h3>{b.icon} {name(b,language)}</h3><p><b>{b.nodes[0]}:</b> {b.receptor}</p><p><b>{b.nodes[2]}:</b> {b.center}</p><p><b>{b.nodes[4]}:</b> {b.cortex}</p></article></div></div>}
    </div>
