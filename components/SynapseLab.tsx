@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Language } from "../content/course";
 import ExperimentReflection from "./ExperimentReflection";
+import {recordOutcome} from "../lib/courseProgress";
 import styles from "./SynapseLab.module.css";
 
 const copy = {
