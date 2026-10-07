@@ -162,7 +162,7 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "7" && <><ReflexLab language={language} /><ReflexLearningLab language={language} /></>}
     {moduleId === "8" && <PathwayLab language={language} />}
     {moduleId === "9" && <SpinalRegulationLab language={language} />}
-    {moduleId === "10" && <><BrainstemLab language={language} /><CranialNerveFiberLab language={language} /></>}
+    {moduleId === "10" && <><BrainstemLab language={language} /><CranialNerveFiberLab language={language} /><FunctionalCentersLab language={language} moduleId={10} /></>}
     {moduleId === "11" && <MotorControlLab language={language} />}
     {moduleId === "12" && <BasalGangliaLab language={language} />}
     {moduleId === "13" && <CerebellumLab language={language} />}
@@ -174,7 +174,7 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "19" && <SomatosensoryLab language={language} />}
     {moduleId === "20" && <VisionLab language={language} />}
     {moduleId === "22" && <AutonomicLab language={language} />}
-    {moduleId === "23" && <><LearningMemoryLab language={language} /><ReflexLearningLab language={language} /><FunctionalCentersLab language={language} /></>}
+    {moduleId === "23" && <><LearningMemoryLab language={language} /><ReflexLearningLab language={language} /><FunctionalCentersLab language={language} moduleId={23} /></>}
     {moduleId === "24" && <SleepRhythmLab language={language} />}
     {moduleId === "25" && <PlasticityLab language={language} />}
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
