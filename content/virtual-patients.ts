@@ -291,7 +291,7 @@ const caseDecisions: Record<number, Localized[]> = {
 const ui = {
   RU: {
     title: "Виртуальный пациент", patient: "Пациент", synthetic: "Синтетический учебный случай: данные не относятся к реальному человеку.",
-    stages: ["Анамнез", "Осмотр", "Локализация / механизм", "Обследование", "Диагноз / вывод", "Итог"],
+    stages: ["Что узнать", "Что проверить", "Как это объяснить", "Чем проверить", "Какой вывод", "Итог"],
     tasks: ["Что важно узнать сначала?", "Что лучше проверить сейчас?", "Какой механизм лучше объясняет данные?", "Какой тест поможет проверить ваше предположение?", "Какой вывод лучше всего подходит к данным?", "Объясните весь случай одной понятной цепочкой."],
     good: ["Сначала уточните время, условия и распределение симптомов.", "Проверяйте именно ту функцию, которая связана с жалобой.", "Хорошее объяснение должно подходить ко всем главным данным.", "Исследование должно проверять предположение, а не заменять размышление.", "Вывод должен учитывать все важные данные и оставлять место для неопределённости.", "В конце свяжите: наблюдение → механизм → результат."],
     correct: ["Уточнить главные обстоятельства", "Проверить нужную функцию", "Связать данные с механизмом", "Проверить предположение", "Собрать все данные в вывод", "Объяснить цепочку от причины к результату"],
@@ -300,7 +300,7 @@ const ui = {
   },
   EN: {
     title: "Virtual Patient", patient: "Patient", synthetic: "Synthetic teaching case: the data do not describe a real person.",
-    stages: ["History", "Examination", "Localization / mechanism", "Investigation", "Diagnosis / conclusion", "Summary"],
+    stages: ["What to ask", "What to check", "How to explain it", "How to test it", "What to conclude", "Summary"],
     tasks: ["What is most important to ask first?", "What should you check now?", "Which mechanism best explains the data?", "Which test would check your idea?", "Which conclusion best fits the data?", "Explain the whole case as one clear chain."],
     good: ["Start by clarifying timing, context, and where the symptoms occur.", "Check the function that is directly linked to the complaint.", "A good explanation should fit all the main findings.", "A test should check your idea, not replace thinking.", "A conclusion should use all important findings and still allow uncertainty.", "Finish by linking observation → mechanism → result."],
     correct: ["Clarify the key facts", "Check the relevant function", "Link the findings to the mechanism", "Test the working idea", "Bring all findings into one conclusion", "Explain the chain from cause to result"],
@@ -309,7 +309,7 @@ const ui = {
   },
   KZ: {
     title: "Виртуалды пациент", patient: "Пациент", synthetic: "Синтетикалық оқу жағдайы: деректер нақты адамға қатысты емес.",
-    stages: ["Анамнез", "Тексеру", "Локализация / механизм", "Зерттеу", "Диагноз / қорытынды", "Қорытынды"],
+    stages: ["Не сұрау керек", "Нені тексеру керек", "Қалай түсіндіру керек", "Қалай тексеруге болады", "Қандай қорытынды", "Қорытынды"],
     tasks: ["Алдымен нені білу маңызды?", "Қазір нені тексерген дұрыс?", "Деректерді қай механизм жақсы түсіндіреді?", "Қай тексеру сіздің болжамыңызды тексереді?", "Қай қорытынды деректерге жақсы сәйкес келеді?", "Бүкіл жағдайды бір түсінікті тізбекпен түсіндіріңіз."],
     good: ["Алдымен уақытты, жағдайды және симптомдардың таралуын нақтылаңыз.", "Шағыммен тікелей байланысты қызметті тексеріңіз.", "Жақсы түсіндіру негізгі деректердің бәріне сәйкес болуы керек.", "Тексеру болжамды тексеруі керек, ойлаудың орнын баспауы тиіс.", "Қорытынды барлық маңызды деректі ескеріп, белгісіздікке орын қалдыруы керек.", "Соңында бақылау → механизм → нәтиже байланысын көрсетіңіз."],
     correct: ["Негізгі жағдайларды нақтылау", "Қажетті қызметті тексеру", "Деректерді механизммен байланыстыру", "Болжамды тексеру", "Барлық деректі қорытындыға біріктіру", "Себептен нәтижеге дейінгі тізбекті түсіндіру"],
@@ -333,18 +333,18 @@ const consequenceCopy = {
     correct: "The decision tests the working hypothesis. The result is:",
     weak: "This step does not distinguish the main hypotheses. Targeted testing shows:",
     conflict: "The decision conflicts with the evidence. To revise it, consider:",
-    correctFeedback: "You linked the decision to this case's evidence.",
-    weakFeedback: "Choose a measure expected to differ between the competing mechanisms.",
-    conflictFeedback: "Return to the full pattern: the selected explanation leaves part of the evidence without a mechanism.",
+    correctFeedback: "You used the case data to make the decision — good approach.",
+    weakFeedback: "Choose a check that helps tell one explanation from another.",
+    conflictFeedback: "Look at all the findings again: this option does not explain the whole pattern.",
   },
   KZ: {
     data: "Жаңа деректер",
     correct: "Шешім жұмыс гипотезасын тексереді. Алынған нәтиже:",
     weak: "Бұл қадам негізгі гипотезаларды ажыратпайды. Бағытталған тексеру мынаны көрсетті:",
     conflict: "Шешім деректерге қайшы келеді. Қайта қарау үшін мынаны ескеріңіз:",
-    correctFeedback: "Сіз шешімді осы жағдайдың деректерімен байланыстырдыңыз.",
-    weakFeedback: "Бәсекелес механизмдерде әртүрлі өзгеретін көрсеткішті таңдаңыз.",
-    conflictFeedback: "Белгілер жиынтығына оралыңыз: таңдалған түсіндірме деректердің бір бөлігін механизмсіз қалдырады.",
+    correctFeedback: "Шешімде жағдай деректеріне сүйендіңіз — бұл дұрыс тәсіл.",
+    weakFeedback: "Бір түсіндіруді екіншісінен ажыратуға көмектесетін тексеруді таңдаңыз.",
+    conflictFeedback: "Барлық белгіні қайта қараңыз: бұл нұсқа деректердің бәрін түсіндірмейді.",
   },
 } as const;
 
