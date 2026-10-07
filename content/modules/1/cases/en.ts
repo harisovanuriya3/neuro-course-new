@@ -7,9 +7,9 @@ const lesson: CasesLesson = {
   introduction: "Analyse each situation, identify the connections between functional components of the nervous system, and explain the response mechanism. In multistage cases, additional information is revealed gradually. After developing your own solution, compare your reasoning with the explanation and mark the case as complete.",
   ui: {
     progress: "Case studies", completed: "completed", navigation: "Jump to a case", case: "Case",
-    situation: "Situation", stage: "Stage", answer: "Your solution and reasoning", placeholder: "Explain how the events are connected and why this result occurs…",
+    situation: "Situation", stage: "Stage", answer: "Your solution and reasoning", placeholder: "Write what changed, why it changed, and what happened next…",
     note: "Written responses are for comparison with the explanation and are not graded automatically. Responses and progress last until you reload the page or change the language.",
-    next: "Show next stage", show: "Show explanation", hide: "Hide explanation", explanation: "Physiological explanation",
+    next: "Show next stage", show: "Show explanation", hide: "Hide explanation", explanation: "Why this happens",
     complete: "Case completed", done: "Completed", check: "Check solution", reset: "Reset", undo: "Undo last step",
     available: "Select events in order", selected: "Your sequence", empty: "No events selected yet.",
     correct: "Correct. The sequence follows the transition from an electrical signal to chemical transmission and a postsynaptic response.",
