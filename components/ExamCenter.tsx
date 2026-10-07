@@ -151,6 +151,20 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
 
 
  const firstMissing=version?.find(q=>q.responseType==="written"?!written[q.id]?.trim():q.responseType==="sequence"?(sequences[q.id]?.length??0)!==(q.sequenceItems?.length??0):!answers[q.id]);
+ const saveAttempt=()=>{
+   if(!version)return;
+   try{
+     const key="neuro-course:exam-history:v1";
+     const old=JSON.parse(localStorage.getItem(key)||"[]");
+     const item={id:Date.now(),date:new Date().toISOString(),language:lang,size:version.length,module:selectedModule,percent,level:performanceLabel,blocks:analysis.map(x=>({id:x.id,title:x.title,percent:x.pct}))};
+     localStorage.setItem(key,JSON.stringify([item,...(Array.isArray(old)?old:[])].slice(0,30)));
+   }catch{/* optional history */}
+ };
+ const finishAttempt=()=>{
+   const missing=version?.find(q=>q.responseType==="written"?!written[q.id]?.trim():q.responseType==="sequence"?(sequences[q.id]?.length??0)!==(q.sequenceItems?.length??0):!answers[q.id]);
+   if(missing){setWarning(t.finishWarn);document.getElementById(`exam-${missing.id}`)?.scrollIntoView({behavior:"smooth",block:"center"});return;}
+   setFinished(true);saveAttempt();window.scrollTo({top:0,behavior:"smooth"});
+ };
  const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,Math.min(examSize,pool.length)));setAnswers({});setWritten({});setSequences({});setFinished(false);setWarning("");setRestored(false);window.scrollTo({top:0,behavior:"smooth"});};
  if(!version) return <section style={{marginTop:24,border:"2px solid #86aac4",borderRadius:16,padding:22}}>
    <p><strong>{t.bank}: {bank.length} {t.items}.</strong></p><p>{t.format}</p>
@@ -176,6 +190,10 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
     <p>{lang==="RU"?"Для преподавателя: сначала смотрите слабейшие блоки ниже; для студента: повторите механизм, затем выполните новый вариант, а не заучивайте правильный ответ.":lang==="EN"?"Teacher view: start with the weakest blocks below. Student view: review the mechanism, then take a new version rather than memorising the answer.":"Оқытушы үшін: төмендегі ең әлсіз блоктардан бастаңыз. Студент үшін: механизмді қайталап, дұрыс жауапты жаттамай жаңа нұсқаны орындаңыз."}</p>
     {analysis.map(x=><p key={x.id}><strong>{x.id}. {x.title}</strong>: {x.earned}/{x.total} ({x.pct}%)</p>)}
     <p>{t.pass}</p><p><strong>{t.locked}</strong></p>
+    <div style={{padding:"14px",borderRadius:12,background:"#f5f9fc",margin:"14px 0"}}>
+      <strong>{lang==="RU"?"Следующий учебный шаг":lang==="EN"?"Next learning step":"Келесі оқу қадамы"}</strong>
+      <p>{analysis[0]?(lang==="RU"?`Начните с блока ${analysis[0].id} «${analysis[0].title}» (${analysis[0].pct}%): повторите механизм, разберите клинический кейс и только затем создайте новый вариант.`:lang==="EN"?`Start with block ${analysis[0].id} “${analysis[0].title}” (${analysis[0].pct}%): review the mechanism, work through a clinical case, then create a new version.`:`${analysis[0].id}-блок «${analysis[0].title}» (${analysis[0].pct}%) бойынша механизмді қайталап, клиникалық жағдайды талдап, содан кейін жаңа нұсқаны орындаңыз.`):""}</p>
+    </div>
     <button onClick={begin} style={{padding:"10px 16px",borderRadius:10,cursor:"pointer"}}>{t.restart}</button>
    </div>
    <h2 style={{marginTop:30}}>{t.review}</h2>
@@ -237,6 +255,6 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
     </label>)}
    </article>)}
    {warning&&<p role="alert" style={{fontWeight:700}}>{warning}</p>}
-   <button onClick={()=>{const missing=version.find(q=>q.responseType==="written"?!written[q.id]?.trim():q.responseType==="sequence"?(sequences[q.id]?.length??0)!==(q.sequenceItems?.length??0):!answers[q.id]);if(missing){setWarning(t.finishWarn);document.getElementById(`exam-${missing.id}`)?.scrollIntoView({behavior:"smooth",block:"center"});return;}setFinished(true);window.scrollTo({top:0,behavior:"smooth"});}} style={{padding:"12px 18px",borderRadius:10,cursor:"pointer",fontWeight:700}}>{t.submit}</button>
+   <button onClick={finishAttempt} style={{padding:"12px 18px",borderRadius:10,cursor:"pointer",fontWeight:700}}>{t.submit}</button>
  </section>;
 }
