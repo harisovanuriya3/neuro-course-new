@@ -86,8 +86,15 @@ const copy={
 
 export default function FunctionalCentersLab({language,moduleId=18}:{language:Language;moduleId?:number}){
  const t=copy[language];
- const keys=Object.keys(t.centers) as CenterKey[];
- const [selected,setSelected]=useState<CenterKey>("broca");
+ const allKeys=Object.keys(t.centers) as CenterKey[];
+ const contextKeys:CenterKey[]=moduleId===10
+  ? ["brainstem","respiratory","cardiovascular","swallow","pupil","micturition"]
+  : moduleId===23
+   ? ["hippocampus","amygdala","prefrontal","broca","wernicke"]
+   : ["broca","wernicke","motor","somato","visual","auditory","prefrontal","hippocampus","amygdala","hypothalamus","basal","cerebellum"];
+ const keys=contextKeys.filter(k=>allKeys.includes(k));
+ const initial:CenterKey=moduleId===10?"brainstem":moduleId===23?"hippocampus":"broca";
+ const [selected,setSelected]=useState<CenterKey>(initial);
  const [lesion,setLesion]=useState(false);
  const c=t.centers[selected];
  return <section style={{margin:"24px 0",padding:18,border:"1px solid #cfe0ea",borderRadius:16,background:"#fff"}}>
