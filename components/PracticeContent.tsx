@@ -246,7 +246,7 @@ function PracticeSection({ section, ui, language, moduleId, index, total, onComp
       {!ready && <p className={styles.note}>{c.short}</p>}
       {checked && <p role="status" aria-live="polite" className={styles.success}>{hasAnswers ? c.ready : c.completed}</p>}
     </>}
-    <div className={styles.taskProgress}><span>{language==="RU"?"Задание":language==="KZ"?"Тапсырма":"Task"}: <strong>{index + 1} / {total}</strong>{sectionDone ? (language==="RU"?" · выполнено":language==="KZ"?" · орындалды":" · completed") : ""}</span></div>
+    {sectionHasTask && <div className={styles.taskProgress}><span>{language==="RU"?"Задание":language==="KZ"?"Тапсырма":"Task"}: <strong>{index + 1} / {total}</strong>{sectionDone ? (language==="RU"?" · выполнено":language==="KZ"?" · орындалды":" · completed") : ""}</span></div>}
     {checked && section.blocks.map((block, index) => block.type === "answer" ? <Block key={index} block={block} ui={ui} language={language} moduleId={moduleId} answersUnlocked /> : null)}
   </section>;
 }
@@ -254,6 +254,10 @@ function PracticeSection({ section, ui, language, moduleId, index, total, onComp
 export default function PracticeContent({ lesson, language, moduleId }: { lesson: PracticeLesson; language: Language; moduleId: string }) {
   const ui: UI = { ...lesson.ui, hideAnswer: hideAnswer[language] };
   const [completed, setCompleted] = useState<Record<number, boolean>>({});
+  const taskIndexes = lesson.sections.flatMap((section, index) =>
+    section.blocks.some(block => block.type === "response" || ["sequence","table","classification","checklist","ai-audit"].includes(block.type)) ? [index] : []
+  );
+  const taskNumber = new Map(taskIndexes.map((sectionIndex, taskIndex) => [sectionIndex, taskIndex + 1]));
   const storageKey = `neuro-course:practice:${moduleId}:${language}:v1`;
   useEffect(() => {
     try {
@@ -262,17 +266,17 @@ export default function PracticeContent({ lesson, language, moduleId }: { lesson
       const restored: Record<number, boolean> = {};
       for (const [key, value] of Object.entries(raw)) {
         const index = Number(key);
-        if (Number.isInteger(index) && index >= 0 && index < lesson.sections.length && value === true) restored[index] = true;
+        if (Number.isInteger(index) && taskIndexes.includes(index) && value === true) restored[index] = true;
       }
       setCompleted(restored);
     } catch { /* Optional local storage */ }
   }, [storageKey, lesson.sections.length]);
-  const completedCount = Object.values(completed).filter(Boolean).length;
+  const completedCount = taskIndexes.filter(index => completed[index]).length;
   function markComplete(index: number, value: boolean) {
     setCompleted(old => {
       const next = { ...old, [index]: value };
       const count = Object.values(next).filter(Boolean).length;
-      recordOutcome(Number(moduleId), "practice", count, lesson.sections.length);
+      recordOutcome(Number(moduleId), "practice", count, taskIndexes.length);
       try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch { /* Optional local storage */ }
       return next;
     });
@@ -283,10 +287,10 @@ export default function PracticeContent({ lesson, language, moduleId }: { lesson
       <h1>{lesson.title}</h1>
       <p className={styles.note}>{lesson.ui.localNote}</p>
       <div className={styles.taskProgress}>
-        <span>{progressLabel}: <strong>{completedCount} / {lesson.sections.length}</strong></span>
-        <progress value={completedCount} max={lesson.sections.length} aria-label={progressLabel} />
+        <span>{progressLabel}: <strong>{completedCount} / {taskIndexes.length}</strong></span>
+        <progress value={completedCount} max={Math.max(taskIndexes.length,1)} aria-label={progressLabel} />
       </div>
-      {lesson.sections.map((section, index) => <PracticeSection key={section.title} section={section} ui={ui} language={language} moduleId={moduleId} index={index} total={lesson.sections.length} onComplete={(value) => markComplete(index, value)} />)}
+      {lesson.sections.map((section, index) => <PracticeSection key={section.title} section={section} ui={ui} language={language} moduleId={moduleId} index={(taskNumber.get(index) ?? 0) - 1} total={taskIndexes.length} onComplete={(value) => { if (taskNumber.has(index)) markComplete(index, value); }} />)}
     </article>
   );
 }
