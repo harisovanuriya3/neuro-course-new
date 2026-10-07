@@ -19,12 +19,25 @@ const E:Record<number,Entry[]>={
 };
 const ui={RU:{title:"Клинический атлас: норма ↔ поражение",n:"Норма",l:"Поражение",task:"Задание"},EN:{title:"Clinical atlas: normal ↔ lesion",n:"Normal",l:"Lesion",task:"Task"},KZ:{title:"Клиникалық атлас: норма ↔ зақымдану",n:"Қалыпты",l:"Зақымдану",task:"Тапсырма"}};
 export default function ClinicalMechanismAtlas({moduleId,language}:{moduleId:number;language:Language}){
- const entries=E[moduleId]; const [lesion,setLesion]=useState(false); if(!entries)return null; const t=ui[language];
+ const entries=E[moduleId]; const [lesion,setLesion]=useState(false); const [running,setRunning]=useState(false); const [step,setStep]=useState(0); if(!entries)return null; const t=ui[language];
+ const stages=language==="RU"?["Стимул","Рецептор / вход","Центральная обработка","Выход","Функциональный ответ"]:language==="KZ"?["Стимул","Рецептор / кіріс","Орталық өңдеу","Шығыс","Функциялық жауап"]:["Stimulus","Receptor / input","Central processing","Output","Functional response"];
+ function animate(){setRunning(true);setStep(0); let n=0; const timer=setInterval(()=>{n++;setStep(n);if(n>=4){clearInterval(timer);setRunning(false)}},520);}
+ const sim=language==="RU"?{run:"▶ Запустить сигнал",reset:"Сброс",hint:"Проследите сигнал слева направо. При поражении цепь показывает функциональный сбой."}:language==="KZ"?{run:"▶ Сигналды іске қосу",reset:"Қалпына келтіру",hint:"Сигналды солдан оңға қадағалаңыз. Зақымдануда тізбек функциялық ақауды көрсетеді."}:{run:"▶ Run signal",reset:"Reset",hint:"Trace the signal left to right. In lesion mode the chain represents functional failure."};
  return <section style={{margin:"22px 0",padding:16,border:"1px solid #d8e2e8",borderRadius:16,background:"#fbfdff"}}>
   <h2 style={{marginTop:0}}>{t.title}</h2>
   <div role="group" aria-label={t.title} style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:14}}>
    <button type="button" aria-pressed={!lesion} onClick={()=>setLesion(false)}>{t.n}</button>
    <button type="button" aria-pressed={lesion} onClick={()=>setLesion(true)}>{t.l}</button>
+  </div>
+  <div aria-label={sim.hint} style={{margin:"14px 0 18px",padding:12,borderRadius:14,background:"#f3f8fb"}}>
+    <p style={{marginTop:0}}>{sim.hint}</p>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(120px,1fr))",gap:8}}>
+      {stages.map((s,i)=><div key={s} style={{padding:"12px 8px",textAlign:"center",borderRadius:12,border:step===i?"2px solid currentColor":"1px solid #ccd8df",transform:step===i?"scale(1.03)":"none",transition:"all .25s",opacity:lesion&&i>2?.55:1}}><strong>{i+1}</strong><br/>{s}{lesion&&i===2?<div aria-label="lesion">⚠</div>:null}</div>)}
+    </div>
+    <div style={{display:"flex",gap:8,marginTop:10,flexWrap:"wrap"}}>
+      <button type="button" onClick={animate} disabled={running}>{sim.run}</button>
+      <button type="button" onClick={()=>{setStep(0);setRunning(false)}}>{sim.reset}</button>
+    </div>
   </div>
   {entries.map((e,i)=><article key={i} style={{padding:"12px 0"}}>
    <h3>{e.title[language]}</h3><p>{lesion?e.lesion[language]:e.normal[language]}</p>
