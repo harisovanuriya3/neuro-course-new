@@ -308,10 +308,10 @@ function create(
 
   if (section === 'objectives') {
     const action = language === 'RU'
-      ? ['объяснить причинный механизм', 'интерпретировать наблюдаемый результат', 'применить механизм к новой ситуации', 'указать границы вывода']
+      ? ['объяснить, как это работает', 'понять, что означает результат', 'применить знание в новой ситуации', 'понять, чего данных пока недостаточно доказать']
       : language === 'EN'
-        ? ['explain the causal mechanism', 'interpret an observed result', 'apply the mechanism to a new situation', 'state the limits of inference']
-        : ['себептік тетікті түсіндіру', 'байқалған нәтижені түсіндіру', 'тетікті жаңа жағдайға қолдану', 'қорытындының шектерін көрсету'];
+        ? ['explain how it works', 'understand what the result means', 'use the knowledge in a new situation', 'recognize what the data are not enough to prove']
+        : ['қалай жұмыс істейтінін түсіндіру', 'нәтиженің нені білдіретінін түсіну', 'білімді жаңа жағдайда қолдану', 'деректер нені әлі дәлелдеуге жеткіліксіз екенін түсіну'];
     return {
       kind: 'objectives',
       title,
@@ -392,31 +392,43 @@ function create(
 
   if (section === 'clinical') {
     const labels = language === 'RU'
-      ? { bridge: 'Связь с клиникой', observe: 'Что видим', explain: 'Почему так происходит', limit: 'Что важно не перепутать' }
+      ? { bridge: 'От нормы к клинике', normal: 'Как работает в норме', change: 'Что изменилось', observe: 'Что мы ожидаем увидеть', explain: 'Почему это происходит', limit: 'Что нельзя заключить слишком быстро' }
       : language === 'EN'
-        ? { bridge: 'Clinical bridge', observe: 'What we observe', explain: 'How to explain it', limit: 'Limit of inference' }
-        : { bridge: 'Клиникалық көпір', observe: 'Не байқаймыз', explain: 'Қалай түсіндіреміз', limit: 'Қорытынды шегі' };
+        ? { bridge: 'From normal physiology to the clinic', normal: 'How it works normally', change: 'What changed', observe: 'What we expect to see', explain: 'Why this happens', limit: 'What we should not conclude too quickly' }
+        : { bridge: 'Нормадан клиникаға', normal: 'Қалыптыда қалай жұмыс істейді', change: 'Не өзгерді', observe: 'Не байқауымыз мүмкін', explain: 'Неліктен бұлай болады', limit: 'Қандай қорытындыны асығыс жасауға болмайды' };
     return {
       kind: 'clinical',
       title,
       introduction: labels.bridge,
       cards: [
         {
-          id: `module-${topic.id}-clinical-observation`,
-          title: labels.observe,
+          id: `module-${topic.id}-clinical-normal`,
+          title: labels.normal,
+          paragraphs: [mechanism],
+          links: [{ section: 'theory' as const }],
+        },
+        {
+          id: `module-${topic.id}-clinical-change`,
+          title: labels.change,
           paragraphs: [topic.task[language]],
           links: [{ section: 'practice' as const }],
         },
         {
-          id: `module-${topic.id}-clinical-mechanism`,
+          id: `module-${topic.id}-clinical-observation`,
+          title: labels.observe,
+          paragraphs: [interpretation],
+          links: [{ section: 'cases' as const }],
+        },
+        {
+          id: `module-${topic.id}-clinical-explain`,
           title: labels.explain,
-          paragraphs: [mechanism],
+          paragraphs: [mechanism, interpretation],
           links: [{ section: 'theory' as const }, { section: 'cases' as const }],
         },
         {
           id: `module-${topic.id}-clinical-limit`,
           title: labels.limit,
-          paragraphs: [interpretation, question],
+          paragraphs: [question],
           links: [{ section: 'cases' as const }, { section: 'tests' as const }],
         },
       ],
