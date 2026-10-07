@@ -30,6 +30,17 @@ const refs: Record<number, AnatomyRef> = {
     },
   },
 
+  10: {
+    file: "Schematic_drawing_of_the_nuclei_of_cranial_nerves.png",
+    page: "https://commons.wikimedia.org/wiki/File:Schematic_drawing_of_the_nuclei_of_cranial_nerves.png",
+    credit: "Romano, Federici & Castaldi / Wikimedia Commons — CC BY 4.0",
+    alt: {
+      RU: "Схема ядер черепных нервов в стволе мозга: двигательные, парасимпатические и чувствительные функциональные колонки",
+      EN: "Brainstem cranial nerve nuclei showing motor, parasympathetic, and sensory functional columns",
+      KZ: "Ми бағанындағы бассүйек нервтері ядроларының қозғалтқыш, парасимпатикалық және сезімтал функционалдық бағандары",
+    },
+  },
+
   11: {
     file: "Marker.und.EMG.jpg",
     page: "https://commons.wikimedia.org/wiki/File:Marker.und.EMG.jpg",
