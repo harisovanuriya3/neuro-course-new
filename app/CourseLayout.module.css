@@ -11,8 +11,12 @@
   .languages { flex-wrap: wrap; gap: 8px !important; }
   .languages a { min-width: 42px !important; padding: 9px 12px !important; box-sizing: border-box; }
   .navigation { padding: 14px !important; }
-  .navigation > div { gap: 8px !important; }
-  .navigation a { padding: 10px 6px !important; }
+  .navigation > div { gap: 8px !important; grid-template-columns: 1fr !important; }
+  .navigation a { padding: 11px 10px !important; }
+  .navigation a strong { overflow-wrap: anywhere; }
+  .sectionShell article p,
+  .sectionShell article li { font-size: 0.98rem; }
+
 }
 @media (max-width: 1050px) { .sectionShell { grid-template-columns: minmax(0,1fr); } }
 
@@ -31,4 +35,17 @@
   background-position: center, center;
   background-size: cover, cover;
   background-repeat: no-repeat, no-repeat;
+}
+
+.sectionShell article p,
+.sectionShell article li {
+  line-height: 1.65;
+}
+.sectionShell article > p,
+.sectionShell article section > p {
+  max-width: 82ch;
+}
+.sectionShell article h2,
+.sectionShell article h3 {
+  line-height: 1.3;
 }
