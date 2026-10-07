@@ -41,6 +41,7 @@ import AgeNeurophysiologyPanel from "./AgeNeurophysiologyPanel";
 import NeuromuscularJunctionLab from "./NeuromuscularJunctionLab";
 import NeurologicalExamLab from "./NeurologicalExamLab";
 import AdvancedAnatomyReference from "./AdvancedAnatomyReference";
+import ClinicalMechanismAtlas from "./ClinicalMechanismAtlas";
 import SketchPad from "./SketchPad";
 import BlockPathBuilder, {type BuilderItem} from "./BlockPathBuilder";
 
@@ -274,6 +275,7 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "23" && <><LearningMemoryLab language={language} /><ReflexLearningLab language={language} /><FunctionalCentersLab language={language} moduleId={23} /><AgeNeurophysiologyPanel language={language} /></>}
     {moduleId === "24" && <><SleepRhythmLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
     {moduleId === "25" && <><PlasticityLab language={language} /><CerebralHomeostasisLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
+    <ClinicalMechanismAtlas moduleId={Number(moduleId)} language={language} />
     {builder && <BlockPathBuilder language={language} items={builder.items} correctOrder={builder.order} moduleId={Number(moduleId)} />}
     {["3","4","5","7","10","15","17","18","21","22","23"].includes(moduleId) && <SketchPad language={language} storageKey={`neuro-course:sketch:${moduleId}:${language}`} moduleId={Number(moduleId)} />}
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
