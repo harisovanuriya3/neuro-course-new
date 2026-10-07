@@ -38,5 +38,8 @@ export default function NeurologicalExamLab({language}:{language:Language}){
    <article style={{padding:12,borderRadius:12,background:"#f8fcff"}}><h3>{t.link}</h3><p>{d[2]}</p></article>
    <article style={{padding:12,borderRadius:12,background:"#fff8f5"}}><h3>{t.finding}</h3><p>{d[3]}</p></article>
   </div>
+  <label style={{display:"block",marginTop:14}}>{language==="RU"?"Локализуйте возможное поражение и обоснуйте ответ":language==="KZ"?"Ықтимал зақымды локализациялап, жауабыңызды негіздеңіз":"Localize a possible lesion and justify your answer"}<textarea rows={3} value={localization} onChange={e=>{setLocalization(e.target.value);setSubmitted(false)}} style={{width:"100%"}} /></label>
+  <button type="button" disabled={localization.trim().length<30} onClick={()=>{setSubmitted(true);recordOutcome(25,"interactive",1,1);recordOutcome(25,"criterion:clinical:neurological-exam",1,1);recordOutcome(25,"criterion:justification:neurological-exam",1,1)}}>{language==="RU"?"Зафиксировать клиническое рассуждение":language==="KZ"?"Клиникалық пайымдауды тіркеу":"Record clinical reasoning"}</button>
+  {submitted&&<p role="status">{language==="RU"?"Рассуждение сохранено. Сопоставьте локализацию с проверяемой системой и находкой.":language==="KZ"?"Пайымдау сақталды. Локализацияны тексерілетін жүйемен және белгімен салыстырыңыз.":"Reasoning saved. Compare the localization with the tested system and finding."}</p>}
  </section>
 }
