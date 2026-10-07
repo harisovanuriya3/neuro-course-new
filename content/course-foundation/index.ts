@@ -104,6 +104,49 @@ const sources: Record<string, { title: string; href: string }> = {
   },
 };
 
+const extraGlossary: Partial<Record<number, { term: Record<Language,string>; definition: Record<Language,string> }[]>> = {
+  3: [
+    {term:{RU:'Гематоэнцефалический барьер',EN:'Blood–brain barrier',KZ:'Гематоэнцефалдық бөгет'},definition:{RU:'Избирательный барьер между кровью и нервной тканью, помогающий сохранять стабильную среду мозга.',EN:'A selective barrier between blood and neural tissue that helps maintain a stable brain environment.',KZ:'Қан мен жүйке тіні арасындағы мидың тұрақты ортасын сақтауға көмектесетін таңдамалы бөгет.'}},
+    {term:{RU:'Ликвор',EN:'Cerebrospinal fluid',KZ:'Жұлын-ми сұйықтығы'},definition:{RU:'Жидкость желудочков и субарахноидального пространства, участвующая в защите и гомеостазе ЦНС.',EN:'Fluid in the ventricles and subarachnoid space that contributes to CNS protection and homeostasis.',KZ:'Қарыншалар мен субарахноидтық кеңістіктегі ОЖЖ қорғанысы мен гомеостазына қатысатын сұйықтық.'}},
+    {term:{RU:'Астроцит',EN:'Astrocyte',KZ:'Астроцит'},definition:{RU:'Глиальная клетка, участвующая в поддержании ионной среды, обмене веществ и взаимодействии с сосудистой стенкой.',EN:'A glial cell involved in ionic homeostasis, metabolism, and interaction with the vascular wall.',KZ:'Иондық ортаны, зат алмасуды және тамыр қабырғасымен әрекеттесуді қолдайтын глия жасушасы.'}},
+  ],
+  5: [
+    {term:{RU:'Концевая пластинка',EN:'Motor end plate',KZ:'Соңғы пластинка'},definition:{RU:'Специализированная область мембраны мышечного волокна под нервно-мышечным синапсом.',EN:'The specialized region of muscle membrane beneath the neuromuscular junction.',KZ:'Жүйке-бұлшықет синапсы астындағы бұлшықет мембранасының маманданған аймағы.'}},
+    {term:{RU:'Никотиновый ацетилхолиновый рецептор',EN:'Nicotinic acetylcholine receptor',KZ:'Никотиндік ацетилхолин рецепторы'},definition:{RU:'Ионотропный рецептор концевой пластинки, активируемый ацетилхолином.',EN:'An ionotropic end-plate receptor activated by acetylcholine.',KZ:'Ацетилхолинмен белсенетін соңғы пластинканың ионотроптық рецепторы.'}},
+    {term:{RU:'Ацетилхолинэстераза',EN:'Acetylcholinesterase',KZ:'Ацетилхолинэстераза'},definition:{RU:'Фермент, быстро расщепляющий ацетилхолин в синаптической щели.',EN:'The enzyme that rapidly breaks down acetylcholine in the synaptic cleft.',KZ:'Синапстық саңылауда ацетилхолинді жылдам ыдырататын фермент.'}},
+  ],
+  7: [
+    {term:{RU:'Безусловный рефлекс',EN:'Unconditioned reflex',KZ:'Шартсыз рефлекс'},definition:{RU:'Врожденная реакция на значимый стимул, не требующая предварительного обучения.',EN:'An innate response to a meaningful stimulus that does not require prior learning.',KZ:'Алдын ала үйренуді қажет етпейтін маңызды стимулға туа біткен жауап.'}},
+    {term:{RU:'Условный рефлекс',EN:'Conditioned reflex',KZ:'Шартты рефлекс'},definition:{RU:'Приобретённая реакция, формирующаяся при обучении и предсказательном значении сигнала.',EN:'An acquired response formed through learning when a cue gains predictive value.',KZ:'Сигнал болжаушы мәнге ие болғанда үйрену арқылы қалыптасатын жүре пайда болған жауап.'}},
+    {term:{RU:'Угасание',EN:'Extinction',KZ:'Өшу'},definition:{RU:'Ослабление условной реакции при повторении сигнала без подкрепления.',EN:'Weakening of a conditioned response when the cue is repeatedly presented without reinforcement.',KZ:'Сигнал нығайтусыз қайталанғанда шартты реакцияның әлсіреуі.'}},
+  ],
+  10: [
+    {term:{RU:'Черепной нерв',EN:'Cranial nerve',KZ:'Бассүйек нерві'},definition:{RU:'Один из двенадцати парных нервов, связанных преимущественно с головным мозгом и стволом.',EN:'One of twelve paired nerves connected mainly with the brain and brainstem.',KZ:'Негізінен ми және ми бағанымен байланысатын он екі жұп нервтің бірі.'}},
+    {term:{RU:'Ядро черепного нерва',EN:'Cranial nerve nucleus',KZ:'Бассүйек нерві ядросы'},definition:{RU:'Группа нейронов ЦНС, связанная с определёнными чувствительными или двигательными компонентами черепного нерва.',EN:'A CNS neuronal group associated with specific sensory or motor components of a cranial nerve.',KZ:'Бассүйек нервінің белгілі сезімтал немесе қозғалтқыш компоненттерімен байланысты ОЖЖ нейрондар тобы.'}},
+    {term:{RU:'Висцеральные волокна',EN:'Visceral fibers',KZ:'Висцералдық талшықтар'},definition:{RU:'Афферентные или эфферентные волокна, связанные с внутренними органами, гладкими мышцами, железами или специальными висцеральными чувствами.',EN:'Afferent or efferent fibers related to viscera, smooth muscle, glands, or special visceral senses.',KZ:'Ішкі мүшелер, тегіс бұлшықет, бездер немесе арнайы висцералдық сезімдермен байланысты афференттік не эфференттік талшықтар.'}},
+  ],
+  18: [
+    {term:{RU:'Зона Брока',EN:'Broca area',KZ:'Брока аймағы'},definition:{RU:'Область доминантной лобной доли, особенно важная для моторной организации речи.',EN:'A dominant frontal-lobe region especially important for motor organization of speech.',KZ:'Сөйлеудің моторлық ұйымдасуына ерекше маңызды доминантты маңдай бөлігі аймағы.'}},
+    {term:{RU:'Зона Вернике',EN:'Wernicke area',KZ:'Вернике аймағы'},definition:{RU:'Традиционное название задней височно-теменной языковой области, важной для понимания речи.',EN:'Traditional term for a posterior temporoparietal language region important for comprehension.',KZ:'Сөйлеуді түсінуге маңызды артқы самай-төбе тіл аймағының дәстүрлі атауы.'}},
+    {term:{RU:'Функциональная сеть',EN:'Functional network',KZ:'Функциялық желі'},definition:{RU:'Несколько связанных областей мозга, совместно обеспечивающих функцию.',EN:'Multiple connected brain regions that work together to support a function.',KZ:'Белгілі қызметті бірге қамтамасыз ететін өзара байланысты бірнеше ми аймағы.'}},
+  ],
+  23: [
+    {term:{RU:'Гиппокамп',EN:'Hippocampus',KZ:'Гиппокамп'},definition:{RU:'Структура медиальной височной доли, особенно важная для формирования новых декларативных воспоминаний и контекста.',EN:'A medial temporal structure especially important for forming new declarative memories and contextual memory.',KZ:'Жаңа декларативті естеліктер мен контекстік жадты қалыптастыруға маңызды медиалдық самай құрылымы.'}},
+    {term:{RU:'Рабочая память',EN:'Working memory',KZ:'Жұмыс жады'},definition:{RU:'Кратковременное удержание и обработка информации, необходимой для текущей задачи.',EN:'Short-term maintenance and manipulation of information needed for the current task.',KZ:'Ағымдағы міндетке қажет ақпаратты қысқа уақыт сақтау және өңдеу.'}},
+    {term:{RU:'Консолидация памяти',EN:'Memory consolidation',KZ:'Жад консолидациясы'},definition:{RU:'Процессы, благодаря которым новый след памяти становится более устойчивым во времени.',EN:'Processes through which a newly formed memory becomes more stable over time.',KZ:'Жаңа жад ізінің уақыт өте тұрақты болуына ықпал ететін үдерістер.'}},
+  ],
+  24: [
+    {term:{RU:'Супрахиазматическое ядро',EN:'Suprachiasmatic nucleus',KZ:'Супрахиазмалық ядро'},definition:{RU:'Главный циркадный синхронизатор в гипоталамусе, получающий информацию о свете от сетчатки.',EN:'The main hypothalamic circadian pacemaker receiving light information from the retina.',KZ:'Торқабықтан жарық туралы ақпарат алатын гипоталамустың негізгі циркадтық синхронизаторы.'}},
+    {term:{RU:'NREM-сон',EN:'NREM sleep',KZ:'NREM ұйқысы'},definition:{RU:'Стадии сна без быстрых движений глаз, различающиеся по глубине и ЭЭГ-картине.',EN:'Sleep stages without rapid eye movements, differing in depth and EEG pattern.',KZ:'Тереңдігі мен ЭЭГ көрінісі бойынша ерекшеленетін жылдам көз қозғалысынсыз ұйқы сатылары.'}},
+    {term:{RU:'REM-сон',EN:'REM sleep',KZ:'REM ұйқысы'},definition:{RU:'Состояние сна с быстрыми движениями глаз, активированным ЭЭГ-паттерном и выраженным снижением мышечного тонуса.',EN:'A sleep state with rapid eye movements, activated EEG pattern, and marked reduction of muscle tone.',KZ:'Жылдам көз қозғалысы, белсенді ЭЭГ көрінісі және бұлшықет тонусының айқын төмендеуі бар ұйқы күйі.'}},
+  ],
+  25: [
+    {term:{RU:'Ауторегуляция мозгового кровотока',EN:'Cerebral autoregulation',KZ:'Ми қанайналымының аутореттелуі'},definition:{RU:'Способность мозговых сосудов изменять сопротивление и поддерживать кровоток при изменениях перфузионных условий в определённых пределах.',EN:'The ability of cerebral vessels to adjust resistance and stabilize flow across a range of perfusion conditions.',KZ:'Ми тамырларының кедергіні өзгертіп, белгілі аралықта перфузия жағдайлары өзгергенде қан ағымын тұрақтандыру қабілеті.'}},
+    {term:{RU:'Внутричерепное давление',EN:'Intracranial pressure',KZ:'Бассүйекішілік қысым'},definition:{RU:'Давление внутри жёсткой полости черепа, зависящее от объёмов мозговой ткани, крови и ликвора.',EN:'Pressure within the rigid cranial cavity, influenced by brain tissue, blood, and CSF volumes.',KZ:'Бассүйек қуысының ішіндегі, ми тіні, қан және ликвор көлемдеріне тәуелді қысым.'}},
+    {term:{RU:'Компенсация',EN:'Compensation',KZ:'Компенсация'},definition:{RU:'Использование сохранных стратегий или сетей для поддержания функции без полного восстановления исходного механизма.',EN:'Use of preserved strategies or networks to maintain function without full restoration of the original mechanism.',KZ:'Бастапқы механизм толық қалпына келмей-ақ қызметті сақтау үшін сақталған стратегиялар немесе желілерді пайдалану.'}},
+  ],
+};
+
 const copy = {
   RU: {
     mechanism: 'Как это работает',
@@ -523,23 +566,26 @@ function create(
       title,
       introduction: c.terms,
 
-      terms: topic.terms.map((term, index) => ({
-        id: `module-${topic.id}-term-${index + 1}`,
-
-        term: term[language],
-
-        definition:
-          termDefinitions[topic.id]?.[index]?.[language] ??
-          (language === 'RU'
-            ? `Ключевое понятие модуля «${modules.RU[topic.id - 1]}». Объясните его роль через механизм модуля.`
-            : language === 'EN'
-              ? `A key concept in “${modules.EN[topic.id - 1]}”. Explain its role through the module mechanism.`
-              : `«${modules.KZ[topic.id - 1]}» модулінің негізгі ұғымы. Оның рөлін модуль тетігі арқылы түсіндіріңіз.`),
-
-        target: {
-          section: 'theory' as const,
-        },
-      })),
+      terms: [
+        ...topic.terms.map((term, index) => ({
+          id: `module-${topic.id}-term-${index + 1}`,
+          term: term[language],
+          definition:
+            termDefinitions[topic.id]?.[index]?.[language] ??
+            (language === 'RU'
+              ? `Ключевое понятие модуля «${modules.RU[topic.id - 1]}».`
+              : language === 'EN'
+                ? `A key concept in “${modules.EN[topic.id - 1]}”.`
+                : `«${modules.KZ[topic.id - 1]}» модулінің негізгі ұғымы.`),
+          target: { section: 'theory' as const },
+        })),
+        ...(extraGlossary[topic.id] ?? []).map((item, index) => ({
+          id: `module-${topic.id}-extra-term-${index + 1}`,
+          term: item.term[language],
+          definition: item.definition[language],
+          target: { section: 'theory' as const },
+        })),
+      ],
     };
   }
 
