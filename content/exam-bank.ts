@@ -2,7 +2,7 @@ import type { Language } from "./course";
 import { modules } from "./course";
 import { topics, termDefinitions } from "./course-foundation/topics";
 import { clinicalVignettes } from "./course-foundation/assessment";
-export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string};
+export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[]};
 const S={
 RU:{st:["Что здесь происходит с точки зрения физиологии?","Какой вывод лучше всего следует из этих данных?","Если это звено изменится, что произойдёт дальше?","Какой вариант лучше всего показывает цепочку «причина → изменение → результат»?","Как применить тот же механизм в новой ситуации?","Какой ответ не делает слишком поспешный вывод?","Какой вариант правильно отличает механизм от наблюдаемого результата?","Какой вывод учитывает то, чего мы пока не знаем?","Что лучше проверить, чтобы подтвердить предполагаемую связь?","Как лучше рассуждать в этой ситуации?"],pair:"Посмотрите на связь",first:"Сначала определите роль каждого элемента, затем решите, что на что влияет, и проверьте это по данным.",swap:"Считать два элемента одинаковыми и не учитывать направление влияния.",abs:"Считать, что изменение одного элемента всегда даёт одинаковый результат независимо от состояния системы.",dx:"Сделать окончательный вывод по одному изменению, не проверяя другие возможные объяснения.",ex:"Хороший ответ показывает, чем элементы отличаются, как они связаны и чего эти данные ещё не доказывают."},
 EN:{st:["What is happening here physiologically?","Which conclusion best follows from these data?","If this part changes, what happens next?","Which option best shows the chain “cause → change → result”?","How would the same mechanism work in a new situation?","Which answer avoids jumping to a conclusion too early?","Which option correctly separates the mechanism from the observed result?","Which conclusion also considers what is still unknown?","What should be checked to test the proposed link?","What is the best way to reason through this situation?"],pair:"Look at the link",first:"First identify the role of each element, then decide what affects what and check this against the data.",swap:"Treat the two elements as the same thing and ignore the direction of influence.",abs:"Assume that changing one element always gives the same result regardless of the state of the system.",dx:"Make a final conclusion from one change without checking other possible explanations.",ex:"A good answer shows how the elements differ, how they are linked, and what the data still do not prove."},
@@ -49,7 +49,54 @@ const RU_CORE:Record<number,{p:string;c:string;w:[string,string,string];e:string
 25:{p:"После повторной активации определённого синаптического пути его эффективность длительно изменяется. Какой принцип это иллюстрирует?",c:"Нейропластичность позволяет активности изменять эффективность синаптической передачи и свойства нейронных сетей.",w:["Синаптическая эффективность после развития нервной системы неизменна.","Любое изменение передачи обязательно означает необратимую гибель нейронов.","Пластичность возможна только в периферических нервах и отсутствует в ЦНС взрослого человека."],e:"Активностно-зависимые изменения синапсов являются одним из механизмов пластичности, обучения и адаптации нервной системы."}
 };
 
-export function createExamBank(lang:Language):ExamBankQuestion[]{
+export function sequenceQuestions(lang:Language):ExamBankQuestion[]{
+ const L=(ru:string,en:string,kz:string)=>lang==="RU"?ru:lang==="EN"?en:kz;
+ const makeSeq=(moduleId:number,id:string,prompt:string,items:[string,string][],explanation:string):ExamBankQuestion=>({
+  id:`exam-seq-m${moduleId}-${id}`,
+  moduleId,
+  moduleTitle:modules[lang][moduleId-1],
+  prompt,
+  options:[],
+  correctAnswer:"",
+  explanation,
+  sequenceItems:items.map(([itemId,text])=>({id:itemId,text})),
+  correctOrder:items.map(([itemId])=>itemId)
+ });
+ return [
+  makeSeq(5,"nmj",
+   L("Соберите нормальную последовательность нервно-мышечной передачи.","Build the normal sequence of neuromuscular transmission.","Жүйке-бұлшықет берілуінің қалыпты ретін құрастырыңыз."),
+   [["ap",L("Потенциал действия приходит к окончанию мотонейрона","Action potential reaches the motor terminal","Әрекет потенциалы мотонейрон ұшына келеді")],["ca",L("Открываются пресинаптические Ca²⁺-каналы","Presynaptic Ca²⁺ channels open","Пресинапстық Ca²⁺ арналары ашылады")],["ach",L("Выделяется ацетилхолин","Acetylcholine is released","Ацетилхолин бөлінеді")],["rec",L("Активируются никотиновые рецепторы","Nicotinic receptors are activated","Никотиндік рецепторлар белсенеді")],["mp",L("Возникает потенциал действия мышцы","Muscle action potential develops","Бұлшықет әрекет потенциалы пайда болады")],["con",L("Начинается сокращение","Contraction begins","Жиырылу басталады")]],
+   L("Последовательность связывает электрический сигнал мотонейрона, Ca²⁺-зависимый экзоцитоз, ацетилхолин, рецепторы концевой пластинки и мышечный ответ.","The sequence links the motor-neuron electrical signal, Ca²⁺-dependent exocytosis, acetylcholine, end-plate receptors, and muscle response.","Бұл тізбек мотонейронның электр сигналын, Ca²⁺-тәуелді экзоцитозды, ацетилхолинді, соңғы пластинка рецепторларын және бұлшықет жауабын байланыстырады.")
+  ),
+  makeSeq(7,"reflex",
+   L("Соберите простую рефлекторную дугу от стимула до ответа.","Build a simple reflex arc from stimulus to response.","Стимулдан жауапқа дейінгі қарапайым рефлекторлық доғаны құрастырыңыз."),
+   [["receptor",L("Рецептор","Receptor","Рецептор")],["afferent",L("Афферентное волокно","Afferent fiber","Афференттік талшық")],["center",L("Центральная интеграция","Central integration","Орталық интеграция")],["efferent",L("Эфферентное волокно","Efferent fiber","Эфференттік талшық")],["effector",L("Эффектор","Effector","Эффектор")]],
+   L("Рефлекс требует рецепторного входа, афферентного пути, центральной обработки, эфферентного выхода и эффектора.","A reflex requires receptor input, an afferent pathway, central processing, efferent output, and an effector.","Рефлекс рецепторлық кірісті, афференттік жолды, орталық өңдеуді, эфференттік шығысты және эффекторды қажет етеді.")
+  ),
+  makeSeq(10,"pupil",
+   L("Соберите дугу светового зрачкового рефлекса.","Build the pupillary light reflex pathway.","Қарашықтың жарық рефлексі доғасын құрастырыңыз."),
+   [["retina",L("Сетчатка","Retina","Торқабық")],["ii",L("Зрительный нерв II","Optic nerve II","Көру нерві II")],["pre",L("Претектальная область","Pretectal area","Претекталдық аймақ")],["ew",L("Ядро Эдингера–Вестфаля","Edinger–Westphal nucleus","Эдингер–Вестфаль ядросы")],["iii",L("Глазодвигательный нерв III","Oculomotor nerve III","Көз қимылдатқыш нерв III")],["pupil",L("Сужение зрачка","Pupil constriction","Қарашықтың тарылуы")]],
+   L("Афферентное звено идёт через II нерв к претектальной области, а парасимпатическое эфферентное — через ядро Эдингера–Вестфаля и III нерв.","The afferent limb travels through CN II to the pretectal area; the parasympathetic efferent limb passes through the Edinger–Westphal nucleus and CN III.","Афференттік бөлік II нерв арқылы претекталдық аймаққа, ал парасимпатикалық эфференттік бөлік Эдингер–Вестфаль ядросы және III нерв арқылы өтеді.")
+  ),
+  makeSeq(18,"language",
+   L("Соберите упрощённую последовательность от понимания слова к его произнесению.","Build a simplified sequence from understanding a word to saying it.","Сөзді түсінуден оны айтуға дейінгі қарапайым ретті құрастырыңыз."),
+   [["input",L("Слышим или читаем слово","Hear or read the word","Сөзді естиміз немесе оқимыз")],["meaning",L("Обрабатываем смысл","Process meaning","Мағынасын өңдейміз")],["plan",L("Формируем речевой план","Form a speech plan","Сөйлеу жоспарын құрамыз")],["motor",L("Создаём моторную программу речи","Create a motor speech program","Сөйлеудің моторлық бағдарламасын жасаймыз")],["output",L("Произносим слово","Produce the word","Сөзді айтамыз")]],
+   L("Речь опирается на распределённую сеть: сенсорный анализ, смысловую обработку, планирование и моторную реализацию.","Language depends on a distributed network linking sensory analysis, meaning, planning, and motor output.","Сөйлеу сенсорлық талдау, мағыналық өңдеу, жоспарлау және моторлық орындауды байланыстыратын таралған желіге сүйенеді.")
+  ),
+  makeSeq(22,"autonomic",
+   L("Соберите типичный вегетативный путь от рецептора до органа-мишени.","Build a typical autonomic pathway from receptor to target organ.","Рецептордан нысана мүшеге дейінгі типтік вегетативтік жолды құрастырыңыз."),
+   [["receptor",L("Висцеральный рецептор","Visceral receptor","Висцералдық рецептор")],["afferent",L("Висцеральный афферент","Visceral afferent","Висцералдық афферент")],["cns",L("Центральная интеграция","Central integration","Орталық интеграция")],["pre",L("Преганглионарный нейрон","Preganglionic neuron","Преганглионарлық нейрон")],["ganglion",L("Вегетативный ганглий","Autonomic ganglion","Вегетативтік ганглий")],["target",L("Орган-мишень","Target organ","Нысана мүше")]],
+   L("Вегетативный эфферентный путь обычно включает преганглионарный и постганглионарный этапы, в отличие от прямого соматического выхода к скелетной мышце.","Autonomic efferent output usually includes preganglionic and postganglionic stages, unlike direct somatic motor output to skeletal muscle.","Вегетативтік эфференттік жол әдетте преганглионарлық және постганглионарлық кезеңдерді қамтиды, бұл қаңқа бұлшықетіне тікелей соматикалық шығудан өзгеше.")
+  ),
+  makeSeq(23,"conditioning",
+   L("Соберите последовательность формирования простого условного рефлекса.","Build the sequence for forming a simple conditioned reflex.","Қарапайым шартты рефлекстің қалыптасу ретін құрастырыңыз."),
+   [["neutral",L("Нейтральный сигнал","Neutral cue","Бейтарап сигнал")],["pair",L("Сочетание с безусловным раздражителем","Pairing with an unconditioned stimulus","Шартсыз тітіркендіргішпен жұптастыру")],["repeat",L("Повторные сочетания","Repeated pairings","Қайталап жұптастыру")],["predictive",L("Сигнал приобретает предсказательное значение","Cue gains predictive value","Сигнал болжаушы мәнге ие болады")],["response",L("Сигнал сам вызывает условную реакцию","Cue alone evokes the conditioned response","Сигналдың өзі шартты реакция туғызады")]],
+   L("Условная реакция возникает благодаря обучению: нейтральный сигнал после повторных сочетаний начинает предсказывать значимое событие.","Conditioning occurs through learning: after repeated pairings, a neutral cue begins to predict a meaningful event.","Шартты реакция үйрену арқылы пайда болады: қайталанған жұптастырудан кейін бейтарап сигнал маңызды оқиғаны болжай бастайды.")
+  )
+ ];
+}
+
+function createExamBank(lang:Language):ExamBankQuestion[]{
  const s=S[lang],bank=[...firstModule(lang)];
  for(const topic of topics){
   const defs=termDefinitions[topic.id]; if(!defs)continue;
@@ -93,5 +140,5 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    bank.push(q);
   }
  }
- return bank;
+ return [...bank,...sequenceQuestions(lang)];
 }
