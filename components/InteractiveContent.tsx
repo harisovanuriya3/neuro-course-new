@@ -150,6 +150,24 @@ function Integration({ diagram, ui, language }: { diagram: InteractiveLesson["in
 export default function InteractiveContent({ lesson, moduleId, language }: { lesson: InteractiveLesson; moduleId: string; language: Language }) {
   const ui = lesson.ui;
   const builderSets:Partial<Record<string,{items:BuilderItem[];order:string[]}>>={
+    "3":{
+      items:[
+        {id:"dendrite",labels:{RU:"Дендриты",EN:"Dendrites",KZ:"Дендриттер"}},
+        {id:"soma",labels:{RU:"Тело нейрона",EN:"Soma",KZ:"Нейрон денесі"}},
+        {id:"initial",labels:{RU:"Начальный сегмент аксона",EN:"Axon initial segment",KZ:"Аксонның бастапқы сегменті"}},
+        {id:"axon",labels:{RU:"Аксон",EN:"Axon",KZ:"Аксон"}},
+        {id:"terminal",labels:{RU:"Нервное окончание",EN:"Axon terminal",KZ:"Нерв ұшы"}}
+      ],order:["dendrite","soma","initial","axon","terminal"]
+    },
+    "4":{
+      items:[
+        {id:"rest",labels:{RU:"Покой",EN:"Resting state",KZ:"Тыныштық"}},
+        {id:"threshold",labels:{RU:"Порог",EN:"Threshold",KZ:"Табалдырық"}},
+        {id:"depol",labels:{RU:"Деполяризация",EN:"Depolarization",KZ:"Деполяризация"}},
+        {id:"repol",labels:{RU:"Реполяризация",EN:"Repolarization",KZ:"Реполяризация"}},
+        {id:"after",labels:{RU:"Следовая гиперполяризация",EN:"After-hyperpolarization",KZ:"Кейінгі гиперполяризация"}}
+      ],order:["rest","threshold","depol","repol","after"]
+    },
     "5":{
       items:[
         {id:"ap",labels:{RU:"Потенциал действия мотонейрона",EN:"Motor-neuron action potential",KZ:"Мотонейрон әрекет потенциалы"}},
@@ -187,6 +205,26 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
         {id:"motor",labels:{RU:"Моторная программа речи",EN:"Motor speech program",KZ:"Сөйлеудің моторлық бағдарламасы"}},
         {id:"speak",labels:{RU:"Произнесение",EN:"Speech output",KZ:"Айту"}}
       ],order:["heard","understand","plan","motor","speak"]
+    },
+    "15":{
+      items:[
+        {id:"deficit",labels:{RU:"Дефицит воды / рост осмолярности",EN:"Water deficit / higher osmolality",KZ:"Су тапшылығы / осмолярлықтың өсуі"}},
+        {id:"sensor",labels:{RU:"Осморецепторный сигнал",EN:"Osmoreceptor signal",KZ:"Осморецепторлық сигнал"}},
+        {id:"hypo",labels:{RU:"Интеграция в гипоталамусе",EN:"Hypothalamic integration",KZ:"Гипоталамустық интеграция"}},
+        {id:"outputs",labels:{RU:"Жажда + вазопрессин",EN:"Thirst + vasopressin",KZ:"Шөлдеу + вазопрессин"}},
+        {id:"water",labels:{RU:"Сохранение и поступление воды",EN:"Water intake and conservation",KZ:"Суды қабылдау және сақтау"}},
+        {id:"restore",labels:{RU:"Уменьшение отклонения",EN:"Deviation decreases",KZ:"Ауытқу азаяды"}}
+      ],order:["deficit","sensor","hypo","outputs","water","restore"]
+    },
+    "21":{
+      items:[
+        {id:"head",labels:{RU:"Поворот головы",EN:"Head rotation",KZ:"Бастың бұрылуы"}},
+        {id:"hair",labels:{RU:"Вестибулярные волосковые клетки",EN:"Vestibular hair cells",KZ:"Вестибулярлық түкті жасушалар"}},
+        {id:"viii",labels:{RU:"Вестибулярный афферент VIII",EN:"Vestibular afferent in CN VIII",KZ:"VIII нервтің вестибулярлық афференті"}},
+        {id:"nuclei",labels:{RU:"Вестибулярные ядра",EN:"Vestibular nuclei",KZ:"Вестибулярлық ядролар"}},
+        {id:"ocular",labels:{RU:"Глазодвигательные ядра",EN:"Ocular motor nuclei",KZ:"Көз қимылдатқыш ядролар"}},
+        {id:"eyes",labels:{RU:"Компенсаторное движение глаз",EN:"Compensatory eye movement",KZ:"Көздің компенсаторлық қозғалысы"}}
+      ],order:["head","hair","viii","nuclei","ocular","eyes"]
     },
     "22":{
       items:[
@@ -237,7 +275,7 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "24" && <><SleepRhythmLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
     {moduleId === "25" && <><PlasticityLab language={language} /><CerebralHomeostasisLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
     {builder && <BlockPathBuilder language={language} items={builder.items} correctOrder={builder.order} moduleId={Number(moduleId)} />}
-    {["5","7","10","18","22"].includes(moduleId) && <SketchPad language={language} storageKey={`neuro-course:sketch:${moduleId}:${language}`} moduleId={Number(moduleId)} />}
+    {["3","4","5","7","10","15","17","18","21","22","23"].includes(moduleId) && <SketchPad language={language} storageKey={`neuro-course:sketch:${moduleId}:${language}`} moduleId={Number(moduleId)} />}
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
     {moduleId === "1" && <SynapseLab language={language} />}
     {moduleId === "5" && <><SynapseLab language={language} /><NeuromuscularJunctionLab language={language} /></>}
