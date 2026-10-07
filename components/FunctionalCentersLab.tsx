@@ -2,8 +2,10 @@
 
 import {useState} from "react";
 import type {Language} from "../content/course";
+import AnatomyReference from "./AnatomyReference";
+import AdvancedAnatomyReference from "./AdvancedAnatomyReference";
 
-type CenterKey="broca"|"wernicke"|"motor"|"somato"|"visual"|"auditory"|"hippocampus"|"amygdala"|"prefrontal"|"hypothalamus"|"brainstem"|"cerebellum"|"basal";
+type CenterKey="broca"|"wernicke"|"motor"|"somato"|"visual"|"auditory"|"hippocampus"|"amygdala"|"prefrontal"|"hypothalamus"|"brainstem"|"cerebellum"|"basal"|"respiratory"|"cardiovascular"|"swallow"|"pupil"|"micturition";
 
 const copy={
  RU:{
@@ -23,7 +25,12 @@ const copy={
    hypothalamus:["Гипоталамус","Промежуточный мозг","Гомеостаз: температура, жажда, питание, эндокринная и вегетативная регуляция.","Нарушения температуры, водного баланса, аппетита, сна и нейроэндокринной регуляции."],
    brainstem:["Жизненно важные центры ствола","Продолговатый мозг и мост","Регуляция дыхания, сердечно-сосудистых реакций, бодрствования и защитных рефлексов.","Тяжёлые нарушения дыхания, гемодинамики, сознания и стволовых рефлексов — в зависимости от уровня поражения."],
    cerebellum:["Мозжечок","Задняя черепная ямка","Координация, точность, время движения, моторное обучение и равновесие.","Атаксия, дисметрия, интенционный тремор, нарушение равновесия и координации."],
-   basal:["Базальные ганглии","Подкорковые ядра","Выбор и запуск двигательных программ, масштабирование движения, участие в привычках.","Брадикинезия, ригидность, гиперкинезы или трудности запуска/подавления движений — в зависимости от контура."]
+   basal:["Базальные ганглии","Подкорковые ядра","Выбор и запуск двигательных программ, масштабирование движения, участие в привычках.","Брадикинезия, ригидность, гиперкинезы или трудности запуска/подавления движений — в зависимости от контура."],
+   respiratory:["Дыхательные сети","Продолговатый мозг и мост","Формируют и регулируют дыхательный ритм, адаптируя вентиляцию к CO₂, O₂, pH и поведенческим задачам.","Поражение может вызвать нарушение ритма дыхания, гиповентиляцию или апноэ; выраженность зависит от уровня и объёма повреждения."],
+   cardiovascular:["Сердечно-сосудистые центры","Продолговатый мозг, включая NTS и вентролатеральные области","Интегрируют баро- и хеморецепторные сигналы и регулируют симпатический/парасимпатический выход к сердцу и сосудам.","Может нарушаться барорефлекс, устойчивость артериального давления и частоты сердца."],
+   swallow:["Центральный паттерн глотания","Продолговатый мозг, ядро одиночного пути и связанные моторные ядра","Координирует последовательность мышечных сокращений при глотании.","Дисфагия, аспирационный риск, нарушение координации фаз глотания."],
+   pupil:["Центры зрачкового рефлекса","Средний мозг: претектальная область и ядро Эдингера–Вестфаля","Обеспечивают световой рефлекс и парасимпатическое сужение зрачка.","Анизокория, нарушение прямой или содружественной реакции на свет — в зависимости от афферентного/эфферентного звена."],
+   micturition:["Центр мочеиспускания","Мост, понтинный центр мочеиспускания, во взаимодействии со спинальными и корковыми сетями","Координирует сокращение детрузора и расслабление сфинктеров во время мочеиспускания.","Дискоординация мочеиспускания, задержка или недержание — в зависимости от уровня поражения."]
   }
  },
  EN:{
@@ -43,7 +50,12 @@ const copy={
    hypothalamus:["Hypothalamus","Diencephalon","Homeostasis: temperature, thirst, feeding, endocrine and autonomic regulation.","Disturbances of temperature, fluid balance, appetite, sleep, and neuroendocrine regulation."],
    brainstem:["Vital brainstem centers","Medulla and pons","Breathing, cardiovascular regulation, arousal, and protective reflexes.","Potentially severe abnormalities of breathing, circulation, consciousness, and brainstem reflexes depending on lesion level."],
    cerebellum:["Cerebellum","Posterior cranial fossa","Coordination, timing, motor learning, precision, and balance.","Ataxia, dysmetria, intention tremor, and impaired balance/coordination."],
-   basal:["Basal ganglia","Subcortical nuclei","Selection and initiation of motor programs, scaling of movement, and habit-related control.","Bradykinesia, rigidity, hyperkinesia, or impaired movement initiation/suppression depending on the circuit."]
+   basal:["Basal ganglia","Subcortical nuclei","Selection and initiation of motor programs, scaling of movement, and habit-related control.","Bradykinesia, rigidity, hyperkinesia, or impaired movement initiation/suppression depending on the circuit."],
+   respiratory:["Respiratory networks","Medulla and pons","Generate and regulate breathing rhythm and adapt ventilation to CO₂, O₂, pH, and behavioral demands.","Damage may disturb respiratory rhythm, cause hypoventilation, or apnea depending on lesion level and extent."],
+   cardiovascular:["Cardiovascular centers","Medulla, including NTS and ventrolateral regions","Integrate baroreceptor and chemoreceptor input and regulate sympathetic/parasympathetic output to heart and vessels.","Baroreflexes and stability of blood pressure or heart rate may be impaired."],
+   swallow:["Swallowing pattern network","Medulla, nucleus tractus solitarius and related motor nuclei","Coordinates the ordered muscle activity required for swallowing.","Dysphagia, aspiration risk, and impaired coordination of swallowing phases."],
+   pupil:["Pupillary reflex centers","Midbrain: pretectal area and Edinger–Westphal nucleus","Mediate the light reflex and parasympathetic pupillary constriction.","Anisocoria or impaired direct/consensual light response depending on the afferent or efferent lesion."],
+   micturition:["Micturition center","Pons, interacting with spinal and cortical networks","Coordinates detrusor contraction with sphincter relaxation during urination.","Urinary retention, incontinence, or dyssynergia depending on lesion level."]
   }
  },
  KZ:{
@@ -63,17 +75,22 @@ const copy={
    hypothalamus:["Гипоталамус","Аралық ми","Гомеостаз: температура, шөлдеу, тамақтану, эндокриндік және вегетативтік реттелу.","Температура, су теңгерімі, тәбет, ұйқы және нейроэндокриндік реттелу бұзылады."],
    brainstem:["Ми сабауының өмірлік маңызды орталықтары","Сопақша ми және көпір","Тыныс, жүрек-қантамыр реттелуі, сергектік және қорғаныш рефлекстері.","Зақым деңгейіне байланысты тыныс, гемодинамика, сана және ми сабауы рефлекстерінің ауыр бұзылыстары болуы мүмкін."],
    cerebellum:["Мишық","Артқы бассүйек шұңқыры","Үйлестіру, дәлдік, қозғалыс уақыты, моторлық үйрену және тепе-теңдік.","Атаксия, дисметрия, интенциялық тремор және тепе-теңдік/үйлестіру бұзылысы."],
-   basal:["Базальды ганглийлер","Қыртысасты ядролар","Қозғалыс бағдарламаларын таңдау және бастау, қозғалыс көлемін реттеу, әдеттерге қатысу.","Брадикинезия, ригидтілік, гиперкинез немесе қозғалысты бастау/тоқтатудың қиындауы — контурға байланысты."]
+   basal:["Базальды ганглийлер","Қыртысасты ядролар","Қозғалыс бағдарламаларын таңдау және бастау, қозғалыс көлемін реттеу, әдеттерге қатысу.","Брадикинезия, ригидтілік, гиперкинез немесе қозғалысты бастау/тоқтатудың қиындауы — контурға байланысты."],
+   respiratory:["Тыныс алу желілері","Сопақша ми және көпір","Тыныс ырғағын қалыптастырып, CO₂, O₂, pH және мінез-құлықтық қажеттілікке сай вентиляцияны реттейді.","Зақым тыныс ырғағын бұзып, гиповентиляция немесе апноэ туғызуы мүмкін."],
+   cardiovascular:["Жүрек-қантамыр орталықтары","Сопақша ми, соның ішінде NTS және вентролатералдық аймақтар","Баро- және хеморецептор сигналдарын біріктіріп, жүрек пен тамырларға симпатикалық/парасимпатикалық әсерді реттейді.","Барорефлекс және қан қысымы мен жүрек жиілігінің тұрақтылығы бұзылуы мүмкін."],
+   swallow:["Жұту орталық желісі","Сопақша ми, жалғыз жол ядросы және байланысты моторлық ядролар","Жұту кезіндегі бұлшықет жұмысының ретін үйлестіреді.","Дисфагия, аспирация қаупі және жұту фазаларының үйлесімінің бұзылысы."],
+   pupil:["Қарашық рефлексі орталықтары","Ортаңғы ми: претекталдық аймақ және Эдингер–Вестфаль ядросы","Жарық рефлексін және қарашықтың парасимпатикалық тарылуын қамтамасыз етеді.","Анизокория немесе жарыққа тікелей/достық реакцияның бұзылысы болуы мүмкін."],
+   micturition:["Зәр шығару орталығы","Көпір, жұлындық және қыртыстық желілермен бірге","Детрузор жиырылуын сфинктерлердің босаңсуымен үйлестіреді.","Зәрдің іркілуі, ұстамау немесе детрузор-сфинктер диссинергиясы болуы мүмкін."]
   }
 } as const;
 
-export default function FunctionalCentersLab({language}:{language:Language}){
+export default function FunctionalCentersLab({language,moduleId=18}:{language:Language;moduleId?:number}){
  const t=copy[language];
  const keys=Object.keys(t.centers) as CenterKey[];
  const [selected,setSelected]=useState<CenterKey>("broca");
  const c=t.centers[selected];
  return <section style={{margin:"24px 0",padding:18,border:"1px solid #cfe0ea",borderRadius:16,background:"#fff"}}>
-  <h2>{t.title}</h2><p>{t.intro}</p>
+  <h2>{t.title}</h2><p>{t.intro}</p>{moduleId===23?<AdvancedAnatomyReference moduleId={23} language={language}/>:<AnatomyReference moduleId={18} language={language}/>}<div aria-hidden="true" style={{height:6,borderRadius:999,background:"linear-gradient(90deg,#dceefa,#9ac4de,#dceefa)",backgroundSize:"200% 100%",animation:"centerFlow 3s linear infinite",margin:"12px 0 18px"}}/>
   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
    {keys.map(k=><button key={k} type="button" aria-pressed={selected===k} onClick={()=>setSelected(k)}>{t.centers[k][0]}</button>)}
   </div>
