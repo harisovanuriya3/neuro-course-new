@@ -2,6 +2,7 @@
 
 import {useMemo,useState} from "react";
 import type {Language} from "../content/course";
+import {recordOutcome} from "../lib/courseProgress";
 
 type Kind="unconditioned"|"conditioned";
 type Inhibition="external"|"extinction"|"differentiation"|"delay";
@@ -100,11 +101,11 @@ export default function ReflexLearningLab({language}:{language:Language}){
   <label>{t.predict}<textarea rows={2} value={prediction} placeholder={t.predictHint} onChange={e=>{setPrediction(e.target.value);setRan(false)}} style={{width:"100%"}}/></label>
   <label style={{display:"block",marginTop:10}}>{t.pairings}: <strong>{pairings}</strong><input type="range" min="0" max="6" value={pairings} onChange={e=>{setPairings(+e.target.value);setRan(false)}} style={{width:"100%"}}/></label>
   <label style={{display:"block",margin:"10px 0"}}><input type="checkbox" checked={reinforced} onChange={e=>{setReinforced(e.target.checked);setRan(false)}}/> {t.reinforce}</label>
-  <button type="button" disabled={prediction.trim().length<8} onClick={()=>setRan(true)}>{t.run}</button>
-  {ran&&<div style={{marginTop:12,padding:"14px",border:"1px solid #d6e3eb",borderRadius:12,background:"#f8fcff"}}><p><strong>{t.result}: {t.strength} — {responseStrength}%</strong></p><div style={{height:16,borderRadius:999,background:"#e6eef3",overflow:"hidden"}}><div style={{height:"100%",width:`${responseStrength}%`,background:"linear-gradient(90deg,#8fb9d4,#3d7ba5)",transition:"width .5s ease"}}/></div><label style={{display:"block",marginTop:12}}>{t.explain}<textarea rows={3} value={explanation} onChange={e=>setExplanation(e.target.value)} style={{width:"100%"}}/></label></div>}
+  <button type="button" disabled={prediction.trim().length<20} onClick={()=>{setRan(true);recordOutcome(23,"interactive",1,1);recordOutcome(23,"criterion:mechanism:conditioned-reflex",1,1)}}>{t.run}</button>
+  {ran&&<div style={{marginTop:12,padding:"14px",border:"1px solid #d6e3eb",borderRadius:12,background:"#f8fcff"}}><p><strong>{t.result}: {t.strength} — {responseStrength}%</strong></p><div style={{height:16,borderRadius:999,background:"#e6eef3",overflow:"hidden"}}><div style={{height:"100%",width:`${responseStrength}%`,background:"linear-gradient(90deg,#8fb9d4,#3d7ba5)",transition:"width .5s ease"}}/></div><label style={{display:"block",marginTop:12}}>{t.explain}<textarea rows={3} value={explanation} onChange={e=>{const v=e.target.value;setExplanation(v);if(v.trim().length>=30)recordOutcome(23,"criterion:justification:conditioned-reflex",1,1)}} style={{width:"100%"}}/></label></div>}
   <h3>{t.task}</h3><p>{t.scenario}</p>
   {[["a",t.a],["b",t.b],["c",t.c]].map(([id,label])=><label key={id} style={{display:"block",padding:"7px 0"}}><input type="radio" name="reflex-check" checked={answer===id} onChange={()=>{setAnswer(id);setChecked(false)}}/> {label}</label>)}
-  <button type="button" disabled={!answer} onClick={()=>setChecked(true)}>{language==="RU"?"Проверить":language==="KZ"?"Тексеру":"Check"}</button>
+  <button type="button" disabled={!answer} onClick={()=>{setChecked(true);recordOutcome(23,"criterion:application:conditioned-reflex",answer==="a"?1:0,1)}}>{language==="RU"?"Проверить":language==="KZ"?"Тексеру":"Check"}</button>
   {checked&&<p role="status"><strong>{answer==="a"?t.good:t.bad}</strong></p>}
  </section>;
 }
