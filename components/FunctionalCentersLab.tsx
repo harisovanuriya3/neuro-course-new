@@ -4,6 +4,7 @@ import {useState} from "react";
 import type {Language} from "../content/course";
 import AnatomyReference from "./AnatomyReference";
 import AdvancedAnatomyReference from "./AdvancedAnatomyReference";
+import {recordOutcome} from "../lib/courseProgress";
 
 type CenterKey="broca"|"wernicke"|"motor"|"somato"|"visual"|"auditory"|"hippocampus"|"amygdala"|"prefrontal"|"hypothalamus"|"brainstem"|"cerebellum"|"basal"|"respiratory"|"cardiovascular"|"swallow"|"pupil"|"micturition";
 
@@ -103,7 +104,7 @@ export default function FunctionalCentersLab({language,moduleId=18}:{language:La
   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
    {keys.map(k=><button key={k} type="button" aria-pressed={selected===k} onClick={()=>{setSelected(k);setLesion(false)}}>{t.centers[k][0]}</button>)}
   </div>
-  <button type="button" onClick={()=>setLesion(v=>!v)} style={{marginTop:14,padding:"10px 14px",borderRadius:10,fontWeight:700}}>{lesion?t.restore:t.simulate}</button>
+  <button type="button" onClick={()=>setLesion(v=>{const next=!v;if(next){recordOutcome(moduleId,"interactive",1,1);recordOutcome(moduleId,"criterion:clinical:center-lesion",1,1)}return next})} style={{marginTop:14,padding:"10px 14px",borderRadius:10,fontWeight:700}}>{lesion?t.restore:t.simulate}</button>
   <div style={{marginTop:14,display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(230px,1fr))",gap:12}}>
    <article style={{padding:14,borderRadius:12,background:"#f8fcff"}}>
     <h3>{c[0]}</h3><p><strong>{t.location}:</strong> {c[1]}</p><p><strong>{t.normal}:</strong> {c[2]}</p>
