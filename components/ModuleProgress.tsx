@@ -60,7 +60,14 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     <h3 style={{margin:"0 0 8px"}}>{c.teacher}</h3>
     <p style={{margin:"0 0 8px"}}><strong>{overallPercent}%</strong> · {available.length ? (reviewCount>0?c.review:masteredCount===available.length?c.mastered:c.forming) : c.none}</p>
     <progress value={overallPercent} max={100} aria-label={c.teacher} style={{width:"100%"}} />
-    <p style={{margin:"10px 0 4px"}}><strong>{c.next}:</strong> {recommendation}</p>
+    <p style={{margin:"10px 0 8px"}}><strong>{c.next}:</strong> {recommendation}</p>
+    {available.length>0 && <div style={{display:"flex",gap:8,flexWrap:"wrap",margin:"10px 0"}}>
+      {reviewCount>0 || masteredCount<available.length ? <>
+        <Link href={`/modules/${moduleId}/theory?lang=${language}`}>{language==="RU"?"Повторить теорию":language==="KZ"?"Теорияны қайталау":"Review theory"}</Link>
+        <Link href={`/modules/${moduleId}/cases?lang=${language}`}>{language==="RU"?"Разобрать ситуации":language==="KZ"?"Жағдайларды талдау":"Review cases"}</Link>
+        <Link href={`/modules/${moduleId}/tests?lang=${language}`}>{language==="RU"?"Повторить тест":language==="KZ"?"Тестті қайталау":"Retry test"}</Link>
+      </> : moduleId < modules[language].length ? <Link href={`/modules/${moduleId+1}?lang=${language}`}>{language==="RU"?"Следующий модуль →":language==="KZ"?"Келесі модуль →":"Next module →"}</Link> : null}
+    </div>}
     <p style={{margin:0,fontSize:"13px",color:"#607b8d"}}>{c.evidence}</p>
   </section>
   <div style={{overflowX:"auto"}}><table style={{width:"100%",borderCollapse:"collapse"}}><tbody>{rows.map(([name,l])=><tr key={name}><th style={{textAlign:"left",padding:"10px",borderBottom:"1px solid #dce8ef"}}>{name}</th><td style={{padding:"10px",borderBottom:"1px solid #dce8ef",fontWeight:700}}>{label(l)}</td></tr>)}</tbody></table></div>
