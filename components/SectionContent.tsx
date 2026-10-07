@@ -24,8 +24,20 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
       return <MediaContent lesson={lesson} moduleId={moduleId} language={language} />;
     case "interactive":
       return <InteractiveContent lesson={lesson} moduleId={moduleId} language={language} />;
-    case "theory":
-      return <LessonContent lesson={lesson} />;
+    case "theory": {
+      const guide = language === "RU"
+        ? {title:"Как читать эту теорию",text:"Не пытайтесь запомнить всё сразу. Для каждого механизма найдите три вещи: что меняется → почему это меняется → к какому результату приводит."}
+        : language === "KZ"
+          ? {title:"Теорияны қалай оқу керек",text:"Барлығын бірден жаттауға тырыспаңыз. Әр механизмнен үш нәрсені табыңыз: не өзгереді → неліктен өзгереді → қандай нәтижеге әкеледі."}
+          : {title:"How to read this theory",text:"Do not try to memorize everything at once. For each mechanism, find three things: what changes → why it changes → what result follows."};
+      return <>
+        <aside style={{margin:"0 0 20px",padding:"14px 16px",border:"1px solid #d6e3eb",borderRadius:12,background:"#f8fcff"}}>
+          <strong>{guide.title}</strong>
+          <p style={{margin:"6px 0 0",lineHeight:1.6}}>{guide.text}</p>
+        </aside>
+        <LessonContent lesson={lesson} />
+      </>;
+    }
     case "practice":
       return (
         <>
