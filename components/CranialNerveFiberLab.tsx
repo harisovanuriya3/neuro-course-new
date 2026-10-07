@@ -32,7 +32,7 @@ const copy={
    XI:["Добавочный","SVE","грудино-ключично-сосцевидная и трапециевидная мышцы"],
    XII:["Подъязычный","GSE","мышцы языка"]
   },
-  note:"Важно: это функциональная классификация волокон. В учебной литературе отдельные компоненты и происхождение XI нерва могут классифицироваться немного по-разному; ориентируйтесь на принятую в вашем курсе схему."
+  lesion:"Виртуальная проба: выключить нерв",normal:"Норма",deficit:"Ожидаемый дефицит",note:"Важно: это функциональная классификация волокон. В учебной литературе отдельные компоненты и происхождение XI нерва могут классифицироваться немного по-разному; ориентируйтесь на принятую в вашем курсе схему.",deficits:{I:"снижение или потеря обоняния",II:"нарушение зрения и афферентного звена зрачкового рефлекса",III:"птоз, глаз отклонён кнаружи и книзу, мидриаз, нарушение аккомодации",IV:"диплопия, особенно при взгляде вниз и внутрь",V:"снижение чувствительности лица, слабость жевательных мышц; ослабление афферентного звена корнеального рефлекса",VI:"невозможность нормально отвести глаз кнаружи, горизонтальная диплопия",VII:"слабость мимических мышц, нарушение эфферентного звена корнеального рефлекса; возможны нарушения вкуса и секреции",VIII:"снижение слуха, шум, головокружение или нарушение равновесия",IX:"нарушение вкуса задней 1/3 языка и афферентного звена глоточного рефлекса; дисфагия возможна",X:"дисфония, дисфагия, отклонение язычка от стороны поражения и нарушение парасимпатической/висцеральной функции",XI:"слабость поворота головы и подъёма плеча",XII:"язык отклоняется в сторону периферического поражения; слабость движений языка"}
  },
  EN:{
   title:"Cranial nerves and fiber types",intro:"Choose a fiber type to see its function and related cranial nerves. Then choose a nerve to see its fiber composition.",
@@ -49,7 +49,7 @@ const copy={
   nerves:{
    I:["Olfactory","SVA","smell"],II:["Optic","SSA","vision"],III:["Oculomotor","GSE + GVE","eye movement, eyelid elevation, pupillary constriction and accommodation"],IV:["Trochlear","GSE","superior oblique muscle"],V:["Trigeminal","GSA + SVE","facial sensation and muscles of mastication"],VI:["Abducens","GSE","lateral rectus muscle"],VII:["Facial","SVE + GVE + SVA + GSA","facial expression, lacrimal/salivary glands, taste from anterior 2/3 of tongue, small somatic sensory component"],VIII:["Vestibulocochlear","SSA","hearing and balance"],IX:["Glossopharyngeal","SVE + GVE + SVA + GVA + GSA","swallowing, parotid gland, taste from posterior 1/3 of tongue, carotid receptors, pharyngeal sensation"],X:["Vagus","SVE + GVE + SVA + GVA + GSA","swallowing/voice, parasympathetic control of thoracic and abdominal organs, visceral sensation"],XI:["Accessory","SVE","sternocleidomastoid and trapezius"],XII:["Hypoglossal","GSE","tongue muscles"]
   },
-  note:"This is a functional fiber classification. Some textbooks classify individual components, especially the accessory nerve, slightly differently; follow the scheme used in your course."
+  lesion:"Virtual test: switch off nerve",normal:"Normal",deficit:"Expected deficit",note:"This is a functional fiber classification. Some textbooks classify individual components, especially the accessory nerve, slightly differently; follow the scheme used in your course.",deficits:{I:"reduced or absent smell",II:"visual loss and impaired afferent limb of the pupillary light reflex",III:"ptosis, eye down and out, mydriasis, impaired accommodation",IV:"diplopia, especially looking down and in",V:"reduced facial sensation and weak mastication; impaired afferent corneal reflex",VI:"impaired eye abduction with horizontal diplopia",VII:"facial weakness and impaired efferent corneal reflex; taste/secretory deficits may occur",VIII:"hearing loss, tinnitus, vertigo, or balance problems",IX:"loss of taste from posterior tongue and impaired afferent gag reflex; dysphagia may occur",X:"dysphonia, dysphagia, uvula deviation away from the lesion, and autonomic/visceral dysfunction",XI:"weak head turn and shoulder elevation",XII:"tongue deviates toward a peripheral lesion with tongue weakness"}
  },
  KZ:{
   title:"Бассүйек нервтері және талшық түрлері",intro:"Талшық түрін таңдап, оның қызметі мен қай бассүйек нервтерінде кездесетінін көріңіз. Кейін нервтің құрамын қараңыз.",
@@ -66,7 +66,7 @@ const copy={
   nerves:{
    I:["Иіс сезу","SVA","иіс сезу"],II:["Көру","SSA","көру"],III:["Көз қимылдатқыш","GSE + GVE","көз қозғалысы, қабақты көтеру, қарашықты тарылту және аккомодация"],IV:["Шығыршық","GSE","көздің жоғарғы қиғаш бұлшықеті"],V:["Үшкіл","GSA + SVE","бет сезімталдығы және шайнау бұлшықеттері"],VI:["Әкеткіш","GSE","көздің латералды тік бұлшықеті"],VII:["Бет","SVE + GVE + SVA + GSA","мимика, жас/сілекей бездері, тілдің алдыңғы 2/3 дәмі, шағын соматикалық сезімталдық"],VIII:["Кіреберіс-ұлу","SSA","есту және тепе-теңдік"],IX:["Тіл-жұтқыншақ","SVE + GVE + SVA + GVA + GSA","жұту, құлақмаңы безі, тілдің артқы 1/3 дәмі, каротид рецепторлары, жұтқыншақ сезімталдығы"],X:["Кезбе","SVE + GVE + SVA + GVA + GSA","жұту/дауыс, кеуде және құрсақ мүшелерінің парасимпатикалық реттелуі, висцералдық сезімталдық"],XI:["Қосымша","SVE","төс-бұғана-емізікше және трапеция тәрізді бұлшықеттер"],XII:["Тіласты","GSE","тіл бұлшықеттері"]
   },
-  note:"Бұл функционалдық талшық жіктемесі. Кейбір оқулықтарда жеке компоненттер, әсіресе XI нерв, сәл басқаша жіктелуі мүмкін; курста қабылданған сызбаны ұстаныңыз."
+  lesion:"Виртуалды сынама: нервті ажырату",normal:"Қалыпты",deficit:"Күтілетін тапшылық",note:"Бұл функционалдық талшық жіктемесі. Кейбір оқулықтарда жеке компоненттер, әсіресе XI нерв, сәл басқаша жіктелуі мүмкін; курста қабылданған сызбаны ұстаныңыз.",deficits:{I:"иіс сезудің төмендеуі немесе жоғалуы",II:"көрудің бұзылысы және қарашық жарық рефлексінің афференттік бөлігінің бұзылысы",III:"птоз, көздің сыртқа және төмен ауытқуы, мидриаз, аккомодацияның бұзылысы",IV:"әсіресе төмен және ішке қарағанда диплопия",V:"бет сезімталдығының төмендеуі, шайнау әлсіздігі; корнеалдық рефлекстің афференттік бөлігінің әлсіреуі",VI:"көзді сыртқа әкетудің бұзылысы және көлденең диплопия",VII:"мимикалық әлсіздік және корнеалдық рефлекстің эфференттік бөлігінің бұзылысы; дәм/секреция бұзылыстары болуы мүмкін",VIII:"естудің төмендеуі, құлақтағы шу, бас айналу немесе тепе-теңдік бұзылысы",IX:"тілдің артқы 1/3 дәмінің және жұтқыншақ рефлексінің афференттік бөлігінің бұзылысы; дисфагия болуы мүмкін",X:"дисфония, дисфагия, тілшіктің зақымнан қарама-қарсы жаққа ауытқуы және вегетативтік/висцералдық бұзылыстар",XI:"басты бұру және иықты көтеру әлсіздігі",XII:"тіл перифериялық зақым жағына ауытқиды, тіл қимылы әлсірейді"}
  }
 } as const;
 
@@ -74,6 +74,7 @@ export default function CranialNerveFiberLab({language}:{language:Language}){
  const t=copy[language];
  const [fiber,setFiber]=useState<Fiber>("GSA");
  const [nerve,setNerve]=useState("V");
+ const [lesion,setLesion]=useState(false);
  const f=t.fibers[fiber];
  const n=t.nerves[nerve as keyof typeof t.nerves];
  const fiberKeys=Object.keys(t.fibers) as Fiber[];
@@ -89,6 +90,8 @@ export default function CranialNerveFiberLab({language}:{language:Language}){
   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{nerveKeys.map(k=><button key={k} type="button" aria-pressed={nerve===k} onClick={()=>setNerve(k)}>{k}</button>)}</div>
   <div style={{marginTop:10,padding:"12px 14px",background:"#f8fcff",borderRadius:12}}>
    <p><strong>{nerve}. {n[0]}</strong></p><p><strong>{t.composition}:</strong> {n[1]}</p><p>{n[2]}</p>
+   <button type="button" aria-pressed={lesion} onClick={()=>setLesion(v=>!v)}>{t.lesion}</button>
+   <p style={{marginTop:10}}><strong>{lesion?t.deficit:t.normal}:</strong> {lesion?t.deficits[nerve as keyof typeof t.deficits]:n[2]}</p>
   </div>
   <p style={{fontSize:14}}>{t.note}</p>
  </section>;
