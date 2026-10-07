@@ -1,0 +1,27 @@
+"use client";
+
+import {useMemo,useState} from "react";
+import type {Language} from "../content/course";
+
+const T={
+ RU:{title:"Виртуальная лаборатория: мозговой кровоток, ликвор и ГЭБ",intro:"Изменяйте артериальное давление и внутричерепное давление. Сначала сделайте прогноз, затем сравните его с моделью.",map:"Среднее артериальное давление",icp:"Внутричерепное давление",cpp:"Условное перфузионное давление",predict:"Ваш прогноз",run:"Запустить модель",result:"Что получилось",bbb:"Гематоэнцефалический барьер",bbbNormal:"ГЭБ избирательно ограничивает переход многих веществ из крови в нервную ткань и помогает сохранять стабильную микросреду.",bbbLeak:"При нарушении барьерной функции в ткань легче проходят вода и некоторые вещества; это может способствовать отёку и нарушению нейронной функции.",toggle:"Смоделировать нарушение ГЭБ",restore:"Вернуть норму",csf:"Ликвор",csfText:"Ликвор образуется преимущественно сосудистыми сплетениями, циркулирует по желудочкам и субарахноидальному пространству и участвует в механической защите и поддержании среды мозга.",note:"Учебная модель: перфузия мозга зависит не только от разности давлений, но и от сосудистого сопротивления, ауторегуляции, газового состава крови и состояния сосудов. Проценты здесь не являются клиническими порогами."},
+ EN:{title:"Virtual lab: cerebral blood flow, CSF, and the BBB",intro:"Change arterial and intracranial pressure. Make a prediction first, then compare it with the model.",map:"Mean arterial pressure",icp:"Intracranial pressure",cpp:"Modeled perfusion pressure",predict:"Your prediction",run:"Run model",result:"Result",bbb:"Blood–brain barrier",bbbNormal:"The BBB selectively limits entry of many substances from blood into neural tissue and helps keep the brain microenvironment stable.",bbbLeak:"If barrier function is disrupted, water and some substances enter tissue more easily, which may promote edema and disturb neural function.",toggle:"Simulate BBB disruption",restore:"Restore normal barrier",csf:"Cerebrospinal fluid",csfText:"CSF is produced mainly by the choroid plexuses, circulates through the ventricles and subarachnoid space, and contributes to mechanical protection and a stable brain environment.",note:"Teaching model: cerebral perfusion also depends on vascular resistance, autoregulation, blood gases, and vessel condition. The percentages shown are not clinical thresholds."},
+ KZ:{title:"Виртуалды зертхана: ми қанайналымы, ликвор және ГЭБ",intro:"Артериялық және бассүйекішілік қысымды өзгертіңіз. Алдымен болжам жасап, кейін модель нәтижесімен салыстырыңыз.",map:"Орташа артериялық қысым",icp:"Бассүйекішілік қысым",cpp:"Шартты перфузиялық қысым",predict:"Сіздің болжамыңыз",run:"Модельді іске қосу",result:"Нәтиже",bbb:"Гематоэнцефалдық бөгет",bbbNormal:"ГЭБ көптеген заттардың қаннан жүйке тініне өтуін таңдамалы шектеп, ми микроортасының тұрақтылығын сақтауға көмектеседі.",bbbLeak:"Бөгет қызметі бұзылса, су мен кейбір заттар тінге оңай өтеді; бұл ісінуге және нейрон қызметінің бұзылысына ықпал етуі мүмкін.",toggle:"ГЭБ бұзылуын модельдеу",restore:"Қалыпты күйге қайтару",csf:"Жұлын-ми сұйықтығы",csfText:"Ликвор негізінен тамыр өрімдерінде түзіліп, қарыншалар мен субарахноидтық кеңістікте айналады және миды механикалық қорғауға әрі тұрақты ортаға үлес қосады.",note:"Оқу моделі: ми перфузиясы тамыр кедергісіне, аутореттелуге, қан газдарына және тамыр күйіне де тәуелді. Мұндағы пайыздар клиникалық шек емес."}
+} as const;
+
+export default function CerebralHomeostasisLab({language}:{language:Language}){
+ const t=T[language];
+ const [map,setMap]=useState(90),[icp,setIcp]=useState(10),[prediction,setPrediction]=useState(""),[ran,setRan]=useState(false),[bbbLeak,setBbbLeak]=useState(false);
+ const cpp=Math.max(0,map-icp);
+ const index=useMemo(()=>Math.max(0,Math.min(100,Math.round(cpp/80*100))),[cpp]);
+ return <section style={{margin:"28px 0",padding:20,border:"1px solid #cfe0ea",borderRadius:16,background:"#fff"}}>
+  <h2>{t.title}</h2><p>{t.intro}</p>
+  <label>{t.predict}<textarea rows={2} value={prediction} onChange={e=>{setPrediction(e.target.value);setRan(false)}} style={{width:"100%"}}/></label>
+  <label style={{display:"block",marginTop:10}}>{t.map}: <strong>{map}</strong><input type="range" min="50" max="130" value={map} onChange={e=>{setMap(+e.target.value);setRan(false)}} style={{width:"100%"}}/></label>
+  <label style={{display:"block",marginTop:10}}>{t.icp}: <strong>{icp}</strong><input type="range" min="5" max="40" value={icp} onChange={e=>{setIcp(+e.target.value);setRan(false)}} style={{width:"100%"}}/></label>
+  <button type="button" disabled={prediction.trim().length<8} onClick={()=>setRan(true)} style={{marginTop:10}}>{t.run}</button>
+  {ran&&<div style={{marginTop:12,padding:14,borderRadius:12,background:"#f8fcff"}}><p><strong>{t.result}: {t.cpp} ≈ {cpp}; {index}%</strong></p><div style={{height:14,borderRadius:999,background:"#e5edf2",overflow:"hidden"}}><div style={{height:"100%",width:`${index}%`,background:"linear-gradient(90deg,#9ec8df,#39799f)",transition:"width .5s ease"}}/></div></div>}
+  <h3>{t.bbb}</h3><button type="button" aria-pressed={bbbLeak} onClick={()=>setBbbLeak(v=>!v)}>{bbbLeak?t.restore:t.toggle}</button><p style={{padding:"12px 14px",borderRadius:12,background:bbbLeak?"#fff1ec":"#f8fcff"}}>{bbbLeak?t.bbbLeak:t.bbbNormal}</p>
+  <h3>{t.csf}</h3><p>{t.csfText}</p><p><small>{t.note}</small></p>
+ </section>
+}
