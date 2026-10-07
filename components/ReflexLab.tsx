@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Language } from "../content/course";
 import ExperimentReflection from "./ExperimentReflection";
+import {recordOutcome} from "../lib/courseProgress";
 import styles from "./ReflexLab.module.css";
 
 type Condition = "intact" | "receptor" | "afferent" | "spinal" | "efferent";
@@ -80,7 +81,7 @@ export default function ReflexLab({ language }: { language: Language }) {
 
   function changeCondition(next: Condition) { setCondition(next); setExcluded(next === "intact" ? new Set() : new Set([next])); setPrediction(null); setStage(-1); setRunning(false); }
   function togglePart(part: Exclude<Condition,"intact">) { if (running || stage >= 0) return; const next = new Set(excluded); if (next.has(part)) next.delete(part); else next.add(part); setExcluded(next); const first = (["receptor","afferent","spinal","efferent"] as const).find(x=>next.has(x)); setCondition(first ?? "intact"); setPrediction(null); }
-  function start() { if (!prediction) return; setPaused(false); setStage(0); setRunning(true); }
+  function start() { if (!prediction) return; const actual: Prediction = condition === "intact" ? "moves" : "still"; recordOutcome(7,"interactive",prediction === actual ? 1 : 0,1); recordOutcome(7,"criterion:mechanism:reflex-arc",prediction === actual ? 1 : 0,1); setPaused(false); setStage(0); setRunning(true); }
   function reset() { setPrediction(null); setStage(-1); setRunning(false); setPaused(false); }
 
   return <section id="reflex-lab" className={styles.lab} aria-labelledby="reflex-lab-title" lang={language === "KZ" ? "kk" : language.toLowerCase()}>
