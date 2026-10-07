@@ -24,7 +24,7 @@ export default function NeuromuscularJunctionLab({language}:{language:Language})
    <div style={{padding:12,background:"#f8fcff",borderRadius:12}}><strong>{t.signal}: {transmission}%</strong><div style={{height:12,marginTop:8,background:"#e5edf2",borderRadius:999,overflow:"hidden"}}><div style={{height:"100%",width:`${transmission}%`,background:"linear-gradient(90deg,#9cc7df,#3d7ca4)",transition:"width .45s"}}/></div></div>
    <div style={{padding:12,background:"#f8fcff",borderRadius:12}}><strong>{t.muscle}: {muscle}%</strong><div style={{height:12,marginTop:8,background:"#e5edf2",borderRadius:999,overflow:"hidden"}}><div style={{height:"100%",width:`${muscle}%`,background:"linear-gradient(90deg,#a8cfae,#4b8a57)",transition:"width .45s"}}/></div></div>
   </div>}
-  {revealed&&<label style={{display:"block",marginTop:12}}>{t.explain}<textarea rows={3} value={explanation} onChange={e=>{const v=e.target.value;setExplanation(v);if(v.trim().length>=30)recordOutcome(5,"criterion:justification:nmj",1,1)}} style={{width:"100%"}}/></label>
+  {revealed&&<label style={{display:"block",marginTop:12}}>{t.explain}<textarea rows={3} value={explanation} onChange={e=>{const v=e.target.value;setExplanation(v);if(v.trim().length>=30)recordOutcome(5,"criterion:justification:nmj",1,1)}} style={{width:"100%"}}/></label>}
   <p><small>{t.note}</small></p>
  </section>
 }
