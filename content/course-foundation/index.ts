@@ -87,33 +87,33 @@ const sources: Record<string, { title: string; href: string }> = {
 
 const copy = {
   RU: {
-    mechanism: 'Как работает механизм',
-    interpretation: 'Как интерпретировать результат',
+    mechanism: 'Как это работает',
+    interpretation: 'Что означает результат',
 
     goals:
-      'После изучения объясните механизм и обоснуйте ответ на вопрос:',
+      'После изучения вы сможете простыми словами объяснить тему и ответить на вопрос:',
 
-    outcomes: 'Проверка понимания',
+    outcomes: 'Проверьте, поняли ли вы главное',
     terms: 'Ключевые термины',
-    summary: 'Основная идея и границы вывода',
+    summary: 'Главное по теме',
 
-    task: 'Задание для самостоятельного разбора',
-    question: 'Объясните своими словами',
+    task: 'Попробуйте самостоятельно',
+    question: 'Объясните простыми словами',
 
-    response: 'Ваш прогноз, объяснение и вывод',
-    criteria: 'Критерии самопроверки',
+    response: 'Ваш ответ',
+    criteria: 'Проверьте себя',
 
     checklist: [
-      'Указан механизм и направление причинной связи.',
-      'Прогноз обоснован, а наблюдение отделено от интерпретации.',
-      'Указано, что нельзя заключить по этим данным.',
+      'Я написал(а), что изменилось.',
+      'Я объяснил(а), почему это произошло.',
+      'Я указал(а), к какому результату это привело и чего по этим данным утверждать нельзя.',
     ],
 
     practiceIntro:
-      'Сначала сформулируйте ответ. Затем сопоставьте его с объяснением и источниками. Это самостоятельная работа без автоматической оценки.',
+      'Сначала ответьте своими словами. Затем откройте объяснение и сравните: что совпало, а что стоит исправить.',
 
     questionsIntro:
-      'Запишите ответ перед открытием объяснения. Сравнивайте причинные связи, а не совпадение слов.',
+      'Сначала ответьте сами, затем откройте объяснение. Не нужно повторять текст дословно — важно правильно передать смысл.',
 
     referenceIntro:
       'Рекомендуемые источники для уточнения физиологических механизмов и самостоятельного чтения.',
@@ -128,33 +128,33 @@ const copy = {
   },
 
   EN: {
-    mechanism: 'How the mechanism works',
-    interpretation: 'Interpreting the result',
+    mechanism: 'How it works',
+    interpretation: 'What the result means',
 
     goals:
-      'After studying, explain the mechanism and justify your answer to:',
+      'After this module, explain the topic in simple words and answer:',
 
-    outcomes: 'Check your understanding',
+    outcomes: 'Check that you understood the key idea',
     terms: 'Key terms',
-    summary: 'Main idea and limits of inference',
+    summary: 'The key idea',
 
-    task: 'Independent analysis task',
-    question: 'Explain in your own words',
+    task: 'Try it yourself',
+    question: 'Explain it in simple words',
 
-    response: 'Your prediction, explanation and conclusion',
-    criteria: 'Self-check criteria',
+    response: 'Your answer',
+    criteria: 'Check your answer',
 
     checklist: [
-      'Identify the mechanism and direction of causality.',
-      'Justify your prediction; separate observation from interpretation.',
-      'State what these data cannot establish.',
+      'I stated what changed.',
+      'I explained why it changed.',
+      'I stated the result and what cannot be concluded from these data.',
     ],
 
     practiceIntro:
-      'Write your answer first, then compare it with the explanation and sources. This is independent work without automated grading.',
+      'Answer in your own words first. Then open the explanation and compare what you got right and what needs correction.',
 
     questionsIntro:
-      'Write your answer before opening the explanation. Compare causal reasoning rather than matching words.',
+      'Answer first, then open the explanation. You do not need the exact wording; the meaning is what matters.',
 
     referenceIntro:
       'Recommended sources for clarifying physiological mechanisms and further reading.',
@@ -169,8 +169,8 @@ const copy = {
   },
 
   KZ: {
-    mechanism: 'Тетіктің жұмыс істеуі',
-    interpretation: 'Нәтижені түсіндіру',
+    mechanism: 'Бұл қалай жұмыс істейді',
+    interpretation: 'Нәтиже нені білдіреді',
 
     goals:
       'Тақырыпты оқығаннан кейін тетікті түсіндіріп, мына сұраққа жауабыңызды негіздеңіз:',
@@ -179,16 +179,16 @@ const copy = {
     terms: 'Негізгі терминдер',
     summary: 'Негізгі ой және қорытынды шектеулері',
 
-    task: 'Өздігінен талдауға арналған тапсырма',
-    question: 'Өз сөзіңізбен түсіндіріңіз',
+    task: 'Өзіңіз орындап көріңіз',
+    question: 'Қарапайым сөзбен түсіндіріңіз',
 
-    response: 'Сіздің болжамыңыз, түсіндірмеңіз және қорытындыңыз',
-    criteria: 'Өзін-өзі тексеру өлшемдері',
+    response: 'Сіздің жауабыңыз',
+    criteria: 'Өзіңізді тексеріңіз',
 
     checklist: [
-      'Тетік пен себеп-салдар байланысының бағыты көрсетілген.',
-      'Болжам негізделіп, бақылау түсіндіруден ажыратылған.',
-      'Бұл деректерден қандай қорытынды жасауға болмайтыны көрсетілген.',
+      'Мен не өзгергенін жаздым.',
+      'Мен оның неліктен өзгергенін түсіндірдім.',
+      'Мен нәтижені және бұл деректерден нені айтуға болмайтынын көрсеттім.',
     ],
 
     practiceIntro:
@@ -392,7 +392,7 @@ function create(
 
   if (section === 'clinical') {
     const labels = language === 'RU'
-      ? { bridge: 'Клинический мост', observe: 'Что наблюдаем', explain: 'Как объяснить', limit: 'Граница вывода' }
+      ? { bridge: 'Связь с клиникой', observe: 'Что видим', explain: 'Почему так происходит', limit: 'Что важно не перепутать' }
       : language === 'EN'
         ? { bridge: 'Clinical bridge', observe: 'What we observe', explain: 'How to explain it', limit: 'Limit of inference' }
         : { bridge: 'Клиникалық көпір', observe: 'Не байқаймыз', explain: 'Қалай түсіндіреміз', limit: 'Қорытынды шегі' };
@@ -548,14 +548,14 @@ function create(
         },
 
         {
-          title: language === 'RU' ? 'Прогноз → наблюдение → объяснение' : language === 'EN' ? 'Prediction → observation → explanation' : 'Болжам → бақылау → түсіндіру',
+          title: language === 'RU' ? 'Предположите → проверьте → объясните' : language === 'EN' ? 'Predict → check → explain' : 'Болжаңыз → тексеріңіз → түсіндіріңіз',
           blocks: [
             {
               type: 'paragraph',
               text: language === 'RU'
-                ? 'До выполнения задания запишите ожидаемый результат и причинный механизм. После выполнения отдельно зафиксируйте наблюдение: не подменяйте его объяснением.'
+                ? 'Сначала напишите, что, по вашему мнению, произойдёт. После задания запишите, что получилось на самом деле, а затем объясните почему.'
                 : language === 'EN'
-                  ? 'Before the task, record the expected result and causal mechanism. After the task, record the observation separately; do not replace observation with explanation.'
+                  ? 'First write what you think will happen. After the task, record what actually happened and then explain why.'
                   : 'Тапсырмаға дейін күтілетін нәтижені және себептік тетікті жазыңыз. Орындағаннан кейін бақылауды бөлек тіркеңіз; бақылауды түсіндірумен алмастырмаңыз.',
             },
             { type: 'response', label: language === 'RU' ? 'Мой прогноз' : language === 'EN' ? 'My prediction' : 'Менің болжамым' },
@@ -564,7 +564,7 @@ function create(
           ],
         },
         {
-          title: language === 'RU' ? 'Перенос и границы вывода' : language === 'EN' ? 'Transfer and limits of inference' : 'Тасымалдау және қорытынды шектері',
+          title: language === 'RU' ? 'Попробуйте в новой ситуации' : language === 'EN' ? 'Try it in a new situation' : 'Жаңа жағдайда қолданып көріңіз',
           blocks: [
             { type: 'paragraph', text: question },
             { type: 'response', label: language === 'RU' ? 'Как изменится результат в новой ситуации и почему?' : language === 'EN' ? 'How would the result change in a new situation, and why?' : 'Жаңа жағдайда нәтиже қалай өзгереді және неге?' },
@@ -601,25 +601,25 @@ function create(
         },
         {
           id: `module-${topic.id}-review-mechanism`,
-          prompt: language === 'RU' ? 'Опишите причинную цепочку механизма по шагам. Как изменение первого звена повлияет на результат?' : language === 'EN' ? 'Describe the causal mechanism step by step. How would changing the first link affect the result?' : 'Себептік тетікті қадамдап сипаттаңыз. Бірінші буын өзгерсе, нәтиже қалай өзгереді?',
+          prompt: language === 'RU' ? 'Объясните по шагам: что происходит сначала, что затем и к какому результату это приводит?' : language === 'EN' ? 'Describe the causal mechanism step by step. How would changing the first link affect the result?' : 'Себептік тетікті қадамдап сипаттаңыз. Бірінші буын өзгерсе, нәтиже қалай өзгереді?',
           explanation: mechanism,
           target: { section: 'theory' },
         },
         {
           id: `module-${topic.id}-review-interpretation`,
-          prompt: language === 'RU' ? 'Какой наблюдаемый результат согласуется с этим механизмом и что он сам по себе не доказывает?' : language === 'EN' ? 'Which observable result is consistent with this mechanism, and what does that result not prove by itself?' : 'Қандай байқалатын нәтиже осы тетікке сәйкес келеді және ол өздігінен нені дәлелдемейді?',
+          prompt: language === 'RU' ? 'Какой результат вы ожидаете увидеть? Что этот результат ещё не позволяет утверждать?' : language === 'EN' ? 'Which observable result is consistent with this mechanism, and what does that result not prove by itself?' : 'Қандай байқалатын нәтиже осы тетікке сәйкес келеді және ол өздігінен нені дәлелдемейді?',
           explanation: interpretation,
           target: { section: 'practice' },
         },
         {
           id: `module-${topic.id}-review-transfer`,
-          prompt: language === 'RU' ? 'Перенесите механизм в новую ситуацию: сначала сделайте прогноз, затем обоснуйте его причинной связью.' : language === 'EN' ? 'Transfer the mechanism to a new situation: make a prediction, then justify it causally.' : 'Тетікті жаңа жағдайға қолданыңыз: алдымен болжам жасаңыз, кейін оны себептік байланыспен негіздеңіз.',
+          prompt: language === 'RU' ? 'Представьте похожую новую ситуацию. Что изменится и почему?' : language === 'EN' ? 'Transfer the mechanism to a new situation: make a prediction, then justify it causally.' : 'Тетікті жаңа жағдайға қолданыңыз: алдымен болжам жасаңыз, кейін оны себептік байланыспен негіздеңіз.',
           explanation: topic.task[language],
           target: { section: 'cases' },
         },
         {
           id: `module-${topic.id}-review-justification`,
-          prompt: language === 'RU' ? 'Какое дополнительное наблюдение или сравнение усилило бы ваш вывод и почему?' : language === 'EN' ? 'What additional observation or comparison would strengthen your conclusion, and why?' : 'Қандай қосымша бақылау немесе салыстыру қорытындыңызды күшейтер еді және неге?',
+          prompt: language === 'RU' ? 'Что ещё вы бы проверили, чтобы увереннее сделать вывод?' : language === 'EN' ? 'What additional observation or comparison would strengthen your conclusion, and why?' : 'Қандай қосымша бақылау немесе салыстыру қорытындыңызды күшейтер еді және неге?',
           explanation: `${mechanism} ${interpretation}`,
           target: { section: 'tests' },
         },
