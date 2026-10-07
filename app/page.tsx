@@ -17,30 +17,30 @@ const ui: Record<
   }
 > = {
   RU: {
-    title: "Содержание курса",
-    subtitle: "Выберите учебный модуль",
+    title: "Нейрофизиология: 25 модулей",
+    subtitle: "Выберите тему. В каждом модуле есть короткое объяснение, практика, задачи, лаборатория и самопроверка.",
     module: "Модуль",
-    open: "Открыть модуль →",
+    open: "Начать модуль →",
     exam: "Экзаменационный центр",
-    examDescription: "Итоговый контроль без подсказок во время попытки",
+    examDescription: "Когда будете готовы, проверьте себя без подсказок. Разбор появится после завершения.",
   },
 
   KZ: {
-    title: "Курс мазмұны",
-    subtitle: "Оқу модулін таңдаңыз",
+    title: "Нейрофизиология: 25 модуль",
+    subtitle: "Тақырыпты таңдаңыз. Әр модульде қысқа түсіндіру, практика, есептер, зертхана және өзін-өзі тексеру бар.",
     module: "Модуль",
-    open: "Модульді ашу →",
+    open: "Модульді бастау →",
     exam: "Емтихан орталығы",
-    examDescription: "Талпыныс кезінде кеңессіз қорытынды бақылау",
+    examDescription: "Дайын болғанда кеңессіз өзіңізді тексеріңіз. Талдау аяқталғаннан кейін ашылады.",
   },
 
   EN: {
-    title: "Course Contents",
-    subtitle: "Choose a learning module",
+    title: "Neurophysiology: 25 modules",
+    subtitle: "Choose a topic. Each module includes a short explanation, practice, cases, a lab, and self-checks.",
     module: "Module",
-    open: "Open module →",
+    open: "Start module →",
     exam: "Exam Center",
-    examDescription: "Summative assessment without hints during the attempt",
+    examDescription: "When you are ready, check yourself without hints. Review appears after you finish.",
   },
 };
 
