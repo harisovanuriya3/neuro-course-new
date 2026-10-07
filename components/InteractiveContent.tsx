@@ -36,6 +36,8 @@ import PlasticityLab from "./PlasticityLab";
 import ReflexLearningLab from "./ReflexLearningLab";
 import CranialNerveFiberLab from "./CranialNerveFiberLab";
 import FunctionalCentersLab from "./FunctionalCentersLab";
+import CerebralHomeostasisLab from "./CerebralHomeostasisLab";
+import AgeNeurophysiologyPanel from "./AgeNeurophysiologyPanel";
 
 type UI = InteractiveLesson["ui"];
 
@@ -156,7 +158,7 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {card(lesson.organization, <Organization diagram={lesson.organization} ui={ui} language={language} />)}
     {card(lesson.pathway, <Sequence id="pathway" nodes={lesson.pathway.nodes} ui={ui} loop={lesson.pathway.loop} language={language} />)}
     {moduleId === "2" && <EEGLab language={language} />}
-    {moduleId === "3" && <NerveFiberLab language={language} />}
+    {moduleId === "3" && <><NerveFiberLab language={language} /><CerebralHomeostasisLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
     {moduleId === "4" && <MembranePotentialLab language={language} />}
     {moduleId === "6" && <IntegrationExperimentLab language={language} />}
     {moduleId === "7" && <><ReflexLab language={language} /><ReflexLearningLab language={language} /></>}
@@ -174,9 +176,9 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "19" && <SomatosensoryLab language={language} />}
     {moduleId === "20" && <VisionLab language={language} />}
     {moduleId === "22" && <AutonomicLab language={language} />}
-    {moduleId === "23" && <><LearningMemoryLab language={language} /><ReflexLearningLab language={language} /><FunctionalCentersLab language={language} moduleId={23} /></>}
-    {moduleId === "24" && <SleepRhythmLab language={language} />}
-    {moduleId === "25" && <PlasticityLab language={language} />}
+    {moduleId === "23" && <><LearningMemoryLab language={language} /><ReflexLearningLab language={language} /><FunctionalCentersLab language={language} moduleId={23} /><AgeNeurophysiologyPanel language={language} /></>}
+    {moduleId === "24" && <><SleepRhythmLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
+    {moduleId === "25" && <><PlasticityLab language={language} /><CerebralHomeostasisLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
     {card(lesson.synapse, <Synapse diagram={lesson.synapse} ui={ui} language={language} />)}
     {(moduleId === "1" || moduleId === "5") && <SynapseLab language={language} />}
     {card(lesson.integration, <Integration diagram={lesson.integration} ui={ui} language={language} />)}
