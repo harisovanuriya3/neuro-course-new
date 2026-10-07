@@ -18,9 +18,9 @@ export type ExamQuestion = {
 };
 
 const ui: Record<Language, Record<string,string>> = {
- RU:{all:"Все 25 блоков",choose:"Выберите блок",start:"Начать",restart:"Новый вариант",submit:"Завершить попытку",jump:"К первому пропущенному",resume:"Незавершённая попытка восстановлена. Продолжайте с первого пропущенного задания.",locked:"Попытка завершена. Ответы больше нельзя менять; для новой попытки создайте новый вариант.",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Есть пропущенные задания. Возвращаю к первому из них.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Попытка завершена. Ниже можно спокойно разобрать ошибки.",bank:"В банке",items:"заданий",format:"В одном варианте 10 заданий: выбор ответа, письменное объяснение и, когда доступно, сборка физиологической последовательности. Ответы и объяснения появятся только после завершения.",sequence:"Соберите последовательность",undo:"Отменить",reset:"Сначала"},
- KZ:{all:"Барлық 25 блок",choose:"Блокты таңдаңыз",start:"Бастау",restart:"Жаңа нұсқа",submit:"Талпынысты аяқтау",jump:"Бірінші өткізіп алған сұраққа",resume:"Аяқталмаған талпыныс қалпына келтірілді. Бірінші жауап берілмеген тапсырмадан жалғастырыңыз.",locked:"Талпыныс бекітілді. Жауаптарды енді өзгертуге болмайды; жаңа талпыныс үшін жаңа нұсқа жасаңыз.",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Жауап берілмеген сұрақтар бар. Бірінші өткізіп алған сұраққа қайтарамын.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"Бір нұсқада 10 тапсырма: жауап таңдау, жазбаша түсіндіру және қолжетімді болса физиологиялық тізбекті құрастыру.",sequence:"Тізбекті құрастырыңыз",undo:"Болдырмау",reset:"Басынан"},
- EN:{all:"All 25 blocks",choose:"Choose a block",start:"Start",restart:"New version",submit:"Finish attempt",jump:"Go to first unanswered",resume:"Your unfinished attempt was restored. Continue from the first unanswered item.",locked:"This attempt is finalized. Answers can no longer be changed; start a new version for another attempt.",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Some questions are unanswered. Returning to the first unanswered question.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Each version contains 10 items: answer selection, written explanation, and—when available—building a physiological sequence.",sequence:"Build the sequence",undo:"Undo",reset:"Reset"}
+ RU:{all:"Все 25 блоков",choose:"Выберите блок",start:"Начать",restart:"Новый вариант",submit:"Завершить попытку",jump:"К первому пропущенному",resume:"Незавершённая попытка восстановлена. Продолжайте с первого пропущенного задания.",locked:"Попытка завершена. Ответы больше нельзя менять; для новой попытки создайте новый вариант.",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Есть пропущенные задания. Возвращаю к первому из них.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Попытка завершена. Ниже можно спокойно разобрать ошибки.",bank:"В банке",items:"заданий",format:"Выберите быстрый вариант на 10 заданий или полный на 25. В заданиях используются выбор ответа, письменное объяснение и сборка физиологической последовательности.",sequence:"Соберите последовательность",undo:"Отменить",reset:"Сначала",size:"Объём экзамена",quick:"Быстрый — 10 заданий",full:"Полный — 25 заданий"},
+ KZ:{all:"Барлық 25 блок",choose:"Блокты таңдаңыз",start:"Бастау",restart:"Жаңа нұсқа",submit:"Талпынысты аяқтау",jump:"Бірінші өткізіп алған сұраққа",resume:"Аяқталмаған талпыныс қалпына келтірілді. Бірінші жауап берілмеген тапсырмадан жалғастырыңыз.",locked:"Талпыныс бекітілді. Жауаптарды енді өзгертуге болмайды; жаңа талпыныс үшін жаңа нұсқа жасаңыз.",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Жауап берілмеген сұрақтар бар. Бірінші өткізіп алған сұраққа қайтарамын.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"10 тапсырмалық жылдам немесе 25 тапсырмалық толық нұсқаны таңдаңыз. Жауап таңдау, жазбаша түсіндіру және физиологиялық тізбек құрастыру қолданылады.",sequence:"Тізбекті құрастырыңыз",undo:"Болдырмау",reset:"Басынан",size:"Емтихан көлемі",quick:"Жылдам — 10 тапсырма",full:"Толық — 25 тапсырма"},
+ EN:{all:"All 25 blocks",choose:"Choose a block",start:"Start",restart:"New version",submit:"Finish attempt",jump:"Go to first unanswered",resume:"Your unfinished attempt was restored. Continue from the first unanswered item.",locked:"This attempt is finalized. Answers can no longer be changed; start a new version for another attempt.",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Some questions are unanswered. Returning to the first unanswered question.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Choose a quick 10-item version or a full 25-item version. Items include answer selection, written explanation, and building physiological sequences.",sequence:"Build the sequence",undo:"Undo",reset:"Reset",size:"Exam length",quick:"Quick — 10 items",full:"Full — 25 items"}
 };
 
 function shuffled<T>(items:T[]):T[]{
@@ -30,37 +30,38 @@ function shuffled<T>(items:T[]):T[]{
 }
 
 function buildVersion(bank:ExamQuestion[], count=10){
- const sequencePool=bank.filter(q=>q.sequenceItems?.length&&q.correctOrder?.length);
- const sequenceTarget=Math.min(2,sequencePool.length,count);
- const writtenTarget=Math.min(2,Math.max(0,count-sequenceTarget));
+ const sequenceTarget=Math.min(count>=20?3:2,bank.filter(q=>q.sequenceItems?.length&&q.correctOrder?.length).length,count);
+ const writtenTarget=Math.min(count>=20?5:2,Math.max(0,count-sequenceTarget));
  const mcqTarget=Math.max(0,count-sequenceTarget-writtenTarget);
  const used=new Set<string>();
+ const usedModules=new Set<number>();
  const sequence:ExamQuestion[]=[];
- for(const q of shuffled(sequencePool).slice(0,sequenceTarget)){
-   sequence.push({...q,responseType:"sequence"});
-   used.add(q.id);
+ for(const q of shuffled(bank.filter(q=>q.sequenceItems?.length&&q.correctOrder?.length))){
+   if(sequence.length>=sequenceTarget)break;
+   if(usedModules.has(q.moduleId))continue;
+   sequence.push({...q,responseType:"sequence"});used.add(q.id);usedModules.add(q.moduleId);
  }
- const byModule=new Map<number,ExamQuestion[]>();
- bank.filter(q=>!used.has(q.id)).forEach(q=>byModule.set(q.moduleId,[...(byModule.get(q.moduleId)??[]),q]));
- const modules=shuffled([...byModule.keys()]);
+ const allModules=shuffled([...new Set(bank.map(q=>q.moduleId))]);
+ const written:ExamQuestion[]=[];
+ const writtenModuleOrder=[...allModules.filter(id=>!usedModules.has(id)),...allModules.filter(id=>usedModules.has(id))];
+ for(const id of writtenModuleOrder){
+   if(written.length>=writtenTarget)break;
+   const q=shuffled(bank.filter(x=>x.moduleId===id&&x.writtenPrompt&&!x.sequenceItems&&!used.has(x.id)))[0];
+   if(q){written.push({...q,prompt:q.writtenPrompt!,responseType:"written"});used.add(q.id);usedModules.add(id);}
+ }
  const mcq:ExamQuestion[]=[];
- for(const id of modules){
-   const pool=shuffled((byModule.get(id)??[]).filter(q=>q.options.length>=2&&!q.sequenceItems));
-   if(pool[0]&&mcq.length<mcqTarget){mcq.push({...pool[0],options:shuffled(pool[0].options),responseType:"mcq"});used.add(pool[0].id);}
+ const mcqModuleOrder=[...allModules.filter(id=>!usedModules.has(id)),...allModules.filter(id=>usedModules.has(id))];
+ for(const id of mcqModuleOrder){
+   if(mcq.length>=mcqTarget)break;
+   const q=shuffled(bank.filter(x=>x.moduleId===id&&x.options.length>=2&&!x.sequenceItems&&!used.has(x.id)))[0];
+   if(q){mcq.push({...q,options:shuffled(q.options),responseType:"mcq"});used.add(q.id);usedModules.add(id);}
  }
  if(mcq.length<mcqTarget){
    for(const q of shuffled(bank.filter(q=>!used.has(q.id)&&q.options.length>=2&&!q.sequenceItems)).slice(0,mcqTarget-mcq.length)){
      mcq.push({...q,options:shuffled(q.options),responseType:"mcq"});used.add(q.id);
    }
  }
- const written:ExamQuestion[]=[];
- const writtenModules=shuffled([...new Set(bank.map(q=>q.moduleId))]);
- for(const id of writtenModules){
-   const pool=shuffled(bank.filter(q=>q.moduleId===id&&q.writtenPrompt&&!q.sequenceItems&&!used.has(q.id)));
-   const q=pool[0];
-   if(q&&written.length<writtenTarget){written.push({...q,prompt:q.writtenPrompt!,responseType:"written"});used.add(q.id);}
- }
- let result=[...sequence,...mcq,...written];
+ let result=[...sequence,...written,...mcq];
  if(result.length<count){
    const extras=shuffled(bank.filter(q=>!used.has(q.id)&&q.options.length>=2&&!q.sequenceItems)).slice(0,count-result.length).map(q=>({...q,options:shuffled(q.options),responseType:"mcq" as const}));
    result=[...result,...extras];
@@ -86,6 +87,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  const t=ui[lang];
  const [version,setVersion]=useState<ExamQuestion[]|null>(null);
  const [selectedModule,setSelectedModule]=useState<number>(0);
+ const [examSize,setExamSize]=useState<10|25>(10);
  const [answers,setAnswers]=useState<Record<string,string>>({});
  const [written,setWritten]=useState<Record<string,string>>({});
  const [sequences,setSequences]=useState<Record<string,string[]>>({});
@@ -113,6 +115,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
      if(raw&&typeof raw==="object"&&Array.isArray(raw.version)){
        setVersion(raw.version);
        setSelectedModule(Number.isInteger(raw.selectedModule)?raw.selectedModule:0);
+       setExamSize(raw.examSize===25?25:10);
        setAnswers(raw.answers&&typeof raw.answers==="object"?raw.answers:{});
        setWritten(raw.written&&typeof raw.written==="object"?raw.written:{});
        setSequences(raw.sequences&&typeof raw.sequences==="object"?raw.sequences:{});
@@ -126,9 +129,9 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
    if(!hydrated)return;
    try{
      if(!version)localStorage.removeItem(storageKey);
-     else localStorage.setItem(storageKey,JSON.stringify({version,selectedModule,answers,written,sequences,finished}));
+     else localStorage.setItem(storageKey,JSON.stringify({version,selectedModule,examSize,answers,written,sequences,finished}));
    }catch{/* Optional local storage */}
- },[hydrated,storageKey,version,selectedModule,answers,written,sequences,finished]);
+ },[hydrated,storageKey,version,selectedModule,examSize,answers,written,sequences,finished]);
  useEffect(()=>{
    if(!hydrated||!version||finished)return;
    const missing=version.find(q=>q.responseType==="written"?!written[q.id]?.trim():q.responseType==="sequence"?(sequences[q.id]?.length??0)!==(q.sequenceItems?.length??0):!answers[q.id]);
@@ -139,9 +142,14 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
 
 
  const firstMissing=version?.find(q=>q.responseType==="written"?!written[q.id]?.trim():q.responseType==="sequence"?(sequences[q.id]?.length??0)!==(q.sequenceItems?.length??0):!answers[q.id]);
- const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,Math.min(10,pool.length)));setAnswers({});setWritten({});setSequences({});setFinished(false);setWarning("");setRestored(false);window.scrollTo({top:0,behavior:"smooth"});};
+ const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,Math.min(examSize,pool.length)));setAnswers({});setWritten({});setSequences({});setFinished(false);setWarning("");setRestored(false);window.scrollTo({top:0,behavior:"smooth"});};
  if(!version) return <section style={{marginTop:24,border:"2px solid #86aac4",borderRadius:16,padding:22}}>
    <p><strong>{t.bank}: {bank.length} {t.items}.</strong></p><p>{t.format}</p>
+   <label style={{display:"block",fontWeight:700,margin:"18px 0 8px"}}>{t.size}</label>
+   <div style={{display:"flex",gap:10,flexWrap:"wrap",marginBottom:14}}>
+    <button type="button" aria-pressed={examSize===10} onClick={()=>setExamSize(10)} style={{padding:"9px 12px",borderRadius:9}}>{t.quick}</button>
+    <button type="button" aria-pressed={examSize===25} onClick={()=>setExamSize(25)} style={{padding:"9px 12px",borderRadius:9}}>{t.full}</button>
+   </div>
    <label style={{display:"block",fontWeight:700,margin:"18px 0 8px"}}>{t.choose}</label>
    <select value={selectedModule} onChange={e=>setSelectedModule(Number(e.target.value))} style={{width:"100%",maxWidth:760,padding:"12px",borderRadius:10,marginBottom:16}}>
     <option value={0}>{t.all}</option>
