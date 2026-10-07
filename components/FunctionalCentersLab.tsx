@@ -98,13 +98,16 @@ export default function FunctionalCentersLab({language,moduleId=18}:{language:La
  const initial:CenterKey=moduleId===10?"brainstem":moduleId===23?"hippocampus":"broca";
  const [selected,setSelected]=useState<CenterKey>(initial);
  const [lesion,setLesion]=useState(false);
+ const [prediction,setPrediction]=useState("");
+ const [reflection,setReflection]=useState("");
  const c=t.centers[selected];
  return <section style={{margin:"24px 0",padding:18,border:"1px solid #cfe0ea",borderRadius:16,background:"#fff"}}>
   <h2>{t.title}</h2><p>{t.intro}</p>{moduleId===23?<AdvancedAnatomyReference moduleId={23} language={language}/>:moduleId===10?<AnatomyReference moduleId={10} language={language}/>:<><AnatomyReference moduleId={18} language={language}/><AdvancedAnatomyReference moduleId={18} language={language}/></>}<div aria-hidden="true" style={{height:6,borderRadius:999,background:"linear-gradient(90deg,#dceefa,#9ac4de,#dceefa)",backgroundSize:"200% 100%",animation:"centerFlow 3s linear infinite",margin:"12px 0 18px"}}/>
   <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-   {keys.map(k=><button key={k} type="button" aria-pressed={selected===k} onClick={()=>{setSelected(k);setLesion(false)}}>{t.centers[k][0]}</button>)}
+   {keys.map(k=><button key={k} type="button" aria-pressed={selected===k} onClick={()=>{setSelected(k);setLesion(false);setPrediction("");setReflection("")}}>{t.centers[k][0]}</button>)}
   </div>
-  <button type="button" onClick={()=>setLesion(v=>{const next=!v;if(next){recordOutcome(moduleId,"interactive",1,1);recordOutcome(moduleId,"criterion:clinical:center-lesion",1,1)}return next})} style={{marginTop:14,padding:"10px 14px",borderRadius:10,fontWeight:700}}>{lesion?t.restore:t.simulate}</button>
+  <label style={{display:"block",marginTop:14,fontWeight:700}}>{language==="RU"?"Сначала предскажите дефицит":language==="KZ"?"Алдымен күтілетін бұзылысты болжаңыз":"Predict the deficit before revealing the lesion"}<textarea value={prediction} onChange={e=>setPrediction(e.target.value)} rows={2} style={{width:"100%",marginTop:6}} /></label>
+  <button type="button" disabled={!lesion && prediction.trim().length<20} onClick={()=>setLesion(v=>{const next=!v;if(next){recordOutcome(moduleId,"interactive",1,1);recordOutcome(moduleId,"criterion:clinical:center-lesion",1,1);recordOutcome(moduleId,"criterion:mechanism:lesion-prediction",prediction.trim().length>=20?1:0,1)}return next})} style={{marginTop:14,padding:"10px 14px",borderRadius:10,fontWeight:700}}>{lesion?t.restore:t.simulate}</button>
   <div style={{marginTop:14,display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(230px,1fr))",gap:12}}>
    <article style={{padding:14,borderRadius:12,background:"#f8fcff"}}>
     <h3>{c[0]}</h3><p><strong>{t.location}:</strong> {c[1]}</p><p><strong>{t.normal}:</strong> {c[2]}</p>
@@ -114,6 +117,7 @@ export default function FunctionalCentersLab({language,moduleId=18}:{language:La
     <div aria-hidden="true" style={{height:10,borderRadius:999,background:"#e4edf2",overflow:"hidden"}}><div style={{height:"100%",width:lesion?"35%":"100%",background:lesion?"#b86d51":"#6fa7c6",transition:"width .5s ease"}}/></div>
    </article>
   </div>
+  <label style={{display:"block",marginTop:14}}>{language==="RU"?"После сравнения объясните, что вы уточнили или исправили":language==="KZ"?"Салыстырғаннан кейін нені нақтылағаныңызды немесе түзеткеніңізді түсіндіріңіз":"After comparison, explain what you refined or corrected"}<textarea disabled={!lesion} value={reflection} onChange={e=>{const value=e.target.value;setReflection(value);if(value.trim().length>=30){recordOutcome(moduleId,"criterion:justification:lesion",1,1);recordOutcome(moduleId,"criterion:correction:lesion-reflection",1,1)}}} rows={3} style={{width:"100%",marginTop:6}} /></label>
   <p style={{fontSize:14}}>{t.note}</p>
  </section>;
 }
