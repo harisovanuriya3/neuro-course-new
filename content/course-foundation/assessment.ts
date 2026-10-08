@@ -37,7 +37,7 @@ const ui = (l: Language): CasesLesson["ui"] => ({
 });
 
 export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):CasesLesson{
- const q=topic.question[l], mech=topic.mechanism[l], interp=topic.interpretation[l], task=clinicalVignettes[topic.id]?.[l] ?? topic.task[l];
+ const task=clinicalVignettes[topic.id]?.[l] ?? topic.task[l];
  const termA=topic.terms[0][l], termB=topic.terms[1][l];
  const secondSituation=l==="RU"
   ? `После исходной ситуации появляется новое наблюдение: показатель, связанный с «${termB}», меняется не так, как ожидалось. Нужно решить, достаточно ли исходного механизма или следует искать дополнительное нарушенное звено.`
@@ -91,7 +91,14 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
  const tMain="transfer:main", tCorrective="transfer:corrective", tBasic="transfer:basic";
  const jMain="justification:main", jCorrective="justification:corrective", jBasic="justification:basic";
  const opts=(correct:string,wrong1:string,wrong2:string,wrong3:string)=>[{id:"a",text:correct},{id:"b",text:wrong1},{id:"c",text:wrong2},{id:"d",text:wrong3}];
- const mechanism=topic.mechanism[l], interpretation=topic.interpretation[l], question=topic.question[l], task=clinicalVignettes[topic.id]?.[l] ?? topic.task[l];
+ const mechanism=topic.mechanism[l], interpretation=topic.interpretation[l], question=topic.question[l];
+ const task=clinicalVignettes[topic.id]?.[l] ?? (
+  l==="RU"
+   ? `Наблюдается изменение физиологического показателя в теме «${moduleTitle}». Определите, какое звено системы следует проверить первым и какое дополнительное наблюдение поможет отличить основной механизм от альтернативного.`
+   : l==="EN"
+    ? `A physiological variable changes in “${moduleTitle}”. Identify which system link should be checked first and which additional observation would distinguish the main mechanism from an alternative.`
+    : `«${moduleTitle}» тақырыбында физиологиялық көрсеткіш өзгерді. Алдымен жүйенің қай буынын тексеру керегін және негізгі тетікті баламадан ажырататын қосымша бақылауды анықтаңыз.`
+ );
  const termA=topic.terms[0][l], termB=topic.terms[1][l];
  const wrong1=l==="RU"
   ? `«${termA}» определяет результат напрямую, поэтому роль «${termB}» и промежуточного физиологического механизма можно не учитывать.`
