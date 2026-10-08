@@ -1,7 +1,7 @@
 import type { Section } from "./sections";
 import type { QuestionCopy } from "./tests";
 
-export type StudyLink = { section: Section; anchor?: string };
+export type StudyLink = { section: Section; anchor?: string; label?: string };
 export type StudyCard = { id: string; title: string; paragraphs: string[]; links: StudyLink[] };
 export type ReadingLesson = {
   kind: "one-minute" | "clinical" | "references";

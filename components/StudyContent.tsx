@@ -21,7 +21,7 @@ function RecordPretestResult({ correct, total, moduleId }: { correct: number; to
   return null;
 }
 function MaterialLink({ target, moduleId, language }: Context & { target: StudyLink }) {
-  return <Link href={`/modules/${moduleId}/${target.section}?lang=${language}${target.anchor ? `#${target.anchor}` : ""}`}>{getSectionTitle(target.section, language)}</Link>;
+  return <Link href={`/modules/${moduleId}/${target.section}?lang=${language}${target.anchor ? `#${target.anchor}` : ""}`}>{target.label ?? getSectionTitle(target.section, language)}</Link>;
 }
 function Reading({ lesson, ...context }: Context & { lesson: ReadingLesson }) {
   const ui = labels[context.language];

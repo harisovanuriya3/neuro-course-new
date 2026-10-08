@@ -7,16 +7,20 @@ const assert = require('node:assert/strict');
 const cache = new Map();
 function load(file) {
   file = path.resolve(__dirname, '..', file);
+  if (!fs.existsSync(file) || !fs.statSync(file).isFile()) {
+    if (fs.existsSync(`${file}.ts`)) file = `${file}.ts`;
+    else if (fs.existsSync(path.join(file, 'index.ts'))) file = path.join(file, 'index.ts');
+  }
   if (cache.has(file)) return cache.get(file);
   const module = { exports: {} };
   const names = [];
   let source = stripTypeScriptTypes(fs.readFileSync(file, 'utf8'));
-  source = source.replace(/import \{([^}]+)\} from "([^"]+)";/g, (_, imports, from) => `const {${imports.replace(/\bas\b/g, ':')}} = require('${from}');`)
-    .replace(/import (\w+) from "([^"]+)";/g, (_, name, from) => `const ${name} = require('${from}').default;`)
+  source = source.replace(/import \{([^}]+)\} from (["'])([^"']+)\2;/g, (_, imports, _quote, from) => `const {${imports.replace(/\bas\b/g, ':')}} = require('${from}');`)
+    .replace(/import (\w+) from (["'])([^"']+)\2;/g, (_, name, _quote, from) => `const ${name} = require('${from}').default;`)
     .replace(/export (const|function) (\w+)/g, (_, kind, name) => { names.push(name); return `${kind} ${name}`; })
     .replace(/export default /g, 'module.exports.default = ');
   source += '\n' + names.map(name => `module.exports.${name} = ${name};`).join('\n');
-  vm.runInThisContext(`(function(require,module,exports){${source}\n})`, { filename: file })(from => load(path.resolve(path.dirname(file), from) + '.ts'), module, module.exports);
+  vm.runInThisContext(`(function(require,module,exports){${source}\n})`, { filename: file })(from => load(path.resolve(path.dirname(file), from)), module, module.exports);
   cache.set(file, module.exports);
   return module.exports;
 }
