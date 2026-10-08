@@ -948,8 +948,16 @@ function create(
               title: c.summary,
 
               paragraphs: [
-                mechanism,
-                interpretation,
+                language === 'RU'
+                  ? 'Восстановите ключевую причинную цепь этого модуля без просмотра теории: исходное изменение → промежуточное звено → наблюдаемый результат.'
+                  : language === 'EN'
+                    ? 'Reconstruct the module’s key causal chain without viewing the theory: initial change → intermediate link → observable outcome.'
+                    : 'Теорияға қарамай модульдің негізгі себептік тізбегін қалпына келтіріңіз: бастапқы өзгеріс → аралық буын → байқалатын нәтиже.',
+                language === 'RU'
+                  ? 'Затем назовите одно альтернативное объяснение результата и данные, которые помогли бы его отличить. Используйте ссылки ниже только для последующей сверки.'
+                  : language === 'EN'
+                    ? 'Then state one alternative explanation for the outcome and the evidence that would distinguish it. Use the links below only for subsequent checking.'
+                    : 'Содан кейін нәтижеге бір балама түсіндірме және оны ажыратуға көмектесетін деректерді атаңыз. Төмендегі сілтемелерді тек кейінгі тексеру үшін пайдаланыңыз.',
               ],
 
               links,
