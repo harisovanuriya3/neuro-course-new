@@ -4,6 +4,7 @@ import {useState,type ReactNode} from "react";
 import type {Language} from "../content/course";
 import styles from "./GuidedLabFrame.module.css";
 import {recordOutcome} from "../lib/courseProgress";
+import {isMeaningfulResponse} from "../lib/meaningfulResponse";
 
 const prompts={
  8:{RU:"Предскажите: если нервный путь перекрещивается, с какой стороны ниже повреждения изменится чувствительность или движение?",KZ:"Болжаңыз: жүйке жолы айқасса, зақымнан төмен сезімталдық немесе қозғалыс қай жақта өзгереді?",EN:"Predict: if the pathway crosses, which side below the lesion will show a sensory or motor change?"},
@@ -57,12 +58,11 @@ export default function GuidedLabFrame({moduleId,language,children}:{moduleId:ke
   const [started,setStarted]=useState(false);
   const [explanation,setExplanation]=useState("");
   const [finished,setFinished]=useState(false);
-  const ready=prediction.trim().length>=12;
-  const explanationReady=explanation.trim().length>=20;
+  const ready=isMeaningfulResponse(prediction,12,3);
+  const explanationReady=isMeaningfulResponse(explanation,20,4);
   function finish(){
     setFinished(true);
-    recordOutcome(Number(moduleId),"criterion:application:guided-lab",1,1);
-    recordOutcome(Number(moduleId),"criterion:transfer:guided-lab",1,1);
+    recordOutcome(Number(moduleId),"criterion:completion:guided-lab",1,1);
   }
   return <div className={styles.frame} data-testid={`guided-lab-${moduleId}`}>
     <section className={styles.predict}>
