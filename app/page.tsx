@@ -14,6 +14,8 @@ const ui: Record<
     open: string;
     exam: string;
     examDescription: string;
+    login: string;
+    dashboard: string;
   }
 > = {
   RU: {
@@ -23,6 +25,7 @@ const ui: Record<
     open: "Начать модуль →",
     exam: "Экзаменационный центр",
     examDescription: "Когда будете готовы, проверьте себя без подсказок. Разбор появится после завершения.",
+    login: "Войти", dashboard: "Личный кабинет",
   },
 
   KZ: {
@@ -32,6 +35,7 @@ const ui: Record<
     open: "Модульді бастау →",
     exam: "Емтихан орталығы",
     examDescription: "Дайын болғанда кеңессіз өзіңізді тексеріңіз. Талдау аяқталғаннан кейін ашылады.",
+    login: "Кіру", dashboard: "Жеке кабинет",
   },
 
   EN: {
@@ -41,6 +45,7 @@ const ui: Record<
     open: "Start module →",
     exam: "Exam Center",
     examDescription: "When you are ready, check yourself without hints. Review appears after you finish.",
+    login: "Sign in", dashboard: "Dashboard",
   },
 };
 
@@ -109,6 +114,11 @@ export default async function HomePage({
             </Link>
           ))}
         </nav>
+
+        <div style={{display:"flex",justifyContent:"center",gap:"12px",flexWrap:"wrap",marginBottom:"24px"}}>
+          <Link href={`/login?next=/dashboard?lang=${lang}`} style={{padding:"10px 18px",borderRadius:"10px",background:"#005b96",color:"#fff",fontWeight:800,textDecoration:"none"}}>{t.login}</Link>
+          <Link href={`/dashboard?lang=${lang}`} style={{padding:"10px 18px",borderRadius:"10px",background:"#fff",color:"#005b96",border:"1px solid #b9d3e6",fontWeight:800,textDecoration:"none"}}>{t.dashboard}</Link>
+        </div>
 
         {/* Заголовок */}
         <div
