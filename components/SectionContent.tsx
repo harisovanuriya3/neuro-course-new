@@ -7,6 +7,7 @@ import BranchingTestContent from "./BranchingTestContent";
 import StudyContent from "./StudyContent";
 import InteractiveContent from "./InteractiveContent";
 import MediaContent from "./MediaContent";
+import AnatomyPathBuilder from "./AnatomyPathBuilder";
 
 type Props = {
   lesson: SectionLesson;
@@ -53,10 +54,11 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
             {lesson.ui.theory}
           </Link>
           <PracticeContent lesson={lesson} language={language} moduleId={moduleId} />
+          <AnatomyPathBuilder moduleId={Number(moduleId)} language={language} />
         </>
       );
     case "cases":
-      return <CasesContent lesson={lesson} language={language} moduleId={Number(moduleId)} />;
+      return <><CasesContent lesson={lesson} language={language} moduleId={Number(moduleId)} /><AnatomyPathBuilder moduleId={Number(moduleId)} language={language} /></>;
     case "tests":
       return <BranchingTestContent test={lesson} language={language} moduleId={Number(moduleId)} />;
     case "objectives": case "pretest": case "one-minute": case "clinical":
