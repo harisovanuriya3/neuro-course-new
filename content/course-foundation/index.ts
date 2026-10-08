@@ -705,8 +705,16 @@ function create(
             {
               type: 'answer',
               items: [
-                mechanism,
-                interpretation,
+                language === 'RU'
+                  ? 'Сверьте прежде всего направление причинной цепи: что изменилось первым, какое звено передало эффект и какой результат должен наблюдаться.'
+                  : language === 'EN'
+                    ? 'Check the direction of the causal chain first: what changed initially, which link transmitted the effect, and which result should be observed.'
+                    : 'Алдымен себептік тізбектің бағытын тексеріңіз: бастапқыда не өзгерді, әсерді қай буын жеткізді және қандай нәтиже байқалуы тиіс.',
+                language === 'RU'
+                  ? 'Если ваш вывод опирается только на один признак, назовите альтернативное объяснение и дополнительное измерение для его проверки.'
+                  : language === 'EN'
+                    ? 'If your conclusion rests on one finding, name an alternative explanation and an additional measurement that could test it.'
+                    : 'Егер қорытындыңыз бір ғана белгіге сүйенсе, балама түсіндірмені және оны тексеретін қосымша өлшеуді атаңыз.',
               ],
             },
           ],
@@ -717,7 +725,11 @@ function create(
           blocks: [
             {
               type: 'paragraph',
-              text: clinicalVignettes[topic.id]?.[language] ?? topic.task[language],
+              text: language === 'RU'
+                ? `Поставьте мысленный эксперимент по теме «${modules.RU[topic.id - 1]}»: измените только один физиологический фактор, связанный с «${topic.terms[0].RU}», а остальные условия считайте постоянными.`
+                : language === 'EN'
+                  ? `Design a thought experiment for “${modules.EN[topic.id - 1]}”: change only one physiological factor related to “${topic.terms[0].EN}” while holding the other conditions constant.`
+                  : `«${modules.KZ[topic.id - 1]}» тақырыбы бойынша ойша эксперимент құрыңыз: «${topic.terms[0].KZ}» байланысты бір физиологиялық факторды ғана өзгертіп, басқа жағдайларды тұрақты деп есептеңіз.`,
             },
             { type: 'response', label: language === 'RU' ? 'Что является входным воздействием или изменяемой переменной?' : language === 'EN' ? 'What is the input or manipulated variable?' : 'Кіріс әсері немесе өзгертілетін айнымалы қандай?' },
             { type: 'response', label: language === 'RU' ? 'Какой физиологический показатель изменится и в каком направлении?' : language === 'EN' ? 'Which physiological variable will change, and in what direction?' : 'Қай физиологиялық көрсеткіш және қай бағытта өзгереді?' },
@@ -727,7 +739,11 @@ function create(
         {
           title: language === 'RU' ? 'Разбор данных и границы вывода' : language === 'EN' ? 'Data interpretation and limits' : 'Деректерді талдау және қорытынды шектері',
           blocks: [
-            { type: 'paragraph', text: clinicalVignettes[topic.id]?.[language] ?? question },
+            { type: 'paragraph', text: language === 'RU'
+              ? `Получены два наблюдения по теме «${modules.RU[topic.id - 1]}». Одно согласуется с ожидаемым изменением «${topic.terms[1].RU}», второе может иметь несколько причин. Определите, какое наблюдение сильнее поддерживает механизм и какое требует дополнительной проверки.`
+              : language === 'EN'
+                ? `Two observations are available for “${modules.EN[topic.id - 1]}”. One matches the expected change in “${topic.terms[1].EN}”; the other has several possible causes. Decide which observation supports the mechanism more strongly and which needs an additional test.`
+                : `«${modules.KZ[topic.id - 1]}» тақырыбы бойынша екі бақылау берілді. Біреуі «${topic.terms[1].KZ}» күтілетін өзгерісіне сәйкес, екіншісінің бірнеше себебі болуы мүмкін. Қай бақылау тетікті күштірек қолдайтынын және қайсысы қосымша тексеруді қажет ететінін анықтаңыз.` },
             { type: 'response', label: language === 'RU' ? 'Какие наблюдаемые данные поддерживают ваш вывод?' : language === 'EN' ? 'Which observations support your conclusion?' : 'Қандай бақылаулар қорытындыңызды қолдайды?' },
             { type: 'response', label: language === 'RU' ? 'Какое альтернативное объяснение нужно исключить?' : language === 'EN' ? 'Which alternative explanation should be excluded?' : 'Қандай балама түсіндірмені жоққа шығару керек?' },
             { type: 'response', label: language === 'RU' ? 'Какое дополнительное измерение лучше всего различит эти объяснения?' : language === 'EN' ? 'Which additional measurement would best distinguish these explanations?' : 'Бұл түсіндірмелерді ажырату үшін қандай қосымша өлшеу тиімді?' },
