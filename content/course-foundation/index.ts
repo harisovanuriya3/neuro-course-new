@@ -524,7 +524,14 @@ function create(
   }
 
   if (section === 'clinical') {
-    const vignette = clinicalVignettes[topic.id]?.[language] ?? topic.task[language];
+    const sourceVignette = clinicalVignettes[topic.id]?.[language];
+    const vignette = sourceVignette ?? (
+      language === 'RU'
+        ? `Клиническое наблюдение по теме «${modules.RU[topic.id - 1]}»: изменился один измеряемый физиологический показатель. Определите вероятный уровень нарушения и назовите дополнительное измерение, которое отличит его от альтернативного объяснения.`
+        : language === 'EN'
+          ? `Clinical observation for “${modules.EN[topic.id - 1]}”: one measurable physiological variable has changed. Localize the likely level of disturbance and name an additional measurement that would distinguish it from an alternative explanation.`
+          : `«${modules.KZ[topic.id - 1]}» тақырыбы бойынша клиникалық бақылау: бір өлшенетін физиологиялық көрсеткіш өзгерді. Бұзылыстың ықтимал деңгейін анықтап, оны балама түсіндірмеден ажырататын қосымша өлшемді атаңыз.`
+    );
     const labels = language === 'RU'
       ? { bridge: 'Клинический мост: примените физиологию к данным', caseTitle: 'Клиническая ситуация', localize: '1. Локализуйте нарушение', mechanismTitle: '2. Постройте причинную цепь', discriminate: '3. Проверьте альтернативу', safety: '4. Сформулируйте границу вывода' }
       : language === 'EN'
