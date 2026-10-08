@@ -14,11 +14,21 @@
   .navigation > div { gap: 8px !important; grid-template-columns: 1fr !important; }
   .navigation a { padding: 11px 10px !important; }
   .navigation a strong { overflow-wrap: anywhere; }
+  .sectionShell article { min-width: 0; }
   .sectionShell article p,
-  .sectionShell article li { font-size: 0.98rem; }
-
+  .sectionShell article li { font-size: 0.98rem; line-height: 1.55; }
+  .sectionShell article h2 { font-size: clamp(1.2rem, 5.4vw, 1.55rem); }
+  .sectionShell article h3 { font-size: clamp(1.05rem, 4.8vw, 1.3rem); }
+  .sectionShell article table { display: block; max-width: 100%; overflow-x: auto; }
+  .sectionShell article img,
+  .sectionShell article svg,
+  .sectionShell article video { max-width: 100%; height: auto; }
+  .sectionShell article button,
+  .sectionShell article input,
+  .sectionShell article textarea,
+  .sectionShell article select { max-width: 100%; box-sizing: border-box; }
 }
-@media (max-width: 1050px) { .sectionShell { grid-template-columns: minmax(0,1fr); } }
+@media (max-width: 780px) { .sectionShell { grid-template-columns: minmax(0,1fr); gap: 14px; } }
 
 .cover {
   position: relative;
