@@ -10,6 +10,7 @@ const lesson: PracticeLesson = {
     incomplete: "Arrange all steps first.", available: "Choose the next step", selected: "Your sequence", empty: "No steps selected yet.",
     input: "Your answer", theory: "Open Module 1 theory", localNote: "Task completion is saved in this browser. Written responses may reset after reloading or changing language, so save important wording in a note.",
   },
+  // Theory repetition removed: practice starts with application.
   sections: [
     { title: "1. What You Will Learn", blocks: [
       { type: "paragraph", text: "To develop an understanding of the structural and functional organization of the nervous system and the fundamental principles of neural regulation." },
@@ -18,15 +19,7 @@ const lesson: PracticeLesson = {
       { type: "paragraph", text: "After completing the practical work, the student should be able to:" },
       { type: "list", items: ["Distinguish the central and peripheral nervous systems.", "Identify the main structural components of the nervous system.", "Explain the functional roles of afferent and efferent components.", "Explain the principle of neural regulation.", "Analyze a simple functional diagram of the nervous system.", "Use basic neurophysiology terminology."] },
     ] },
-    { title: "3. Required Materials", blocks: [
-      { type: "list", items: ["A diagram of the nervous system.", "A diagram of a neuron.", "A diagram of a reflex arc.", "Study tables.", "Materials from the Theory section of Module 1."] },
-      { type: "paragraph", text: "Prepare diagrams from an educational atlas or the instructor's materials. Identify the cell body, dendrites, and axon on the neuron diagram, and central and peripheral structures on the nervous system diagram. Complete the tasks independently before comparing your explanations with the model answers." },
-    ] },
-    { title: "4. The Key Idea", blocks: [
-      { type: "paragraph", text: "A receptor converts the effect of a stimulus into a signal. Information travels along an afferent pathway to the CNS, where it is processed and integrated. A command then travels along an efferent pathway to an effector, such as a muscle or gland, whose activity produces a response." },
-      { type: "callout", title: "Principle of Neural Regulation", text: "Receptor → afferent pathway → CNS → information processing and integration → efferent pathway → effector → response. Processing and integration occur within the CNS, rather than in a separate anatomical component beyond it." },
-      { type: "paragraph", text: "Feedback is information about the outcome of a response and the current state of the body. It allows the actual outcome to be compared with the required outcome and effector activity to be adjusted. For example, signals from muscle and joint receptors help refine limb position during movement. Excitation and inhibition coordinate the activity of neural networks." },
-    ] },
+
     { title: "5. Task 1. What Belongs to the CNS and PNS?", blocks: [
       { type: "paragraph", text: "Assign the structures to two groups: CNS and PNS. Briefly state the common feature that justifies each grouping." },
       { type: "classification", groups: ["CNS", "PNS"], items: [
