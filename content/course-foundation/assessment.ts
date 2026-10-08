@@ -58,7 +58,10 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
    {title:l==="RU"?"Обоснуйте механизм":l==="EN"?"Justify the mechanism":"Тетікті негіздеңіз",questions:[
     l==="RU"?"Постройте цепь минимум из трёх звеньев: исходное изменение → промежуточный механизм → наблюдаемый результат.":l==="EN"?"Build at least a three-link chain: initial change → intermediate mechanism → observed result.":"Кемінде үш буынды тізбек құрыңыз: бастапқы өзгеріс → аралық тетік → байқалатын нәтиже."
    ]}
-  ],explanation:[mech,interp]},
+  ],explanation:[
+    l==="RU" ? `Проверьте локализацию по данным: назовите изменённое звено, один поддерживающий признак и причинную цепь минимум из трёх этапов с участием «${termA}» и «${termB}».` : l==="EN" ? `Check localization against the data: identify the altered link, one supporting finding, and a causal chain of at least three steps involving “${termA}” and “${termB}”.` : `Локализацияны деректермен тексеріңіз: өзгерген буынды, бір қолдайтын белгіні және «${termA}» мен «${termB}» қатысатын кемінде үш қадамдық себептік тізбекті көрсетіңіз.`,
+    l==="RU" ? "Не подменяйте функциональную локализацию клиническим диагнозом: условие должно позволять проверить именно физиологический механизм." : l==="EN" ? "Do not replace functional localization with a clinical diagnosis: the case should be used to test the physiological mechanism." : "Функциялық локализацияны клиникалық диагнозбен алмастырмаңыз: жағдай физиологиялық тетікті тексеруге қызмет етуі тиіс."
+  ]},
   {id:`m${topic.id}-discrimination`,title:l==="RU"?"Задача 2. Конкурирующие объяснения":l==="EN"?"Case 2. Competing explanations":"2-жағдай. Бәсекелес түсіндірмелер",situation:secondSituation,stages:[
    {title:l==="RU"?"Сделайте новый прогноз":l==="EN"?"Make a new prediction":"Жаңа болжам жасаңыз",questions:[
     l==="RU"?`Если исходная связь «${termA} → ${termB}» остаётся главным механизмом, какое направление изменения вы ожидаете?`:l==="EN"?`If the original “${termA} → ${termB}” link remains the main mechanism, what direction of change do you predict?`:`Егер бастапқы «${termA} → ${termB}» байланысы негізгі тетік болып қалса, өзгерістің қандай бағытын күтесіз?`
@@ -70,7 +73,9 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
     l==="RU"?"Какое дополнительное измерение, стимул или сравнение даст разные результаты для двух гипотез? Предскажите результат для каждой.":l==="EN"?"Which additional measurement, stimulus, or comparison would give different results for the two hypotheses? Predict the result for each.":"Қандай қосымша өлшеу, стимул немесе салыстыру екі болжам үшін әртүрлі нәтиже береді? Әрқайсысы үшін нәтижені болжаңыз.",
     l==="RU"?"Сформулируйте итог в двух частях: что данные поддерживают и чего они пока не доказывают.":l==="EN"?"State the conclusion in two parts: what the data support and what they do not yet prove.":"Қорытындыны екі бөлікпен жазыңыз: деректер нені қолдайды және нені әлі дәлелдемейді."
    ]}
-  ],explanation:[interp]}
+  ],explanation:[
+    l==="RU" ? "Сильный ответ формулирует две конкурирующие физиологические гипотезы и выбирает измерение, для которого они предсказывают разные результаты." : l==="EN" ? "A strong answer states two competing physiological hypotheses and selects a measurement for which they predict different outcomes." : "Күшті жауап екі бәсекелес физиологиялық болжамды тұжырымдап, олар әртүрлі нәтиже болжайтын өлшеуді таңдайды."
+  ]}
  ]};
 }
 
