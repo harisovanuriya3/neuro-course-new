@@ -730,7 +730,11 @@ function create(
           blocks: [
             {
               type: 'paragraph',
-              text: question,
+              text: language === 'RU'
+                ? `Сопоставьте «${topic.terms[0].RU}» и «${topic.terms[1].RU}»: объясните, как изменение первого может повлиять на второе, затем назовите условие, при котором эта связь не сработает.`
+                : language === 'EN'
+                  ? `Compare “${topic.terms[0].EN}” and “${topic.terms[1].EN}”: explain how changing the first could affect the second, then identify a condition under which that relationship would fail.`
+                  : `«${topic.terms[0].KZ}» және «${topic.terms[1].KZ}» ұғымдарын салыстырыңыз: біріншісінің өзгеруі екіншісіне қалай әсер ететінін түсіндіріп, бұл байланыс іске аспайтын жағдайды атаңыз.`,
             },
             {
               type: 'response',

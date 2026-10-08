@@ -12,43 +12,54 @@ const lesson: PracticeLesson = {
   },
   // Theory repetition removed: practice starts with application.
   sections: [
-    { title: "2. Practice goal", blocks: [
+    { title: "Practice goal", blocks: [
       { type: "paragraph", text: "Apply the basic neural-regulation scheme to concrete structures and situations: identify the input, direction of information flow, central processing, and output. Detailed mechanisms of action potentials, synapses, and inhibition are studied in later modules." },
     ] },
-    { title: "4. Task 2. Which Way Does the Signal Travel?", blocks: [
+    { title: "1. Classification: CNS or PNS", blocks: [
+      { type: "paragraph", text: "Sort the structures into CNS and PNS, then state the shared anatomical feature of each group." },
+      { type: "classification", groups: ["CNS", "PNS"], items: [
+        { label: "Ganglia", group: 1 }, { label: "Brain", group: 0 }, { label: "Cranial nerves", group: 1 },
+        { label: "Nerve endings", group: 1 }, { label: "Spinal cord", group: 0 }, { label: "Spinal nerves", group: 1 }
+      ], reasonLabels: ["Shared feature of the CNS", "Shared feature of the PNS"], answer: ["The CNS comprises the brain and spinal cord, which contain central processing and integration networks.", "The PNS comprises nerves, ganglia, and nerve endings outside the CNS that connect it to receptors, organs, and tissues.", "Qualification: despite its name, the optic nerve is developmentally and structurally part of the CNS; classifying all cranial nerves as PNS is an introductory simplification."] },
+    ] },
+    { title: "2. Which Way Does the Signal Travel?", blocks: [
       { type: "paragraph", text: "A person accidentally touches a hot object and rapidly withdraws their hand. Analyze this protective reflex: identify the stimulus, receptor, afferent pathway, central component, efferent pathway, effector, and response." },
       { type: "response", label: "Write the seven-step chain and explain in simple words which way the signal travels." },
       { type: "answer", items: ["Stimulus: a high temperature capable of damaging tissue.", "Receptor: sensory free nerve endings in the skin, specifically heat-sensitive nociceptors.", "Afferent pathway: sensory fibers in a peripheral nerve; the corresponding neuronal cell bodies lie in a dorsal root ganglion, and their central processes enter the spinal cord through the dorsal root.", "Central component: spinal interneuron networks that activate the appropriate motor neurons and coordinate inhibition of antagonist muscles. Information also ascends to the brain for perception and further evaluation.", "Efferent pathway: axons of spinal motor neurons passing through the ventral root and peripheral nerves to the muscles.", "Effector: skeletal muscles that withdraw the hand, primarily the appropriate flexors.", "Response: rapid withdrawal of the hand from the hot object. Initiation of the spinal reflex does not require a prior conscious decision."] },
     ] },
-    { title: "5. Task 3. Build the Sequence", blocks: [
+    { title: "3. Build the Sequence", blocks: [
       { type: "paragraph", text: "Select the steps one at a time in the order of information flow, from the initial stimulus to the response. If you make a mistake, remove the last step or start again. Then select “Check sequence”." },
       { type: "sequence", steps: ["Stimulus", "Receptor", "Afferent pathway", "CNS", "Efferent pathway", "Effector", "Response"] },
     ] },
-    { title: "6. Complete the Table", blocks: [
-      { type: "paragraph", text: "Identify the system or functional component to which each structure belongs and state its main function. Categories are not restricted to the CNS and PNS: an effector may be a muscle or gland. For the receptor, consider a peripheral sensory ending in this exercise." },
-      { type: "table", headers: ["Structure", "Belongs to", "Main function"], rows: [
-        ["Brain", "CNS", "Processing and integration of information; organization of behavior, movement, and regulation of bodily functions."],
-        ["Spinal cord", "CNS", "Conduction of signals and organization of spinal reflexes."],
-        ["Peripheral nerve", "PNS", "Conduction of afferent and/or efferent signals, depending on its fiber composition."],
-        ["Ganglion", "PNS", "A cluster of neuronal cell bodies: sensory ganglia contain afferent neuron cell bodies, while autonomic ganglia participate in signal relay and processing."],
-        ["Receptor", "Peripheral sensory component; PNS in this example", "Detection of a stimulus and its conversion into a signal. In other sensory systems, a receptor may be a specialized cell."],
-        ["Effector", "An executing organ: muscle or gland", "Production of a response, such as contraction or secretion; the effector itself is not classified as CNS or PNS."],
-      ] },
+    { title: "4. Clinical localization: central or peripheral component?", blocks: [
+      { type: "paragraph", text: "A patient has right-hand weakness, increased tendon reflexes on the right, and an abnormal plantar response; hand sensation is preserved. Analyze the physiology without assigning a diagnosis." },
+      { type: "response", label: "Identify the likely level—CNS or PNS—and cite the evidence supporting your decision." },
+      { type: "response", label: "Explain how impaired descending control changes muscle output and reflexes." },
+      { type: "response", label: "Name an additional finding or test that would help distinguish a central from a peripheral lesion." },
+      { type: "answer", items: ["Weakness combined with increased reflexes and an abnormal plantar response supports dysfunction of a central motor pathway rather than another CNS/PNS sorting exercise.", "Reduced descending control changes the balance of influences on spinal reflex networks, so weakness can coexist with exaggerated reflexes.", "Muscle tone, weakness distribution, atrophy, fasciculations, and peripheral nerve-conduction findings can help. No single finding is sufficient by itself."] },
     ] },
-    { title: "7. Explain the Results", blocks: [
+    { title: "5. Explain the Results", blocks: [
       { type: "list", items: ["Why does damage to an afferent pathway disrupt the delivery of sensory information?", "What happens if an efferent pathway is damaged?", "Why is the CNS considered an integrative component?", "What role does feedback play?", "Why does a normal response require coordinated activity across several components?"] },
       { type: "response", label: "Answer the five questions in simple words: what changed, why, and what followed?" },
       { type: "answer", items: ["Disruption of an afferent pathway reduces or prevents signal transmission from receptors to the relevant central structures.", "If an efferent pathway is disrupted, the command may not reach the effector, weakening or abolishing the response even when sensory information arrives.", "The CNS compares multiple inputs, combines them with information about the body's current state, and organizes coordinated output.", "Feedback reports the outcome of an action and allows subsequent responses to be adjusted.", "Reception, conduction, integration, and execution perform different tasks; disruption of any component can alter the overall result."] },
     ] },
-    { title: "8. Check Yourself", blocks: [
+    { title: "6. Check Yourself", blocks: [
       { type: "list", items: ["1. What are the major functions of the nervous system?", "2. Which structures belong to the CNS and PNS?", "3. How does an afferent pathway differ from an efferent pathway?", "4. How does a receptor differ from an effector?", "5. What is neural information integration?", "6. How do excitation and inhibition interact?", "7. What are the main stages of chemical synaptic transmission?", "8. How does feedback contribute to homeostasis?"] },
       { type: "response", label: "Write your answers to the eight review questions." },
       { type: "answer", items: ["1. Detection, conduction, and integration of information; organization of motor and autonomic responses; maintenance of homeostasis and higher nervous functions.", "2. CNS: brain and spinal cord. PNS: peripheral nerves, ganglia, and nerve endings. The anatomical qualification concerning the optic nerve is given in Task 1.", "3. Afferent pathways lead from receptors to the CNS; efferent pathways lead from the CNS to effectors.", "4. A receptor detects an influence and converts it into a signal; an effector executes the response.", "5. Integration combines and processes signals to produce a coordinated response.", "6. Excitatory influences increase the probability of neuronal firing, whereas inhibitory influences reduce it; their interaction makes responses selective.", "7. An action potential reaches the terminal, calcium channels open, and transmitter is released; it binds to postsynaptic receptors and changes the receiving cell's activity.", "8. Information about the current value of a regulated variable enables adjustment of the response; negative feedback reduces deviation from the required level."] },
     ] },
-    { title: "9. Mini-Case", blocks: [
+    { title: "7. Mini-Case", blocks: [
       { type: "paragraph", text: "During a neurological examination, a patient feels touch on the skin of the hand but cannot voluntarily move the fingers. Which functional component may be impaired? Justify your answer by distinguishing the arrival of sensory information from execution of a motor command." },
       { type: "response", label: "Name the component that may be impaired and say what can and cannot be concluded from the data." },
       { type: "answer", items: ["Within the teaching model, consider impairment of motor output: the efferent component or the mechanisms that execute a motor command. Preserved touch perception indicates preservation of the sensory channel tested, not of every sensory modality.", "This description alone cannot establish the site of a lesion or a medical diagnosis: voluntary movement depends on central motor systems, peripheral motor fibers, neuromuscular transmission, and the muscle itself. The case illustrates the distinction between afferent and efferent functions."] },
+    ] },
+    { title: "8. Predict a change in sensory input", blocks: [
+      { type: "paragraph", text: "Predict how a protective response and its correction would change if receptor activation were normal but conduction in the afferent fibre were partially slowed. Separate response latency from possible response strength." },
+      { type: "response", label: "State your prediction, causal chain, and an observation that could falsify it." },
+    ] },
+    { title: "9. Compare two disruptions", blocks: [
+      { type: "paragraph", text: "Compare damage to the afferent and efferent components during the same cutaneous stimulus." },
+      { type: "response", label: "For each, state the expected sensory finding, motor response, and one discriminating test." },
     ] },
     { title: "10. Check an AI Answer", blocks: [
       { type: "ai-audit", instructions: "This is a teaching answer written to look like an AI response. First note what you trust. Then find the errors, explain them in simple words, and compare your reasoning with the feedback.",
@@ -69,10 +80,15 @@ const lesson: PracticeLesson = {
         labels: { aiAnswer: "Sample AI answer", prediction: "Your prediction: where might the answer fail?", trust: "How much do you trust this answer? (1–5)", trustHint: "1 — very little; 5 — almost completely. Record your impression before checking.", lock: "Lock prediction", identify: "Mark incorrect statements. You may consult the theory and source before checking.", rationale: "Explain why your selected statements are wrong and how to correct them.", check: "Check my selection", missing: "Error.", result: "Answer review", found: "Errors found", missed: "Missed", markedCorrect: "Correct.", correct: "You identified every incorrect statement without flagging a correct one. Compare your explanation with the review below.", retry: "You missed an error or flagged a correct statement. Review the theory and source, then try a similar task.", theory: "Module 1 theory", modelAnswer: "Explanation of each statement:", nextCase: "Similar task", source: "Sources to check:" },
       },
     ] },
-    { title: "11. Key Takeaway", blocks: [
+    { title: "11. Synthesis: build a functional diagram", blocks: [
+      { type: "paragraph", text: "Create a diagram of a new protective response showing stimulus, receptor, afferent input, central integration, efferent output, effector, and feedback. Then mark how it changes after a lesion of your choice." },
+      { type: "visual-materials" },
+      { type: "response", label: "Briefly explain the selected lesion and predicted outcome." },
+    ] },
+    { title: "12. Key Takeaway", blocks: [
       { type: "paragraph", text: "The nervous system follows a structural and functional organization: central and peripheral structures jointly support reception, conduction, and integration of information and control of effectors. Afferent and efferent components transmit signals in different directions but operate in coordination. Feedback refines the outcome and supports adaptive neural regulation." },
     ] },
-    { title: "12. Self-Check", blocks: [
+    { title: "13. Self-Check", blocks: [
       { type: "paragraph", text: "After this lesson, I can:" },
       { type: "checklist", items: ["Distinguish the CNS and PNS.", "Explain the afferent pathway.", "Explain the efferent pathway.", "Construct a functional sequence of neural regulation.", "Explain the roles of integration and feedback."] },
     ] },

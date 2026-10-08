@@ -106,14 +106,15 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   return [...options.slice(offset),...options.slice(0,offset)];
  };
  const mechanism=topic.mechanism[l], interpretation=topic.interpretation[l], question=topic.question[l];
- const task=clinicalVignettes[topic.id]?.[l] ?? (
-  l==="RU"
-   ? `Наблюдается изменение физиологического показателя в теме «${moduleTitle}». Определите, какое звено системы следует проверить первым и какое дополнительное наблюдение поможет отличить основной механизм от альтернативного.`
-   : l==="EN"
-    ? `A physiological variable changes in “${moduleTitle}”. Identify which system link should be checked first and which additional observation would distinguish the main mechanism from an alternative.`
-    : `«${moduleTitle}» тақырыбында физиологиялық көрсеткіш өзгерді. Алдымен жүйенің қай буынын тексеру керегін және негізгі тетікті баламадан ажырататын қосымша бақылауды анықтаңыз.`
- );
  const termA=topic.terms[0][l], termB=topic.terms[1][l];
+ // Cases use the authored clinical vignette. The formative test deliberately
+ // uses a controlled perturbation instead, so it assesses transfer rather than
+ // recognition of the case the learner has already worked through.
+ const task=l==="RU"
+  ? `В контролируемой модели избирательно ослабили процесс «${termA}», сохранив исходные условия постоянными. Нужно предсказать направление изменения показателя «${termB}» и выбрать наблюдение, которое отличит этот механизм от альтернативного.`
+  : l==="EN"
+   ? `In a controlled model, “${termA}” is selectively weakened while baseline conditions remain constant. Predict the direction of change in “${termB}” and choose an observation that distinguishes this mechanism from an alternative.`
+   : `Бақыланатын модельде бастапқы жағдайларды тұрақты ұстап, «${termA}» үдерісі таңдамалы әлсіретілді. «${termB}» көрсеткішінің өзгеру бағытын болжап, осы тетікті баламадан ажырататын бақылауды таңдау қажет.`;
  const wrong1=l==="RU"
   ? `«${termA}» определяет результат напрямую, поэтому роль «${termB}» и промежуточного физиологического механизма можно не учитывать.`
   : l==="EN" ? `“${termA}” determines the outcome directly, so “${termB}” and the intermediate physiological mechanism can be ignored.`

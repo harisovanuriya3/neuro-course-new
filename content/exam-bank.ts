@@ -1,7 +1,6 @@
 import type { Language } from "./course";
 import { modules } from "./course";
 import { topics, termDefinitions } from "./course-foundation/topics";
-import { clinicalVignettes } from "./course-foundation/assessment";
 export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[];taskType?:"standard"|"situation"|"sequence"};
 const S={
 RU:{st:["Что здесь происходит с точки зрения физиологии?","Какой вывод лучше всего следует из этих данных?","Если это звено изменится, что произойдёт дальше?","Какой вариант лучше всего показывает цепочку «причина → изменение → результат»?","Как применить тот же механизм в новой ситуации?","Какой ответ не делает слишком поспешный вывод?","Какой вариант правильно отличает механизм от наблюдаемого результата?","Какой вывод учитывает то, чего мы пока не знаем?","Что лучше проверить, чтобы подтвердить предполагаемую связь?","Как лучше рассуждать в этой ситуации?"],pair:"Посмотрите на связь",first:"Сначала определите роль каждого элемента, затем решите, что на что влияет, и проверьте это по данным.",swap:"Считать два элемента одинаковыми и не учитывать направление влияния.",abs:"Считать, что изменение одного элемента всегда даёт одинаковый результат независимо от состояния системы.",dx:"Сделать окончательный вывод по одному изменению, не проверяя другие возможные объяснения.",ex:"Хороший ответ показывает, чем элементы отличаются, как они связаны и чего эти данные ещё не доказывают."},
@@ -243,15 +242,15 @@ function whatsappCaseQuestions(lang:Language):ExamBankQuestion[]{
 
 export function createExamBank(lang:Language):ExamBankQuestion[]{
  const s=S[lang],bank=[...firstModule(lang)];
+ const L=(ru:string,en:string,kz:string)=>lang==="RU"?ru:lang==="EN"?en:kz;
  for(const topic of topics){
   const defs=termDefinitions[topic.id]; if(!defs)continue;
   const title=modules[lang][topic.id-1], a=topic.terms[0][lang], b=topic.terms[1][lang];
-  const clinical=clinicalVignettes[topic.id]?.[lang] ?? topic.task[lang];
   const prompts=[
-   topic.question[lang],
-   clinical,
-   topic.task[lang],
-   topic.interpretation[lang]
+   L(`В новой серии наблюдений показатель «${a}» меняется, но ожидаемое изменение «${b}» появляется только при сохранности промежуточного звена. Какой вывод лучше всего связывает данные и не выходит за их пределы?`,`In a new observation series, “${a}” changes, but the expected change in “${b}” appears only when an intermediate link is intact. Which conclusion best connects the evidence without exceeding it?`,`Жаңа бақылаулар қатарында «${a}» өзгереді, бірақ «${b}» күтілетін өзгерісі аралық буын сақталғанда ғана пайда болады. Қай қорытынды деректерді дұрыс байланыстырып, олардың шегінен шықпайды?`),
+   L(`В контролируемом опыте воздействие изменило «${a}», после чего «${b}» изменился в предсказанном направлении. Контрольная группа такого сдвига не показала. Какой механизм лучше объясняет различие групп?`,`In a controlled experiment, an intervention altered “${a}”, after which “${b}” changed in the predicted direction. The control group showed no such shift. Which mechanism best explains the group difference?`,`Бақыланатын тәжірибеде әсер «${a}» өзгертті, содан кейін «${b}» болжанған бағытта өзгерді. Бақылау тобында мұндай ығысу болмады. Топтар айырмасын қай тетік жақсы түсіндіреді?`),
+   L(`В двух условиях величина «${a}» одинакова, однако показатель «${b}» различается. Какое объяснение корректнее всего указывает, почему одной исходной величины недостаточно для прогноза?`,`Two conditions have the same value of “${a}”, yet “${b}” differs. Which explanation best shows why the starting value alone is insufficient for prediction?`,`Екі жағдайда «${a}» шамасы бірдей, алайда «${b}» көрсеткіші әртүрлі. Бастапқы шаманың өзі болжамға неге жеткіліксіз екенін қай түсіндірме дұрыс көрсетеді?`),
+   L(`После изменения «${a}» наблюдают сдвиг «${b}», но одновременно изменилось ещё одно условие опыта. Какой вывод сохраняет причинную логику и учитывает это ограничение?`,`After “${a}” changes, a shift in “${b}” is observed, but another experimental condition changed at the same time. Which conclusion preserves causal reasoning while acknowledging this limitation?`,`«${a}» өзгергеннен кейін «${b}» ығысуы байқалды, бірақ тәжірибенің тағы бір шарты қатар өзгерді. Қай қорытынды себептік логиканы сақтап, осы шектеуді ескереді?`)
   ];
   const conciseMechanism=firstSentence(topic.mechanism[lang]);
   const conciseInterpretation=firstSentence(topic.interpretation[lang]);
@@ -272,7 +271,7 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    [defA,defB,s.dx],
    [defB,topic.interpretation[lang],s.abs],
    [defA,topic.mechanism[lang],s.swap],
-   [defB,topic.question[lang],s.dx]
+   [defB,s.swap,s.dx]
   ];
   for(let n=0;n<40;n++){
    const mode=n%4;
@@ -288,7 +287,6 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
  }
  const sequences=sequenceQuestions(lang);
  const existingSeq=new Set(sequences.map(q=>q.moduleId));
- const L=(ru:string,en:string,kz:string)=>lang==="RU"?ru:lang==="EN"?en:kz;
  const generated:ExamBankQuestion[]=[];
  for(const topic of topics){
    if(existingSeq.has(topic.id))continue;

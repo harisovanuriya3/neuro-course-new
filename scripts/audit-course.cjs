@@ -15,6 +15,11 @@ const foundation = read("content/course-foundation/index.ts");
 const assessment = read("content/course-foundation/assessment.ts");
 const patients = read("content/virtual-patients.ts");
 const exam = read("components/ExamCenter.tsx");
+const examBank = read("content/exam-bank.ts");
+const moduleOnePractice = ["ru", "en", "kz"].map(language => [
+  language.toUpperCase(),
+  read(`content/modules/1/practice/${language}.ts`),
+]);
 
 const englishModules = course.match(/EN:\s*\[([\s\S]*?)\n\s*\],/m)?.[1]
   .match(/^\s*".+",?$/gm) ?? [];
@@ -66,6 +71,36 @@ for (const [signal, message] of examSignals) {
 assessment.includes("const offset=(topic.id+optionSetIndex++)%options.length")
   ? pass("module tests vary the visual position of the correct answer deterministically")
   : fail("module tests still expose a fixed correct-answer position");
+
+for (const [language, source] of moduleOnePractice) {
+  const numberedActivities = [...source.matchAll(/title:\s*"(\d+)\./g)].map(match => Number(match[1]));
+  const expected = Array.from({ length: 13 }, (_, index) => index + 1);
+  JSON.stringify(numberedActivities) === JSON.stringify(expected)
+    ? pass(`Module 1 Practice ${language} has the same 13-step progression`)
+    : fail(`Module 1 Practice ${language} activity numbers are ${numberedActivities.join(", ")}`);
+  source.includes('type: "visual-materials"')
+    ? pass(`Module 1 Practice ${language} provides a drawing tool for synthesis`)
+    : fail(`Module 1 Practice ${language} asks for synthesis without visual materials`);
+}
+
+const testFunction = assessment.slice(assessment.indexOf("export function createFoundationTest"));
+!testFunction.includes("clinicalVignettes[topic.id]")
+  ? pass("foundation Tests use a transfer perturbation rather than the Cases vignette")
+  : fail("foundation Tests still repeat the Cases vignette");
+foundation.includes("identify a condition under which that relationship would fail")
+  ? pass("foundation Practice comparison differs from the Review Question recall prompt")
+  : fail("foundation Practice still repeats the Review Question prompt");
+const createExamBank = examBank.slice(examBank.indexOf("export function createExamBank"));
+const examPromptBlock = createExamBank.slice(createExamBank.indexOf("const prompts=["), createExamBank.indexOf("const conciseMechanism"));
+const copiedSectionPrompts = [
+  "topic.question[lang]",
+  "clinicalVignettes[topic.id]",
+  "topic.task[lang]",
+  "topic.interpretation[lang]\n  ];",
+];
+copiedSectionPrompts.every(signal => !examPromptBlock.includes(signal))
+  ? pass("Exam Center does not reuse Theory, Practice, Cases, or Review prompts")
+  : fail("Exam Center still reuses a section prompt");
 
 // Exact long-copy repeats are useful regression candidates. Repeated interface
 // labels and deliberate remediation instructions are reported, not failed.
