@@ -733,10 +733,10 @@ function create(
             {
               type: 'paragraph',
               text: language === 'RU'
-                ? `Поставьте мысленный эксперимент по теме «${modules.RU[topic.id - 1]}»: измените только один физиологический фактор, связанный с «${topic.terms[0].RU}», а остальные условия считайте постоянными.`
+                ? `Поставьте мысленный эксперимент по теме «${modules.RU[topic.id - 1]}». Используйте «${topic.terms[0].RU}» как объект анализа, но изменяйте не сам термин, а конкретную измеряемую переменную из его физиологического механизма. Остальные условия зафиксируйте и заранее укажите ожидаемое направление эффекта.`
                 : language === 'EN'
-                  ? `Design a thought experiment for “${modules.EN[topic.id - 1]}”: change only one physiological factor related to “${topic.terms[0].EN}” while holding the other conditions constant.`
-                  : `«${modules.KZ[topic.id - 1]}» тақырыбы бойынша ойша эксперимент құрыңыз: «${topic.terms[0].KZ}» байланысты бір физиологиялық факторды ғана өзгертіп, басқа жағдайларды тұрақты деп есептеңіз.`,
+                  ? `Design a thought experiment for “${modules.EN[topic.id - 1]}”. Use “${topic.terms[0].EN}” as the object of analysis, but manipulate a concrete measurable variable in its physiological mechanism rather than the term itself. Hold other conditions constant and state the expected direction of effect in advance.`
+                  : `«${modules.KZ[topic.id - 1]}» тақырыбы бойынша ойша эксперимент құрыңыз. «${topic.terms[0].KZ}» ұғымын талдау нысаны ретінде қолданыңыз, бірақ терминнің өзін емес, оның физиологиялық тетігіндегі нақты өлшенетін айнымалыны өзгертіңіз. Басқа жағдайларды тұрақты ұстап, әсердің күтілетін бағытын алдын ала көрсетіңіз.`,
             },
             { type: 'response', label: language === 'RU' ? 'Что является входным воздействием или изменяемой переменной?' : language === 'EN' ? 'What is the input or manipulated variable?' : 'Кіріс әсері немесе өзгертілетін айнымалы қандай?' },
             { type: 'response', label: language === 'RU' ? 'Какой физиологический показатель изменится и в каком направлении?' : language === 'EN' ? 'Which physiological variable will change, and in what direction?' : 'Қай физиологиялық көрсеткіш және қай бағытта өзгереді?' },
