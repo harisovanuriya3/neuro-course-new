@@ -15,7 +15,7 @@ export type ObjectivesLesson = {
   title: string;
   introduction: string;
   outcomes: { id: string; title: string; description: string }[];
-  navigation: { title: string; links: StudyLink[] };
+  navigation: { title: string; pathwayLabel: string; links: StudyLink[] };
 };
 export type PretestLesson = {
   kind: "pretest";

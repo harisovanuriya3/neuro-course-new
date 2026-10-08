@@ -99,6 +99,9 @@ moduleOneStudy.includes('outcomes: goals.map') && foundation.includes('outcomes:
 studyRenderer.includes('<nav className={styles.objectiveNavigation}') && studyRenderer.includes('lesson.navigation.links.map')
   ? pass("Objectives render one shared navigation block after the outcomes")
   : fail("Objectives shared navigation block is missing");
+studyRenderer.includes('className={styles.pathwayArrow} aria-hidden="true"') && studyRenderer.includes("lesson.navigation.pathwayLabel")
+  ? pass("Objectives pathway uses localized labels and non-interactive decorative arrows")
+  : fail("Objectives recommended pathway or decorative arrows are missing");
 !studyRenderer.slice(studyRenderer.indexOf("function Objectives"), studyRenderer.indexOf("function Pretest")).includes("outcome.links")
   ? pass("individual learning outcomes do not render repeated navigation links")
   : fail("individual learning outcomes still render navigation links");

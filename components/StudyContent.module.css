@@ -16,8 +16,11 @@
 .objective p { margin:0; line-height:1.55; }
 .objectiveNavigation { margin-top:24px; padding:20px; border:2px solid #86aac4; border-radius:16px; background:#f2f8fb; }
 .objectiveNavigation h2 { margin:0 0 14px; color:#004b87; font-size:1.2rem; }
-.objectiveLinks { display:flex; flex-wrap:wrap; gap:10px; }
-.objectiveLinks a { display:inline-flex; align-items:center; min-height:44px; padding:10px 14px; border:1px solid #6f99b7; border-radius:10px; background:#fff; font-weight:700; text-decoration:none; }
+.pathwayLabel { margin:0 0 12px; color:#3e6075; font-size:.95rem; font-weight:700; }
+.objectiveLinks { display:flex; flex-wrap:wrap; align-items:stretch; gap:10px 0; max-width:100%; }
+.pathwayStep { display:flex; flex:1 1 180px; align-items:center; min-width:0; }
+.objectiveLinks a { display:inline-flex; flex:1 1 auto; align-items:center; justify-content:center; box-sizing:border-box; min-width:0; min-height:48px; padding:10px 14px; border:1px solid #6f99b7; border-radius:10px; background:#fff; font-weight:700; line-height:1.25; text-align:center; text-decoration:none; overflow-wrap:anywhere; }
+.pathwayArrow { flex:0 0 auto; padding:0 8px; color:#527b96; font-size:1.25rem; font-weight:800; }
 .objectiveLinks a:hover { background:#e4f1f7; }
-@media (max-width:560px) { .objective { padding:16px 14px 16px 50px; } .objective::before { left:14px; top:16px; } .objectiveLinks { flex-direction:column; } .objectiveLinks a { box-sizing:border-box; width:100%; } }
+@media (max-width:560px) { .objective { padding:16px 14px 16px 50px; } .objective::before { left:14px; top:16px; } .objectiveLinks { flex-direction:column; gap:0; } .pathwayStep { flex:0 0 auto; width:100%; flex-direction:column; } .objectiveLinks a { width:100%; } .pathwayArrow { padding:6px 0; transform:rotate(90deg); } }
 @media (prefers-reduced-motion:reduce) { .objectiveLinks a { scroll-behavior:auto; } }

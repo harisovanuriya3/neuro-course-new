@@ -42,8 +42,12 @@ function Objectives({ lesson, ...context }: Context & { lesson: ObjectivesLesson
     </ol>
     <nav className={styles.objectiveNavigation} aria-labelledby="objective-navigation-title">
       <h2 id="objective-navigation-title">{lesson.navigation.title}</h2>
+      <p className={styles.pathwayLabel}>{lesson.navigation.pathwayLabel}</p>
       <div className={styles.objectiveLinks}>
-        {lesson.navigation.links.map(target => <MaterialLink key={target.section} target={target} {...context} />)}
+        {lesson.navigation.links.map((target, index) => <span className={styles.pathwayStep} key={target.section}>
+          <MaterialLink target={target} {...context} />
+          {index < lesson.navigation.links.length - 1 && <span className={styles.pathwayArrow} aria-hidden="true">→</span>}
+        </span>)}
       </div>
     </nav>
   </>;

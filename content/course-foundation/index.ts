@@ -506,6 +506,7 @@ function create(
       outcomes: outcomeTitles.map((outcomeTitle,index)=>({id:`module-${topic.id}-objective-${index+1}`,title:outcomeTitle,description:outcomeDescriptions[index]})),
       navigation: {
         title: language === 'RU' ? 'Перейти к изучению модуля' : language === 'EN' ? 'Continue learning' : 'Модульді оқуға өту',
+        pathwayLabel: language === 'RU' ? 'Рекомендуемый маршрут' : language === 'EN' ? 'Recommended pathway' : 'Ұсынылатын оқу бағыты',
         links: [{section:'theory'},{section:'practice'},{section:'cases'},{section:'interactive'},{section:'virtual-patient'}],
       },
     };
