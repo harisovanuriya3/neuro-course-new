@@ -5,6 +5,18 @@ import type { MediaLesson } from '../media';
 import { topics, termDefinitions, type Topic } from './topics';
 import { clinicalVignettes, createFoundationCase, createFoundationTest } from './assessment';
 
+const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
+  9: { RU: 'сравните амплитуду и латентность рефлекторного ответа до и после изменения интенсивности афферентного стимула', EN: 'compare reflex-response amplitude and latency before and after changing afferent stimulus intensity', KZ: 'афференттік стимул қарқындылығын өзгерткенге дейін және кейін рефлекстік жауаптың амплитудасы мен латенттілігін салыстырыңыз' },
+  10: { RU: 'измените уровень сенсорной активации и измерьте изменение показателя бодрствования или постуральной реакции', EN: 'change the level of sensory activation and measure a change in an arousal or postural-response variable', KZ: 'сенсорлық белсендіру деңгейін өзгертіп, сергектік немесе постуралдық жауап көрсеткішінің өзгерісін өлшеңіз' },
+  12: { RU: 'измените условие выбора движения и измерьте время начала, частоту ошибочного выбора или масштаб ответа', EN: 'change a movement-selection condition and measure initiation time, erroneous-choice frequency, or response scaling', KZ: 'қозғалысты таңдау шартын өзгертіп, басталу уақытын, қате таңдау жиілігін немесе жауап ауқымын өлшеңіз' },
+  13: { RU: 'измените доступность сенсорной обратной связи и измерьте ошибку траектории, время коррекции или точность движения', EN: 'change sensory-feedback availability and measure trajectory error, correction time, or movement accuracy', KZ: 'сенсорлық кері байланыстың қолжетімділігін өзгертіп, траектория қатесін, түзету уақытын немесе қозғалыс дәлдігін өлшеңіз' },
+  14: { RU: 'измените сенсорный контекст и измерьте эффективность передачи выбранного сигнала или точность его обнаружения', EN: 'change sensory context and measure transmission effectiveness of a selected signal or its detection accuracy', KZ: 'сенсорлық контексті өзгертіп, таңдалған сигналдың берілу тиімділігін немесе оны анықтау дәлдігін өлшеңіз' },
+  15: { RU: 'задайте контролируемое отклонение регулируемой величины и измерьте направление компенсаторного ответа во времени', EN: 'introduce a controlled deviation in a regulated variable and measure the direction of the compensatory response over time', KZ: 'реттелетін шаманы бақыланатын түрде ауытқытып, уақыт бойынша компенсациялық жауаптың бағытын өлшеңіз' },
+  18: { RU: 'измените характеристику сенсорного или моторного задания и измерьте точность, латентность или пространственную специфичность ответа', EN: 'change a sensory or motor task feature and measure accuracy, latency, or spatial specificity of the response', KZ: 'сенсорлық немесе моторлық тапсырма сипаттамасын өзгертіп, жауаптың дәлдігін, латенттілігін немесе кеңістіктік ерекшелігін өлшеңіз' },
+  20: { RU: 'измените параметр зрительного стимула и измерьте порог обнаружения, точность различения или время ответа', EN: 'change a visual-stimulus parameter and measure detection threshold, discrimination accuracy, or response time', KZ: 'көру стимулының параметрін өзгертіп, анықтау табалдырығын, ажырату дәлдігін немесе жауап уақытын өлшеңіз' },
+  24: { RU: 'сравните условия с разным временем светового воздействия и измерьте сонливость, время засыпания или параметр суточного ритма', EN: 'compare conditions with different light timing and measure sleepiness, sleep-onset timing, or a circadian-rhythm variable', KZ: 'жарық әсерінің уақыты әртүрлі жағдайларды салыстырып, ұйқышылдықты, ұйықтау уақытын немесе тәуліктік ырғақ көрсеткішін өлшеңіз' },
+};
+
 // Shared foundation for modules 2–25.
 // Topic-specific content is progressively deepened while keeping one reusable architecture.
 
@@ -732,11 +744,12 @@ function create(
           blocks: [
             {
               type: 'paragraph',
-              text: language === 'RU'
-                ? `Поставьте мысленный эксперимент по теме «${modules.RU[topic.id - 1]}». Используйте «${topic.terms[0].RU}» как объект анализа, но изменяйте не сам термин, а конкретную измеряемую переменную из его физиологического механизма. Остальные условия зафиксируйте и заранее укажите ожидаемое направление эффекта.`
-                : language === 'EN'
-                  ? `Design a thought experiment for “${modules.EN[topic.id - 1]}”. Use “${topic.terms[0].EN}” as the object of analysis, but manipulate a concrete measurable variable in its physiological mechanism rather than the term itself. Hold other conditions constant and state the expected direction of effect in advance.`
-                  : `«${modules.KZ[topic.id - 1]}» тақырыбы бойынша ойша эксперимент құрыңыз. «${topic.terms[0].KZ}» ұғымын талдау нысаны ретінде қолданыңыз, бірақ терминнің өзін емес, оның физиологиялық тетігіндегі нақты өлшенетін айнымалыны өзгертіңіз. Басқа жағдайларды тұрақты ұстап, әсердің күтілетін бағытын алдын ала көрсетіңіз.`,
+              text: experimentFocus[topic.id]?.[language]
+                ?? (language === 'RU'
+                  ? `Поставьте мысленный эксперимент по теме «${modules.RU[topic.id - 1]}». Используйте «${topic.terms[0].RU}» как объект анализа, но изменяйте не сам термин, а конкретную измеряемую переменную из его физиологического механизма. Остальные условия зафиксируйте и заранее укажите ожидаемое направление эффекта.`
+                  : language === 'EN'
+                    ? `Design a thought experiment for “${modules.EN[topic.id - 1]}”. Use “${topic.terms[0].EN}” as the object of analysis, but manipulate a concrete measurable variable in its physiological mechanism rather than the term itself. Hold other conditions constant and state the expected direction of effect in advance.`
+                    : `«${modules.KZ[topic.id - 1]}» тақырыбы бойынша ойша эксперимент құрыңыз. «${topic.terms[0].KZ}» ұғымын талдау нысаны ретінде қолданыңыз, бірақ терминнің өзін емес, оның физиологиялық тетігіндегі нақты өлшенетін айнымалыны өзгертіңіз. Басқа жағдайларды тұрақты ұстап, әсердің күтілетін бағытын алдын ала көрсетіңіз.`),
             },
             { type: 'response', label: language === 'RU' ? 'Что является входным воздействием или изменяемой переменной?' : language === 'EN' ? 'What is the input or manipulated variable?' : 'Кіріс әсері немесе өзгертілетін айнымалы қандай?' },
             { type: 'response', label: language === 'RU' ? 'Какой физиологический показатель изменится и в каком направлении?' : language === 'EN' ? 'Which physiological variable will change, and in what direction?' : 'Қай физиологиялық көрсеткіш және қай бағытта өзгереді?' },
