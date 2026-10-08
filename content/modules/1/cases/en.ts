@@ -81,20 +81,17 @@ const lesson: CasesLesson = {
       ],
     },
     {
-      id: "integration", title: "Neural integration",
-      situation: "Signals from several receptors arrive in the CNS simultaneously. Some influences favour a response, whereas others limit it.",
-      stages: [{ title: "Explain the resulting response", questions: ["Why can the final response not be explained by a single input signal alone?", "What does neural integration mean?", "How do excitatory and inhibitory influences contribute to the final reaction?"] }],
+      id: "integration", title: "Combined information processing",
+      situation: "Information from several sources reaches the CNS at the same time. The final response can vary with the combination of inputs and the state of the system.",
+      stages: [{ title: "Explain the final response", questions: ["Why does one input not always determine the whole response?", "What does combined information processing mean at the systems level?", "What additional information is needed to explain a changed response?"] }],
       interaction: { type: "choice", prompt: "Select the most accurate explanation.", options: [
-        { text: "The strongest input signal always determines the result.", correct: false, feedback: "A strong input may matter, but its effect depends on other inputs, inhibition, and network state. Signal strength alone cannot explain the result." },
-        { text: "The CNS combines excitatory and inhibitory influences according to their timing, location, and the current state of neural networks.", correct: true, feedback: "Correct. Spatial and temporal interactions between inputs change neuronal activity, while connections between neurons organise a coordinated response. Integration is more than simply counting signals." },
-        { text: "Inhibition switches off the entire CNS and therefore does not contribute to the response.", correct: false, feedback: "Inhibitory influences act selectively and help shape the response. Limiting activity in particular circuits can help other circuits perform the required function." },
-        { text: "Each receptor independently specifies a complete motor command.", correct: false, feedback: "Receptors report stimuli. Transforming sensory input into coordinated commands requires central processing and interactions between neural networks." },
+        { text: "Each input always specifies one fixed complete response.", correct: false, feedback: "This ignores combined central processing of information." },
+        { text: "The CNS relates multiple information sources to the system's current state, so the outcome can differ.", correct: true, feedback: "Correct. At the introductory level, the key is that responses depend on context and the combination of inputs." },
+        { text: "Knowing only the strongest input is enough to explain the response.", correct: false, feedback: "One measure is insufficient to infer the behaviour of the whole system." },
+        { text: "Central processing does not contribute to response formation.", correct: false, feedback: "Central processing links incoming information to organisation of the response." },
       ] },
-      explanation: [
-        "Neural integration combines and transforms incoming signals within a neuron and a network. Input intensity, arrival time, synaptic location, and the cell's current state all matter.",
-        "Excitatory and inhibitory synaptic influences jointly change the probability and pattern of firing. Consequently, the same sensory input can produce different responses when combined with different additional inputs.",
-        "At the network level, coordinated activity across many neurons selects and adjusts the response. Treating a single input as its universal cause overlooks this organisation.",
-      ],
+      explanation: ["Several information sources can contribute to one response.", "The same individual input does not guarantee the same reaction under different conditions.", "Cellular mechanisms of integration, excitation and inhibition are covered in later dedicated modules."],
+
     },
     {
       id: "integrative", title: "An integrative case",
