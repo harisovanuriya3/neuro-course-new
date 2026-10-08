@@ -20,6 +20,7 @@ const moduleOnePractice = ["ru", "en", "kz"].map(language => [
   language.toUpperCase(),
   read(`content/modules/1/practice/${language}.ts`),
 ]);
+const moduleOneStudy = read("content/modules/1/study.ts");
 
 const englishModules = course.match(/EN:\s*\[([\s\S]*?)\n\s*\],/m)?.[1]
   .match(/^\s*".+",?$/gm) ?? [];
@@ -82,6 +83,15 @@ for (const [language, source] of moduleOnePractice) {
     ? pass(`Module 1 Practice ${language} provides a drawing tool for synthesis`)
     : fail(`Module 1 Practice ${language} asks for synthesis without visual materials`);
 }
+
+const repeatedPathwayActions = [
+  "Построить цепочку «рецептор → афферентный путь",
+  "Construct the receptor → afferent pathway",
+  "«Рецептор → афференттік жол",
+];
+repeatedPathwayActions.every(copy => !moduleOneStudy.includes(copy))
+  ? pass("Module 1 Objectives use prediction rather than repeating the Practice sequence task")
+  : fail("Module 1 Objectives still repeat the Practice sequence task");
 
 const testFunction = assessment.slice(assessment.indexOf("export function createFoundationTest"));
 !testFunction.includes("clinicalVignettes[topic.id]")
