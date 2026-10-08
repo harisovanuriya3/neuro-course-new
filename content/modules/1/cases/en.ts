@@ -64,19 +64,15 @@ const lesson: CasesLesson = {
       ],
     },
     {
-      id: "excitation", title: "Excitation and inhibition",
-      situation: "A precise movement requires activation of some neuronal groups while the activity of others is limited.",
-      stages: [{ title: "Selectivity of neural control", questions: ["Why is activation alone insufficient for precise neural regulation?", "What functional role does inhibition play?", "Why is the balance of excitatory and inhibitory influences important for neural networks?"] }],
-      explanation: [
-        "Indiscriminate activation could recruit competing motor programmes and muscles. A precise movement requires selection of the appropriate neuronal groups, an appropriate response magnitude, and coordinated timing.",
-        "Excitatory influences generally increase the probability of an action potential, whereas inhibitory influences limit it and regulate signal transmission through the network. Inhibition is an active physiological process, not simply the absence of excitation.",
-        "Their coordination restrains excessive activity and helps select relevant signals. For example, inhibitory circuits can reduce antagonist activity during movement. This balance is dynamic and depends on the task and network state; it does not mean equal numbers of excitatory and inhibitory signals.",
-      ],
+      id: "excitation", title: "Selectivity of the neural response",
+      situation: "During a precise movement, the nervous system must select the required response and limit competing actions.",
+      stages: [{ title: "Selection and coordination", questions: ["Why is simply increasing all activity insufficient?", "What does the need to choose between competing actions demonstrate?", "Which observations would help assess response coordination?"] }],
+      explanation: ["A precise response requires selection of an appropriate action rather than maximal overall activity.", "Limiting competing actions shows that neural regulation is selective.", "Cellular mechanisms of excitation and inhibition are not analysed here; they are covered in the dedicated module."],
     },
     {
       id: "synapse", title: "Linking stages of transmission",
       situation: "In the teaching model, a signal has reached the end of a nerve fibre. Identify the next functional stage without analysing the molecular synaptic mechanism.",
-      stages: [{ title: "From an electrical signal to chemical transmission", questions: ["Arrange the events in order: what must happen before each subsequent event?"] }],
+      stages: [{ title: "Sequence of functional stages", questions: ["Arrange the events in order: what must happen before each subsequent event?"] }],
       interaction: { type: "sequence", steps: ["Signal propagates along the nerve fibre", "Signal reaches the contact between cells", "Influence is transmitted to the next cell", "The receiving cell response changes"] },
       explanation: [
         "The key here is to distinguish functional stages: signal propagation along a fibre and transmission of influence to the next cell.",
