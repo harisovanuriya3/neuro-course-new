@@ -53,19 +53,19 @@ const text = {
   RU: {
     module: "Модуль",
     back: "← Назад к модулю",
-    pending: "Этот раздел пока недоступен. Вернитесь к навигации модуля и выберите другой раздел.",
+    pending: "Материал этого раздела не загрузился. Вернитесь к модулю и повторите попытку.",
   },
 
   KZ: {
     module: "Модуль",
     back: "← Модульге оралу",
-    pending: "Бұл бөлім әзірге қолжетімсіз. Модуль навигациясына оралып, басқа бөлімді таңдаңыз.",
+    pending: "Бұл бөлімнің материалы жүктелмеді. Модульге оралып, қайтадан көріңіз.",
   },
 
   EN: {
     module: "Module",
     back: "← Back to module",
-    pending: "This section is currently unavailable. Return to the module navigation and choose another section.",
+    pending: "This section did not load. Return to the module and try again.",
   },
 };
 
