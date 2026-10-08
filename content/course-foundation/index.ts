@@ -483,7 +483,7 @@ function create(
           options: [
             { id: 'a', text: mechanism },
             { id: 'b', text: interpretation },
-            { id: 'c', text: c.noMaterials },
+            { id: 'c', text: language === 'RU' ? 'Наблюдаемое изменение всегда имеет только одну возможную физиологическую причину.' : language === 'EN' ? 'An observed change always has only one possible physiological cause.' : 'Бақыланатын өзгерістің әрқашан тек бір ғана физиологиялық себебі болады.' },
           ],
           correctAnswer: 'a',
           explanation: interpretation,
@@ -510,25 +510,25 @@ function create(
     return {
       kind: 'one-minute',
       title,
-      introduction: language === 'RU' ? 'Сформулируйте механизм за одну минуту: от причины к наблюдаемому результату.' : language === 'EN' ? 'Explain the mechanism in one minute, moving from cause to observable result.' : 'Тетікті бір минутта түсіндіріңіз: себептен байқалатын нәтижеге дейін.',
+      introduction: language === 'RU' ? 'Не перечитывайте готовый ответ. За одну минуту восстановите причинную цепь своими словами.' : language === 'EN' ? 'Do not reread a prepared answer. Reconstruct the causal chain in your own words in one minute.' : 'Дайын жауапты қайта оқымаңыз. Бір минутта себептік тізбекті өз сөзіңізбен қалпына келтіріңіз.',
       cards: [
         {
           id: `module-${topic.id}-one-minute-core`,
-          title: language === 'RU' ? 'Механизм' : language === 'EN' ? 'Mechanism' : 'Тетік',
-          paragraphs: [mechanism],
+          title: language === 'RU' ? '1. Причина → механизм → результат' : language === 'EN' ? '1. Cause → mechanism → outcome' : '1. Себеп → тетік → нәтиже',
+          paragraphs: [language === 'RU' ? 'Назовите исходное изменение, два промежуточных звена и наблюдаемый результат.' : language === 'EN' ? 'State the initial change, two intermediate links, and the observable outcome.' : 'Бастапқы өзгерісті, екі аралық буынды және байқалатын нәтижені атаңыз.'],
           links: [{ section: 'theory' as const }],
         },
         {
           id: `module-${topic.id}-one-minute-interpret`,
-          title: language === 'RU' ? 'Что означает результат' : language === 'EN' ? 'What the result means' : 'Нәтиже нені білдіреді',
-          paragraphs: [interpretation],
-          links: [{ section: 'theory' as const }, { section: 'practice' as const }],
+          title: language === 'RU' ? '2. Измените одно звено' : language === 'EN' ? '2. Change one link' : '2. Бір буынды өзгертіңіз',
+          paragraphs: [language === 'RU' ? 'Выберите одно звено цепи и предскажите, как изменится конечный результат.' : language === 'EN' ? 'Change one link in the chain and predict how the final outcome changes.' : 'Тізбектің бір буынын өзгертіп, соңғы нәтиженің қалай өзгеретінін болжаңыз.'],
+          links: [{ section: 'practice' as const }],
         },
         {
           id: `module-${topic.id}-one-minute-check`,
-          title: language === 'RU' ? 'Проверьте себя' : language === 'EN' ? 'Check yourself' : 'Өзіңізді тексеріңіз',
-          paragraphs: [question],
-          links: [{ section: 'tests' as const }],
+          title: language === 'RU' ? '3. Граница вывода' : language === 'EN' ? '3. Limit of inference' : '3. Қорытынды шегі',
+          paragraphs: [language === 'RU' ? 'Назовите один вывод, который нельзя сделать только по этому наблюдению.' : language === 'EN' ? 'State one conclusion that cannot be made from this observation alone.' : 'Осы бақылаудың өзінен ғана жасауға болмайтын бір қорытындыны атаңыз.'],
+          links: [{ section: 'questions' as const }],
         },
       ],
     };
@@ -751,7 +751,7 @@ function create(
         {
           id: `module-${topic.id}-review-concept`,
           prompt: question,
-          explanation: `${mechanism} ${interpretation}`,
+          explanation: interpretation,
           target: { section: 'theory' },
         },
         {
