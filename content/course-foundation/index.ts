@@ -475,7 +475,7 @@ function create(
             { id: 'c', text: language === 'RU' ? 'Наблюдаемое изменение всегда имеет только одну возможную физиологическую причину.' : language === 'EN' ? 'An observed change always has only one possible physiological cause.' : 'Бақыланатын өзгерістің әрқашан тек бір ғана физиологиялық себебі болады.' },
           ],
           correctAnswer: 'a',
-          explanation: interpretation,
+          explanation: language === 'RU' ? 'Сопоставьте свой ответ с определением ключевого физиологического отношения: укажите переменную, направление её изменения и наблюдаемый результат.' : language === 'EN' ? 'Compare your answer with the key physiological relationship: identify the variable, direction of change, and observable result.' : 'Жауабыңызды негізгі физиологиялық байланыспен салыстырыңыз: айнымалыны, оның өзгеру бағытын және байқалатын нәтижені көрсетіңіз.',
           target: { section: 'theory' },
         },
         {
@@ -691,7 +691,7 @@ function create(
         },
 
         {
-          title: c.question,
+          title: language === 'RU' ? 'Самостоятельное объяснение механизма' : language === 'EN' ? 'Independent mechanism explanation' : 'Тетікті өздігінен түсіндіру',
 
           blocks: [
             {
@@ -779,19 +779,19 @@ function create(
         {
           id: `module-${topic.id}-review-mechanism`,
           prompt: language === 'RU' ? 'Объясните по шагам: что происходит сначала, что затем и к какому результату это приводит?' : language === 'EN' ? 'Describe the causal mechanism step by step. How would changing the first link affect the result?' : 'Себептік тетікті қадамдап сипаттаңыз. Бірінші буын өзгерсе, нәтиже қалай өзгереді?',
-          explanation: mechanism,
+          explanation: language === 'RU' ? 'Проверьте, есть ли в объяснении минимум три связанные ступени: исходное изменение → промежуточный механизм → физиологический результат.' : language === 'EN' ? 'Check that your explanation contains at least three linked steps: initial change → intermediate mechanism → physiological result.' : 'Түсіндірмеде кемінде үш байланысқан қадам барын тексеріңіз: бастапқы өзгеріс → аралық тетік → физиологиялық нәтиже.',
           target: { section: 'theory' },
         },
         {
           id: `module-${topic.id}-review-interpretation`,
           prompt: language === 'RU' ? 'Какой результат вы ожидаете увидеть? Что этот результат ещё не позволяет утверждать?' : language === 'EN' ? 'Which observable result is consistent with this mechanism, and what does that result not prove by itself?' : 'Қандай байқалатын нәтиже осы тетікке сәйкес келеді және ол өздігінен нені дәлелдемейді?',
-          explanation: interpretation,
+          explanation: language === 'RU' ? 'Хороший ответ одновременно называет ожидаемое наблюдение и ограничение вывода: один результат редко исключает все альтернативные механизмы.' : language === 'EN' ? 'A strong answer states both the expected observation and the limit of inference: one result rarely excludes every alternative mechanism.' : 'Жақсы жауап күтілетін бақылауды да, қорытынды шегін де көрсетеді: бір нәтиже барлық балама тетіктерді сирек жоққа шығарады.',
           target: { section: 'practice' },
         },
         {
           id: `module-${topic.id}-review-transfer`,
           prompt: language === 'RU' ? 'Представьте похожую новую ситуацию. Что изменится и почему?' : language === 'EN' ? 'Transfer the mechanism to a new situation: make a prediction, then justify it causally.' : 'Тетікті жаңа жағдайға қолданыңыз: алдымен болжам жасаңыз, кейін оны себептік байланыспен негіздеңіз.',
-          explanation: topic.task[language],
+          explanation: language === 'RU' ? 'Перенос считается обоснованным, если вы сохраняете причинный принцип, но заново определяете вход, изменяемое звено и прогноз для новой ситуации.' : language === 'EN' ? 'Transfer is justified when the causal principle is preserved while the input, altered link, and prediction are re-derived for the new situation.' : 'Тасымалдау негізді болуы үшін себептік қағида сақталып, жаңа жағдайдағы кіріс, өзгерген буын және болжам қайта анықталуы тиіс.',
           target: { section: 'cases' },
         },
         {
