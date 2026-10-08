@@ -3,7 +3,7 @@ import { getSectionTitle, type Section } from '../sections';
 import type { LocalizedLesson, PracticeLesson, SectionLesson } from '../types';
 import type { MediaLesson } from '../media';
 import { topics, termDefinitions, type Topic } from './topics';
-import { createFoundationCase, createFoundationTest } from './assessment';
+import { clinicalVignettes, createFoundationCase, createFoundationTest } from './assessment';
 
 // Shared foundation for modules 2–25.
 // Topic-specific content is progressively deepened while keeping one reusable architecture.
@@ -707,28 +707,24 @@ function create(
         },
 
         {
-          title: language === 'RU' ? 'Предположите → проверьте → объясните' : language === 'EN' ? 'Predict → check → explain' : 'Болжаңыз → тексеріңіз → түсіндіріңіз',
+          title: language === 'RU' ? 'Физиологический эксперимент' : language === 'EN' ? 'Physiological experiment' : 'Физиологиялық эксперимент',
           blocks: [
             {
               type: 'paragraph',
-              text: language === 'RU'
-                ? 'Сначала напишите, что, по вашему мнению, произойдёт. После задания запишите, что получилось на самом деле, а затем объясните почему.'
-                : language === 'EN'
-                  ? 'First write what you think will happen. After the task, record what actually happened and then explain why.'
-                  : 'Тапсырмаға дейін күтілетін нәтижені және себептік тетікті жазыңыз. Орындағаннан кейін бақылауды бөлек тіркеңіз; бақылауды түсіндірумен алмастырмаңыз.',
+              text: clinicalVignettes[topic.id]?.[language] ?? topic.task[language],
             },
-            { type: 'response', label: language === 'RU' ? 'Мой прогноз' : language === 'EN' ? 'My prediction' : 'Менің болжамым' },
-            { type: 'response', label: language === 'RU' ? 'Что я наблюдал(а)' : language === 'EN' ? 'What I observed' : 'Мен не байқадым' },
-            { type: 'response', label: language === 'RU' ? 'Моё физиологическое объяснение' : language === 'EN' ? 'My physiological explanation' : 'Менің физиологиялық түсіндірмем' },
+            { type: 'response', label: language === 'RU' ? 'Что является входным воздействием или изменяемой переменной?' : language === 'EN' ? 'What is the input or manipulated variable?' : 'Кіріс әсері немесе өзгертілетін айнымалы қандай?' },
+            { type: 'response', label: language === 'RU' ? 'Какой физиологический показатель изменится и в каком направлении?' : language === 'EN' ? 'Which physiological variable will change, and in what direction?' : 'Қай физиологиялық көрсеткіш және қай бағытта өзгереді?' },
+            { type: 'response', label: language === 'RU' ? 'Объясните причинную цепь от воздействия к результату.' : language === 'EN' ? 'Explain the causal chain from intervention to outcome.' : 'Әсерден нәтижеге дейінгі себептік тізбекті түсіндіріңіз.' },
           ],
         },
         {
-          title: language === 'RU' ? 'Попробуйте в новой ситуации' : language === 'EN' ? 'Try it in a new situation' : 'Жаңа жағдайда қолданып көріңіз',
+          title: language === 'RU' ? 'Разбор данных и границы вывода' : language === 'EN' ? 'Data interpretation and limits' : 'Деректерді талдау және қорытынды шектері',
           blocks: [
-            { type: 'paragraph', text: question },
-            { type: 'response', label: language === 'RU' ? 'Как изменится результат в новой ситуации и почему?' : language === 'EN' ? 'How would the result change in a new situation, and why?' : 'Жаңа жағдайда нәтиже қалай өзгереді және неге?' },
-            { type: 'response', label: language === 'RU' ? 'Что по этим данным утверждать нельзя?' : language === 'EN' ? 'What cannot be concluded from these data?' : 'Бұл деректерден қандай қорытынды жасауға болмайды?' },
-            { type: 'answer', items: [mechanism, interpretation] },
+            { type: 'paragraph', text: clinicalVignettes[topic.id]?.[language] ?? question },
+            { type: 'response', label: language === 'RU' ? 'Какие наблюдаемые данные поддерживают ваш вывод?' : language === 'EN' ? 'Which observations support your conclusion?' : 'Қандай бақылаулар қорытындыңызды қолдайды?' },
+            { type: 'response', label: language === 'RU' ? 'Какое альтернативное объяснение нужно исключить?' : language === 'EN' ? 'Which alternative explanation should be excluded?' : 'Қандай балама түсіндірмені жоққа шығару керек?' },
+            { type: 'response', label: language === 'RU' ? 'Какое дополнительное измерение лучше всего различит эти объяснения?' : language === 'EN' ? 'Which additional measurement would best distinguish these explanations?' : 'Бұл түсіндірмелерді ажырату үшін қандай қосымша өлшеу тиімді?' },
           ],
         },
         {
