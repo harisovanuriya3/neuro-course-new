@@ -19,10 +19,16 @@ const genericModules=[...stationSource.matchAll(/^\s*(\d+):\{title:/gm)].map(mat
 assert.deepEqual(genericModules,[3,11,19,20,21,22],"generic practical-station inventory changed; review each station deliberately");
 const routeSource=fs.readFileSync(path.resolve(__dirname,"../app/modules/[id]/[section]/page.tsx"),"utf8");
 assert(!routeSource.includes("<NeuroPracticalStation moduleId={22}"),"Module 22 still renders the generic practical station");
+assert(!routeSource.includes("<NeuroPracticalStation moduleId={"),"A specialized lab is still followed by the generic practical station");
+for(const moduleId of [3,11,19,20,21])assert(!routeSource.includes(`<GuidedLabFrame moduleId={${moduleId}}`),`Module ${moduleId} still duplicates its specialized prediction workflow`);
 assert(routeSource.includes("<AutonomicLab language={lang} />"),"Module 22 baroreflex lab is not routed");
 const labSource=fs.readFileSync(path.resolve(__dirname,"../components/AutonomicLab.tsx"),"utf8");
 for(const signal of ["setBaseline(true)","setPrediction", "function run()", "mode.series", "setExplanation", "recordOutcome(22"]){
  assert(labSource.includes(signal),`Module 22 lab is missing required interaction: ${signal}`);
 }
 for(const language of languages)assert(labSource.includes(`${language}:{title:`),`Module 22 controls are missing ${language} localization`);
-console.log("Practical-station validation passed: Module 22 has localized parameters, prediction targets, time-series results and interpretation; generic inventory is modules 3, 11, 19, 20, 21, 22, with 22 no longer rendered.");
+const visionSource=fs.readFileSync(path.resolve(__dirname,"../components/VisionLab.tsx"),"utf8");
+for(const signal of ["Parameter changed","Index prediction","name=\"target\"","name=\"direction\"","Conditional luminance","Conditional contrast","Conditional visual-response index"]){
+ assert(visionSource.includes(signal),`Module 20 visual experiment is missing: ${signal}`);
+}
+console.log("Practical-station validation passed: Modules 3, 11, 19, 20, 21 and 22 route only their specialized laboratories; Module 22 has localized parameters, prediction targets, time-series results and interpretation.");
