@@ -19,7 +19,8 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const visitedSections=data?.visitedSections[moduleId]??[];
  const coreSections=["objectives","pretest","theory","one-minute","clinical","interactive","practice","cases","tests","questions","virtual-patient"] as const;
  const coreVisited=coreSections.filter(section=>visitedSections.includes(section)).length;
- const supportVisited=visitedSections.length-coreVisited;
+ const supportSections=["media","glossary","voice","progress","notes","references"] as const;
+ const supportVisited=supportSections.filter(section=>visitedSections.includes(section)).length;
  const currentPercent=Math.round((coreVisited/coreSections.length)*100);
  const allModules=modules[language].map((title,index)=>{const id=index+1;const sections=data?.visitedSections[id]??[];const core=coreSections.filter(s=>sections.includes(s)).length;const o=data?.outcomes??{};const evidence=Object.entries(o).filter(([k])=>k.startsWith(id+":")&&!k.includes(":pretest")).map(([,v])=>v);const correct=evidence.reduce((s,v)=>s+v.correct,0),total=evidence.reduce((s,v)=>s+v.total,0);const mastery=total?Math.round(correct/total*100):0;return{id,title,core,completion:Math.round(core/coreSections.length*100),mastery,total}});
  const courseCompletion=Math.round(allModules.reduce((s,m)=>s+m.completion,0)/allModules.length);
