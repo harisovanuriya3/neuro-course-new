@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "audit:course": "node scripts/audit-course.cjs && node scripts/validate-references.cjs && node scripts/validate-interactive.cjs",
+    "audit:course": "node scripts/audit-course.cjs && node scripts/validate-references.cjs && node scripts/validate-interactive.cjs && node scripts/validate-practical-stations.cjs",
     "validate:interactive": "node scripts/validate-interactive.cjs",
+    "validate:stations": "node scripts/validate-practical-stations.cjs",
     "build": "next build",
     "start": "next start"
   },
