@@ -66,7 +66,14 @@ export default function SensorySystemsLab({language}:{language:Language}){
  return language==="EN"?"A lesion interrupts transmission at this level and impairs functions represented downstream.":"Зақым осы деңгейдегі өткізуді үзіп, одан кейінгі құрылымдар көрсететін функцияларды бұзады.";
 };
 function choose(i:number){setSelected(i);setActive(0);setRunning(false);setPaused(false);setLesion(null);setPrediction("");setPredictionChoice(null);setReflection("")}
- function run(){setActive(0);if(mode!==1)setLesion(null);setPaused(false);setRunning(true);recordOutcome(21,"interactive",1,1);if(mode===1&&lesion!==null){const correct=predictionChoice==="distal";recordOutcome(21,"criterion:clinical:sensory-lesion",correct?1:0,1)}}
+ function run(){setActive(0);if(mode!==1)setLesion(null);setPaused(false);setRunning(true);recordOutcome(21,"interactive",1,1);if(mode===1&&lesion!==null){
+   // A pathway interruption generally impairs information represented downstream,
+   // but the exact deficit depends on analyzer, lesion level, crossings and bilateral projections.
+   // Therefore the lab records evidence only when the learner predicts a downstream effect
+   // and provides a meaningful mechanism; it does not treat "distal" as universally sufficient.
+   const correct=predictionChoice==="distal"&&isMeaningfulResponse(prediction,20,4);
+   recordOutcome(21,"criterion:clinical:sensory-lesion",correct?1:0,1);
+ }}
  const nodeText=useMemo(()=>[a.receptor,a.path,a.center,a.cortex,a.cortex],[a]);
  return <section className={styles.lab}>
   <div className={styles.header}><div><h2>{t.title}</h2><p>{t.intro}</p></div></div>
