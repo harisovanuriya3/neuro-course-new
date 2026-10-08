@@ -57,12 +57,15 @@ function Explanation({ id, title, children }: { id: string; title: string; child
 function Sequence({ id, nodes, ui, loop, language }: { id: string; nodes: DiagramNode[]; ui: UI; loop?: string; language: Language }) {
   const [index, setIndex] = useState(0);
   const [returned, setReturned] = useState(false);
-  function select(next: number) { setIndex(next); setReturned(false); }
-  const current = nodes[index];
+  function select(next: number) { if (next >= 0 && next < nodes.length) { setIndex(next); setReturned(false); } }
+  function selectId(id: string) { const next=nodes.findIndex(node=>node.id===id); if(next>=0)select(next); }
+  function returnToCenter() { const next=nodes.findIndex(node=>node.id==="center"); if(next>=0){setIndex(next);setReturned(true);} }
+  const current = nodes[index] ?? nodes[0];
+  if (!current) return <p role="status">{ui.select}</p>;
   return <div data-sequence={id}>
     {id === "pathway"
-      ? <PathwayVisual nodes={nodes} selected={current.id} returned={returned} language={language} onSelect={id => select(nodes.findIndex(node => node.id === id))} />
-      : <SynapseVisual nodes={nodes} selected={current.id} electrical={id === "synapse-electrical"} language={language} onSelect={id => select(nodes.findIndex(node => node.id === id))} />}
+      ? <PathwayVisual nodes={nodes} selected={current.id} returned={returned} language={language} onSelect={selectId} />
+      : <SynapseVisual nodes={nodes} selected={current.id} electrical={id === "synapse-electrical"} language={language} onSelect={selectId} />}
     <ol className={styles.sequence} aria-label={ui.select}>
       {nodes.map((node, i) => <li key={node.id}>
         <button type="button" aria-pressed={index === i} aria-controls={`${id}-explanation`} onClick={() => select(i)} data-node={node.id}>
@@ -78,7 +81,7 @@ function Sequence({ id, nodes, ui, loop, language }: { id: string; nodes: Diagra
     </div>
     {loop && <div className={styles.loop}>
       <p>{loop}</p>
-      <button type="button" data-action="feedback" disabled={index !== nodes.length - 1} aria-controls={`${id}-explanation`} onClick={() => { setIndex(nodes.findIndex(node => node.id === "center")); setReturned(true); }}>
+      <button type="button" data-action="feedback" disabled={index !== nodes.length - 1} aria-controls={`${id}-explanation`} onClick={returnToCenter}>
         <span aria-hidden="true">↩ </span>{ui.returnToCenter}
       </button>
     </div>}
@@ -91,9 +94,10 @@ function Sequence({ id, nodes, ui, loop, language }: { id: string; nodes: Diagra
 }
 
 function Organization({ diagram, ui, language }: { diagram: InteractiveLesson["organization"]; ui: UI; language: Language }) {
-  const [selected, setSelected] = useState(diagram.groups[0].nodes[0].id);
-  const group = diagram.groups.find(group => group.nodes.some(node => node.id === selected))!;
-  const node = group.nodes.find(node => node.id === selected)!;
+  const [selected, setSelected] = useState(diagram.groups[0]?.nodes[0]?.id ?? "");
+  const group = diagram.groups.find(group => group.nodes.some(node => node.id === selected)) ?? diagram.groups[0];
+  const node = group?.nodes.find(node => node.id === selected) ?? group?.nodes[0];
+  if (!group || !node) return <p role="status">{ui.select}</p>;
   return <>
     <OrganizationVisual nodes={diagram.groups.flatMap(group => group.nodes)} selected={selected} language={language} onSelect={setSelected} />
     <OrganizationSpecimens language={language} />
@@ -113,8 +117,9 @@ function Organization({ diagram, ui, language }: { diagram: InteractiveLesson["o
 }
 
 function Synapse({ diagram, ui, language }: { diagram: InteractiveLesson["synapse"]; ui: UI; language: Language }) {
-  const [mode, setMode] = useState(diagram.modes[0].id);
-  const selected = diagram.modes.find(item => item.id === mode)!;
+  const [mode, setMode] = useState(diagram.modes[0]?.id ?? "");
+  const selected = diagram.modes.find(item => item.id === mode) ?? diagram.modes[0];
+  if (!selected) return <p role="status">{ui.select}</p>;
   return <>
     <div className={styles.actions} role="group" aria-label={diagram.title}>
       {diagram.modes.map(item => <button key={item.id} type="button" data-mode={item.id} aria-pressed={mode === item.id} aria-controls="synapse-model" onClick={() => setMode(item.id)}>{item.title}</button>)}

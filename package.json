@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "audit:course": "node scripts/audit-course.cjs",
+    "audit:course": "node scripts/audit-course.cjs && node scripts/validate-interactive.cjs",
+    "validate:interactive": "node scripts/validate-interactive.cjs",
     "build": "next build",
     "start": "next start"
   },

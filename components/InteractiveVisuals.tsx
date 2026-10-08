@@ -6,9 +6,9 @@ import type { DiagramNode } from "../content/interactive";
 import styles from "./InteractiveVisuals.module.css";
 
 const copy = {
-  RU: { selected: "Выделено", model: "Условная учебная схема. Номера соответствуют подписям ниже. Выбор меняется кнопками схемы.", pre: "Пресинаптический элемент", post: "Постсинаптический элемент", vesicles: "Везикулы с медиатором", cleft: "Синаптическая щель", receptors: "Постсинаптические рецепторы", junction: "Электрическое соединение: щелевые контакты", unknown: "Возникновение потенциала действия не определено", active: "включено", inactive: "выключено" },
-  EN: { selected: "Highlighted", model: "Schematic teaching model. Numbers match the labels below. Use the diagram buttons to change the selection.", pre: "Presynaptic element", post: "Postsynaptic element", vesicles: "Vesicles containing transmitter", cleft: "Synaptic cleft", receptors: "Postsynaptic receptors", junction: "Electrical connection: gap junctions", unknown: "Action potential generation is undetermined", active: "on", inactive: "off" },
-  KZ: { selected: "Белгіленген", model: "Шартты оқу сызбасы. Сандар төмендегі атауларға сәйкес келеді. Таңдауды сызба батырмаларымен өзгертіңіз.", pre: "Пресинапстық элемент", post: "Постсинапстық элемент", vesicles: "Медиаторы бар везикулалар", cleft: "Синапстық саңылау", receptors: "Постсинапстық рецепторлар", junction: "Электрлік байланыс: саңылаулы түйіспелер", unknown: "Әрекет потенциалының пайда болуы анықталмаған", active: "қосулы", inactive: "өшірулі" },
+  RU: { selected: "Выделено", model: "Условная учебная схема. Номера соответствуют подписям ниже. Выбор меняется кнопками схемы.", pre: "Пресинаптический элемент", post: "Постсинаптический элемент", vesicles: "Везикулы с медиатором", cleft: "Синаптическая щель", receptors: "Постсинаптические рецепторы", junction: "Электрическое соединение: щелевые контакты", unknown: "Возникновение потенциала действия не определено", unavailable: "Элемент схемы временно недоступен", active: "включено", inactive: "выключено" },
+  EN: { selected: "Highlighted", model: "Schematic teaching model. Numbers match the labels below. Use the diagram buttons to change the selection.", pre: "Presynaptic element", post: "Postsynaptic element", vesicles: "Vesicles containing transmitter", cleft: "Synaptic cleft", receptors: "Postsynaptic receptors", junction: "Electrical connection: gap junctions", unknown: "Action potential generation is undetermined", unavailable: "This diagram item is temporarily unavailable", active: "on", inactive: "off" },
+  KZ: { selected: "Белгіленген", model: "Шартты оқу сызбасы. Сандар төмендегі атауларға сәйкес келеді. Таңдауды сызба батырмаларымен өзгертіңіз.", pre: "Пресинапстық элемент", post: "Постсинапстық элемент", vesicles: "Медиаторы бар везикулалар", cleft: "Синапстық саңылау", receptors: "Постсинапстық рецепторлар", junction: "Электрлік байланыс: саңылаулы түйіспелер", unknown: "Әрекет потенциалының пайда болуы анықталмаған", unavailable: "Сызба элементі уақытша қолжетімсіз", active: "қосулы", inactive: "өшірулі" },
 };
 
 function Frame({ title, description, children, legend, state }: { title: string; description: string; children: ReactNode; legend: ReactNode; state: string }) {
@@ -44,8 +44,9 @@ function Legend({ nodes, selected, language }: { nodes: DiagramNode[]; selected:
 }
 
 export function OrganizationVisual({ nodes, selected, language, onSelect }: { nodes: DiagramNode[]; selected: string; language: Language; onSelect: (id: string) => void }) {
-  const action = (id: string): Action => ({ label: nodes.find(node => node.id === id)!.label, onActivate: () => onSelect(id) });
-  const current = nodes.find(node => node.id === selected)!;
+  const action = (id: string): Action => { const node=nodes.find(item=>item.id===id); return { label:node?.label??copy[language].unavailable, onActivate:()=>{if(node)onSelect(id)} }; };
+  const current = nodes.find(node => node.id === selected) ?? nodes[0];
+  if (!current) return <p role="status">{copy[language].unavailable}</p>;
   return <Frame title={`${copy[language].selected}: ${current.label}`} description={current.explanation} state={selected} legend={<Legend {...{ nodes, selected, language }} />}>
     <path className={styles.outline} d="M151 92 Q119 99 107 133 L70 207 87 218 130 163 132 231 111 306 139 306 179 238 218 306 246 306 226 231 229 163 271 218 289 207 250 133 Q238 99 209 92 M151 92 Q129 77 137 42 Q142 14 180 14 Q217 14 223 42 Q232 77 209 92" />
     <Part {...action('brain')} active={selected === 'brain'}><path d="M178 32 C164 21 144 43 153 53 C139 65 155 84 177 77 C192 88 213 72 207 58 C221 39 194 22 178 32Z" /><path d="M179 33V76 M157 45Q173 40 174 54 M189 44Q204 49 193 59 M159 66Q169 55 177 65" fill="none" /></Part>
@@ -53,30 +54,33 @@ export function OrganizationVisual({ nodes, selected, language, onSelect }: { no
     <Part {...action('nerves')} active={selected === 'nerves'}><path d="M174 111L133 127 87 203 M185 111L226 127 272 203 M174 146L132 153 M185 146L226 153 M175 210L149 251 128 296 M185 210L210 251 231 296" fill="none" /></Part>
     <Part {...action('ganglia')} active={selected === 'ganglia'}>{[[154,119],[207,119],[153,149],[207,149]].map(([x,y])=><ellipse key={`${x}-${y}`} cx={x} cy={y} rx="7" ry="10" />)}</Part>
     <Part {...action('endings')} active={selected === 'endings'}><path d="M87 203l-11 1m11-1-4 11m189-11 12 1m-12-1 4 11m-148 82-10 5m10-5 4 10m99-10 10 5m-10-5-3 10" fill="none" /></Part>
-    {[[235,43],[211,189],[102,158],[240,113],[66,237]].map(([x,y],i)=><Badge {...action(nodes[i].id)} key={i} x={x} y={y} n={i+1} active={nodes[i].id === selected} />)}
+    {[[235,43,"brain"],[211,189,"spinal"],[102,158,"nerves"],[240,113,"ganglia"],[66,237,"endings"]].map(([x,y,nodeId],i)=><Badge {...action(String(nodeId))} key={String(nodeId)} x={Number(x)} y={Number(y)} n={i+1} active={nodeId === selected} />)}
   </Frame>;
 }
 
 export function PathwayVisual({ nodes, selected, returned, language, onSelect }: { nodes: DiagramNode[]; selected: string; returned: boolean; language: Language; onSelect: (id: string) => void }) {
-  const action = (id: string): Action => ({ label: nodes.find(node => node.id === id)!.label, onActivate: () => onSelect(id) });
+  const action = (id: string): Action => { const node=nodes.find(item=>item.id===id); return { label:node?.label??copy[language].unavailable, onActivate:()=>{if(node)onSelect(id)} }; };
   const id = useId();
   const points = [[55,65],[180,65],[305,65],[305,210],[180,210],[55,210]];
   const paths = ['M30 22L49 44','M79 65H154','M204 65H279','M305 89V184','M281 210H206','M154 210H81'];
-  const current = nodes.find(node => node.id === selected)!;
+  const pathwayIds = ['receptor','afferent','center','efferent','effector','feedback'];
+  const current = nodes.find(node => node.id === selected) ?? nodes[0];
+  if (!current) return <p role="status">{copy[language].unavailable}</p>;
   return <Frame title={`${copy[language].selected}: ${current.label}`} description={current.explanation} state={returned ? 'feedback-center' : selected} legend={<Legend {...{ nodes, selected, language }} />}>
     <defs><marker id={id} markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0L10 5 0 10Z" fill="#00599c" /></marker></defs>
     <path className={styles.heat} d="M8 32H31V50H8Z M11 25q-6-6 0-12m9 12q-6-6 0-12m9 12q-6-6 0-12" />
-    {paths.map((d,i)=><Part {...action(nodes[i].id)} key={d} active={nodes[i].id === selected}><path d={d} fill="none" markerEnd={`url(#${id})`} /></Part>)}
+    {paths.map((d,i)=><Part {...action(pathwayIds[i])} key={d} active={pathwayIds[i] === selected}><path d={d} fill="none" markerEnd={`url(#${id})`} /></Part>)}
     <Part {...action('feedback')} active={selected === 'feedback' || returned}><path d="M55 235V283H337V112Q337 97 318 88" fill="none" strokeDasharray="8 5" markerEnd={`url(#${id})`} /></Part>
-    {points.map(([x,y],i)=><g key={i}><Part {...action(nodes[i].id)} active={nodes[i].id === selected}><circle cx={x} cy={y} r="24" /></Part><Badge {...action(nodes[i].id)} x={x} y={y} n={i+1} active={nodes[i].id === selected} /></g>)}
+    {points.map(([x,y],i)=><g key={pathwayIds[i]}><Part {...action(pathwayIds[i])} active={pathwayIds[i] === selected}><circle cx={x} cy={y} r="24" /></Part><Badge {...action(pathwayIds[i])} x={x} y={y} n={i+1} active={pathwayIds[i] === selected} /></g>)}
     <path className={styles.outline} d="M282 38q-8-17 8-20q12-12 22 0q18 2 8 20 M154 241q8-12 19-6l13 7 16-10 9 8-22 18-26-3Z" />
   </Frame>;
 }
 
 export function SynapseVisual({ nodes, selected, electrical, language, onSelect }: { nodes: DiagramNode[]; selected: string; electrical: boolean; language: Language; onSelect: (id: string) => void }) {
-  const action = (id: string): Action => ({ label: nodes.find(node => node.id === id)!.label, onActivate: () => onSelect(id) });
   const c = copy[language];
-  const current = nodes.find(node => node.id === selected)!;
+  const action = (id: string): Action => { const node=nodes.find(item=>item.id===id); return { label:node?.label??c.unavailable, onActivate:()=>{if(node)onSelect(id)} }; };
+  const current = nodes.find(node => node.id === selected) ?? nodes[0];
+  if (!current) return <p role="status">{c.unavailable}</p>;
   return <Frame title={`${c.selected}: ${current.label}`} description={current.explanation} state={`${electrical ? 'electrical' : 'chemical'}-${selected}`} legend={<><p>A — {c.pre}; B — {c.post}.</p><p>{electrical ? c.junction : `${c.vesicles} · ${c.cleft} · ${c.receptors}`}</p><Legend {...{ nodes, selected, language }} /></>}>
     <Part {...action(electrical ? 'cell' : 'arrival')} active={selected === 'arrival' || selected === 'cell'}><path d="M110 8V42Q47 55 47 120V154H313V120Q313 55 250 42V8" /><path d="M180 8V55m-9-12 9 12 9-12" fill="none" /></Part>
     <text className={styles.letter} x="67" y="91">A</text>
@@ -85,12 +89,12 @@ export function SynapseVisual({ nodes, selected, electrical, language, onSelect 
     {electrical ? <>
       <Part {...action('junction')} active={selected === 'junction'}>{[135,175,215].map(x=><path key={x} d={`M${x} 145v85h16v-85Z`} />)}<path d="M112 179H247M112 193H247" fill="none" /></Part>
       <path className={styles.signal} d="M182 118V256m-9-12 9 12 9-12" />
-      {[[272,45],[278,187],[271,275]].map(([x,y],i)=><Badge {...action(nodes[i].id)} key={i} x={x} y={y} n={i+1} active={nodes[i].id===selected} />)}
+      {[[272,45,"cell"],[278,187,"junction"],[271,275,"coupled"]].map(([x,y,id],i)=><Badge {...action(String(id))} key={String(id)} x={Number(x)} y={Number(y)} n={i+1} active={id===selected} />)}
     </> : <>
       <Part {...action('calcium')} active={selected === 'calcium'}><path d="M322 116H276m10-9-10 9 10 9" fill="none" /><text x="263" y="95" className={styles.ion}>Ca²⁺</text></Part>
       <Part {...action('transmitter')} active={selected === 'transmitter'}>{[125,181,230].map((x,i)=><g key={x}><circle cx={x} cy={112+i*9} r="18" />{[-6,0,6].map(dx=><circle key={dx} cx={x+dx} cy={112+i*9} r="2" />)}</g>)}{[132,160,185,213,238].map((x,i)=><circle key={x} cx={x} cy={170+(i%2)*20} r="4" />)}</Part>
       <Part {...action('binding')} active={selected === 'binding'}>{[128,180,232].map(x=><path key={x} d={`M${x-9} 205v20h18v-20m-9 20v14`} fill="none" />)}</Part>
-      {[[222,23],[332,87],[93,132],[277,218],[268,279]].map(([x,y],i)=><Badge {...action(nodes[i].id)} key={i} x={x} y={y} n={i+1} active={nodes[i].id===selected} />)}
+      {[[222,23,"arrival"],[332,87,"calcium"],[93,132,"transmitter"],[277,218,"binding"],[268,279,"response"]].map(([x,y,id],i)=><Badge {...action(String(id))} key={String(id)} x={Number(x)} y={Number(y)} n={i+1} active={id===selected} />)}
     </>}
   </Frame>;
 }
