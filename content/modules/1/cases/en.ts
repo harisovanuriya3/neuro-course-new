@@ -79,9 +79,9 @@ const lesson: CasesLesson = {
       stages: [{ title: "From an electrical signal to chemical transmission", questions: ["Arrange the events in order: what must happen before each subsequent event?"] }],
       interaction: { type: "sequence", steps: ["Signal propagates along the nerve fibre", "Signal reaches the contact between cells", "Influence is transmitted to the next cell", "The receiving cell response changes"] },
       explanation: [
-        "Depolarisation of the presynaptic terminal opens voltage-gated calcium channels. Calcium entry triggers fusion of release-ready synaptic vesicles with the membrane and neurotransmitter exocytosis.",
-        "The transmitter crosses the cleft and binds to receptors on the postsynaptic cell. Receptor activation changes ionic conductance directly or through intracellular mechanisms. The effect depends on receptor properties and ionic gradients; it is not necessarily excitatory and does not necessarily generate another action potential.",
-        "If calcium entry is substantially reduced, transmitter release decreases even when an action potential arrives. This illustrates why the electrical event must engage the secretion mechanism before a postsynaptic response can occur.",
+        "The key here is to distinguish functional stages: signal propagation along a fibre and transmission of influence to the next cell.",
+        "A change in the next cell's response shows that intercellular transmission is a separate stage rather than a continuation of the same process.",
+        "The molecular mechanisms of this transition are deliberately deferred to later dedicated modules.",
       ],
     },
     {
