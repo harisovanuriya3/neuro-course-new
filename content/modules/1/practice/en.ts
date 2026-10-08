@@ -15,13 +15,6 @@ const lesson: PracticeLesson = {
     { title: "2. Practice goal", blocks: [
       { type: "paragraph", text: "Apply the basic neural-regulation scheme to concrete structures and situations: identify the input, direction of information flow, central processing, and output. Detailed mechanisms of action potentials, synapses, and inhibition are studied in later modules." },
     ] },
-    { title: "3. Task 1. What Belongs to the CNS and PNS?", blocks: [
-      { type: "paragraph", text: "Assign the structures to two groups: CNS and PNS. Briefly state the common feature that justifies each grouping." },
-      { type: "classification", groups: ["CNS", "PNS"], items: [
-        { label: "Ganglia", group: 1 }, { label: "Brain", group: 0 }, { label: "Cranial nerves", group: 1 },
-        { label: "Nerve endings", group: 1 }, { label: "Spinal cord", group: 0 }, { label: "Spinal nerves", group: 1 }
-      ], reasonLabels: ["Common feature of the CNS", "Common feature of the PNS"], answer: ["CNS: brain and spinal cord. These contain central neuronal networks for information processing and integration.", "PNS: cranial and spinal nerves, ganglia, and nerve endings — peripheral structures linking the CNS with receptors, organs, and tissues.", "Note: the optic nerve (CN II), despite its name, is developmentally and structurally part of the CNS; grouping cranial nerves with the PNS here is an introductory teaching simplification."] },
-    ] },
     { title: "4. Task 2. Which Way Does the Signal Travel?", blocks: [
       { type: "paragraph", text: "A person accidentally touches a hot object and rapidly withdraws their hand. Analyze this protective reflex: identify the stimulus, receptor, afferent pathway, central component, efferent pathway, effector, and response." },
       { type: "response", label: "Write the seven-step chain and explain in simple words which way the signal travels." },
