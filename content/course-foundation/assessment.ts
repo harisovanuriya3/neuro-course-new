@@ -96,7 +96,15 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
  const aMain="application:main", aCorrective="application:corrective", aBasic="application:basic";
  const tMain="transfer:main", tCorrective="transfer:corrective", tBasic="transfer:basic";
  const jMain="justification:main", jCorrective="justification:corrective", jBasic="justification:basic";
- const opts=(correct:string,wrong1:string,wrong2:string,wrong3:string)=>[{id:"a",text:correct},{id:"b",text:wrong1},{id:"c",text:wrong2},{id:"d",text:wrong3}];
+ // Keep the answer id stable for the branching engine, but vary its visual
+ // position.  The offset is deterministic, so SSR and hydration render the
+ // same order while students do not learn that the first option is correct.
+ let optionSetIndex=0;
+ const opts=(correct:string,wrong1:string,wrong2:string,wrong3:string)=>{
+  const options=[{id:"a",text:correct},{id:"b",text:wrong1},{id:"c",text:wrong2},{id:"d",text:wrong3}];
+  const offset=(topic.id+optionSetIndex++)%options.length;
+  return [...options.slice(offset),...options.slice(0,offset)];
+ };
  const mechanism=topic.mechanism[l], interpretation=topic.interpretation[l], question=topic.question[l];
  const task=clinicalVignettes[topic.id]?.[l] ?? (
   l==="RU"
