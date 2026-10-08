@@ -452,20 +452,18 @@ function create(
 
   if (section === 'objectives') {
     const action = language === 'RU'
-      ? ['объяснить, как это работает', 'понять, что означает результат', 'применить знание в новой ситуации', 'понять, чего данных пока недостаточно доказать']
+      ? ['проследить причинную цепь', 'предсказать направление изменения', 'применить механизм к данным', 'отделить вывод от предположения']
       : language === 'EN'
-        ? ['explain how it works', 'understand what the result means', 'use the knowledge in a new situation', 'recognize what the data are not enough to prove']
-        : ['қалай жұмыс істейтінін түсіндіру', 'нәтиженің нені білдіретінін түсіну', 'білімді жаңа жағдайда қолдану', 'деректер нені әлі дәлелдеуге жеткіліксіз екенін түсіну'];
+        ? ['trace the causal chain', 'predict the direction of change', 'apply the mechanism to data', 'separate conclusion from assumption']
+        : ['себептік тізбекті қадағалау', 'өзгеріс бағытын болжау', 'тетікті деректерге қолдану', 'қорытындыны болжамнан ажырату'];
+    const prompts = language === 'RU'
+      ? ['После теории восстановите механизм без подсказки.', 'Измените одно звено и заранее предскажите результат.', 'Используйте механизм при разборе практического или клинического наблюдения.', 'Укажите, какие данные подтверждают вывод и каких данных ещё не хватает.']
+      : language === 'EN'
+        ? ['After theory, reconstruct the mechanism without a prompt.', 'Change one link and predict the outcome before checking it.', 'Use the mechanism to interpret a practical or clinical observation.', 'State which data support the conclusion and which evidence is still missing.']
+        : ['Теориядан кейін тетікті көмексіз қалпына келтіріңіз.', 'Бір буынды өзгертіп, нәтижені алдын ала болжаңыз.', 'Тетікті практикалық немесе клиникалық бақылауды талдауға қолданыңыз.', 'Қандай дерек қорытындыны қолдайтынын және қандай дәлел әлі жетіспейтінін көрсетіңіз.'];
     return {
-      kind: 'objectives',
-      title,
-      introduction: c.goals,
-      cards: action.map((item, index) => ({
-        id: `module-${topic.id}-objective-${index + 1}`,
-        title: `${index + 1}. ${item}`,
-        paragraphs: [index === 0 ? mechanism : index === 1 ? interpretation : index === 2 ? topic.task[language] : question],
-        links: index < 2 ? [{ section: 'theory' as const }] : [{ section: 'practice' as const }, { section: 'cases' as const }],
-      })),
+      kind: 'objectives', title, introduction: c.goals,
+      cards: action.map((item,index)=>({id:`module-${topic.id}-objective-${index+1}`,title:`${index+1}. ${item}`,paragraphs:[prompts[index]],links:index<2?[{section:'theory' as const}]:[{section:'practice' as const},{section:'cases' as const}]})),
     };
   }
 
