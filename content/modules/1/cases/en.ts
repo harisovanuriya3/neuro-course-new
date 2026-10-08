@@ -74,10 +74,10 @@ const lesson: CasesLesson = {
       ],
     },
     {
-      id: "synapse", title: "Synaptic transmission",
-      situation: "An action potential has reached the presynaptic terminal of a chemical synapse. Reconstruct the causal sequence of signal transmission.",
+      id: "synapse", title: "Linking stages of transmission",
+      situation: "In the teaching model, a signal has reached the end of a nerve fibre. Identify the next functional stage without analysing the molecular synaptic mechanism.",
       stages: [{ title: "From an electrical signal to chemical transmission", questions: ["Arrange the events in order: what must happen before each subsequent event?"] }],
-      interaction: { type: "sequence", steps: ["Arrival of the action potential", "Opening of voltage-gated Ca²⁺ channels", "Ca²⁺ influx", "Neurotransmitter exocytosis", "Transmitter diffusion across the synaptic cleft", "Binding to postsynaptic receptors", "Change in postsynaptic conductance/potential"] },
+      interaction: { type: "sequence", steps: ["Signal propagates along the nerve fibre", "Signal reaches the contact between cells", "Influence is transmitted to the next cell", "The receiving cell response changes"] },
       explanation: [
         "Depolarisation of the presynaptic terminal opens voltage-gated calcium channels. Calcium entry triggers fusion of release-ready synaptic vesicles with the membrane and neurotransmitter exocytosis.",
         "The transmitter crosses the cleft and binds to receptors on the postsynaptic cell. Receptor activation changes ionic conductance directly or through intracellular mechanisms. The effect depends on receptor properties and ionic gradients; it is not necessarily excitatory and does not necessarily generate another action potential.",
