@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Language } from "../content/course";
-import type { GlossaryLesson, PretestLesson, QuestionsLesson, ReadingLesson, StudyLesson, StudyLink } from "../content/study";
+import type { GlossaryLesson, ObjectivesLesson, PretestLesson, QuestionsLesson, ReadingLesson, StudyLesson, StudyLink } from "../content/study";
 import { getSectionTitle } from "../content/sections";
 import shared from "./PracticeContent.module.css";
 import styles from "./StudyContent.module.css";
@@ -30,6 +30,22 @@ function Reading({ lesson, ...context }: Context & { lesson: ReadingLesson }) {
     <nav aria-label={ui.related} className={styles.links}>{card.links.map((target, index) => <MaterialLink key={index} target={target} {...context} />)}</nav>
   </section>)}
     {lesson.sources && <section><h2>{ui.sources}</h2>{lesson.sources.map((source, index) => <section className={shared.card} id={`source-${index + 1}`} key={source.href}><h3><a href={source.href}>{source.title}</a></h3><p>{source.description}</p><nav aria-label={ui.related} className={styles.links}>{source.links.map((target, index) => <MaterialLink key={index} target={target} {...context} />)}</nav></section>)}</section>}
+  </>;
+}
+function Objectives({ lesson, ...context }: Context & { lesson: ObjectivesLesson }) {
+  return <>
+    <ol className={styles.objectives}>
+      {lesson.outcomes.map(outcome => <li key={outcome.id} className={styles.objective}>
+        <h2>{outcome.title}</h2>
+        <p>{outcome.description}</p>
+      </li>)}
+    </ol>
+    <nav className={styles.objectiveNavigation} aria-labelledby="objective-navigation-title">
+      <h2 id="objective-navigation-title">{lesson.navigation.title}</h2>
+      <div className={styles.objectiveLinks}>
+        {lesson.navigation.links.map(target => <MaterialLink key={target.section} target={target} {...context} />)}
+      </div>
+    </nav>
   </>;
 }
 function Pretest({ lesson, ...context }: Context & { lesson: PretestLesson }) {
@@ -104,7 +120,8 @@ export default function StudyContent({ lesson, ...context }: Context & { lesson:
     case "pretest": content = <Pretest lesson={lesson} {...context} />; break;
     case "questions": content = <ReviewQuestions lesson={lesson} {...context} />; break;
     case "glossary": content = <Glossary lesson={lesson} {...context} />; break;
-    case "objectives": case "one-minute": case "clinical": case "references": content = <Reading lesson={lesson} {...context} />; break;
+    case "objectives": content = <Objectives lesson={lesson} {...context} />; break;
+    case "one-minute": case "clinical": case "references": content = <Reading lesson={lesson} {...context} />; break;
     default: { const exhaustive: never = lesson; throw Error(`Unsupported study content: ${exhaustive}`); }
   }
   return <article className={`${shared.practice} ${styles.study}`} data-study={lesson.kind} lang={context.language === "KZ" ? "kk" : context.language.toLowerCase()}><h1>{lesson.title}</h1><p>{lesson.introduction}</p>{content}</article>;

@@ -4,11 +4,18 @@ import type { QuestionCopy } from "./tests";
 export type StudyLink = { section: Section; anchor?: string };
 export type StudyCard = { id: string; title: string; paragraphs: string[]; links: StudyLink[] };
 export type ReadingLesson = {
-  kind: "objectives" | "one-minute" | "clinical" | "references";
+  kind: "one-minute" | "clinical" | "references";
   title: string;
   introduction: string;
   cards: StudyCard[];
   sources?: { title: string; href: string; description: string; links: StudyLink[] }[];
+};
+export type ObjectivesLesson = {
+  kind: "objectives";
+  title: string;
+  introduction: string;
+  outcomes: { id: string; title: string; description: string }[];
+  navigation: { title: string; links: StudyLink[] };
 };
 export type PretestLesson = {
   kind: "pretest";
@@ -28,4 +35,4 @@ export type GlossaryLesson = {
   introduction: string;
   terms: { id: string; term: string; definition: string; target: StudyLink }[];
 };
-export type StudyLesson = ReadingLesson | PretestLesson | QuestionsLesson | GlossaryLesson;
+export type StudyLesson = ObjectivesLesson | ReadingLesson | PretestLesson | QuestionsLesson | GlossaryLesson;

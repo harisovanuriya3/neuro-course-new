@@ -21,6 +21,7 @@ const moduleOnePractice = ["ru", "en", "kz"].map(language => [
   read(`content/modules/1/practice/${language}.ts`),
 ]);
 const moduleOneStudy = read("content/modules/1/study.ts");
+const studyRenderer = read("components/StudyContent.tsx");
 
 const englishModules = course.match(/EN:\s*\[([\s\S]*?)\n\s*\],/m)?.[1]
   .match(/^\s*".+",?$/gm) ?? [];
@@ -92,6 +93,15 @@ const repeatedPathwayActions = [
 repeatedPathwayActions.every(copy => !moduleOneStudy.includes(copy))
   ? pass("Module 1 Objectives use prediction rather than repeating the Practice sequence task")
   : fail("Module 1 Objectives still repeat the Practice sequence task");
+moduleOneStudy.includes('outcomes: goals.map') && foundation.includes('outcomes: outcomeTitles.map')
+  ? pass("all Objectives use learning outcomes rather than exercise cards")
+  : fail("an Objectives source still uses the old exercise-card model");
+studyRenderer.includes('<nav className={styles.objectiveNavigation}') && studyRenderer.includes('lesson.navigation.links.map')
+  ? pass("Objectives render one shared navigation block after the outcomes")
+  : fail("Objectives shared navigation block is missing");
+!studyRenderer.slice(studyRenderer.indexOf("function Objectives"), studyRenderer.indexOf("function Pretest")).includes("outcome.links")
+  ? pass("individual learning outcomes do not render repeated navigation links")
+  : fail("individual learning outcomes still render navigation links");
 
 const testFunction = assessment.slice(assessment.indexOf("export function createFoundationTest"));
 !testFunction.includes("clinicalVignettes[topic.id]")

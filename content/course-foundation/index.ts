@@ -469,19 +469,45 @@ function create(
   }
 
   if (section === 'objectives') {
-    const action = language === 'RU'
-      ? ['проследить причинную цепь', 'предсказать направление изменения', 'применить механизм к данным', 'отделить вывод от предположения']
+    const termA = topic.terms[0][language];
+    const termB = topic.terms[1][language];
+    const outcomeTitles = language === 'RU'
+      ? [termA, termB, `Механизм: ${termA} и ${termB}`, 'Прогноз физиологического результата', 'Интерпретация данных и клинический перенос']
       : language === 'EN'
-        ? ['trace the causal chain', 'predict the direction of change', 'apply the mechanism to data', 'separate conclusion from assumption']
-        : ['себептік тізбекті қадағалау', 'өзгеріс бағытын болжау', 'тетікті деректерге қолдану', 'қорытындыны болжамнан ажырату'];
-    const prompts = language === 'RU'
-      ? ['После теории восстановите механизм без подсказки.', 'Измените одно звено и заранее предскажите результат.', 'Используйте механизм при разборе практического или клинического наблюдения.', 'Укажите, какие данные подтверждают вывод и каких данных ещё не хватает.']
+        ? [termA, termB, `Mechanism: ${termA} and ${termB}`, 'Prediction of physiological outcomes', 'Data interpretation and clinical transfer']
+        : [termA, termB, `Тетік: ${termA} және ${termB}`, 'Физиологиялық нәтижені болжау', 'Деректерді түсіндіру және клиникалық тасымалдау'];
+    const outcomeDescriptions = language === 'RU'
+      ? [
+          `Объяснять физиологический смысл понятия «${termA}» и его роль в теме «${modules.RU[topic.id - 1]}».`,
+          `Различать проявления и функциональное значение «${termB}», связывая их с наблюдаемыми изменениями системы.`,
+          `Объяснять причинные связи механизма: ${firstSentence(topic.mechanism.RU)}`,
+          `Прогнозировать направление изменения «${termB}» при избирательном изменении «${termA}» и обосновывать промежуточные звенья.`,
+          `Интерпретировать экспериментальные и клинические данные с учётом границ вывода: ${firstSentence(topic.interpretation.RU)}`,
+        ]
       : language === 'EN'
-        ? ['After theory, reconstruct the mechanism without a prompt.', 'Change one link and predict the outcome before checking it.', 'Use the mechanism to interpret a practical or clinical observation.', 'State which data support the conclusion and which evidence is still missing.']
-        : ['Теориядан кейін тетікті көмексіз қалпына келтіріңіз.', 'Бір буынды өзгертіп, нәтижені алдын ала болжаңыз.', 'Тетікті практикалық немесе клиникалық бақылауды талдауға қолданыңыз.', 'Қандай дерек қорытындыны қолдайтынын және қандай дәлел әлі жетіспейтінін көрсетіңіз.'];
+        ? [
+            `Explain the physiological meaning of “${termA}” and its role in “${modules.EN[topic.id - 1]}”.`,
+            `Distinguish the manifestations and functional significance of “${termB}” and relate them to observable system changes.`,
+            `Explain the causal relationships in the mechanism: ${firstSentence(topic.mechanism.EN)}`,
+            `Predict the direction of change in “${termB}” after a selective change in “${termA}” and justify the intermediate links.`,
+            `Interpret experimental and clinical evidence while respecting limits of inference: ${firstSentence(topic.interpretation.EN)}`,
+          ]
+        : [
+            `«${termA}» ұғымының физиологиялық мағынасын және «${modules.KZ[topic.id - 1]}» тақырыбындағы рөлін түсіндіру.`,
+            `«${termB}» көріністері мен функциялық маңызын ажыратып, оларды жүйедегі байқалатын өзгерістермен байланыстыру.`,
+            `Тетіктегі себептік байланыстарды түсіндіру: ${firstSentence(topic.mechanism.KZ)}`,
+            `«${termA}» таңдамалы өзгергенде «${termB}» өзгерісінің бағытын болжап, аралық буындарды негіздеу.`,
+            `Қорытынды шектерін ескеріп, эксперименттік және клиникалық деректерді түсіндіру: ${firstSentence(topic.interpretation.KZ)}`,
+          ];
     return {
-      kind: 'objectives', title, introduction: c.goals,
-      cards: action.map((item,index)=>({id:`module-${topic.id}-objective-${index+1}`,title:`${index+1}. ${item}`,paragraphs:[prompts[index]],links:index<2?[{section:'theory' as const}]:[{section:'practice' as const},{section:'cases' as const}]})),
+      kind: 'objectives',
+      title,
+      introduction: language === 'RU' ? 'После изучения модуля студент сможет:' : language === 'EN' ? 'After completing this module, the student will be able to:' : 'Модульді аяқтағаннан кейін студент:',
+      outcomes: outcomeTitles.map((outcomeTitle,index)=>({id:`module-${topic.id}-objective-${index+1}`,title:outcomeTitle,description:outcomeDescriptions[index]})),
+      navigation: {
+        title: language === 'RU' ? 'Перейти к изучению модуля' : language === 'EN' ? 'Continue learning' : 'Модульді оқуға өту',
+        links: [{section:'theory'},{section:'practice'},{section:'cases'},{section:'interactive'},{section:'virtual-patient'}],
+      },
     };
   }
 
