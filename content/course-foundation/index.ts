@@ -535,44 +535,61 @@ function create(
   }
 
   if (section === 'clinical') {
+    const vignette = clinicalVignettes[topic.id]?.[language] ?? topic.task[language];
     const labels = language === 'RU'
-      ? { bridge: 'От нормы к клинике', normal: 'Как работает в норме', change: 'Что изменилось', observe: 'Что мы ожидаем увидеть', explain: 'Почему это происходит', limit: 'Что нельзя заключить слишком быстро' }
+      ? { bridge: 'Клинический мост: примените физиологию к данным', caseTitle: 'Клиническая ситуация', localize: '1. Локализуйте нарушение', mechanismTitle: '2. Постройте причинную цепь', discriminate: '3. Проверьте альтернативу', safety: '4. Сформулируйте границу вывода' }
       : language === 'EN'
-        ? { bridge: 'From normal physiology to the clinic', normal: 'How it works normally', change: 'What changed', observe: 'What we expect to see', explain: 'Why this happens', limit: 'What we should not conclude too quickly' }
-        : { bridge: 'Нормадан клиникаға', normal: 'Қалыптыда қалай жұмыс істейді', change: 'Не өзгерді', observe: 'Не байқауымыз мүмкін', explain: 'Неліктен бұлай болады', limit: 'Қандай қорытындыны асығыс жасауға болмайды' };
+        ? { bridge: 'Clinical bridge: apply physiology to the data', caseTitle: 'Clinical situation', localize: '1. Localize the disturbance', mechanismTitle: '2. Build the causal chain', discriminate: '3. Test an alternative', safety: '4. State the limit of inference' }
+        : { bridge: 'Клиникалық көпір: физиологияны деректерге қолданыңыз', caseTitle: 'Клиникалық жағдай', localize: '1. Бұзылысты локализациялаңыз', mechanismTitle: '2. Себептік тізбек құрыңыз', discriminate: '3. Балама түсіндірмені тексеріңіз', safety: '4. Қорытынды шегін көрсетіңіз' };
     return {
       kind: 'clinical',
       title,
       introduction: labels.bridge,
       cards: [
         {
-          id: `module-${topic.id}-clinical-normal`,
-          title: labels.normal,
-          paragraphs: [mechanism],
-          links: [{ section: 'theory' as const }],
-        },
-        {
-          id: `module-${topic.id}-clinical-change`,
-          title: labels.change,
-          paragraphs: [topic.task[language]],
-          links: [{ section: 'practice' as const }],
-        },
-        {
-          id: `module-${topic.id}-clinical-observation`,
-          title: labels.observe,
-          paragraphs: [interpretation],
+          id: `module-${topic.id}-clinical-case`,
+          title: labels.caseTitle,
+          paragraphs: [vignette],
           links: [{ section: 'cases' as const }],
         },
         {
-          id: `module-${topic.id}-clinical-explain`,
-          title: labels.explain,
-          paragraphs: [mechanism, interpretation],
+          id: `module-${topic.id}-clinical-localize`,
+          title: labels.localize,
+          paragraphs: [language === 'RU'
+            ? 'По данным ситуации определите наиболее вероятное звено или уровень нарушения. Укажите признак, который поддерживает локализацию.'
+            : language === 'EN'
+              ? 'Use the case data to identify the most likely disturbed link or level. State the finding that supports your localization.'
+              : 'Жағдай деректері бойынша бұзылған ең ықтимал буынды немесе деңгейді анықтаңыз. Локализацияны қолдайтын белгіні көрсетіңіз.'],
           links: [{ section: 'theory' as const }, { section: 'cases' as const }],
         },
         {
+          id: `module-${topic.id}-clinical-causal`,
+          title: labels.mechanismTitle,
+          paragraphs: [language === 'RU'
+            ? 'Свяжите изменение с наблюдаемым проявлением минимум через два физиологических звена. Не используйте название диагноза вместо механизма.'
+            : language === 'EN'
+              ? 'Connect the disturbance to the observed finding through at least two physiological links. Do not substitute a diagnosis name for the mechanism.'
+              : 'Өзгерісті байқалған белгімен кемінде екі физиологиялық буын арқылы байланыстырыңыз. Тетіктің орнына диагноз атауын қолданбаңыз.'],
+          links: [{ section: 'theory' as const }, { section: 'practice' as const }],
+        },
+        {
+          id: `module-${topic.id}-clinical-discriminate`,
+          title: labels.discriminate,
+          paragraphs: [language === 'RU'
+            ? 'Предложите одно альтернативное объяснение и одно дополнительное наблюдение или исследование, которое поможет различить две гипотезы.'
+            : language === 'EN'
+              ? 'Propose one alternative explanation and one additional observation or test that would distinguish the two hypotheses.'
+              : 'Бір балама түсіндірме және екі болжамды ажырататын бір қосымша бақылау немесе зерттеу ұсыныңыз.'],
+          links: [{ section: 'practice' as const }, { section: 'cases' as const }],
+        },
+        {
           id: `module-${topic.id}-clinical-limit`,
-          title: labels.limit,
-          paragraphs: [question],
+          title: labels.safety,
+          paragraphs: [language === 'RU'
+            ? 'Сформулируйте, что можно заключить из имеющихся данных и чего они пока не доказывают.'
+            : language === 'EN'
+              ? 'State what can be concluded from the available data and what they do not yet prove.'
+              : 'Қолда бар деректерден қандай қорытынды жасауға болатынын және олардың нені әлі дәлелдемейтінін көрсетіңіз.'],
           links: [{ section: 'cases' as const }, { section: 'tests' as const }],
         },
       ],
