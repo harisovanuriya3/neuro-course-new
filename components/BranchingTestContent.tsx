@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useReducer, useRef } from "react";
+import { useEffect, useMemo, useReducer, useRef } from "react";
 import type { Language } from "../content/types";
 import type { BranchingTest, TheoryTarget } from "../content/tests";
 import { initialState, summarize, transition, type TestAction, type TestState } from "../lib/tests/engine";
@@ -71,6 +71,15 @@ export default function BranchingTestContent({ test, language, moduleId }: { tes
     }
   }, [state.phase, state.retryIds, result.firstCorrect, result.total, moduleId, state.attempts, test.competencies]);
   const node = test.nodes[state.current];
+  const displayedOptions = useMemo(() => {
+    if (node.type !== "question") return [];
+    // Stable per question/language: remove answer-position cues without reshuffling during interaction.
+    const seed = `${moduleId}:${language}:${node.id}`.split("").reduce((acc, char) => ((acc * 31) + char.charCodeAt(0)) >>> 0, 2166136261);
+    return node.options
+      .map((option, index) => ({ option, key: (((seed ^ ((index + 1) * 2654435761)) >>> 0) * 1597334677) >>> 0 }))
+      .sort((a, b) => a.key - b.key)
+      .map(({ option }) => option);
+  }, [node, moduleId, language]);
   const attempts = state.retryIds === null ? state.attempts : state.retryAttempts;
   const last = attempts[attempts.length - 1];
   const canRetry = attempts.some(attempt => !attempt.correct);
@@ -118,7 +127,7 @@ export default function BranchingTestContent({ test, language, moduleId }: { tes
           <h2 ref={heading} tabIndex={-1}>{node.prompt}</h2>
           <fieldset disabled={state.phase !== "question"}>
             <legend>{ui.select}</legend>
-            {node.options.map(option => <label key={option.id} className={styles.option}><input type="radio" name={node.id} value={option.id} checked={state.selected === option.id} onChange={() => dispatch({ type: "select", answer: option.id })} />{option.text}</label>)}
+            {displayedOptions.map(option => <label key={option.id} className={styles.option}><input type="radio" name={node.id} value={option.id} checked={state.selected === option.id} onChange={() => dispatch({ type: "select", answer: option.id })} />{option.text}</label>)}
           </fieldset>
           {state.phase === "question" ? <><button data-action="check" disabled={state.selected === null} aria-describedby={state.selected === null ? "test-check-hint" : undefined} onClick={() => dispatch({ type: "check" })}>{ui.check}</button>{state.selected === null && <p id="test-check-hint" className={styles.actionHint}>{copy.selectHint}</p>}</> : (
             <>
