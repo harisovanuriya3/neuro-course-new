@@ -53,19 +53,19 @@ const text = {
   RU: {
     module: "Модуль",
     back: "← Назад к модулю",
-    pending: "Материалы раздела готовятся.",
+    pending: "Этот раздел пока недоступен. Вернитесь к навигации модуля и выберите другой раздел.",
   },
 
   KZ: {
     module: "Модуль",
     back: "← Модульге оралу",
-    pending: "Бөлім материалдары дайындалуда.",
+    pending: "Бұл бөлім әзірге қолжетімсіз. Модуль навигациясына оралып, басқа бөлімді таңдаңыз.",
   },
 
   EN: {
     module: "Module",
     back: "← Back to module",
-    pending: "Section materials are being prepared.",
+    pending: "This section is currently unavailable. Return to the module navigation and choose another section.",
   },
 };
 
