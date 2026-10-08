@@ -780,7 +780,11 @@ function create(
         {
           id: `module-${topic.id}-review-concept`,
           prompt: question,
-          explanation: interpretation,
+          explanation: language === 'RU'
+            ? 'Сначала ответьте без подсказки. Затем проверьте, указали ли вы исходную переменную, направление её изменения и наблюдаемый результат; готовую формулировку ищите в теории только после собственного ответа.'
+            : language === 'EN'
+              ? 'Answer without a prompt first. Then check whether you identified the starting variable, direction of change, and observable outcome; consult the theory wording only after producing your own answer.'
+              : 'Алдымен көмексіз жауап беріңіз. Содан кейін бастапқы айнымалыны, өзгеріс бағытын және байқалатын нәтижені атағаныңызды тексеріңіз; дайын тұжырымды өз жауабыңыздан кейін ғана теориядан қараңыз.',
           target: { section: 'theory' },
         },
         {
