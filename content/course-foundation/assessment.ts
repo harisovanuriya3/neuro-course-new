@@ -69,17 +69,17 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
  const mechanism=topic.mechanism[l], interpretation=topic.interpretation[l], question=topic.question[l], task=clinicalVignettes[topic.id]?.[l] ?? topic.task[l];
  const termA=topic.terms[0][l], termB=topic.terms[1][l];
  const wrong1=l==="RU"
-  ? `«${termA}» и «${termB}» можно считать взаимозаменяемыми; направление причинной связи не требуется.`
-  : l==="EN" ? `“${termA}” and “${termB}” can be treated as interchangeable; the direction of causality is unnecessary.`
-  : `«${termA}» және «${termB}» өзара алмастырылады; себеп-салдар бағытын көрсету қажет емес.`;
+  ? `«${termA}» определяет результат напрямую, поэтому роль «${termB}» и промежуточного физиологического механизма можно не учитывать.`
+  : l==="EN" ? `“${termA}” determines the outcome directly, so “${termB}” and the intermediate physiological mechanism can be ignored.`
+  : `«${termA}» нәтижені тікелей анықтайды, сондықтан «${termB}» және аралық физиологиялық тетікті ескермеуге болады.`;
  const wrong2=l==="RU"
-  ? `Если меняется «${termA}», «${termB}» всегда изменяется одинаково независимо от контекста и состояния системы.`
-  : l==="EN" ? `If “${termA}” changes, “${termB}” always changes identically regardless of context or system state.`
-  : `«${termA}» өзгерсе, контекст пен жүйе күйіне қарамастан «${termB}» әрқашан бірдей өзгереді.`;
+  ? `Изменение «${termB}» следует трактовать как изолированное явление, не связывая его с изменением «${termA}» и механизмом этой темы.`
+  : l==="EN" ? `A change in “${termB}” should be treated as an isolated event, without linking it to “${termA}” or the mechanism in this topic.`
+  : `«${termB}» өзгерісін «${termA}» және осы тақырыптың тетігімен байланыстырмай, оқшауланған құбылыс деп қарастыру керек.`;
  const wrong3=l==="RU"
-  ? `Одного изменения «${termA}» достаточно для окончательного клинического вывода без проверки ограничений и альтернатив.`
-  : l==="EN" ? `A change in “${termA}” alone is sufficient for a definitive clinical conclusion without checking limitations or alternatives.`
-  : `«${termA}» өзгерісінің өзі шектеулер мен баламаларды тексермей түпкілікті клиникалық қорытынды жасауға жеткілікті.`;
+  ? `Наблюдаемое изменение «${termA}» само по себе доказывает нарушение всей системы, поэтому функциональную связь с «${termB}» проверять не нужно.`
+  : l==="EN" ? `The observed change in “${termA}” by itself proves failure of the whole system, so its functional link with “${termB}” does not need to be tested.`
+  : `«${termA}» байқалған өзгерісі бүкіл жүйенің бұзылуын өздігінен дәлелдейді, сондықтан оның «${termB}» функционалдық байланысын тексерудің қажеті жоқ.`;
  const appPrompt=l==="RU"
   ? `${task} Как лучше рассуждать в этой ситуации?`
   : l==="EN" ? `${task} What is the best way to reason through this situation?`
