@@ -39,18 +39,38 @@ const ui = (l: Language): CasesLesson["ui"] => ({
 export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):CasesLesson{
  const q=topic.question[l], mech=topic.mechanism[l], interp=topic.interpretation[l], task=clinicalVignettes[topic.id]?.[l] ?? topic.task[l];
  const termA=topic.terms[0][l], termB=topic.terms[1][l];
- const transferSituation=l==="RU"
-  ? `Представьте, что в этой теме изменился один фактор, связанный с «${termA}». Как это повлияет на «${termB}»? Сначала скажите, что изменится, затем объясните почему.`
+ const secondSituation=l==="RU"
+  ? `После исходной ситуации появляется новое наблюдение: показатель, связанный с «${termB}», меняется не так, как ожидалось. Нужно решить, достаточно ли исходного механизма или следует искать дополнительное нарушенное звено.`
   : l==="EN"
-   ? `Imagine one factor related to “${termA}” changes. How would this affect “${termB}”? First state what changes, then explain why.`
-   : `«${termA}» ұғымына байланысты бір фактор өзгерді деп елестетіңіз. Бұл «${termB}» ұғымына қалай әсер етеді? Алдымен не өзгеретінін, кейін неліктен екенін түсіндіріңіз.`;
- return {kind:"cases",title:l==="RU"?"Ситуационные задачи":l==="EN"?"Case Problems":"Ситуациялық тапсырмалар",moduleTitle,introduction:l==="RU"?"Читайте задачу как обычную историю. Сначала ответьте: что изменилось? Затем — почему это произошло и к чему приведёт. Диагноз угадывать не нужно.":l==="EN"?"Read the case like a simple story. First ask: what changed? Then explain why it changed and what follows. You do not need to guess a diagnosis.":"Жағдайды қарапайым оқиға сияқты оқыңыз. Алдымен: не өзгерді? Содан кейін неліктен өзгергенін және неге әкелетінін түсіндіріңіз.",ui:ui(l),cases:[
-  {id:`m${topic.id}-mechanism`,title:q,situation:task,stages:[{title:l==="RU"?"Что происходит?":l==="EN"?"What is happening?":"Не болып жатыр?",questions:[q,l==="RU"?"Что именно изменилось? Что из-за этого станет больше, меньше или останется без изменений?":l==="EN"?"What exactly changed? What should increase, decrease, or stay the same because of it?":"Нақты не өзгерді? Соның әсерінен не артады, азаяды немесе өзгеріссіз қалады?"]},{title:l==="RU"?"Что это значит?":l==="EN"?"What does it mean?":"Бұл нені білдіреді?",questions:[l==="RU"?"Какие данные поддерживают ваш ответ? Что ещё нельзя утверждать по этой задаче?":l==="EN"?"Which data support your answer? What still cannot be concluded from this case?":"Қандай дерек жауабыңызды қолдайды? Бұл жағдайдан тағы нені айтуға болмайды?"]}],explanation:[mech,interp]},
-  {id:`m${topic.id}-transfer`,title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",situation:transferSituation,stages:[
-    {title:l==="RU"?"Что изменится?":l==="EN"?"What will change?":"Не өзгереді?",questions:[q,l==="RU"?"Сначала напишите свой прогноз: что станет больше, меньше или останется без изменений?":l==="EN"?"First make a prediction: what will increase, decrease, or stay the same?":"Алдымен болжам жазыңыз: не артады, азаяды немесе өзгеріссіз қалады?"]},
-    {title:l==="RU"?"Что ещё может это объяснить?":l==="EN"?"What else could explain it?":"Мұны тағы не түсіндіруі мүмкін?",questions:[l==="RU"?`Может ли похожий результат для «${termB}» появиться по другой причине? Что вы бы проверили, чтобы различить причины?`:l==="EN"?`Could a similar result for “${termB}” happen for another reason? What would you check to tell the causes apart?`:`«${termB}» үшін ұқсас нәтиже басқа себептен болуы мүмкін бе? Себептерді ажырату үшін нені тексерер едіңіз?`]},
-    {title:l==="RU"?"Почему вы так думаете?":l==="EN"?"Why do you think so?":"Неліктен олай ойлайсыз?",questions:[l==="RU"?"Объясните ответ короткой цепочкой: что изменилось → почему → какой результат. Затем укажите, чего эта задача ещё не доказывает.":l==="EN"?"Explain with a short chain: what changed → why → what result followed. Then state what this case still does not prove.":"Қысқа тізбекпен түсіндіріңіз: не өзгерді → неліктен → қандай нәтиже болды. Содан кейін бұл жағдай нені әлі дәлелдемейтінін айтыңыз."]}
-  ],explanation:[mech,interp]}
+   ? `After the initial situation, a new observation appears: a variable related to “${termB}” changes differently from the prediction. Decide whether the original mechanism is sufficient or an additional disturbed link is needed.`
+   : `Бастапқы жағдайдан кейін жаңа бақылау пайда болды: «${termB}» байланысты көрсеткіш болжанғаннан өзгеше өзгереді. Бастапқы тетік жеткілікті ме, әлде қосымша бұзылған буын қажет пе — анықтаңыз.`;
+ return {kind:"cases",title:l==="RU"?"Ситуационные задачи":l==="EN"?"Case Problems":"Ситуациялық тапсырмалар",moduleTitle,
+ introduction:l==="RU"?"Здесь не нужно пересказывать теорию. Работайте с данными: выделите ключевой признак, локализуйте нарушенное звено, постройте причинную цепь и назовите проверку, которая отличит вашу гипотезу от альтернативной.":l==="EN"?"Do not retell the theory here. Work from the data: identify the key finding, localize the disturbed link, build a causal chain, and choose a check that distinguishes your hypothesis from an alternative.":"Мұнда теорияны қайталау қажет емес. Деректермен жұмыс істеңіз: негізгі белгіні анықтаңыз, бұзылған буынды локализациялаңыз, себептік тізбек құрыңыз және болжамыңызды баламадан ажырататын тексеруді атаңыз.",
+ ui:ui(l),cases:[
+  {id:`m${topic.id}-localization`,title:l==="RU"?"Задача 1. Локализация по данным":l==="EN"?"Case 1. Data-driven localization":"1-жағдай. Деректер бойынша локализация",situation:task,stages:[
+   {title:l==="RU"?"Выделите данные":l==="EN"?"Extract the evidence":"Деректерді бөліңіз",questions:[
+    l==="RU"?"Назовите два факта из условия, которые действительно влияют на физиологический вывод.":l==="EN"?"Name two findings in the case that materially affect the physiological conclusion.":"Физиологиялық қорытындыға әсер ететін жағдайдағы екі деректі атаңыз.",
+    l==="RU"?`Какой из них лучше всего помогает связать «${termA}» с «${termB}»?`:l==="EN"?`Which finding best helps link “${termA}” to “${termB}”?`:`Қай дерек «${termA}» мен «${termB}» арасындағы байланысты жақсы көрсетеді?`
+   ]},
+   {title:l==="RU"?"Локализуйте звено":l==="EN"?"Localize the link":"Буынның орнын анықтаңыз",questions:[
+    l==="RU"?"Какое звено системы изменено вероятнее всего? Укажите один признак за и один признак, который заставил бы пересмотреть локализацию.":l==="EN"?"Which system link is most likely altered? Give one supporting finding and one finding that would make you reconsider the localization.":"Жүйенің қай буыны өзгерген болуы ықтимал? Бір қолдайтын және локализацияны қайта қарауға мәжбүр ететін бір белгіні көрсетіңіз."
+   ]},
+   {title:l==="RU"?"Обоснуйте механизм":l==="EN"?"Justify the mechanism":"Тетікті негіздеңіз",questions:[
+    l==="RU"?"Постройте цепь минимум из трёх звеньев: исходное изменение → промежуточный механизм → наблюдаемый результат.":l==="EN"?"Build at least a three-link chain: initial change → intermediate mechanism → observed result.":"Кемінде үш буынды тізбек құрыңыз: бастапқы өзгеріс → аралық тетік → байқалатын нәтиже."
+   ]}
+  ],explanation:[mech,interp]},
+  {id:`m${topic.id}-discrimination`,title:l==="RU"?"Задача 2. Конкурирующие объяснения":l==="EN"?"Case 2. Competing explanations":"2-жағдай. Бәсекелес түсіндірмелер",situation:secondSituation,stages:[
+   {title:l==="RU"?"Сделайте новый прогноз":l==="EN"?"Make a new prediction":"Жаңа болжам жасаңыз",questions:[
+    l==="RU"?`Если исходная связь «${termA} → ${termB}» остаётся главным механизмом, какое направление изменения вы ожидаете?`:l==="EN"?`If the original “${termA} → ${termB}” link remains the main mechanism, what direction of change do you predict?`:`Егер бастапқы «${termA} → ${termB}» байланысы негізгі тетік болып қалса, өзгерістің қандай бағытын күтесіз?`
+   ]},
+   {title:l==="RU"?"Предложите альтернативу":l==="EN"?"Propose an alternative":"Баламаны ұсыныңыз",questions:[
+    l==="RU"?"Назовите другое физиологическое звено, изменение которого могло бы дать похожий результат.":l==="EN"?"Name another physiological link whose alteration could produce a similar result.":"Ұқсас нәтиже бере алатын басқа физиологиялық буынды атаңыз."
+   ]},
+   {title:l==="RU"?"Различите гипотезы":l==="EN"?"Discriminate the hypotheses":"Болжамдарды ажыратыңыз",questions:[
+    l==="RU"?"Какое дополнительное измерение, стимул или сравнение даст разные результаты для двух гипотез? Предскажите результат для каждой.":l==="EN"?"Which additional measurement, stimulus, or comparison would give different results for the two hypotheses? Predict the result for each.":"Қандай қосымша өлшеу, стимул немесе салыстыру екі болжам үшін әртүрлі нәтиже береді? Әрқайсысы үшін нәтижені болжаңыз.",
+    l==="RU"?"Сформулируйте итог в двух частях: что данные поддерживают и чего они пока не доказывают.":l==="EN"?"State the conclusion in two parts: what the data support and what they do not yet prove.":"Қорытындыны екі бөлікпен жазыңыз: деректер нені қолдайды және нені әлі дәлелдемейді."
+   ]}
+  ],explanation:[interp]}
  ]};
 }
 
