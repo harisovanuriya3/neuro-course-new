@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Language } from "../content/course";
 import ExperimentReflection from "./ExperimentReflection";
 import { recordOutcome } from "../lib/courseProgress";
+import {isMeaningfulResponse} from "../lib/meaningfulResponse";
 
 type Row = {
   id: number;
@@ -107,7 +108,7 @@ export default function MotorControlLab({
     setRows((current) =>
       current.map((row) => (row.id === id ? { ...row, note } : row)),
     );
-    if (note.trim().length >= 30) {
+    if (isMeaningfulResponse(note,30,4)) {
       recordOutcome(11, "criterion:justification:lab", 1, 1);
     }
   };
@@ -226,7 +227,7 @@ export default function MotorControlLab({
         />
       </label>
 
-      <button disabled={prediction.trim().length < 20} onClick={recordTrial}>
+      <button disabled={!isMeaningfulResponse(prediction,20,3)} onClick={recordTrial}>
         {c.save}
       </button>
 
