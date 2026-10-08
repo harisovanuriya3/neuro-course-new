@@ -187,9 +187,6 @@ const copy = {
 
     materials: 'Учебные материалы',
 
-    noMaterials:
-      'Дополнительные материалы по теме не указаны.',
-
     sourceDescription:
       'Дополнительное чтение по теме из учебников, университетских библиотек и открытых академических ресурсов.',
   },
@@ -228,9 +225,6 @@ const copy = {
 
     materials: 'Learning materials',
 
-    noMaterials:
-      'No additional topic materials are listed.',
-
     sourceDescription:
       'Further reading from textbooks, university libraries, and open academic resources.',
   },
@@ -268,9 +262,6 @@ const copy = {
       'Физиологиялық тетіктерді нақтылауға және қосымша оқуға ұсынылатын дереккөздер.',
 
     materials: 'Оқу материалдары',
-
-    noMaterials:
-      'Тақырып бойынша қосымша материалдар көрсетілмеген.',
 
     sourceDescription:
       'Оқулықтардан, университет кітапханаларынан және ашық академиялық ресурстардан қосымша оқу.',
@@ -790,7 +781,7 @@ function create(
         {
           id: `module-${topic.id}-review-justification`,
           prompt: language === 'RU' ? 'Что ещё вы бы проверили, чтобы увереннее сделать вывод?' : language === 'EN' ? 'What additional observation or comparison would strengthen your conclusion, and why?' : 'Қандай қосымша бақылау немесе салыстыру қорытындыңызды күшейтер еді және неге?',
-          explanation: `${mechanism} ${interpretation}`,
+          explanation: language === 'RU' ? 'Сильный вывод требует наблюдения, которое различает конкурирующие физиологические объяснения.' : language === 'EN' ? 'A strong conclusion requires an observation that discriminates between competing physiological explanations.' : 'Нақты қорытынды бәсекелес физиологиялық түсіндірмелерді ажырататын бақылауды қажет етеді.',
           target: { section: 'tests' },
         },
       ],
@@ -841,15 +832,21 @@ function create(
       incorrect:language==='RU'?'Пересмотрите причинную связь':language==='EN'?'Review the causal link':'Себептік байланысты қайта қараңыз',
       correctAnswer:language==='RU'?'Лучший ответ':language==='EN'?'Best answer':'Ең жақсы жауап',
     };
-    const correct=topic.mechanism[language];
-    const wrong=language==='RU'?'Сделать вывод только по одному наблюдаемому изменению, не проверяя механизм и альтернативные объяснения.':language==='EN'?'Draw a conclusion from one observed change without testing the mechanism or alternative explanations.':'Тетікті және балама түсіндірмелерді тексермей, бір ғана байқалған өзгеріске сүйеніп қорытынды жасау.';
+    const correct=language==='RU'?'Проследить последовательность изменений и проверить, соответствует ли наблюдаемый результат прогнозу.':language==='EN'?'Trace the sequence of changes and test whether the observed result matches the prediction.':'Өзгерістер ретін бақылап, байқалған нәтиженің болжамға сәйкестігін тексеру.';
+    const wrong=language==='RU'?'Остановить разбор после первого заметного изменения и считать его достаточным доказательством.':language==='EN'?'Stop after the first visible change and treat it as sufficient evidence.':'Алғашқы байқалған өзгерістен кейін талдауды тоқтатып, оны жеткілікті дәлел деп санау.';
     const intro=(language==='RU'?'Динамический разбор: ':language==='EN'?'Dynamic walkthrough: ':'Динамикалық талдау: ')+mediaTitle;
+    const transcript=language==='RU'
+      ? ['Следите за направлением процесса: входное воздействие → изменение состояния системы → наблюдаемый выход.', 'Остановите анимацию в ключевой точке и самостоятельно предскажите следующий шаг до его появления.']
+      : language==='EN'
+        ? ['Follow the direction of the process: input → change in system state → observable output.', 'Pause at the key transition and predict the next step before it appears.']
+        : ['Процесс бағытын бақылаңыз: кіріс әсері → жүйе күйінің өзгеруі → байқалатын шығыс.', 'Негізгі ауысуда анимацияны тоқтатып, келесі қадамды пайда болмай тұрып болжаңыз.'];
     return {kind:'media',title,language,introduction:intro,ui,blocks:[{
       id:'module-'+topic.id+'-dynamic-process',title:mediaTitle,preview:topic.task[language],
-      transcript:[topic.mechanism[language],topic.interpretation[language]],theoryAnchor:'mechanism',animation:'foundation',
-      question:{prompt:topic.question[language],correctAnswer:'a',explanation:topic.mechanism[language]+' '+topic.interpretation[language],options:[
-        {id:'a',text:correct,feedback:topic.mechanism[language]},
-        {id:'b',text:wrong,feedback:language==='RU'?'Один результат не локализует механизм без дополнительной проверки.':language==='EN'?'A single result does not localize the mechanism without an additional test.':'Бір нәтиже қосымша тексерусіз тетікті локализацияламайды.'},
+      transcript,theoryAnchor:'mechanism',animation:'foundation',
+      question:{prompt:language==='RU'?'Как лучше использовать эту динамическую схему для проверки понимания механизма?':language==='EN'?'How should this dynamic sequence be used to test understanding of the mechanism?':'Бұл динамикалық тізбекті тетікті түсінуді тексеру үшін қалай қолданған дұрыс?',correctAnswer:'a',
+      explanation:language==='RU'?'Прогноз до появления следующего шага проверяет причинное понимание, а не узнавание готового текста.':language==='EN'?'Predicting before the next step appears tests causal understanding rather than recognition of prepared text.':'Келесі қадам пайда болмай тұрып болжау дайын мәтінді тануды емес, себептік түсінуді тексереді.',options:[
+        {id:'a',text:correct,feedback:language==='RU'?'Так студент проверяет собственную причинную модель.':language==='EN'?'This tests the learner’s own causal model.':'Бұл студенттің өз себептік моделін тексереді.'},
+        {id:'b',text:wrong,feedback:language==='RU'?'Первое изменение ещё не показывает всю причинную цепь.':language==='EN'?'The first change does not establish the whole causal chain.':'Алғашқы өзгеріс бүкіл себептік тізбекті көрсетпейді.'},
       ]}
     }]};
   }
