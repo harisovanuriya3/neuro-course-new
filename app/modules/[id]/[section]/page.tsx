@@ -46,6 +46,8 @@ import LearningMemoryLab from "../../../../components/LearningMemoryLab";
 import SleepRhythmLab from "../../../../components/SleepRhythmLab";
 import PlasticityLab from "../../../../components/PlasticityLab";
 import GuidedLabFrame from "../../../../components/GuidedLabFrame";
+import SectionProgressStrip from "../../../../components/SectionProgressStrip";
+import Module2Content from "../../../../components/Module2Content";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -129,6 +131,7 @@ export default async function SectionPage({
       >
         <ModuleSidebar moduleNumber={moduleNumber} currentSection={section} currentSectionTitle={getSectionTitle(section, lang)} lang={lang} />
         <div style={{ minWidth: 0 }}>
+        <SectionProgressStrip moduleId={moduleNumber} current={section} language={lang} />
         <div
           style={{
             padding: "clamp(22px, 4vw, 36px)",
@@ -231,6 +234,8 @@ export default async function SectionPage({
           <div id="module1-page-content">
           {moduleNumber === 1 && section === "virtual-patient" ? (
             <VirtualPatient language={lang} />
+          ) : moduleNumber === 2 && section === "virtual-patient" ? (
+            <Module2Content section={section} language={lang} />
           ) : section === "virtual-patient" ? (
             <UnifiedVirtualPatient moduleId={moduleNumber} language={lang} />
           ) : section === "progress" ? (
@@ -241,6 +246,8 @@ export default async function SectionPage({
             <NotesContent language={lang} moduleId={moduleNumber} />
           ) : moduleNumber === 2 && section === "interactive" ? (
             <EEGLab language={lang} />
+          ) : moduleNumber === 2 ? (
+            <Module2Content section={section} language={lang} />
           ) : moduleNumber === 3 && section === "interactive" ? (
             <NerveFiberLab language={lang} />
           ) : moduleNumber === 4 && section === "interactive" ? (

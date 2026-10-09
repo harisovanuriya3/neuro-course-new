@@ -54,9 +54,9 @@ export const sections = [
     slug: "one-minute",
     icon: "⏱️",
     title: {
-      RU: "Ключевое за 1 минуту",
-      KZ: "1 минуттағы негізгі ойлар",
-      EN: "Key Points in 1 Minute",
+      RU: "Итог за 1 минуту",
+      KZ: "1 минуттық қорытынды",
+      EN: "One-minute summary",
     },
     description: {
       RU: "Самые важные идеи модуля в краткой форме",
