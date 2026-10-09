@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Language } from "../content/course";
 import { topics } from "../content/course-foundation/topics";
 import VoiceTextarea from "./VoiceTextarea";
+import VisualPathwayLocalizer from "./VisualPathwayLocalizer";
 
 const ui={
  RU:{title:"Виртуальный пациент",intro:"Синтетический учебный сценарий. Двигайтесь от наблюдения к механизму; это тренировка рассуждения, а не постановка реального диагноза.",stage:["1. Наблюдение","2. Физиологическая гипотеза","3. Проверка и границы вывода"],prompt:["Что в ситуации является наблюдаемым фактом?","Какой физиологический механизм может объяснить изменение?","Какое дополнительное наблюдение проверит гипотезу и чего пока нельзя утверждать?"],show:"Открыть ориентир",hide:"Скрыть ориентир",answer:"Ориентир для самопроверки",note:"Сначала сформулируйте ответ самостоятельно."},
@@ -88,6 +89,7 @@ export default function FoundationVirtualPatient({moduleId,language}:{moduleId:n
  const decisionFeedback=decision==="support"?topic.mechanism[language]:decision==="challenge"?topic.interpretation[language]:"";
  return <section>
   <h1>{c.title}</h1><p>{c.intro}</p><p><strong>{scenario.role[language]}</strong></p>
+  {moduleId===20&&<VisualPathwayLocalizer language={language}/>}
   <div style={{padding:18,border:"1px solid #b9d8e8",borderRadius:18,background:"linear-gradient(135deg,#e8f7ff,#f6f0ff)",margin:"18px 0"}}><strong>{scenario.finding[language]}</strong><div><button type="button" onClick={()=>speak(scenario.finding[language])} style={{marginTop:12}}>🔊 {language==="RU"?"Голос пациента":language==="EN"?"Patient voice":"Пациент дауысы"}</button></div></div>
   <section style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:12,margin:"18px 0"}}>
    <button type="button" onClick={()=>{setPath("mechanism");setExamStep(0);setDecision(null);setRevised(false)}} style={{padding:16,borderRadius:14,border:"1px solid #78aeca",background:path==="mechanism"?"#dff3ff":"white",fontWeight:700}}>{scenario.test[language]}</button>

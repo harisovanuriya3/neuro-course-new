@@ -14,9 +14,6 @@ for(const mode of baroreflexModes){
 }
 assert.equal(baroreflexMechanism.length,6,"baroreflex mechanism must expose six timed stages");
 for(const stage of baroreflexMechanism)for(const language of languages)assert(stage[language]?.trim(),`mechanism stage missing ${language}`);
-const stationSource=fs.readFileSync(path.resolve(__dirname,"../components/NeuroPracticalStation.tsx"),"utf8");
-const genericModules=[...stationSource.matchAll(/^\s*(\d+):\{title:/gm)].map(match=>Number(match[1]));
-assert.deepEqual(genericModules,[3,11,19,20,21,22],"generic practical-station inventory changed; review each station deliberately");
 const routeSource=fs.readFileSync(path.resolve(__dirname,"../app/modules/[id]/[section]/page.tsx"),"utf8");
 assert(!routeSource.includes("<NeuroPracticalStation moduleId={22}"),"Module 22 still renders the generic practical station");
 assert(!routeSource.includes("<NeuroPracticalStation moduleId={"),"A specialized lab is still followed by the generic practical station");
@@ -31,4 +28,14 @@ const visionSource=fs.readFileSync(path.resolve(__dirname,"../components/VisionL
 for(const signal of ["Parameter changed","Index prediction","name=\"target\"","name=\"direction\"","Conditional luminance","Conditional contrast","Conditional visual-response index"]){
  assert(visionSource.includes(signal),`Module 20 visual experiment is missing: ${signal}`);
 }
-console.log("Practical-station validation passed: Modules 3, 11, 19, 20, 21 and 22 route only their specialized laboratories; Module 22 has localized parameters, prediction targets, time-series results and interpretation.");
+const specializedLabs={3:"NerveFiberLab.tsx",11:"MotorControlLab.tsx",19:"SomatosensoryLab.tsx",20:"VisionLab.tsx",21:"SensorySystemsLab.tsx"};
+for(const [moduleId,file] of Object.entries(specializedLabs)){
+ const source=fs.readFileSync(path.resolve(__dirname,`../components/${file}`),"utf8");
+ for(const signal of ["prediction","recordOutcome"]){assert(source.toLowerCase().includes(signal.toLowerCase()),`Module ${moduleId} specialized lab lacks ${signal}`)}
+}
+const visualPathwaySource=fs.readFileSync(path.resolve(__dirname,"../components/VisualPathwayLocalizer.tsx"),"utf8");
+for(const signal of ["retina","nerve","chiasm","tract","radiation","cortex","Left eye","Right eye","vertical meridian","Тік меридиан"]){
+ assert(visualPathwaySource.includes(signal),`Module 20 visual-pathway localizer is missing: ${signal}`);
+}
+assert(visualPathwaySource.includes('aria-pressed={site===value}'),"Module 20 lesion controls must expose their selected state");
+console.log("Practical-station validation passed: Modules 3, 11, 19, 20, 21 and 22 route only their specialized laboratories; Module 20 has a localized visual-pathway lesion model; Module 22 has localized parameters, prediction targets, time-series results and interpretation.");
