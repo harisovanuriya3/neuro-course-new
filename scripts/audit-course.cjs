@@ -141,7 +141,14 @@ for (const [name, source] of educationalSources) {
     occurrences.get(value).push(name);
   }
 }
-const duplicateGroups = [...occurrences.values()].filter(items => items.length > 1);
+const duplicateGroups = [...occurrences.entries()].filter(([,items]) => items.length > 1);
 console.log(`INFO: ${duplicateGroups.length} exact long-copy duplicate groups (including deliberate feedback/remediation copy)`);
+for (const [copy, sources] of duplicateGroups) {
+  console.log(`INFO: duplicate in ${sources.join(", ")}: ${copy.slice(0, 140)}`);
+}
+const crossSourceDuplicates=duplicateGroups.filter(([,sources])=>new Set(sources).size>1);
+crossSourceDuplicates.length===0
+  ? pass("no exact long-copy task is duplicated across educational source groups")
+  : fail(`${crossSourceDuplicates.length} exact long-copy groups cross educational source boundaries`);
 
 if (!process.exitCode) console.log("Course audit completed successfully.");
