@@ -74,7 +74,7 @@ export default function NerveFiberLab({ language }: { language: Language }) {
   const current=fibers[fiber];
   const classification=classificationCopy[language];
   const fiberIndex=ids.indexOf(fiber),referencePath=referencePaths[fiberIndex],reaction=reactionCopy[language][fiberIndex];
-  const calc=useCallback((id=fiber)=>{const f=fibers[id],tempFactor=Math.max(.45,1-(37-temperature)*.025),diameterFactor=Math.sqrt(diameter/100),myelinFactor=f.myelinated?myelin:1;const velocity=f.velocity*tempFactor*diameterFactor*myelinFactor;return {velocity,time:distance/velocity*1000};},[fiber,distance,temperature,diameter,myelin]);
+  const calc=useCallback((id=fiber)=>{const f=fibers[id],tempFactor=Math.max(.45,1-(37-temperature)*.025),diameterFactor=f.myelinated?diameter/100:Math.sqrt(diameter/100),myelinFactor=f.myelinated?myelin:1;const velocity=f.velocity*tempFactor*diameterFactor*myelinFactor;return {velocity,time:distance/velocity*1000};},[fiber,distance,temperature,diameter,myelin]);
   const result=calc();
   const relativeSpeed=result.velocity/current.velocity;
   const expectedPrediction:Prediction=Math.abs(relativeSpeed-1)<0.01?"same":relativeSpeed>1?"faster":"slower";
