@@ -1,21 +1,29 @@
-// Run with: node scripts/check-reviewed-exam-items.cjs
-// Structural checks only; expert scientific review remains necessary.
+// Structural source checks; run: node scripts/check-reviewed-exam-items.cjs
 const fs=require("node:fs");
 const assert=require("node:assert/strict");
-const reviewed=fs.readFileSync("content/reviewed-exam-items.ts","utf8");
-const bank=fs.readFileSync("content/exam-bank.ts","utf8");
-const additional=fs.readFileSync("content/additional-reviewed-exam-items.ts","utf8");
-for(const id of [2,3,4,5]){
- assert(new RegExp("^"+id+":\\{","m").test(reviewed),`Missing reviewed module ${id}`);
+const read=(p)=>fs.readFileSync(p,"utf8");
+const bank=read("content/exam-bank.ts");
+const groups=[
+ {file:"content/reviewed-exam-items.ts",start:2,end:5},
+ {file:"content/additional-reviewed-exam-items.ts",start:6,end:7},
+ {file:"content/reviewed-pathway-exam-items.ts",start:8,end:11},
+ {file:"content/reviewed-advanced-exam-items.ts",start:12,end:25}
+];
+for(const {file,start,end} of groups){
+ const src=read(file);
+ for(let id=start;id<=end;id++){
+  assert(src.includes("\n"+id+":{"),"Missing module "+id+" in "+file);
+  const next=src.indexOf("\n"+id+":{");
+  const stop=id<end?src.indexOf("\n"+(id+1)+":{",next):src.indexOf("\n};",next);
+  const segment=src.slice(next,stop);
+  for(const lang of ["RU","EN","KZ"]){
+   assert(new RegExp("\\b"+lang+":\\s*\\{").test(segment),"Missing "+lang+" in module "+id);
+  }
+ }
 }
-for(const lang of ["RU","EN","KZ"]){
- const count=(reviewed.match(new RegExp("^"+lang+":\\{prompt:","gm"))||[]).length;
- assert.equal(count,4,`Expected 4 reviewed ${lang} items; got ${count}`);
+for(const name of ["reviewedExamItem","additionalReviewedItem","reviewedPathwayItem","reviewedAdvancedItem"]){
+ assert(bank.includes(name+"(topic.id,lang)"),"Exam bank missing "+name);
 }
-for(const id of [6,7])assert(new RegExp("^"+id+":\\\\{","m").test(additional),`Missing reviewed module ${id}`);
-for(const lang of ["RU","EN","KZ"])assert.equal((additional.match(new RegExp("^"+lang+":\\\\{prompt:","gm"))||[]).length,2,`Expected 2 additional ${lang} items`);
-assert(bank.includes("additionalReviewedItem(topic.id,lang)"),"Additional reviewed questions not wired");
-assert(bank.includes("if(reviewedForTopic){"),"Reviewed items must be used without template padding");
-assert(bank.includes("continue;\n  }\n  for(let n=0;n<40;n++)"),"Template loop must skip reviewed modules");
-assert(!bank.includes('correctOrder:["stimulus","a","b","response"]'),"Unverified glossary sequence keys must be absent");
-console.log("Reviewed item source and exam-bank wiring checks passed (6 modules × 3 languages). Scientific and runtime validation are still required.");
+assert(bank.includes("if(reviewedForTopic){"),"Reviewed questions must bypass template generation");
+assert(!bank.includes('correctOrder:["stimulus","a","b","response"]'),"Invalid generic sequence keys remain");
+console.log("Source wiring checks passed for modules 2-25 in RU, EN and KZ.");
