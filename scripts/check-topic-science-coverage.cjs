@@ -1,28 +1,47 @@
-// Static pedagogical/scientific-content coverage gate. Run from repository root:
-// node scripts/check-topic-science-coverage.cjs
+// Structural coverage gate for the trilingual neurophysiology course.
+// Run from repository root: node scripts/check-topic-science-coverage.cjs
+// This is NOT a validation of clinical or physiological accuracy.
 const fs=require("node:fs");
 const assert=require("node:assert/strict");
 const read=p=>fs.readFileSync(p,"utf8");
 const course=read("content/course.ts");
+const sectionSource=read("content/sections.ts");
 const topics=read("content/course-foundation/topics.ts");
 const bank=read("content/exam-bank.ts");
-const labels=["RU","KZ","EN"];
-for(const lang of labels){
- const section=course.match(new RegExp("\\b"+lang+": \\[([\\s\\S]*?)\\n  \\]"));
- assert(section,"Missing "+lang+" module titles");
- const titles=[...section[1].matchAll(/^\\s*"([^"]+)"[,]?$/gm)].map(x=>x[1]);
- assert.equal(titles.length,25,lang+" must have 25 module titles");
- assert.equal(new Set(titles).size,25,lang+" has repeated module titles");
+
+for(const lang of ["RU","KZ","EN"]){
+  const section=course.match(new RegExp("\\b"+lang+": \\[([\\s\\S]*?)\\n  \\]"));
+  assert(section,"Missing "+lang+" module titles");
+  const titles=[...section[1].matchAll(/^\s*"([^"]+)"[,]?$/gm)].map(x=>x[1]);
+  assert.equal(titles.length,25,lang+" must have 25 module titles");
+  assert.equal(new Set(titles).size,25,lang+" contains repeated titles");
 }
-const found=[...topics.matchAll(/^\\{ id: (\\d+), sources:/gm)].map(x=>Number(x[1]));
-assert.deepEqual(found,Array.from({length:24},(_,i)=>i+2),"Topic foundation must cover modules 2–25 exactly");
-for(const field of ["mechanism","interpretation","question","task","terms"]){
- const matches=[...topics.matchAll(new RegExp("^"+field+":", "gm"))].length;
- assert.equal(matches,24,"Topic field "+field+" missing in some module");
+const sectionSlugs=[...sectionSource.matchAll(/slug:\s*"([^"]+)"/g)].map(x=>x[1]);
+assert.equal(sectionSlugs.length,17,"Expected 17 sections per module");
+assert.equal(new Set(sectionSlugs).size,17,"Duplicate section slugs");
+
+const topicStarts=[...topics.matchAll(/\{\s*id:\s*(\d+)\s*,\s*sources:/g)];
+const ids=topicStarts.map(x=>Number(x[1]));
+assert.equal(ids.length,24,"Expected 24 foundation topics (modules 2–25)");
+assert.deepEqual([...ids].sort((a,b)=>a-b),Array.from({length:24},(_,i)=>i+2),
+  "Foundation topic IDs must be complete and unique; declaration order is irrelevant");
+for(let i=0;i<topicStarts.length;i++){
+  const segment=topics.slice(topicStarts[i].index,topicStarts[i+1]?.index??topics.length);
+  for(const field of ["mechanism","interpretation","question","task","terms"]){
+    assert(new RegExp("\\b"+field+"\\s*:").test(segment),
+      "Missing "+field+" in topic "+topicStarts[i][1]);
+  }
 }
-assert(bank.includes("firstModuleReviewed(lang).map"),"Module 1 exam missing");
-for(const file of ["content/reviewed-exam-items.ts","content/additional-reviewed-exam-items.ts","content/reviewed-pathway-exam-items.ts","content/reviewed-advanced-exam-items.ts","content/supplementary-reviewed-exam-items.ts","content/supplementary-systems-exam-items.ts","content/third-reviewed-exam-items.ts","content/third-systems-exam-items.ts"]){
- assert(fs.existsSync(file),"Missing reviewed item source "+file);
-}
-console.log("Structural coverage verified: 25 module titles per language, topic mechanisms and interpretations for modules 2–25, and authored exam source files.");
-console.log("NOTE: This is not a scientific fact check, translation review, or browser/build test.");
+assert(bank.includes("firstModuleReviewed(lang).map"),"Module 1 authored assessment not wired");
+for(const path of [
+  "content/reviewed-exam-items.ts",
+  "content/additional-reviewed-exam-items.ts",
+  "content/reviewed-pathway-exam-items.ts",
+  "content/reviewed-advanced-exam-items.ts",
+  "content/supplementary-reviewed-exam-items.ts",
+  "content/supplementary-systems-exam-items.ts",
+  "content/third-reviewed-exam-items.ts",
+  "content/third-systems-exam-items.ts"
+]) assert(fs.existsSync(path),"Missing authored assessment file "+path);
+console.log("PASS: 25 distinct module titles in RU/KZ/EN; 17 section routes; 24 foundation topics with required fields.");
+console.log("NOTE: This checks coverage only, not translation equivalence, physiology, content depth or runtime.");
