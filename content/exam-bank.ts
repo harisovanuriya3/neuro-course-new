@@ -6,6 +6,7 @@ import { reviewedPathwayItem } from "./reviewed-pathway-exam-items";
 import { reviewedAdvancedItem } from "./reviewed-advanced-exam-items";
 import { firstModuleReviewed } from "./reviewed-module-one-exam";
 import { supplementaryReviewedItem } from "./supplementary-reviewed-exam-items";
+import { supplementarySystemsItem } from "./supplementary-systems-exam-items";
 import { topics, termDefinitions } from "./course-foundation/topics";
 export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[];taskType?:"standard"|"situation"|"sequence"};
 const S={
@@ -257,7 +258,7 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    q.writtenPrompt=(lang==="RU"?"Объясните физиологический механизм и обоснуйте выбор. ":lang==="EN"?"Explain the physiological mechanism and justify your choice. ":"Физиологиялық механизмді түсіндіріп, таңдауыңызды негіздеңіз. ")+q.prompt;
    q.taskType="situation";
    bank.push(q);
-   const extra=supplementaryReviewedItem(topic.id,lang);
+   const extra=supplementaryReviewedItem(topic.id,lang) ?? supplementarySystemsItem(topic.id,lang);
    if(extra){const additional=make(topic.id,title,1,extra.prompt,extra.correct,[...extra.wrong],extra.explanation);additional.taskType="situation";bank.push(additional);}
    continue;
   }
