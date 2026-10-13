@@ -15,6 +15,8 @@ assert(src.includes('aria-pressed={tab===id}'),"Toggle buttons must expose press
 assert(!src.includes('aria-selected={tab===id}'),"Do not use aria-selected on ordinary buttons");
 assert(!src.includes("<main className={styles.stage}>"),"Avoid nested main landmarks");
 assert(src.includes('RU:{prompt:"Сравните скорость'),"Russian prediction instruction must be in Russian");
+assert(src.includes('baseline:"Исходная скорость"'),"Russian prediction baseline must be localized");
+assert(src.includes("dorsal root ganglion → dorsal root → dorsal columns → medullary nuclei"),"A-beta pathway must show the first-order ganglion and medullary synapse");
 assert(src.includes("The model does not simulate conduction block"),"Limitations of demyelination model must be explicit");
 assert(src.includes('current.myelinated?Math.round(myelin*100)+"%":"N/A"'),"C-fiber history must not imply myelin percentage");
 assert(src.includes('onClick={()=>setTab("lab")}>{classification.part2}'),"Micro mode must provide a way to select a prediction");
