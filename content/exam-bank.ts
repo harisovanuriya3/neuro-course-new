@@ -2,6 +2,7 @@ import type { Language } from "./course";
 import { modules } from "./course";
 import { reviewedExamItem } from "./reviewed-exam-items";
 import { additionalReviewedItem } from "./additional-reviewed-exam-items";
+import { reviewedPathwayItem } from "./reviewed-pathway-exam-items";
 import { topics, termDefinitions } from "./course-foundation/topics";
 export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[];taskType?:"standard"|"situation"|"sequence"};
 const S={
@@ -277,7 +278,7 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
   ];
   // Reviewed modules: never pad the bank with unverified template questions.
   // Keep the existing q1 identifier for student progress compatibility.
-  const reviewedForTopic=reviewedExamItem(topic.id,lang) ?? additionalReviewedItem(topic.id,lang);
+  const reviewedForTopic=reviewedExamItem(topic.id,lang) ?? additionalReviewedItem(topic.id,lang) ?? reviewedPathwayItem(topic.id,lang);
   if(reviewedForTopic){
    const q=make(topic.id,title,0,reviewedForTopic.prompt,reviewedForTopic.correct,[...reviewedForTopic.wrong],reviewedForTopic.explanation);
    q.writtenPrompt=(lang==="RU"?"Объясните физиологический механизм и обоснуйте выбор. ":lang==="EN"?"Explain the physiological mechanism and justify your choice. ":"Физиологиялық механизмді түсіндіріп, таңдауыңызды негіздеңіз. ")+q.prompt;
