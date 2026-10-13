@@ -8,6 +8,7 @@ import { firstModuleReviewed } from "./reviewed-module-one-exam";
 import { supplementaryReviewedItem } from "./supplementary-reviewed-exam-items";
 import { supplementarySystemsItem } from "./supplementary-systems-exam-items";
 import { thirdReviewedItem } from "./third-reviewed-exam-items";
+import { thirdSystemsItem } from "./third-systems-exam-items";
 import { topics, termDefinitions } from "./course-foundation/topics";
 export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[];taskType?:"standard"|"situation"|"sequence"};
 const S={
@@ -261,7 +262,7 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    bank.push(q);
    const extra=supplementaryReviewedItem(topic.id,lang) ?? supplementarySystemsItem(topic.id,lang);
    if(extra){const additional=make(topic.id,title,1,extra.prompt,extra.correct,[...extra.wrong],extra.explanation);additional.taskType="situation";bank.push(additional);}
-   const third=thirdReviewedItem(topic.id,lang);
+   const third=thirdReviewedItem(topic.id,lang) ?? thirdSystemsItem(topic.id,lang);
    if(third){const q3=make(topic.id,title,2,third.prompt,third.correct,[...third.wrong],third.explanation);q3.taskType="situation";bank.push(q3);}
    continue;
   }
