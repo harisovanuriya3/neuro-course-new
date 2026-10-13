@@ -1,4 +1,6 @@
-import type { Language } from '../course';
+import { modules, type Language } from '../course';
+import { getSectionTitle } from '../sections';
+import type { ObjectivesLesson, ReadingLesson } from '../study';
 
 // Authored, assessable outcomes and factual recap for module 3.
 // Scientific basis: Ganong 23e, chapter 4; Guyton & Hall 13e, chapter 5;
@@ -53,3 +55,35 @@ export const moduleThreeSummary: Record<Language, SummaryItem[]> = {
     { title: '5. Өткізу жылдамдығы диагноз емес', text: 'Өткізу жылдамдығы аксон диаметріне, миелинденуге және температураға тәуелді. Латентті кезең мен жылдамдық өзгерістерін зерттеу әдісімен, басқа көрсеткіштермен және клиникалық деректермен бірге бағалау қажет.' },
   ],
 };
+
+export function createModuleThreeObjectives(language: Language): ObjectivesLesson {
+  return {
+    kind: 'objectives',
+    title: getSectionTitle('objectives', language),
+    introduction: language === 'RU' ? 'После изучения модуля студент сможет:' : language === 'EN' ? 'After completing this module, the student will be able to:' : 'Модульді аяқтағаннан кейін студент:',
+    outcomes: moduleThreeObjectives[language].map((item, index) => ({
+      id: 'module-3-objective-' + (index + 1),
+      title: item.title,
+      description: item.description,
+    })),
+    navigation: {
+      title: language === 'RU' ? 'Перейти к изучению модуля' : language === 'EN' ? 'Continue learning' : 'Модульді оқуға өту',
+      pathwayLabel: language === 'RU' ? 'Рекомендуемый маршрут' : language === 'EN' ? 'Recommended pathway' : 'Ұсынылатын оқу бағыты',
+      links: [{ section: 'theory' }, { section: 'practice' }, { section: 'cases' }, { section: 'interactive' }, { section: 'virtual-patient' }],
+    },
+  };
+}
+
+export function createModuleThreeSummary(language: Language): ReadingLesson {
+  return {
+    kind: 'one-minute',
+    title: getSectionTitle('one-minute', language),
+    introduction: language === 'RU' ? 'Пять ключевых выводов о нейроне, глии и проведении импульса.' : language === 'EN' ? 'Five essential takeaways about neurons, glia and impulse conduction.' : 'Нейрон, глия және импульс өткізу туралы бес негізгі қорытынды.',
+    cards: moduleThreeSummary[language].map((item, index) => ({
+      id: 'module-3-one-minute-' + (index + 1),
+      title: item.title,
+      paragraphs: [item.text],
+      links: [{ section: 'theory' }],
+    })),
+  };
+}
