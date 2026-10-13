@@ -244,38 +244,10 @@ function whatsappCaseQuestions(lang:Language):ExamBankQuestion[]{
 }
 
 export function createExamBank(lang:Language):ExamBankQuestion[]{
- const s=S[lang],bank=[...firstModule(lang)];
- const L=(ru:string,en:string,kz:string)=>lang==="RU"?ru:lang==="EN"?en:kz;
+ const bank=[...firstModule(lang)];
  for(const topic of topics){
   const defs=termDefinitions[topic.id]; if(!defs)continue;
-  const title=modules[lang][topic.id-1], a=topic.terms[0][lang], b=topic.terms[1][lang];
-  const prompts=[
-   L(`В новой серии наблюдений показатель «${a}» меняется, но ожидаемое изменение «${b}» появляется только при сохранности промежуточного звена. Какой вывод лучше всего связывает данные и не выходит за их пределы?`,`In a new observation series, “${a}” changes, but the expected change in “${b}” appears only when an intermediate link is intact. Which conclusion best connects the evidence without exceeding it?`,`Жаңа бақылаулар қатарында «${a}» өзгереді, бірақ «${b}» күтілетін өзгерісі аралық буын сақталғанда ғана пайда болады. Қай қорытынды деректерді дұрыс байланыстырып, олардың шегінен шықпайды?`),
-   L(`В контролируемом опыте воздействие изменило «${a}», после чего «${b}» изменился в предсказанном направлении. Контрольная группа такого сдвига не показала. Какой механизм лучше объясняет различие групп?`,`In a controlled experiment, an intervention altered “${a}”, after which “${b}” changed in the predicted direction. The control group showed no such shift. Which mechanism best explains the group difference?`,`Бақыланатын тәжірибеде әсер «${a}» өзгертті, содан кейін «${b}» болжанған бағытта өзгерді. Бақылау тобында мұндай ығысу болмады. Топтар айырмасын қай тетік жақсы түсіндіреді?`),
-   L(`В двух условиях величина «${a}» одинакова, однако показатель «${b}» различается. Какое объяснение корректнее всего указывает, почему одной исходной величины недостаточно для прогноза?`,`Two conditions have the same value of “${a}”, yet “${b}” differs. Which explanation best shows why the starting value alone is insufficient for prediction?`,`Екі жағдайда «${a}» шамасы бірдей, алайда «${b}» көрсеткіші әртүрлі. Бастапқы шаманың өзі болжамға неге жеткіліксіз екенін қай түсіндірме дұрыс көрсетеді?`),
-   L(`После изменения «${a}» наблюдают сдвиг «${b}», но одновременно изменилось ещё одно условие опыта. Какой вывод сохраняет причинную логику и учитывает это ограничение?`,`After “${a}” changes, a shift in “${b}” is observed, but another experimental condition changed at the same time. Which conclusion preserves causal reasoning while acknowledging this limitation?`,`«${a}» өзгергеннен кейін «${b}» ығысуы байқалды, бірақ тәжірибенің тағы бір шарты қатар өзгерді. Қай қорытынды себептік логиканы сақтап, осы шектеуді ескереді?`)
-  ];
-  const conciseMechanism=firstSentence(topic.mechanism[lang]);
-  const conciseInterpretation=firstSentence(topic.interpretation[lang]);
-  const corrects=[
-   conciseMechanism,
-   conciseMechanism,
-   conciseInterpretation,
-   conciseInterpretation
-  ];
-  const explanations=[
-   topic.mechanism[lang],
-   topic.mechanism[lang],
-   topic.interpretation[lang],
-   topic.interpretation[lang]
-  ];
-  const defA=defs[0][lang], defB=defs[1][lang];
-  const wrongSets=[
-   [defA,defB,s.dx],
-   [defB,topic.interpretation[lang],s.abs],
-   [defA,topic.mechanism[lang],s.swap],
-   [defB,s.swap,s.dx]
-  ];
+  const title=modules[lang][topic.id-1];
   // Reviewed modules: never pad the bank with unverified template questions.
   // Keep the existing q1 identifier for student progress compatibility.
   const reviewedForTopic=reviewedExamItem(topic.id,lang) ?? additionalReviewedItem(topic.id,lang) ?? reviewedPathwayItem(topic.id,lang) ?? reviewedAdvancedItem(topic.id,lang);
