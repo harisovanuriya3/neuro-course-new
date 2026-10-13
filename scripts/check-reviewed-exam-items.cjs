@@ -6,6 +6,9 @@ const bank=read("content/exam-bank.ts");
 const first=read("content/reviewed-module-one-exam.ts");
 assert(bank.includes("firstModuleReviewed(lang).map"),"Module 1 authored bank is not wired");
 for(const lang of ["RU","EN","KZ"])assert(first.includes(lang+":["),"Module 1 missing "+lang);
+const thirdSystems=read("content/third-systems-exam-items.ts");
+for(let id=11;id<=25;id++){const start=thirdSystems.indexOf("\n"+id+":{");assert(start>=0,"Missing third systems item for module "+id);const end=id<25?thirdSystems.indexOf("\n"+(id+1)+":{",start):thirdSystems.indexOf("\n};",start);const item=thirdSystems.slice(start,end);for(const lang of ["RU","EN","KZ"])assert(new RegExp("\\b"+lang+":\\s*\\{").test(item),"Missing third systems "+lang+" module "+id);}
+assert(bank.includes("thirdSystemsItem(topic.id,lang)"),"Third systems cases are not wired");
 const third=read("content/third-reviewed-exam-items.ts");
 for(let id=1;id<=10;id++){const start=third.indexOf("\n"+id+":{");assert(start>=0,"Missing third item for module "+id);const end=id<10?third.indexOf("\n"+(id+1)+":{",start):third.indexOf("\n};",start);const item=third.slice(start,end);for(const lang of ["RU","EN","KZ"])assert(new RegExp("\\b"+lang+":\\s*\\{").test(item),"Missing third "+lang+" item for module "+id);}
 assert(bank.includes("thirdReviewedItem(topic.id,lang)"),"Third case is not wired");
