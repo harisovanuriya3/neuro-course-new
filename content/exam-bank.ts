@@ -7,6 +7,7 @@ import { reviewedAdvancedItem } from "./reviewed-advanced-exam-items";
 import { firstModuleReviewed } from "./reviewed-module-one-exam";
 import { supplementaryReviewedItem } from "./supplementary-reviewed-exam-items";
 import { supplementarySystemsItem } from "./supplementary-systems-exam-items";
+import { thirdReviewedItem } from "./third-reviewed-exam-items";
 import { topics, termDefinitions } from "./course-foundation/topics";
 export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[];taskType?:"standard"|"situation"|"sequence"};
 const S={
@@ -23,7 +24,7 @@ function firstModule(lang:Language):ExamBankQuestion[]{
   const q=make(1,title,n,item.prompt,item.correct,[...item.wrong],item.explanation);
   q.taskType="situation";
   return q;
- }).concat((()=>{const item=supplementaryReviewedItem(1,lang);if(!item)return [];const q=make(1,title,2,item.prompt,item.correct,[...item.wrong],item.explanation);q.taskType="situation";return [q];})());
+ }).concat((()=>{const item=supplementaryReviewedItem(1,lang);if(!item)return [];const q=make(1,title,2,item.prompt,item.correct,[...item.wrong],item.explanation);q.taskType="situation";return [q];})()).concat((()=>{const item=thirdReviewedItem(1,lang);if(!item)return [];const q=make(1,title,3,item.prompt,item.correct,[...item.wrong],item.explanation);q.taskType="situation";return [q];})());
 }
 
 const RU_CORE:Record<number,{p:string;c:string;w:[string,string,string];e:string}>={
@@ -260,6 +261,8 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    bank.push(q);
    const extra=supplementaryReviewedItem(topic.id,lang) ?? supplementarySystemsItem(topic.id,lang);
    if(extra){const additional=make(topic.id,title,1,extra.prompt,extra.correct,[...extra.wrong],extra.explanation);additional.taskType="situation";bank.push(additional);}
+   const third=thirdReviewedItem(topic.id,lang);
+   if(third){const q3=make(topic.id,title,2,third.prompt,third.correct,[...third.wrong],third.explanation);q3.taskType="situation";bank.push(q3);}
    continue;
   }
   // No unreviewed template fallback: missing authored items must be visible in QA.
