@@ -6,6 +6,9 @@ const bank=read("content/exam-bank.ts");
 const first=read("content/reviewed-module-one-exam.ts");
 assert(bank.includes("firstModuleReviewed(lang).map"),"Module 1 authored bank is not wired");
 for(const lang of ["RU","EN","KZ"])assert(first.includes(lang+":["),"Module 1 missing "+lang);
+const third=read("content/third-reviewed-exam-items.ts");
+for(let id=1;id<=10;id++){const start=third.indexOf("\n"+id+":{");assert(start>=0,"Missing third item for module "+id);const end=id<10?third.indexOf("\n"+(id+1)+":{",start):third.indexOf("\n};",start);const item=third.slice(start,end);for(const lang of ["RU","EN","KZ"])assert(new RegExp("\\b"+lang+":\\s*\\{").test(item),"Missing third "+lang+" item for module "+id);}
+assert(bank.includes("thirdReviewedItem(topic.id,lang)"),"Third case is not wired");
 const supplements=[{file:"content/supplementary-reviewed-exam-items.ts",start:1,end:7},{file:"content/supplementary-systems-exam-items.ts",start:8,end:25}];
 for(const {file,start,end} of supplements){const src=read(file);for(let id=start;id<=end;id++){const pos=src.indexOf("\n"+id+":{");assert(pos>=0,"Missing supplementary module "+id);const stop=id<end?src.indexOf("\n"+(id+1)+":{",pos):src.indexOf("\n};",pos);const item=src.slice(pos,stop);for(const lang of ["RU","EN","KZ"])assert(new RegExp("\\b"+lang+":\\s*\\{").test(item),"Missing supplementary "+lang+" module "+id);}}
 assert(bank.includes("supplementarySystemsItem(topic.id,lang)"),"Supplementary systems not wired");
