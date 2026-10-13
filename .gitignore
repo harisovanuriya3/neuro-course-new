@@ -2,3 +2,5 @@ node_modules
 .next/
 .edge-vp-cdp/
 .visual-check/
+
+*.tsbuildinfo

@@ -1,3 +1,4 @@
+import ReferenceImage from "./ReferenceImage";
 import type { Language } from "../content/course";
 
 type AnatomyRef = {
@@ -197,18 +198,7 @@ export default function AnatomyReference({
         borderRadius: 14,
       }}
     >
-      <img
-        src={src}
-        alt={r.alt[language]}
-        loading="lazy"
-        style={{
-          display: "block",
-          width: "100%",
-          maxHeight: 420,
-          objectFit: "contain",
-          background: "#fff",
-        }}
-      />
+      <ReferenceImage key={src} src={src} alt={r.alt[language]} page={r.page} language={language} />
 
       <figcaption
         style={{

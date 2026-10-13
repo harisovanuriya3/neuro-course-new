@@ -31,3 +31,7 @@ Audit basis: the visual must explain the module's physiological mechanism, expos
 | 25 | Practice-dependent plasticity, retention and transfer | Learning/retention trajectory with adjustable training | No | Retain |
 
 The audit does not claim that browser rendering is flawless. Manual review is still required at narrow mobile widths, with 200% zoom, high contrast, reduced motion, and real keyboard/screen-reader use.
+
+## Follow-up, 13 October 2026
+
+The [course review and correction report](expert-review-2026-10-13.md) records code-confirmed findings and local browser checks. In particular, the Module 20 localizer listed above had only been imported by an unused wrapper; this review connects it to the actual route. The original table is a historical inventory, not evidence of successful production interaction.

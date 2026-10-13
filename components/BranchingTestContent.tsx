@@ -14,7 +14,7 @@ const labels = {
 };
 
 export default function BranchingTestContent({ test, language, moduleId }: { test: BranchingTest; language: Language; moduleId: number }) {
-  const storageKey = `neuro-course:test:${moduleId}:${language}:v1`;
+  const storageKey = `neuro-course:test:${moduleId}:${language}:${moduleId===1?"v1":"v2"}`;
   const [state, dispatch] = useReducer(
     (state: TestState, action: TestAction) => transition(test, state, action),
     test,

@@ -1,21 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import type { Language } from "../content/course";
+import {mediaWalkthroughs} from "../content/media-walkthroughs";
 
 export default function FoundationMediaAnimation({moduleId,language}:{moduleId:number;language:Language}){
  const [step,setStep]=useState(0);
  const labels=language==="RU"?["Исходное состояние","Изменение параметра","Физиологический ответ","Интерпретация"]:language==="EN"?["Baseline","Parameter change","Physiological response","Interpretation"]:["Бастапқы күй","Параметрді өзгерту","Физиологиялық жауап","Түсіндіру"];
- const value=[24,46,72,88][step];
+ const uid=useId().replaceAll(":","");
+ const explanations=mediaWalkthroughs[moduleId]?.[language];
+ const instruction=language==="RU"?"Переключайте четыре шага. Перед следующим шагом предскажите, что изменится. Схема качественная: размер фигур не является измерением.":language==="EN"?"Explore four steps. Predict the change before advancing. This is a qualitative diagram: shape size is not a measurement.":"Төрт қадамды ауыстырыңыз. Келесі қадамға дейін өзгерісті болжаңыз. Сызба сапалық: пішін өлшемі нақты өлшем емес.";
  const group=moduleId===2?"methods":moduleId===3?"cells":moduleId===4?"membrane":moduleId===5?"synapse":moduleId===6?"integration":moduleId===7?"reflex":moduleId===8?"pathway":moduleId===9?"spinal":moduleId===10?"arousal":moduleId===11?"motor":moduleId===12?"basal":moduleId===13?"cerebellum":moduleId===14?"thalamus":moduleId===15?"homeostasis":moduleId===16?"limbic":moduleId===17?"amygdala":moduleId===18?"cortex":moduleId===19?"somatic":moduleId===20?"vision":moduleId===21?"auditory":moduleId===22?"autonomic":moduleId===23?"memory":moduleId===24?"sleep":moduleId===25?"plasticity":"signal";
  return <section style={{padding:16,borderRadius:16,background:"linear-gradient(145deg,#071a2c,#12364a)",color:"white"}}>
   <div style={{display:"flex",justifyContent:"space-between",gap:12,flexWrap:"wrap",alignItems:"center"}}>
-   <strong>{labels[step]}</strong><span>{language==="RU"?"Модуль":language==="EN"?"Module":"Модуль"} {moduleId}</span>
+   <strong>{step+1}/4 · {labels[step]}</strong><span>{language==="RU"?"Модуль":language==="EN"?"Module":"Модуль"} {moduleId}</span>
   </div>
-  <svg viewBox="0 0 640 170" role="img" aria-label={labels[step]} style={{width:"100%",marginTop:12,background:"#06131f",borderRadius:12}}>
-   <defs><linearGradient id={`media-gradient-${moduleId}`} x1="0" x2="1"><stop stopColor="#38bdf8"/><stop offset="1" stopColor="#4ade80"/></linearGradient></defs>
-   <path d={`M10 95 C70 ${95-value/3},105 ${95+value/4},150 95 S230 ${95-value},280 95 S370 ${95+value/2},420 95 S520 ${95-value*.7},630 95`} fill="none" stroke={`url(#media-gradient-${moduleId})`} strokeWidth="5"/>
-   <circle cx={120+step*125} cy="45" r="14" fill="#fbbf24"/>
+  <p>{instruction}</p>
+  <p role="status" aria-live="polite" style={{padding:12,borderLeft:"4px solid #38bdf8",background:"#12364a"}}>{explanations?.[step]}</p>
+  <svg viewBox="0 0 640 170" role="img" aria-label={explanations?.[step] ?? labels[step]} style={{width:"100%",marginTop:12,background:"#06131f",borderRadius:12}}>
+   <defs><linearGradient id={`media-gradient-${uid}`} x1="0" x2="1"><stop stopColor="#38bdf8"/><stop offset="1" stopColor="#4ade80"/></linearGradient></defs>
    {group==="methods"&&<><path d="M75 60 H565" stroke="#64748b" strokeWidth="3"/><path d="M75 110 C145 35 205 145 275 75 S405 35 565 105" fill="none" stroke="#38bdf8" strokeWidth="4"/><circle cx={120+step*125} cy={step%2?110:60} r="10" fill="#fbbf24"/></>}
    {group==="cells"&&<><circle cx="180" cy="85" r="34" fill="#1d4ed8"/><path d="M214 85 H420" stroke="#38bdf8" strokeWidth="5"/><circle cx="465" cy="70" r={18+step*2} fill="#a78bfa"/><circle cx="505" cy="110" r={15+step*2} fill="#4ade80"/></>}
    {group==="membrane"&&<><line x1="70" y1="95" x2="570" y2="95" stroke="#64748b" strokeWidth="4"/><path d="M90 120 H220 L260 35 L300 135 L345 78 H560" fill="none" stroke="#fbbf24" strokeWidth="5"/><circle cx={180+step*95} cy="95" r="9" fill="#38bdf8"/></>}

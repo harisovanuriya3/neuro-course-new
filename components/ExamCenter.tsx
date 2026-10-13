@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import {buildVersion} from "../lib/examVersion";
+import { gradeWritten } from "../lib/writtenAssessment";
 import type { Language } from "../content/course";
 
 export type ExamQuestion = {
@@ -19,77 +21,10 @@ export type ExamQuestion = {
 };
 
 const ui: Record<Language, Record<string,string>> = {
- RU:{all:"Все 25 блоков",choose:"Выберите блок",start:"Начать",restart:"Новый вариант",submit:"Завершить попытку",jump:"К первому пропущенному",resume:"Незавершённая попытка восстановлена. Продолжайте с первого пропущенного задания.",locked:"Попытка завершена. Ответы больше нельзя менять; для новой попытки создайте новый вариант.",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Есть пропущенные задания. Возвращаю к первому из них.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Попытка завершена. Ниже можно спокойно разобрать ошибки.",bank:"В банке",items:"заданий",format:"Выберите быстрый вариант на 10 заданий или полный на 25. Вариант обязательно включает ситуационные задачи, а также тесты, письменное объяснение и сборку физиологической последовательности.",sequence:"Соберите последовательность",undo:"Отменить",reset:"Сначала",size:"Объём экзамена",quick:"Быстрый — 10 заданий",full:"Полный — 25 заданий",situation:"Ситуационная задача"},
- KZ:{all:"Барлық 25 блок",choose:"Блокты таңдаңыз",start:"Бастау",restart:"Жаңа нұсқа",submit:"Талпынысты аяқтау",jump:"Бірінші өткізіп алған сұраққа",resume:"Аяқталмаған талпыныс қалпына келтірілді. Бірінші жауап берілмеген тапсырмадан жалғастырыңыз.",locked:"Талпыныс бекітілді. Жауаптарды енді өзгертуге болмайды; жаңа талпыныс үшін жаңа нұсқа жасаңыз.",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Жауап берілмеген сұрақтар бар. Бірінші өткізіп алған сұраққа қайтарамын.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"10 тапсырмалық жылдам немесе 25 тапсырмалық толық нұсқаны таңдаңыз. Нұсқа міндетті түрде жағдаяттық есептерді, тесттерді, жазбаша түсіндіруді және физиологиялық тізбекті қамтиды.",sequence:"Тізбекті құрастырыңыз",undo:"Болдырмау",reset:"Басынан",size:"Емтихан көлемі",quick:"Жылдам — 10 тапсырма",full:"Толық — 25 тапсырма",situation:"Жағдаяттық есеп"},
- EN:{all:"All 25 blocks",choose:"Choose a block",start:"Start",restart:"New version",submit:"Finish attempt",jump:"Go to first unanswered",resume:"Your unfinished attempt was restored. Continue from the first unanswered item.",locked:"This attempt is finalized. Answers can no longer be changed; start a new version for another attempt.",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Some questions are unanswered. Returning to the first unanswered question.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Choose a quick 10-item version or a full 25-item version. Each version includes situational tasks plus answer selection, written explanation, and physiological sequence building.",sequence:"Build the sequence",undo:"Undo",reset:"Reset",size:"Exam length",quick:"Quick — 10 items",full:"Full — 25 items",situation:"Situational task"}
+ RU:{all:"Все 25 блоков",choose:"Выберите блок",start:"Начать",restart:"Новый вариант",submit:"Завершить попытку",jump:"К первому пропущенному",resume:"Незавершённая попытка восстановлена. Продолжайте с первого пропущенного задания.",locked:"Попытка завершена. Ответы больше нельзя менять; для новой попытки создайте новый вариант.",question:"Вопрос",of:"из",module:"Блок",answered:"Отвечено",finishWarn:"Есть пропущенные задания. Возвращаю к первому из них.",result:"Результат",correct:"Правильных ответов",review:"Разбор ответов",your:"Ваш ответ",right:"Правильный ответ",unanswered:"Нет ответа",pass:"Попытка завершена. Ниже можно спокойно разобрать ошибки.",bank:"В банке",items:"заданий",format:"Выберите быстрый вариант на 10 заданий или полный на 25. Вариант обязательно включает ситуационные задачи, а также тесты и письменное объяснение. Сборка последовательности включается, если она есть в выбранном блоке. Письменные баллы предварительные и требуют проверки преподавателем.",sequence:"Соберите последовательность",undo:"Отменить",reset:"Сначала",size:"Объём экзамена",quick:"Быстрый — до 10 заданий",full:"Полный — до 25 заданий",situation:"Ситуационная задача"},
+ KZ:{all:"Барлық 25 блок",choose:"Блокты таңдаңыз",start:"Бастау",restart:"Жаңа нұсқа",submit:"Талпынысты аяқтау",jump:"Бірінші өткізіп алған сұраққа",resume:"Аяқталмаған талпыныс қалпына келтірілді. Бірінші жауап берілмеген тапсырмадан жалғастырыңыз.",locked:"Талпыныс бекітілді. Жауаптарды енді өзгертуге болмайды; жаңа талпыныс үшін жаңа нұсқа жасаңыз.",question:"Сұрақ",of:"ішінен",module:"Блок",answered:"Жауап берілді",finishWarn:"Жауап берілмеген сұрақтар бар. Бірінші өткізіп алған сұраққа қайтарамын.",result:"Нәтиже",correct:"Дұрыс жауап",review:"Жауаптарды талдау",your:"Сіздің жауабыңыз",right:"Дұрыс жауап",unanswered:"Жауап жоқ",pass:"Емтихан аяқталды. Төменде талдау берілген.",bank:"Банкте",items:"емтихан тапсырмасы",format:"10 тапсырмалық жылдам немесе 25 тапсырмалық толық нұсқаны таңдаңыз. Нұсқа міндетті түрде жағдаяттық есептерді, тесттерді және жазбаша түсіндіруді қамтиды. Тізбек құрастыру таңдалған блокта бар болса қосылады. Жазбаша балдар алдын ала есептеледі және оқытушы тексеруін қажет етеді.",sequence:"Тізбекті құрастырыңыз",undo:"Болдырмау",reset:"Басынан",size:"Емтихан көлемі",quick:"Жылдам — 10 тапсырмаға дейін",full:"Толық — 25 тапсырмаға дейін",situation:"Жағдаяттық есеп"},
+ EN:{all:"All 25 blocks",choose:"Choose a block",start:"Start",restart:"New version",submit:"Finish attempt",jump:"Go to first unanswered",resume:"Your unfinished attempt was restored. Continue from the first unanswered item.",locked:"This attempt is finalized. Answers can no longer be changed; start a new version for another attempt.",question:"Question",of:"of",module:"Block",answered:"Answered",finishWarn:"Some questions are unanswered. Returning to the first unanswered question.",result:"Result",correct:"Correct answers",review:"Answer review",your:"Your answer",right:"Correct answer",unanswered:"No answer",pass:"Exam completed. Review is available below.",bank:"Question bank",items:"exam items",format:"Choose a quick 10-item version or a full 25-item version. Each version includes situational tasks plus answer selection and written explanation. Sequence building is included when available for the chosen block. Written scores are provisional and require teacher review.",sequence:"Build the sequence",undo:"Undo",reset:"Reset",size:"Exam length",quick:"Quick — up to 10 items",full:"Full — up to 25 items",situation:"Situational task"}
 };
-
-function shuffled<T>(items:T[]):T[]{
- const a=[...items];
- for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
- return a;
-}
-
-function buildVersion(bank:ExamQuestion[], count=10){
- const sequenceTarget=Math.min(count>=20?3:2,bank.filter(q=>q.sequenceItems?.length&&q.correctOrder?.length).length,count);
- const situationTarget=Math.min(count>=20?5:2,Math.max(0,count-sequenceTarget));
- const writtenTarget=Math.min(count>=20?4:2,Math.max(0,count-sequenceTarget-situationTarget));
- const mcqTarget=Math.max(0,count-sequenceTarget-situationTarget-writtenTarget);
- const used=new Set<string>();
- const usedModules=new Set<number>();
- const sequence:ExamQuestion[]=[];
- for(const q of shuffled(bank.filter(q=>q.sequenceItems?.length&&q.correctOrder?.length))){
-   if(sequence.length>=sequenceTarget)break;
-   if(usedModules.has(q.moduleId))continue;
-   sequence.push({...q,responseType:"sequence"});used.add(q.id);usedModules.add(q.moduleId);
- }
- const situations:ExamQuestion[]=[];
- for(const q of shuffled(bank.filter(q=>q.taskType==="situation"&&!used.has(q.id)))){
-   if(situations.length>=situationTarget)break;
-   if(usedModules.has(q.moduleId))continue;
-   situations.push({...q,options:shuffled(q.options),responseType:"mcq"});used.add(q.id);usedModules.add(q.moduleId);
- }
- const allModules=shuffled([...new Set(bank.map(q=>q.moduleId))]);
- const written:ExamQuestion[]=[];
- const writtenModuleOrder=[...allModules.filter(id=>!usedModules.has(id)),...allModules.filter(id=>usedModules.has(id))];
- for(const id of writtenModuleOrder){
-   if(written.length>=writtenTarget)break;
-   const q=shuffled(bank.filter(x=>x.moduleId===id&&x.writtenPrompt&&!x.sequenceItems&&x.taskType!=="situation"&&!used.has(x.id)))[0];
-   if(q){written.push({...q,prompt:q.writtenPrompt!,responseType:"written"});used.add(q.id);usedModules.add(id);}
- }
- const mcq:ExamQuestion[]=[];
- const mcqModuleOrder=[...allModules.filter(id=>!usedModules.has(id)),...allModules.filter(id=>usedModules.has(id))];
- for(const id of mcqModuleOrder){
-   if(mcq.length>=mcqTarget)break;
-   const q=shuffled(bank.filter(x=>x.moduleId===id&&x.options.length>=2&&!x.sequenceItems&&x.taskType!=="situation"&&!used.has(x.id)))[0];
-   if(q){mcq.push({...q,options:shuffled(q.options),responseType:"mcq"});used.add(q.id);usedModules.add(id);}
- }
- if(mcq.length<mcqTarget){
-   for(const q of shuffled(bank.filter(q=>!used.has(q.id)&&q.options.length>=2&&!q.sequenceItems&&q.taskType!=="situation")).slice(0,mcqTarget-mcq.length)){
-     mcq.push({...q,options:shuffled(q.options),responseType:"mcq"});used.add(q.id);
-   }
- }
- let result=[...sequence,...situations,...written,...mcq];
- if(result.length<count){
-   const extras=shuffled(bank.filter(q=>!used.has(q.id)&&q.options.length>=2&&!q.sequenceItems)).slice(0,count-result.length).map(q=>({...q,options:shuffled(q.options),responseType:"mcq" as const}));
-   result=[...result,...extras];
- }
- return shuffled(result).slice(0,count);
-}
-
-function words(text:string){return new Set(text.toLowerCase().replace(/[^\\p{L}\\p{N}]+/gu," ").split(/\\s+/).filter(w=>w.length>=5));}
-function gradeWritten(q:ExamQuestion,answer:string){
- const reference=words(q.options.find(o=>o.id===q.correctAnswer)?.text+" "+q.explanation);
- const student=words(answer);
- let hit=0; reference.forEach(w=>{if(student.has(w))hit++;});
- const coverage=reference.size?hit/reference.size:0;
- const physiologicalElement=coverage>=0.18;
- const causalDirection=/(потому|поэтому|привод|вызывает|вследствие|увелич|сниж|cause|because|therefore|leads|results|increase|decrease|себеп|сондықтан|әкел|арт|төмен)/i.test(answer);
- const mechanism=/(механизм|канал|рецептор|медиатор|потенциал|ион|интеграц|регуляц|mechanism|channel|receptor|transmitter|potential|ion|integration|regulation|механизм|арна|рецептор|медиатор|потенциал|ион|интеграц|реттел)/i.test(answer)||coverage>=0.32;
- const interpretation=/(результат|следств|итог|наблюд|ожида|функц|result|consequence|outcome|observ|expected|function|нәтиже|салдар|күтіл|қызмет)/i.test(answer)||coverage>=0.45;
- const points=(physiologicalElement?2:0)+(causalDirection?3:0)+(mechanism?3:0)+(interpretation?2:0);
- return {score:points*10,points,coverage,physiologicalElement,causalDirection,mechanism,interpretation};
-}
 
 export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[]}){
  const t=ui[lang];
@@ -103,7 +38,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  const [warning,setWarning]=useState("");
  const [hydrated,setHydrated]=useState(false);
  const [restored,setRestored]=useState(false);
- const storageKey=`neuro-course:exam:${lang}:v3`;
+ const storageKey=`neuro-course:exam:${lang}:v4`;
  const score=useMemo(()=>version?.reduce((n,q)=>n+(q.responseType==="mcq"&&answers[q.id]===q.correctAnswer?1:0),0)??0,[version,answers]);
  const mcqCount=version?.filter(q=>q.responseType==="mcq").length??0;
  const writtenGrades=useMemo(()=>Object.fromEntries((version??[]).filter(q=>q.responseType==="written").map(q=>[q.id,gradeWritten(q,written[q.id]??"")])),[version,written]);
@@ -167,7 +102,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  };
  const begin=()=>{const pool=selectedModule===0?bank:bank.filter(q=>q.moduleId===selectedModule);setVersion(buildVersion(pool,Math.min(examSize,pool.length)));setAnswers({});setWritten({});setSequences({});setFinished(false);setWarning("");setRestored(false);window.scrollTo({top:0,behavior:"smooth"});};
  if(!version) return <section style={{marginTop:24,border:"2px solid #86aac4",borderRadius:16,padding:22}}>
-   <p><strong>{t.bank}: {bank.length} {t.items}.</strong></p><p>{t.format}</p>
+   <p><strong>{t.bank}: {bank.length} {t.items}.</strong></p><p>{lang==="RU"?"Доступно для выбранного блока:":lang==="EN"?"Available for the selected block:":"Таңдалған блок үшін қолжетімді:"} {bank.filter(q=>selectedModule===0||q.moduleId===selectedModule).length}</p><p>{t.format}</p>
    <label style={{display:"block",fontWeight:700,margin:"18px 0 8px"}}>{t.size}</label>
    <div style={{display:"flex",gap:10,flexWrap:"wrap",marginBottom:14}}>
     <button type="button" aria-pressed={examSize===10} onClick={()=>setExamSize(10)} style={{padding:"9px 12px",borderRadius:9}}>{t.quick}</button>
@@ -183,6 +118,7 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
  if(finished) return <section style={{marginTop:24}}>
    <div style={{border:"2px solid #86aac4",borderRadius:16,padding:22}}>
     <h2>{t.result}: {percent}/100</h2>
+    {(version.some(q=>q.responseType==="written"))&&<p role="status"><strong>{lang==="RU"?"Предварительный итог: письменные ответы требуют проверки преподавателем.":lang==="EN"?"Provisional result: written answers require teacher review.":"Алдын ала қорытынды: жазбаша жауаптарды оқытушы тексеруі қажет."}</strong></p>}
     <p><strong>{lang==="RU"?"Итоговый результат":lang==="EN"?"Overall result":"Қорытынды нәтиже"}: {percent}/100 · {performanceLabel}</strong></p>
     <p style={{fontSize:14,opacity:.82}}>{lang==="RU"?"Результат показывает текущий уровень выполнения этого варианта. Преподаватель может использовать его вместе с кейсами, практикой и другими доказательствами обучения; это не заменяет официальную ведомость.":lang==="EN"?"This score reflects performance on this version. A teacher may combine it with cases, practical work, and other learning evidence; it does not replace an official grade record.":"Бұл нәтиже осы нұсқадағы орындалу деңгейін көрсетеді. Оқытушы оны кейстер, практика және басқа оқу дәлелдерімен бірге қолдана алады; ол ресми бағалау ведомосын алмастырмайды."}</p>
     <p>{comment}</p>
@@ -206,12 +142,12 @@ export default function ExamCenter({lang,bank}:{lang:Language;bank:ExamQuestion[
         <p><strong>{t.right}:</strong> {q.options.find(o=>o.id===q.correctAnswer)?.text}</p>
         <p>{q.explanation}</p>
         {(()=>{const g=writtenGrades[q.id];return <div style={{borderLeft:"4px solid #86aac4",paddingLeft:12}}>
-          <p><strong>{lang==="RU"?"Локальная оценка":lang==="EN"?"Local rubric score":"Жергілікті бағалау"}:</strong> {g?.points??0}/10</p>
+          <p><strong>{lang==="RU"?"Предварительная оценка":lang==="EN"?"Provisional rubric score":"Алдын ала бағалау"}:</strong> {g?.points??0}/10</p>
           <p>{lang==="RU"?(g?.physiologicalElement?"✓ Назван главный физиологический процесс или элемент.":"✗ Назовите главный процесс или элемент."):(lang==="EN"?(g?.physiologicalElement?"✓ Relevant physiological element identified.":"✗ Identify the key physiological element."):(g?.physiologicalElement?"✓ Негізгі физиологиялық элемент көрсетілген.":"✗ Негізгі физиологиялық элементті көрсетіңіз."))}</p>
           <p>{lang==="RU"?(g?.causalDirection?"✓ Объяснено, почему произошло изменение.":"✗ Добавьте, почему произошло изменение."):(lang==="EN"?(g?.causalDirection?"✓ Causal relationship is stated.":"✗ State the causal relationship more clearly."):(g?.causalDirection?"✓ Себеп-салдар байланысы көрсетілген.":"✗ Себеп-салдар байланысын анығырақ көрсетіңіз."))}</p>
           <p>{lang==="RU"?(g?.mechanism?"✓ Показано, что происходит в системе.":"✗ Объясните, что происходит в системе."):(lang==="EN"?(g?.mechanism?"✓ Mechanism explained.":"✗ Explain the physiological mechanism."):(g?.mechanism?"✓ Механизм түсіндірілген.":"✗ Физиологиялық механизмді түсіндіріңіз."))}</p>
           <p>{lang==="RU"?(g?.interpretation?"✓ Указано, к какому результату это приводит.":"✗ Добавьте, к какому результату это приводит."):(lang==="EN"?(g?.interpretation?"✓ Expected result/consequence stated.":"✗ Add the expected result or consequence."):(g?.interpretation?"✓ Күтілетін нәтиже/салдар көрсетілген.":"✗ Күтілетін нәтиже немесе салдарды қосыңыз."))}</p>
-          <p>{lang==="RU"?"Проверка выполнена локальной рубрикой без ИИ/API; преподаватель может пересмотреть балл.":lang==="EN"?"Checked by a local rubric without AI/API; the teacher may review the score.":"AI/API қолданбай жергілікті рубрикамен тексерілді; оқытушы балды қайта қарай алады."}</p>
+          <p>{lang==="RU"?"Предварительная проверка ищет слова и речевые признаки. Она не проверяет научную правильность, отрицания и синонимы; письменный ответ и балл должен проверить преподаватель.":lang==="EN"?"This provisional check detects words and phrasing. It cannot verify scientific correctness, negation, or synonyms; a teacher must review the written answer and score.":"Алдын ала тексеру сөздер мен тілдік белгілерді іздейді. Ғылыми дұрыстықты, терістеуді және синонимдерді тексермейді; жазбаша жауап пен балды оқытушы тексеруі тиіс."}</p>
         </div>})()}
       </>:q.responseType==="sequence"?(()=>{
         const aseq=sequences[q.id]??[];

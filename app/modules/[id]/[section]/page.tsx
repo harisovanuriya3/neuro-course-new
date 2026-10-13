@@ -9,6 +9,7 @@ import SectionContent from "../../../../components/SectionContent";
 import CourseNavigation from "../../../../components/CourseNavigation";
 import DocumentLanguage from "../../../../components/DocumentLanguage";
 import VirtualPatient from "../../../../components/VirtualPatient";
+import VisualPathwayLocalizer from "../../../../components/VisualPathwayLocalizer";
 import UnifiedVirtualPatient from "../../../../components/UnifiedVirtualPatient";
 import ModuleProgress from "../../../../components/ModuleProgress";
 import VoiceContent from "../../../../components/VoiceContent";
@@ -45,7 +46,6 @@ import AutonomicLab from "../../../../components/AutonomicLab";
 import LearningMemoryLab from "../../../../components/LearningMemoryLab";
 import SleepRhythmLab from "../../../../components/SleepRhythmLab";
 import PlasticityLab from "../../../../components/PlasticityLab";
-import GuidedLabFrame from "../../../../components/GuidedLabFrame";
 import courseStyles from "../../../CourseLayout.module.css";
 
 const text = {
@@ -108,6 +108,7 @@ export default async function SectionPage({
 
   return (
     <main
+      className={courseStyles.page}
       id="top"
       style={{
         minHeight: "100vh",
@@ -232,7 +233,10 @@ export default async function SectionPage({
           {moduleNumber === 1 && section === "virtual-patient" ? (
             <VirtualPatient language={lang} />
           ) : section === "virtual-patient" ? (
-            <UnifiedVirtualPatient moduleId={moduleNumber} language={lang} />
+            <>
+              {moduleNumber === 20 && <VisualPathwayLocalizer language={lang} />}
+              <UnifiedVirtualPatient moduleId={moduleNumber} language={lang} />
+            </>
           ) : section === "progress" ? (
             <ModuleProgress language={lang} moduleId={moduleNumber} />
           ) : section === "voice" ? (
@@ -252,27 +256,27 @@ export default async function SectionPage({
           ) : moduleNumber === 7 && section === "interactive" ? (
             <ReflexLab language={lang} />
           ) : moduleNumber === 8 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={8} language={lang}><PathwayLab language={lang} /></GuidedLabFrame>
+            <PathwayLab language={lang} />
           ) : moduleNumber === 9 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={9} language={lang}><SpinalRegulationLab language={lang} /></GuidedLabFrame>
+            <SpinalRegulationLab language={lang} />
           ) : moduleNumber === 10 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={10} language={lang}><BrainstemLab language={lang} /></GuidedLabFrame>
+            <BrainstemLab language={lang} />
           ) : moduleNumber === 11 && section === "interactive" ? (
             <MotorControlLab language={lang} />
           ) : moduleNumber === 12 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={12} language={lang}><BasalGangliaLab language={lang} /></GuidedLabFrame>
+            <BasalGangliaLab language={lang} />
           ) : moduleNumber === 13 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={13} language={lang}><CerebellumLab language={lang} /></GuidedLabFrame>
+            <CerebellumLab language={lang} />
           ) : moduleNumber === 14 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={14} language={lang}><ThalamusLab language={lang} /></GuidedLabFrame>
+            <ThalamusLab language={lang} />
           ) : moduleNumber === 15 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={15} language={lang}><HypothalamusLab language={lang} /></GuidedLabFrame>
+            <HypothalamusLab language={lang} />
           ) : moduleNumber === 16 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={16} language={lang}><LimbicLab language={lang} /></GuidedLabFrame>
+            <LimbicLab language={lang} />
           ) : moduleNumber === 17 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={17} language={lang}><AmygdalaLab language={lang} /></GuidedLabFrame>
+            <AmygdalaLab language={lang} />
           ) : moduleNumber === 18 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={18} language={lang}><CortexLab language={lang} /></GuidedLabFrame>
+            <CortexLab language={lang} />
           ) : moduleNumber === 19 && section === "interactive" ? (
             <SomatosensoryLab language={lang} />
           ) : moduleNumber === 20 && section === "interactive" ? (
@@ -282,11 +286,11 @@ export default async function SectionPage({
           ) : moduleNumber === 22 && section === "interactive" ? (
             <AutonomicLab language={lang} />
           ) : moduleNumber === 23 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={23} language={lang}><LearningMemoryLab language={lang} /></GuidedLabFrame>
+            <LearningMemoryLab language={lang} />
           ) : moduleNumber === 24 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={24} language={lang}><SleepRhythmLab language={lang} /></GuidedLabFrame>
+            <SleepRhythmLab language={lang} />
           ) : moduleNumber === 25 && section === "interactive" ? (
-            <GuidedLabFrame moduleId={25} language={lang}><PlasticityLab language={lang} /></GuidedLabFrame>
+            <PlasticityLab language={lang} />
           ) : lesson ? (
             <>
               <SectionContent

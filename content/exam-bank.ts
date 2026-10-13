@@ -1,24 +1,41 @@
+import {physiologicalRelations} from "./physiological-relations";
 import type { Language } from "./course";
 import { modules } from "./course";
 import { topics, termDefinitions } from "./course-foundation/topics";
 export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[];taskType?:"standard"|"situation"|"sequence"};
-const S={
-RU:{st:["Что здесь происходит с точки зрения физиологии?","Какой вывод лучше всего следует из этих данных?","Если это звено изменится, что произойдёт дальше?","Какой вариант лучше всего показывает цепочку «причина → изменение → результат»?","Как применить тот же механизм в новой ситуации?","Какой ответ не делает слишком поспешный вывод?","Какой вариант правильно отличает механизм от наблюдаемого результата?","Какой вывод учитывает то, чего мы пока не знаем?","Что лучше проверить, чтобы подтвердить предполагаемую связь?","Как лучше рассуждать в этой ситуации?"],pair:"Посмотрите на связь",first:"Сначала определите роль каждого элемента, затем решите, что на что влияет, и проверьте это по данным.",swap:"Считать два элемента одинаковыми и не учитывать направление влияния.",abs:"Считать, что изменение одного элемента всегда даёт одинаковый результат независимо от состояния системы.",dx:"Сделать окончательный вывод по одному изменению, не проверяя другие возможные объяснения.",ex:"Хороший ответ показывает, чем элементы отличаются, как они связаны и чего эти данные ещё не доказывают."},
-EN:{st:["What is happening here physiologically?","Which conclusion best follows from these data?","If this part changes, what happens next?","Which option best shows the chain “cause → change → result”?","How would the same mechanism work in a new situation?","Which answer avoids jumping to a conclusion too early?","Which option correctly separates the mechanism from the observed result?","Which conclusion also considers what is still unknown?","What should be checked to test the proposed link?","What is the best way to reason through this situation?"],pair:"Look at the link",first:"First identify the role of each element, then decide what affects what and check this against the data.",swap:"Treat the two elements as the same thing and ignore the direction of influence.",abs:"Assume that changing one element always gives the same result regardless of the state of the system.",dx:"Make a final conclusion from one change without checking other possible explanations.",ex:"A good answer shows how the elements differ, how they are linked, and what the data still do not prove."},
-KZ:{st:["Бұл жерде физиология тұрғысынан не болып жатыр?","Бұл деректерден қай қорытынды дұрыс шығады?","Осы буын өзгерсе, әрі қарай не болады?","Қай нұсқа «себеп → өзгеріс → нәтиже» тізбегін жақсы көрсетеді?","Осы механизм жаңа жағдайда қалай жұмыс істейді?","Қай жауап асығыс қорытынды жасамайды?","Қай нұсқа механизм мен байқалған нәтижені дұрыс ажыратады?","Қай қорытынды әлі белгісіз нәрселерді де ескереді?","Болжанған байланысты тексеру үшін нені тексерген дұрыс?","Бұл жағдайда қалай ойланған дұрыс?"],pair:"Байланысқа қараңыз",first:"Алдымен әр элементтің рөлін анықтаңыз, кейін қайсысы қайсысына әсер ететінін шешіп, оны деректермен тексеріңіз.",swap:"Екі элементті бірдей деп санап, әсер бағытын елемеу.",abs:"Бір элемент өзгерсе, жүйе күйіне қарамастан әрқашан бірдей нәтиже болады деп санау.",dx:"Бір өзгеріске қарап, басқа мүмкін түсіндірулерді тексермей түпкілікті қорытынды жасау.",ex:"Жақсы жауап элементтердің айырмасын, олардың байланысын және бұл деректер нені әлі дәлелдемейтінін көрсетеді."}
-}
 function rot<T>(a:T[],n:number){const k=n%a.length;return [...a.slice(k),...a.slice(0,k)]}
-function firstSentence(value:string){const match=value.trim().match(/^.*?[.!?](?:\s|$)/u);return (match?.[0]??value).trim()}
 function make(mid:number,title:string,n:number,prompt:string,correct:string,wrong:string[],explanation:string):ExamBankQuestion{const raw=rot([{k:"ok",text:correct},...wrong.map((text,i)=>({k:"w"+i,text}))],n);const options=raw.map((o,i)=>({id:"abcd"[i],text:o.text}));const writtenPrompt=prompt+" "+(mid===1?" Объясните простыми шагами: какой сигнал поступает в ЦНС, что там происходит и какой ответ ожидается.":"");return{id:"exam-m"+mid+"-q"+(n+1),moduleId:mid,moduleTitle:title,prompt,options,correctAnswer:options[raw.findIndex(o=>o.k==="ok")].id,explanation,writtenPrompt,taskType:"standard"}}
 function firstModule(lang:Language){
  const title=modules[lang][0];
- const ru=[
-  {p:"При прикосновении к горячему предмету рука быстро отдёргивается ещё до осознанной оценки боли. Какая последовательность лучше описывает нервную организацию ответа?",c:"Рецепторный вход передаётся по афферентным волокнам в ЦНС, интегрируется в спинальных цепях и формирует эфферентную команду мышцам.",w:["Сначала возникает сознательное решение в коре, и только затем активируются кожные рецепторы.","Мышца самостоятельно обнаруживает температуру и посылает команду спинному мозгу.","Эфферентный нейрон передаёт сигнал от кожи к ЦНС, а афферентный — от ЦНС к мышце."],e:"Организация ответа включает сенсорный вход, центральную интеграцию и моторный выход; быстрый защитный рефлекс не требует предварительного сознательного решения."},
-  {p:"Почему повреждение афферентного звена может нарушить рефлекторный ответ при сохранных мышцах и мотонейронах?",c:"Центральная сеть не получает необходимую сенсорную информацию о стимуле и поэтому не может нормально запустить соответствующий ответ.",w:["Афферентные нейроны нужны только для произвольных движений и не участвуют в рефлексах.","При сохранной мышце любой рефлекс обязательно остаётся нормальным независимо от сенсорного входа.","Афферентное звено в норме передаёт команду от спинного мозга непосредственно к мышце."],e:"Без адекватного входного сигнала центральная интеграция не получает информацию, необходимую для формирования соответствующего ответа."}
+ const L=(RU:string,EN:string,KZ:string)=>({RU,EN,KZ})[lang];
+ const rows=[
+ [L("После местного воздействия кожный стимул не вызывает отдёргивания. Прямая стимуляция двигательного нерва вызывает сокращение. Какой вывод обоснован?","After a local intervention, skin stimulation no longer evokes withdrawal. Direct motor-nerve stimulation still produces contraction. Which conclusion is supported?","Жергілікті әсерден кейін тері стимулы тартып алу реакциясын туғызбайды. Қозғалтқыш нервті тікелей қоздыру жиырылу туғызады. Қай қорытынды негізді?"),
+ L("Проверенный двигательный выход сохранён; нужно исследовать чувствительный вход и центральные звенья.","The tested motor output is intact; sensory input and central processing need investigation.","Тексерілген моторлық шығыс сақталған; сезімтал кіріс пен орталық буындарды зерттеу қажет."),
+ L("Отсутствие отдёргивания доказывает потерю сократимости мышцы.","Absent withdrawal proves that the muscle cannot contract.","Тартып алу болмауы бұлшықеттің жиырыла алмайтынын дәлелдейді."),
+ L("Прямое сокращение доказывает сохранность всех чувствительных волокон.","Direct contraction proves that all sensory fibers are intact.","Тікелей жиырылу барлық сезімтал талшықтардың сақталғанын дәлелдейді."),
+ L("Прямая стимуляция проверяет весь рефлекс от кожного рецептора.","Direct stimulation tests the whole reflex from the skin receptor.","Тікелей қоздыру тері рецепторынан бастап бүкіл рефлексті тексереді.")],
+ [L("При захвате предмета закрывание глаз увеличило ошибку, но движение сохранилось. Что это показывает?","Closing the eyes increases reaching error but does not abolish movement. What does this show?","Көзді жұмғанда нысанаға жету қатесі артты, бірақ қозғалыс сақталды. Бұл нені көрсетеді?"),
+ L("Зрительная информация помогает коррекции, а управление использует и другие входы.","Visual information assists correction, while control also uses other inputs.","Көру ақпараты түзетуге көмектеседі, ал басқару басқа кірістерді де қолданады."),
+ L("Зрение является единственным источником двигательных команд.","Vision is the only source of motor commands.","Көру — моторлық командалардың жалғыз көзі."),
+ L("Сохранение движения исключает роль обратной связи.","Preserved movement excludes any role for feedback.","Қозғалыстың сақталуы кері байланыстың рөлін жоққа шығарады."),
+ L("Увеличение ошибки доказывает повреждение всех мотонейронов.","Increased error proves that all motor neurons are damaged.","Қатенің артуы барлық мотонейрондардың зақымын дәлелдейді.")],
+ [L("В препарате обнаружены тела чувствительных нейронов в узле спинномозгового корешка. К какому отделу относится этот узел?","A specimen contains sensory-neuron cell bodies in a dorsal-root ganglion. Which division contains this ganglion?","Препаратта артқы түбір түйініндегі сезімтал нейрон денелері табылды. Бұл түйін қай бөлімге жатады?"),
+ L("К периферической нервной системе: расположение рядом со спинным мозгом не делает узел частью ЦНС.","To the peripheral nervous system: proximity to the spinal cord does not make the ganglion part of the CNS.","Шеткі жүйке жүйесіне: жұлынға жақын орналасуы түйінді ОЖЖ бөлігі етпейді."),
+ L("К ЦНС, поскольку тела всех нейронов находятся только в ЦНС.","To the CNS, because all neuronal cell bodies are confined to the CNS.","ОЖЖ-ге, себебі барлық нейрон денелері тек ОЖЖ-де болады."),
+ L("К мышечному эффектору, поскольку он связан со спинным мозгом.","To a muscle effector, because it is connected to the spinal cord.","Бұлшықет эффекторына, себебі ол жұлынмен байланысқан."),
+ L("К коре мозга, поскольку нейроны воспринимают чувствительные сигналы.","To cerebral cortex, because the neurons carry sensory signals.","Ми қыртысына, себебі нейрондар сезімтал сигнал тасиды.")],
+ [L("Афферентная активность одинакова в двух опытах, но моторный ответ различается. Какое следующее сравнение наиболее полезно?","Afferent activity is equal in two trials but motor responses differ. Which next comparison is most useful?","Екі тәжірибеде афференттік белсенділік бірдей, бірақ моторлық жауап әртүрлі. Келесі қай салыстыру пайдалы?"),
+ L("Проверить состояние центральных сетей и эфферентного выхода при сопоставимых условиях.","Compare central-network state and efferent output under matched conditions.","Салыстырмалы жағдайда орталық желі күйі мен эфференттік шығысты тексеру."),
+ L("Признать записи невозможными: одинаковый вход всегда даёт одинаковый ответ.","Reject the recordings: equal input always produces equal output.","Жазбаларды мүмкін емес деу: бірдей кіріс әрқашан бірдей жауап береді."),
+ L("Считать различие доказательством повреждения только кожного рецептора.","Treat the difference as proof of skin-receptor damage alone.","Айырманы тек тері рецепторы зақымының дәлелі деп санау."),
+ L("Сразу установить один диагноз без проверки промежуточных звеньев.","Immediately assign one diagnosis without testing intermediate links.","Аралық буындарды тексермей бірден бір диагноз қою.")]
  ];
- if(lang==="RU") return Array.from({length:40},(_,n)=>{const x=ru[n%ru.length];const frame=S.RU.st[Math.floor(n/ru.length)%S.RU.st.length];const prompt=n<ru.length?x.p:`${frame} ${x.p}`;return make(1,title,n,prompt,x.c,x.w,x.e)});
- const s=S[lang],a=lang==="EN"?"afferent input":"афференттік кіріс",b=lang==="EN"?"central integration":"орталық интеграция";
- return Array.from({length:40},(_,n)=>make(1,title,n,s.st[n%10]+" "+s.pair+" «"+a+" → "+b+"».",s.first,[s.swap,s.abs,s.dx],s.ex));
+ return rows.map(([prompt,correct,...wrong],n)=>{
+  const q=make(1,title,n,prompt,correct,wrong,correct);
+  q.taskType=n===0?"situation":"standard";
+  q.writtenPrompt=L("Обоснуйте вывод и укажите, чего данные ещё не доказывают. ","Justify the conclusion and state what the evidence does not yet prove. ","Қорытындыны негіздеп, деректер әлі нені дәлелдемейтінін көрсетіңіз. ")+prompt;
+  return q;
+ });
 }
 
 const RU_CORE:Record<number,{p:string;c:string;w:[string,string,string];e:string}>={
@@ -241,44 +258,34 @@ function whatsappCaseQuestions(lang:Language):ExamBankQuestion[]{
 }
 
 export function createExamBank(lang:Language):ExamBankQuestion[]{
- const s=S[lang],bank=[...firstModule(lang)];
+ const bank=[...firstModule(lang)];
  const L=(ru:string,en:string,kz:string)=>lang==="RU"?ru:lang==="EN"?en:kz;
  for(const topic of topics){
   const defs=termDefinitions[topic.id]; if(!defs)continue;
-  const title=modules[lang][topic.id-1], a=topic.terms[0][lang], b=topic.terms[1][lang];
+  const relation=physiologicalRelations[topic.id][lang];
+  const title=modules[lang][topic.id-1], a=relation.cause, b=relation.effect;
   const prompts=[
    L(`В новой серии наблюдений показатель «${a}» меняется, но ожидаемое изменение «${b}» появляется только при сохранности промежуточного звена. Какой вывод лучше всего связывает данные и не выходит за их пределы?`,`In a new observation series, “${a}” changes, but the expected change in “${b}” appears only when an intermediate link is intact. Which conclusion best connects the evidence without exceeding it?`,`Жаңа бақылаулар қатарында «${a}» өзгереді, бірақ «${b}» күтілетін өзгерісі аралық буын сақталғанда ғана пайда болады. Қай қорытынды деректерді дұрыс байланыстырып, олардың шегінен шықпайды?`),
    L(`В контролируемом опыте воздействие изменило «${a}», после чего «${b}» изменился в предсказанном направлении. Контрольная группа такого сдвига не показала. Какой механизм лучше объясняет различие групп?`,`In a controlled experiment, an intervention altered “${a}”, after which “${b}” changed in the predicted direction. The control group showed no such shift. Which mechanism best explains the group difference?`,`Бақыланатын тәжірибеде әсер «${a}» өзгертті, содан кейін «${b}» болжанған бағытта өзгерді. Бақылау тобында мұндай ығысу болмады. Топтар айырмасын қай тетік жақсы түсіндіреді?`),
    L(`В двух условиях величина «${a}» одинакова, однако показатель «${b}» различается. Какое объяснение корректнее всего указывает, почему одной исходной величины недостаточно для прогноза?`,`Two conditions have the same value of “${a}”, yet “${b}” differs. Which explanation best shows why the starting value alone is insufficient for prediction?`,`Екі жағдайда «${a}» шамасы бірдей, алайда «${b}» көрсеткіші әртүрлі. Бастапқы шаманың өзі болжамға неге жеткіліксіз екенін қай түсіндірме дұрыс көрсетеді?`),
    L(`После изменения «${a}» наблюдают сдвиг «${b}», но одновременно изменилось ещё одно условие опыта. Какой вывод сохраняет причинную логику и учитывает это ограничение?`,`After “${a}” changes, a shift in “${b}” is observed, but another experimental condition changed at the same time. Which conclusion preserves causal reasoning while acknowledging this limitation?`,`«${a}» өзгергеннен кейін «${b}» ығысуы байқалды, бірақ тәжірибенің тағы бір шарты қатар өзгерді. Қай қорытынды себептік логиканы сақтап, осы шектеуді ескереді?`)
   ];
-  const conciseMechanism=firstSentence(topic.mechanism[lang]);
-  const conciseInterpretation=firstSentence(topic.interpretation[lang]);
   const corrects=[
-   conciseMechanism,
-   conciseMechanism,
-   conciseInterpretation,
-   conciseInterpretation
+   relation.mechanism,
+   relation.mechanism,
+   L("Нужно проверить дополнительные условия, состояние промежуточных звеньев и способ измерения ответа.","Check additional conditions, intermediate mechanisms and how the response was measured.","Қосымша жағдайларды, аралық тетіктерді және жауапты өлшеу тәсілін тексеру керек."),
+   L("Одновременное изменение второго условия не позволяет приписать весь эффект первому воздействию; нужен дополнительный контроль.","Changing a second condition simultaneously prevents attributing the whole effect to the first intervention; an additional control is needed.","Екінші шарттың қатар өзгеруі бүкіл әсерді бірінші ықпалға жатқызуға мүмкіндік бермейді; қосымша бақылау қажет.")
   ];
-  const explanations=[
-   topic.mechanism[lang],
-   topic.mechanism[lang],
-   topic.interpretation[lang],
-   topic.interpretation[lang]
-  ];
-  const defA=defs[0][lang], defB=defs[1][lang];
-  const wrongSets=[
-   [defA,defB,s.dx],
-   [defB,topic.interpretation[lang],s.abs],
-   [defA,topic.mechanism[lang],s.swap],
-   [defB,s.swap,s.dx]
-  ];
-  for(let n=0;n<40;n++){
+  const explanations=[relation.mechanism,relation.mechanism,corrects[2]+" "+relation.mechanism,corrects[3]+" "+relation.mechanism];
+  const wrongSets=Array.from({length:4},()=>[
+   L("Совпадение изменений доказывает прямую связь; промежуточные механизмы проверять не требуется.","Co-occurring changes prove a direct link; intermediate mechanisms need not be tested.","Қатар өзгеру тікелей байланысты дәлелдейді; аралық тетіктерді тексеру қажет емес."),
+   L("Одинаковый исходный фактор всегда даёт одинаковый ответ независимо от состояния системы.","The same initial factor always produces the same response regardless of system state.","Бірдей бастапқы фактор жүйе күйіне қарамастан әрқашан бірдей жауап береді."),
+   L("Изменение одного показателя достаточно для окончательного клинического диагноза.","A change in one variable is sufficient for a definitive clinical diagnosis.","Бір көрсеткіш өзгерісі түпкілікті клиникалық диагнозға жеткілікті.")
+  ]);
+  for(let n=0;n<4;n++){
    const mode=n%4;
-   const core=lang==="RU"?RU_CORE[topic.id]:undefined;
-   const frame=s.st[Math.floor(n/4)%s.st.length];
-   const framedPrompt=`${frame} ${prompts[mode]}`;
-   const q=core&&n===0?make(topic.id,title,n,core.p,core.c,[...core.w],core.e):make(topic.id,title,n,framedPrompt,corrects[mode],wrongSets[mode],explanations[mode]);
+   const core=lang==="RU" && n===0 ? RU_CORE[topic.id] : undefined;
+   const q=core ? make(topic.id,title,n,core.p,core.c,[...core.w],core.e) : make(topic.id,title,n,prompts[mode],corrects[mode],wrongSets[mode],explanations[mode]);
    const lead=lang==="RU"?"Объясните простыми шагами: что изменилось, почему и к какому результату это приводит. ":lang==="EN"?"Explain in simple steps: what changed, why, and what result follows. ":"Қарапайым қадамдармен түсіндіріңіз: не өзгерді, неліктен және қандай нәтижеге әкеледі. ";
    q.writtenPrompt=lead+q.prompt;
    if(mode===1) q.taskType="situation";
@@ -286,24 +293,6 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
   }
  }
  const sequences=sequenceQuestions(lang);
- const existingSeq=new Set(sequences.map(q=>q.moduleId));
- const generated:ExamBankQuestion[]=[];
- for(const topic of topics){
-   if(existingSeq.has(topic.id))continue;
-   const defs=termDefinitions[topic.id]; if(!defs||defs.length<2)continue;
-   const a=topic.terms[0][lang],b=topic.terms[1][lang];
-   generated.push({
-     id:`exam-seq-m${topic.id}-mechanism`,moduleId:topic.id,moduleTitle:modules[lang][topic.id-1],
-     prompt:L("Соберите причинно-следственную последовательность механизма.","Build the cause-and-effect sequence of the mechanism.","Механизмнің себеп-салдар ретін құрастырыңыз."),
-     options:[],correctAnswer:"",taskType:"sequence",
-     sequenceItems:[
-       {id:"stimulus",text:L("Исходное физиологическое изменение","Initial physiological change","Бастапқы физиологиялық өзгеріс")},
-       {id:"a",text:a},{id:"b",text:b},
-       {id:"response",text:L("Функциональный результат","Functional result","Функциялық нәтиже")}
-     ],
-     correctOrder:["stimulus","a","b","response"],
-     explanation:topic.mechanism[lang]
-   });
- }
- return [...bank,...sequences,...generated,...whatsappCaseQuestions(lang)];
+ // Only authored, topic-specific sequences belong in a physiology exam.
+ return [...bank,...sequences,...whatsappCaseQuestions(lang)];
 }

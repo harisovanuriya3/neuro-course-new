@@ -19,5 +19,5 @@ for(const [moduleId,component] of Object.entries(specialized)){
 }
 const moduleOneInteractive=read("content/modules/1/interactive.ts");
 assert(moduleOneInteractive.includes("organization:")&&moduleOneInteractive.includes("pathway:"),"Module 1 interactive entry is missing");
-assert(read("components/FoundationVirtualPatient.tsx").includes("moduleId===20&&<VisualPathwayLocalizer"),"Module 20 visual pathway localizer is not connected to the patient scenario");
+assert(route.includes("moduleNumber === 20 && <VisualPathwayLocalizer") && route.includes("<UnifiedVirtualPatient"),"Module 20 localizer must be reachable on the actual patient route");
 console.log("Activity-clarity validation passed: observation-first virtual-patient prompts are localized, Module 20 explains visual-field localization, and all 25 modules retain a topic-specific interactive entry.");

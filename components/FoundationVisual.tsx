@@ -2,11 +2,11 @@ import Image from 'next/image';
 import type { Language } from '../content/course';
 import { createInteractiveLesson } from '../content/modules/1/interactive';
 import BalanceDiagram from './BalanceDiagram';
-import SynapseLab from './SynapseLab';
-import MembranePotentialLab from './MembranePotentialLab';
+import SynapseExperimentLab from './SynapseExperimentLab';
+import MembraneElectrophysiologyLab from './MembraneElectrophysiologyLab';
 import EEGLab from './EEGLab';
 import REGLab from './REGLab';
-import IntegrationLab from './IntegrationLab';
+import IntegrationExperimentLab from './IntegrationExperimentLab';
 import ReflexLab from './ReflexLab';
 import PathwayLab from './PathwayLab';
 import SpinalRegulationLab from './SpinalRegulationLab';
@@ -77,9 +77,9 @@ export default function FoundationVisual({ moduleId, language }: { moduleId: num
   if (moduleId === 9) return <div className={styles.visual}><SpinalRegulationLab language={language} /></div>;
   if (moduleId === 8) return <div className={styles.visual}><PathwayLab language={language} /></div>;
   if (moduleId === 7) return <div className={styles.visual}><ReflexLab language={language} /></div>;
-  if (moduleId === 6) return <div className={styles.visual}><IntegrationLab language={language} /><section><h2>{c.specimen}</h2><figure><div className={styles.photo}><Image src="/images/anatomy/neuromuscular-junction.jpg" alt={c.junction} fill sizes="(max-width: 600px) 80vw, 520px" /></div><figcaption><p>{c.junction}</p><a href="https://commons.wikimedia.org/wiki/File:Electron_micrograph_of_neuromuscular_junction_(cross-section).jpg">{c.source}</a> · National Institute of Mental Health · Public domain (US)</figcaption></figure></section></div>;
-  if (moduleId === 5) return <div className={styles.visual}><SynapseLab language={language} /></div>;
-  if (moduleId === 4) return <div className={styles.visual}><MembranePotentialLab language={language} /></div>;
+  if (moduleId === 6) return <div className={styles.visual}><IntegrationExperimentLab language={language} /><section><h2>{c.specimen}</h2><figure><div className={styles.photo}><Image src="/images/anatomy/neuromuscular-junction.jpg" alt={c.junction} fill sizes="(max-width: 600px) 80vw, 520px" /></div><figcaption><p>{c.junction}</p><a href="https://commons.wikimedia.org/wiki/File:Electron_micrograph_of_neuromuscular_junction_(cross-section).jpg">{c.source}</a> · National Institute of Mental Health · Public domain (US)</figcaption></figure></section></div>;
+  if (moduleId === 5) return <div className={styles.visual}><SynapseExperimentLab language={language} /></div>;
+  if (moduleId === 4) return <div className={styles.visual}><MembraneElectrophysiologyLab language={language} /></div>;
   const visual = moduleId === 3 ? {
     file: 'peripheral-nerve', caption: c.nerve,
     source: 'https://commons.wikimedia.org/wiki/File:Peripheral_nerve,_cross_section.jpg',

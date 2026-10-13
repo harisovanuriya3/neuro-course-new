@@ -1,3 +1,5 @@
+import {physiologicalRelations} from "../physiological-relations";
+import {mediaWalkthroughs} from "../media-walkthroughs";
 import { modules, type Language } from '../course';
 import { getSectionTitle, type Section } from '../sections';
 import type { LocalizedLesson, PracticeLesson, SectionLesson } from '../types';
@@ -469,6 +471,7 @@ function create(
   }
 
   if (section === 'objectives') {
+    const relation = physiologicalRelations[topic.id][language];
     const termA = topic.terms[0][language];
     const termB = topic.terms[1][language];
     const outcomeTitles = language === 'RU'
@@ -481,7 +484,7 @@ function create(
           `Объяснять физиологический смысл понятия «${termA}» и его роль в теме «${modules.RU[topic.id - 1]}».`,
           `Различать проявления и функциональное значение «${termB}», связывая их с наблюдаемыми изменениями системы.`,
           `Объяснять причинные связи механизма: ${firstSentence(topic.mechanism.RU)}`,
-          `Прогнозировать направление изменения «${termB}» при избирательном изменении «${termA}» и обосновывать промежуточные звенья.`,
+          `Прогнозировать изменение «${relation.effect}» при изменении «${relation.cause}» и обосновывать промежуточные звенья.`,
           `Интерпретировать экспериментальные и клинические данные с учётом границ вывода: ${firstSentence(topic.interpretation.RU)}`,
         ]
       : language === 'EN'
@@ -489,14 +492,14 @@ function create(
             `Explain the physiological meaning of “${termA}” and its role in “${modules.EN[topic.id - 1]}”.`,
             `Distinguish the manifestations and functional significance of “${termB}” and relate them to observable system changes.`,
             `Explain the causal relationships in the mechanism: ${firstSentence(topic.mechanism.EN)}`,
-            `Predict the direction of change in “${termB}” after a selective change in “${termA}” and justify the intermediate links.`,
+            `Predict changes in “${relation.effect}” after changing “${relation.cause}” and justify the intermediate links.`,
             `Interpret experimental and clinical evidence while respecting limits of inference: ${firstSentence(topic.interpretation.EN)}`,
           ]
         : [
             `«${termA}» ұғымының физиологиялық мағынасын және «${modules.KZ[topic.id - 1]}» тақырыбындағы рөлін түсіндіру.`,
             `«${termB}» көріністері мен функциялық маңызын ажыратып, оларды жүйедегі байқалатын өзгерістермен байланыстыру.`,
             `Тетіктегі себептік байланыстарды түсіндіру: ${firstSentence(topic.mechanism.KZ)}`,
-            `«${termA}» таңдамалы өзгергенде «${termB}» өзгерісінің бағытын болжап, аралық буындарды негіздеу.`,
+            `«${relation.cause}» өзгергенде «${relation.effect}» өзгерісін болжап, аралық буындарды негіздеу.`,
             `Қорытынды шектерін ескеріп, эксперименттік және клиникалық деректерді түсіндіру: ${firstSentence(topic.interpretation.KZ)}`,
           ];
     return {
@@ -758,10 +761,10 @@ function create(
             {
               type: 'paragraph',
               text: language === 'RU'
-                ? `Сопоставьте «${topic.terms[0].RU}» и «${topic.terms[1].RU}»: объясните, как изменение первого может повлиять на второе, затем назовите условие, при котором эта связь не сработает.`
+                ? `Сопоставьте «${topic.terms[0].RU}» и «${topic.terms[1].RU}»: дайте определения и пример каждого. Затем установите, связаны ли они напрямую, косвенно или описывают разные процессы; обоснуйте ответ.`
                 : language === 'EN'
-                  ? `Compare “${topic.terms[0].EN}” and “${topic.terms[1].EN}”: explain how changing the first could affect the second, then identify a condition under which that relationship would fail.`
-                  : `«${topic.terms[0].KZ}» және «${topic.terms[1].KZ}» ұғымдарын салыстырыңыз: біріншісінің өзгеруі екіншісіне қалай әсер ететінін түсіндіріп, бұл байланыс іске аспайтын жағдайды атаңыз.`,
+                  ? `Compare “${topic.terms[0].EN}” and “${topic.terms[1].EN}”: define each and give an example. Then decide whether they are directly related, indirectly related, or describe different processes; justify your answer.`
+                  : `«${topic.terms[0].KZ}» және «${topic.terms[1].KZ}» ұғымдарын салыстырыңыз: әрқайсысына анықтама мен мысал беріңіз. Олардың тікелей, жанама байланысын немесе бөлек үдерістер екенін анықтап, негіздеңіз.`,
             },
             {
               type: 'response',
@@ -806,10 +809,10 @@ function create(
           title: language === 'RU' ? 'Разбор данных и границы вывода' : language === 'EN' ? 'Data interpretation and limits' : 'Деректерді талдау және қорытынды шектері',
           blocks: [
             { type: 'paragraph', text: language === 'RU'
-              ? `Получены два наблюдения по теме «${modules.RU[topic.id - 1]}». Одно согласуется с ожидаемым изменением «${topic.terms[1].RU}», второе может иметь несколько причин. Определите, какое наблюдение сильнее поддерживает механизм и какое требует дополнительной проверки.`
+              ? `Для мысленного эксперимента выше составьте два возможных результата: один поддерживает ваш прогноз, другой допускает несколько объяснений. Укажите, что это придуманные учебные данные. Сравните силу выводов и предложите дополнительную проверку.`
               : language === 'EN'
-                ? `Two observations are available for “${modules.EN[topic.id - 1]}”. One matches the expected change in “${topic.terms[1].EN}”; the other has several possible causes. Decide which observation supports the mechanism more strongly and which needs an additional test.`
-                : `«${modules.KZ[topic.id - 1]}» тақырыбы бойынша екі бақылау берілді. Біреуі «${topic.terms[1].KZ}» күтілетін өзгерісіне сәйкес, екіншісінің бірнеше себебі болуы мүмкін. Қай бақылау тетікті күштірек қолдайтынын және қайсысы қосымша тексеруді қажет ететінін анықтаңыз.` },
+                ? `For the thought experiment above, construct two possible results: one supports your prediction and the other admits several explanations. Label these as hypothetical teaching data. Compare the strength of the conclusions and propose an additional check.`
+                : `Жоғарыдағы ойша эксперимент үшін екі ықтимал нәтиже құрыңыз: біреуі болжамды қолдайды, екіншісінің бірнеше түсіндірмесі бар. Бұлардың ойдан құрастырылған оқу деректері екенін көрсетіңіз. Қорытындылардың негізділігін салыстырып, қосымша тексеруді ұсыныңыз.` },
             { type: 'response', label: language === 'RU' ? 'Какие наблюдаемые данные поддерживают ваш вывод?' : language === 'EN' ? 'Which observations support your conclusion?' : 'Қандай бақылаулар қорытындыңызды қолдайды?' },
             { type: 'response', label: language === 'RU' ? 'Какое альтернативное объяснение нужно исключить?' : language === 'EN' ? 'Which alternative explanation should be excluded?' : 'Қандай балама түсіндірмені жоққа шығару керек?' },
             { type: 'response', label: language === 'RU' ? 'Какое дополнительное измерение лучше всего различит эти объяснения?' : language === 'EN' ? 'Which additional measurement would best distinguish these explanations?' : 'Бұл түсіндірмелерді ажырату үшін қандай қосымша өлшеу тиімді?' },
@@ -921,11 +924,7 @@ function create(
     const correct=language==='RU'?'Проследить последовательность изменений и проверить, соответствует ли наблюдаемый результат прогнозу.':language==='EN'?'Trace the sequence of changes and test whether the observed result matches the prediction.':'Өзгерістер ретін бақылап, байқалған нәтиженің болжамға сәйкестігін тексеру.';
     const wrong=language==='RU'?'Остановить разбор после первого заметного изменения и считать его достаточным доказательством.':language==='EN'?'Stop after the first visible change and treat it as sufficient evidence.':'Алғашқы байқалған өзгерістен кейін талдауды тоқтатып, оны жеткілікті дәлел деп санау.';
     const intro=(language==='RU'?'Динамический разбор: ':language==='EN'?'Dynamic walkthrough: ':'Динамикалық талдау: ')+mediaTitle;
-    const transcript=language==='RU'
-      ? ['Следите за направлением процесса: входное воздействие → изменение состояния системы → наблюдаемый выход.', 'Остановите анимацию в ключевой точке и самостоятельно предскажите следующий шаг до его появления.']
-      : language==='EN'
-        ? ['Follow the direction of the process: input → change in system state → observable output.', 'Pause at the key transition and predict the next step before it appears.']
-        : ['Процесс бағытын бақылаңыз: кіріс әсері → жүйе күйінің өзгеруі → байқалатын шығыс.', 'Негізгі ауысуда анимацияны тоқтатып, келесі қадамды пайда болмай тұрып болжаңыз.'];
+    const transcript=[...mediaWalkthroughs[topic.id][language]];
     return {kind:'media',title,language,introduction:intro,ui,blocks:[{
       id:'module-'+topic.id+'-dynamic-process',title:mediaTitle,preview:language==='RU' ? `Перед запуском сформулируйте прогноз: какое изменение должно появиться после ключевого перехода в теме «${modules.RU[topic.id-1]}» и по какому признаку вы это распознаете.` : language==='EN' ? `Before starting, predict which change should follow the key transition in “${modules.EN[topic.id-1]}” and which observation would identify it.` : `Іске қоспас бұрын «${modules.KZ[topic.id-1]}» тақырыбындағы негізгі ауысудан кейін қандай өзгеріс болуы тиіс және оны қай белгі арқылы танитыныңызды болжаңыз.`,
       transcript,theoryAnchor:'mechanism',animation:'foundation',

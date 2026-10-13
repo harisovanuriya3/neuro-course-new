@@ -59,3 +59,9 @@
 .sectionShell article h3 {
   line-height: 1.3;
 }
+
+.sectionShell :is(section,aside,fieldset,figure){min-width:0;max-width:100%;box-sizing:border-box}
+.sectionShell :is(select,textarea,input,button){box-sizing:border-box;max-width:100%;font:inherit}
+.sectionShell :is(button,a,input,select,textarea):focus-visible{outline:3px solid #b45309;outline-offset:3px}
+.sectionShell button{white-space:normal;overflow-wrap:anywhere}
+@media(prefers-reduced-motion:reduce){.sectionShell *{scroll-behavior:auto!important}}

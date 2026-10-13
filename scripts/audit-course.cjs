@@ -14,7 +14,7 @@ const sections = read("content/sections.ts");
 const foundation = read("content/course-foundation/index.ts");
 const assessment = read("content/course-foundation/assessment.ts");
 const patients = read("content/virtual-patients.ts");
-const exam = read("components/ExamCenter.tsx");
+const exam = read("components/ExamCenter.tsx") + read("lib/examVersion.ts");
 const examBank = read("content/exam-bank.ts");
 const moduleOnePractice = ["ru", "en", "kz"].map(language => [
   language.toUpperCase(),
@@ -110,7 +110,7 @@ const testFunction = assessment.slice(assessment.indexOf("export function create
 !testFunction.includes("clinicalVignettes[topic.id]")
   ? pass("foundation Tests use a transfer perturbation rather than the Cases vignette")
   : fail("foundation Tests still repeat the Cases vignette");
-foundation.includes("identify a condition under which that relationship would fail")
+foundation.includes("define each and give an example")
   ? pass("foundation Practice comparison differs from the Review Question recall prompt")
   : fail("foundation Practice still repeats the Review Question prompt");
 const createExamBank = examBank.slice(examBank.indexOf("export function createExamBank"));

@@ -19,14 +19,14 @@ export default function VisualPathwayLocalizer({language}:{language:Language}){
  const fullLeft=site==="nerve", temporal=site==="chiasm", rightHalf=["tract","radiation","cortex"].includes(site);
  return <section className={styles.lab} aria-labelledby={`${uid}-title`}>
   <h2 id={`${uid}-title`}>{t.title}</h2><p>{t.intro}</p><p className={styles.definition}>{t.meridian}</p>
-  <fieldset className={styles.controls}><legend>{t.choose}</legend>{sites.map(value=><button type="button" key={value} aria-pressed={site===value} onClick={()=>setSite(value)}>{t.sites[value]}</button>)}</fieldset>
+  <fieldset className={styles.controls}><legend>{t.choose}</legend>{sites.map(value=><button type="button" key={value} aria-pressed={site===value} onClick={()=>setSite(value)}>{sites.indexOf(value)+1}. {t.sites[value]}</button>)}</fieldset>
   <svg className={styles.pathway} viewBox="0 0 940 290" role="img" aria-labelledby={`${uid}-svg-title ${uid}-svg-desc`}>
    <title id={`${uid}-svg-title`}>{t.title}</title><desc id={`${uid}-svg-desc`}>{t.cross} {t.results[site]}</desc>
    <defs><marker id={`${uid}-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10Z"/></marker></defs>
    <g className={styles.route}><path d="M95 70C210 70 220 145 360 145S505 70 610 70H860"/><path d="M95 220C210 220 220 145 360 145S505 220 610 220H860"/></g>
    <g className={styles.crossed}><path d="M95 70C220 70 235 220 610 220H860"/><path d="M95 220C220 220 235 70 610 70H860"/></g>
    {[{x:70,y:145,key:"retina"},{x:190,y:145,key:"nerve"},{x:360,y:145,key:"chiasm"},{x:510,y:145,key:"tract"},{x:660,y:145,key:"radiation"},{x:850,y:145,key:"cortex"}].map(n=><g key={n.key} className={site===n.key?styles.selected:styles.node}><circle cx={n.x} cy={n.y} r="25"/><text x={n.x} y={n.y+5}>{sites.indexOf(n.key as Site)+1}</text></g>)}
-   <g className={styles.signal}><circle r="7"><animateMotion dur="3s" repeatCount="indefinite" path="M95 70C220 70 235 220 610 220H860"/></circle></g>
+
   </svg>
   <div className={styles.fields}>{t.eyes.map((eye,index)=><figure key={eye}><figcaption>{eye} · {t.field}</figcaption><div className={styles.field}><span className={styles.meridian}/>{site==="retina"&&index===0&&<span className={styles.scotoma} aria-label={t.lost}/>} {fullLeft&&index===0&&<span className={styles.full} aria-label={t.lost}/>} {temporal&&<span className={index===0?styles.leftHalf:styles.rightHalf} aria-label={t.lost}/>} {rightHalf&&<span className={styles.rightHalf} aria-label={t.lost}/>}</div></figure>)}</div>
   <p className={styles.result} role="status"><strong>{t.sites[site]}:</strong> {t.results[site]}</p><p>{t.cross}</p>

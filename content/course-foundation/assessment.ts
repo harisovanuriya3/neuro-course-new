@@ -1,3 +1,5 @@
+import {physiologicalRelations} from "../physiological-relations";
+import {termDefinitions} from "./topics";
 import type { Language } from "../course";
 import type { CasesLesson } from "../cases";
 import type { BranchingTest, TestUI } from "../tests";
@@ -44,19 +46,18 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
     ? `In “${moduleTitle}”, a measurable physiological variable has changed. Use the data to identify the likely altered link, propose an alternative explanation, and name a measurement that would discriminate between the hypotheses.`
     : `«${moduleTitle}» тақырыбында өлшенетін физиологиялық көрсеткіш өзгерді. Деректер бойынша ықтимал өзгерген буынды анықтап, балама түсіндірме ұсыныңыз және екі болжамды ажырататын өлшемді атаңыз.`
  );
- const termA=topic.terms[0][l], termB=topic.terms[1][l];
  const secondSituation=l==="RU"
-  ? `После исходной ситуации появляется новое наблюдение: показатель, связанный с «${termB}», меняется не так, как ожидалось. Нужно решить, достаточно ли исходного механизма или следует искать дополнительное нарушенное звено.`
+  ? `Вернитесь к задаче 1. Предложите возможное новое наблюдение, которое противоречило бы вашей первоначальной гипотезе. Явно отделите придуманный вами результат от данных условия. Решите, какую альтернативную гипотезу и дополнительное измерение он потребует.`
   : l==="EN"
-   ? `After the initial situation, a new observation appears: a variable related to “${termB}” changes differently from the prediction. Decide whether the original mechanism is sufficient or an additional disturbed link is needed.`
-   : `Бастапқы жағдайдан кейін жаңа бақылау пайда болды: «${termB}» байланысты көрсеткіш болжанғаннан өзгеше өзгереді. Бастапқы тетік жеткілікті ме, әлде қосымша бұзылған буын қажет пе — анықтаңыз.`;
+   ? `Return to Case 1. Propose a possible new observation that would contradict your initial hypothesis. Clearly distinguish your hypothetical result from the supplied case data. Identify an alternative hypothesis and a measurement needed to test it.`
+   : `1-жағдайға оралыңыз. Бастапқы болжамыңызға қайшы келетін ықтимал жаңа бақылауды ұсыныңыз. Өзіңіз ойластырған нәтижені шартта берілген деректерден анық ажыратыңыз. Балама болжам мен оны тексеруге қажетті өлшеуді атаңыз.`;
  return {kind:"cases",title:l==="RU"?"Ситуационные задачи":l==="EN"?"Case Problems":"Ситуациялық тапсырмалар",moduleTitle,
  introduction:l==="RU"?"Здесь не нужно пересказывать теорию. Работайте с данными: выделите ключевой признак, локализуйте нарушенное звено, постройте причинную цепь и назовите проверку, которая отличит вашу гипотезу от альтернативной.":l==="EN"?"Do not retell the theory here. Work from the data: identify the key finding, localize the disturbed link, build a causal chain, and choose a check that distinguishes your hypothesis from an alternative.":"Мұнда теорияны қайталау қажет емес. Деректермен жұмыс істеңіз: негізгі белгіні анықтаңыз, бұзылған буынды локализациялаңыз, себептік тізбек құрыңыз және болжамыңызды баламадан ажырататын тексеруді атаңыз.",
  ui:ui(l),cases:[
   {id:`m${topic.id}-localization`,title:l==="RU"?"Задача 1. Локализация по данным":l==="EN"?"Case 1. Data-driven localization":"1-жағдай. Деректер бойынша локализация",situation:task,stages:[
    {title:l==="RU"?"Выделите данные":l==="EN"?"Extract the evidence":"Деректерді бөліңіз",questions:[
     l==="RU"?"Назовите два факта из условия, которые действительно влияют на физиологический вывод.":l==="EN"?"Name two findings in the case that materially affect the physiological conclusion.":"Физиологиялық қорытындыға әсер ететін жағдайдағы екі деректі атаңыз.",
-    l==="RU"?`Какой из них лучше всего помогает связать «${termA}» с «${termB}»?`:l==="EN"?`Which finding best helps link “${termA}” to “${termB}”?`:`Қай дерек «${termA}» мен «${termB}» арасындағы байланысты жақсы көрсетеді?`
+    l==="RU"?`Какой факт лучше всего помогает определить изменённое физиологическое звено и почему?`:l==="EN"?`Which finding best helps identify the affected physiological link, and why?`:`Қай дерек өзгерген физиологиялық буынды анықтауға жақсы көмектеседі және неліктен?`
    ]},
    {title:l==="RU"?"Локализуйте звено":l==="EN"?"Localize the link":"Буынның орнын анықтаңыз",questions:[
     l==="RU"?"Какое звено системы изменено вероятнее всего? Укажите один признак за и один признак, который заставил бы пересмотреть локализацию.":l==="EN"?"Which system link is most likely altered? Give one supporting finding and one finding that would make you reconsider the localization.":"Жүйенің қай буыны өзгерген болуы ықтимал? Бір қолдайтын және локализацияны қайта қарауға мәжбүр ететін бір белгіні көрсетіңіз."
@@ -65,12 +66,12 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
     l==="RU"?"Постройте цепь минимум из трёх звеньев: исходное изменение → промежуточный механизм → наблюдаемый результат.":l==="EN"?"Build at least a three-link chain: initial change → intermediate mechanism → observed result.":"Кемінде үш буынды тізбек құрыңыз: бастапқы өзгеріс → аралық тетік → байқалатын нәтиже."
    ]}
   ],explanation:[
-    l==="RU" ? `Проверьте локализацию по данным: назовите изменённое звено, один поддерживающий признак и причинную цепь минимум из трёх этапов с участием «${termA}» и «${termB}».` : l==="EN" ? `Check localization against the data: identify the altered link, one supporting finding, and a causal chain of at least three steps involving “${termA}” and “${termB}”.` : `Локализацияны деректермен тексеріңіз: өзгерген буынды, бір қолдайтын белгіні және «${termA}» мен «${termB}» қатысатын кемінде үш қадамдық себептік тізбекті көрсетіңіз.`,
+    l==="RU" ? `Проверьте локализацию по данным: назовите изменённое звено, один поддерживающий признак и причинную цепь минимум из трёх этапов с опорой на конкретные данные условия.` : l==="EN" ? `Check localization against the data: identify the altered link, one supporting finding, and a causal chain of at least three steps supported by the specific case data.` : `Локализацияны деректермен тексеріңіз: өзгерген буынды, бір қолдайтын белгіні және жағдайдың нақты деректеріне сүйенген кемінде үш қадамдық себептік тізбекті көрсетіңіз.`,
     l==="RU" ? "Не подменяйте функциональную локализацию клиническим диагнозом: условие должно позволять проверить именно физиологический механизм." : l==="EN" ? "Do not replace functional localization with a clinical diagnosis: the case should be used to test the physiological mechanism." : "Функциялық локализацияны клиникалық диагнозбен алмастырмаңыз: жағдай физиологиялық тетікті тексеруге қызмет етуі тиіс."
   ]},
   {id:`m${topic.id}-discrimination`,title:l==="RU"?"Задача 2. Конкурирующие объяснения":l==="EN"?"Case 2. Competing explanations":"2-жағдай. Бәсекелес түсіндірмелер",situation:secondSituation,stages:[
    {title:l==="RU"?"Сделайте новый прогноз":l==="EN"?"Make a new prediction":"Жаңа болжам жасаңыз",questions:[
-    l==="RU"?`Если исходная связь «${termA} → ${termB}» остаётся главным механизмом, какое направление изменения вы ожидаете?`:l==="EN"?`If the original “${termA} → ${termB}” link remains the main mechanism, what direction of change do you predict?`:`Егер бастапқы «${termA} → ${termB}» байланысы негізгі тетік болып қалса, өзгерістің қандай бағытын күтесіз?`
+    l==="RU"?`Какой результат предсказывает ваша первоначальная гипотеза и чем от него отличается предложенное вами новое наблюдение?`:l==="EN"?`What does your initial hypothesis predict, and how does your proposed new observation differ?`:`Бастапқы болжамыңыз қандай нәтиже күтеді және өзіңіз ұсынған жаңа бақылау одан қалай ерекшеленеді?`
    ]},
    {title:l==="RU"?"Предложите альтернативу":l==="EN"?"Propose an alternative":"Баламаны ұсыныңыз",questions:[
     l==="RU"?"Назовите другое физиологическое звено, изменение которого могло бы дать похожий результат.":l==="EN"?"Name another physiological link whose alteration could produce a similar result.":"Ұқсас нәтиже бере алатын басқа физиологиялық буынды атаңыз."
@@ -105,16 +106,18 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   const offset=(topic.id+optionSetIndex++)%options.length;
   return [...options.slice(offset),...options.slice(0,offset)];
  };
- const mechanism=topic.mechanism[l], interpretation=topic.interpretation[l], question=topic.question[l];
- const termA=topic.terms[0][l], termB=topic.terms[1][l];
+ const relation=physiologicalRelations[topic.id][l];
+ const mechanism=relation.mechanism, interpretation=topic.interpretation[l];
+ const termA=relation.cause, termB=relation.effect;
+ const question=l==="RU"?`Как связаны «${termA}» и «${termB}» в рассматриваемых условиях?`:l==="EN"?`How are “${termA}” and “${termB}” related under the stated conditions?`:`Берілген жағдайда «${termA}» және «${termB}» қалай байланысады?`;
  // Cases use the authored clinical vignette. The formative test deliberately
  // uses a controlled perturbation instead, so it assesses transfer rather than
  // recognition of the case the learner has already worked through.
  const task=l==="RU"
-  ? `В контролируемой модели избирательно ослабили процесс «${termA}», сохранив исходные условия постоянными. Нужно предсказать направление изменения показателя «${termB}» и выбрать наблюдение, которое отличит этот механизм от альтернативного.`
+  ? `В контролируемой модели изменяют фактор «${termA}», сохранив исходные условия постоянными. Нужно предсказать направление изменения показателя «${termB}» и выбрать наблюдение, которое отличит этот механизм от альтернативного.`
   : l==="EN"
-   ? `In a controlled model, “${termA}” is selectively weakened while baseline conditions remain constant. Predict the direction of change in “${termB}” and choose an observation that distinguishes this mechanism from an alternative.`
-   : `Бақыланатын модельде бастапқы жағдайларды тұрақты ұстап, «${termA}» үдерісі таңдамалы әлсіретілді. «${termB}» көрсеткішінің өзгеру бағытын болжап, осы тетікті баламадан ажырататын бақылауды таңдау қажет.`;
+   ? `In a controlled model, “${termA}” is varied while baseline conditions remain constant. Predict the direction of change in “${termB}” and choose an observation that distinguishes this mechanism from an alternative.`
+   : `Бақыланатын модельде бастапқы жағдайларды тұрақты ұстап, «${termA}» факторы өзгертіледі. «${termB}» көрсеткішінің өзгеру бағытын болжап, осы тетікті баламадан ажырататын бақылауды таңдау қажет.`;
  const wrong1=l==="RU"
   ? `«${termA}» определяет результат напрямую, поэтому роль «${termB}» и промежуточного физиологического механизма можно не учитывать.`
   : l==="EN" ? `“${termA}” determines the outcome directly, so “${termB}” and the intermediate physiological mechanism can be ignored.`
@@ -146,14 +149,10 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   ? `Снова определить, как изменился «${termA}», и по известному механизму предсказать, что произойдёт с «${termB}».`
   : l==="EN" ? `Identify how “${termA}” changed and use the known mechanism to predict what happens to “${termB}”.`
   : `Себептік тетікті сақтап, «${termA}» өзгерісінің бағытын қайта анықтап, соның негізінде «${termB}» үшін жаңа болжам жасау.`;
- const conceptPrompt=l==="RU"
-  ? `Чем «${termA}» отличается от «${termB}» в этой теме?`
-  : l==="EN" ? `How is “${termA}” different from “${termB}” in this topic?`
-  : `«${moduleTitle}» тақырыбында «${termA}» мен «${termB}» ұғымдарын қай тұжырым ең дәл ажыратады?`;
- const conceptCorrect=l==="RU"
-  ? `Это разные понятия. Их нужно связать через механизм темы, а не считать одинаковыми словами.`
-  : l==="EN" ? `They are different concepts. Link them through the topic mechanism rather than treating them as the same thing.`
-  : `Олар физиологиялық түсіндірудің әртүрлі элементтері; оларды өзара алмастырылатын атаулар деп емес, нақты тетік арқылы байланыстыру керек.`;
+ const conceptPrompt=l==="RU"?`Как правильно различить «${topic.terms[0][l]}» и «${topic.terms[1][l]}»?`:l==="EN"?`Which definitions correctly distinguish “${topic.terms[0][l]}” and “${topic.terms[1][l]}”?`:`«${topic.terms[0][l]}» және «${topic.terms[1][l]}» ұғымдарын қалай дұрыс ажыратуға болады?`;
+ const definitions=termDefinitions[topic.id];
+ const conceptCorrect=`${topic.terms[0][l]}: ${definitions[0][l]} ${topic.terms[1][l]}: ${definitions[1][l]}`;
+ const conceptWrong=`${topic.terms[0][l]}: ${definitions[1][l]} ${topic.terms[1][l]}: ${definitions[0][l]}`;
  const justificationPrompt=l==="RU"
   ? `Какой ответ лучше всего объясняет вывод, а не просто называет его?`
   : l==="EN" ? `Which answer best explains the conclusion instead of only naming it?`
@@ -166,11 +165,11 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
  const justificationWrong2=l==="RU"?"Сделать окончательный вывод только потому, что один показатель изменён.":l==="EN"?"Make a definitive conclusion solely because one variable changed.":"Бір көрсеткіш өзгергені үшін ғана түпкілікті қорытынды жасау.";
  const justificationWrong3=l==="RU"?"Перечислить факты, но не объяснять, как они связаны с физиологическим механизмом.":l==="EN"?"List findings without explaining how they connect to the physiological mechanism.":"Деректерді тізіп, олардың физиологиялық тетікпен қалай байланысатынын түсіндірмеу.";
  const nodes:BranchingTest["nodes"]={
-  [cMain]:{id:cMain,type:"question",level:"main",competency:conceptComp,prompt:conceptPrompt,options:opts(conceptCorrect,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:l==="RU"?"Проверьте, связывает ли выбранный вариант два ключевых понятия причинно, а не просто перечисляет их. Полный механизм сверяйте в теории после собственного решения.":l==="EN"?"Check whether the selected option links the two key concepts causally rather than merely listing them. Consult the full mechanism in theory after making your own decision.":"Таңдалған нұсқа екі негізгі ұғымды жай тізіп қана қоймай, себептік түрде байланыстыратынын тексеріңіз. Толық тетікті өз шешіміңізден кейін теориядан салыстырыңыз.",onCorrect:mMain,onIncorrect:"concept:review-1"},
+  [cMain]:{id:cMain,type:"question",level:"main",competency:conceptComp,prompt:conceptPrompt,options:opts(conceptCorrect,conceptWrong,wrong2,wrong3),correctAnswer:"a",explanation:l==="RU"?"Сопоставьте признаки каждого понятия с его определением. Соседство терминов в глоссарии не означает прямую причинную связь.":l==="EN"?"Match each concept with its definition. Adjacent glossary terms do not imply a direct causal relationship.":"Әр ұғымның белгілерін оның анықтамасымен салыстырыңыз. Глоссарийдегі көрші терминдер тікелей себептік байланысты білдірмейді.",onCorrect:mMain,onIncorrect:"concept:review-1"},
   "concept:review-1":{id:"concept:review-1",type:"remediation",competency:conceptComp,depth:1,text:l==="RU"?"Не перечитывайте готовый ответ. Сначала назовите исходное изменение, затем промежуточное физиологическое звено и только после этого прогноз результата.":l==="EN"?"Do not reread a prepared answer. First identify the initial change, then the intermediate physiological link, and only then predict the outcome.":"Дайын жауапты қайта оқымаңыз. Алдымен бастапқы өзгерісті, кейін аралық физиологиялық буынды атаңыз, содан соң ғана нәтижені болжаңыз.",theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:cCorrective},
-  [cCorrective]:{id:cCorrective,type:"question",level:"corrective",competency:conceptComp,prompt:conceptPrompt,options:opts(conceptCorrect,wrong2,wrong1,wrong3),correctAnswer:"a",explanation:l==="RU"?"Сопоставьте выбранную связь с наблюдаемым результатом и проверьте направление эффекта; не подменяйте объяснение названием темы.":l==="EN"?"Match the selected relationship to the observed outcome and check the direction of effect; do not replace an explanation with the topic label.":"Таңдалған байланысты байқалатын нәтижемен салыстырып, әсер бағытын тексеріңіз; түсіндірмені тақырып атауымен алмастырмаңыз.",onCorrect:mMain,onIncorrect:"concept:review-2"},
+  [cCorrective]:{id:cCorrective,type:"question",level:"corrective",competency:conceptComp,prompt:conceptPrompt,options:opts(conceptCorrect,wrong2,conceptWrong,wrong3),correctAnswer:"a",explanation:l==="RU"?"Сопоставьте выбранную связь с наблюдаемым результатом и проверьте направление эффекта; не подменяйте объяснение названием темы.":l==="EN"?"Match the selected relationship to the observed outcome and check the direction of effect; do not replace an explanation with the topic label.":"Таңдалған байланысты байқалатын нәтижемен салыстырып, әсер бағытын тексеріңіз; түсіндірмені тақырып атауымен алмастырмаңыз.",onCorrect:mMain,onIncorrect:"concept:review-2"},
   "concept:review-2":{id:"concept:review-2",type:"remediation",competency:conceptComp,depth:2,text:l==="RU"?"Сравните свою причинную цепь с теорией: найдите первое звено, где направление связи расходится, и исправьте только его.":l==="EN"?"Compare your causal chain with the theory: find the first link where the direction differs and correct only that link.":"Себептік тізбегіңізді теориямен салыстырыңыз: бағыт сәйкес келмейтін алғашқы буынды тауып, тек соны түзетіңіз.",theoryTarget:{moduleId:topic.id,anchor:"interpretation"},next:cBasic},
-  [cBasic]:{id:cBasic,type:"question",level:"basic",competency:conceptComp,prompt:conceptPrompt,options:opts(conceptCorrect,wrong3,wrong2,wrong1),correctAnswer:"a",explanation:l==="RU"?"Верный вариант должен содержать физиологическую связь между понятиями, а не совпадение терминов.":l==="EN"?"The correct option should contain a physiological relationship between the concepts, not merely matching terminology.":"Дұрыс нұсқада ұғымдар арасындағы физиологиялық байланыс болуы керек, жай термин сәйкестігі емес.",onCorrect:mMain,onIncorrect:mMain},
+  [cBasic]:{id:cBasic,type:"question",level:"basic",competency:conceptComp,prompt:conceptPrompt,options:opts(conceptCorrect,wrong3,wrong2,conceptWrong),correctAnswer:"a",explanation:l==="RU"?"Верный вариант должен содержать физиологическую связь между понятиями, а не совпадение терминов.":l==="EN"?"The correct option should contain a physiological relationship between the concepts, not merely matching terminology.":"Дұрыс нұсқада ұғымдар арасындағы физиологиялық байланыс болуы керек, жай термин сәйкестігі емес.",onCorrect:mMain,onIncorrect:mMain},
   [mMain]:{id:mMain,type:"question",level:"main",competency:mechComp,prompt:question,options:opts(mechanism,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:l==="RU"?"Проверьте три звена: что изменилось первым, через какое звено передался эффект и какой результат из этого следует.":l==="EN"?"Check three links: what changed first, which intermediate link transmitted the effect, and which outcome follows.":"Үш буынды тексеріңіз: алдымен не өзгерді, әсер қай аралық буын арқылы берілді және одан қандай нәтиже шығады.",onCorrect:aMain,onIncorrect:"mechanism:review-1"},
   "mechanism:review-1":{id:"mechanism:review-1",type:"remediation",competency:mechComp,depth:1,text:l==="RU"?"Не перечитывайте готовый ответ. Сначала назовите исходное изменение, затем промежуточное физиологическое звено и только после этого прогноз результата.":l==="EN"?"Do not reread a prepared answer. First identify the initial change, then the intermediate physiological link, and only then predict the outcome.":"Дайын жауапты қайта оқымаңыз. Алдымен бастапқы өзгерісті, кейін аралық физиологиялық буынды атаңыз, содан соң ғана нәтижені болжаңыз.",theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:mCorrective},
   [mCorrective]:{id:mCorrective,type:"question",level:"corrective",competency:mechComp,prompt:l==="RU"?"После короткого повторения выберите объяснение, которое лучше всего показывает: что изменилось и почему.":l==="EN"?"After the short review, choose the explanation that best shows what changed and why.":"Қысқа қайталаудан кейін не өзгергенін және неліктен екенін жақсы түсіндіретін жауапты таңдаңыз.",options:opts(interpretation,wrong1,wrong2,wrong3),correctAnswer:"a",explanation:l==="RU"?"Проверьте причинную цепь по шагам: исходное изменение → промежуточное звено → ожидаемый результат.":l==="EN"?"Check the causal chain step by step: initial change → intermediate link → expected outcome.":"Себептік тізбекті кезең-кезеңімен тексеріңіз: бастапқы өзгеріс → аралық буын → күтілетін нәтиже.",onCorrect:aMain,onIncorrect:"mechanism:review-2"},
