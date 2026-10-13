@@ -274,6 +274,16 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    [defA,topic.mechanism[lang],s.swap],
    [defB,s.swap,s.dx]
   ];
+  // Reviewed modules: never pad the bank with unverified template questions.
+  // Keep the existing q1 identifier for student progress compatibility.
+  const reviewedForTopic=reviewedExamItem(topic.id,lang);
+  if(reviewedForTopic){
+   const q=make(topic.id,title,0,reviewedForTopic.prompt,reviewedForTopic.correct,[...reviewedForTopic.wrong],reviewedForTopic.explanation);
+   q.writtenPrompt=(lang==="RU"?"Объясните физиологический механизм и обоснуйте выбор. ":lang==="EN"?"Explain the physiological mechanism and justify your choice. ":"Физиологиялық механизмді түсіндіріп, таңдауыңызды негіздеңіз. ")+q.prompt;
+   q.taskType="situation";
+   bank.push(q);
+   continue;
+  }
   for(let n=0;n<40;n++){
    const mode=n%4;
    const core=lang==="RU"?RU_CORE[topic.id]:undefined;
