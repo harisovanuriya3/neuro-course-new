@@ -5,6 +5,7 @@ import { additionalReviewedItem } from "./additional-reviewed-exam-items";
 import { reviewedPathwayItem } from "./reviewed-pathway-exam-items";
 import { reviewedAdvancedItem } from "./reviewed-advanced-exam-items";
 import { firstModuleReviewed } from "./reviewed-module-one-exam";
+import { supplementaryReviewedItem } from "./supplementary-reviewed-exam-items";
 import { topics, termDefinitions } from "./course-foundation/topics";
 export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[];taskType?:"standard"|"situation"|"sequence"};
 const S={
@@ -21,7 +22,7 @@ function firstModule(lang:Language):ExamBankQuestion[]{
   const q=make(1,title,n,item.prompt,item.correct,[...item.wrong],item.explanation);
   q.taskType="situation";
   return q;
- });
+ }).concat((()=>{const item=supplementaryReviewedItem(1,lang);if(!item)return [];const q=make(1,title,2,item.prompt,item.correct,[...item.wrong],item.explanation);q.taskType="situation";return [q];})());
 }
 
 const RU_CORE:Record<number,{p:string;c:string;w:[string,string,string];e:string}>={
@@ -256,6 +257,8 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    q.writtenPrompt=(lang==="RU"?"Объясните физиологический механизм и обоснуйте выбор. ":lang==="EN"?"Explain the physiological mechanism and justify your choice. ":"Физиологиялық механизмді түсіндіріп, таңдауыңызды негіздеңіз. ")+q.prompt;
    q.taskType="situation";
    bank.push(q);
+   const extra=supplementaryReviewedItem(topic.id,lang);
+   if(extra){const additional=make(topic.id,title,1,extra.prompt,extra.correct,[...extra.wrong],extra.explanation);additional.taskType="situation";bank.push(additional);}
    continue;
   }
   // No unreviewed template fallback: missing authored items must be visible in QA.
