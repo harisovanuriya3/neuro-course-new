@@ -52,8 +52,18 @@ export const foundationSections = [
 
 const sources: Record<string, { title: string; href: string }> = {
   guyton: {
-    title: 'Guyton & Hall · Textbook of Medical Physiology, 15th ed.',
-    href: 'https://shop.elsevier.com/books/guyton-and-hall-textbook-of-medical-physiology/hall/978-0-443-11101-3',
+    title: 'Guyton & Hall · Textbook of Medical Physiology, 13th ed. (2016)',
+    href: 'https://shop.elsevier.com/books/guyton-and-hall-textbook-of-medical-physiology/hall/978-1-4557-7005-2',
+  },
+
+  ganong: {
+    title: 'Ganong · Review of Medical Physiology, 23rd ed. (2010)',
+    href: 'https://search.worldcat.org/title/ganongs-review-of-medical-physiology/oclc/430823856',
+  },
+
+  ghai: {
+    title: 'C. L. Ghai · A Textbook of Practical Physiology, 8th ed. (2013)',
+    href: 'https://elib.amu.kz/ru/lib/?e_kls=%D0%A4%D0%98%D0%97%D0%98%D0%9E%D0%9B%D0%9E%D0%93%D0%98%D0%AF+&e_sort=alf&e_viewdb=KNIGA',
   },
 
   boron: {
@@ -940,6 +950,8 @@ function create(
   if (section === 'references') {
     const keys = [
       'guyton',
+      'ganong',
+      ...( [2, 3, 7, 8, 9, 19, 20, 21].includes(topic.id) ? ['ghai'] : [] ),
       'boron',
       'kzphysiology',
       'kznervous',
