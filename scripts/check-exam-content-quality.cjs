@@ -1,41 +1,56 @@
-// Source-level quality gate for authored examination items.
-// Run: node scripts/check-exam-content-quality.cjs
-const fs=require("node:fs");
-const assert=require("node:assert/strict");
-const files=[
-"content/reviewed-module-one-exam.ts",
-"content/reviewed-exam-items.ts",
-"content/additional-reviewed-exam-items.ts",
-"content/reviewed-pathway-exam-items.ts",
-"content/reviewed-advanced-exam-items.ts",
-"content/supplementary-reviewed-exam-items.ts",
-"content/supplementary-systems-exam-items.ts",
-"content/third-reviewed-exam-items.ts",
-"content/third-systems-exam-items.ts"
+// Static quality gate for the authored examination bank.
+// Run from repository root: node scripts/check-exam-content-quality.cjs
+// This checks structure and answer-option consistency, NOT medical correctness.
+const fs = require("node:fs");
+const assert = require("node:assert/strict");
+
+const files = [
+  ["content/reviewed-module-one-exam.ts", 6],
+  ["content/reviewed-exam-items.ts", 12],
+  ["content/additional-reviewed-exam-items.ts", 6],
+  ["content/reviewed-pathway-exam-items.ts", 12],
+  ["content/reviewed-advanced-exam-items.ts", 42],
+  ["content/supplementary-reviewed-exam-items.ts", 21],
+  ["content/supplementary-systems-exam-items.ts", 54],
+  ["content/third-reviewed-exam-items.ts", 30],
+  ["content/third-systems-exam-items.ts", 45],
 ];
-const seen=new Map();
-let count=0;
-let failures=[];
-const normalize=(v)=>v.toLocaleLowerCase().replace(/[^\\p{L}\\p{N}]+/gu," ").trim();
-for(const file of files){
- const source=fs.readFileSync(file,"utf8");
- // Both authored TS object literals and JSON-stringified object literals are supported.
- const matches=[...source.matchAll(/(?:prompt:|"prompt":)\\s*"((?:\\\\.|[^"\\\\])*)"/g)];
- assert(matches.length>0,"No authored prompts in "+file);
- for(const match of matches){
-  const prompt=JSON.parse('"'+match[1]+'"');
-  count++;
-  if(prompt.trim().length<35)failures.push(file+": short prompt: "+prompt);
-  const key=normalize(prompt);
-  if(seen.has(key))failures.push("Duplicate prompt: "+file+" and "+seen.get(key));
-  seen.set(key,file);
-  const following=source.slice(match.index,source.indexOf("}",match.index)+1);
-  const correct=following.match(/(?:correct:|"correct":)\\s*"((?:\\\\.|[^"\\\\])*)"/);
-  const explanation=following.match(/(?:explanation:|"explanation":)\\s*"((?:\\\\.|[^"\\\\])*)"/);
-  if(!correct||!explanation)failures.push(file+": missing answer or explanation near "+prompt.slice(0,55));
-  if(correct&&normalize(JSON.parse('"'+correct[1]+'"'))===key)failures.push(file+": correct answer repeats question");
-  if(explanation&&JSON.parse('"'+explanation[1]+'"').length<25)failures.push(file+": too-short explanation");
- }
+const itemPattern = /\{\s*"?prompt"?\s*:\s*("(?:\\.|[^"\\])*")\s*,\s*"?correct"?\s*:\s*("(?:\\.|[^"\\])*")\s*,\s*"?wrong"?\s*:\s*\[\s*("(?:\\.|[^"\\])*")\s*,\s*("(?:\\.|[^"\\])*")\s*,\s*("(?:\\.|[^"\\])*")\s*\]\s*,\s*"?explanation"?\s*:\s*("(?:\\.|[^"\\])*")\s*\}/g;
+const normalize = value => value.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+const seen = new Map();
+const defects = [];
+let total = 0;
+
+for (const [path, expected] of files) {
+  const source = fs.readFileSync(path, "utf8");
+  const parsed = [...source.matchAll(itemPattern)];
+  const apparent = [...source.matchAll(/(?:prompt:|"prompt":)\s*"/g)].length;
+  assert.equal(parsed.length, apparent, path + ": some items could not be parsed");
+  assert.equal(parsed.length, expected, path + ": unexpected number of authored RU/EN/KZ cases");
+  for (const match of parsed) {
+    const [prompt, correct, wrong1, wrong2, wrong3, explanation] =
+      match.slice(1).map(JSON.parse);
+    total++;
+    const choices = [correct, wrong1, wrong2, wrong3];
+    const normalized = choices.map(normalize);
+    if (prompt.trim().length < 35)
+      defects.push(path + ": question too short: " + prompt);
+    if (explanation.trim().length < 25)
+      defects.push(path + ": explanation too short: " + prompt);
+    if (choices.some(choice => choice.trim().length < 12))
+      defects.push(path + ": incomplete option: " + prompt);
+    if (new Set(normalized).size !== 4)
+      defects.push(path + ": identical answer choices: " + prompt);
+    if (seen.has(normalize(prompt)))
+      defects.push(path + ": duplicate prompt, previously in " + seen.get(normalize(prompt)));
+    seen.set(normalize(prompt), path);
+  }
 }
-if(failures.length){console.error(failures.join("\n"));process.exitCode=1;}
-else console.log("Exam content QA passed: "+count+" language-specific prompts across "+files.length+" authored source files; no exact duplicate prompts, short prompts or missing explanations.");
+assert.equal(total, 228, "Expected 76 authored questions across RU/EN/KZ");
+if (defects.length) {
+  console.error(defects.join("\n"));
+  process.exitCode = 1;
+} else {
+  console.log("PASS: 228 authored question variants; parsed all four distinct options and explanations.");
+  console.log("NOTE: scientific accuracy, semantic overlap and translation quality require expert review.");
+}
