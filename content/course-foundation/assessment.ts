@@ -45,7 +45,13 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
     : `«${moduleTitle}» тақырыбында өлшенетін физиологиялық көрсеткіш өзгерді. Деректер бойынша ықтимал өзгерген буынды анықтап, балама түсіндірме ұсыныңыз және екі болжамды ажырататын өлшемді атаңыз.`
  );
  const termA=topic.terms[0][l], termB=topic.terms[1][l];
- const secondSituation=l==="RU"
+ const secondSituation=topic.id===3
+  ? (l==="RU"
+     ? "В срезе мозга при неизменной пресинаптической стимуляции экспериментально нарушили захват глутамата астроцитами. Концентрация внеклеточного глутамата после стимула снижается медленнее, а возбуждающий ответ некоторых нейронов удлиняется. Предложите механизм и объясните, как отличить снижение клиренса от увеличения выделения медиатора."
+     : l==="EN"
+       ? "In a brain-slice experiment, presynaptic stimulation is held constant while astrocytic glutamate uptake is selectively impaired. Extracellular glutamate falls more slowly after stimulation, and excitatory responses in some neurons last longer. Explain the mechanism and distinguish reduced clearance from increased transmitter release."
+       : "Ми тінінің кесіндісінде пресинапстық стимуляцияны өзгеріссіз сақтап, астроциттердің глутаматты сіңіруін таңдаулы түрде бұзды. Стимулдан кейін жасушадан тыс глутамат баяуырақ азайып, кейбір нейрондардың қоздырғыш жауабы ұзарады. Тетікті түсіндіріп, клиренстің төмендеуін медиатор бөлінуінің артуынан ажыратыңыз.")
+  : l==="RU"
   ? `После исходной ситуации появляется новое наблюдение: показатель, связанный с «${termB}», меняется не так, как ожидалось. Нужно решить, достаточно ли исходного механизма или следует искать дополнительное нарушенное звено.`
   : l==="EN"
    ? `After the initial situation, a new observation appears: a variable related to “${termB}” changes differently from the prediction. Decide whether the original mechanism is sufficient or an additional disturbed link is needed.`
@@ -65,7 +71,11 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
     l==="RU"?"Постройте цепь минимум из трёх звеньев: исходное изменение → промежуточный механизм → наблюдаемый результат.":l==="EN"?"Build at least a three-link chain: initial change → intermediate mechanism → observed result.":"Кемінде үш буынды тізбек құрыңыз: бастапқы өзгеріс → аралық тетік → байқалатын нәтиже."
    ]}
   ],explanation:[
-    l==="RU" ? `Проверьте локализацию по данным: назовите изменённое звено, один поддерживающий признак и причинную цепь минимум из трёх этапов с участием «${termA}» и «${termB}».` : l==="EN" ? `Check localization against the data: identify the altered link, one supporting finding, and a causal chain of at least three steps involving “${termA}” and “${termB}”.` : `Локализацияны деректермен тексеріңіз: өзгерген буынды, бір қолдайтын белгіні және «${termA}» мен «${termB}» қатысатын кемінде үш қадамдық себептік тізбекті көрсетіңіз.`,
+    topic.id===3
+     ? (l==="RU"?"Нарушено интернодальное миелиновое покрытие: сопротивление мембраны уменьшается и утечка локального тока возрастает. Следующий перехват Ранвье достигает порога позже или вовсе не активируется. Поэтому проведение замедляется или блокируется даже при анатомически непрерывном аксоне."
+       :l==="EN"?"Internodal myelin is damaged: membrane resistance falls and local current leakage rises. Depolarization reaches the next node of Ranvier later or may fail to reach threshold. Conduction therefore slows or blocks despite an anatomically continuous axon."
+       :"Интернодтық миелин зақымдалғанда мембрана кедергісі азайып, жергілікті токтың ағып кетуі артады. Келесі Ранвье түйіні табалдырыққа кеш жетеді немесе мүлде жетпейді. Сондықтан аксон бүтін болса да өткізу баяулап не бөгеліп қалады.")
+     : (l==="RU" ? `Проверьте локализацию по данным: назовите изменённое звено, один поддерживающий признак и причинную цепь минимум из трёх этапов с участием «${termA}» и «${termB}».` : l==="EN" ? `Check localization against the data: identify the altered link, one supporting finding, and a causal chain of at least three steps involving “${termA}” and “${termB}”.` : `Локализацияны деректермен тексеріңіз: өзгерген буынды, бір қолдайтын белгіні және «${termA}» мен «${termB}» қатысатын кемінде үш қадамдық себептік тізбекті көрсетіңіз.`),
     l==="RU" ? "Не подменяйте функциональную локализацию клиническим диагнозом: условие должно позволять проверить именно физиологический механизм." : l==="EN" ? "Do not replace functional localization with a clinical diagnosis: the case should be used to test the physiological mechanism." : "Функциялық локализацияны клиникалық диагнозбен алмастырмаңыз: жағдай физиологиялық тетікті тексеруге қызмет етуі тиіс."
   ]},
   {id:`m${topic.id}-discrimination`,title:l==="RU"?"Задача 2. Конкурирующие объяснения":l==="EN"?"Case 2. Competing explanations":"2-жағдай. Бәсекелес түсіндірмелер",situation:secondSituation,stages:[
@@ -80,7 +90,11 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
     l==="RU"?"Сформулируйте итог в двух частях: что данные поддерживают и чего они пока не доказывают.":l==="EN"?"State the conclusion in two parts: what the data support and what they do not yet prove.":"Қорытындыны екі бөлікпен жазыңыз: деректер нені қолдайды және нені әлі дәлелдемейді."
    ]}
   ],explanation:[
-    l==="RU" ? "Сильный ответ формулирует две конкурирующие физиологические гипотезы и выбирает измерение, для которого они предсказывают разные результаты." : l==="EN" ? "A strong answer states two competing physiological hypotheses and selects a measurement for which they predict different outcomes." : "Күшті жауап екі бәсекелес физиологиялық болжамды тұжырымдап, олар әртүрлі нәтиже болжайтын өлшеуді таңдайды."
+    topic.id===3
+      ? (l==="RU"?"Астроциты удаляют глутамат из внеклеточной среды. Уменьшение захвата замедляет спад его концентрации и может продлить возбуждающее действие на рецепторы. Альтернатива — усиленное пресинаптическое выделение. При одинаковой стимуляции сравните величину выделения и скорость исчезновения внесённого известного количества глутамата: замедленный клиренс при прежнем выделении поддерживает нарушение захвата, но не доказывает причину без дополнительных контролей."
+        :l==="EN"?"Astrocytes clear glutamate from extracellular fluid. Reduced uptake slows the decay of extracellular glutamate and may prolong excitation. Greater presynaptic release is an alternative. Under matched stimulation, compare release amount and the decay of an experimentally delivered fixed glutamate pulse. Slower clearance with unchanged release supports impaired uptake, but does not establish the sole cause without controls."
+        :"Астроциттер жасушадан тыс глутаматты әкетеді. Сіңіру азайса, сыртқы глутамат концентрациясы баяу төмендеп, қоздырғыш әсер ұзаруы мүмкін. Балама — пресинапстық бөлінудің күшеюі. Бірдей стимуляцияда бөліну мөлшерін және енгізілген белгілі глутамат мөлшерінің жойылу жылдамдығын салыстырыңыз. Бөліну өзгермей, клиренс баяуласа, бұл сіңіру бұзылуын қолдайды, бірақ қосымша бақылаусыз жалғыз себепті дәлелдемейді.")
+      : (l==="RU" ? "Сильный ответ формулирует две конкурирующие физиологические гипотезы и выбирает измерение, для которого они предсказывают разные результаты." : l==="EN" ? "A strong answer states two competing physiological hypotheses and selects a measurement for which they predict different outcomes." : "Күшті жауап екі бәсекелес физиологиялық болжамды тұжырымдап, олар әртүрлі нәтиже болжайтын өлшеуді таңдайды.")
   ]}
  ]};
 }
