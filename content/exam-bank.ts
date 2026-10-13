@@ -4,6 +4,7 @@ import { reviewedExamItem } from "./reviewed-exam-items";
 import { additionalReviewedItem } from "./additional-reviewed-exam-items";
 import { reviewedPathwayItem } from "./reviewed-pathway-exam-items";
 import { reviewedAdvancedItem } from "./reviewed-advanced-exam-items";
+import { firstModuleReviewed } from "./reviewed-module-one-exam";
 import { topics, termDefinitions } from "./course-foundation/topics";
 export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[];taskType?:"standard"|"situation"|"sequence"};
 const S={
@@ -14,15 +15,13 @@ KZ:{st:["Бұл жерде физиология тұрғысынан не бол
 function rot<T>(a:T[],n:number){const k=n%a.length;return [...a.slice(k),...a.slice(0,k)]}
 function firstSentence(value:string){const match=value.trim().match(/^.*?[.!?](?:\s|$)/u);return (match?.[0]??value).trim()}
 function make(mid:number,title:string,n:number,prompt:string,correct:string,wrong:string[],explanation:string):ExamBankQuestion{const raw=rot([{k:"ok",text:correct},...wrong.map((text,i)=>({k:"w"+i,text}))],n);const options=raw.map((o,i)=>({id:"abcd"[i],text:o.text}));const writtenPrompt=prompt+" "+(mid===1?" Объясните простыми шагами: какой сигнал поступает в ЦНС, что там происходит и какой ответ ожидается.":"");return{id:"exam-m"+mid+"-q"+(n+1),moduleId:mid,moduleTitle:title,prompt,options,correctAnswer:options[raw.findIndex(o=>o.k==="ok")].id,explanation,writtenPrompt,taskType:"standard"}}
-function firstModule(lang:Language){
+function firstModule(lang:Language):ExamBankQuestion[]{
  const title=modules[lang][0];
- const ru=[
-  {p:"При прикосновении к горячему предмету рука быстро отдёргивается ещё до осознанной оценки боли. Какая последовательность лучше описывает нервную организацию ответа?",c:"Рецепторный вход передаётся по афферентным волокнам в ЦНС, интегрируется в спинальных цепях и формирует эфферентную команду мышцам.",w:["Сначала возникает сознательное решение в коре, и только затем активируются кожные рецепторы.","Мышца самостоятельно обнаруживает температуру и посылает команду спинному мозгу.","Эфферентный нейрон передаёт сигнал от кожи к ЦНС, а афферентный — от ЦНС к мышце."],e:"Организация ответа включает сенсорный вход, центральную интеграцию и моторный выход; быстрый защитный рефлекс не требует предварительного сознательного решения."},
-  {p:"Почему повреждение афферентного звена может нарушить рефлекторный ответ при сохранных мышцах и мотонейронах?",c:"Центральная сеть не получает необходимую сенсорную информацию о стимуле и поэтому не может нормально запустить соответствующий ответ.",w:["Афферентные нейроны нужны только для произвольных движений и не участвуют в рефлексах.","При сохранной мышце любой рефлекс обязательно остаётся нормальным независимо от сенсорного входа.","Афферентное звено в норме передаёт команду от спинного мозга непосредственно к мышце."],e:"Без адекватного входного сигнала центральная интеграция не получает информацию, необходимую для формирования соответствующего ответа."}
- ];
- if(lang==="RU") return Array.from({length:40},(_,n)=>{const x=ru[n%ru.length];const frame=S.RU.st[Math.floor(n/ru.length)%S.RU.st.length];const prompt=n<ru.length?x.p:`${frame} ${x.p}`;return make(1,title,n,prompt,x.c,x.w,x.e)});
- const s=S[lang],a=lang==="EN"?"afferent input":"афференттік кіріс",b=lang==="EN"?"central integration":"орталық интеграция";
- return Array.from({length:40},(_,n)=>make(1,title,n,s.st[n%10]+" "+s.pair+" «"+a+" → "+b+"».",s.first,[s.swap,s.abs,s.dx],s.ex));
+ return firstModuleReviewed(lang).map((item,n)=>{
+  const q=make(1,title,n,item.prompt,item.correct,[...item.wrong],item.explanation);
+  q.taskType="situation";
+  return q;
+ });
 }
 
 const RU_CORE:Record<number,{p:string;c:string;w:[string,string,string];e:string}>={
