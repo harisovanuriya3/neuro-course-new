@@ -1,5 +1,6 @@
 import type { Language } from "./course";
 import { modules } from "./course";
+import { reviewedExamItem } from "./reviewed-exam-items";
 import { topics, termDefinitions } from "./course-foundation/topics";
 export type ExamBankQuestion={id:string;moduleId:number;moduleTitle:string;prompt:string;options:{id:string;text:string}[];correctAnswer:string;explanation:string;writtenPrompt?:string;sequenceItems?:{id:string;text:string}[];correctOrder?:string[];taskType?:"standard"|"situation"|"sequence"};
 const S={
@@ -276,9 +277,10 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
   for(let n=0;n<40;n++){
    const mode=n%4;
    const core=lang==="RU"?RU_CORE[topic.id]:undefined;
+   const reviewed=n===0?reviewedExamItem(topic.id,lang):undefined;
    const frame=s.st[Math.floor(n/4)%s.st.length];
    const framedPrompt=`${frame} ${prompts[mode]}`;
-   const q=core&&n===0?make(topic.id,title,n,core.p,core.c,[...core.w],core.e):make(topic.id,title,n,framedPrompt,corrects[mode],wrongSets[mode],explanations[mode]);
+   const q=reviewed?make(topic.id,title,n,reviewed.prompt,reviewed.correct,[...reviewed.wrong],reviewed.explanation):core&&n===0?make(topic.id,title,n,core.p,core.c,[...core.w],core.e):make(topic.id,title,n,framedPrompt,corrects[mode],wrongSets[mode],explanations[mode]);
    const lead=lang==="RU"?"Объясните простыми шагами: что изменилось, почему и к какому результату это приводит. ":lang==="EN"?"Explain in simple steps: what changed, why, and what result follows. ":"Қарапайым қадамдармен түсіндіріңіз: не өзгерді, неліктен және қандай нәтижеге әкеледі. ";
    q.writtenPrompt=lead+q.prompt;
    if(mode===1) q.taskType="situation";
