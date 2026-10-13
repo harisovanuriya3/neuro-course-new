@@ -10,7 +10,7 @@
     "validate:clarity": "node scripts/validate-activity-clarity.cjs",
     "build": "next build",
     "start": "next start",
-    "audit:science": "node scripts/check-topic-science-coverage.cjs && node scripts/check-reviewed-exam-items.cjs && node scripts/check-exam-content-quality.cjs && node scripts/check-course-route-contracts.cjs && node scripts/check-nerve-fiber-lab-contract.cjs && node scripts/check-module-three-pretest.cjs"
+    "audit:science": "node scripts/check-topic-science-coverage.cjs && node scripts/check-reviewed-exam-items.cjs && node scripts/check-exam-content-quality.cjs && node scripts/check-course-route-contracts.cjs && node scripts/check-nerve-fiber-lab-contract.cjs && node scripts/check-module-three-pretest.cjs && node scripts/check-module-three-clinical.cjs"
   },
   "dependencies": {
     "next": "16.3.5",
