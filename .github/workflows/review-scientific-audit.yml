@@ -1,0 +1,31 @@
+name: Scientific and course QA (review branch only)
+
+on:
+  push:
+    branches:
+      - refactor/evidence-based-assessment-audit
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  course-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out branch without publishing
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install from lockfile
+        run: npm ci
+      - name: Verify content and authored examinations
+        run: npm run audit:course
+      - name: TypeScript
+        run: npx tsc --noEmit
+      - name: Production build, without deployment
+        run: npm run build
