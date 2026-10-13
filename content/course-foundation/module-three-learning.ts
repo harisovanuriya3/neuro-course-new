@@ -1,4 +1,4 @@
-import { modules, type Language } from '../course';
+import type { Language } from '../course';
 import { getSectionTitle } from '../sections';
 import type { ObjectivesLesson, ReadingLesson } from '../study';
 
