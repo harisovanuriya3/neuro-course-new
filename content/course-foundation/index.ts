@@ -377,7 +377,57 @@ function create(
             : language === 'EN'
               ? 'The blood–brain barrier helps maintain a stable chemical environment for neural tissue by limiting entry of many substances from blood. Cerebrospinal fluid is produced mainly by the choroid plexuses, circulates through ventricles and the subarachnoid space, and contributes to mechanical protection and brain homeostasis. Glia, vessels, extracellular fluid, and neurons function as one system.'
               : 'Гематоэнцефалдық бөгет көптеген заттардың қаннан өтуін шектеп, жүйке тінінің химиялық ортасының тұрақтылығын сақтауға көмектеседі. Ликвор негізінен тамыр өрімдерінде түзіліп, қарыншалар мен субарахноидтық кеңістікте айналады және миды механикалық қорғауға әрі тұрақты ортаға қатысады. Глия, тамырлар, жасушааралық сұйықтық және нейрондар бір жүйе ретінде жұмыс істейді.' }],
-        }] : []),
+        },
+
+          {
+          id: 'neuronal-functional-zones',
+          title: language === 'RU' ? 'Функциональные зоны нейрона' : language === 'EN' ? 'Functional zones of neurons' : 'Нейронның функционалдық аймақтары',
+          blocks: [
+            { type: 'paragraph' as const, text: language === 'RU'
+              ? 'Рецепторно-дендритная область принимает локальные потенциалы. Их взаимодействие влияет на достижение порога в зоне инициации импульса. У многих центральных нейронов это начальный сегмент аксона; у псевдоуниполярных чувствительных нейронов запуск распространяющегося импульса связан с периферическим рецепторным окончанием и близлежащим возбудимым участком. Поэтому нельзя помещать генератор потенциала действия во всех нейронах только в соме.'
+              : language === 'EN'
+                ? 'The receptive dendritic region integrates local potentials, which influence threshold in the spike-initiation zone. In many central neurons this is the axon initial segment; in pseudounipolar sensory neurons propagated activity is initiated near specialized peripheral receptor endings and adjacent excitable membrane. Thus the soma is not universally the site of spike initiation.'
+                : 'Рецепторлық-дендриттік аймақ жергілікті потенциалдарды біріктіреді; олар импульс басталатын аймақтың табалдырығына әсер етеді. Орталық нейрондардың көбінде бұл аксонның бастапқы сегменті, ал псевдоуниполярлы сезімтал нейрондарда таралатын импульс шеткі рецептор ұшы маңындағы қозғыш мембранада басталады. Сондықтан барлық нейронда импульс тек сомада пайда болады деуге болмайды.' },
+            { type: 'paragraph' as const, text: language === 'RU'
+              ? 'Аксон проводит потенциалы действия без постепенного уменьшения их амплитуды при нормальном восстановительном распространении. Аксонные окончания используют электрический сигнал для запуска межклеточной передачи. У чувствительных нейронов тело клетки может располагаться сбоку от проводящего отростка; учебная схема «дендрит — сома — аксон» не является обязательным маршрутом каждого сигнала.'
+              : language === 'EN'
+                ? 'During normal regenerative propagation, an action potential travels along the axon without progressively shrinking in amplitude. Axon terminals use this signal for intercellular transmission. In sensory neurons the soma may be located to the side of the conducting process, so the classroom dendrite–soma–axon diagram does not describe every actual route.'
+                : 'Қалыпты регенеративті таралуда әрекет потенциалы аксон бойымен амплитудасы біртіндеп кемімей өтеді. Аксон ұштары осы сигнал арқылы жасушааралық берілісті іске қосады. Сезімтал нейрондарда сома өткізгіш өсіндінің бүйірінде жатуы мүмкін, сондықтан «дендрит — сома — аксон» оқу сызбасы әр сигналдың нақты жолын көрсетпейді.' }
+          ],
+        },
+        {
+          id: 'glia-extracellular-homeostasis',
+          title: language === 'RU' ? 'Глия: ионы, медиаторы и защита' : language === 'EN' ? 'Glia: ions, transmitters and defense' : 'Глия: иондар, медиаторлар және қорғаныс',
+          blocks: [
+            { type: 'paragraph' as const, text: language === 'RU'
+              ? 'Астроциты поддерживают внеклеточные концентрации K⁺ и участвуют в удалении выделенного глутамата. Когда внеклеточный K⁺ накапливается, равновесный потенциал K⁺ становится менее отрицательным и нейроны могут деполяризоваться. Умеренная деполяризация может повышать возбудимость, а выраженная или длительная — уменьшать доступность Na⁺-каналов и нарушать проведение. Поэтому изменение возбудимости не следует описывать одним неизменным эффектом.'
+              : language === 'EN'
+                ? 'Astrocytes help maintain extracellular K⁺ levels and clear released glutamate. As extracellular K⁺ accumulates, the K⁺ equilibrium potential becomes less negative and neurons may depolarize. Modest depolarization can increase excitability, while marked or sustained depolarization can reduce available Na⁺ channels and impair firing. The physiological effect is therefore not a single invariant direction.'
+                : 'Астроциттер жасушадан тыс K⁺ мөлшерін ұстап тұруға және бөлінген глутаматты әкетуге қатысады. Сыртқы K⁺ жиналса, оның тепе-теңдік потенциалы теріс мәні жағынан азайып, нейрондар деполяризациялануы мүмкін. Орташа деполяризация қозғыштықты арттыруы, ал айқын не ұзақ деполяризация Na⁺ арналарының қолжетімділігін азайтып, импульс түзілуін бұзуы мүмкін.' },
+            { type: 'paragraph' as const, text: language === 'RU'
+              ? 'Олигодендроциты образуют миелин в ЦНС и способны миелинизировать участки нескольких аксонов. Шванновская клетка формирует один миелиновый интернод одного аксона в ПНС; немиелинизированные периферические аксоны также связаны со шванновскими клетками. Микроглия участвует в иммунном надзоре и реакции на повреждение. Эти функции различаются, поэтому термин «глия» не обозначает один тип клетки.'
+              : language === 'EN'
+                ? 'Oligodendrocytes form myelin in the CNS and may myelinate segments of several axons. A Schwann cell forms one myelin internode on one PNS axon, and unmyelinated peripheral axons can also be supported by Schwann cells. Microglia contribute to immune surveillance and responses to injury. Glia therefore refers to several functionally distinct cell populations.'
+                : 'Олигодендроциттер ОЖЖ-де миелин түзеді және бірнеше аксонның бөліктерін миелиндей алады. ШЖЖ-де бір Шванн жасушасы бір аксонның бір миелинді интернодын қалыптастырады, ал миелинсіз шеткі аксондарды да Шванн жасушалары қолдайды. Микроглия иммундық қадағалау мен зақымға жауапқа қатысады. Демек, «глия» бір ғана жасуша түрі емес.' }
+          ],
+        },
+        {
+          id: 'myelin-conduction-interpretation',
+          title: language === 'RU' ? 'Миелин и измерение нервного проведения' : language === 'EN' ? 'Myelin and nerve-conduction measurement' : 'Миелин және жүйке өткізгіштігін өлшеу',
+          blocks: [
+            { type: 'paragraph' as const, text: language === 'RU'
+              ? 'Миелин повышает сопротивление и уменьшает ёмкость интернодальной мембраны, благодаря чему локальный ток достигает следующего перехвата Ранвье и запускает новый потенциал действия. Утрата миелина увеличивает утечку тока, замедляет проведение и при тяжёлом повреждении может привести к блоку. Более крупный диаметр аксона снижает внутреннее продольное сопротивление, что также способствует быстрому проведению. C-волокна не имеют компактного миелина и проводят импульс непрерывно.'
+              : language === 'EN'
+                ? 'Myelin increases internodal membrane resistance and reduces capacitance, allowing local current to reach the next node of Ranvier and regenerate an action potential. Demyelination increases current leakage, slows conduction and may cause conduction block. A larger axon diameter also reduces axial resistance and favors faster conduction. Unmyelinated C fibers propagate continuously.'
+                : 'Миелин интернодтық мембрананың кедергісін арттырып, сыйымдылығын төмендетеді; жергілікті ток келесі Ранвье түйініне жетіп, жаңа әрекет потенциалын туғызады. Демиелинизация токтың ағып кетуін арттырып, өткізуді баяулатады және ауыр жағдайда блок туғызуы мүмкін. Аксон диаметрі үлкейсе, бойлық кедергі азаяды. Миелинсіз C-талшықтарда импульс үздіксіз таралады.' },
+            { type: 'paragraph' as const, text: language === 'RU'
+              ? 'При исследовании периферического нерва скорость по сегменту рассчитывают как расстояние между двумя точками стимуляции, делённое на разность латентностей. Для моторного исследования это помогает исключить постоянную задержку нервно-мышечной передачи и ответа мышцы. Виртуальная лаборатория данного модуля рассчитывает время как расстояние/условная скорость; её коэффициенты температуры и демиелинизации иллюстрируют направление эффекта и не воспроизводят клинический электродиагностический протокол.'
+              : language === 'EN'
+                ? 'Segmental nerve-conduction velocity is estimated by dividing the distance between two stimulation sites by the difference in their response latencies. In motor studies, this helps cancel the shared neuromuscular and muscle-response delay. This module’s virtual lab instead computes travel time from distance and an illustrative speed; its temperature and demyelination factors illustrate trends rather than a validated clinical electrodiagnostic protocol.'
+                : 'Шеткі жүйке сегментінің өткізу жылдамдығы екі ынталандыру нүктесінің арақашықтығын жауап латенттіліктерінің айырмасына бөлу арқылы бағаланады. Моторлық зерттеуде бұл екі өлшемге ортақ жүйке-бұлшықет және бұлшықет жауап кідірісін алып тастауға көмектеседі. Модульдің виртуалды зертханасы уақытты қашықтық пен шартты жылдамдық арқылы есептейді; оның температура және демиелинизация коэффициенттері клиникалық протокол емес, бағытты көрсетуге арналған.' }
+          ],
+        },
+        ] : []),
         ...(topic.id === 5 ? [{
           id: 'neuromuscular-junction',
           title: language === 'RU' ? 'Нервно-мышечная передача' : language === 'EN' ? 'Neuromuscular transmission' : 'Жүйке-бұлшықет берілуі',
