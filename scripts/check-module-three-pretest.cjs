@@ -54,3 +54,6 @@ assert(registry.indexOf("  3: {") > registry.indexOf("  ...foundationLessons,"),
 assert(!source.includes("Наблюдаемое изменение всегда имеет только одну возможную"),
   "Generic non-diagnostic distractor must not return");
 console.log("PASS: Module 3 pretest — 2 mechanism questions × 3 languages, four unique options, correct keys, feedback and route wiring.");
+
+// Run module 3 objectives and one-minute summary regression checks in the existing audit chain.
+require("./check-module-three-learning.cjs");
