@@ -234,8 +234,6 @@ export default async function SectionPage({
           <div id="module1-page-content">
           {moduleNumber === 1 && section === "virtual-patient" ? (
             <VirtualPatient language={lang} />
-          ) : moduleNumber === 2 && section === "virtual-patient" ? (
-            <Module2Content section={section} language={lang} />
           ) : section === "virtual-patient" ? (
             <UnifiedVirtualPatient moduleId={moduleNumber} language={lang} />
           ) : section === "progress" ? (
