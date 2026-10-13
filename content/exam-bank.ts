@@ -286,18 +286,8 @@ export function createExamBank(lang:Language):ExamBankQuestion[]{
    bank.push(q);
    continue;
   }
-  for(let n=0;n<40;n++){
-   const mode=n%4;
-   const core=lang==="RU"?RU_CORE[topic.id]:undefined;
-   const reviewed=n===0?reviewedExamItem(topic.id,lang):undefined;
-   const frame=s.st[Math.floor(n/4)%s.st.length];
-   const framedPrompt=`${frame} ${prompts[mode]}`;
-   const q=reviewed?make(topic.id,title,n,reviewed.prompt,reviewed.correct,[...reviewed.wrong],reviewed.explanation):core&&n===0?make(topic.id,title,n,core.p,core.c,[...core.w],core.e):make(topic.id,title,n,framedPrompt,corrects[mode],wrongSets[mode],explanations[mode]);
-   const lead=lang==="RU"?"Объясните простыми шагами: что изменилось, почему и к какому результату это приводит. ":lang==="EN"?"Explain in simple steps: what changed, why, and what result follows. ":"Қарапайым қадамдармен түсіндіріңіз: не өзгерді, неліктен және қандай нәтижеге әкеледі. ";
-   q.writtenPrompt=lead+q.prompt;
-   if(mode===1) q.taskType="situation";
-   bank.push(q);
-  }
+  // No unreviewed template fallback: missing authored items must be visible in QA.
+  throw new Error("Missing authored exam item for module "+topic.id+" ("+lang+")");
  }
  const sequences=sequenceQuestions(lang);
  // Only explicitly authored and reviewed causal sequences are included.
