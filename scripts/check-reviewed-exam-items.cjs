@@ -3,6 +3,9 @@ const fs=require("node:fs");
 const assert=require("node:assert/strict");
 const read=(p)=>fs.readFileSync(p,"utf8");
 const bank=read("content/exam-bank.ts");
+const first=read("content/reviewed-module-one-exam.ts");
+assert(bank.includes("firstModuleReviewed(lang).map"),"Module 1 authored bank is not wired");
+for(const lang of ["RU","EN","KZ"])assert(first.includes(lang+":["),"Module 1 missing "+lang);
 const groups=[
  {file:"content/reviewed-exam-items.ts",start:2,end:5},
  {file:"content/additional-reviewed-exam-items.ts",start:6,end:7},
@@ -25,5 +28,7 @@ for(const name of ["reviewedExamItem","additionalReviewedItem","reviewedPathwayI
  assert(bank.includes(name+"(topic.id,lang)"),"Exam bank missing "+name);
 }
 assert(bank.includes("if(reviewedForTopic){"),"Reviewed questions must bypass template generation");
+assert(!bank.includes("for(let n=0;n<40;n++)"),"Generic template generator must be absent");
+assert(bank.includes("Missing authored exam item"),"Missing module should fail visibly");
 assert(!bank.includes('correctOrder:["stimulus","a","b","response"]'),"Invalid generic sequence keys remain");
-console.log("Source wiring checks passed for modules 2-25 in RU, EN and KZ.");
+console.log("Source wiring checks passed for modules 1-25 in RU, EN and KZ.");
