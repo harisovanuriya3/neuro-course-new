@@ -37,5 +37,5 @@ for(const file of files){
   if(explanation&&JSON.parse('"'+explanation[1]+'"').length<25)failures.push(file+": too-short explanation");
  }
 }
-if(failures.length){console.error(failures.join("\\n"));process.exitCode=1;}
+if(failures.length){console.error(failures.join("\n"));process.exitCode=1;}
 else console.log("Exam content QA passed: "+count+" language-specific prompts across "+files.length+" authored source files; no exact duplicate prompts, short prompts or missing explanations.");
