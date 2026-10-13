@@ -18,6 +18,7 @@ import { createMediaLesson } from "./modules/1/media";
 import { foundationLessons } from "./course-foundation";
 import { createModuleThreePretest } from "./course-foundation/module-three-pretest";
 import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-foundation/module-three-learning";
+import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { modules } from "./course";
 import { getSectionTitle } from "./sections";
 
@@ -37,6 +38,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   3: {
     ...foundationLessons[3],
+    clinical: { RU: createModuleThreeClinical("RU"), EN: createModuleThreeClinical("EN"), KZ: createModuleThreeClinical("KZ") },
     objectives: {
       RU: createModuleThreeObjectives("RU"),
       EN: createModuleThreeObjectives("EN"),
