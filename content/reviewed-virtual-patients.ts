@@ -43,6 +43,8 @@ export function getReviewedVirtualPatientScenario(moduleId:number, language:Lang
  return {...base,stages:base.stages.map((stage,index)=>({
    ...stage,
    task:prompts[language][index],
+   // Strip patient-examination prefixes from a computer-model observation.
+   newData:stage.newData.replace(/^[^:]+:\s*/, ""),
    options:stage.options.map(option=>{
      const decision=option.id.split("-decision-")[1];
      if(decision!=="2" && decision!=="3") return option;
