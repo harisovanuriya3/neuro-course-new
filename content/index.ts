@@ -23,8 +23,17 @@ import { createModuleThreePractice } from "./course-foundation/module-three-prac
 import { createModuleThreeTest } from "./course-foundation/module-three-test";
 import { createModuleThreeCases } from "./course-foundation/module-three-cases";
 import { createModuleThreeQuestions } from "./course-foundation/module-three-questions";
+import { createModuleThreeGlossary } from "./course-foundation/module-three-glossary";
 import { modules } from "./course";
 import { getSectionTitle } from "./sections";
+
+function moduleThreeBaseGlossary(language: Language) {
+  const lesson = foundationLessons[3]?.glossary?.[language];
+  if (!lesson || lesson.kind !== "glossary") {
+    throw new Error("Module 3 base glossary is missing for " + language);
+  }
+  return lesson;
+}
 
 function moduleThreeBaseTest(language: Language) {
   const lesson = foundationLessons[3]?.tests?.[language];
@@ -64,6 +73,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   3: {
     ...foundationLessons[3],
+    glossary: {
+      RU: createModuleThreeGlossary("RU", moduleThreeBaseGlossary("RU")),
+      EN: createModuleThreeGlossary("EN", moduleThreeBaseGlossary("EN")),
+      KZ: createModuleThreeGlossary("KZ", moduleThreeBaseGlossary("KZ")),
+    },
     clinical: { RU: createModuleThreeClinical("RU"), EN: createModuleThreeClinical("EN"), KZ: createModuleThreeClinical("KZ") },
     questions: {
       RU: createModuleThreeQuestions("RU"),
