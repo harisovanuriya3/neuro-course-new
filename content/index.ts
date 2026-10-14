@@ -24,8 +24,17 @@ import { createModuleThreeTest } from "./course-foundation/module-three-test";
 import { createModuleThreeCases } from "./course-foundation/module-three-cases";
 import { createModuleThreeQuestions } from "./course-foundation/module-three-questions";
 import { createModuleThreeGlossary } from "./course-foundation/module-three-glossary";
+import { createModuleThreeMedia } from "./course-foundation/module-three-media";
 import { modules } from "./course";
 import { getSectionTitle } from "./sections";
+
+function moduleThreeBaseMedia(language: Language) {
+  const lesson = foundationLessons[3]?.media?.[language];
+  if (!lesson || lesson.kind !== "media") {
+    throw new Error("Module 3 base media is missing for " + language);
+  }
+  return lesson;
+}
 
 function moduleThreeBaseGlossary(language: Language) {
   const lesson = foundationLessons[3]?.glossary?.[language];
@@ -73,6 +82,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   3: {
     ...foundationLessons[3],
+    media: {
+      RU: createModuleThreeMedia("RU", moduleThreeBaseMedia("RU")),
+      EN: createModuleThreeMedia("EN", moduleThreeBaseMedia("EN")),
+      KZ: createModuleThreeMedia("KZ", moduleThreeBaseMedia("KZ")),
+    },
     glossary: {
       RU: createModuleThreeGlossary("RU", moduleThreeBaseGlossary("RU")),
       EN: createModuleThreeGlossary("EN", moduleThreeBaseGlossary("EN")),
