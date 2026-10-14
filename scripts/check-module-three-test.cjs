@@ -33,6 +33,12 @@ for(const lang of ['RU','EN','KZ']){
    assert.equal(new Set(n.options.map(o=>o.text)).size,4,lang+' '+key+' duplicate distractor');
    assert.equal(new Set(n.options.map(o=>o.id)).size,4,lang+' '+key+' duplicate id');
    assert.equal(n.options.filter(o=>o.id===n.correctAnswer).length,1,lang+' '+key+' invalid key');
+   if(skill==='transfer'&&level==='main') {
+    const distractors=n.options.filter(o=>o.id!==n.correctAnswer);
+    assert(distractors.every(o=>o.text.length>=55),lang+' transfer distractors too terse to be plausible');
+    assert(n.explanation.toLowerCase().includes(lang==='EN'?'temperature':lang==='RU'?'температур':'температур'),
+      lang+' transfer explanation must address temperature as a confounder');
+   }
    assert.equal(n.onCorrect,'next');
    assert.equal(n.onIncorrect,'review');
    assert.notEqual(n.prompt,'Generic question');
