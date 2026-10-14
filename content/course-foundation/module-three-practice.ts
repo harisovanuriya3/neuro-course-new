@@ -21,7 +21,7 @@ type Copy = {
 const copy: Record<Language, Copy> = {
   RU: {
     anatomyTitle: '1. Функции клеток нервной ткани',
-    anatomyIntro: 'Заполните две колонки для каждой клетки: место/роль и механизм. Сравните клетки ЦНС и ПНС, не приписывая микроглии образование миелина.',
+    anatomyIntro: 'Сначала самостоятельно назовите роль и механизм каждой клетки, затем сравните с таблицей. Различайте клетки ЦНС и ПНС; микроглия не образует миелин.',
     tableHeaders: ['Клетка','Где действует и что делает','Физиологический механизм'],
     tableRows: [
       ['Астроцит','ЦНС: поддержание микросреды нейронов и синапсов','Поглощение избытка внеклеточного K⁺ и медиаторов; участие в поддержке синапсов'],
@@ -30,7 +30,7 @@ const copy: Record<Language, Copy> = {
       ['Микроглия','ЦНС: иммунный надзор и ответ на повреждение','Распознавание повреждения и удаление клеточного детрита'],
     ],
     mechanismTitle: '2. Два разных механизма нарушения сигнала',
-    mechanismIntro: 'Сопоставьте последствия демиелинизации и недостаточного удаления внеклеточного K⁺. Не считайте их одним и тем же процессом и не утверждайте, что скорость обязательно падает на одинаковую величину.',
+    mechanismIntro: 'До просмотра таблицы объясните отдельно последствия демиелинизации и недостаточного удаления внеклеточного K⁺. Затем сверьте два механизма: это разные процессы, а степень изменения скорости не фиксирована.',
     mechanismHeaders: ['Изменение','Ожидаемый механизм','Что ограничивает вывод'],
     mechanismRows: [
       ['Утрата миелина','Утечка тока и увеличение эффективной ёмкостной нагрузки снижают надёжность проведения; возможен блок','Степень замедления зависит от поражённого участка, температуры и состояния аксона'],
@@ -62,7 +62,7 @@ const copy: Record<Language, Copy> = {
   },
   EN: {
     anatomyTitle: '1. Functional roles of neural cells',
-    anatomyIntro: 'Fill in the location/role and mechanism columns for each cell. Compare CNS and PNS glia; do not assign myelin production to microglia.',
+    anatomyIntro: 'First predict each cell's location, role and mechanism, then compare your answer with the table. Distinguish CNS from PNS glia; microglia do not produce myelin.',
     tableHeaders: ['Cell','Location and role','Physiological mechanism'],
     tableRows: [
       ['Astrocyte','CNS: maintains the neuronal and synaptic environment','Buffers extracellular K⁺ and clears transmitters; supports synaptic function'],
@@ -71,7 +71,7 @@ const copy: Record<Language, Copy> = {
       ['Microglia','CNS: immune surveillance and response to injury','Recognizes injury and clears cellular debris'],
     ],
     mechanismTitle: '2. Two distinct causes of impaired signaling',
-    mechanismIntro: 'Contrast demyelination with impaired extracellular K⁺ clearance. They are not the same process; do not assume a fixed magnitude of slowing.',
+    mechanismIntro: 'Before reading the table, predict the effects of demyelination and impaired extracellular K⁺ clearance separately. Compare your predictions with the two distinct mechanisms; slowing has no fixed magnitude.',
     mechanismHeaders: ['Change','Expected mechanism','Limit on interpretation'],
     mechanismRows: [
       ['Myelin loss','Increased current leakage and effective capacitive load impair propagation and may cause block','The extent depends on lesion distribution, temperature and axonal integrity'],
@@ -103,7 +103,7 @@ const copy: Record<Language, Copy> = {
   },
   KZ: {
     anatomyTitle: '1. Жүйке тіні жасушаларының қызметі',
-    anatomyIntro: 'Әр жасуша үшін орналасуы/қызметі мен физиологиялық тетігін толтырыңыз. ОЖЖ мен ШЖЖ глиясын салыстырыңыз; микроглияға миелин түзу қызметін телімеңіз.',
+    anatomyIntro: 'Алдымен әр жасушаның орналасуын, қызметі мен тетігін өзіңіз болжаңыз, содан кейін кестемен салыстырыңыз. ОЖЖ мен ШЖЖ глиясын ажыратыңыз; микроглия миелин түзбейді.',
     tableHeaders: ['Жасуша','Орналасуы және қызметі','Физиологиялық тетік'],
     tableRows: [
       ['Астроцит','ОЖЖ: нейрон мен синапс айналасындағы ортаны реттейді','Жасушадан тыс K⁺ пен медиаторларды сіңіреді, синапстарды қолдайды'],
@@ -112,7 +112,7 @@ const copy: Record<Language, Copy> = {
       ['Микроглия','ОЖЖ: иммундық қадағалау және зақымға жауап','Зақымды танып, жасушалық қалдықтарды жояды'],
     ],
     mechanismTitle: '2. Сигнал бұзылуының екі түрлі тетігі',
-    mechanismIntro: 'Демиелинденуді жасушадан тыс K⁺ шығарылуының жеткіліксіздігімен салыстырыңыз. Екеуін бір үдеріс деп есептемеңіз және жылдамдық міндетті түрде бірдей шамаға төмендейді демеңіз.',
+    mechanismIntro: 'Кестені оқымас бұрын демиелиндену мен жасушадан тыс K⁺ шығарылуының жеткіліксіздігін жеке түсіндіріңіз. Содан кейін екі түрлі тетікті салыстырыңыз; жылдамдық өзгерісінің шамасы тұрақты емес.',
     mechanismHeaders: ['Өзгеріс','Күтілетін тетік','Қорытындының шектеуі'],
     mechanismRows: [
       ['Миелиннің жоғалуы','Токтың ағып кетуі мен сыйымдылық жүктемесі артады; өткізу сенімділігі төмендеп, блок болуы мүмкін','Әсері зақым орнына, температураға және аксонның сақталуына тәуелді'],
