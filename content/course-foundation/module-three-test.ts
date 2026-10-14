@@ -50,6 +50,32 @@ const followups:Record<Language,Record<Skill,[string,string]>>={
   justification:['Неліктен шынтақ пен білезік арасындағы жылдамдықты тек проксималдық М-жауап латенттілігімен есептеуге болмайды?','Екі стимуляция нүктесі арасындағы жылдамдықты есептегенде ортақ дисталдық кідірістер қалай жойылады?']
  }
 };
+// Remediation must address the actual physiology of the failed competency,
+// not the glossary-derived "neuron → myelin" template.
+const remediation:Record<Language,Record<Skill,[string,string]>>={
+ RU:{
+  concept:['Вспомните, какая клетка ЦНС удаляет избыток внеклеточного K⁺. Отделите эту функцию от миелинизации и иммунного надзора.','Сопоставьте четыре типа глии: астроцит — ионная микросреда, олигодендроцит — миелин ЦНС, шванновская клетка — миелин ПНС, микроглия — иммунный ответ.'],
+  mechanism:['Представьте интернод без полноценного миелина: ток сильнее утекает через мембрану, поэтому следующий перехват может не достичь порога.','Миелин повышает сопротивление и снижает ёмкость интернода. Проверьте оба изменения при его утрате и объясните, почему возможны замедление и блок проведения.'],
+  application:['Вычтите дистальную латентность из проксимальной. Затем переведите сантиметры в метры, миллисекунды в секунды и разделите расстояние на разность времени.','Проверьте единицы и три расчёта: (7,2−3,2) мс и 20 см дают 50 м/с; (9,0−4,0) мс и 25 см дают 50 м/с; (5,0−3,0) мс и 12 см дают 60 м/с.'],
+  transfer:['Сравните измерения до и после согревания при прочих одинаковых условиях. Почему одно замедление в холодной конечности ещё не доказывает утрату миелина?','Температура изменяет скорость проведения. После её контроля оцените другие сегменты, амплитуду и форму М-ответа и клинические признаки, прежде чем говорить о механизме поражения.'],
+  justification:['Разделите латентность М-ответа на время прохождения исследуемого сегмента и общие дистальные задержки, включая нервно-мышечную передачу.','При вычитании двух латентностей общая дистальная задержка сокращается; разность приближённо отражает время между точками стимуляции. Проверьте, что измерено расстояние именно вдоль нерва.']
+ },
+ EN:{
+  concept:['Recall which CNS glial cell buffers excess extracellular K⁺. Distinguish this function from myelin formation and immune surveillance.','Match the four glial cell types: astrocyte—ionic homeostasis; oligodendrocyte—CNS myelin; Schwann cell—PNS myelin; microglia—immune response.'],
+  mechanism:['Imagine an internode without adequate myelin: more current leaks across its membrane, so the next node may fail to reach threshold.','Myelin increases internodal resistance and decreases capacitance. Trace both changes after myelin loss to explain slowing or conduction block.'],
+  application:['Subtract distal from proximal onset latency. Convert centimeters to meters and milliseconds to seconds, then divide distance by the time difference.','Check units for three examples: 20 cm/(7.2−3.2) ms = 50 m/s; 25 cm/(9.0−4.0) ms = 50 m/s; 12 cm/(5.0−3.0) ms = 60 m/s.'],
+  transfer:['Compare measurements before and after warming while keeping other conditions similar. Why does slowing in a cold limb alone not prove myelin loss?','Temperature affects conduction velocity. Once controlled, assess other segments, CMAP amplitude and waveform, and clinical findings before inferring a lesion mechanism.'],
+  justification:['Separate CMAP onset latency into conduction through the studied segment and shared distal delays, including neuromuscular transmission.','Subtracting the two onset latencies cancels shared distal delay; the difference approximates conduction time between sites. Confirm distance was measured along the nerve.']
+ },
+ KZ:{
+  concept:['Жасушадан тыс артық K⁺-ті ОЖЖ-де қай глия буферлейтінін еске түсіріңіз. Бұл қызметті миелин түзу мен иммундық қадағалаудан ажыратыңыз.','Төрт глия түрін сәйкестендіріңіз: астроцит — иондық орта; олигодендроцит — ОЖЖ миелині; Шванн жасушасы — ШЖЖ миелині; микроглия — иммундық жауап.'],
+  mechanism:['Миелині зақымданған интернодта мембрана арқылы ток көбірек ағып кетеді. Соның салдарынан келесі Ранвье түйіні табалдырыққа жетпеуі мүмкін.','Миелин интернод кедергісін арттырып, сыйымдылығын азайтады. Миелин жоғалғанда осы екі шаманың өзгеруі өткізуді неге баяулататынын немесе бөгейтінін түсіндіріңіз.'],
+  application:['Проксималдық латенттіліктен дисталдықты азайтыңыз. Сантиметрді метрге, миллисекундты секундқа айналдырып, арақашықтықты уақыт айырмасына бөліңіз.','Өлшем бірліктерін тексеріңіз: 20 см/(7,2−3,2) мс = 50 м/с; 25 см/(9,0−4,0) мс = 50 м/с; 12 см/(5,0−3,0) мс = 60 м/с.'],
+  transfer:['Басқа жағдайларды бірдей сақтап, жылытуға дейінгі және кейінгі нәтижелерді салыстырыңыз. Суық аяқ-қолдағы бір баяу өлшем неліктен миелин жоғалуын дәлелдемейді?','Температура өткізу жылдамдығына әсер етеді. Оны бақылаған соң басқа сегменттерді, М-жауап амплитудасы мен пішінін және клиникалық белгілерді бағалаңыз.'],
+  justification:['М-жауап латенттілігін зерттелетін сегменттегі өткізу уақытына және жүйке-бұлшықет берілісін қамтитын ортақ дисталдық кідірістерге ажыратыңыз.','Екі латенттілікті азайтқанда ортақ дисталдық кідіріс қысқарады; айырмасы стимуляция нүктелері арасындағы уақытты жуықтайды. Арақашықтық жүйке бойымен өлшенгенін тексеріңіз.']
+ }
+};
+
 const applicationFeedback:Record<Language,[string,string]>={
  RU:['Разность латентностей 5,0 мс; 0,25 м / 0,005 с = 50 м/с.','Разность латентностей 2,0 мс; 0,12 м / 0,002 с = 60 м/с.'],
  EN:['Latency difference = 5.0 ms; 0.25 m / 0.005 s = 50 m/s.','Latency difference = 2.0 ms; 0.12 m / 0.002 s = 60 m/s.'],
@@ -71,6 +97,13 @@ export function createModuleThreeTest(language:Language,base:BranchingTest):Bran
    const options:TestOption[]=[{id:'a',text:answer},{id:'b',text:firstDistractor},{id:'c',text:w2},{id:'d',text:w3}];
    const shift=(i+j+3)%4;
    nodes[key]={...old,prompt:j===0?prompt:followups[language][skill][j-1],options:[...options.slice(shift),...options.slice(0,shift)],correctAnswer:'a',explanation:skill==='application'&&j>0?applicationFeedback[language][j-1]:explanation};
+  }
+  // Preserve the base graph's links and targets, but replace generic hints.
+  for(const [index,depth] of [1,2].entries()){
+   const key=skill+':review-'+depth;
+   const old=nodes[key];
+   if(!old||old.type!=='remediation')throw new Error('Missing module 3 remediation node '+key);
+   nodes[key]={...old,text:remediation[language][skill][index]};
   }
  }
  return {...base,nodes};
