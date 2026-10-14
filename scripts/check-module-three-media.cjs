@@ -14,6 +14,14 @@ for (const lang of ['RU','EN','KZ']) {
 for (const required of ['Node of Ranvier','Ранвье','Ранвье түйіндері','Oligodendrocytes','Олигодендроциты','Олигодендроциттер','CMAP','М-ответ','М-жауап']) {
   assert(src.includes(required), 'Missing mechanism or translation marker: '+required);
 }
+// The existing generic four-frame SVG must not be described as a physiological myelin experiment.
+for (const phrase of [
+  'Условная четырёхэтапная визуализация',
+  'generic four-step process illustration',
+  'төрт кезеңдік шартты сызбасы',
+]) assert(src.includes(phrase), 'Module 3 media must disclose the generic diagram: '+phrase);
+const animation=fs.readFileSync('components/FoundationMediaAnimation.tsx','utf8');
+assert(animation.includes('moduleId===3?"cells"'), 'Generic module 3 visual changed: reassess scientific claims');
 assert(src.includes("correctAnswer: 'b'"), 'Correct answer key changed');
 assert(src.includes("(['a','b','c','d'] as const)"), 'Four distractor choices missing');
 assert(registry.includes('createModuleThreeMedia'), 'Module 3 reviewed media is not yet registered in content/index.ts');
