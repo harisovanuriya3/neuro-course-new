@@ -20,8 +20,17 @@ import { createModuleThreePretest } from "./course-foundation/module-three-prete
 import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-foundation/module-three-learning";
 import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
+import { createModuleThreeTest } from "./course-foundation/module-three-test";
 import { modules } from "./course";
 import { getSectionTitle } from "./sections";
+
+function moduleThreeBaseTest(language: Language) {
+  const lesson = foundationLessons[3]?.tests?.[language];
+  if (!lesson || lesson.kind !== "tests") {
+    throw new Error("Module 3 base test is missing for " + language);
+  }
+  return lesson;
+}
 
 function moduleThreeBasePractice(language: Language) {
   const lesson = foundationLessons[3]?.practice?.[language];
@@ -52,6 +61,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       RU: createModuleThreePractice("RU", moduleThreeBasePractice("RU")),
       EN: createModuleThreePractice("EN", moduleThreeBasePractice("EN")),
       KZ: createModuleThreePractice("KZ", moduleThreeBasePractice("KZ")),
+    },
+    tests: {
+      RU: createModuleThreeTest("RU", moduleThreeBaseTest("RU")),
+      EN: createModuleThreeTest("EN", moduleThreeBaseTest("EN")),
+      KZ: createModuleThreeTest("KZ", moduleThreeBaseTest("KZ")),
     },
     objectives: {
       RU: createModuleThreeObjectives("RU"),
