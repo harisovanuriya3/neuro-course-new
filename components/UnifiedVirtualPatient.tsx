@@ -148,7 +148,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
           <span>{c.stage} {state.current + 1}/6</span>
         </div>}
         <VirtualPatientVisual moduleId={moduleId} stage={state.current + 1} selected={decisionCommitted ? selected : null} language={language} />
-        <div className={styles.caseLabel}>{c.case}</div><h2>{scenario.patient}</h2><p className={styles.profile}>{scenario.profile}</p><div className={styles.patientBubble}>{scenario.opening}</div>
+        <div className={styles.caseLabel}>{moduleId === 3 ? {RU:"Компьютерная модель",EN:"Computer model",KZ:"Компьютерлік модель"}[language] : c.case}</div><h2>{scenario.patient}</h2><p className={styles.profile}>{scenario.profile}</p><div className={styles.patientBubble}>{scenario.opening}</div>
       </aside>
       <section className={styles.workspace} aria-labelledby="vp-stage-title">
         <div className={styles.stageCount}>{c.stage} {state.current + 1}/6</div>
