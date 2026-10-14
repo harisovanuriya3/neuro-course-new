@@ -27,6 +27,34 @@ const authored:Record<Language,Record<Skill,Item>>={
   justification:['Моторлық өткізуді есептегенде неге проксималдық М-жауап латенттілігінен дисталдықты азайтады?','Жүйке-бұлшықет берілісін қоса алғанда ортақ дисталдық кідірістерді жою үшін.','Өйткені дисталдық латенттілік нөлге тең.','Тек электрод тіркеу уақытын жою үшін.','Өйткені проксималдық стимуляция бұлшықет жауабын тудырмайды.','Латенттіліктер айырмасы екі стимуляция нүктесі арасындағы өткізу уақытын жуықтайды.']
  }
 };
+const followups:Record<Language,Record<Skill,[string,string]>>={
+ RU:{
+  concept:['После серии импульсов K⁺ вокруг нейронов ЦНС накапливается. Какая глия участвует в его удалении?','В коре нарушено глиальное буферирование K⁺. Какой тип клетки прежде всего рассматривают?'],
+  mechanism:['Почему при сохранённых перехватах Ранвье повреждение интернода может вызвать блок проведения?','Как утрата изоляции интернода влияет на возбуждение следующего перехвата Ранвье?'],
+  application:['Латентности М-ответа 4,0 мс и 9,0 мс; расстояние 25 см. Вычислите сегментарную скорость.','Дистальная латентность 3,0 мс, проксимальная 5,0 мс, расстояние 10 см. Какова скорость?'],
+  transfer:['Сначала у пациента в холодной кисти проведение было замедлено, а при повторе после согревания стало обычным. Как интерпретировать разницу?','При исследовании нерва выявлено замедление, но конечность была холодной. После контроля температуры результат нормализовался. Какой вывод допустим?'],
+  justification:['Почему нельзя оценить скорость сегмента между локтем и запястьем по одной проксимальной латентности М-ответа?','Как устранить общие дистальные задержки при расчёте скорости между двумя точками стимуляции?']
+ },
+ EN:{
+  concept:['K⁺ accumulates around CNS neurons after repeated firing. Which glial cell contributes to its clearance?','Glial K⁺ buffering is impaired in cerebral cortex. Which cell type is most relevant?'],
+  mechanism:['Why can internodal damage cause conduction block even if the nodes of Ranvier remain intact?','How does loss of internodal insulation affect excitation of the next node of Ranvier?'],
+  application:['CMAP onset latencies are 4.0 and 9.0 ms; the distance is 25 cm. Calculate segmental velocity.','Distal onset latency is 3.0 ms, proximal 5.0 ms, distance 10 cm. What is velocity?'],
+  transfer:['Conduction is slow in a cold hand, but normal when repeated after warming. How should the difference be interpreted?','Nerve conduction initially appears slow in a cold limb and becomes normal at controlled temperature. What conclusion is justified?'],
+  justification:['Why can a single proximal CMAP onset latency not give velocity for the elbow-to-wrist segment?','How are shared distal delays removed when computing velocity between two stimulation sites?']
+ },
+ KZ:{
+  concept:['Бірнеше импульстен кейін ОЖЖ нейрондары маңында K⁺ жиналды. Оны әкетуге қай глия қатысады?','Ми қыртысында K⁺-ті глиялық буферлеу бұзылған. Қай жасуша маңызды?'],
+  mechanism:['Ранвье түйіндері бүтін болса да, интернод зақымы неге өткізу блогын тудыруы мүмкін?','Интернод оқшаулауы жоғалса, келесі Ранвье түйінінің қозуы қалай өзгереді?'],
+  application:['М-жауап латенттіліктері 4,0 және 9,0 мс, арақашықтық 25 см. Сегменттік жылдамдықты есептеңіз.','Дисталдық латенттілік 3,0 мс, проксималдық 5,0 мс, арақашықтық 10 см. Жылдамдық қандай?'],
+  transfer:['Суық қолда өткізу баяу болды, жылытқаннан кейін қалыпты болды. Айырмашылықты қалай түсіндіреміз?','Суық аяқ-қолда бастапқы өткізу баяу, температураны бақылағаннан кейін қалыпты. Қандай қорытынды негізді?'],
+  justification:['Неліктен шынтақ пен білезік арасындағы жылдамдықты тек проксималдық М-жауап латенттілігімен есептеуге болмайды?','Екі стимуляция нүктесі арасындағы жылдамдықты есептегенде ортақ дисталдық кідірістер қалай жойылады?']
+ }
+};
+const applicationFeedback:Record<Language,[string,string]>={
+ RU:['Разность латентностей 5,0 мс; 0,25 м / 0,005 с = 50 м/с.','Разность латентностей 2,0 мс; 0,10 м / 0,002 с = 50 м/с.'],
+ EN:['Latency difference = 5.0 ms; 0.25 m / 0.005 s = 50 m/s.','Latency difference = 2.0 ms; 0.10 m / 0.002 s = 50 m/s.'],
+ KZ:['Латенттіліктер айырмасы 5,0 мс; 0,25 м / 0,005 с = 50 м/с.','Латенттіліктер айырмасы 2,0 мс; 0,10 м / 0,002 с = 50 м/с.']
+};
 export function createModuleThreeTest(language:Language,base:BranchingTest):BranchingTest{
  const nodes:BranchingTest['nodes']={...base.nodes};
  const skills:Skill[]=['concept','mechanism','application','transfer','justification'];
@@ -39,7 +67,7 @@ export function createModuleThreeTest(language:Language,base:BranchingTest):Bran
    if(!old||old.type!=='question')throw new Error('Missing module 3 test node '+key);
    const options:TestOption[]=[{id:'a',text:correct},{id:'b',text:w1},{id:'c',text:w2},{id:'d',text:w3}];
    const shift=(i+j+3)%4;
-   nodes[key]={...old,prompt,options:[...options.slice(shift),...options.slice(0,shift)],correctAnswer:'a',explanation};
+   nodes[key]={...old,prompt:j===0?prompt:followups[language][skill][j-1],options:[...options.slice(shift),...options.slice(0,shift)],correctAnswer:'a',explanation:skill==='application'&&j>0?applicationFeedback[language][j-1]:explanation};
   }
  }
  return {...base,nodes};
