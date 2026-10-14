@@ -17,7 +17,7 @@ const data: Record<Language, Item[]> = {
    explanation:'Обе латентности содержат общие дистальные задержки: терминальное проведение, нервно-мышечную передачу и активацию мышцы. Разность приближённо отражает время проведения между точками; скорость равна расстоянию вдоль нерва, делённому на разность в секундах. Контролируйте температуру, измерение расстояния, амплитуду и форму М-ответа, нормативы и клинический контекст.',target:'practice'}
  ],
  EN: [
-  {prompt:'Why need a cutaneous pseudounipolar sensory neuron not initiate action potentials in its soma, unlike a simplified motor-neuron diagram?',
+  {prompt:'Why does a cutaneous pseudounipolar sensory neuron not necessarily initiate action potentials in its soma, unlike the impression given by a simplified motor-neuron diagram?',
    explanation:'A typical spinal motor neuron initiates spikes at the axon initial segment after integrating inputs. In cutaneous sensory neurons, spikes may arise at the first excitable node of the peripheral process; the dorsal root ganglion soma lies off the main conduction path. Not every sensory receptor ending operates identically.',target:'theory'},
   {prompt:'With presynaptic stimulation held constant, extracellular glutamate decays more slowly. How would you distinguish reduced astrocytic uptake from increased release?',
    explanation:'Astrocytes contribute to glutamate clearance. Compare an independent measure of transmitter release with the decay of an equal experimentally delivered glutamate pulse. Slower clearance with unchanged release supports impaired uptake; a prolonged postsynaptic response alone cannot distinguish these explanations.',target:'cases'},
