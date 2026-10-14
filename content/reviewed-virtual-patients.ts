@@ -75,7 +75,7 @@ export function getReviewedVirtualPatientScenario(moduleId:number, language:Lang
    options:stage.options.map(option=>{
      const decision=option.id.split("-decision-")[1];
      if(decision!=="2" && decision!=="3") return option;
-     return {...option,text:moduleThreeWrongChoices[language][index][Number(decision)-2],response:correction[language]};
+     return {...option,text:moduleThreeWrongChoices[language][index][Number(decision)-2],response:correction[language],feedback:labMentor[language][index]};
    }) as typeof stage.options
  }))};
 }
