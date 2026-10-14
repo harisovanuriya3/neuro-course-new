@@ -1,4 +1,5 @@
 import type { Language } from '../course';
+import type { VirtualPatientScenario, VirtualPatientStage } from '../virtual-patients';
 
 // Module 3 is a computer-model exercise, not a clinical encounter.
 // Evidence: Ganong 23e ch. 4 (PDF 92–94) on astrocytic K⁺ buffering;
@@ -91,3 +92,53 @@ export const moduleThreePatientReview: Record<Language, StageReview> = {
     ]
   }
 };
+
+const correctedDecisions: Record<Language, { 2: string; 4: string }> = {
+  RU: {
+    2: 'Связать нестабильность с деполяризацией мембраны и возможной инактивацией Na⁺-каналов',
+    4: 'Отличить поддержку механизма в модели от доказательства единственной причины в ткани'
+  },
+  EN: {
+    2: 'Link instability to membrane depolarization and possible Na⁺-channel inactivation',
+    4: 'Distinguish model support for a mechanism from proof of a unique cause in tissue'
+  },
+  KZ: {
+    2: 'Тұрақсыздықты мембрана деполяризациясымен және Na⁺ арналарының ықтимал инактивациясымен байланыстыру',
+    4: 'Модельдегі механизмді қолдауды нақты тіндегі жалғыз себептің дәлелінен ажырату'
+  }
+};
+
+const feedbackLeads: Record<Language, [string, string, string]> = {
+  RU: ['Верно: решение согласуется с условиями модели.', 'Этот шаг не проверяет заданную гипотезу.', 'Этот вывод противоречит данным или выходит за пределы модели.'],
+  EN: ['Correct: this decision is consistent with the model conditions.', 'This step does not test the stated hypothesis.', 'This claim conflicts with the data or exceeds the model limits.'],
+  KZ: ['Дұрыс: шешім модель жағдайларына сәйкес келеді.', 'Бұл қадам берілген гипотезаны тексермейді.', 'Бұл тұжырым деректерге қайшы не модель шегінен шығады.']
+};
+
+/** Replace only module 3 wording; preserve six stages, IDs, ordering and scoring keys. */
+export function reviewModuleThreeScenario(scenario: VirtualPatientScenario, language: Language): VirtualPatientScenario {
+  if (scenario.moduleId !== 3) return scenario;
+  if (scenario.stages.length !== 6) throw new Error('Module 3 requires exactly six virtual-lab stages');
+  const review = moduleThreePatientReview[language];
+  return {
+    ...scenario,
+    stages: scenario.stages.map((stage, index) => {
+      const wrongIndices = [0, 1, 2].filter(i => i !== stage.correctOption);
+      const options = stage.options.map((option, optionIndex) => {
+        const isCorrect = optionIndex === stage.correctOption;
+        const wrongOrdinal = wrongIndices.indexOf(optionIndex);
+        const text = isCorrect
+          ? (index === 2 || index === 4 ? correctedDecisions[language][index] : option.text)
+          : review.distractors[index][wrongOrdinal];
+        const feedback = feedbackLeads[language][isCorrect ? 0 : wrongOrdinal + 1]
+          + ' ' + review.mentorPrompts[index];
+        return { ...option, text, feedback };
+      }) as VirtualPatientStage['options'];
+      return {
+        ...stage,
+        task: review.tasks[index],
+        mentorPrompt: review.mentorPrompts[index],
+        options
+      };
+    })
+  };
+}
