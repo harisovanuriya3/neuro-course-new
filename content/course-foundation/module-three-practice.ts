@@ -156,6 +156,7 @@ export function createModuleThreePractice(language: Language, base: PracticeLess
       ]},
       {title:c.mechanismTitle,blocks:[
         {type:'paragraph',text:c.mechanismIntro},
+        {type:'response',label:c.mechanismTitle},
         {type:'table',headers:c.mechanismHeaders,rows:c.mechanismRows},
       ]},
       {title:c.calculationTitle,blocks:[
