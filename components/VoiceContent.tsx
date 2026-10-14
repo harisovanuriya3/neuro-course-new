@@ -11,13 +11,37 @@ const copy={
  KZ:{self:"Бұл жауап құрылымын өзіндік тексеру, білімді автоматты бағалау емес.",min:"Кемінде бір қысқа сөйлем жазыңыз немесе айтыңыз.",title:"Өз сөзіңізбен түсіндіріңіз",intro:"Тақырыпты оқулықсыз біреуге түсіндіріп жатырмын деп елестетіңіз. Қарапайым айтыңыз: процесс неден басталады, кейін не болады және немен аяқталады.",prompt:"Сіздің түсіндірмеңіз",check:"Өзімді тексеру",saved:"Жауап осы браузерде сақталды.",cause:"Мен процесс неден басталатынын жаздым",path:"Мен кейін не болатынын түсіндірдім",result:"Мен қандай нәтиже болатынын жаздым",ready:"Жақсы: жауапта басталуы, үдеріс және нәтиже бар. Енді теориямен салыстыруға болады.",need:"Жетпейтін бөлікті қосыңыз:",open:"Теориямен салыстыру",progress:"Жауап дайындығы",level:"Нәтиже",weak:"Толықтыру қажет",good:"Жауап толық"}
 } as const;
 
+const moduleThreeCopy = {
+ RU: {
+  intro:"Объясните два разных механизма: как утрата миелина меняет проведение по аксону и как нарушение астроцитарного захвата K⁺ влияет на возбудимость. Это самопроверка, не диагноз.",
+  prompt:"Миелин, Ранвье, астроциты и K⁺: объяснение своими словами",
+  cause:"Я различил(а) демиелинизацию и нарушение удаления внеклеточного K⁺",
+  path:"Я объяснил(а) роль перехватов Ранвье и влияние K⁺ на мембранную возбудимость",
+  result:"Я назвал(а) возможное замедление/блок проведения и пределы вывода по одной модели",
+ },
+ EN: {
+  intro:"Explain two distinct mechanisms: how myelin loss affects axonal conduction and how impaired astrocytic K⁺ uptake affects excitability. This is a self-check, not a diagnosis.",
+  prompt:"Myelin, Ranvier nodes, astrocytes and K⁺: explain in your own words",
+  cause:"I distinguished demyelination from impaired extracellular K⁺ clearance",
+  path:"I explained the role of nodes of Ranvier and how K⁺ affects membrane excitability",
+  result:"I described possible slowing/block of conduction and the limits of one model",
+ },
+ KZ: {
+  intro:"Екі бөлек механизмді түсіндіріңіз: миелиннің жоғалуы аксон бойымен өткізуге, ал астроциттердің K⁺ қармауының бұзылуы қозғыштыққа қалай әсер етеді? Бұл — өзіндік тексеру, диагноз емес.",
+  prompt:"Миелин, Ранвье түйіндері, астроциттер және K⁺: өз сөзіңізбен түсіндіріңіз",
+  cause:"Мен демиелиндену мен жасушадан тыс K⁺ әкетілуінің бұзылуын ажыраттым",
+  path:"Мен Ранвье түйіндерінің рөлін және K⁺-тың мембрана қозғыштығына әсерін түсіндірдім",
+  result:"Мен өткізудің баяулауы/бөгелуі мүмкін екенін және бір модельдің шектеулерін атадым",
+ },
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=copy[language];
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : copy[language];
  const key=`neuro-course:mechanism:${moduleId}:${language}`;
  const[answer,setAnswer]=useState("");
  const[cause,setCause]=useState(false),[path,setPath]=useState(false),[result,setResult]=useState(false),[checked,setChecked]=useState(false);
  useEffect(()=>{try{setAnswer(localStorage.getItem(key)||"")}catch{}},[key]);
- function update(v:string){setAnswer(v);setChecked(false);try{localStorage.setItem(key,v)}catch{}}
+ function update(v:string){setAnswer(v);setChecked(false);setCause(false);setPath(false);setResult(false);try{localStorage.setItem(key,v)}catch{}}
  const checks=[{ok:cause,label:c.cause},{ok:path,label:c.path},{ok:result,label:c.result}];
  const done=checks.filter(x=>x.ok).length;
  const missing=checks.filter(x=>!x.ok).map(x=>x.label);
