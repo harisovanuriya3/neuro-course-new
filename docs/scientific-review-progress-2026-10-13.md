@@ -88,3 +88,8 @@
 ## 14.10.2026 — модуль 3: glossary (частичный аудит)
 
 Прочитаны `content/course-foundation/index.ts` (ветка glossary и extraGlossary[3]), `content/course-foundation/topics.ts` (определения нейрона и миелина), `content/study.ts` и `content/index.ts` (маршрут и тип). Непосредственно сверены Library Ganong 23e PDF стр. 92–94, Guyton & Hall 13e PDF стр. 78–79 и Ghai 8e PDF стр. 248–250. Обнаружена педагогическая несогласованность: из пяти терминов модуля 3 два дополнительных («гематоэнцефалический барьер» и «ликвор») менее релевантны теме нейрона/глии/миелина, чем различение олигодендроцитов и шванновских клеток; сейчас они отсутствуют в словаре. Подготовлена замена двух терминов на RU/EN/KZ, но запись `content/course-foundation/index.ts` была отклонена инструментом безопасности, поэтому **код не изменён**. Аналогично не удалось создать изолированный словарь новым файлом. Оставить glossary открытым до подтверждённого коммита, тестов и браузерной проверки. Preview в `vercel.json` остаётся выключен. Всего 425 разделов по-прежнему не проверены.
+
+
+## 14.10.2026 — module 3 media
+
+Created module-three-media.ts (c7e18b04) and check-module-three-media.cjs (fc3a83c5). Not wired in content/index.ts; integration and tests pending. Glossary already registered in RU/EN/KZ. Read Ganong PDF 92–94, Guyton PDF 78–79, Ghai PDF 250–251. Module 3 source-level coverage 12/17; full 425-section audit incomplete. No deployment.
