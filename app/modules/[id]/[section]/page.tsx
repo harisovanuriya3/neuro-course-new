@@ -300,11 +300,11 @@ export default async function SectionPage({
                 language={lang}
               />
               {section === 'theory' && moduleNumber > 1 && (
-                <>
+                <div id="theory-visuals">
                   <FoundationVisual moduleId={moduleNumber} language={lang} />
                   <AnatomyReference moduleId={moduleNumber} language={lang} />
                   <AdvancedAnatomyReference moduleId={moduleNumber} language={lang} />
-                </>
+                </div>
               )}
             </>
           ) : (

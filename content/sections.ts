@@ -258,3 +258,6 @@ export function isSection(value: string): value is Section {
 export function getSectionTitle(section: Section, language: Language): string {
   return sections.find(item => item.slug === section)!.title[language];
 }
+
+// A short route, in the same relative order as the full section navigation.
+export const recommendedPath: readonly Section[] = ["theory", "interactive", "practice", "cases", "virtual-patient"];

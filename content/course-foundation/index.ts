@@ -1,3 +1,4 @@
+import { recommendedPath } from "../sections";
 import {physiologicalRelations} from "../physiological-relations";
 import {mediaWalkthroughs} from "../media-walkthroughs";
 import { modules, type Language } from '../course';
@@ -509,8 +510,8 @@ function create(
       outcomes: outcomeTitles.map((outcomeTitle,index)=>({id:`module-${topic.id}-objective-${index+1}`,title:outcomeTitle,description:outcomeDescriptions[index]})),
       navigation: {
         title: language === 'RU' ? 'Перейти к изучению модуля' : language === 'EN' ? 'Continue learning' : 'Модульді оқуға өту',
-        pathwayLabel: language === 'RU' ? 'Рекомендуемый маршрут' : language === 'EN' ? 'Recommended pathway' : 'Ұсынылатын оқу бағыты',
-        links: [{section:'theory'},{section:'practice'},{section:'cases'},{section:'interactive'},{section:'virtual-patient'}],
+        pathwayLabel: language === 'RU' ? 'Краткий рекомендуемый маршрут' : language === 'EN' ? 'Suggested short pathway' : 'Ұсынылатын қысқа оқу бағыты',
+        links: recommendedPath.map(section => ({ section })),
       },
     };
   }

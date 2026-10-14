@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Language, SectionLesson } from "../content/types";
+import TheoryMedia from "./TheoryMedia";
 import LessonContent from "./LessonContent";
 import PracticeContent from "./PracticeContent";
 import CasesContent from "./CasesContent";
@@ -36,6 +37,7 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
           <strong>{guide.title}</strong>
           <p style={{margin:"6px 0 0",lineHeight:1.6}}>{guide.text}</p>
         </aside>
+        <TheoryMedia moduleId={Number(moduleId)} language={language} />
         <LessonContent lesson={lesson} />
       </>;
     }
