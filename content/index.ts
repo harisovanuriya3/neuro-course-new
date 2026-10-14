@@ -22,6 +22,7 @@ import { createModuleThreeClinical } from "./course-foundation/module-three-clin
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
 import { createModuleThreeTest } from "./course-foundation/module-three-test";
 import { createModuleThreeCases } from "./course-foundation/module-three-cases";
+import { createModuleThreeQuestions } from "./course-foundation/module-three-questions";
 import { modules } from "./course";
 import { getSectionTitle } from "./sections";
 
@@ -64,6 +65,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   3: {
     ...foundationLessons[3],
     clinical: { RU: createModuleThreeClinical("RU"), EN: createModuleThreeClinical("EN"), KZ: createModuleThreeClinical("KZ") },
+    questions: {
+      RU: createModuleThreeQuestions("RU"),
+      EN: createModuleThreeQuestions("EN"),
+      KZ: createModuleThreeQuestions("KZ"),
+    },
     cases: {
       RU: createModuleThreeCases("RU", moduleThreeBaseCases("RU")),
       EN: createModuleThreeCases("EN", moduleThreeBaseCases("EN")),
