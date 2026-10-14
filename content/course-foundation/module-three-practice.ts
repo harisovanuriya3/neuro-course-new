@@ -151,6 +151,7 @@ export function createModuleThreePractice(language: Language, base: PracticeLess
     sections: [
       {title:c.anatomyTitle,blocks:[
         {type:'paragraph',text:c.anatomyIntro},
+        {type:'response',label:language==='RU'?'Назовите функции четырёх типов глии до просмотра таблицы':language==='EN'?'Describe the four glial cell types before consulting the table':'Кестеге қарамай глияның төрт түрінің қызметін сипаттаңыз'},
         {type:'table',headers:c.tableHeaders,rows:c.tableRows},
       ]},
       {title:c.mechanismTitle,blocks:[
