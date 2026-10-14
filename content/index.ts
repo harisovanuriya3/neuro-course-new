@@ -21,6 +21,7 @@ import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-
 import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
 import { createModuleThreeTest } from "./course-foundation/module-three-test";
+import { createModuleThreeCases } from "./course-foundation/module-three-cases";
 import { modules } from "./course";
 import { getSectionTitle } from "./sections";
 
@@ -29,6 +30,12 @@ function moduleThreeBaseTest(language: Language) {
   if (!lesson || lesson.kind !== "tests") {
     throw new Error("Module 3 base test is missing for " + language);
   }
+  return lesson;
+}
+
+function moduleThreeBaseCases(language: Language) {
+  const lesson = foundationLessons[3]?.cases?.[language];
+  if (!lesson || lesson.kind !== "cases") throw new Error("Module 3 base cases missing for " + language);
   return lesson;
 }
 
@@ -57,6 +64,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   3: {
     ...foundationLessons[3],
     clinical: { RU: createModuleThreeClinical("RU"), EN: createModuleThreeClinical("EN"), KZ: createModuleThreeClinical("KZ") },
+    cases: {
+      RU: createModuleThreeCases("RU", moduleThreeBaseCases("RU")),
+      EN: createModuleThreeCases("EN", moduleThreeBaseCases("EN")),
+      KZ: createModuleThreeCases("KZ", moduleThreeBaseCases("KZ")),
+    },
     practice: {
       RU: createModuleThreePractice("RU", moduleThreeBasePractice("RU")),
       EN: createModuleThreePractice("EN", moduleThreeBasePractice("EN")),
