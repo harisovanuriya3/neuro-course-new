@@ -35,6 +35,32 @@ const correction: Record<Language,string> = {
  EN:"This choice does not test the stage question. The next data are predetermined by the teaching model, not caused by the selected action.",
  KZ:"Бұл таңдау осы кезеңнің сұрағын тексермейді. Келесі деректер таңдалған әрекеттен туындамайды, оқу моделінде алдын ала берілген."
 };
+const labMentor: Record<Language,string[]> = {
+ RU: [
+  "Сравните K⁺ во времени при одинаковой стимуляции.",
+  "Сопоставьте контроль и ослабленный захват K⁺ при равных условиях.",
+  "Деполяризация может усилить возбуждение, но выраженная устойчивая деполяризация инактивирует Na⁺-каналы.",
+  "Меняйте только захват K⁺; температуру и стимул удерживайте постоянными.",
+  "Результат модели поддерживает гипотезу, но не исключает другие механизмы.",
+  "Астроциты регулируют K⁺, олигодендроциты образуют миелин ЦНС, микроглия участвует в иммунной защите."
+ ],
+ EN: [
+  "Compare the K⁺ time course under matched stimulation.",
+  "Compare control and reduced K⁺ uptake under identical conditions.",
+  "Depolarization may increase excitation, but sustained strong depolarization inactivates Na⁺ channels.",
+  "Change only K⁺ uptake; hold temperature and stimulation constant.",
+  "The model supports a hypothesis but cannot exclude other mechanisms.",
+  "Astrocytes regulate K⁺, oligodendrocytes form CNS myelin, and microglia provide immune defense."
+ ],
+ KZ: [
+  "Стимуляция бірдей кезде K⁺ деңгейінің уақыттық өзгерісін салыстырыңыз.",
+  "Бақылау мен K⁺ қармауы төмендеген жағдайды бірдей шарттарда салыстырыңыз.",
+  "Деполяризация қозуды арттыруы мүмкін, бірақ ұзақ күшті деполяризация Na⁺ арналарын инактивациялайды.",
+  "Тек K⁺ қармауын өзгертіңіз; температура мен стимуляция тұрақты болсын.",
+  "Модель гипотезаны қолдайды, бірақ өзге механизмдерді жоққа шығармайды.",
+  "Астроциттер K⁺ реттейді, олигодендроциттер ОЖЖ миелинін түзеді, микроглия иммундық қорғауға қатысады."
+ ]
+};
 export function getReviewedVirtualPatientScenario(moduleId:number, language:Language) {
  const base=getVirtualPatientScenario(moduleId,language);
  if(moduleId!==3 || !base) return base;
@@ -43,6 +69,7 @@ export function getReviewedVirtualPatientScenario(moduleId:number, language:Lang
  return {...base,stages:base.stages.map((stage,index)=>({
    ...stage,
    task:prompts[language][index],
+   mentorPrompt:labMentor[language][index],
    // Strip patient-examination prefixes from a computer-model observation.
    newData:stage.newData.replace(/^[^:]+:\s*/, ""),
    options:stage.options.map(option=>{
