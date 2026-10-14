@@ -34,7 +34,7 @@ const items: Record<Language, Record<Domain, Item>> = {
     transfer: {
       prompt: 'Астроциты хуже удаляют внеклеточный K⁺, и концентрация K⁺ вокруг нейронов устойчиво возрастает. Какой эффект возможен при длительной выраженной деполяризации?',
       correct: 'Инактивация части потенциал-зависимых Na⁺-каналов и снижение способности генерировать импульсы.',
-      wrong: ['Na⁺-каналы сохраняют полную доступность, поэтому частота импульсов должна непрерывно возрастать.', 'Мембрана устойчиво гиперполяризуется, из-за чего порог возбуждения становится недостижим.', 'Меняется только передача в синапсах, а генерация аксонных импульсов остаётся неизменной.'],
+      wrong: ['Полное исчезновение градиента Ca²⁺ во всех синапсах при любом небольшом повышении K⁺.', 'Обязательная гиперполяризация мембраны с постоянным повышением порога возбуждения.', 'Превращение всех олигодендроцитов в шванновские клетки для восстановления проводимости.'],
       explanation: 'Повышение внеклеточного K⁺ обычно деполяризует мембрану; при стойкой выраженной деполяризации доступность Na⁺-каналов может снизиться. Эффект зависит от степени и длительности изменения.'
     },
     justification: {
@@ -66,7 +66,7 @@ const items: Record<Language, Record<Domain, Item>> = {
     transfer: {
       prompt: 'Astrocytic extracellular K⁺ uptake is impaired and K⁺ around neurons remains elevated. What can occur during sustained marked depolarization?',
       correct: 'Inactivation of some voltage-gated Na⁺ channels and reduced ability to generate action potentials.',
-      wrong: ['Na⁺ channels remain fully available, so spike frequency must continue to increase without limit.', 'The membrane remains hyperpolarized, preventing the neuron from reaching firing threshold.', 'Only synaptic transmission changes; axonal spike generation remains unaffected.'],
+      wrong: ['Complete loss of Ca²⁺ gradients in every synapse after any slight rise in extracellular K⁺.', 'Obligatory membrane hyperpolarization with a persistently higher firing threshold.', 'Conversion of all oligodendrocytes into Schwann cells to restore conduction.'],
       explanation: 'Elevated extracellular K⁺ generally depolarizes membranes; sustained marked depolarization can reduce Na⁺ channel availability. Magnitude and duration matter.'
     },
     justification: {
@@ -98,7 +98,7 @@ const items: Record<Language, Record<Domain, Item>> = {
     transfer: {
       prompt: 'Астроциттердің жасушадан тыс K⁺ сіңіруі нашарлап, нейрондар маңындағы K⁺ ұзақ уақыт жоғары қалды. Айқын тұрақты деполяризацияда не болуы мүмкін?',
       correct: 'Кернеуге тәуелді Na⁺ арналарының бір бөлігі инактивацияланып, әрекет потенциалын түзу қабілеті төмендейді.',
-      wrong: ['Na⁺ арналары толық қолжетімді болып қалады, сондықтан импульс жиілігі шексіз арта береді.', 'Мембрана тұрақты гиперполяризацияланып, нейрон қозу табалдырығына жете алмайды.', 'Тек синапстық берілу өзгереді, ал аксонда импульс түзілуі өзгеріссіз қалады.'],
+      wrong: ['K⁺ аздап артса да барлық синапстарда Ca²⁺ градиенті толық жоғалады.', 'Мембрана міндетті түрде гиперполяризацияланып, қозу табалдырығы үнемі жоғарылайды.', 'Өткізуді қалпына келтіру үшін барлық олигодендроциттер Шванн жасушаларына айналады.'],
       explanation: 'Жасушадан тыс K⁺ жоғарылауы әдетте деполяризация тудырады; айқын әрі ұзақ деполяризация Na⁺ арналарының қолжетімділігін төмендетуі мүмкін. Әсер шамасы мен ұзақтығына тәуелді.'
     },
     justification: {
