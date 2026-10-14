@@ -34,5 +34,8 @@ assert(source.includes("not a human experiment") || source.includes("not a patie
   "Module 3 must not imply experiments on a human");
 assert(route.includes('<UnifiedVirtualPatient moduleId={moduleNumber} language={lang} />'),
   "Unified virtual case must be reachable from the route");
+const reviewed = fs.readFileSync("content/reviewed-virtual-patients.ts","utf8");
+assert(reviewed.includes("newData:stage.newData.replace"),"Lab data must omit clinical examination prefix");
+assert(reviewed.includes("mentorPrompt:labMentor[language][index]"),"Lab requires physiological mentor comments");
 console.log("PASS: Module 3 virtual teaching case — 6 distinct stages × 3 languages, model labeling and route wiring.");
 console.log("NOTE: dynamic branching, audio, scoring and browser accessibility still require runtime tests.");
