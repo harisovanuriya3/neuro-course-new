@@ -1,22 +1,35 @@
-// Source-only contract for the authored module 3 case correction.
-// Run from repo root: node scripts/check-module-three-cases.cjs
-// Does not replace scientific review, TypeScript compilation or browser testing.
-const fs=require('node:fs');
-const assert=require('node:assert/strict');
-const ts=require('typescript');
-const file='content/course-foundation/module-three-cases.ts';
-const source=fs.readFileSync(file,'utf8');
-const registry=fs.readFileSync('content/index.ts','utf8');
-const generic=fs.readFileSync('content/course-foundation/assessment.ts','utf8');
-const ast=ts.createSourceFile(file,source,ts.ScriptTarget.Latest,true,ts.ScriptKind.TS);
-assert.equal(ast.parseDiagnostics.length,0,'Case override TypeScript syntax');
-assert(generic.includes('topic.id===3'),'Original module 3 cases must be preserved');
-assert(source.includes('base.cases.map'),'Case override must retain existing staged cases');
-for(const language of ['RU','EN','KZ']){
- assert(new RegExp('\\b'+language+':\\s*\\{').test(source),'Missing '+language+' case copy');
- assert(registry.includes('createModuleThreeCases("'+language+'"'),'Unregistered '+language+' case override');
+// Runtime contract for module 3's two authored cases (no browser required).
+const fs=require('node:fs'),assert=require('node:assert/strict'),ts=require('typescript');
+const src=fs.readFileSync('content/course-foundation/module-three-cases.ts','utf8');
+const reg=fs.readFileSync('content/index.ts','utf8');
+const compiled=ts.transpileModule(src,{fileName:'module-three-cases.ts',reportDiagnostics:true,
+ compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}});
+assert(!(compiled.diagnostics||[]).some(d=>d.category===ts.DiagnosticCategory.Error),
+ 'Case module failed TypeScript transpilation');
+const module={exports:{}};
+new Function('module','exports',compiled.outputText)(module,module.exports);
+const build=module.exports.createModuleThreeCases;
+assert.equal(typeof build,'function');
+const base={kind:'cases',title:'Cases',moduleTitle:'Module 3',introduction:'',ui:{},
+ cases:[
+  {id:'m3-localization',title:'',situation:'myelin',explanation:['explanation'],stages:[
+   {title:'Evidence',questions:['Two findings','Generic neuron/myelin question']},
+   {title:'Mechanism',questions:['Retained follow-up']}]},
+  {id:'m3-discrimination',title:'',situation:'glutamate',explanation:['explanation'],stages:[
+   {title:'Prediction',questions:['Generic neuron/myelin prediction']},
+   {title:'Alternative',questions:['Retained follow-up']}]},
+ ]};
+for(const lang of ['RU','EN','KZ']){
+ const out=build(lang,base);
+ assert.equal(out.cases.length,2);
+ assert.notEqual(out.cases[0].stages[0].questions[1],base.cases[0].stages[0].questions[1]);
+ assert.notEqual(out.cases[1].stages[0].questions[0],base.cases[1].stages[0].questions[0]);
+ assert.equal(out.cases[0].stages[0].questions[0],'Two findings');
+ assert.equal(out.cases[1].stages[1].questions[0],'Retained follow-up');
+ assert.equal(base.cases[1].stages[0].questions[0],'Generic neuron/myelin prediction');
+ assert(reg.includes('createModuleThreeCases("'+lang+'"'),'Unregistered '+lang+' cases');
+ assert(reg.includes('moduleThreeBaseCases("'+lang+'"'),'Missing '+lang+' foundation cases');
+ const malformed={...base,cases:base.cases.slice(0,1)};
+ assert.throws(()=>build(lang,malformed),/case structure changed/);
 }
-assert(source.includes('index === 0 && stageIndex === 0 && questionIndex === 1'));
-assert(source.includes('index === 1 && stageIndex === 0 && questionIndex === 0'));
-assert(!source.includes('myelin: \'\'') && !source.includes('uptake: \'\''));
-console.log('PASS: module 3 two staged case prompts, RU/EN/KZ, registration.');
+console.log('PASS: module 3 cases: 2 mechanism-specific scenarios × 3 languages, runtime overrides, route wiring, malformed-shape guard.');

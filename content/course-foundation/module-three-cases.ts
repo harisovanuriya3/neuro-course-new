@@ -23,6 +23,13 @@ const prompts: Record<Language, { myelin: string; uptake: string }> = {
 };
 
 export function createModuleThreeCases(language: Language, base: CasesLesson): CasesLesson {
+  if (base.cases.length !== 2 ||
+      base.cases[0].id !== 'm3-localization' ||
+      base.cases[1].id !== 'm3-discrimination' ||
+      base.cases[0].stages[0]?.questions.length !== 2 ||
+      base.cases[1].stages[0]?.questions.length !== 1) {
+    throw new Error('Module 3 case structure changed: review authored questions');
+  }
   const p = prompts[language];
   return {
     ...base,
