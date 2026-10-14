@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import type { Language } from "../content/course";
-import { getVirtualPatientScenario } from "../content/virtual-patients";
+import { getReviewedVirtualPatientScenario as getVirtualPatientScenario } from "../content/reviewed-virtual-patients";
 import VoiceTextarea from "./VoiceTextarea";
 import VirtualPatientVisual from "./VirtualPatientVisual";
 import styles from "./UnifiedVirtualPatient.module.css";
