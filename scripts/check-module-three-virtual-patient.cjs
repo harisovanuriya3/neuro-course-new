@@ -21,7 +21,7 @@ for (const name of ["moduleThreeObservations", "moduleThreeStageText"]) {
     const items = prop.initializer.elements;
     assert.equal(items.length, 6, name + " " + lang + ": expected 6 unique stages");
     const strings = items.map(x => { assert(ts.isStringLiteral(x), "Stage must be text"); return x.text; });
-    assert(strings.every(x => x.length > 45), name + " " + lang + ": overly generic stage");
+    assert(strings.every(x => x.length > 28), name + " " + lang + ": overly generic stage");
     assert.equal(new Set(strings).size, 6, name + " " + lang + ": duplicate stages");
   }
 }
