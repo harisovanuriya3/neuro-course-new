@@ -30,6 +30,41 @@ const prompts: Record<Language, string[]> = {
   "Астроциттер, олигодендроциттер және микроглия қызметтерін қалай ажыратуға болады?"
  ]
 };
+// Six experimentally meaningful choices. The base scenario used broad, often
+// tautological decisions; keep the reviewed wording aligned with each stage's task.
+// These are actions in a computer teaching model, not measurements on a patient.
+const moduleThreeCorrectChoices: Record<Language, [string,string,string,string,string,string]> = {
+ RU: [
+  "Измерить внеклеточный K⁺ до стимуляции и в нескольких точках времени после одинаковых серий стимулов",
+  "Сравнить кривые восстановления внеклеточного K⁺ при нормальном и ослабленном астроцитарном захвате, не меняя стимул",
+  "Сопоставить мембранный потенциал и частоту разрядов с K⁺, учитывая возможную инактивацию Na⁺-каналов",
+  "Менять только астроцитарный захват K⁺, удерживая стимуляцию, температуру и свойства нейрона постоянными",
+  "Проверить эффект при неизменных свойствах нейрона и признать, что модель не исключает другие причины",
+  "Разделить функции: астроциты регулируют K⁺, олигодендроциты образуют миелин ЦНС, микроглия обеспечивает иммунный надзор"
+ ],
+ EN: [
+  "Measure extracellular K⁺ before and at several time points after identical stimulus trains",
+  "Compare extracellular K⁺ recovery curves with normal versus reduced astrocytic uptake under matched stimulation",
+  "Compare membrane potential and firing rate with K⁺ changes, allowing for possible Na⁺-channel inactivation",
+  "Change only astrocytic K⁺ uptake while holding stimulation, temperature and neuronal properties constant",
+  "Test the effect with neuronal properties fixed and acknowledge that the model cannot exclude other causes",
+  "Distinguish roles: astrocytes regulate K⁺, oligodendrocytes form CNS myelin, and microglia provide immune surveillance"
+ ],
+ KZ: [
+  "Бірдей стимулдар сериясына дейін және одан кейін бірнеше уақыт нүктесінде жасушадан тыс K⁺ деңгейін өлшеу",
+  "Стимуляцияны өзгертпей, астроциттік K⁺ қармауы қалыпты және төмен жағдайлардағы K⁺ қалпына келу қисықтарын салыстыру",
+  "Na⁺ арналарының ықтимал инактивациясын ескеріп, мембраналық потенциал мен разряд жиілігін K⁺ өзгерісімен салыстыру",
+  "Стимуляцияны, температураны және нейрон қасиеттерін тұрақты ұстап, тек астроциттік K⁺ қармауын өзгерту",
+  "Нейрон қасиеттерін өзгертпей әсерді тексеру және модель басқа себептерді жоққа шығармайтынын мойындау",
+  "Қызметтерді ажырату: астроциттер K⁺ реттейді, олигодендроциттер ОЖЖ миелинін түзеді, микроглия иммундық қадағалайды"
+ ]
+};
+const appropriate: Record<Language,string> = {
+ RU:"Выбор соответствует задаче данного этапа. Следующие данные заданы учебной моделью заранее и не вызваны нажатием кнопки.",
+ EN:"This choice addresses the stage question. The next data are predefined in the teaching model, not caused by pressing the button.",
+ KZ:"Бұл таңдау кезеңнің сұрағына сәйкес. Келесі деректер оқу моделінде алдын ала берілген, батырманы басу оларды тудырмайды."
+};
+
 const correction: Record<Language,string> = {
  RU:"Этот выбор не проверяет вопрос данного этапа. Далее показаны заранее заданные данные учебной модели, а не результат выбранного действия.",
  EN:"This choice does not test the stage question. The next data are predetermined by the teaching model, not caused by the selected action.",
@@ -74,6 +109,7 @@ export function getReviewedVirtualPatientScenario(moduleId:number, language:Lang
    newData:stage.newData.replace(/^[^:]+:\s*/, ""),
    options:stage.options.map(option=>{
      const decision=option.id.split("-decision-")[1];
+     if(decision==="1") return {...option,text:moduleThreeCorrectChoices[language][index],response:appropriate[language],feedback:labMentor[language][index]};
      if(decision!=="2" && decision!=="3") return option;
      return {...option,text:moduleThreeWrongChoices[language][index][Number(decision)-2],response:correction[language],feedback:labMentor[language][index]};
    }) as typeof stage.options
