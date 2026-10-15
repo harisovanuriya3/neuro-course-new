@@ -11,7 +11,7 @@ const labels = (a: string[], b: string[], c: string[]): [L, L, L] => [l(a[0],a[1
 const configs: Record<number, Config> = {
   1:{kind:"pathway",title:l("ЦНС и периферические нервы","ОЖЖ және шеткі жүйкелер","CNS and peripheral nerves"),labels:labels(["Мозг","Ми","Brain"],["Спинной мозг","Жұлын","Spinal cord"],["Периферия","Шеткері бөлік","Periphery"]),accent:"#087e8b"},
   2:{kind:"eeg",title:l("Функциональная регистрация","Функциялық тіркеу","Functional recording"),labels:labels(["ЭЭГ","ЭЭГ","EEG"],["Стимул","Стимул","Stimulus"],["Ответ","Жауап","Response"]),accent:"#3568a8"},
-  3:{kind:"cell",title:l("Нейрон и нейроглия","Нейрон және нейроглия","Neuron and neuroglia"),labels:labels(["Нейрон","Нейрон","Neuron"],["Миелин","Миелин","Myelin"],["Глия","Глия","Glia"]),accent:"#7761a8"},
+  3:{kind:"cell",title:l("Астроцитарное буферирование K⁺","Астроциттердің K⁺ буферлеуі","Astrocytic K⁺ buffering"),labels:labels(["Внеклеточный K⁺","Жасушадан тыс K⁺","Extracellular K⁺"],["Астроцит","Астроцит","Astrocyte"],["Нейрон","Нейрон","Neuron"]),accent:"#7761a8"},
   4:{kind:"cell",title:l("Мембрана и потенциал действия","Мембрана және әрекет потенциалы","Membrane and action potential"),labels:labels(["Na⁺-канал","Na⁺ арнасы","Na⁺ channel"],["Мембрана","Мембрана","Membrane"],["K⁺-канал","K⁺ арнасы","K⁺ channel"]),accent:"#b24b58"},
   5:{kind:"cell",title:l("Химический синапс","Химиялық синапс","Chemical synapse"),labels:labels(["Ca²⁺","Ca²⁺","Ca²⁺"],["Медиатор","Медиатор","Transmitter"],["Ответ","Жауап","Response"]),accent:"#8b5d9f"},
   6:{kind:"cell",title:l("Возбуждение и торможение","Қозу және тежелу","Excitation and inhibition"),labels:labels(["ВПСП","ҚПСП","EPSP"],["Интеграция","Интеграция","Integration"],["ТПСП","ТПСП","IPSP"]),accent:"#397b72"},
@@ -36,11 +36,11 @@ const configs: Record<number, Config> = {
   25:{kind:"cell",title:l("Синаптическая пластичность","Синапстық пластикалылық","Synaptic plasticity"),labels:labels(["До обучения","Оқуға дейін","Before learning"],["Укрепление","Күшейту","Potentiation"],["Новая сеть","Жаңа желі","New network"]),accent:"#6e5aa8"},
 };
 
-const copy={RU:{stage:"Этап",scene:"Динамическая учебная схема",phase:"Текущая фаза",changed:"Сцена изменена выбранным действием"},KZ:{stage:"Кезең",scene:"Динамикалық оқу сызбасы",phase:"Ағымдағы фаза",changed:"Көрініс таңдалған әрекетпен өзгертілді"},EN:{stage:"Stage",scene:"Dynamic teaching diagram",phase:"Current phase",changed:"Scene updated by the selected action"}} as const;
+const copy={RU:{stage:"Этап",scene:"Динамическая учебная схема",phase:"Текущая фаза",changed:"Сцена изменена выбранным действием",modelNote:"Это условная схема. Выбор ответа не изменяет заранее заданные данные модели."},KZ:{stage:"Кезең",scene:"Динамикалық оқу сызбасы",phase:"Ағымдағы фаза",changed:"Көрініс таңдалған әрекетпен өзгертілді",modelNote:"Бұл шартты сызба. Жауапты таңдау модельдегі алдын ала берілген деректерді өзгертпейді."},EN:{stage:"Stage",scene:"Dynamic teaching diagram",phase:"Current phase",changed:"Scene updated by the selected action",modelNote:"Schematic only. Selecting an answer does not change the model’s predefined data."}} as const;
 
-function Scene({config,active,selected}:{config:Config;active:number;selected:number|null}) {
+function Scene({config,active,selected,language}:{config:Config;active:number;selected:number|null;language:Language}) {
   const id=`arrow-${active}-${selected??"none"}`, wave="M20 110 C35 110 38 70 52 110 S72 150 87 110 S108 78 122 110 S143 140 158 110 S180 62 194 110 S216 150 230 110 S252 80 266 110 S288 138 302 110 S324 72 340 110 S365 145 400 110";
-  return <svg viewBox="0 0 420 220" role="img" aria-label={config.title.EN} className={styles.diagram} style={{"--scene-accent":config.accent} as CSSProperties}>
+  return <svg viewBox="0 0 420 220" role="img" aria-label={config.title[language]} className={styles.diagram} style={{"--scene-accent":config.accent} as CSSProperties}>
     <defs><marker id={id} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10Z" fill={config.accent}/></marker></defs>
     <rect x="8" y="8" width="404" height="204" rx="24" className={styles.diagramBg}/>
     {config.kind==="eeg"?<>{[55,88,121,154].map((y,i)=><path key={y} d={wave} transform={`translate(0 ${y-110}) scale(1 ${.35+i*.12})`} className={i===active%4?styles.activeTrace:styles.trace}/>)}<line x1="20" y1="181" x2={50+active*58} y2="181" className={styles.cursor}/></>:<>
@@ -55,11 +55,11 @@ function Scene({config,active,selected}:{config:Config;active:number;selected:nu
 }
 
 export default function VirtualPatientVisual({moduleId,stage,selected,language}:{moduleId:number;stage:number;selected:number|null;language:Language}) {
-  const config=configs[moduleId]??configs[1], safeStage=Math.max(1,Math.min(6,stage)), active=(safeStage-1+(selected??0))%6, c=copy[language];
+  const config=configs[moduleId]??configs[1], safeStage=Math.max(1,Math.min(6,stage)), active=(safeStage-1+(moduleId===3?0:(selected??0)))%6, c=copy[language];
   return <figure className={styles.figure} data-testid="virtual-patient-visual" data-module={moduleId} data-stage={safeStage} data-selected={selected??"none"}>
     <div className={styles.mediaHeader}><div><span>{c.scene}</span><strong>{config.title[language]}</strong></div><b>{c.stage} {safeStage}/6</b></div>
-    <Scene config={config} active={active} selected={selected}/>
+    <Scene config={config} active={active} selected={moduleId===3?null:selected} language={language}/>
     <div className={styles.structureLegend}>{config.labels.map((label,i)=><span key={label.EN} className={i===active%3?styles.legendActive:undefined}><i>{i+1}</i>{label[language]}</span>)}</div>
-    <figcaption><span>{c.phase}: {config.labels[active%3][language]}</span>{selected!==null&&<strong>{c.changed}</strong>}</figcaption>
+    <figcaption><span>{c.phase}: {config.labels[active%3][language]}</span>{moduleId===3?<strong>{c.modelNote}</strong>:selected!==null&&<strong>{c.changed}</strong>}</figcaption>
   </figure>;
 }
