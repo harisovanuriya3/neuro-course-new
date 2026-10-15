@@ -20,9 +20,29 @@ export default function NotesContent({ language, moduleId }: { language: Languag
   const [ready, setReady] = useState(false);
   const [saveStatus, setSaveStatus] = useState<"idle" | "saved" | "failed">("idle");
   useEffect(() => { setReady(false); setSaveStatus("idle"); setValue(readModuleNotes(moduleId)); setReady(true); }, [moduleId]);
+  // Storage events are dispatched in other tabs, not in the tab that made the change.
+  // Keep the visible notes in sync, but never discard an unsaved in-memory draft.
+  useEffect(() => {
+    const onStorage = (event: StorageEvent) => {
+      if (event.key !== null && event.key !== `neuro-course:module-${moduleId}:notes:v1`) return;
+      if (saveStatus === "failed") return;
+      setValue(readModuleNotes(moduleId));
+      setSaveStatus("idle");
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, [moduleId, saveStatus]);
   const c = copy[language];
   const bookmarked = value.bookmarks.includes(selected);
-  const update = (next: ModuleNotes) => { setValue(next); setSaveStatus(saveModuleNotes(moduleId,next) ? "saved" : "failed"); };
+  const update = (change: (current: ModuleNotes) => ModuleNotes) => {
+    // Re-read immediately before writing so editing a note in one tab does not
+    // silently replace a bookmark or another section's note saved in another tab.
+    // On storage failure preserve the unsaved in-memory draft instead.
+    const current = saveStatus === "failed" ? value : readModuleNotes(moduleId);
+    const next = change(current);
+    setValue(next);
+    setSaveStatus(saveModuleNotes(moduleId, next) ? "saved" : "failed");
+  };
   return <article className={styles.tool}>
     <h1>{c.title}</h1><p>{c.intro}</p>
     <label htmlFor="notes-section">{c.pick}</label>
@@ -30,11 +50,11 @@ export default function NotesContent({ language, moduleId }: { language: Languag
       {sectionOrder.map(section => <option key={section} value={section}>{getSectionTitle(section, language)}</option>)}
     </select>
     <div className={styles.row}>
-      <button type="button" disabled={!ready} onClick={() => update({ ...value, bookmarks: bookmarked ? value.bookmarks.filter(item => item !== selected) : [...value.bookmarks, selected] })}>{bookmarked ? c.remove : c.add}</button>
+      <button type="button" disabled={!ready} onClick={() => update(current => ({ ...current, bookmarks: current.bookmarks.includes(selected) ? current.bookmarks.filter(item => item !== selected) : [...current.bookmarks, selected] }))}>{bookmarked ? c.remove : c.add}</button>
       <Link href={`/modules/${moduleId}/${selected}?lang=${language}`}>{c.open}</Link>
     </div>
     <label htmlFor="section-note">{c.note}</label>
-    <VoiceTextarea key={selected} language={language} id="section-note" disabled={!ready} maxLength={5000} rows={7} value={value.notes[selected] ?? ""} onValue={text => update({ ...value, notes: { ...value.notes, [selected]: text } })} />
+    <VoiceTextarea key={selected} language={language} id="section-note" disabled={!ready} maxLength={5000} rows={7} value={value.notes[selected] ?? ""} onValue={text => update(current => ({ ...current, notes: { ...current.notes, [selected]: text } }))} />
     <p role="status" aria-live="polite">{ready && saveStatus !== "idle" ? c[saveStatus] : ""}</p>
     <h2>{c.bookmarks}</h2>
     {value.bookmarks.length ? <ul>{value.bookmarks.map(section => <li key={section}><Link href={`/modules/${moduleId}/${section}?lang=${language}`}>{getSectionTitle(section, language)}</Link></li>)}</ul> : <p>{c.empty}</p>}
