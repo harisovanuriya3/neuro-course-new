@@ -82,7 +82,7 @@ const labMentor: Record<Language,string[]> = {
  EN: [
   "Compare the K⁺ time course under matched stimulation.",
   "Compare control and reduced K⁺ uptake under identical conditions.",
-  "Depolarization may increase excitation, but sustained strong depolarization inactivates Na⁺ channels.",
+  "Raised extracellular K⁺ depolarizes neurons; sustained strong depolarization may inactivate Na⁺ channels and suppress firing.",
   "Change only K⁺ uptake; hold temperature and stimulation constant.",
   "The model supports a hypothesis but cannot exclude other mechanisms.",
   "Astrocytes regulate K⁺, oligodendrocytes form CNS myelin, and microglia provide immune defense."
