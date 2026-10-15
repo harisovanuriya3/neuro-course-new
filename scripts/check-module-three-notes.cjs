@@ -60,6 +60,14 @@ for (const value of ["Не записывайте персональные да�
 for (const value of ["Закладка не сохранена", "Bookmark not saved", "Бетбелгі сақталмады"])
   assert(bookmarkUI.includes(value), "Missing failed-save translation: " + value);
 
+assert(notesUI.includes("moduleId === 3 && <p>{moduleThreePrompt[language]}</p>"), "Module 3 physiology note prompts not displayed");
+assert(notesUI.includes("aria-pressed={bookmarked}"), "Bookmark toggle missing accessible pressed state");
+for (const phrase of ["начального сегмента", "initial segment", "бастапқы сегмент", "латентностей", "latency difference", "латенттіліктер"])
+  assert(notesUI.includes(phrase), "Missing module 3 RU/EN/KZ physiology prompt: " + phrase);
+assert(notesUI.includes("Заметки не проверяются автоматически."), "Must not claim notes are graded");
+assert(notesUI.includes("Notes are not graded automatically."), "Missing EN self-assessment limitation");
+assert(notesUI.includes("Жазбалар автоматты түрде бағаланбайды."), "Missing KZ self-assessment limitation");
+
 const references = read("content/index.ts");
 assert(!references.includes("Ghai experiment 2-31"), "Figure 2-31 must not be called experiment 2-31");
 assert(!references.includes("Ghai 2-31-тәжірибе"), "Kazakh figure/experiment confusion");
