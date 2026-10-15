@@ -105,6 +105,7 @@ export function getReviewedVirtualPatientScenario(moduleId:number, language:Lang
    ...stage,
    task:prompts[language][index],
    mentorPrompt:labMentor[language][index],
+   mechanism:labMentor[language][index],
    // Strip patient-examination prefixes from a computer-model observation.
    newData:stage.newData.replace(/^[^:]+:\s*/, ""),
    options:stage.options.map(option=>{
