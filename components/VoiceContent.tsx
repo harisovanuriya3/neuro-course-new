@@ -16,22 +16,22 @@ const moduleThreeCopy = {
   intro:"Объясните два разных механизма: как утрата миелина меняет проведение по аксону и как нарушение астроцитарного захвата K⁺ влияет на возбудимость. Это самопроверка, не диагноз.",
   prompt:"Миелин, Ранвье, астроциты и K⁺: объяснение своими словами",
   cause:"Я различил(а) демиелинизацию и нарушение удаления внеклеточного K⁺",
-  path:"Я объяснил(а) роль перехватов Ранвье и влияние K⁺ на мембранную возбудимость",
-  result:"Я назвал(а) возможное замедление/блок проведения и пределы вывода по одной модели",
+  path:"Я объяснил(а), как миелин обеспечивает ток между перехватами Ранвье и как повышение внеклеточного K⁺ деполяризует мембрану",
+  result:"Я указал(а), что демиелинизация может замедлить или блокировать проведение, а длительная сильная деполяризация может инактивировать Na⁺-каналы; модель не ставит диагноз",
  },
  EN: {
   intro:"Explain two distinct mechanisms: how myelin loss affects axonal conduction and how impaired astrocytic K⁺ uptake affects excitability. This is a self-check, not a diagnosis.",
   prompt:"Myelin, Ranvier nodes, astrocytes and K⁺: explain in your own words",
   cause:"I distinguished demyelination from impaired extracellular K⁺ clearance",
-  path:"I explained the role of nodes of Ranvier and how K⁺ affects membrane excitability",
-  result:"I described possible slowing/block of conduction and the limits of one model",
+  path:"I explained current spread between nodes of Ranvier and how elevated extracellular K⁺ depolarizes the membrane",
+  result:"I noted that demyelination can slow or block conduction, while sustained strong depolarization can inactivate Na⁺ channels; the model cannot diagnose a patient",
  },
  KZ: {
   intro:"Екі бөлек механизмді түсіндіріңіз: миелиннің жоғалуы аксон бойымен өткізуге, ал астроциттердің K⁺ қармауының бұзылуы қозғыштыққа қалай әсер етеді? Бұл — өзіндік тексеру, диагноз емес.",
   prompt:"Миелин, Ранвье түйіндері, астроциттер және K⁺: өз сөзіңізбен түсіндіріңіз",
   cause:"Мен демиелиндену мен жасушадан тыс K⁺ әкетілуінің бұзылуын ажыраттым",
-  path:"Мен Ранвье түйіндерінің рөлін және K⁺-тың мембрана қозғыштығына әсерін түсіндірдім",
-  result:"Мен өткізудің баяулауы/бөгелуі мүмкін екенін және бір модельдің шектеулерін атадым",
+  path:"Мен Ранвье түйіндері арасындағы токтың таралуын және жасушадан тыс K⁺ жоғарылағанда мембрананың деполяризациялануын түсіндірдім",
+  result:"Мен демиелиндену өткізуді баяулатуы не бөгелтуі мүмкін екенін, ал ұзақ күшті деполяризация Na⁺ арналарын инактивациялауы мүмкін екенін және модель диагноз қоймайтынын айттым",
  },
 } as const;
 
