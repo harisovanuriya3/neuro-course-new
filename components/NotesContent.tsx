@@ -46,7 +46,7 @@ export default function NotesContent({ language, moduleId }: { language: Languag
   return <article className={styles.tool}>
     <h1>{c.title}</h1><p>{c.intro}</p>
     <label htmlFor="notes-section">{c.pick}</label>
-    <select id="notes-section" value={selected} onChange={event => { setSelected(event.target.value as Section); setSaveStatus("idle"); }}>
+    <select id="notes-section" value={selected} onChange={event => { setSelected(event.target.value as Section); }}>
       {sectionOrder.map(section => <option key={section} value={section}>{getSectionTitle(section, language)}</option>)}
     </select>
     <div className={styles.row}>
