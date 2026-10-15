@@ -40,7 +40,12 @@ export default function VoiceContent({language,moduleId}:{language:Language;modu
  const key=`neuro-course:mechanism:${moduleId}:${language}`;
  const[answer,setAnswer]=useState("");
  const[cause,setCause]=useState(false),[path,setPath]=useState(false),[result,setResult]=useState(false),[checked,setChecked]=useState(false);
- useEffect(()=>{try{setAnswer(localStorage.getItem(key)||"")}catch{}},[key]);
+ useEffect(()=>{
+  let saved="";
+  try{saved=localStorage.getItem(key)||""}catch{}
+  setAnswer(saved);
+  setCause(false);setPath(false);setResult(false);setChecked(false);
+ },[key]);
  function update(v:string){setAnswer(v);setChecked(false);setCause(false);setPath(false);setResult(false);try{localStorage.setItem(key,v)}catch{}}
  const checks=[{ok:cause,label:c.cause},{ok:path,label:c.path},{ok:result,label:c.result}];
  const done=checks.filter(x=>x.ok).length;
