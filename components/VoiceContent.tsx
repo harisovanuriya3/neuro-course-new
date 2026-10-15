@@ -13,25 +13,31 @@ const copy={
 
 const moduleThreeCopy = {
  RU: {
-  intro:"Объясните два разных механизма: как утрата миелина меняет проведение по аксону и как нарушение астроцитарного захвата K⁺ влияет на возбудимость. Это самопроверка, не диагноз.",
+  intro:"Сравните два разных механизма: потерю миелина в аксоне и недостаточное удаление внеклеточного K⁺ астроцитами. Объясните, почему последствия для проведения и возбудимости различаются. Отмеченные пункты — ваша самооценка, а не проверка правильности ответа.",
   prompt:"Миелин, Ранвье, астроциты и K⁺: объяснение своими словами",
   cause:"Я различил(а) демиелинизацию и нарушение удаления внеклеточного K⁺",
   path:"Я объяснил(а), как миелин обеспечивает ток между перехватами Ранвье и как повышение внеклеточного K⁺ деполяризует мембрану",
-  result:"Я указал(а), что демиелинизация может замедлить или блокировать проведение, а длительная сильная деполяризация может инактивировать Na⁺-каналы; модель не ставит диагноз",
+  result:"Я указал(а), что демиелинизация может замедлить или блокировать проведение, а повышение K⁺ может сначала повышать возбудимость, но при сильной устойчивой деполяризации снижать её из-за инактивации Na⁺-каналов; это не диагноз",
+  ready:"Вы отметили три пункта самооценки. Сравните написанное с теорией: отметки не подтверждают физиологическую правильность объяснения.",
+  good:"Три пункта самооценки отмечены",
  },
  EN: {
-  intro:"Explain two distinct mechanisms: how myelin loss affects axonal conduction and how impaired astrocytic K⁺ uptake affects excitability. This is a self-check, not a diagnosis.",
+  intro:"Compare two mechanisms: axonal myelin loss and inadequate astrocytic clearance of extracellular K⁺. Explain why conduction and excitability are affected differently. Checked boxes are your self-assessment, not verification of scientific accuracy.",
   prompt:"Myelin, Ranvier nodes, astrocytes and K⁺: explain in your own words",
   cause:"I distinguished demyelination from impaired extracellular K⁺ clearance",
   path:"I explained current spread between nodes of Ranvier and how elevated extracellular K⁺ depolarizes the membrane",
-  result:"I noted that demyelination can slow or block conduction, while sustained strong depolarization can inactivate Na⁺ channels; the model cannot diagnose a patient",
+  result:"I noted that demyelination can slow or block conduction; elevated K⁺ may initially increase excitability, but marked sustained depolarization may reduce it through Na⁺-channel inactivation. This does not establish a diagnosis",
+  ready:"You marked all three self-check items. Compare your explanation with the theory: the check marks do not verify physiological correctness.",
+  good:"Three self-check items marked",
  },
  KZ: {
-  intro:"Екі бөлек механизмді түсіндіріңіз: миелиннің жоғалуы аксон бойымен өткізуге, ал астроциттердің K⁺ қармауының бұзылуы қозғыштыққа қалай әсер етеді? Бұл — өзіндік тексеру, диагноз емес.",
+  intro:"Екі бөлек механизмді салыстырыңыз: аксон миелинінің жоғалуы және астроциттердің жасушадан тыс K⁺-ті жеткіліксіз әкетуі. Өткізу мен қозғыштыққа әсері неге әртүрлі екенін түсіндіріңіз. Белгіленген тармақтар — өз бағалауыңыз, жауаптың ғылыми дұрыстығын тексеру емес.",
   prompt:"Миелин, Ранвье түйіндері, астроциттер және K⁺: өз сөзіңізбен түсіндіріңіз",
   cause:"Мен демиелиндену мен жасушадан тыс K⁺ әкетілуінің бұзылуын ажыраттым",
   path:"Мен Ранвье түйіндері арасындағы токтың таралуын және жасушадан тыс K⁺ жоғарылағанда мембрананың деполяризациялануын түсіндірдім",
-  result:"Мен демиелиндену өткізуді баяулатуы не бөгелтуі мүмкін екенін, ал ұзақ күшті деполяризация Na⁺ арналарын инактивациялауы мүмкін екенін және модель диагноз қоймайтынын айттым",
+  result:"Мен демиелиндену өткізуді баяулатуы не бөгелтуі мүмкін екенін, ал K⁺ жоғарылауы бастапқыда қозғыштықты арттырғанымен, күшті тұрақты деполяризация Na⁺ арналарының инактивациясы арқылы оны төмендетуі мүмкін екенін және бұл диагноз емес екенін айттым",
+  ready:"Өзіндік тексерудің үш тармағын белгіледіңіз. Жауабыңызды теориямен салыстырыңыз: белгілер физиологиялық дұрыстықты дәлелдемейді.",
+  good:"Өзіндік тексерудің үш тармағы белгіленді",
  },
 } as const;
 
