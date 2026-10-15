@@ -21,6 +21,8 @@ export default function MembraneElectrophysiologyLab({language}:{language:Langua
  const[ko,setKo]=useState(4),[ki,setKi]=useState(140),[nao,setNao]=useState(145),[nai,setNai]=useState(12),[temp,setTemp]=useState(37),[pk,setPk]=useState(1),[pna,setPna]=useState(.04),[stim,setStim]=useState(12),[interval,setInterval]=useState(5),[prediction,setPrediction]=useState<Prediction|null>(null),[running,setRunning]=useState(false),[progress,setProgress]=useState(0);
  const values=useMemo(()=>({ek:nernst(ko,ki,temp),ena:nernst(nao,nai,temp),vm:ghk(ko,ki,nao,nai,pk,pna,temp)}),[ko,ki,nao,nai,temp,pk,pna]);
  const refractory=interval<2?"absolute":interval<5?"relative":"ready",effective=stim*(refractory==="absolute"?0:refractory==="relative"?.55:1),spike=effective>=10;
+ // Input changes invalidate a prediction and the previous trace/result.
+ useEffect(()=>{setRunning(false);setProgress(0);setPrediction(null)},[ko,ki,nao,nai,temp,pk,pna,stim,interval]);
  useEffect(()=>{if(!running)return;const timer=window.setInterval(()=>setProgress(p=>{const n=Math.min(1,p+.018);if(n>=1)setRunning(false);return n}),40);return()=>window.clearInterval(timer)},[running]);
  const waveform=useMemo(()=>Array.from({length:101},(_,i)=>{const x=i/100,y=!spike?values.vm+Math.max(0,effective)*.5*Math.exp(-(((x-.25)/.12)**2)):x<.2?values.vm:x<.34?values.vm+(35-values.vm)*(x-.2)/.14:x<.58?35-(35-values.vm)*(x-.34)/.24:x<.76?values.vm-12*Math.sin((x-.58)/.18*Math.PI):values.vm;return `${20+i*5.5},${125-(y+90)*.82}`}).join(" "),[effective,spike,values.vm]);
  const phase=!running&&progress===0?c.rest:!spike?c.threshold:progress<.34?c.rise:progress<.58?c.fall:progress<.76?c.after:c.rest;
