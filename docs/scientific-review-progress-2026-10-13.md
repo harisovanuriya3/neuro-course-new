@@ -93,3 +93,7 @@
 ## 14.10.2026 — module 3 media
 
 Created module-three-media.ts (c7e18b04) and check-module-three-media.cjs (fc3a83c5). Not wired in content/index.ts; integration and tests pending. Glossary already registered in RU/EN/KZ. Read Ganong PDF 92–94, Guyton PDF 78–79, Ghai PDF 250–251. Module 3 source-level coverage 12/17; full 425-section audit incomplete. No deployment.
+
+## 15.10.2026 — source verification checkpoint
+
+Directly re-read the module 3 reference sources in Library: Guyton & Hall 13e PDF pp. 78–79 (printed pp. 71–72); Ganong 23e PDF pp. 92–94 (printed pp. 80–82); C. L. Ghai 8e PDF pp. 249–251 (printed pp. 227–229). Confirmed the physiology of glial functions, saltatory conduction and two-site motor nerve-conduction measurement. The current `content/index.ts` already registers module 3 media and glossary in RU/EN/KZ; the previous journal note saying media was not wired is stale. The `references` section still uses generic descriptions rather than chapter-specific guidance; an attempted replacement was blocked by the GitHub write tool, so it is not counted as fixed. No local TypeScript/build/browser run: container cannot resolve github.com. The 425-section audit remains incomplete; no deploy or merge.
