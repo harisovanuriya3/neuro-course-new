@@ -19,11 +19,16 @@ for(const skill of skills)for(const level of levels){
  options:[{id:'a',text:'Generic answer'},{id:'b',text:'Wrong'}],correctAnswer:'a',
  explanation:'Generic feedback',onCorrect:'next',onIncorrect:'review'};
 }
+for(const skill of skills)for(const depth of [1,2]){
+ const id=skill+':review-'+depth;
+ nodes[id]={id,type:'remediation',competency:skill,depth,text:'Generic remediation',
+ theoryTarget:{moduleId:3,anchor:'mechanism'},next:skill+':'+(depth===1?'corrective':'basic')};
+}
 const base={kind:'tests',title:'',moduleTitle:'',ui:{},start:'concept:main',
  mainIds:skills.map(s=>s+':main'),competencies:{},nodes};
 for(const lang of ['RU','EN','KZ']){
  const out=build(lang,base);
- assert.equal(Object.keys(out.nodes).length,15);
+ assert.equal(Object.keys(out.nodes).length,25);
  for(const skill of skills){
   const prompts=[];
   for(const level of levels){
