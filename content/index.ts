@@ -32,9 +32,9 @@ function moduleThreeReferences(language: Language) {
   const base = foundationLessons[3]?.references?.[language];
   if (!base || base.kind !== "references") throw new Error("Module 3 references missing");
   const guide: Record<Language, string> = {
-    RU: "Для нейрона и глии: Ganong, гл. 4, с. 80–82; Guyton & Hall, гл. 5, с. 71–72; для расчёта моторной проводимости: Ghai, раздел «Motor Nerve Conduction», с. 228–229 (рис. 2-30–2-31). По одной латентности М-ответа диагноз не устанавливают.",
-    EN: "Neuron and glia: Ganong ch. 4, pp. 80–82; Guyton & Hall ch. 5, pp. 71–72. Motor conduction calculation: Ghai, Motor Nerve Conduction section, pp. 228–229 (Figs. 2-30–2-31). A single CMAP latency does not establish a diagnosis.",
-    KZ: "Нейрон және глия: Ganong 4-тарау, 80–82-б.; Guyton & Hall 5-тарау, 71–72-б. Моторлық өткізуді есептеу: Ghai, «Motor Nerve Conduction» бөлімі, 228–229-б. (2-30–2-31-суреттер) Бір М-жауап латенттілігі диагноз қоюға жеткіліксіз."
+    RU: "Строение нейрона и функции глии: Ganong, гл. 4, с. 80–82. Миелин, перехваты Ранвье и сальтаторное проведение: Guyton & Hall, гл. 5, с. 71–72. Расчёт скорости моторного проведения по двум точкам стимуляции: Ghai, раздел «Motor Nerve Conduction», с. 228–229 (рис. 2-30–2-31). Одна латентность М-ответа не определяет скорость проведения в исследуемом сегменте и сама по себе не устанавливает диагноз.",
+    EN: "Neuron structure and glial functions: Ganong, ch. 4, pp. 80–82. Myelin, nodes of Ranvier and saltatory conduction: Guyton & Hall, ch. 5, pp. 71–72. Two-site motor nerve conduction velocity calculation: Ghai, Motor Nerve Conduction section, pp. 228–229 (Figs. 2-30–2-31). A single CMAP onset latency cannot determine segmental conduction velocity or establish a diagnosis by itself.",
+    KZ: "Нейронның құрылысы мен глияның қызметтері: Ganong, 4-тарау, 80–82-б. Миелин, Ранвье түйіндері және секірмелі өткізу: Guyton & Hall, 5-тарау, 71–72-б. Екі нүктеден тітіркендіру арқылы қозғалтқыш жүйкенің өткізу жылдамдығын есептеу: Ghai, «Motor Nerve Conduction» бөлімі, 228–229-б. (2-30–2-31-суреттер). Бір ғана М-жауаптың басталу латенттілігі зерттелген сегменттегі өткізу жылдамдығын анықтауға да, өздігінен диагноз қоюға да жеткіліксіз."
   };
   return { ...base, introduction: guide[language] };
 }
