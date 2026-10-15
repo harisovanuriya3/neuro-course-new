@@ -28,6 +28,17 @@ import { createModuleThreeMedia } from "./course-foundation/module-three-media";
 import { modules } from "./course";
 import { getSectionTitle } from "./sections";
 
+function moduleThreeReferences(language: Language) {
+  const base = foundationLessons[3]?.references?.[language];
+  if (!base || base.kind !== "references") throw new Error("Module 3 references missing");
+  const guide: Record<Language, string> = {
+    RU: "Для нейрона и глии: Ganong, гл. 4, с. 80–82; Guyton & Hall, гл. 5, с. 71–72; для расчёта моторной проводимости: Ghai, опыт 2-31, с. 226–229. По одной латентности М-ответа диагноз не устанавливают.",
+    EN: "Neuron and glia: Ganong ch. 4, pp. 80–82; Guyton & Hall ch. 5, pp. 71–72. Motor conduction calculation: Ghai experiment 2-31, pp. 226–229. A single CMAP latency does not establish a diagnosis.",
+    KZ: "Нейрон және глия: Ganong 4-тарау, 80–82-б.; Guyton & Hall 5-тарау, 71–72-б. Моторлық өткізуді есептеу: Ghai 2-31-тәжірибе, 226–229-б. Бір М-жауап латенттілігі диагноз қоюға жеткіліксіз."
+  };
+  return { ...base, introduction: guide[language] };
+}
+
 function moduleThreeBaseMedia(language: Language) {
   const lesson = foundationLessons[3]?.media?.[language];
   if (!lesson || lesson.kind !== "media") {
@@ -82,6 +93,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   3: {
     ...foundationLessons[3],
+    references: { RU: moduleThreeReferences("RU"), EN: moduleThreeReferences("EN"), KZ: moduleThreeReferences("KZ") },
     media: {
       RU: createModuleThreeMedia("RU", moduleThreeBaseMedia("RU")),
       EN: createModuleThreeMedia("EN", moduleThreeBaseMedia("EN")),
