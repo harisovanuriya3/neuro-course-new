@@ -72,7 +72,7 @@ export default function NotesContent({ language, moduleId }: { language: Languag
     <label htmlFor="section-note">{c.note}</label>
     <VoiceTextarea key={selected} language={language} id="section-note" disabled={!ready} maxLength={5000} rows={7} value={value.notes[selected] ?? ""} onValue={text => update(current => ({ ...current, notes: { ...current.notes, [selected]: text } }))} />
     <p role="status" aria-live="polite">{ready && saveStatus !== "idle" ? c[saveStatus] : ""}</p>
-    <button type="button" disabled={!ready} onClick={clearAll}>{c.clear}</button>
+    <button className={styles.clearButton} type="button" disabled={!ready} onClick={clearAll}>{c.clear}</button>
     <h2>{c.bookmarks}</h2>
     {value.bookmarks.length ? <ul>{value.bookmarks.map(section => <li key={section}><Link href={`/modules/${moduleId}/${section}?lang=${language}`}>{getSectionTitle(section, language)}</Link></li>)}</ul> : <p>{c.empty}</p>}
   </article>;
