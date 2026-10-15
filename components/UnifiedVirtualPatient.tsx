@@ -21,6 +21,14 @@ const decisionCopy = {
   KZ: { profile:"Шешімдер профилі", correct:"Сәйкес шешімдер", strong:"Клиникалық ойлау қалыптасты", forming:"Клиникалық ойлау қалыптасуда", review:"Механизмді қайталау қажет", next:"Ұсыныс", strongNext:"Келесі модульге немесе қорытынды бақылауға өтіңіз.", formingNext:"Қате кезеңдерді қайталап, механизмді қайта түсіндіріңіз.", reviewNext:"Теория мен клиникалық көпірге оралып, пациент жағдайын қайта өтіңіз.", errorStage:"Талдау қажет" },
 } as const;
 
+// Module 3 is a non-human teaching simulation. Only selected options are scored;
+// the free-text explanation is stored for reflection, not assessed for accuracy.
+const modelDecisionCopy = {
+  RU: { profile:"Результат учебной модели", correct:"Физиологически обоснованных выборов", strong:"5–6 выборов соответствуют модели", forming:"3–4 выбора соответствуют модели", review:"0–2 выбора соответствуют модели", next:"Следующий шаг", strongNext:"Сравните свои письменные объяснения с механизмом из теории.", formingNext:"Пересмотрите этапы с ошибками и объясните роль астроцитарного K⁺.", reviewNext:"Повторите механизм глиального буферирования K⁺ и пройдите модель снова.", errorStage:"Проверьте механизм", scope:"Процент отражает только выбор вариантов. Письменные объяснения автоматически не оценивались." },
+  EN: { profile:"Teaching-model result", correct:"Physiologically supported choices", strong:"5–6 choices match the model", forming:"3–4 choices match the model", review:"0–2 choices match the model", next:"Next step", strongNext:"Compare your written explanations with the mechanism in the theory section.", formingNext:"Review incorrect stages and explain astrocytic K⁺ buffering.", reviewNext:"Revisit glial K⁺ buffering and repeat the simulation.", errorStage:"Review the mechanism", scope:"The percentage scores selected options only. Written explanations have not been automatically assessed." },
+  KZ: { profile:"Оқу моделінің нәтижесі", correct:"Физиологиялық негізделген таңдаулар", strong:"5–6 таңдау модельге сәйкес", forming:"3–4 таңдау модельге сәйкес", review:"0–2 таңдау модельге сәйкес", next:"Келесі қадам", strongNext:"Жазбаша түсіндірмелеріңізді теориядағы механизммен салыстырыңыз.", formingNext:"Қате кезеңдерді қарап, астроциттердің K⁺ буферлеуін түсіндіріңіз.", reviewNext:"Глияның K⁺ буферлеуін қайталап, модельден қайта өтіңіз.", errorStage:"Механизмді тексеріңіз", scope:"Пайыз тек таңдалған жауаптарды бағалайды. Жазбаша түсіндірмелер автоматты түрде бағаланған жоқ." },
+} as const;
+
 type StoredState = { current: number; unlocked: number; selected: (number | null)[]; notes: string[] };
 const emptyState = (): StoredState => ({ current: 0, unlocked: 0, selected: [null, null, null, null, null, null], notes: ["", "", "", "", "", ""] });
 
@@ -76,7 +84,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   const complete = selected !== null;
   const reasoningComplete = state.notes[state.current].trim().length >= 12;
   const decisionCommitted = complete && reasoningComplete;
-  const d = decisionCopy[language];
+  const d = moduleId === 3 ? modelDecisionCopy[language] : decisionCopy[language];
   const correctDecisions = scenario.stages.reduce((sum, reviewStage, index) => sum + (state.selected[index] === reviewStage.correctOption ? 1 : 0), 0);
   const decisionPercent = Math.round((correctDecisions / scenario.stages.length) * 100);
   const decisionLevel = decisionPercent >= 80 ? d.strong : decisionPercent >= 50 ? d.forming : d.review;
@@ -172,6 +180,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
             <p style={{margin:"0 0 6px"}}><strong>{d.correct}: {correctDecisions}/6 · {decisionPercent}%</strong></p>
             <progress value={correctDecisions} max={6} aria-label={d.profile} style={{width:"100%"}} />
             <p style={{margin:"8px 0 4px"}}>{decisionLevel}</p>
+            {moduleId === 3 && <p style={{margin:"6px 0"}}>{modelDecisionCopy[language].scope}</p>}
             <p style={{margin:0}}><strong>{d.next}:</strong> {decisionAdvice}</p>
           </div>
           <p>{scenario.mechanismSummary}</p>
