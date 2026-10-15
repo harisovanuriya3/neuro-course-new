@@ -104,9 +104,15 @@ export function createModuleThreeMedia(language: Language, base: MediaLesson): M
         prompt: copy.prompt,
         correctAnswer: 'b',
         explanation: copy.explanation,
-        options: (['a','b','c','d'] as const).map((id, i) => ({
-          id, text: copy.options[i], feedback: copy.feedback[i]
-        }))
+        options: (() => {
+          const choices = (['a','b','c','d'] as const).map((id, i) => ({
+            id, text: copy.options[i], feedback: copy.feedback[i]
+          }));
+          // Keep the correct ID stable for the renderer while varying its
+          // visible position across languages (SSR-safe, deterministic).
+          const offset = language === 'RU' ? 0 : language === 'EN' ? 1 : 2;
+          return [...choices.slice(offset), ...choices.slice(0, offset)];
+        })()
       }
     }]
   };
