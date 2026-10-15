@@ -73,5 +73,20 @@ assert(!references.includes("Ghai experiment 2-31"), "Figure 2-31 must not be ca
 assert(!references.includes("Ghai 2-31-тәжірибе"), "Kazakh figure/experiment confusion");
 for (const value of ["рис. 2-30–2-31", "Figs. 2-30–2-31", "2-30–2-31-суреттер"])
   assert(references.includes(value), "Missing verified Ghai figure citation: " + value);
-console.log("PASS: 17 note destinations, module isolation, storage failure/corruption, three-language feedback, and Ghai figures.");
+// Each printed-page reference must be attached to the physiology it actually covers.
+for (const value of [
+  "Строение нейрона и функции глии: Ganong",
+  "Миелин, перехваты Ранвье и сальтаторное проведение: Guyton & Hall",
+  "Расчёт скорости моторного проведения по двум точкам стимуляции: Ghai",
+  "Neuron structure and glial functions: Ganong",
+  "Myelin, nodes of Ranvier and saltatory conduction: Guyton & Hall",
+  "Two-site motor nerve conduction velocity calculation: Ghai",
+  "Нейронның құрылысы мен глияның қызметтері: Ganong",
+  "Миелин, Ранвье түйіндері және секірмелі өткізу: Guyton & Hall",
+  "Екі нүктеден тітіркендіру арқылы қозғалтқыш жүйкенің өткізу жылдамдығын есептеу: Ghai",
+  "A single CMAP onset latency cannot determine segmental conduction velocity",
+  "Одна латентность М-ответа не определяет скорость проведения",
+  "Бір ғана М-жауаптың басталу латенттілігі"
+]) assert(references.includes(value), "Module 3 reference scope or clinical limitation missing: " + value);
+console.log("PASS: 17 note destinations, module isolation, storage failure/corruption, three-language feedback, and precise textbook page mappings.");
 console.log("NOTE: React interaction, speech recognition, TypeScript project build and browser storage permissions still require runtime testing.");
