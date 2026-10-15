@@ -37,5 +37,18 @@ assert(route.includes('<UnifiedVirtualPatient moduleId={moduleNumber} language={
 const reviewed = fs.readFileSync("content/reviewed-virtual-patients.ts","utf8");
 assert(reviewed.includes("newData:stage.newData.replace"),"Lab data must omit clinical examination prefix");
 assert(reviewed.includes("mentorPrompt:labMentor[language][index]"),"Lab requires physiological mentor comments");
+const visual = fs.readFileSync("components/VirtualPatientVisual.tsx","utf8");
+assert(visual.includes("Астроцитарное буферирование K⁺") &&
+ visual.includes("Astrocytic K⁺ buffering") &&
+ visual.includes("Астроциттердің K⁺ буферлеуі"),
+ "Module 3 model graphic must be labeled for K+ buffering in all three languages");
+assert(visual.includes("active=(safeStage-1+(moduleId===3?0:(selected??0)))%6"),
+ "Selecting a choice must not change module 3 model stage visualization");
+assert(visual.includes("selected={moduleId===3?null:selected}"),
+ "Model graphic must not depict predefined data as a response to a selected action");
+assert(visual.includes("modelNote:") && visual.includes("c.modelNote"),
+ "The predefined-data disclaimer must be visible");
+assert(visual.includes("aria-label={config.title[language]}"),
+ "Diagram accessibility label must use the selected language");
 console.log("PASS: Module 3 virtual teaching case — 6 distinct stages × 3 languages, model labeling and route wiring.");
 console.log("NOTE: dynamic branching, audio, scoring and browser accessibility still require runtime tests.");
