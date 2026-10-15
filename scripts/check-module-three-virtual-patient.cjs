@@ -37,6 +37,7 @@ assert(route.includes('<UnifiedVirtualPatient moduleId={moduleNumber} language={
 const reviewed = fs.readFileSync("content/reviewed-virtual-patients.ts","utf8");
 assert(reviewed.includes("newData:stage.newData.replace"),"Lab data must omit clinical examination prefix");
 assert(reviewed.includes("mentorPrompt:labMentor[language][index]"),"Lab requires physiological mentor comments");
+assert(reviewed.includes("mechanism:labMentor[language][index]"),"Stage-specific explanations missing");
 const visual = fs.readFileSync("components/VirtualPatientVisual.tsx","utf8");
 assert(visual.includes("Астроцитарное буферирование K⁺") &&
  visual.includes("Astrocytic K⁺ buffering") &&
