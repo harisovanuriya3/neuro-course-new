@@ -10,3 +10,7 @@
 .tool a, .bookmark a { color: #005b96; font-weight: 700; }
 .row button:focus-visible, .bookmark button:focus-visible, .tool select:focus-visible, .tool textarea:focus-visible { outline: 3px solid #e49931; outline-offset: 2px; }
 .bookmark { margin-top: 0; }
+
+.clearButton { border: 1px solid #934236; background: #fff8f5; color: #7c2f25; border-radius: 8px; padding: 8px 12px; font: inherit; cursor: pointer; }
+.clearButton:disabled { opacity: .5; cursor: default; }
+.clearButton:focus-visible { outline: 3px solid #e49931; outline-offset: 2px; }
