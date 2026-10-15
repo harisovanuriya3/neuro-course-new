@@ -29,3 +29,4 @@ for (const lang of ['RU','EN','KZ']) {
   assert(registry.includes('createModuleThreeMedia("'+lang+'"'), 'Missing '+lang+' media registration');
 }
 console.log('PASS: Module 3 media source, languages, mechanism, four options and registration');
+require('./check-module-three-references.cjs');
