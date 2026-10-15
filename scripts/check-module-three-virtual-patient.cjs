@@ -52,3 +52,6 @@ assert(visual.includes("aria-label={config.title[language]}"),
  "Diagram accessibility label must use the selected language");
 console.log("PASS: Module 3 virtual teaching case — 6 distinct stages × 3 languages, model labeling and route wiring.");
 console.log("NOTE: dynamic branching, audio, scoring and browser accessibility still require runtime tests.");
+
+// Also validate the module 3 mechanism explanation self-check.
+require('./check-module-three-voice.cjs');
