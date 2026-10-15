@@ -11,7 +11,7 @@ assert.equal(ast.parseDiagnostics.length, 0, 'Module 3 media TypeScript must par
 for (const lang of ['RU','EN','KZ']) {
   assert(new RegExp('\\b'+lang+':\\s*\\{').test(src), 'Missing '+lang+' media text');
 }
-for (const required of ['Node of Ranvier','Ранвье','Ранвье түйіндері','Oligodendrocytes','Олигодендроциты','Олигодендроциттер','CMAP','М-ответ','М-жауап']) {
+for (const required of ['nodes of Ranvier','Ранвье','Ранвье түйіндері','Oligodendrocytes','Олигодендроциты','Олигодендроциттер','CMAP','М-ответ','М-жауап']) {
   assert(src.includes(required), 'Missing mechanism or translation marker: '+required);
 }
 // The existing generic four-frame SVG must not be described as a physiological myelin experiment.
