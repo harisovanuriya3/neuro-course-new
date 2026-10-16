@@ -82,7 +82,7 @@ const labMentor: Record<Language,string[]> = {
  EN: [
   "Compare the K⁺ time course under matched stimulation.",
   "Compare control and reduced K⁺ uptake under identical conditions.",
-  "Raised extracellular K⁺ depolarizes neurons; sustained strong depolarization may inactivate Na⁺ channels and suppress firing.",
+  "Elevated extracellular K⁺ generally depolarizes neurons. A moderate increase may raise excitability, whereas strong sustained depolarization may inactivate voltage-gated Na⁺ channels and reduce the ability to fire. The result depends on concentration, duration and cell type.",
   "Change only K⁺ uptake; hold temperature and stimulation constant.",
   "The model supports a hypothesis but cannot exclude other mechanisms.",
   "Astrocytes regulate K⁺, oligodendrocytes form CNS myelin, and microglia provide immune defense."
@@ -90,7 +90,7 @@ const labMentor: Record<Language,string[]> = {
  KZ: [
   "Стимуляция бірдей кезде K⁺ деңгейінің уақыттық өзгерісін салыстырыңыз.",
   "Бақылау мен K⁺ қармауы төмендеген жағдайды бірдей шарттарда салыстырыңыз.",
-  "Деполяризация қозуды арттыруы мүмкін, бірақ ұзақ күшті деполяризация Na⁺ арналарын инактивациялайды.",
+  "Жасушадан тыс K⁺ жоғарылауы нейрон мембранасын әдетте деполяризациялайды. Орташа өзгеріс қозғыштықты арттыруы мүмкін, ал күшті әрі ұзақ деполяризация кернеуге тәуелді Na⁺ арналарының бір бөлігін инактивациялап, импульс түзу қабілетін төмендетуі мүмкін. Нәтиже концентрацияға, әсер ұзақтығына және жасуша түріне тәуелді.",
   "Тек K⁺ қармауын өзгертіңіз; температура мен стимуляция тұрақты болсын.",
   "Модель гипотезаны қолдайды, бірақ өзге механизмдерді жоққа шығармайды.",
   "Астроциттер K⁺ реттейді, олигодендроциттер ОЖЖ миелинін түзеді, микроглия иммундық қорғауға қатысады."
