@@ -31,7 +31,7 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const tc=combined([test,cases]), tOnly=combined([test]), cOnly=combined([cases]);
  const criterion=(name:string)=>{
    const prefix=`${moduleId}:criterion:${name}`;
-   const values=Object.entries(outcomes).filter(([key])=>(key===prefix||key.startsWith(prefix+":"))&&!key.endsWith(":sketch")&&!key.endsWith(":path-builder")&&!key.endsWith(":lab-reflection")).map(([,value])=>value);
+   const values=Object.entries(outcomes).filter(([key])=>(key===prefix||key.startsWith(prefix+":"))&&!key.endsWith(":sketch")&&!key.endsWith(":path-builder")&&!key.endsWith(":lab-reflection")&&!key.endsWith(":gradient-permeability")&&!key.endsWith(":ghk")).map(([,value])=>value);
    if(!values.length)return undefined;
    return {correct:values.reduce((sum,value)=>sum+value.correct,0),total:values.reduce((sum,value)=>sum+value.total,0)};
  };
