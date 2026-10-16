@@ -11,3 +11,5 @@ Corrections: 91c5575b removes keyword-based grading from lab reflections; 84951c
 Progress fix: e1975758 and 8e7b998a exclude legacy self-check markers from competency rows.
 
 Source checks: 12/12 initial and 8/8 after fixes passed. CI, build and browser tests remain pending.
+
+Coverage: module 4 theory, pretest, interactive partially reviewed (3/17); 14 sections not targeted. All 425 sections lack complete end-to-end verification. No merge or deploy.
