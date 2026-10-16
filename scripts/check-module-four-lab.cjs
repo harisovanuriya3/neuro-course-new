@@ -16,4 +16,21 @@ assert(wave.includes("traceRest")&&wave.includes("tracePeak"),"Trace must use fi
 assert(!wave.includes("values.vm"),"GHK Vm must not be reused as a fixed-shape AP baseline");
 assert(!wave.includes("35-"),"Fixed overshoot must not be forced onto varying ion gradients");
 assert(src.includes("Ion concentrations affect only the Vm estimate"),"Model limitation must be explained");
+const theory=fs.readFileSync("content/course-foundation/module-four-theory.ts","utf8");
+const registry=fs.readFileSync("content/index.ts","utf8");
+for(const lang of ["RU","EN","KZ"]){
+ assert(registry.includes('createModuleFourTheory("'+lang+'"'),"Module 4 theory not registered: "+lang);
+ assert(theory.includes("\n "+lang+": ["),"Missing theory language "+lang);
+}
+assert(theory.includes("module-four-nernst-goldman")&&theory.includes("module-four-model-limits"),
+ "Missing explanatory sections for ionic equilibrium and simulation limits");
+for(const marker of ["−95,0","−71,2","−95.0","−71.2","−70 → +30","Na⁺","K⁺","Cl⁻"]){
+ assert(theory.includes(marker),"Missing reviewed physiology marker: "+marker);
+}
+const R=8.314,F=96485,T=310.15;
+const ek=1000*R*T/F*Math.log(4/140);
+const ena=1000*R*T/F*Math.log(145/12);
+const vm=1000*R*T/F*Math.log((4+.04*145)/(140+.04*12));
+assert(Math.abs(ek+95.0)<.1&&Math.abs(ena-66.6)<.1&&Math.abs(vm+71.2)<.1,
+ "Default Nernst/Goldman example does not match the implemented lab formula");
 console.log("PASS: module 4 GHK calculation and independent, trilingual illustrative AP trace.");
