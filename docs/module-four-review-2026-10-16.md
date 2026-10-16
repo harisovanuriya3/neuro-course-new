@@ -7,3 +7,5 @@ Sources read directly: Guyton & Hall 13e PDF pages 68–74 (Nernst, Goldman, res
 Independent numerical check (37 C, default lab inputs): E(K)=-95.018 mV, E(Na)=+66.595 mV, two-ion Goldman Vm=-71.161 mV. All match the trilingual theory. AP shape is an explicitly illustrative trace, not a Hodgkin-Huxley computation or diagnosis.
 
 Corrections: 91c5575b removes keyword-based grading from lab reflections; 84951ca5 relabels buttons in RU/EN/KZ. Legacy saved scores require a follow-up fix.
+
+Progress fix: e1975758 and 8e7b998a exclude legacy self-check markers from competency rows.
