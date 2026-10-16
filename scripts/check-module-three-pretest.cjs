@@ -57,3 +57,6 @@ console.log("PASS: Module 3 pretest — 2 mechanism questions × 3 languages, fo
 
 // Run module 3 objectives and one-minute summary regression checks in the existing audit chain.
 require("./check-module-three-learning.cjs");
+
+// Include reviewed questions in the existing science audit chain.
+require("./check-module-three-questions.cjs");
