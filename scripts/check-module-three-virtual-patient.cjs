@@ -38,6 +38,12 @@ const reviewed = fs.readFileSync("content/reviewed-virtual-patients.ts","utf8");
 assert(reviewed.includes("newData:stage.newData.replace"),"Lab data must omit clinical examination prefix");
 assert(reviewed.includes("mentorPrompt:labMentor[language][index]"),"Lab requires physiological mentor comments");
 assert(reviewed.includes("mechanism:labMentor[language][index]"),"Stage-specific explanations missing");
+assert(reviewed.includes("A moderate increase may raise excitability") &&
+ reviewed.includes("strong sustained depolarization may inactivate voltage-gated Na⁺ channels") &&
+ reviewed.includes("Орташа өзгеріс қозғыштықты арттыруы мүмкін") &&
+ reviewed.includes("әсер ұзақтығына және жасуша түріне тәуелді"),
+ "EN/KZ stage-3 K+ feedback must distinguish moderate excitation from sustained depolarization block");
+
 const visual = fs.readFileSync("components/VirtualPatientVisual.tsx","utf8");
 assert(visual.includes("Астроцитарное буферирование K⁺") &&
  visual.includes("Astrocytic K⁺ buffering") &&
