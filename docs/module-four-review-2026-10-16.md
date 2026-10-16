@@ -9,3 +9,5 @@ Independent numerical check (37 C, default lab inputs): E(K)=-95.018 mV, E(Na)=+
 Corrections: 91c5575b removes keyword-based grading from lab reflections; 84951ca5 relabels buttons in RU/EN/KZ. Legacy saved scores require a follow-up fix.
 
 Progress fix: e1975758 and 8e7b998a exclude legacy self-check markers from competency rows.
+
+Source checks: 12/12 initial and 8/8 after fixes passed. CI, build and browser tests remain pending.
