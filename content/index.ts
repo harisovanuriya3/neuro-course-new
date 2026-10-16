@@ -36,7 +36,51 @@ function moduleThreeReferences(language: Language) {
     EN: "Neuron structure and glial functions: Ganong, ch. 4, pp. 80–82. Myelin, nodes of Ranvier and saltatory conduction: Guyton & Hall, ch. 5, pp. 71–72. Two-site motor nerve conduction velocity calculation: Ghai, Motor Nerve Conduction section, pp. 228–229 (Figs. 2-30–2-31). A single CMAP onset latency cannot determine segmental conduction velocity or establish a diagnosis by itself.",
     KZ: "Нейронның құрылысы мен глияның қызметтері: Ganong, 4-тарау, 80–82-б. Миелин, Ранвье түйіндері және секірмелі өткізу: Guyton & Hall, 5-тарау, 71–72-б. Екі нүктеден тітіркендіру арқылы қозғалтқыш жүйкенің өткізу жылдамдығын есептеу: Ghai, «Motor Nerve Conduction» бөлімі, 228–229-б. (2-30–2-31-суреттер). Бір ғана М-жауаптың басталу латенттілігі зерттелген сегменттегі өткізу жылдамдығын анықтауға да, өздігінен диагноз қоюға да жеткіліксіз."
   };
-  return { ...base, introduction: guide[language] };
+
+  // The linked textbook records are NOT links to licensed full text.
+  // The practical-physiology record points to the exact eighth edition,
+  // rather than a general library search for the word "physiology".
+  const catalogHref = "https://opac.iitrpr.ac.in/cgi-bin/koha/opac-MARCdetail.pl?biblionumber=10003";
+  const details: Record<Language, Record<string, string>> = {
+    RU: {
+      guyton: "Карточка издания 2016 года, не бесплатный полный текст. Для модуля: гл. 5, с. 71–72, миелин и сальтаторное проведение.",
+      ganong: "Библиографическая запись 23-го издания, не полный текст. Для модуля: гл. 4, с. 80–82, нейроны, глия и миелин.",
+      ghai: "Каталожная запись именно 8-го издания (2013), не полный текст. Для модуля: раздел 2-31, с. 226–229; рисунки 2-30 и 2-31 показывают стимуляцию и М-ответ.",
+      cells: "Свободно доступная глава OpenStax о нервной ткани: нейроны, глия и организация миелина.",
+      other: "Библиографический ресурс или библиотечный каталог. Ссылка не означает свободный доступ к полному тексту указанной книги.",
+    },
+    EN: {
+      guyton: "Publisher record for the 2016 edition, not free full text. Relevant reading: ch. 5, pp. 71–72, myelin and saltatory conduction.",
+      ganong: "Bibliographic record for the 23rd edition, not full text. Relevant reading: ch. 4, pp. 80–82, neurons, glia and myelin.",
+      ghai: "Catalog record for the exact eighth edition (2013), not full text. Relevant reading: section 2-31, pp. 226–229; Figures 2-30 and 2-31 show stimulation and the CMAP.",
+      cells: "Freely accessible OpenStax chapter on nervous tissue: neurons, glia and myelin organization.",
+      other: "Bibliographic resource or library catalog. The link does not imply free access to the cited book's full text.",
+    },
+    KZ: {
+      guyton: "2016 жылғы басылымның баспа карточкасы; толық мәтіні тегін емес. Осы модульге: 5-тарау, 71–72-б., миелин және секірмелі өткізу.",
+      ganong: "23-басылымның библиографиялық жазбасы, толық мәтін емес. Осы модульге: 4-тарау, 80–82-б., нейрондар, глия және миелин.",
+      ghai: "Нақты 8-басылымның (2013) каталог жазбасы, толық мәтін емес. Осы модульге: 2-31-бөлім, 226–229-б.; 2-30 және 2-31-суреттерде тітіркендіру мен М-жауап көрсетілген.",
+      cells: "OpenStax-тың жүйке тіні туралы еркін қолжетімді тарауы: нейрондар, глия және миелиннің құрылысы.",
+      other: "Библиографиялық ресурс немесе кітапхана каталогы. Сілтеме кітаптың толық мәтіні тегін қолжетімді дегенді білдірмейді.",
+    },
+  };
+  const sourceKind = (title: string) =>
+    title.startsWith("Guyton & Hall") ? "guyton" :
+    title.startsWith("Ganong") ? "ganong" :
+    title.startsWith("C. L. Ghai") ? "ghai" :
+    title.startsWith("OpenStax · Nervous Tissue") ? "cells" : "other";
+  return {
+    ...base,
+    introduction: guide[language],
+    sources: base.sources?.map(source => {
+      const kind = sourceKind(source.title);
+      return {
+        ...source,
+        ...(kind === "ghai" ? { href: catalogHref } : {}),
+        description: details[language][kind],
+      };
+    }),
+  };
 }
 
 function moduleThreeBaseMedia(language: Language) {
