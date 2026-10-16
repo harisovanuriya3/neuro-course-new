@@ -31,7 +31,7 @@ const localized: Record<Language, Locale> = {
         explanation: "Восходящая фаза обусловлена положительной обратной связью: деполяризация открывает потенциал-зависимые Na⁺-каналы, входящий Na⁺-ток усиливает деполяризацию. Запаздывающий выход K⁺ и инактивация Na⁺-каналов способствуют реполяризации. Na⁺/K⁺-АТФаза поддерживает градиенты на более длительном масштабе времени, но не создаёт быстрый подъём отдельного импульса.",
       },
       {
-        prompt: "Сразу после начала потенциала действия второй, даже очень сильный стимул не вызывает нового распространяющегося импульса. Какова основная причина абсолютной рефрактерности?",
+        prompt: "На пике потенциала действия и в начале реполяризации даже очень сильный повторный стимул не вызывает нового распространяющегося импульса. Какова основная причина абсолютной рефрактерности?",
         options: [
           "Na⁺/K⁺-АТФаза временно полностью прекращает работу.",
           "Все K⁺-каналы закрываются необратимо.",
@@ -58,7 +58,7 @@ const localized: Record<Language, Locale> = {
         explanation: "The rising phase depends on positive feedback: depolarization opens voltage-gated Na⁺ channels, and inward Na⁺ current causes further depolarization. Delayed K⁺ efflux and Na⁺-channel inactivation contribute to repolarization. The Na⁺/K⁺-ATPase maintains gradients over longer timescales; it does not generate the rapid upstroke of an individual spike.",
       },
       {
-        prompt: "Immediately after an action potential begins, a second stimulus fails to evoke another propagated spike even when it is very strong. What primarily causes the absolute refractory period?",
+        prompt: "At the peak of an action potential and during early repolarization, even a very strong second stimulus fails to evoke another propagated spike. What primarily causes this absolute refractoriness?",
         options: [
           "The Na⁺/K⁺-ATPase temporarily stops working completely.",
           "All K⁺ channels close irreversibly.",
@@ -85,7 +85,7 @@ const localized: Record<Language, Locale> = {
         explanation: "Көтерілу фазасы оң кері байланысқа негізделген: деполяризация кернеуге тәуелді Na⁺ арналарын ашады, ал Na⁺ иондарының ішке ағуы деполяризацияны күшейтеді. K⁺ иондарының кешігіп шығуы және Na⁺ арналарының инактивациясы реполяризацияға қатысады. Na⁺/K⁺-АТФаза иондық градиенттерді ұзақ уақыт бойы сақтайды, бірақ жеке импульстің тез көтерілуін тудырмайды.",
       },
       {
-        prompt: "Әрекет потенциалы басталғаннан кейін бірден берілген екінші, тіпті өте күшті тітіркендіргіш те жаңа таралатын импульс туғызбайды. Абсолютті рефрактерлік кезеңнің негізгі себебі қандай?",
+        prompt: "Әрекет потенциалының шыңында және реполяризацияның бастапқы кезеңінде екінші, тіпті өте күшті тітіркендіргіш те жаңа таралатын импульс туғызбайды. Осы абсолютті рефрактерліктің негізгі себебі қандай?",
         options: [
           "Na⁺/K⁺-АТФаза уақытша толық тоқтайды.",
           "Барлық K⁺ арналары қайтымсыз жабылады.",
