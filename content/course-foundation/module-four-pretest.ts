@@ -2,8 +2,8 @@ import type { Language } from "../course";
 import type { PretestLesson } from "../study";
 
 // Module 4 diagnostic questions: Guyton & Hall 13e, chapter 5,
-// PDF pp. 72–74; Ganong 23e, chapter 4, PDF pp. 98–99;
-// C. L. Ghai Practical Physiology 8e, experiment 4-7, PDF p. 349.
+// PDF pp. 68–74; Ganong 23e, chapter 4, PDF pp. 95–99;
+// C. L. Ghai Practical Physiology 8e, chart 5-5, PDF pp. 379–381.
 // These are conceptual questions, not measurements or clinical diagnosis.
 type DiagnosticItem = {
   prompt: string;
