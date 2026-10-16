@@ -40,4 +40,15 @@ for(const lang of languageHeads){
 }
 assert(practice.includes('calculationPrompt') && practice.includes('latency'),
  'Original two-site motor conduction calculation must remain in practice');
+const ui=fs.readFileSync('components/StudyContent.tsx','utf8');
+const review=ui.slice(ui.indexOf('function ReviewQuestion('),ui.indexOf('function ReviewQuestions('));
+assert(review.includes('ui.reviewSubmit') && review.includes('ui.reviewGate') && review.includes('ui.reviewAttempt'),
+ 'Open questions must use the ungraded, unsaved response UI');
+assert(!review.includes('ui.check') && !review.includes('ui.attempt'),
+ 'Open questions must not imply an automatic answer check or saved text');
+for(const key of ['reviewSubmit','reviewGate','reviewAttempt']){
+ assert.equal((ui.match(new RegExp(key+':','g'))||[]).length,3,
+  'Expected RU/EN/KZ copies of '+key);
+}
+assert(review.includes('onComplete(true)'), 'Completion is recorded separately from correctness');
 console.log('PASS: Module 3 questions — 4 distinct authored items × RU/EN/KZ, Wallerian transport mechanism, targets and registration.');
