@@ -62,7 +62,7 @@ const copy: Record<Language, Copy> = {
   },
   EN: {
     anatomyTitle: '1. Functional roles of neural cells',
-    anatomyIntro: 'First predict each cell's location, role and mechanism, then compare your answer with the table. Distinguish CNS from PNS glia; microglia do not produce myelin.',
+    anatomyIntro: "First predict each cell's location, role and mechanism, then compare your answer with the table. Distinguish CNS from PNS glia; microglia do not produce myelin.",
     tableHeaders: ['Cell','Location and role','Physiological mechanism'],
     tableRows: [
       ['Astrocyte','CNS: maintains the neuronal and synaptic environment','Buffers extracellular K⁺ and clears transmitters; supports synaptic function'],
