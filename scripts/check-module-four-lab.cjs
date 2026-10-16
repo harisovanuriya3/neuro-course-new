@@ -33,4 +33,32 @@ const ena=1000*R*T/F*Math.log(145/12);
 const vm=1000*R*T/F*Math.log((4+.04*145)/(140+.04*12));
 assert(Math.abs(ek+95.0)<.1&&Math.abs(ena-66.6)<.1&&Math.abs(vm+71.2)<.1,
  "Default Nernst/Goldman example does not match the implemented lab formula");
+
+// Authored practice must replace the generic module 4 template in every language.
+const practice=fs.readFileSync("content/course-foundation/module-four-practice.ts","utf8");
+for(const lang of ["RU","EN","KZ"]){
+ assert(practice.includes("\n  "+lang+": {"),"Module 4 practice missing "+lang);
+ assert(registry.includes('createModuleFourPractice("'+lang+'", moduleFourBasePractice("'+lang+'"))'),
+   "Module 4 practice not registered: "+lang);
+}
+assert(practice.includes("type: 'response'")&&practice.includes("type: 'answer'"),
+ "Module 4 practice must support prediction before explanation");
+assert(practice.includes("12 × 0,55 = 6,6")&&practice.includes("12 × 0.55 = 6.6"),
+ "RU/EN model threshold examples missing");
+assert(practice.includes("−76,5")&&practice.includes("−62,0")&&practice.includes("−76.5")&&practice.includes("−62.0"),
+ "Trilingual 8 mM predictions missing");
+const ek8=1000*R*T/F*Math.log(8/140);
+const vm8=1000*R*T/F*Math.log((8+.04*145)/(140+.04*12));
+assert(Math.abs(ek8+76.5)<.1&&Math.abs(vm8+62.0)<.1,
+ "8 mM predictions do not agree with simulator's equations");
+const lab=src;
+assert(lab.includes('refractory=interval<2?"absolute":interval<5?"relative":"ready"'),
+ "Refractory rule has changed; re-review practice model answers");
+assert(lab.includes('refractory==="relative"?.55:1')&&lab.includes("spike=effective>=10"),
+ "Threshold rule has changed; re-review practice model answers");
+const vercel=JSON.parse(fs.readFileSync("vercel.json","utf8"));
+assert.equal(vercel.git?.deploymentEnabled?.["refactor/evidence-based-assessment-audit"],false,
+ "Do not enable preview deploys on review branch");
+console.log("PASS: module 4 authored practice, 3 locales, numerical examples, lab-rule consistency, preview guard.");
+
 console.log("PASS: module 4 GHK calculation and independent, trilingual illustrative AP trace.");
