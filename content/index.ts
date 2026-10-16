@@ -17,6 +17,7 @@ import { createInteractiveLesson } from "./modules/1/interactive";
 import { createMediaLesson } from "./modules/1/media";
 import { foundationLessons } from "./course-foundation";
 import { createModuleThreePretest } from "./course-foundation/module-three-pretest";
+import { createModuleFourPretest } from "./course-foundation/module-four-pretest";
 import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-foundation/module-three-learning";
 import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
@@ -183,6 +184,14 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       RU: createModuleThreePretest("RU", `3. ${modules.RU[2]}`, getSectionTitle("pretest", "RU")),
       EN: createModuleThreePretest("EN", `3. ${modules.EN[2]}`, getSectionTitle("pretest", "EN")),
       KZ: createModuleThreePretest("KZ", `3. ${modules.KZ[2]}`, getSectionTitle("pretest", "KZ")),
+    },
+  },
+  4: {
+    ...foundationLessons[4],
+    pretest: {
+      RU: createModuleFourPretest("RU", `4. ${modules.RU[3]}`, getSectionTitle("pretest", "RU")),
+      EN: createModuleFourPretest("EN", `4. ${modules.EN[3]}`, getSectionTitle("pretest", "EN")),
+      KZ: createModuleFourPretest("KZ", `4. ${modules.KZ[3]}`, getSectionTitle("pretest", "KZ")),
     },
   },
   1: {
