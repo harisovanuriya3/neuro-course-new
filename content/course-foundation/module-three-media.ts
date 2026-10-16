@@ -12,7 +12,7 @@ const reviewed: Record<Language, {
 }> = {
   RU: {
     intro: 'Схематическое сравнение проведения при сохранном миелине и локальной демиелинизации; не клиническая запись и не количественный расчёт скорости.',
-    preview: 'Проследите четыре общих этапа схемы. Отдельно мысленно сравните проведение при сохранном и повреждённом миелине при постоянных диаметре и температуре; схема не показывает этот опыт напрямую.',
+    preview: 'Сравните два пути проведения: при сохранном миелине и при локальной демиелинизации. Переходите по четырём этапам, затем объясните утечку тока и возможный блок.',
     transcript: [
       'Дендриты и тело нейрона принимают и интегрируют сигналы; в типичном мотонейроне потенциал действия инициируется в начальном сегменте аксона.',
       'В миелинизированном аксоне локальный ток распространяется между перехватами Ранвье; потенциал действия регенерируется в узлах с высокой плотностью потенциал-зависимых Na⁺-каналов.',
@@ -36,8 +36,8 @@ const reviewed: Record<Language, {
     ]
   },
   EN: {
-    intro: 'A generic four-step process illustration, not an anatomical model of myelin or nodes of Ranvier. This is not a patient nerve-conduction recording.',
-    preview: 'Follow the diagram's four generic stages. Separately predict the effect of local myelin loss at fixed axon diameter and temperature; the diagram does not directly simulate this experiment.',
+    intro: 'A qualitative comparison of intact myelin and focal demyelination, not a clinical nerve-conduction recording or quantitative velocity model.',
+    preview: 'Compare intact and locally demyelinated axons over four stages; explain current leakage and why conduction may slow or fail.',
     transcript: [
       'Dendrites and the cell body receive and integrate signals; in a typical motor neuron, the action potential starts at the axon initial segment.',
       'In a myelinated axon, local current spreads between nodes of Ranvier; action potentials regenerate at nodes enriched in voltage-gated Na⁺ channels.',
@@ -61,8 +61,8 @@ const reviewed: Record<Language, {
     ]
   },
   KZ: {
-    intro: 'Бұл — жалпы процестің төрт кезеңдік шартты сызбасы, миелин мен Ранвье түйіндерінің анатомиялық моделі емес. Пациенттің жүйке өткізгіштігін тіркемейді.',
-    preview: 'Сызбадағы төрт жалпы кезеңді бақылаңыз. Содан кейін диаметр мен температура тұрақты болғанда миелиннің жергілікті жоғалуының әсерін ойша болжаңыз; сызба бұл тәжірибені тікелей модельдемейді.',
+    intro: 'Бұл — миелині сақталған және жергілікті демиелинденген аксондарды сапалық салыстыру; клиникалық тіркеу немесе өткізу жылдамдығын сандық есептеу емес.',
+    preview: 'Төрт кезеңде миелині сақталған және жергілікті демиелинденген аксондарды салыстырыңыз; токтың ағып кетуін және өткізудің неге баяулауы не бөгелуі мүмкін екенін түсіндіріңіз.',
     transcript: [
       'Дендриттер мен нейрон денесі сигналдарды қабылдап, біріктіреді; әдеттегі мотонейронда әрекет потенциалы аксонның бастапқы сегментінде пайда болады.',
       'Миелинденген аксонда жергілікті ток Ранвье түйіндерінің арасында таралады; кернеуге тәуелді Na⁺ арналары тығыз орналасқан түйіндерде әрекет потенциалы қайта түзіледі.',
