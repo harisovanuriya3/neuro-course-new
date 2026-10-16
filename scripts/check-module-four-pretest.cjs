@@ -49,3 +49,5 @@ for (const lang of ["RU","EN","KZ"]) {
 assert(registry.includes('from "./course-foundation/module-four-pretest"'),
   "Missing module 4 pretest import");
 console.log("PASS: Module 4 pretest RU/EN/KZ source and route registration.");
+
+require('./check-module-four-lab.cjs');
