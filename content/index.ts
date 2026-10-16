@@ -19,6 +19,7 @@ import { foundationLessons } from "./course-foundation";
 import { createModuleThreePretest } from "./course-foundation/module-three-pretest";
 import { createModuleFourPretest } from "./course-foundation/module-four-pretest";
 import { createModuleFourTheory } from "./course-foundation/module-four-theory";
+import { createModuleFourPractice } from "./course-foundation/module-four-practice";
 import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-foundation/module-three-learning";
 import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
@@ -128,6 +129,11 @@ function moduleFourBaseTheory(language: Language) {
   if (!lesson || lesson.kind !== "theory") throw new Error("Module 4 base theory missing");
   return lesson;
 }
+function moduleFourBasePractice(language: Language) {
+  const lesson = foundationLessons[4]?.practice?.[language];
+  if (!lesson || lesson.kind !== "practice") throw new Error("Module 4 base practice missing");
+  return lesson;
+}
 
 const studyRU = createStudyLessons("RU");
 const studyKZ = createStudyLessons("KZ");
@@ -195,6 +201,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   4: {
     ...foundationLessons[4],
+    practice: {
+      RU: createModuleFourPractice("RU", moduleFourBasePractice("RU")),
+      EN: createModuleFourPractice("EN", moduleFourBasePractice("EN")),
+      KZ: createModuleFourPractice("KZ", moduleFourBasePractice("KZ")),
+    },
     theory: {
       RU: createModuleFourTheory("RU", moduleFourBaseTheory("RU")),
       EN: createModuleFourTheory("EN", moduleFourBaseTheory("EN")),
