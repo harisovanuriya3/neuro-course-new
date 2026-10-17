@@ -6,9 +6,9 @@ const compiled=ts.transpileModule(src,{fileName:'module-three-cases.ts',reportDi
  compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}});
 assert(!(compiled.diagnostics||[]).some(d=>d.category===ts.DiagnosticCategory.Error),
  'Case module failed TypeScript transpilation');
-const module={exports:{}};
-new Function('module','exports',compiled.outputText)(module,module.exports);
-const build=module.exports.createModuleThreeCases;
+const sandboxModule={exports:{}};
+new Function('module','exports',compiled.outputText)(sandboxModule,sandboxModule.exports);
+const build=sandboxModule.exports.createModuleThreeCases;
 assert.equal(typeof build,'function');
 const base={kind:'cases',title:'Cases',moduleTitle:'Module 3',introduction:'',ui:{},
  cases:[
