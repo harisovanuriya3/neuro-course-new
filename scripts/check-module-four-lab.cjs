@@ -23,6 +23,12 @@ for(const lang of ["RU","EN","KZ"]){
  assert(registry.includes('createModuleFourTheory("'+lang+'"'),"Module 4 theory not registered: "+lang);
  assert(theory.includes("\n "+lang+": ["),"Missing theory language "+lang);
 }
+const foundationTopic=fs.readFileSync("content/course-foundation/topics.ts","utf8");
+for(const fragment of ["рекрутированием волокон","recruit additional fibers","қосымша талшықтардың іске қосылуымен"]){
+ assert(foundationTopic.includes(fragment),"Module 4 foundational interpretation lacks nuance: "+fragment);
+}
+assert(!foundationTopic.includes("Suprathreshold stimulus strength is encoded mainly by firing frequency"),
+ "Overgeneralized single-axon rate-coding statement must not return");
 // Prevent conflating a single axon's all-or-none spike with frequency coding
 // under sustained stimulation or population recruitment in a nerve trunk.
 for(const marker of ["рекрутирование волокон","recruit more fibers","қосымша талшықтар"]){
