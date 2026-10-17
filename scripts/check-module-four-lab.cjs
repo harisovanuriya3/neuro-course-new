@@ -64,3 +64,22 @@ console.log("PASS: module 4 authored practice, 3 locales, numerical examples, la
 
 console.log("PASS: module 4 GHK calculation and independent, trilingual illustrative AP trace.");
 
+
+
+// Module 4 learning objectives: five authored physiological outcomes per locale.
+const summarySource=fs.readFileSync("content/course-foundation/module-four-summary.ts","utf8");
+assert(summarySource.includes("export function createModuleFourObjectives(language: Language): ObjectivesLesson"),
+ "Module 4 objectives factory missing");
+for(const lang of ["RU","EN","KZ"]){
+ const block=summarySource.match(new RegExp("  "+lang+": \\[([\\s\\S]*?)\\n  \\],"));
+ assert(block,"Module 4 objectives missing "+lang);
+ const items=(block[1].match(/^\s*\['/gm)||[]);
+ assert.equal(items.length,5,"Module 4 objectives must have five items in "+lang);
+ assert(registry.includes('createModuleFourObjectives("'+lang+'")'),
+  "Module 4 objectives route missing "+lang);
+}
+assert(summarySource.includes("Na⁺/K⁺-АТФаза")&&summarySource.includes("Na⁺/K⁺-ATPase"),
+ "Objective must distinguish gradient maintenance from rapid repolarization");
+assert(summarySource.includes("4 и 8 мМ")&&summarySource.includes("4 and 8 mM"),
+ "Objective must specify a controlled potassium comparison");
+console.log("PASS: module 4 measurable objectives × RU/EN/KZ and route registration.");
