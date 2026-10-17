@@ -114,3 +114,6 @@ assert(authoredCases.includes("m4-authored-case-"),
 assert(authoredCases.includes("case") && authoredCases.includes("explanations"),
   "Module 4 cases must include explanatory feedback");
 console.log("PASS: Module 4 authored cases registered in RU/EN/KZ.");
+
+assert(src.includes("const validRun=hasRun&&runSettingsKey===settingsKey"),"Module 4 trial identity check missing");
+assert(src.includes("if(!validRun||progress<1||!prediction)return"),"Module 4 trial scoring guard missing");
