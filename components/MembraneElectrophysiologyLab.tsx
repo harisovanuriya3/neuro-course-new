@@ -22,6 +22,15 @@ export default function MembraneElectrophysiologyLab({language}:{language:Langua
  const[ko,setKo]=useState(4),[ki,setKi]=useState(140),[nao,setNao]=useState(145),[nai,setNai]=useState(12),[temp,setTemp]=useState(37),[pk,setPk]=useState(1),[pna,setPna]=useState(.04),[stim,setStim]=useState(12),[interval,setInterval]=useState(5),[prediction,setPrediction]=useState<Prediction|null>(null),[hasRun,setHasRun]=useState(false),[running,setRunning]=useState(false),[progress,setProgress]=useState(0);
  const values=useMemo(()=>({ek:nernst(ko,ki,temp),ena:nernst(nao,nai,temp),vm:ghk(ko,ki,nao,nai,pk,pna,temp)}),[ko,ki,nao,nai,temp,pk,pna]);
  const[observations,setObservations]=useState<MembraneObservation[]>([]);
+ // Respect the user's motion preference: CSS cannot stop the JavaScript-driven cursor.
+ const[reducedMotion,setReducedMotion]=useState(false);
+ useEffect(()=>{
+  const media=window.matchMedia("(prefers-reduced-motion: reduce)");
+  const update=()=>setReducedMotion(media.matches);
+  update();
+  media.addEventListener("change",update);
+  return()=>media.removeEventListener("change",update);
+ },[]);
  const addObservation=()=>setObservations(rows=>[...rows.slice(-11),{ko,ki,nao,nai,temp,pk,pna,...values}]);
  // Tie a completed trial to the exact inputs used at Run time. Without this,
  // changing a slider after a completed trial can re-score the old prediction
@@ -33,7 +42,13 @@ export default function MembraneElectrophysiologyLab({language}:{language:Langua
  const actual:Prediction=spike?"spike":"noSpike";
  // Input changes invalidate a prediction and the previous trace/result.
  useEffect(()=>{setRunning(false);setProgress(0);setHasRun(false);setRunSettingsKey(null);setPrediction(null)},[ko,ki,nao,nai,temp,pk,pna,stim,interval]);
- useEffect(()=>{if(!running)return;const timer=window.setInterval(()=>setProgress(p=>Math.min(1,p+.018)),40);return()=>window.clearInterval(timer)},[running]);
+ useEffect(()=>{
+  if(!running)return;
+  // In reduced-motion mode, show the completed trace and result without moving a cursor.
+  if(reducedMotion){setProgress(1);setRunning(false);return;}
+  const timer=window.setInterval(()=>setProgress(p=>Math.min(1,p+.018)),40);
+  return()=>window.clearInterval(timer);
+ },[running,reducedMotion]);
  useEffect(()=>{if(running&&progress>=1)setRunning(false)},[running,progress]);
  // An experiment is completed only after the result has been displayed, not when Run is pressed.
  useEffect(()=>{if(!validRun||progress<1||!prediction)return;
