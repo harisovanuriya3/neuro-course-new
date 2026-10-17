@@ -22,6 +22,7 @@ import { createModuleFourTheory } from "./course-foundation/module-four-theory";
 import { createModuleFourPractice } from "./course-foundation/module-four-practice";
 import { createModuleFourObjectives, createModuleFourSummary } from "./course-foundation/module-four-summary";
 import { createModuleFourClinical } from "./course-foundation/module-four-clinical";
+import { createModuleFourCases } from "./course-foundation/module-four-cases";
 import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-foundation/module-three-learning";
 import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
@@ -126,6 +127,12 @@ function moduleThreeBasePractice(language: Language) {
   return lesson;
 }
 
+function moduleFourBaseCases(language: Language) {
+  const lesson = foundationLessons[4]?.cases?.[language];
+  if (!lesson || lesson.kind !== "cases") throw new Error("Module 4 base cases missing");
+  return lesson;
+}
+
 function moduleFourBaseTheory(language: Language) {
   const lesson = foundationLessons[4]?.theory?.[language];
   if (!lesson || lesson.kind !== "theory") throw new Error("Module 4 base theory missing");
@@ -209,6 +216,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       KZ: createModuleFourObjectives("KZ"),
     },
     clinical: { RU: createModuleFourClinical("RU"), EN: createModuleFourClinical("EN"), KZ: createModuleFourClinical("KZ") },
+    cases: { RU: createModuleFourCases("RU", moduleFourBaseCases("RU")), EN: createModuleFourCases("EN", moduleFourBaseCases("EN")), KZ: createModuleFourCases("KZ", moduleFourBaseCases("KZ")) },
     "one-minute": {
       RU: createModuleFourSummary("RU"),
       EN: createModuleFourSummary("EN"),
