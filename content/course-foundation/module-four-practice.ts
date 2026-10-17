@@ -13,7 +13,7 @@ type Copy = {
 };
 const copy: Record<Language, Copy> = {
   RU: {
-    gradientTitle: '1. Ионный градиент: прогноз и проверка',
+    gradientTitle: '1. Ионный градиент: прогноз и сравнение расчётов',
     gradientPrompt: 'Откройте интерактивную лабораторию модуля 4. При 37 °C, [K⁺] внутри 140 мМ, [Na⁺] снаружи/внутри 145/12 мМ, P(K)=1 и P(Na)=0,04 сравните [K⁺] снаружи 4 и 8 мМ. Сначала предскажите направление изменения E(K) и Vm, затем запишите оба набора показаний. Не меняйте остальные параметры.',
     gradientAnswer: [
       'При 4 мМ: E(K) ≈ −95,0 мВ, Vm ≈ −71,2 мВ. При 8 мМ: E(K) ≈ −76,5 мВ, Vm ≈ −62,0 мВ. Оба значения становятся менее отрицательными.',
@@ -25,18 +25,18 @@ const copy: Record<Language, Copy> = {
       'По условным правилам симулятора при 5 мс стимул 12 вызывает импульс, а при 3 мс тот же стимул недостаточен (эффективная сила 12 × 0,55 = 6,6 при условном пороге 10).',
       'В реальном аксоне абсолютная рефрактерность связана прежде всего с инактивацией Na⁺-каналов; в относительный период часть каналов уже восстановилась, но возбудимость может оставаться сниженной. Численные интервалы модели не являются универсальными физиологическими константами.',
     ],
-    interpretationTitle: '3. Что показывает опыт, а чего не доказывает?',
-    interpretationPrompt: 'Наблюдение А: при повышении наружного K⁺ с 4 до 8 мМ расчётный Vm изменился с −71,2 до −62,0 мВ. Наблюдение Б: при силе стимула 12 и интервале 3 мс модель не создала импульс. Какое наблюдение проверяет двухионную формулу, а какое определяется условным правилом рефрактерности? Можно ли по ним доказать блок проведения или диагностировать гиперкалиемию?',
+    interpretationTitle: '3. Что иллюстрирует расчёт и чего он не доказывает?',
+    interpretationPrompt: 'Расчёт А: при повышении наружного K⁺ с 4 до 8 мМ модель выдала Vm −71,2 и −62,0 мВ. Результат Б: при силе стимула 12 и интервале 3 мс модель не создала импульс. Какой результат следует из двухионной формулы, а какой — из условного правила рефрактерности? Почему расчёт по формуле не является независимой экспериментальной проверкой этой формулы? Можно ли по этим результатам доказать блок проведения или диагностировать гиперкалиемию?',
     interpretationAnswer: [
-      'А проверяет расчёт зависимости Vm от концентраций и проницаемостей; Б — только заранее заданное правило порога и интервала. В модели эти два механизма вычисляются независимо.',
-      'Ни блок проведения, ни клиническая гиперкалиемия не подтверждаются такой схемой: отсутствуют кинетика Na⁺-каналов, измерения проводимости и данные пациента.',
+      'А — результат вычисления по двухионной формуле; он иллюстрирует зависимость Vm от концентраций и проницаемостей, но не подтверждает формулу независимым измерением. Б — следствие заранее заданного правила порога и интервала. Эти части модели вычисляются независимо.',
+      'Для экспериментальной проверки расчёта необходимы независимые измерения мембранного потенциала при контролируемых условиях. Ни блок проведения, ни клиническую гиперкалиемию по модели не устанавливают: отсутствуют кинетика Na⁺-каналов, измерения проводимости и данные пациента.',
     ],
     response: 'Ваш прогноз, расчёт и физиологическое объяснение',
     criteriaTitle: 'Самопроверка (не автоматическая оценка)',
     criteria: ['Сравнил E(K) и Vm при двух концентрациях K⁺, не меняя другие параметры.', 'Отделил расчёт потенциала покоя от условной генерации импульса.', 'Объяснил роль Na⁺-каналов в рефрактерности.', 'Указал границы модели и не сделал клинический вывод по симуляции.'],
   },
   EN: {
-    gradientTitle: '1. Ion gradient: predict and verify',
+    gradientTitle: '1. Ion gradient: predict and compare calculations',
     gradientPrompt: 'Open the module 4 interactive lab. At 37 °C, intracellular [K⁺] 140 mM, extracellular/intracellular [Na⁺] 145/12 mM, P(K)=1 and P(Na)=0.04, compare extracellular [K⁺] of 4 and 8 mM. Predict the direction of change in E(K) and Vm before recording both sets of values. Hold other parameters constant.',
     gradientAnswer: [
       'At 4 mM: E(K) ≈ −95.0 mV, Vm ≈ −71.2 mV. At 8 mM: E(K) ≈ −76.5 mV, Vm ≈ −62.0 mV. Both values become less negative.',
@@ -48,18 +48,18 @@ const copy: Record<Language, Copy> = {
       'Under the simulator’s arbitrary rules, strength 12 produces a spike at 5 ms but not at 3 ms (effective strength 12 × 0.55 = 6.6 versus an arbitrary threshold of 10).',
       'In an actual axon, absolute refractoriness mainly reflects Na⁺-channel inactivation. Some channels recover during relative refractoriness, while excitability may remain reduced. The model’s time cutoffs are not universal physiological constants.',
     ],
-    interpretationTitle: '3. What does the experiment demonstrate?',
-    interpretationPrompt: 'Observation A: increasing extracellular K⁺ from 4 to 8 mM changes calculated Vm from −71.2 to −62.0 mV. Observation B: with stimulus strength 12 and a 3 ms interval, the model produces no spike. Which observation tests the two-ion equation, and which follows an arbitrary refractory rule? Do these results prove conduction block or diagnose hyperkalemia?',
+    interpretationTitle: '3. What do the model outputs illustrate?',
+    interpretationPrompt: 'Calculation A: raising extracellular K⁺ from 4 to 8 mM yields model Vm values of −71.2 and −62.0 mV. Result B: at stimulus strength 12 and a 3 ms interval, the model produces no spike. Which result follows from the two-ion equation, and which from the arbitrary refractory rule? Why is an output of an equation not an independent experimental test of that equation? Can either result establish conduction block or diagnose hyperkalemia?',
     interpretationAnswer: [
-      'A tests the calculated dependence of Vm on ion gradients and permeabilities; B follows a preset stimulus/interval rule. These are independent calculations in this model.',
-      'Neither conduction block nor clinical hyperkalemia can be established: the model lacks Na⁺-channel kinetics, conduction measurements and patient data.',
+      'A is an output of the two-ion equation. It illustrates the predicted dependence of Vm on ion gradients and permeabilities, but it does not independently validate that equation. B follows a preset stimulus/interval rule. The two parts of this model are calculated independently.',
+      'Independent membrane-potential recordings under controlled conditions would be needed to test the calculation experimentally. Neither conduction block nor clinical hyperkalemia can be established: the model lacks Na⁺-channel kinetics, conduction measurements and patient data.',
     ],
     response: 'Your prediction, calculation and physiological explanation',
     criteriaTitle: 'Self-check (not automated grading)',
     criteria: ['Compared E(K) and Vm while holding other variables fixed.', 'Distinguished resting-voltage calculation from schematic spike generation.', 'Explained Na⁺-channel inactivation and refractory recovery.', 'Stated model limitations without claiming a clinical diagnosis.'],
   },
   KZ: {
-    gradientTitle: '1. Иондық градиент: болжау және тексеру',
+    gradientTitle: '1. Иондық градиент: болжау және есептерді салыстыру',
     gradientPrompt: '4-модульдің интерактивті зертханасын ашыңыз. 37 °C температурада, жасуша ішіндегі [K⁺] 140 мМ, сыртқы/ішкі [Na⁺] 145/12 мМ, P(K)=1 және P(Na)=0,04 болғанда сыртқы [K⁺] 4 және 8 мМ мәндерін салыстырыңыз. Алдымен E(K) мен Vm өзгерісінің бағытын болжаңыз, содан кейін екі нәтижені жазыңыз. Басқа параметрлерді өзгертпеңіз.',
     gradientAnswer: [
       '4 мМ кезінде: E(K) ≈ −95,0 мВ, Vm ≈ −71,2 мВ. 8 мМ кезінде: E(K) ≈ −76,5 мВ, Vm ≈ −62,0 мВ. Екі мән де азырақ теріс болады.',
@@ -71,11 +71,11 @@ const copy: Record<Language, Copy> = {
       'Симулятордың шартты ережесіне сәйкес, 5 мс кезінде стимул күші 12 импульс туғызады, ал 3 мс кезінде жеткіліксіз (тиімді күш 12 × 0,55 = 6,6; шартты табалдырық 10).',
       'Нақты аксонда абсолютті рефрактерлік негізінен Na⁺ арналарының инактивациясымен байланысты. Салыстырмалы кезеңде арналардың бір бөлігі қалпына келеді, бірақ қозғыштық төмен болып қалуы мүмкін. Модельдегі уақыт шектері әмбебап физиологиялық тұрақтылар емес.',
     ],
-    interpretationTitle: '3. Тәжірибе нені көрсетеді?',
-    interpretationPrompt: 'А бақылауы: сыртқы K⁺ 4-тен 8 мМ-ге артқанда есептелген Vm −71,2-ден −62,0 мВ-ке өзгерді. Б бақылауы: стимул күші 12 және аралық 3 мс болғанда модель импульс тудырмады. Қай бақылау екі ионды теңдеуді, қайсысы рефрактерліктің шартты ережесін тексереді? Осыдан өткізудің блокталуын немесе гиперкалиемия диагнозын дәлелдеуге бола ма?',
+    interpretationTitle: '3. Модель нәтижелері нені көрсетеді?',
+    interpretationPrompt: 'А есебі: сыртқы K⁺ 4-тен 8 мМ-ге артқанда модель Vm үшін −71,2 және −62,0 мВ мәндерін берді. Б нәтижесі: стимул күші 12 және аралық 3 мс болғанда модель импульс тудырмады. Қай нәтиже екі ионды теңдеуден, қайсысы рефрактерліктің шартты ережесінен шығады? Теңдеудің өзінен алынған есеп неліктен оны тәуелсіз тәжірибелік тексеру болып саналмайды? Осы нәтижелерден өткізудің блокталуын немесе гиперкалиемия диагнозын анықтауға бола ма?',
     interpretationAnswer: [
-      'А бақылауы Vm-ның иондық градиенттер мен өткізгіштікке тәуелді есебін тексереді; Б бақылауы алдын ала берілген стимул/аралық ережесіне сүйенеді. Бұл модельде екі есеп бір-бірінен тәуелсіз.',
-      'Өткізудің блокталуын да, клиникалық гиперкалиемияны да анықтау мүмкін емес: Na⁺ арналарының кинетикасы, өткізу өлшемдері және пациент деректері жоқ.',
+      'А — екі ионды теңдеумен есептелген нәтиже: ол Vm-ның иондық градиенттер мен өткізгіштікке тәуелділігін көрсетеді, бірақ теңдеуді тәуелсіз өлшеумен растамайды. Б — алдын ала берілген стимул мен аралық ережесінің нәтижесі. Модельдің бұл екі бөлігі бір-бірінен тәуелсіз есептеледі.',
+      'Есепті тәжірибеде тексеру үшін бақыланатын жағдайларда мембраналық потенциалды тәуелсіз өлшеу қажет. Бұл модельден өткізудің блокталуын да, клиникалық гиперкалиемияны да анықтау мүмкін емес: Na⁺ арналарының кинетикасы, өткізу өлшемдері және пациент деректері жоқ.',
     ],
     response: 'Болжамыңыз, есебіңіз және физиологиялық түсіндірмеңіз',
     criteriaTitle: 'Өзіндік тексеру (автоматты баға емес)',
