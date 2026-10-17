@@ -20,7 +20,7 @@ const copy: Record<Language, Copy> = {
       'Vm рассчитан по двухионному приближению Гольдмана; оно не учитывает Cl⁻ и прямой электрогенный вклад насоса. Числа нельзя переносить на каждого пациента.',
     ],
     refractoryTitle: '2. Возникновение импульса и рефрактерность',
-    refractoryPrompt: 'Верните [K⁺] снаружи к 4 мМ. Во второй части лаборатории задайте силу стимула 12 и сравните интервалы 5 и 3 мс после предыдущего импульса. Перед каждым запуском выберите прогноз. Объясните, как инактивация Na⁺-каналов связана с абсолютной рефрактерностью, а их восстановление и K⁺-проводимость — с относительной. Почему результат симулятора нельзя считать измерением состояния каналов?',
+    refractoryPrompt: 'Верните [K⁺] снаружи к 4 мМ. Во второй части лаборатории задайте силу стимула 12 и сравните условные интервалы 5 и 3 мс после предполагаемого предыдущего импульса. Перед каждым запуском выберите прогноз. Объясните, как инактивация Na⁺-каналов связана с абсолютной рефрактерностью, а их восстановление и K⁺-проводимость — с относительной. Почему результат симулятора нельзя считать измерением состояния каналов?',
     refractoryAnswer: [
       'По условным правилам симулятора при 5 мс стимул 12 вызывает импульс, а при 3 мс тот же стимул недостаточен (эффективная сила 12 × 0,55 = 6,6 при условном пороге 10).',
       'В реальном аксоне абсолютная рефрактерность связана прежде всего с инактивацией Na⁺-каналов; в относительный период часть каналов уже восстановилась, но возбудимость может оставаться сниженной. Численные интервалы модели не являются универсальными физиологическими константами.',
@@ -43,7 +43,7 @@ const copy: Record<Language, Copy> = {
       'Vm uses a two-ion Goldman approximation without Cl⁻ or the pump’s direct electrogenic contribution. These values are not universal patient measurements.',
     ],
     refractoryTitle: '2. Spike generation and refractoriness',
-    refractoryPrompt: 'Restore extracellular [K⁺] to 4 mM. In Part 2 set stimulus strength to 12 and compare intervals of 5 and 3 ms after the previous spike. Predict the outcome before each run. Explain how Na⁺-channel inactivation causes absolute refractoriness and how channel recovery and K⁺ conductance affect relative refractoriness. Why is this simulator not a channel-kinetics measurement?',
+    refractoryPrompt: 'Restore extracellular [K⁺] to 4 mM. In Part 2 set stimulus strength to 12 and compare assumed intervals of 5 and 3 ms after a hypothetical preceding spike. Predict the outcome before each run. Explain how Na⁺-channel inactivation causes absolute refractoriness and how channel recovery and K⁺ conductance affect relative refractoriness. Why is this simulator not a channel-kinetics measurement?',
     refractoryAnswer: [
       'Under the simulator’s arbitrary rules, strength 12 produces a spike at 5 ms but not at 3 ms (effective strength 12 × 0.55 = 6.6 versus an arbitrary threshold of 10).',
       'In an actual axon, absolute refractoriness mainly reflects Na⁺-channel inactivation. Some channels recover during relative refractoriness, while excitability may remain reduced. The model’s time cutoffs are not universal physiological constants.',
@@ -66,7 +66,7 @@ const copy: Record<Language, Copy> = {
       'Vm Cl⁻ пен сорғының тікелей электрогендік үлесін ескермейтін екі ионды Гольдман жуықтауымен есептеледі. Бұл мәндер әр пациентке ортақ өлшем емес.',
     ],
     refractoryTitle: '2. Импульс пайда болуы және рефрактерлік',
-    refractoryPrompt: 'Сыртқы [K⁺] мәнін 4 мМ-ге қайтарыңыз. Зертхананың екінші бөлігінде стимул күшін 12 етіп, алдыңғы импульстен кейінгі 5 және 3 мс аралықтарды салыстырыңыз. Әр іске қосу алдында нәтижені болжаңыз. Na⁺ арналарының инактивациясы абсолютті рефрактерлікке, ал олардың қалпына келуі мен K⁺ өткізгіштігі салыстырмалы рефрактерлікке қалай әсер ететінін түсіндіріңіз. Неліктен бұл симулятор арналардың кинетикасын өлшемейді?',
+    refractoryPrompt: 'Сыртқы [K⁺] мәнін 4 мМ-ге қайтарыңыз. Зертхананың екінші бөлігінде стимул күшін 12 етіп, болжамды алдыңғы импульстен кейінгі шартты 5 және 3 мс аралықтарды салыстырыңыз. Әр іске қосу алдында нәтижені болжаңыз. Na⁺ арналарының инактивациясы абсолютті рефрактерлікке, ал олардың қалпына келуі мен K⁺ өткізгіштігі салыстырмалы рефрактерлікке қалай әсер ететінін түсіндіріңіз. Неліктен бұл симулятор арналардың кинетикасын өлшемейді?',
     refractoryAnswer: [
       'Симулятордың шартты ережесіне сәйкес, 5 мс кезінде стимул күші 12 импульс туғызады, ал 3 мс кезінде жеткіліксіз (тиімді күш 12 × 0,55 = 6,6; шартты табалдырық 10).',
       'Нақты аксонда абсолютті рефрактерлік негізінен Na⁺ арналарының инактивациясымен байланысты. Салыстырмалы кезеңде арналардың бір бөлігі қалпына келеді, бірақ қозғыштық төмен болып қалуы мүмкін. Модельдегі уақыт шектері әмбебап физиологиялық тұрақтылар емес.',
