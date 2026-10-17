@@ -19,7 +19,7 @@ const localized: Record<Language, [Copy, Copy]> = {
     ] }
  ],
  EN: [
-  { title: 'Nernst versus Goldman: check the numbers',
+  { title: 'Nernst and Goldman: check the numbers',
     paragraphs: [
       'The Nernst equation gives the equilibrium potential for a single ion. Resting Vm depends on several ion gradients and relative permeabilities, so Vm need not equal E(K). Na⁺/K⁺-ATPase maintains the gradients but does not produce the rapid repolarization of each spike.',
       'At laboratory defaults (37 °C; K⁺ outside/inside 4/140 mM; Na⁺ 145/12 mM; P(K)=1, P(Na)=0.04), E(K) ≈ −95.0 mV, E(Na) ≈ +66.6 mV and Vm ≈ −71.2 mV. These are two-ion model outputs that omit Cl⁻ and the direct electrogenic pump contribution, not universal neuronal normal values.'
