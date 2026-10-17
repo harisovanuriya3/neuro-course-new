@@ -19,16 +19,16 @@ const storage = {
   getItem: key => values.get(key) ?? null,
   setItem: (key, value) => { if (failWrites) throw Error("quota"); values.set(key, value); }
 };
-const module = { exports: {} };
+const sandboxModule = { exports: {} };
 vm.runInNewContext(transpiled, {
-  module, exports: module.exports,
+  module: sandboxModule, exports: sandboxModule.exports,
   require: name => {
     assert.equal(name, "../content/sections", "Unexpected import in notes storage");
     return { isSection: name => valid.has(name) };
   },
   localStorage: storage,
 });
-const { emptyModuleNotes, readModuleNotes, saveModuleNotes } = module.exports;
+const { emptyModuleNotes, readModuleNotes, saveModuleNotes } = sandboxModule.exports;
 assert.deepEqual(Array.from(readModuleNotes(3).bookmarks), []);
 assert.deepEqual(Object.keys(emptyModuleNotes().notes), []);
 assert.equal(saveModuleNotes(3, { bookmarks: ["theory"], notes: { theory: "Axon initial segment" } }), true);

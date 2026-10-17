@@ -6,9 +6,9 @@ const compiled=ts.transpileModule(src,{fileName:'module-three-test.ts',reportDia
  compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}});
 assert(!(compiled.diagnostics||[]).some(d=>d.category===ts.DiagnosticCategory.Error),
  'Test module failed TypeScript transpilation');
-const module={exports:{}};
-new Function('module','exports',compiled.outputText)(module,module.exports);
-const build=module.exports.createModuleThreeTest;
+const sandboxModule={exports:{}};
+new Function('module','exports',compiled.outputText)(sandboxModule,sandboxModule.exports);
+const build=sandboxModule.exports.createModuleThreeTest;
 assert.equal(typeof build,'function');
 const skills=['concept','mechanism','application','transfer','justification'];
 const levels=['main','corrective','basic'];
