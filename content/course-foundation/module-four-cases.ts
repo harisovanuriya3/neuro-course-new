@@ -19,7 +19,7 @@ const copy: Record<Language, Copy> = {
     titles: ["1. Один аксон и нервный ствол", "2. Калий, деполяризация и доступность Na⁺-каналов"],
     situations: [
       "В эксперименте на одном изолированном аксоне два кратких стимула, немного выше порога и значительно выше порога, вызывают распространяющиеся потенциалы действия приблизительно одинаковой амплитуды. При стимуляции целого нервного ствола более сильный стимул увеличивает амплитуду суммарного внеклеточного ответа. Стимулы одинаковой длительности, условия регистрации не менялись.",
-      "В экспериментальном препарате увеличение внеклеточного K⁺ делает мембранный потенциал менее отрицательным. После длительной деполяризации при одинаковом пробном стимуле распространяющиеся импульсы возникают реже. Исследователь заключает: «деполяризация всегда увеличивает возбудимость». Оцените этот вывод, не ставя диагноз пациенту."
+      "В экспериментальном препарате увеличение внеклеточного K⁺ делает мембранный потенциал менее отрицательным. После длительной деполяризации при серии одинаковых пробных стимулов с достаточными интервалами между ними распространяющийся импульс регистрируется в меньшей доле проб, чем до деполяризации. Исследователь заключает: «деполяризация всегда увеличивает возбудимость». Оцените этот вывод, не ставя диагноз пациенту."
     ],
     stages: ["Что действительно наблюдали?", "Объясните механизм", "Как проверить альтернативу?"],
     questions: [
@@ -36,7 +36,7 @@ const copy: Record<Language, Copy> = {
     titles: ["1. Single axon versus nerve trunk", "2. Potassium, depolarization and Na⁺-channel availability"],
     situations: [
       "In an isolated single axon, brief stimuli just above threshold and well above threshold evoke propagated action potentials of approximately equal amplitude. In an intact nerve trunk, a stronger stimulus increases the amplitude of the compound extracellular response. Stimulus duration and recording conditions remain fixed.",
-      "In an experimental preparation, raising extracellular K⁺ makes membrane potential less negative. After sustained depolarization, a fixed test stimulus elicits fewer propagated spikes. A student concludes that depolarization always increases excitability. Evaluate this claim without making a clinical diagnosis."
+      "In an experimental preparation, raising extracellular K⁺ makes membrane potential less negative. After sustained depolarization, repeated identical test stimuli separated by sufficient recovery intervals elicit a propagated spike in a smaller fraction of trials than before depolarization. A student concludes that depolarization always increases excitability. Evaluate this claim without making a clinical diagnosis."
     ],
     stages: ["Identify the observations", "Explain the mechanism", "Test an alternative"],
     questions: [
@@ -53,7 +53,7 @@ const copy: Record<Language, Copy> = {
     titles: ["1. Жеке аксон және жүйке бағаны", "2. Калий, деполяризация және Na⁺ арналарының қолжетімділігі"],
     situations: [
       "Оқшауланған бір аксонға табалдырықтан сәл жоғары және одан едәуір күшті қысқа стимулдар берілгенде, таралатын әрекет потенциалдарының амплитудасы шамамен бірдей болады. Ал тұтас жүйке бағанын тітіркендіргенде күшті стимул жиынтық жасушадан тыс жауап амплитудасын арттырады. Стимул ұзақтығы мен тіркеу жағдайлары өзгермейді.",
-      "Эксперименттік препаратта жасушадан тыс K⁺ жоғарылағанда мембраналық потенциал азырақ теріс болады. Ұзақ деполяризациядан кейін бірдей сынақ стимулы таралатын импульстерді сирек тудырады. Студент «деполяризация қозғыштықты әрқашан арттырады» деп қорытынды жасады. Клиникалық диагноз қоймай, осы пікірді бағалаңыз."
+      "Эксперименттік препаратта жасушадан тыс K⁺ жоғарылағанда мембраналық потенциал азырақ теріс болады. Ұзақ деполяризациядан кейін қалпына келуге жеткілікті аралықтармен қайталанған бірдей сынақ стимулдарына таралатын импульс бұрынғыға қарағанда сынақтардың аз бөлігінде пайда болады. Студент «деполяризация қозғыштықты әрқашан арттырады» деп қорытынды жасады. Клиникалық диагноз қоймай, осы пікірді бағалаңыз."
     ],
     stages: ["Нені байқадық?", "Тетікті түсіндіріңіз", "Баламаны қалай тексереміз?"],
     questions: [
