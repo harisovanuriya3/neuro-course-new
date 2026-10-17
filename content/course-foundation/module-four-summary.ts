@@ -63,3 +63,29 @@ export function createModuleFourSummary(language: Language): ReadingLesson {
     })),
   };
 }
+
+// Measurable outcomes for module 4; avoids the generic, causally ambiguous
+// instruction to change an "action potential" to change "refractoriness".
+const objectiveItems: Record<Language, [string,string][]> = {
+  RU: [
+    ['Потенциал покоя','Объяснить градиенты Na⁺ и K⁺, преобладание проницаемости для K⁺ в покое и роль Na⁺/K⁺-АТФазы в поддержании градиентов.'],
+    ['Нернст и Гольдман','Вычислить E(K) и двухионный Vm при заданных концентрациях и 37 °C; отличить расчётную модель от универсальной нормы.'],
+    ['Контролируемый прогноз','При фиксированных прочих параметрах сравнить внешние 4 и 8 мМ K⁺, записать E(K), Vm и обосновать направление изменения.'],
+    ['Импульс и рефрактерность','Связать активацию и инактивацию Na⁺-каналов и рост K⁺-проводимости с фазами импульса и двумя рефрактерными периодами.'],
+    ['Границы вывода','Объяснить, почему условная кривая импульса не вычисляет реальную возбудимость и не подтверждает диагноз при гиперкалиемии.'],
+  ],
+  EN: [
+    ['Resting potential','Explain Na⁺ and K⁺ gradients, dominant resting K⁺ permeability, and the role of Na⁺/K⁺-ATPase in maintaining gradients.'],
+    ['Nernst and Goldman','Calculate E(K) and two-ion Vm from given concentrations at 37 °C; distinguish model values from universal norms.'],
+    ['Controlled prediction','Compare extracellular K⁺ of 4 and 8 mM with other inputs fixed; record E(K), Vm and explain the direction of change.'],
+    ['Spikes and refractoriness','Link Na⁺-channel activation and inactivation and increased K⁺ conductance to spike phases and both refractory periods.'],
+    ['Limits of inference','Explain why an illustrative spike trace cannot predict real excitability or diagnose hyperkalemia.'],
+  ],
+  KZ: [
+    ['Тыныштық потенциалы','Na⁺ және K⁺ градиенттерін, тыныштықтағы K⁺ өткізгіштігінің басымдығын және Na⁺/K⁺-АТФазаның градиенттерді сақтау рөлін түсіндіру.'],
+    ['Нернст пен Гольдман','Берілген концентрациялар мен 37 °C-та E(K) және екі ионды Vm есептеу; модель мәндерін жалпы норма деп қабылдамау.'],
+    ['Бақыланатын болжам','Басқа параметрлер тұрақты кезде сыртқы K⁺-тің 4 және 8 мМ мәндерін салыстырып, E(K), Vm жазу және өзгеріс бағытын негіздеу.'],
+    ['Импульс пен рефрактерлік','Na⁺ арналарының белсенуі мен инактивациясын, K⁺ өткізгіштігінің артуын импульс фазаларымен және рефрактерлік кезеңдермен байланыстыру.'],
+    ['Қорытындының шегі','Шартты импульс қисығы нақты қозғыштықты болжай алмайтынын және гиперкалиемия диагнозын анықтамайтынын түсіндіру.'],
+  ],
+};
