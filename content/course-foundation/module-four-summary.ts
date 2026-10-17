@@ -1,6 +1,6 @@
 import type { Language } from '../course';
 import { getSectionTitle } from '../sections';
-import type { ReadingLesson } from '../study';
+import type { ObjectivesLesson, ReadingLesson } from '../study';
 
 // Module 4: factual one-minute recap, not an ungraded instruction template.
 // Cross-checked with Guyton & Hall 13e ch. 5 (PDF pp. 69–74),
