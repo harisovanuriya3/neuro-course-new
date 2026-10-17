@@ -23,6 +23,11 @@ for(const lang of ["RU","EN","KZ"]){
  assert(registry.includes('createModuleFourTheory("'+lang+'"'),"Module 4 theory not registered: "+lang);
  assert(theory.includes("\n "+lang+": ["),"Missing theory language "+lang);
 }
+// Prevent conflating a single axon's all-or-none spike with frequency coding
+// under sustained stimulation or population recruitment in a nerve trunk.
+for(const marker of ["рекрутирование волокон","recruit more fibers","қосымша талшықтар"]){
+ assert(theory.includes(marker),"Module 4 theory lacks coding caveat: "+marker);
+}
 assert(theory.includes("module-four-nernst-goldman")&&theory.includes("module-four-model-limits"),
  "Missing explanatory sections for ionic equilibrium and simulation limits");
 for(const marker of ["−95,0","−71,2","−95.0","−71.2","−70 → +30","Na⁺","K⁺","Cl⁻"]){
