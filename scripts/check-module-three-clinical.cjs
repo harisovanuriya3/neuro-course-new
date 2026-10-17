@@ -4,7 +4,7 @@ const r=fs.readFileSync('content/index.ts','utf8');
 const ast=ts.createSourceFile('clinical.ts',s,ts.ScriptTarget.Latest,true,ts.ScriptKind.TS);
 assert.equal(ast.parseDiagnostics.length,0);
 for(const l of ['RU','EN','KZ']){
- assert(s.includes(' '+l+': ['),'Missing '+l);
+ assert(new RegExp('\\b'+l+':\\s*\\[').test(s),'Missing '+l);
  assert(r.includes('createModuleThreeClinical("'+l+'")'),'Unregistered '+l);
 }
 assert(s.includes('60 m/s')&&s.includes('60 м/с'));
