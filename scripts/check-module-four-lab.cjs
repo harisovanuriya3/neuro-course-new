@@ -62,3 +62,4 @@ assert.equal(vercel.git?.deploymentEnabled?.["refactor/evidence-based-assessment
 console.log("PASS: module 4 authored practice, 3 locales, numerical examples, lab-rule consistency, preview guard.");
 
 console.log("PASS: module 4 GHK calculation and independent, trilingual illustrative AP trace.");
+
