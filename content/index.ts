@@ -23,6 +23,7 @@ import { createModuleFourPractice } from "./course-foundation/module-four-practi
 import { createModuleFourObjectives, createModuleFourSummary } from "./course-foundation/module-four-summary";
 import { createModuleFourClinical } from "./course-foundation/module-four-clinical";
 import { createModuleFourCases } from "./course-foundation/module-four-cases";
+import { createModuleFourQuestions } from "./course-foundation/module-four-questions";
 import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-foundation/module-three-learning";
 import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
@@ -216,6 +217,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       KZ: createModuleFourObjectives("KZ"),
     },
     clinical: { RU: createModuleFourClinical("RU"), EN: createModuleFourClinical("EN"), KZ: createModuleFourClinical("KZ") },
+    questions: { RU: createModuleFourQuestions("RU"), EN: createModuleFourQuestions("EN"), KZ: createModuleFourQuestions("KZ") },
     cases: { RU: createModuleFourCases("RU", moduleFourBaseCases("RU")), EN: createModuleFourCases("EN", moduleFourBaseCases("EN")), KZ: createModuleFourCases("KZ", moduleFourBaseCases("KZ")) },
     "one-minute": {
       RU: createModuleFourSummary("RU"),
