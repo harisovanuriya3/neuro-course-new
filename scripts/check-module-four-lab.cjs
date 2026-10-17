@@ -106,7 +106,7 @@ assert(registry.includes('from "./course-foundation/module-four-cases"'),
 for(const language of ["RU","EN","KZ"]){
  assert(registry.includes('createModuleFourCases("'+language+'", moduleFourBaseCases("'+language+'"))'),
   "Authored module 4 cases not registered: "+language);
- assert(authoredCases.includes("\\n  "+language+": {"),
+ assert(authoredCases.includes("\n  "+language+": {"),
   "Authored module 4 cases missing "+language);
 }
 assert(authoredCases.includes("m4-authored-case-"),
