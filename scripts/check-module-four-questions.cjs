@@ -36,4 +36,21 @@ const ek=k=>rt*Math.log(k/140),vm=k=>rt*Math.log((k+.04*145)/(140+.04*12));
 for(const [actual,expected] of [[ek(4),-95],[ek(8),-76.5],[vm(4),-71.2],[vm(8),-62]])
  assert(Math.abs(actual-expected)<.15,"Incorrect model arithmetic");
 assert.equal(JSON.parse(fs.readFileSync("vercel.json","utf8")).git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false);
+
+// Module 4's branching test must use authored, physiology-specific prompts,
+// not generic glossary-driven reasoning.
+const testSrc=fs.readFileSync("content/course-foundation/module-four-test.ts","utf8");
+const testAst=ts.createSourceFile("module-four-test.ts",testSrc,ts.ScriptTarget.Latest,true,ts.ScriptKind.TS);
+assert.equal(testAst.parseDiagnostics.length,0,"Module 4 authored tests must parse");
+for(const lang of ["RU","EN","KZ"]){
+ assert(registry.includes('createModuleFourTest("'+lang+'"'),"Missing module 4 "+lang+" tests");
+ assert(registry.includes('moduleFourBaseTest("'+lang+'"'),"Missing module 4 "+lang+" test base");
+}
+for(const skill of ["concept","mechanism","application","transfer","justification"]){
+ const count=(testSrc.match(new RegExp("^  "+skill+": \\{","gm"))||[]).length;
+ assert.equal(count,3,"Module 4 "+skill+" must exist in three languages");
+}
+assert(testSrc.includes("prompt: data.prompts[j]"),"Authored question stems not used");
+assert(testSrc.includes("text: data.hints[j]"),"Authored remediation not used");
+
 console.log("PASS: Module 4 review questions 4×RU/EN/KZ and two-ion model arithmetic.");
