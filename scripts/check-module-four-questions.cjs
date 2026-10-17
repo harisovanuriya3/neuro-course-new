@@ -54,3 +54,12 @@ assert(testSrc.includes("prompt: data.prompts[j]"),"Authored question stems not 
 assert(testSrc.includes("text: data.hints[j]"),"Authored remediation not used");
 
 console.log("PASS: Module 4 review questions 4×RU/EN/KZ and two-ion model arithmetic.");
+
+const caseSrc=fs.readFileSync("content/course-foundation/module-four-cases.ts","utf8");
+for(const phrase of ["при серии одинаковых пробных стимулов","с достаточными интервалами","repeated identical test stimuli","sufficient recovery intervals","қайталанған бірдей сынақ стимулдарына","жеткілікті аралықтармен"]){
+ assert(caseSrc.includes(phrase),"Module 4 repeated-trial control missing: "+phrase);
+}
+for(const lang of ["RU","EN","KZ"]){
+ assert(registry.includes('createModuleFourCases("'+lang+'", moduleFourBaseCases("'+lang+'"))'),"Module 4 cases missing "+lang);
+}
+console.log("PASS: Module 4 repeated-trial clinical case controls in RU/EN/KZ.");
