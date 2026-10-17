@@ -10,7 +10,7 @@ const localized: Record<Language, [Copy, Copy]> = {
   { title: 'Нернст и Гольдман: проверяем числа',
     paragraphs: [
       'Уравнение Нернста рассчитывает равновесный потенциал отдельного иона. Потенциал покоя зависит от градиентов и относительной проницаемости нескольких ионов: поэтому Vm не обязательно совпадает с E(K). Na⁺/K⁺-АТФаза поддерживает градиенты, но не вызывает быструю реполяризацию каждого импульса.',
-      'При исходных параметрах лаборатории (37 °C; K⁺ снаружи/внутри 4/140 мМ; Na⁺ 145/12 мМ; P(K)=1, P(Na)=0,04) E(K) ≈ −95,0 мВ, E(Na) ≈ +66,6 мВ и Vm ≈ −71,2 мВ. Это расчёт двухионной модели без Cl⁻ и прямого электрогенного вклада насоса, а не универсальная норма для всех нейронов.'
+      'При исходных параметрах лаборатории (37 °C; K⁺ снаружи/внутри 4/140 мМ; Na⁺ 145/12 мМ; P(K)=1, P(Na)=0,04) E(K) ≈ −95,0 мВ, E(Na) ≈ +66,6 мВ и Vm ≈ −71,2 мВ. Двухионное уравнение Гольдмана здесь имеет вид Vm=(RT/F)·ln((P(K)·Kснаружи+P(Na)·Naснаружи)/(P(K)·Kвнутри+P(Na)·Naвнутри)). При K⁺ снаружи 8 мМ (остальное неизменно) Vm ≈ −62,0 мВ. Модель не учитывает Cl⁻ и прямой электрогенный вклад насоса; результаты не являются универсальной нормой для нейронов.'
     ] },
   { title: 'Границы закона «всё или ничего» и лабораторной модели',
     paragraphs: [
@@ -22,7 +22,7 @@ const localized: Record<Language, [Copy, Copy]> = {
   { title: 'Nernst and Goldman: check the numbers',
     paragraphs: [
       'The Nernst equation gives the equilibrium potential for a single ion. Resting Vm depends on several ion gradients and relative permeabilities, so Vm need not equal E(K). Na⁺/K⁺-ATPase maintains the gradients but does not produce the rapid repolarization of each spike.',
-      'At laboratory defaults (37 °C; K⁺ outside/inside 4/140 mM; Na⁺ 145/12 mM; P(K)=1, P(Na)=0.04), E(K) ≈ −95.0 mV, E(Na) ≈ +66.6 mV and Vm ≈ −71.2 mV. These are two-ion model outputs that omit Cl⁻ and the direct electrogenic pump contribution, not universal neuronal normal values.'
+      'At laboratory defaults (37 °C; K⁺ outside/inside 4/140 mM; Na⁺ 145/12 mM; P(K)=1, P(Na)=0.04), E(K) ≈ −95.0 mV, E(Na) ≈ +66.6 mV and Vm ≈ −71.2 mV. The two-ion Goldman equation here is Vm=(RT/F)·ln((P(K)·Koutside+P(Na)·Naoutside)/(P(K)·Kinside+P(Na)·Nainside)). Raising extracellular K⁺ alone to 8 mM gives Vm ≈ −62.0 mV. Cl⁻ and the pump's direct electrogenic contribution are omitted; these are not universal neuronal normal values.'
     ] },
   { title: 'Limits of all-or-none behavior and of the laboratory',
     paragraphs: [
@@ -34,7 +34,7 @@ const localized: Record<Language, [Copy, Copy]> = {
   { title: 'Нернст пен Гольдман: есептелген мәндерді салыстыру',
     paragraphs: [
       'Нернст теңдеуі бір ионның тепе-теңдік потенциалын есептейді. Тыныштық Vm бірнеше ионның градиенттері мен салыстырмалы өткізгіштігіне тәуелді, сондықтан ол E(K) мәніне міндетті түрде тең емес. Na⁺/K⁺-АТФаза градиенттерді сақтайды, бірақ әр импульстің жылдам реполяризациясын тудырмайды.',
-      'Зертхананың бастапқы параметрлерінде (37 °C; K⁺ сыртта/іште 4/140 мМ; Na⁺ 145/12 мМ; P(K)=1, P(Na)=0,04) E(K) ≈ −95,0 мВ, E(Na) ≈ +66,6 мВ және Vm ≈ −71,2 мВ. Бұл Cl⁻ пен сорғының тікелей электрогендік үлесін ескермейтін екі ионды модельдің нәтижелері; барлық нейронға ортақ норма емес.'
+      'Зертхананың бастапқы параметрлерінде (37 °C; K⁺ сыртта/іште 4/140 мМ; Na⁺ 145/12 мМ; P(K)=1, P(Na)=0,04) E(K) ≈ −95,0 мВ, E(Na) ≈ +66,6 мВ және Vm ≈ −71,2 мВ. Екі ионды Гольдман теңдеуі: Vm=(RT/F)·ln((P(K)·Kсыртта+P(Na)·Naсыртта)/(P(K)·Kіште+P(Na)·Naіште)). Тек сыртқы K⁺ 8 мМ-ге артқанда Vm ≈ −62,0 мВ болады. Модель Cl⁻ пен сорғының тікелей электрогендік үлесін ескермейді; бұл барлық нейронға ортақ норма емес.'
     ] },
   { title: '«Бәрі немесе ештеңе» заңы мен зертхана моделінің шектеулері',
     paragraphs: [
