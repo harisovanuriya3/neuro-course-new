@@ -5,6 +5,8 @@ const fs=require("node:fs");
 const src=fs.readFileSync("components/MembraneElectrophysiologyLab.tsx","utf8");
 const route=fs.readFileSync("app/modules/[id]/[section]/page.tsx","utf8");
 assert(src.includes("disabled={hasRun}"),"Prediction lock is required");
+assert(src.includes("prefers-reduced-motion"),"Motion preference handling is required");
+assert(src.includes("setProgress(1);setRunning(false)"),"Reduced-motion mode must skip animated playback");
 assert(route.includes('<MembraneElectrophysiologyLab language={lang} />'),"Module 4 lab route missing");
 assert(src.includes("const nernst="),"Nernst potential calculation missing");
 assert(src.includes("const ghk="),"Two-ion GHK calculation missing");
