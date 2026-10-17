@@ -18,6 +18,11 @@ assert(!wave.includes("values.vm"),"GHK Vm must not be reused as a fixed-shape A
 assert(!wave.includes("35-"),"Fixed overshoot must not be forced onto varying ion gradients");
 assert(src.includes("Ion concentrations affect only the Vm estimate"),"Model limitation must be explained");
 assert(src.includes("Interval after an assumed previous AP"),"Prior spike assumption must be clear");
+assert(src.includes("Rules of this teaching model only"),"Explain arbitrary refractory cutoffs");
+assert(src.includes("2 and 5 ms cutoffs are not universal physiological constants"),"Do not present model cutoffs as clinical constants");
+assert(src.includes("{c.effective}: {effective.toFixed(1)} ({c.cutoff})"),"Effective stimulus must be reported");
+assert(src.includes("<p className={styles.modelRule}>{c.rule}</p>"),"Display model limits before the controls");
+
 const theory=fs.readFileSync("content/course-foundation/module-four-theory.ts","utf8");
 const registry=fs.readFileSync("content/index.ts","utf8");
 for(const lang of ["RU","EN","KZ"]){
