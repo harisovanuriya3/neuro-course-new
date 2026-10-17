@@ -122,3 +122,28 @@ console.log("PASS: Module 4 authored cases registered in RU/EN/KZ.");
 
 assert(src.includes("const validRun=hasRun&&runSettingsKey===settingsKey"),"Module 4 trial identity check missing");
 assert(src.includes("if(!validRun||progress<1||!prediction)return"),"Module 4 trial scoring guard missing");
+
+
+// Module 4 ion-gradient lab: the exercise must provide a real observation table,
+// not merely instruct students to fill in a table that does not exist.
+for(const marker of ["observations:\"Таблица расчётных наблюдений\"",
+ "observations:\"Calculated observation table\"",
+ "observations:\"Есептелген бақылаулар кестесі\"",
+ "saveObservation:\"Добавить текущий расчёт\"",
+ "saveObservation:\"Add current calculation\"",
+ "saveObservation:\"Ағымдағы есепті қосу\"",
+ "modelValues:\"Расчётные значения, а не запись с электрода.",
+ "modelValues:\"These are calculated values, not electrode recordings.",
+ "modelValues:\"Бұл электродпен өлшенген емес, есептелген мәндер."]){
+ assert(src.includes(marker),"Module 4 calculation table lacks localized marker: "+marker);
+}
+assert(src.includes("const[observations,setObservations]=useState<MembraneObservation[]>([])"),
+ "Module 4 must retain observations independently of spike prediction");
+assert(src.includes("rows.slice(-11)"),"Module 4 observation table should have bounded size");
+assert(src.includes("<table><thead><tr>")&&src.includes("<tbody>{observations.map"),
+ "Module 4 calculation table must render semantic headers and rows");
+assert(src.includes("row.vm.toFixed(1)")&&src.includes("row.ek.toFixed(1)"),
+ "Table must display model-computed membrane and equilibrium potentials");
+assert(src.includes("onClick={()=>setObservations([])}"),
+ "Students must be able to clear the temporary table");
+console.log("PASS: Module 4 RU/EN/KZ calculated-observation table and semantic markup.");
