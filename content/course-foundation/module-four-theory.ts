@@ -14,7 +14,7 @@ const localized: Record<Language, [Copy, Copy]> = {
     ] },
   { title: 'Границы закона «всё или ничего» и лабораторной модели',
     paragraphs: [
-      'Подпороговый стимул может дать локальный градуальный ответ без распространяющегося импульса. В отдельном аксоне потенциал действия после достижения порога регенеративен: усиление надпорогового стимула само по себе не увеличивает амплитуду каждого импульса. Абсолютная рефрактерность главным образом связана с инактивацией Na⁺-каналов, относительная — с их неполным восстановлением и сохраняющейся K⁺-проводимостью.',
+      'Подпороговый стимул может дать локальный градуальный ответ без распространяющегося импульса. В отдельном аксоне потенциал действия после достижения порога регенеративен: усиление надпорогового стимула само по себе не увеличивает амплитуду каждого импульса. Абсолютная рефрактерность главным образом связана с инактивацией Na⁺-каналов, относительная — с их неполным восстановлением и сохраняющейся K⁺-проводимостью. При длительном стимуле частота разрядов может отражать интенсивность воздействия; при стимуляции нервного ствола дополнительным механизмом служит рекрутирование волокон. Это не изменение амплитуды импульса одного аксона.',
       'В лаборатории расчёт Vm и условная кривая потенциала действия — разные части модели. Кривая остаётся −70 → +30 мВ при изменении ионных концентраций; решение об импульсе задаётся условными порогами стимула и интервала, а не кинетикой Na⁺-каналов. По этому опыту нельзя предсказать реальную возбудимость при гиперкалиемии или поставить диагноз.'
     ] }
  ],
@@ -26,7 +26,7 @@ const localized: Record<Language, [Copy, Copy]> = {
     ] },
   { title: 'Limits of all-or-none behavior and of the laboratory',
     paragraphs: [
-      'A subthreshold stimulus may evoke a graded local response without a propagated spike. In a single axon, an action potential is regenerative once threshold is reached; stronger suprathreshold stimulation does not itself increase the amplitude of each spike. Absolute refractoriness mainly reflects Na⁺-channel inactivation, while relative refractoriness reflects incomplete Na⁺-channel recovery and persisting K⁺ conductance.',
+      'A subthreshold stimulus may evoke a graded local response without a propagated spike. In a single axon, an action potential is regenerative once threshold is reached; stronger suprathreshold stimulation does not itself increase the amplitude of each spike. Absolute refractoriness mainly reflects Na⁺-channel inactivation, while relative refractoriness reflects incomplete Na⁺-channel recovery and persisting K⁺ conductance. During sustained stimulation, firing rate may encode intensity; stimulating a nerve trunk can additionally recruit more fibers. Neither mechanism increases the amplitude of one axon's spike.',
       'The calculated Vm and the illustrative action-potential trace are separate parts of the laboratory. The trace remains −70 → +30 mV when ion concentrations change; spike occurrence follows arbitrary teaching thresholds for stimulus strength and interval, not Na⁺-channel kinetics. This experiment cannot predict actual excitability in hyperkalemia or establish a diagnosis.'
     ] }
  ],
@@ -38,7 +38,7 @@ const localized: Record<Language, [Copy, Copy]> = {
     ] },
   { title: '«Бәрі немесе ештеңе» заңы мен зертхана моделінің шектеулері',
     paragraphs: [
-      'Табалдырықтан төмен стимул таралатын импульссіз жергілікті градуалды жауап туғызуы мүмкін. Жеке аксонда табалдырыққа жеткенде әрекет потенциалы регенеративті болады; табалдырықтан жоғары стимулды күшейту жеке импульстің амплитудасын арттырмайды. Абсолютті рефрактерлік көбіне Na⁺ арналарының инактивациясымен, салыстырмалы кезең олардың толық қалпына келмеуі және K⁺ өткізгіштігінің сақталуымен байланысты.',
+      'Табалдырықтан төмен стимул таралатын импульссіз жергілікті градуалды жауап туғызуы мүмкін. Жеке аксонда табалдырыққа жеткенде әрекет потенциалы регенеративті болады; табалдырықтан жоғары стимулды күшейту жеке импульстің амплитудасын арттырмайды. Абсолютті рефрактерлік көбіне Na⁺ арналарының инактивациясымен, салыстырмалы кезең олардың толық қалпына келмеуі және K⁺ өткізгіштігінің сақталуымен байланысты. Ұзақ тітіркендіруде разряд жиілігі әсер қарқындылығын көрсетуі мүмкін, ал жүйке бағанын тітіркендіргенде қосымша талшықтар да іске қосылады. Бұл жеке аксон импульсінің амплитудасын арттырмайды.',
       'Зертханадағы есептелген Vm мен шартты әрекет потенциалы қисығы — модельдің екі бөлек бөлігі. Ион концентрациялары өзгерсе де қисық −70 → +30 мВ күйінде қалады; импульс нәтижесі Na⁺ арналарының кинетикасымен емес, стимул күші мен аралықтың шартты табалдырықтарымен анықталады. Бұл тәжірибеден гиперкалиемиядағы нақты қозғыштықты немесе диагнозды анықтауға болмайды.'
     ] }
  ]
