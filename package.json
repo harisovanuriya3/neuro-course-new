@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "audit:course": "node scripts/audit-course.cjs && node scripts/validate-references.cjs && node scripts/validate-interactive.cjs && node scripts/validate-practical-stations.cjs && node scripts/validate-activity-clarity.cjs && npm run audit:science",
+    "audit:course": "node scripts/check-content-typescript-syntax.cjs && node scripts/audit-course.cjs && node scripts/validate-references.cjs && node scripts/validate-interactive.cjs && node scripts/validate-practical-stations.cjs && node scripts/validate-activity-clarity.cjs && npm run audit:science",
     "validate:interactive": "node scripts/validate-interactive.cjs",
     "validate:stations": "node scripts/validate-practical-stations.cjs",
     "validate:clarity": "node scripts/validate-activity-clarity.cjs",
