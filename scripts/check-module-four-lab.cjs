@@ -96,3 +96,21 @@ assert(summarySource.includes("Na⁺/K⁺-АТФаза")&&summarySource.includes
 assert(summarySource.includes("4 и 8 мМ")&&summarySource.includes("4 and 8 mM"),
  "Objective must specify a controlled potassium comparison");
 console.log("PASS: module 4 measurable objectives × RU/EN/KZ and route registration.");
+
+
+// Module 4 authored case routing: the source existed but was not registered.
+// Keep the source-level contract inside the already executed module-four-lab gate.
+const authoredCases=fs.readFileSync("content/course-foundation/module-four-cases.ts","utf8");
+assert(registry.includes('from "./course-foundation/module-four-cases"'),
+  "Authored module 4 case factory import missing");
+for(const language of ["RU","EN","KZ"]){
+ assert(registry.includes('createModuleFourCases("'+language+'", moduleFourBaseCases("'+language+'"))'),
+  "Authored module 4 cases not registered: "+language);
+ assert(authoredCases.includes("\\n  "+language+": {"),
+  "Authored module 4 cases missing "+language);
+}
+assert(authoredCases.includes("m4-authored-case-"),
+  "Module 4 case IDs missing");
+assert(authoredCases.includes("case") && authoredCases.includes("explanations"),
+  "Module 4 cases must include explanatory feedback");
+console.log("PASS: Module 4 authored cases registered in RU/EN/KZ.");
