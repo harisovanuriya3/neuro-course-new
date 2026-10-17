@@ -4,3 +4,14 @@
 .modelRule{padding:10px 12px;border-left:4px solid #147bad;background:#eef7fb;border-radius:8px;font-size:.92rem;line-height:1.55}
 
 .modelRule{padding:10px 12px;border-left:4px solid #147bad;background:#eef7fb;border-radius:8px;font-size:.92rem;line-height:1.55}
+
+/* The observation table is scrollable without forcing horizontal page overflow. */
+.observations{margin-top:16px;padding-top:12px;border-top:1px solid #bed5e2}
+.observations h3{margin:0 0 6px;color:#084e75}
+.observations p{font-size:.9rem}
+.tableScroll{overflow-x:auto;max-width:100%;margin-top:12px;border:1px solid #bed5e2;border-radius:10px}
+.tableScroll table{border-collapse:collapse;width:100%;min-width:940px;font-variant-numeric:tabular-nums}
+.tableScroll th,.tableScroll td{padding:8px 10px;border-bottom:1px solid #dbe7ee;text-align:right;white-space:nowrap;font-size:.83rem}
+.tableScroll th{background:#eef7fb;color:#084e75}
+.tableScroll tbody tr:last-child th,.tableScroll tbody tr:last-child td{border-bottom:0}
+.lab button:focus-visible{outline:3px solid #e48a27;outline-offset:2px}
