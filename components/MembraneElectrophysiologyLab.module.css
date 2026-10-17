@@ -2,3 +2,5 @@
 @media(prefers-reduced-motion:reduce){.lab *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
 .modelRule{padding:10px 12px;border-left:4px solid #147bad;background:#eef7fb;border-radius:8px;font-size:.92rem;line-height:1.55}
+
+.modelRule{padding:10px 12px;border-left:4px solid #147bad;background:#eef7fb;border-radius:8px;font-size:.92rem;line-height:1.55}
