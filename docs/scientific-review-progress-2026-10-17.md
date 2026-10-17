@@ -1,5 +1,3 @@
-# Scientific audit continuation
+# Review log 2026-10-17
 
-Module 4 clinical: source review performed; end-to-end tests pending.
-
-Module 4 objectives: 5 authored outcomes in each RU/EN/KZ registered (commits dd8288dc, 126869a0); cross-checked with Library Guyton 13e PDF 68–72, Ganong 23e PDF 95–98, Ghai 8e PDF 379–380. Source checks only; Node, tsc, build and browser pending. No deployment or merge.
+Module 4 theory and membrane lab numerical model reviewed against Guyton 13e, Ganong 23e, and Ghai 8e. Changes: 5d49d090, 18cb4951, 8e0c2961, 1fa807c7. Scope is partial. No build or browser verification. Preview disabled; main unchanged.
