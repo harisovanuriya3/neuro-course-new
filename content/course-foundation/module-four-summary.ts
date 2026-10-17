@@ -89,3 +89,25 @@ const objectiveItems: Record<Language, [string,string][]> = {
     ['Қорытындының шегі','Шартты импульс қисығы нақты қозғыштықты болжай алмайтынын және гиперкалиемия диагнозын анықтамайтынын түсіндіру.'],
   ],
 };
+
+export function createModuleFourObjectives(language: Language): ObjectivesLesson {
+  if (objectiveItems[language].length !== 5) throw Error('Module 4 requires five objectives');
+  return {
+    kind: 'objectives',
+    title: getSectionTitle('objectives', language),
+    introduction: language === 'RU' ? 'После изучения модуля студент сможет:'
+      : language === 'EN' ? 'After completing this module, the student will be able to:'
+      : 'Модульді аяқтағаннан кейін студент:',
+    outcomes: objectiveItems[language].map(([title,description],index) => ({
+      id: 'module-4-objective-' + (index + 1), title, description,
+    })),
+    navigation: {
+      title: language === 'RU' ? 'Перейти к изучению модуля'
+        : language === 'EN' ? 'Continue learning' : 'Модульді оқуға өту',
+      pathwayLabel: language === 'RU' ? 'Рекомендуемый маршрут'
+        : language === 'EN' ? 'Recommended pathway' : 'Ұсынылатын оқу бағыты',
+      links: [{section:'theory'},{section:'practice'},{section:'cases'},
+        {section:'interactive'},{section:'virtual-patient'}],
+    },
+  };
+}
