@@ -18,6 +18,7 @@ import { createMediaLesson } from "./modules/1/media";
 import { foundationLessons } from "./course-foundation";
 import { createModuleThreePretest } from "./course-foundation/module-three-pretest";
 import { createModuleFourPretest } from "./course-foundation/module-four-pretest";
+import { createModuleFourTest } from "./course-foundation/module-four-test";
 import { createModuleFourTheory } from "./course-foundation/module-four-theory";
 import { createModuleFourPractice } from "./course-foundation/module-four-practice";
 import { createModuleFourObjectives, createModuleFourSummary } from "./course-foundation/module-four-summary";
@@ -128,6 +129,12 @@ function moduleThreeBasePractice(language: Language) {
   return lesson;
 }
 
+function moduleFourBaseTest(language: Language) {
+  const lesson = foundationLessons[4]?.tests?.[language];
+  if (!lesson || lesson.kind !== "tests") throw new Error("Module 4 base test missing");
+  return lesson;
+}
+
 function moduleFourBaseCases(language: Language) {
   const lesson = foundationLessons[4]?.cases?.[language];
   if (!lesson || lesson.kind !== "cases") throw new Error("Module 4 base cases missing");
@@ -211,6 +218,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   4: {
     ...foundationLessons[4],
+    tests: {
+      RU: createModuleFourTest("RU", moduleFourBaseTest("RU")),
+      EN: createModuleFourTest("EN", moduleFourBaseTest("EN")),
+      KZ: createModuleFourTest("KZ", moduleFourBaseTest("KZ")),
+    },
     objectives: {
       RU: createModuleFourObjectives("RU"),
       EN: createModuleFourObjectives("EN"),
