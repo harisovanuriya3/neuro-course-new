@@ -68,10 +68,11 @@ console.log("PASS: module 4 GHK calculation and independent, trilingual illustra
 
 // Module 4 learning objectives: five authored physiological outcomes per locale.
 const summarySource=fs.readFileSync("content/course-foundation/module-four-summary.ts","utf8");
+const objectiveSource=summarySource.slice(summarySource.indexOf("const objectiveItems:"));
 assert(summarySource.includes("export function createModuleFourObjectives(language: Language): ObjectivesLesson"),
  "Module 4 objectives factory missing");
 for(const lang of ["RU","EN","KZ"]){
- const block=summarySource.match(new RegExp("  "+lang+": \\[([\\s\\S]*?)\\n  \\],"));
+ const block=objectiveSource.match(new RegExp("  "+lang+": \\[([\\s\\S]*?)\\n  \\],"));
  assert(block,"Module 4 objectives missing "+lang);
  const items=(block[1].match(/^\s*\['/gm)||[]);
  assert.equal(items.length,5,"Module 4 objectives must have five items in "+lang);
