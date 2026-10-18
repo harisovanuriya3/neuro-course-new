@@ -98,6 +98,23 @@ const labMentor: Record<Language,string[]> = {
 };
 export function getReviewedVirtualPatientScenario(moduleId:number, language:Language) {
  const base=getVirtualPatientScenario(moduleId,language);
+ if(moduleId===4 && base){
+  // This is a computer exercise, not an invasive membrane recording in a volunteer.
+  // Guyton & Hall 13e ch. 5; Ganong 23e ch. 4; Ghai 8e chart 5-5.
+  const model={
+   RU:{patient:"Учебная модель мембраны (не пациент)",profile:"Компьютерная модель при 37 °C",opening:"Расчёт Vm и условная кривая импульса не являются измерениями у человека.",note:"Выбор ответа не меняет заранее заданные данные модели.",final:"В отдельном аксоне амплитуда одного импульса не растёт с силой надпорогового стимула. При длительном раздражении некоторые нейроны кодируют интенсивность частотой разрядов; это не универсальное правило для одиночного стимула."},
+   EN:{patient:"Teaching membrane model (not a patient)",profile:"Computer model at 37 °C",opening:"Calculated Vm and the illustrative spike trace are not measurements in a human.",note:"Selecting an answer does not change predefined model data.",final:"A single axon's spike amplitude does not increase with suprathreshold stimulus strength. Under sustained stimulation some neurons encode intensity by firing rate; this is not a universal rule for a single stimulus."},
+   KZ:{patient:"Мембрананың оқу моделі (пациент емес)",profile:"37 °C-тағы компьютерлік модель",opening:"Есептелген Vm мен шартты импульс қисығы адамда өлшенген нәтиже емес.",note:"Жауапты таңдау алдын ала берілген модель деректерін өзгертпейді.",final:"Жеке аксонда табалдырықтан жоғары стимул күшейсе де бір импульстің амплитудасы артпайды. Ұзақ тітіркендіруде кейбір нейрондар әсер қарқындылығын разряд жиілігімен кодтайды; бұл бір реттік стимул үшін әмбебап ереже емес."}
+  }[language];
+  return {...base,patient:model.patient,profile:model.profile,opening:model.opening,syntheticNote:model.note,
+   stages:base.stages.map((stage,index)=>index===5?{...stage,
+    task:model.final,
+    mentorPrompt:model.note,
+    mechanism:model.final,
+    options:stage.options.map(option=>option.id.endsWith("-decision-1")?{...option,text:model.final,feedback:model.final,response:model.note}:{...option,response:model.note,feedback:model.final}) as typeof stage.options
+   }:{...stage,mentorPrompt:model.note,newData:stage.newData.replace(/^[^:]+:\\s*/, "")})
+  };
+ }
  if(moduleId!==3 || !base) return base;
  if(base.stages.length!==6 || moduleThreeWrongChoices[language].length!==6 || prompts[language].length!==6)
    throw new Error("Module 3 virtual-model stages must remain six");
