@@ -72,7 +72,7 @@ const authored: Record<Language, Record<Skill, Copy>> = {
   },
   transfer: {
    prompts: [
-    "После продолжительного повышения внеклеточного K⁺ мембрана устойчиво деполяризована, а пробный стимул вызывает меньше импульсов. Какое объяснение допустимо?",
+    "После длительного повышения внеклеточного K⁺ мембрана устойчиво деполяризована. При повторении одинаковых кратких пробных стимулов с достаточными интервалами импульс возникает в меньшей доле проб, чем до повышения K⁺. Какой механизм может это объяснить?",
     "Краткая умеренная деполяризация облегчала ответ, но после сильной длительной деполяризации импульс не возник. Как объяснить изменение?",
     "Студент утверждает, что менее отрицательный Vm при длительной гиперкалиемии всегда означает большую возбудимость. Какой механизм опровергает универсальность вывода?"
    ],
@@ -164,7 +164,7 @@ const authored: Record<Language, Record<Skill, Copy>> = {
   },
   transfer: {
    prompts: [
-    "After a prolonged extracellular K⁺ increase, the membrane is persistently depolarized and a test stimulus evokes fewer spikes. Which explanation is justified?",
+    "After a sustained rise in extracellular K⁺, the membrane remains depolarized. With repeated identical brief test stimuli separated by adequate intervals, a spike occurs in a smaller proportion of trials than before the K⁺ rise. Which mechanism could explain this?",
     "Brief modest depolarization facilitated firing, but after strong sustained depolarization a spike could not be evoked. Why?",
     "A student says that a less negative Vm during sustained hyperkalemia always means greater excitability. Which mechanism challenges this claim?"
    ],
@@ -256,7 +256,7 @@ const authored: Record<Language, Record<Skill, Copy>> = {
   },
   transfer: {
    prompts: [
-    "Сыртқы K⁺ ұзақ жоғарылаған соң мембрана тұрақты деполяризацияланып, сынақ стимулы азырақ импульс тудырды. Қай түсіндіру негізді?",
+    "Жасушадан тыс K⁺ ұзақ уақыт жоғарылағаннан кейін мембрана тұрақты деполяризацияланған. Жеткілікті аралықпен берілген бірдей қысқа сынақ стимулдарын қайталағанда, K⁺ жоғарылағанға дейінгі жағдаймен салыстырғанда импульс пайда болған сынақтардың үлесі азайды. Мұны қандай тетік түсіндіруі мүмкін?",
     "Қысқа орташа деполяризация импульсті жеңілдетті, бірақ күшті ұзақ деполяризациядан кейін импульс тумады. Неліктен?",
     "Студент ұзақ гиперкалиемия кезіндегі азырақ теріс Vm әрқашан жоғары қозғыштықты білдіреді деді. Қандай тетік бұл пікірді шектейді?"
    ],
