@@ -41,8 +41,35 @@ const moduleThreeCopy = {
  },
 } as const;
 
+const moduleFourCopy = {
+ RU: {
+  intro:"Объясните, как повышение наружного K⁺ с 4 до 8 мМ изменяет E(K) и расчётный Vm при остальных постоянных параметрах, а также почему длительная деполяризация может уменьшить доступность Na⁺-каналов. Отметки — самооценка, не проверка знаний.",
+  prompt:"Калий, мембранный потенциал и рефрактерность",
+  cause:"Я объяснил(а), почему повышение наружного K⁺ делает E(K) менее отрицательным",
+  path:"Я различил(а) E(K) и Vm: расчётный Vm меняется примерно с −71,2 до −62,0 мВ; длительная деполяризация может инактивировать Na⁺-каналы",
+  result:"Я указал(а), что быстрый спад импульса не вызывает Na⁺/K⁺-АТФаза и расчёт не определяет клинический диагноз",
+  ready:"Это самооценка структуры. Сравните механизм и расчёт с теорией.",good:"Три пункта самооценки отмечены",
+ },
+ EN: {
+  intro:"Explain how raising extracellular K⁺ from 4 to 8 mM changes E(K) and calculated Vm with other parameters fixed, and why sustained depolarization can reduce Na⁺-channel availability. Checkboxes assess structure, not correctness.",
+  prompt:"Potassium, membrane potential and refractoriness",
+  cause:"I explained why higher extracellular K⁺ makes E(K) less negative",
+  path:"I distinguished E(K) from Vm: calculated Vm shifts from about −71.2 to −62.0 mV; sustained depolarization may inactivate Na⁺ channels",
+  result:"I noted that Na⁺/K⁺-ATPase does not cause rapid spike repolarization and the model does not establish a clinical diagnosis",
+  ready:"This is a structure self-check. Compare the mechanism and calculation with theory.",good:"Three self-check items marked",
+ },
+ KZ: {
+  intro:"Басқа параметрлер өзгермегенде жасушадан тыс K⁺ 4-тен 8 мМ-ге артса, E(K) пен есептелген Vm қалай өзгеретінін және ұзақ деполяризация Na⁺ арналарының қолжетімділігін неліктен азайтатынын түсіндіріңіз. Белгілер — жауап құрылымының өзіндік бағасы.",
+  prompt:"Калий, мембраналық потенциал және рефрактерлік",
+  cause:"Мен сыртқы K⁺ артқанда E(K) азырақ теріс болатынын түсіндірдім",
+  path:"Мен E(K) пен Vm-ды ажыраттым: есептелген Vm шамамен −71,2-ден −62,0 мВ-ке өзгереді; ұзақ деполяризация Na⁺ арналарын инактивациялауы мүмкін",
+  result:"Мен жылдам реполяризацияны Na⁺/K⁺-АТФазаға телімедім және модель клиникалық диагноз қоймайтынын көрсеттім",
+  ready:"Бұл — құрылымды өзіндік бағалау. Тетік пен есепті теориямен салыстырыңыз.",good:"Үш өзіндік тексеру тармағы белгіленді",
+ },
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : copy[language];
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : copy[language];
  const key=`neuro-course:mechanism:${moduleId}:${language}`;
  const[answer,setAnswer]=useState("");
  const[cause,setCause]=useState(false),[path,setPath]=useState(false),[result,setResult]=useState(false),[checked,setChecked]=useState(false);
