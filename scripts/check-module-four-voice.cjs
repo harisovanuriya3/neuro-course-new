@@ -37,6 +37,7 @@ for (const marker of [
  "инактивациялауы мүмкін",
  "не проверка знаний", "not correctness", "өзіндік бағасы"
 ]) assert(src.includes(marker), "Missing physiology/self-check marker: " + marker);
+assert(src.includes("persisted?c.saved:c.unsaved"), "Persistence feedback must reflect actual browser storage result");
 const route=fs.readFileSync("app/modules/[id]/[section]/page.tsx","utf8");
 assert(route.includes("<VoiceContent language={lang} moduleId={moduleNumber} />"),
  "Voice route must pass language and module ID");
