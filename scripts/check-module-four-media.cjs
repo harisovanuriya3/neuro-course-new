@@ -34,8 +34,12 @@ assert(visual.includes("disabled={step===0}")&&visual.includes("disabled={step==
 assert(visual.includes('role="img"')&&visual.includes('aria-label='),"Accessible diagram description missing");
 assert(visual.includes("const [step,setStep]=useState(0)"),"Interactive phase state missing");
 assert(visual.includes("not a recording")&&visual.includes("нақты жазба емес"),"Schematic limitation missing");
-assert.equal((visual.match(/\["(?:Покой|Восходящая фаза|Реполяризация|Следовая гиперполяризация)"/g)||[]).length,4,"Expected four RU phases");
-assert.equal((visual.match(/\["(?:Rest|Upstroke|Repolarization|After-hyperpolarization)"/g)||[]).length,4,"Expected four EN phases");
-assert.equal((visual.match(/\["(?:Тыныштық|Көтерілу фазасы|Реполяризация|Кейінгі гиперполяризация)"/g)||[]).length,4,"Expected four KZ phases");
+for(const [lang,next] of [["RU","EN"],["EN","KZ"],["KZ",null]]){
+ const begin=visual.indexOf(" "+lang+": {");
+ const finish=next?visual.indexOf(" "+next+": {",begin):visual.indexOf("} as const;",begin);
+ assert(begin>=0&&finish>begin,"Missing "+lang+" phase segment");
+ const segment=visual.slice(begin,finish);
+ assert.equal((segment.match(/\["/g)||[]).length,4,lang+": expected exactly four phase entries");
+}
 assert.equal(JSON.parse(fs.readFileSync("vercel.json","utf8")).git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false);
 console.log("PASS: module 4 media, four phases × RU/EN/KZ, mechanism, navigation, accessibility and isolated deployment.");
