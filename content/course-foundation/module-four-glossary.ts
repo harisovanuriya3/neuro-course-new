@@ -8,9 +8,9 @@ import type { GlossaryLesson } from '../study';
 type Entry = { key: string; RU: [string, string]; EN: [string, string]; KZ: [string, string] };
 const entries: Entry[] = [
   { key: 'resting-vm',
-    RU: ['Потенциал покоя', 'Разность электрических потенциалов между внутренней и наружной сторонами мембраны в отсутствие распространяющегося импульса; определяется ионными градиентами и относительной проницаемостью мембраны.'],
-    EN: ['Resting membrane potential', 'The voltage difference across a cell membrane in the absence of a propagated spike, determined by ionic gradients and relative membrane permeabilities.'],
-    KZ: ['Тыныштық мембраналық потенциалы', 'Таралатын импульс болмаған кезде мембрананың ішкі және сыртқы жақтары арасындағы потенциалдар айырмасы; иондық градиенттер мен мембрананың салыстырмалы өткізгіштігіне тәуелді.'] },
+    RU: ['Потенциал покоя', 'Разность электрических потенциалов между внутренней и наружной сторонами мембраны в состоянии покоя, без вызванного локального или распространяющегося электрического ответа; определяется ионными градиентами и относительной проницаемостью мембраны.'],
+    EN: ['Resting membrane potential', 'The voltage difference across a cell membrane under resting conditions without an evoked local or propagated electrical response, determined by ionic gradients and relative membrane permeabilities.'],
+    KZ: ['Тыныштық мембраналық потенциалы', 'Қоздырылған жергілікті немесе таралатын электрлік жауап болмаған тыныштық күйінде мембрананың ішкі және сыртқы жақтары арасындағы потенциалдар айырмасы; иондық градиенттер мен мембрананың салыстырмалы өткізгіштігіне тәуелді.'] },
   { key: 'nernst',
     RU: ['Равновесный потенциал Нернста', 'Мембранный потенциал, при котором электрохимические силы для одного вида ионов уравновешены и его суммарный поток через избирательно проницаемую мембрану равен нулю.'],
     EN: ['Nernst equilibrium potential', 'The membrane voltage at which the electrochemical driving force for one ion species is zero, so its net flux across a selectively permeable membrane vanishes.'],
