@@ -112,7 +112,7 @@ export function getReviewedVirtualPatientScenario(moduleId:number, language:Lang
     mentorPrompt:model.note,
     mechanism:model.final,
     options:stage.options.map(option=>option.id.endsWith("-decision-1")?{...option,text:model.final,feedback:model.final,response:model.note}:{...option,response:model.note,feedback:model.final}) as typeof stage.options
-   }:{...stage,mentorPrompt:model.note,newData:stage.newData.replace(/^[^:]+:\\s*/, "")})
+   }:{...stage,mentorPrompt:model.note,newData:stage.newData.replace(/^[^:]+:\s*/, "")})
   };
  }
  if(moduleId!==3 || !base) return base;
