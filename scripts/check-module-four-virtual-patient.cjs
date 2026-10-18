@@ -33,3 +33,5 @@ assert(view.includes("moduleId !== 3 && moduleId !== 4 && <div"),"Human portrait
 assert(view.includes("(moduleId === 3 || moduleId === 4)"),"Teaching-model label missing");
 assert(src.includes('options[stage.correctOption].id.endsWith("-decision-1")'),"Answer-key guard missing");
 console.log("PASS: module 4 six stages, three localized decisions, model-only UI and answer-key guard.");
+
+// Module 4 feedback and scoring disclosure are reviewed separately.
