@@ -91,7 +91,12 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
     if (!scenario || !allStagesCompleted) return;
     const correct = scenario.stages.reduce((sum, reviewStage, index) => sum + (state.selected[index] === reviewStage.correctOption ? 1 : 0), 0);
     recordOutcome(moduleId, "virtual-patient", correct, scenario.stages.length);
-    recordOutcome(moduleId, "criterion:clinical:virtual-patient", correct, scenario.stages.length);
+    // Modules 3 and 4 are computer teaching models, not clinical patient encounters.
+    // Their keyed decisions assess physiological mechanism, not clinical competence.
+    const criterion = moduleId === 3 || moduleId === 4
+      ? "criterion:mechanism:virtual-model"
+      : "criterion:clinical:virtual-patient";
+    recordOutcome(moduleId, criterion, correct, scenario.stages.length);
   }, [scenario, allStagesCompleted, moduleId, state.selected]);
 
   if (!scenario) return null;
