@@ -108,7 +108,7 @@ export function getReviewedVirtualPatientScenario(moduleId:number, language:Lang
   }[language];
   return {...base,patient:model.patient,profile:model.profile,opening:model.opening,syntheticNote:model.note,
    stages:base.stages.map((stage,index)=>index===5?{...stage,
-    task:model.final,
+    task:language==="RU"?"Объясните связь силы стимула, амплитуды одного импульса и частоты разрядов.":language==="EN"?"Explain stimulus strength, single-spike amplitude and firing rate.":"Стимул күші, бір импульс амплитудасы және разряд жиілігін түсіндіріңіз.",
     mentorPrompt:model.note,
     mechanism:model.final,
     options:stage.options.map(option=>option.id.endsWith("-decision-1")?{...option,text:model.final,feedback:model.final,response:model.note}:{...option,response:model.note,feedback:model.final}) as typeof stage.options
