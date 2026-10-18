@@ -27,6 +27,7 @@ import { createModuleFourCases } from "./course-foundation/module-four-cases";
 import { createModuleFourQuestions } from "./course-foundation/module-four-questions";
 import { createModuleFourMedia } from "./course-foundation/module-four-media";
 import { createModuleFourGlossary } from "./course-foundation/module-four-glossary";
+import { createModuleFourReferences } from "./course-foundation/module-four-references";
 import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-foundation/module-three-learning";
 import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
@@ -131,6 +132,7 @@ function moduleThreeBasePractice(language: Language) {
   return lesson;
 }
 
+function moduleFourBaseReferences(language: Language) { const lesson = foundationLessons[4]?.references?.[language]; if (!lesson || lesson.kind !== "references") throw new Error("Module 4 base references missing"); return lesson; }
 function moduleFourBaseGlossary(language: Language) {
   const lesson = foundationLessons[4]?.glossary?.[language];
   if (!lesson || lesson.kind !== "glossary") throw new Error("Module 4 base glossary missing for " + language);
@@ -231,6 +233,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   4: {
     ...foundationLessons[4],
+    references: { RU: createModuleFourReferences("RU", moduleFourBaseReferences("RU")), EN: createModuleFourReferences("EN", moduleFourBaseReferences("EN")), KZ: createModuleFourReferences("KZ", moduleFourBaseReferences("KZ")) },
     glossary: {
       RU: createModuleFourGlossary("RU", moduleFourBaseGlossary("RU")),
       EN: createModuleFourGlossary("EN", moduleFourBaseGlossary("EN")),
