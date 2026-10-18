@@ -42,7 +42,7 @@ export default function ModuleFourMediaAnimation({language}:{language:Language})
  const [step,setStep]=useState(0);
  const c=copy[language],p=c.phases[step];
  return <section style={{padding:16,borderRadius:16,background:"#0b2437",color:"#f8fafc"}}>
-  <h3 style={{marginTop:0}}>{step+1}/4 — {p[0]}</h3>
+  <h3 aria-live="polite" style={{marginTop:0}}>{step+1}/4 — {p[0]}</h3>
   <svg viewBox="0 0 540 205" role="img" aria-label={p[0]+": "+p[1]}
     style={{width:"100%",background:"#071827",borderRadius:12}}>
    <line x1="32" y1="130" x2="502" y2="130" stroke="#64748b" strokeDasharray="5 5"/>
@@ -51,7 +51,7 @@ export default function ModuleFourMediaAnimation({language}:{language:Language})
    <circle cx={xPositions[step]} cy={yPositions[step]} r="12" fill="#fde047" stroke="#0b2437" strokeWidth="3"/>
    <text x="36" y="22" fill="#f8fafc" fontSize="14">Vm</text>
    <text x="447" y="188" fill="#f8fafc" fontSize="14">t →</text>
-   <text x="40" y="123" fill="#cbd5e1" fontSize="12">rest</text>
+   <text x="40" y="123" fill="#cbd5e1" fontSize="12">{language==="RU"?"покой":language==="EN"?"rest":"тыныштық"}</text>
   </svg>
   <p>{p[1]}</p>
   <p><strong>{p[2]} · {p[3]}</strong></p>
