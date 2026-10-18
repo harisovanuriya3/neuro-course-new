@@ -55,7 +55,7 @@ for(const term of [
   'K⁺ 4/140','Na⁺ 145/12','E(K) ≈ −95,0','E(Na) ≈ +66,6','Vm ≈ −71,2',
   'K⁺ 4/140','E(K) ≈ −95.0','E(Na) ≈ +66.6','Vm ≈ −71.2',
   'Cl⁻','37 °C','P(K):P(Na)=1:0,04','P(K):P(Na)=1:0.04',
-  'табандырықтан жоғары стимулды күшейту',
+  'табалдырықтан жоғары стимулды күшейту',
   'stronger suprathreshold stimulus','силой надпорогового стимула'
 ]) assert(source.includes(term),'Missing model input/limit or all-or-none caveat: '+term);
 const rt = 8.314462618*310.15/96485.33212*1000;
