@@ -34,4 +34,5 @@ assert(view.includes("(moduleId === 3 || moduleId === 4)"),"Teaching-model label
 assert(src.includes('options[stage.correctOption].id.endsWith("-decision-1")'),"Answer-key guard missing");
 console.log("PASS: module 4 six stages, three localized decisions, model-only UI and answer-key guard.");
 
-// Module 4 feedback and scoring disclosure are reviewed separately.
+assert(view.includes("moduleId === 4 ? membraneModelDecisionCopy[language]"),"Module 4 must use model-specific feedback");
+assert(view.includes("(moduleId === 3 || moduleId === 4) && <p"),"Model scoring disclosure missing");
