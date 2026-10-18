@@ -61,6 +61,7 @@ for (const value of ["Закладка не сохранена", "Bookmark not s
   assert(bookmarkUI.includes(value), "Missing failed-save translation: " + value);
 
 assert(notesUI.includes("moduleId === 3 && <p>{moduleThreePrompt[language]}</p>"), "Module 3 physiology note prompts not displayed");
+assert(notesUI.includes("moduleId === 4 && <p>{moduleFourPrompt[language]}</p>"), "Module 4 notes prompt must be visible");
 assert(notesUI.includes("aria-pressed={bookmarked}"), "Bookmark toggle missing accessible pressed state");
 for (const phrase of ["начального сегмента", "initial segment", "бастапқы сегмент", "латентностей", "latency difference", "латенттіліктер"])
   assert(notesUI.includes(phrase), "Missing module 3 RU/EN/KZ physiology prompt: " + phrase);
