@@ -28,7 +28,7 @@ const copy = {
     noCalcium: "Вход Ca²⁺ заблокирован → вызванное выделение медиатора не происходит → вызванного постсинаптического ответа нет.",
     correct: "Прогноз совпал с результатом модели.",
     revise: "Сравните прогноз с результатом. Вход Ca²⁺ связывает приход импульса с выделением медиатора.",
-    record: "Записать опыт", journal: "Журнал экспериментов", explanation: "Объяснение механизма", scope: "Это учебная модель одного химического синапса. Она не моделирует спонтанное выделение медиатора, другие механизмы ответа или действие конкретного препарата. Микрофотография выше показывает строение соединения, а не результат этого опыта.",
+    record: "Записать опыт", recorded: "Опыт записан", journal: "Журнал экспериментов", explanation: "Объяснение механизма", scope: "Это учебная модель одного химического синапса. Она не моделирует спонтанное выделение медиатора, другие механизмы ответа или действие конкретного препарата. Микрофотография выше показывает строение соединения, а не результат этого опыта. Длина письменного объяснения не подтверждает его физиологическую правильность.",
   },
   EN: {
     title: "Lab: is Ca²⁺ entry needed for transmission?",
@@ -51,7 +51,7 @@ const copy = {
     noCalcium: "Ca²⁺ entry is blocked → evoked transmitter release does not occur → there is no evoked postsynaptic response.",
     correct: "Your prediction matches the model's result.",
     revise: "Compare your prediction with the result. Ca²⁺ entry links impulse arrival to transmitter release.",
-    record: "Record trial", journal: "Experiment log", explanation: "Mechanism explanation", scope: "This is a teaching model of one chemical synapse. It does not model spontaneous release, other response mechanisms, or a specific drug. The micrograph above shows structure, not the outcome of this experiment.",
+    record: "Record trial", recorded: "Trial recorded", journal: "Experiment log", explanation: "Mechanism explanation", scope: "This is a teaching model of one chemical synapse. It does not model spontaneous release, other response mechanisms, or a specific drug. The micrograph above shows structure, not the outcome of this experiment. The length of a written explanation does not establish its scientific correctness.",
   },
   KZ: {
     title: "Зертхана: берілу үшін Ca²⁺ кіруі қажет пе?",
@@ -74,7 +74,7 @@ const copy = {
     noCalcium: "Ca²⁺ кіруі бұғатталған → медиатордың шақырылған бөлінуі болмайды → шақырылған постсинапстық жауап жоқ.",
     correct: "Болжамыңыз модель нәтижесімен сәйкес келді.",
     revise: "Болжам мен нәтижені салыстырыңыз. Ca²⁺ кіруі импульстің келуін медиатордың бөлінуімен байланыстырады.",
-    record: "Тәжірибені жазу", journal: "Эксперимент журналы", explanation: "Тетікті түсіндіру", scope: "Бұл бір химиялық синапстың оқу моделі. Ол медиатордың өздігінен бөлінуін, жауаптың өзге тетіктерін немесе нақты препараттың әсерін көрсетпейді. Жоғарыдағы микрофото тәжірибе нәтижесін емес, құрылысты көрсетеді.",
+    record: "Тәжірибені жазу", recorded: "Тәжірибе жазылды", journal: "Эксперимент журналы", explanation: "Тетікті түсіндіру", scope: "Бұл бір химиялық синапстың оқу моделі. Ол медиатордың өздігінен бөлінуін, жауаптың өзге тетіктерін немесе нақты препараттың әсерін көрсетпейді. Жоғарыдағы микрофото тәжірибе нәтижесін емес, құрылысты көрсетеді. Жазбаша түсіндірменің ұзындығы оның физиологиялық дұрыстығын дәлелдемейді.",
   },
 };
 
@@ -84,9 +84,15 @@ export default function SynapseLab({ language }: { language: Language }) {
   const [prediction, setPrediction] = useState<"response" | "absent" | null>(null);
   const [result, setResult] = useState<{ condition: "open" | "blocked"; prediction: "response" | "absent" } | null>(null);
   const [stage, setStage] = useState(-1);
+  const [recorded, setRecorded] = useState(false);
   const [rows, setRows] = useState<{id:number;condition:"open"|"blocked";prediction:"response"|"absent";outcome:"response"|"absent";note:string}[]>([]);
   useEffect(() => {
     if (!result || stage >= 3) return;
+    // Reduced-motion users get the complete result without timed transitions.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setStage(3);
+      return;
+    }
     const timer = window.setTimeout(() => setStage(current => current + 1), 1700);
     return () => window.clearTimeout(timer);
   }, [result, stage]);
@@ -109,7 +115,7 @@ export default function SynapseLab({ language }: { language: Language }) {
         </fieldset>
         <div className={styles.actions}>
           <button type="button" disabled={!prediction || !!result} onClick={() => { if (prediction) { setStage(0); setResult({ condition, prediction }); } }}>{c.run}</button>
-          <button type="button" disabled={!result} onClick={() => { setPrediction(null); setResult(null); setStage(-1); }}>{c.reset}</button>
+          <button type="button" disabled={!result} onClick={() => { setPrediction(null); setResult(null); setStage(-1); setRecorded(false); }}>{c.reset}</button>
           <button type="button" disabled={!result} onClick={() => setStage(0)}>{c.replay}</button>
         </div>
       </div>
@@ -148,9 +154,9 @@ export default function SynapseLab({ language }: { language: Language }) {
         </div>
       </div>
     </div>
-    {result && stage === 3 && <button type="button" onClick={() => {recordOutcome(5,"interactive",1,1);recordOutcome(5,"criterion:mechanism:calcium",result.prediction===outcome?1:0,1);setRows(xs => [...xs, { id: Date.now(), condition: result.condition, prediction: result.prediction, outcome: result.condition === "open" ? "response" : "absent", note: "" }])}}>{c.record}</button>}
+    {result && stage === 3 && <button type="button" disabled={recorded} onClick={() => {if (recorded) return; recordOutcome(5,"interactive",1,1);recordOutcome(5,"criterion:mechanism:calcium",result.prediction===outcome?1:0,1);setRows(xs => [...xs, { id: Date.now(), condition: result.condition, prediction: result.prediction, outcome: result.condition === "open" ? "response" : "absent", note: "" }]);setRecorded(true);}}>{recorded ? c.recorded : c.record}</button>}
     <h3>{c.journal}</h3>
-    {rows.length > 0 && <div style={{overflowX:"auto"}}><table><thead><tr><th>#</th><th>{c.condition}</th><th>{c.prediction}</th><th>{c.visual}</th><th>{c.explanation}</th></tr></thead><tbody>{rows.map((r,i)=><tr key={r.id}><td>{i+1}</td><td>{c[r.condition]}</td><td>{c[r.prediction]}</td><td>{c[r.outcome]}</td><td><input aria-label={c.explanation} value={r.note} onChange={e=>{const note=e.target.value;setRows(xs=>xs.map(x=>x.id===r.id?{...x,note}:x));if(note.trim().length>=30)recordOutcome(5,"criterion:justification:synapse",1,1)}}/></td></tr>)}</tbody></table></div>}
+    {rows.length > 0 && <div style={{overflowX:"auto"}}><table><thead><tr><th>#</th><th>{c.condition}</th><th>{c.prediction}</th><th>{c.visual}</th><th>{c.explanation}</th></tr></thead><tbody>{rows.map((r,i)=><tr key={r.id}><td>{i+1}</td><td>{c[r.condition]}</td><td>{c[r.prediction]}</td><td>{c[r.outcome]}</td><td><input aria-label={c.explanation} value={r.note} onChange={e=>{const note=e.target.value;setRows(xs=>xs.map(x=>x.id===r.id?{...x,note}:x));if(note.trim().length>=30)recordOutcome(5,"activity:reflection:synapse",1,1)}}/></td></tr>)}</tbody></table></div>}
     <p className={styles.scope}>{c.scope}</p>
   <ExperimentReflection language={language} theoryHref={`/modules/5/theory?lang=${language}`} moduleId={5}/></section>;
 }
