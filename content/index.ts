@@ -25,6 +25,7 @@ import { createModuleFourObjectives, createModuleFourSummary } from "./course-fo
 import { createModuleFourClinical } from "./course-foundation/module-four-clinical";
 import { createModuleFourCases } from "./course-foundation/module-four-cases";
 import { createModuleFourQuestions } from "./course-foundation/module-four-questions";
+import { createModuleFourMedia } from "./course-foundation/module-four-media";
 import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-foundation/module-three-learning";
 import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
@@ -218,6 +219,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   4: {
     ...foundationLessons[4],
+    media: { RU: createModuleFourMedia("RU", foundationLessons[4].media.RU), EN: createModuleFourMedia("EN", foundationLessons[4].media.EN), KZ: createModuleFourMedia("KZ", foundationLessons[4].media.KZ) },
     tests: {
       RU: createModuleFourTest("RU", moduleFourBaseTest("RU")),
       EN: createModuleFourTest("EN", moduleFourBaseTest("EN")),
