@@ -39,6 +39,13 @@ export default function NotesContent({ language, moduleId }: { language: Languag
     EN: "For self-review: how do dendrites, the initial segment and the axon differ in function? Which cells make myelin in the CNS and PNS? Why is motor conduction velocity calculated from the latency difference between two stimulation sites? Notes are not graded automatically.",
     KZ: "Өзіндік тексеру үшін: дендриттердің, бастапқы сегменттің және аксонның қызметтері қалай ерекшеленеді? ОЖЖ мен ШЖЖ-де миелинді қандай жасушалар түзеді? Неліктен қозғалтқыш жүйкенің өткізу жылдамдығы екі нүктеден тітіркендіргендегі латенттіліктер айырмасымен есептеледі? Жазбалар автоматты түрде бағаланбайды.",
   } as const;
+  // Module 4 asks students to record a controlled prediction rather than a diagnosis.
+  // The illustrative Goldman calculation does not simulate channel kinetics.
+  const moduleFourPrompt = {
+    RU: "Для самопроверки: при 37 °C и неизменных остальных параметрах что произойдёт с E(K) и расчётным Vm, если наружный K⁺ повысить с 4 до 8 мМ? Почему сильная длительная деполяризация может снизить доступность Na⁺-каналов? Почему неизменная нарисованная кривая импульса в двухионной модели не доказывает нормальную возбудимость пациента? Заметки не проверяются автоматически.",
+    EN: "For self-review: at 37 °C with all other inputs fixed, how do E(K) and calculated Vm change when extracellular K⁺ rises from 4 to 8 mM? Why can marked sustained depolarization reduce Na⁺-channel availability? Why does an unchanged illustrative spike trace in a two-ion model not establish normal excitability in a patient? Notes are not graded automatically.",
+    KZ: "Өзіндік тексеру үшін: 37 °C-та басқа параметрлер тұрақты болғанда жасушадан тыс K⁺ 4-тен 8 мМ-ге артса, E(K) және есептелген Vm қалай өзгереді? Неліктен айқын әрі ұзақ деполяризация Na⁺ арналарының қолжетімділігін төмендетуі мүмкін? Екі ионды модельдегі өзгермейтін шартты импульс қисығы неге пациенттің қалыпты қозғыштығын дәлелдемейді? Жазбалар автоматты түрде бағаланбайды.",
+  } as const;
   const bookmarked = value.bookmarks.includes(selected);
   const update = (change: (current: ModuleNotes) => ModuleNotes) => {
     // Re-read immediately before writing so editing a note in one tab does not
@@ -60,7 +67,7 @@ export default function NotesContent({ language, moduleId }: { language: Languag
     }
   };
   return <article className={styles.tool}>
-    <h1>{c.title}</h1><p>{c.intro}</p>{moduleId === 3 && <p>{moduleThreePrompt[language]}</p>}
+    <h1>{c.title}</h1><p>{c.intro}</p>{moduleId === 3 && <p>{moduleThreePrompt[language]}</p>}{moduleId === 4 && <p>{moduleFourPrompt[language]}</p>}
     <label htmlFor="notes-section">{c.pick}</label>
     <select id="notes-section" value={selected} onChange={event => { setSelected(event.target.value as Section); }}>
       {sectionOrder.map(section => <option key={section} value={section}>{getSectionTitle(section, language)}</option>)}
