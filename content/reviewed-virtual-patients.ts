@@ -111,7 +111,7 @@ export function getReviewedVirtualPatientScenario(moduleId:number, language:Lang
     task:language==="RU"?"Объясните связь силы стимула, амплитуды одного импульса и частоты разрядов.":language==="EN"?"Explain stimulus strength, single-spike amplitude and firing rate.":"Стимул күші, бір импульс амплитудасы және разряд жиілігін түсіндіріңіз.",
     mentorPrompt:model.note,
     mechanism:model.final,
-    options:stage.options.map(option=>option.id.endsWith("-decision-1")?{...option,text:model.final,feedback:model.final,response:model.note}:{...option,response:model.note,feedback:model.final}) as typeof stage.options
+    options:stage.options.map(option=>option.id.endsWith("-decision-1")?{...option,text:{RU:"Амплитуда отдельного импульса не зависит от силы стимула после порога; частотное кодирование возможно при длительном воздействии",EN:"Single-spike amplitude is all-or-none; sustained input may be encoded by firing rate",KZ:"Бір импульстің амплитудасы табалдырықтан кейін тұрақты; ұзақ әсерде жиілікпен кодталуы мүмкін"}[language],feedback:model.final,response:model.note}:{...option,response:model.note,feedback:model.final}) as typeof stage.options
    }:{...stage,mentorPrompt:model.note,newData:stage.newData.replace(/^[^:]+:\s*/, "")})
   };
  }
