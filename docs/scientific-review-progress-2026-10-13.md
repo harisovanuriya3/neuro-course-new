@@ -171,3 +171,6 @@ Directly re-read the module 3 reference sources in Library: Guyton & Hall 13e PD
 
 ## 18.10.2026 — модуль 4 practice
 Проверены три задания × RU/EN/KZ, расчёты Nernst/GHK и пороговая логика симулятора по Guyton 13e PDF 69–72, Ganong 23e PDF 96–99, Ghai 8e PDF 379–381. Ошибок в этом разделе не обнаружено. Добавлен отдельный проверочный скрипт a34065d8; его Node-запуск и подключение к npm-аудиту ещё не подтверждены. CI, TypeScript, build, браузер и все 425 разделов остаются непроверенными; main/Vercel не менялись.
+
+## 18.10.2026 — модуль 4 media
+Сверены исходники media, renderer и registry с Library Guyton 13e PDF 69–72, Ganong 23e PDF 96–99, Ghai 8e PDF 379–381. Вместо общей схемы добавлены 4 физиологические фазы, RU/EN/KZ, предметный тест и SVG (f775df88, 5bb2120a, 41c5c5eb, 9182dc44, 38365bc5, 4e24aa0c, b26a2a62, 00137647; дополнительный коммит b591fe5a ожидает обновления ref). Проверено 17/17 текстовых условий, не Node/AST. Node, tsc, build, browser, эксперт KZ и полные 425 разделов не подтверждены. Main/Vercel не менялись.
