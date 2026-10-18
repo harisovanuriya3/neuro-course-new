@@ -130,6 +130,11 @@ function moduleThreeBasePractice(language: Language) {
   return lesson;
 }
 
+function moduleFourBaseMedia(language: Language) {
+  const lesson = foundationLessons[4]?.media?.[language];
+  if (!lesson || lesson.kind !== "media") throw new Error("Module 4 base media missing");
+  return lesson;
+}
 function moduleFourBaseTest(language: Language) {
   const lesson = foundationLessons[4]?.tests?.[language];
   if (!lesson || lesson.kind !== "tests") throw new Error("Module 4 base test missing");
@@ -219,7 +224,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   4: {
     ...foundationLessons[4],
-    media: { RU: createModuleFourMedia("RU", foundationLessons[4].media.RU), EN: createModuleFourMedia("EN", foundationLessons[4].media.EN), KZ: createModuleFourMedia("KZ", foundationLessons[4].media.KZ) },
+    media: { RU: createModuleFourMedia("RU", moduleFourBaseMedia("RU")), EN: createModuleFourMedia("EN", moduleFourBaseMedia("EN")), KZ: createModuleFourMedia("KZ", moduleFourBaseMedia("KZ")) },
     tests: {
       RU: createModuleFourTest("RU", moduleFourBaseTest("RU")),
       EN: createModuleFourTest("EN", moduleFourBaseTest("EN")),
