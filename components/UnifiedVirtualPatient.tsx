@@ -29,6 +29,26 @@ const modelDecisionCopy = {
   KZ: { profile:"Оқу моделінің нәтижесі", correct:"Физиологиялық негізделген таңдаулар", strong:"5–6 таңдау модельге сәйкес", forming:"3–4 таңдау модельге сәйкес", review:"0–2 таңдау модельге сәйкес", next:"Келесі қадам", strongNext:"Жазбаша түсіндірмелеріңізді теориядағы механизммен салыстырыңыз.", formingNext:"Қате кезеңдерді қарап, астроциттердің K⁺ буферлеуін түсіндіріңіз.", reviewNext:"Глияның K⁺ буферлеуін қайталап, модельден қайта өтіңіз.", errorStage:"Механизмді тексеріңіз", scope:"Пайыз тек таңдалған жауаптарды бағалайды. Жазбаша түсіндірмелер автоматты түрде бағаланған жоқ." },
 } as const;
 
+// Module 4 is a membrane-physiology COMPUTER MODEL, not a clinical case.
+// The rubric scores option selection only; free text is not graded.
+const membraneModelDecisionCopy = {
+  RU: {
+    ...modelDecisionCopy.RU,
+    formingNext:"Повторите этапы с ошибками: уравнения Нернста и Гольдмана, ионные токи и рефрактерность.",
+    reviewNext:"Вернитесь к мембранному потенциалу, Na⁺/K⁺-каналам и рефрактерным периодам; затем повторите модель."
+  },
+  EN: {
+    ...modelDecisionCopy.EN,
+    formingNext:"Review incorrect stages: the Nernst and Goldman equations, ionic currents, and refractoriness.",
+    reviewNext:"Revisit membrane voltage, Na⁺/K⁺ channels and refractory periods, then repeat the model."
+  },
+  KZ: {
+    ...modelDecisionCopy.KZ,
+    formingNext:"Қате кезеңдерді қайталаңыз: Нернст пен Гольдман теңдеулері, иондық токтар және рефрактерлік.",
+    reviewNext:"Мембраналық потенциалды, Na⁺/K⁺ арналарын және рефрактерлік кезеңдерді қайталап, модельді қайта өтіңіз."
+  }
+} as const;
+
 type StoredState = { current: number; unlocked: number; selected: (number | null)[]; notes: string[] };
 const emptyState = (): StoredState => ({ current: 0, unlocked: 0, selected: [null, null, null, null, null, null], notes: ["", "", "", "", "", ""] });
 
@@ -84,7 +104,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   const complete = selected !== null;
   const reasoningComplete = state.notes[state.current].trim().length >= 12;
   const decisionCommitted = complete && reasoningComplete;
-  const d = moduleId === 3 ? modelDecisionCopy[language] : decisionCopy[language];
+  const d = moduleId === 4 ? membraneModelDecisionCopy[language] : moduleId === 3 ? modelDecisionCopy[language] : decisionCopy[language];
   const correctDecisions = scenario.stages.reduce((sum, reviewStage, index) => sum + (state.selected[index] === reviewStage.correctOption ? 1 : 0), 0);
   const decisionPercent = Math.round((correctDecisions / scenario.stages.length) * 100);
   const decisionLevel = decisionPercent >= 80 ? d.strong : decisionPercent >= 50 ? d.forming : d.review;
@@ -180,7 +200,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
             <p style={{margin:"0 0 6px"}}><strong>{d.correct}: {correctDecisions}/6 · {decisionPercent}%</strong></p>
             <progress value={correctDecisions} max={6} aria-label={d.profile} style={{width:"100%"}} />
             <p style={{margin:"8px 0 4px"}}>{decisionLevel}</p>
-            {moduleId === 3 && <p style={{margin:"6px 0"}}>{modelDecisionCopy[language].scope}</p>}
+            {(moduleId === 3 || moduleId === 4) && <p style={{margin:"6px 0"}}>{d.scope}</p>}
             <p style={{margin:0}}><strong>{d.next}:</strong> {decisionAdvice}</p>
           </div>
           <p>{scenario.mechanismSummary}</p>
