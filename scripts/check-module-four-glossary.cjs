@@ -43,6 +43,17 @@ for (const entry of entries) {
     labels[lang].add(normalized);
   }
 }
+const rest=entries.find(entry=>get(entry,'key').text==='resting-vm');
+assert(rest,'Resting-potential term missing');
+for(const [lang,phrase] of Object.entries({
+ RU:'в состоянии покоя',
+ EN:'under resting conditions',
+ KZ:'тыныштық күйінде'
+})){
+ const pair=get(rest,lang);
+ const definition=pair.elements[1].text;
+ assert(definition.includes(phrase),lang+': resting Vm must describe the resting condition');
+}
 assert(source.includes('new Set(terms.map'), 'Runtime duplicate-term guard missing');
 assert(source.includes('...base.terms'), 'Foundation terms must remain');
 assert(registry.includes('from "./course-foundation/module-four-glossary"'),
