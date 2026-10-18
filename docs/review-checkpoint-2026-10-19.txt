@@ -1,0 +1,1 @@
+Module 4 virtual-patient source review performed on 2026-10-19. Commit 4575425a fixes model feedback. Build and browser checks remain pending.
