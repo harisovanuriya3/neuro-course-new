@@ -178,7 +178,7 @@ export function reviewModuleFourVirtualPatient(base: VirtualPatientScenario, lan
   )[language];
   return {
     ...base,
-    patient: l("Мембрананың оқу моделі (пациент емес)", "Teaching membrane model (not a patient)", "Мембрананың оқу моделі (пациент емес)")[language],
+    patient: l("Учебная модель мембраны (не пациент)", "Teaching membrane model (not a patient)", "Мембрананың оқу моделі (пациент емес)")[language],
     profile: l("Компьютерная модель при 37 °C", "Computer model at 37 °C", "37 °C-тағы компьютерлік модель")[language],
     opening: l("Расчёт Vm и условная кривая импульса не являются измерениями у человека.", "Calculated Vm and the illustrative spike trace are not human recordings.", "Есептелген Vm мен шартты импульс қисығы адамда өлшенген нәтиже емес.")[language],
     syntheticNote: note,
