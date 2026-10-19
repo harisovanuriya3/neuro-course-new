@@ -3,7 +3,8 @@ import type { PracticeLesson } from "../types";
 
 // Module 5: authored exercises replace generic term-to-term causal prompts.
 // References: Ganong 23e chs. 6–7 (PDF pp. 127–130, 146–148);
-// Guyton & Hall 13e ch. 7 (PDF pp. 96–98);
+// Guyton & Hall 13e ch. 7 (PDF pp. 96–98) and autonomic receptors (PDF p. 743);
+// Ganong 23e ch. 30 (PDF pp. 503–504): SA-node M2/Gi/o, K⁺ conductance, cAMP.
 // Ghai Practical Physiology 8e experiment 4-9 (PDF pp. 353–354).
 type Copy = {
   titles: [string, string, string, string];
@@ -23,7 +24,7 @@ const copy: Record<Language, Copy> = {
     ],
     answers: [
       ["Никотиновый рецептор мышцы — лиганд-зависимый катионный канал. Вход Na⁺ преобладает, возникает локальная деполяризация концевой пластинки; достаточная деполяризация запускает мышечный потенциал действия.",
-       "M2-рецептор синусового узла сопряжён с G-белком и обычно снижает частоту генерации импульсов. Метаботропная передача не всегда является тормозной: эффект определяется рецептором и клеткой."],
+       "M2-рецептор синусового узла связан с Gi/o-белком: его βγ-субъединицы открывают K⁺-каналы, а снижение цАМФ замедляет пейсмекерную деполяризацию. Поэтому частота импульсов обычно уменьшается. Метаботропная передача не всегда тормозная: эффект зависит от рецептора и клетки."],
       ["A: снижение входа Ca²⁺ уменьшает вероятность везикулярного выделения и в среднем ослабляет потенциал концевой пластинки, хотя импульс доходит до окончания.",
        "B: выделение ацетилхолина может сохраняться, но заблокированные рецепторы не создают нормальный ответ концевой пластинки. Снижение ответа само по себе не локализует нарушение."],
       ["A поддерживает пресинаптический дефект, поскольку снижение выделения наблюдается непосредственно, а ответ на местный ацетилхолин сохранён.",
@@ -45,7 +46,7 @@ const copy: Record<Language, Copy> = {
     ],
     answers: [
       ["The muscle nicotinic receptor is a ligand-gated cation channel. Predominant Na⁺ influx depolarizes the end plate; sufficient depolarization initiates a muscle action potential.",
-       "The sinoatrial M2 receptor is G-protein coupled and normally slows pacemaker activity. Metabotropic signaling is not necessarily inhibitory: effects depend on receptor and cell type."],
+       "The sinoatrial M2 receptor couples to Gi/o: G-protein βγ subunits open K⁺ channels, while reduced cAMP slows pacemaker depolarization. The firing rate usually falls. Metabotropic signaling is not invariably inhibitory; its effect depends on receptor and cell type."],
       ["A: reduced Ca²⁺ entry lowers the probability of vesicular release and usually reduces the mean end-plate potential, even though the nerve impulse reaches the terminal.",
        "B: acetylcholine release can continue, but blocked receptors cannot generate the normal end-plate response. A reduced response alone does not locate the defect."],
       ["A supports a presynaptic defect because release is directly reduced while the local acetylcholine response is preserved.",
@@ -67,7 +68,7 @@ const copy: Record<Language, Copy> = {
     ],
     answers: [
       ["Бұлшықеттің никотиндік рецепторы — лигандпен ашылатын катиондық арна. Na⁺ енуі басым болып, соңғы пластинка деполяризацияланады; жеткілікті деполяризация бұлшықет әрекет потенциалын туғызады.",
-       "Синустық түйіндегі M2-рецептор G-ақуызымен байланысқан және әдетте ырғақ түзілуін баяулатады. Метаботроптық әсер әрдайым тежеуші емес: ол рецептор мен жасушаға тәуелді."],
+       "Синустық түйіндегі M2-рецептор Gi/o-ақуызымен байланысады: оның βγ-суббірліктері K⁺ арналарын ашады, ал цАМФ деңгейінің төмендеуі пейсмекерлік деполяризацияны баяулатады. Сондықтан импульс жиілігі әдетте азаяды. Метаботроптық әсер әрдайым тежеуші емес: ол рецептор мен жасушаға тәуелді."],
       ["A: Ca²⁺ енуінің азаюы везикулалық бөліну ықтималдығын төмендетіп, орташа соңғы пластинка потенциалын әлсіретеді; жүйке импульсы ұшына жетеді.",
        "B: ацетилхолин бөлінуі сақталуы мүмкін, бірақ бөгелген рецепторлар қалыпты соңғы пластинка жауабын тудырмайды. Жауаптың азаюы бұзылу орнын өздігінен көрсетпейді."],
       ["A пресинапстық бұзылысты қолдайды: медиатор бөлінуі азайған, ал жергілікті ацетилхолинге жауап сақталған.",
