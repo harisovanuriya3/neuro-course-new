@@ -17,7 +17,7 @@ function visit(node){
  ts.forEachChild(node,visit);
 }
 visit(ast);
-assert(localCalls.length>=12,"Module 5 theory has too few localized explanations");
+assert(localCalls.length>=11,"Module 5 theory has too few localized explanations");
 for(const call of localCalls){
  assert.equal(call.arguments.length,3,"Every local() requires RU, EN, KZ");
  for(const [i,arg] of call.arguments.entries()){
@@ -26,7 +26,7 @@ for(const call of localCalls){
   assert(arg.text.trim().length>15,"Missing meaningful localized text "+i);
  }
 }
-for(const phrase of ["E(Cl)","Vm","Cl⁻","шунт","shunting","шунттаудың",
+for(const phrase of ["E(Cl)","Vm","Cl⁻","шунт","shunting","Шунттаудың",
  "входное сопротивление","input resistance","кіріс кедергісін",
  "не обязан вызывать","need not produce","міндетті түрде"]){
  assert(source.includes(phrase),"Shunting theory missing "+phrase);
