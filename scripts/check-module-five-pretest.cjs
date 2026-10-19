@@ -58,6 +58,21 @@ for (const lang of ["RU", "EN", "KZ"]) {
 }
 assert(registry.includes('import { createModuleFivePretest } from "./course-foundation/module-five-pretest"'),
   "Module 5 pretest import missing");
+// Ensure all three languages use physiological distractors rather than
+// impossible chemical-identity changes or an answer given away by wording.
+for (const fragment of [
+  "только количеством выделенного медиатора",
+  "все метаботропные — торможение",
+  "solely by how much transmitter is released",
+  "all metabotropic receptors inhibitory",
+  "тек бөлінген медиатор мөлшерімен",
+  "барлық метаботроптық рецепторлар"
+]) assert(source.includes(fragment), "Missing mechanistic RU/EN/KZ distractor: " + fragment);
+for (const stale of [
+  "Каждая молекула медиатора меняет свой химический состав",
+  "Each transmitter molecule changes its chemical identity",
+  "Медиатордың әр молекуласы нысана жасушасына қарай химиялық құрамын өзгертеді"
+]) assert(!source.includes(stale), "Implausible distractor returned: " + stale);
 assert(route.includes("getLesson("), "Dynamic lesson route not connected");
 assert(source.includes('target: { section: "theory" as const }'), "Pretest must link to theory");
 const vercel = JSON.parse(fs.readFileSync("vercel.json", "utf8"));
