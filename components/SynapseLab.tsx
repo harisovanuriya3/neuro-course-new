@@ -28,7 +28,7 @@ const copy = {
     noCalcium: "Вход Ca²⁺ заблокирован → вызванное выделение медиатора не происходит → вызванного постсинаптического ответа нет.",
     correct: "Прогноз совпал с результатом модели.",
     revise: "Сравните прогноз с результатом. Вход Ca²⁺ связывает приход импульса с выделением медиатора.",
-    record: "Записать опыт", recorded: "Опыт записан", journal: "Журнал экспериментов", explanation: "Объяснение механизма", scope: "Это учебная модель одного химического синапса. Она не моделирует спонтанное выделение медиатора, другие механизмы ответа или действие конкретного препарата. Микрофотография выше показывает строение соединения, а не результат этого опыта. Длина письменного объяснения не подтверждает его физиологическую правильность.",
+    record: "Записать опыт", recorded: "Опыт записан", journal: "Журнал экспериментов", explanation: "Объяснение механизма", scope: "Это детерминированная учебная модель одного химического синапса: при сохранённом входе Ca²⁺ ответ задан заранее. В реальности высвобождение везикул вероятностно; модель не рассчитывает вероятность выделения, спонтанные миниатюрные ответы, другие механизмы передачи или действие конкретного препарата. Микрофотография выше показывает строение соединения, а не результат этого опыта. Длина письменного объяснения не подтверждает его физиологическую правильность.",
   },
   EN: {
     title: "Lab: is Ca²⁺ entry needed for transmission?",
@@ -51,7 +51,7 @@ const copy = {
     noCalcium: "Ca²⁺ entry is blocked → evoked transmitter release does not occur → there is no evoked postsynaptic response.",
     correct: "Your prediction matches the model's result.",
     revise: "Compare your prediction with the result. Ca²⁺ entry links impulse arrival to transmitter release.",
-    record: "Record trial", recorded: "Trial recorded", journal: "Experiment log", explanation: "Mechanism explanation", scope: "This is a teaching model of one chemical synapse. It does not model spontaneous release, other response mechanisms, or a specific drug. The micrograph above shows structure, not the outcome of this experiment. The length of a written explanation does not establish its scientific correctness.",
+    record: "Record trial", recorded: "Trial recorded", journal: "Experiment log", explanation: "Mechanism explanation", scope: "This is a deterministic teaching model of one chemical synapse: intact Ca²⁺ entry always produces a response here. Actual vesicle release is probabilistic; this model omits release probability, spontaneous miniature responses, other transmission mechanisms, and specific drug effects. The micrograph above shows structure, not the outcome of this experiment. The length of a written explanation does not establish its scientific correctness.",
   },
   KZ: {
     title: "Зертхана: берілу үшін Ca²⁺ кіруі қажет пе?",
@@ -74,7 +74,7 @@ const copy = {
     noCalcium: "Ca²⁺ кіруі бұғатталған → медиатордың шақырылған бөлінуі болмайды → шақырылған постсинапстық жауап жоқ.",
     correct: "Болжамыңыз модель нәтижесімен сәйкес келді.",
     revise: "Болжам мен нәтижені салыстырыңыз. Ca²⁺ кіруі импульстің келуін медиатордың бөлінуімен байланыстырады.",
-    record: "Тәжірибені жазу", recorded: "Тәжірибе жазылды", journal: "Эксперимент журналы", explanation: "Тетікті түсіндіру", scope: "Бұл бір химиялық синапстың оқу моделі. Ол медиатордың өздігінен бөлінуін, жауаптың өзге тетіктерін немесе нақты препараттың әсерін көрсетпейді. Жоғарыдағы микрофото тәжірибе нәтижесін емес, құрылысты көрсетеді. Жазбаша түсіндірменің ұзындығы оның физиологиялық дұрыстығын дәлелдемейді.",
+    record: "Тәжірибені жазу", recorded: "Тәжірибе жазылды", journal: "Эксперимент журналы", explanation: "Тетікті түсіндіру", scope: "Бұл бір химиялық синапстың нәтижесі алдын ала анықталған оқу моделі: Ca²⁺ кіруі сақталса, жауап әрқашан көрсетіледі. Шын мәнінде везикуладан медиатордың бөлінуі ықтималдық сипатта болады; модель бөліну ықтималдығын, өздігінен пайда болатын миниатюралық жауаптарды, берілудің басқа тетіктерін немесе нақты препараттың әсерін есептемейді. Жоғарыдағы микрофото тәжірибе нәтижесін емес, құрылысты көрсетеді. Жазбаша түсіндірменің ұзындығы оның физиологиялық дұрыстығын дәлелдемейді.",
   },
 };
 
