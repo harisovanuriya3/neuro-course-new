@@ -29,6 +29,7 @@ import { createModuleFourMedia } from "./course-foundation/module-four-media";
 import { createModuleFourGlossary } from "./course-foundation/module-four-glossary";
 import { createModuleFourReferences } from "./course-foundation/module-four-references";
 import { createModuleFiveTheory } from "./course-foundation/module-five-theory";
+import { createModuleFivePretest } from "./course-foundation/module-five-pretest";
 import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-foundation/module-three-learning";
 import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
@@ -287,6 +288,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       RU: createModuleFiveTheory("RU", moduleFiveBaseTheory("RU")),
       EN: createModuleFiveTheory("EN", moduleFiveBaseTheory("EN")),
       KZ: createModuleFiveTheory("KZ", moduleFiveBaseTheory("KZ")),
+    },
+    pretest: {
+      RU: createModuleFivePretest("RU", `5. ${modules.RU[4]}`, getSectionTitle("pretest", "RU")),
+      EN: createModuleFivePretest("EN", `5. ${modules.EN[4]}`, getSectionTitle("pretest", "EN")),
+      KZ: createModuleFivePretest("KZ", `5. ${modules.KZ[4]}`, getSectionTitle("pretest", "KZ")),
     },
   },
   1: {
