@@ -35,10 +35,10 @@ const localized: Record<Language, Locale> = {
       {
         prompt: "Один и тот же медиатор действует на два типа постсинаптических рецепторов, и ответы клеток различаются. Какое объяснение физиологически наиболее обосновано?",
         options: [
-          "Каждая молекула медиатора меняет свой химический состав в зависимости от клетки-мишени.",
+          "Различия ответов объясняются только количеством выделенного медиатора; свойства постсинаптических рецепторов роли не играют.",
           "Разные рецепторы активируют разные ионные проводимости или внутриклеточные пути; эффект также зависит от ионных градиентов.",
-          "Форма пресинаптического потенциала действия однозначно определяет знак постсинаптического ответа независимо от рецепторов.",
-          "Название медиатора само по себе всегда определяет возбуждающий или тормозный эффект.",
+          "Направление ответа определяется только формой пресинаптического импульса, даже если постсинаптические рецепторы различаются.",
+          "Все ионотропные рецепторы вызывают возбуждение, а все метаботропные — торможение независимо от ионных градиентов.",
         ],
         correctAnswer: "b",
         explanation: "Постсинаптический эффект определяется типом рецептора и связанными с ним ионными каналами либо внутриклеточными сигнальными путями. Направление тока зависит от электрохимических градиентов, а влияние на разряд — от состояния и расположения синапса. Поэтому один медиатор не следует считать всегда возбуждающим или всегда тормозным.",
@@ -62,10 +62,10 @@ const localized: Record<Language, Locale> = {
       {
         prompt: "The same neurotransmitter acts on two types of postsynaptic receptors and produces different cellular responses. Which explanation is physiologically best supported?",
         options: [
-          "Each transmitter molecule changes its chemical identity depending on the target cell.",
+          "The difference is explained solely by how much transmitter is released; postsynaptic receptor properties have no role.",
           "Different receptors engage different ion conductances or intracellular pathways; ionic gradients also influence the effect.",
-          "The presynaptic action-potential waveform alone fixes the sign of the postsynaptic response regardless of receptor type.",
-          "The transmitter's name alone always determines whether its effect is excitatory or inhibitory.",
+          "The presynaptic spike waveform alone determines the response direction even when postsynaptic receptors differ.",
+          "All ionotropic receptors are excitatory and all metabotropic receptors inhibitory, regardless of ionic gradients.",
         ],
         correctAnswer: "b",
         explanation: "Postsynaptic effects depend on receptor type and the associated ion channels or intracellular signaling pathways. Current direction depends on electrochemical gradients, while the effect on firing also depends on cellular state and synaptic location. The same transmitter therefore need not be exclusively excitatory or inhibitory.",
@@ -89,10 +89,10 @@ const localized: Record<Language, Locale> = {
       {
         prompt: "Бір медиатор постсинапстық рецепторлардың екі түріне әсер етіп, жасушаларда әртүрлі жауап туғызады. Қай түсіндірме физиологиялық тұрғыдан дұрыс?",
         options: [
-          "Медиатордың әр молекуласы нысана жасушасына қарай химиялық құрамын өзгертеді.",
+          "Жауаптардың айырмашылығы тек бөлінген медиатор мөлшерімен түсіндіріледі; постсинапстық рецептор қасиеттері маңызды емес.",
           "Әртүрлі рецепторлар әртүрлі иондық өткізгіштікті немесе жасушаішілік сигналдық жолдарды іске қосады; әсерге иондық градиенттер де ықпал етеді.",
-          "Пресинапстық әрекет потенциалының пішіні рецептор түріне қарамастан постсинапстық жауаптың бағытын толық анықтайды.",
-          "Медиатордың атауы оның әрқашан қоздырғыш не тежеуші болатынын анықтайды.",
+          "Постсинапстық рецепторлар әртүрлі болса да, жауап бағытын тек пресинапстық импульстің пішіні анықтайды.",
+          "Барлық ионотроптық рецепторлар қоздырады, ал барлық метаботроптық рецепторлар иондық градиентке қарамастан тежейді.",
         ],
         correctAnswer: "b",
         explanation: "Постсинапстық әсер рецептор түріне және онымен байланысқан ион арналарына не жасушаішілік сигналдық жолдарға тәуелді. Токтың бағыты электрохимиялық градиенттерге, ал нейронның разрядына ықпалы жасушаның күйі мен синапстың орналасуына да байланысты. Сондықтан бір медиаторды барлық жағдайда тек қоздырғыш немесе тек тежеуші деп қарастыруға болмайды.",
