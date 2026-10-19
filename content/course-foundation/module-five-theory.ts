@@ -27,6 +27,22 @@ export function createModuleFiveTheory(language: Language, base: Lesson & { kind
         ],
       },
       {
+        id: "postsynaptic-integration-and-shunting",
+        title: local("Постсинаптические ответы и шунтирующее торможение", "Postsynaptic responses and shunting inhibition", "Постсинапстық жауаптар және шунттаушы тежелу"),
+        blocks: [
+          { type: "paragraph" as const, text: local(
+            "Возбуждающий постсинаптический потенциал (ВПСП) — локальное градуальное изменение напряжения, которое может приблизить мембрану к порогу. Тормозный вход уменьшает вероятность разряда, но не обязан вызывать заметную гиперполяризацию. Итог зависит от суммирования входов во времени и пространстве, а также от расположения синапсов относительно зоны запуска импульса.",
+            "An excitatory postsynaptic potential (EPSP) is a local graded voltage change that can bring the membrane closer to threshold. Inhibitory input reduces firing probability but need not produce an obvious hyperpolarization. The outcome depends on temporal and spatial integration and on synapse location relative to the spike-initiation zone.",
+            "Қоздырушы постсинапстық потенциал (ҚПСП) — мембрананы табалдырыққа жақындата алатын жергілікті градуалды кернеу өзгерісі. Тежеуші кіріс импульс пайда болу ықтималдығын төмендетеді, бірақ міндетті түрде айқын гиперполяризация туғызбайды. Нәтиже кірістердің уақыт пен кеңістікте қосылуына және синапстардың импульс басталу аймағына қатысты орналасуына тәуелді."
+          ) },
+          { type: "paragraph" as const, text: local(
+            "Пример шунтирования: если потенциал мембраны Vm близок к равновесному потенциалу Cl⁻ (E(Cl)), открытие Cl⁻-проницаемых каналов почти не меняет Vm в покое, но повышает мембранную проводимость и снижает входное сопротивление. Поэтому тот же возбуждающий ток вызывает меньшую деполяризацию. Это не универсальное правило для всех клеток: знак и сила эффекта зависят от градиента Cl⁻, других ионных проводимостей и локализации контакта.",
+            "For example, when membrane voltage Vm is near the Cl⁻ equilibrium potential E(Cl), opening Cl⁻-permeable channels may barely change resting Vm but increases membrane conductance and lowers input resistance. The same excitatory current then causes a smaller depolarization. This is not universal: the sign and magnitude of the effect depend on the Cl⁻ gradient, other conductances and synapse location.",
+            "Шунттаудың мысалы: мембраналық потенциал Vm хлор ионының тепе-теңдік потенциалына E(Cl) жақын болса, Cl⁻ өткізетін арналардың ашылуы тыныштықтағы Vm мәнін аз өзгертеді, бірақ мембраналық өткізгіштікті арттырып, кіріс кедергісін төмендетеді. Сондықтан сол бір қоздырушы ток азырақ деполяризация туғызады. Бұл барлық жасушаға ортақ ереже емес: әсердің бағыты мен шамасы Cl⁻ градиентіне, басқа иондық өткізгіштіктерге және түйіспенің орналасуына тәуелді."
+          ) },
+        ],
+      },
+      {
         id: "neuromuscular-junction",
         title: local("Нервно-мышечная передача", "Neuromuscular transmission", "Жүйке-бұлшықет берілуі"),
         blocks: [
