@@ -49,7 +49,7 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const masteredCount=available.filter(([,l])=>l==="mastered").length;
  const reviewCount=available.filter(([,l])=>l==="review").length;
  const overallPercent=available.length?Math.round((available.reduce((sum,[,l])=>sum+(l==="mastered"?1:l==="forming"?0.5:0),0)/available.length)*100):0;
- const recommendation=available.length===0?c.none:reviewCount>0?c.low:masteredCount===available.length?c.strong:c.mid;
+ const recommendation=available.length===0?c.none:reviewCount>0?c.low:available.length<3?c.mid:masteredCount===available.length?c.strong:c.mid;
  return <section className={styles.patient}>
   <h1>{c.title}</h1><p>{c.scope}. {c.saved}</p>
   <div className={styles.summary}>
