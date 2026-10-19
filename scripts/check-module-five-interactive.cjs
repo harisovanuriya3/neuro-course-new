@@ -24,4 +24,18 @@ const vercel=JSON.parse(fs.readFileSync('vercel.json','utf8'));
 assert.equal(vercel.git.deploymentEnabled['refactor/evidence-based-assessment-audit'],false);
 const theory=fs.readFileSync('content/course-foundation/module-five-theory.ts','utf8');
 for(const phrase of ['chemical-electrical-comparison','neuromuscular-junction','synaptic-model-limits']) assert(theory.includes(phrase),'Missing module 5 theory section '+phrase);
-console.log('PASS module 5 synapse laboratory source contract; browser unverified.');
+const registry=fs.readFileSync('content/index.ts','utf8');
+for(const [file,source] of [['content/index.ts',registry],['module-five-theory.ts',theory]]){
+ const parsed=ts.createSourceFile(file,source,ts.ScriptTarget.Latest,true,ts.ScriptKind.TS);
+ assert.equal(parsed.parseDiagnostics.length,0,file+' parse error');
+}
+assert(registry.includes('import { createModuleFiveTheory } from "./course-foundation/module-five-theory"'),'Theory import missing');
+assert(registry.includes('...foundationLessons[5]'),'Module 5 foundation not retained');
+assert(registry.includes('foundationLessons[5]?.theory?.[language]'),'Module 5 base theory guard missing');
+for(const lang of ['RU','EN','KZ']){
+ assert(registry.includes('createModuleFiveTheory("'+lang+'", moduleFiveBaseTheory("'+lang+'"))'),'Module 5 theory not registered for '+lang);
+}
+for(const phrase of ['quantal and probabilistic','end-plate potential','gap junctions','deterministic','квантовое и вероятностное','потенциал концевой пластинки','кванттық әрі ықтималдық','соңғы пластинканың жергілікті потенциалын']){
+ assert(theory.includes(phrase),'Module 5 theory missing: '+phrase);
+}
+console.log('PASS module 5 interactive and registered synapse theory RU/EN/KZ source contract; browser unverified.');
