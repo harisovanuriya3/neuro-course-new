@@ -22,4 +22,6 @@ const route=fs.readFileSync('app/modules/[id]/[section]/page.tsx','utf8');
 assert(route.includes('moduleNumber === 5 && section === "interactive"'),'Route missing');
 const vercel=JSON.parse(fs.readFileSync('vercel.json','utf8'));
 assert.equal(vercel.git.deploymentEnabled['refactor/evidence-based-assessment-audit'],false);
+const theory=fs.readFileSync('content/course-foundation/module-five-theory.ts','utf8');
+for(const phrase of ['chemical-electrical-comparison','neuromuscular-junction','synaptic-model-limits']) assert(theory.includes(phrase),'Missing module 5 theory section '+phrase);
 console.log('PASS module 5 synapse laboratory source contract; browser unverified.');
