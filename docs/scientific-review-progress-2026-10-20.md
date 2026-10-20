@@ -11,3 +11,5 @@
 Проверка чтением обновлённых файлов: 12/12 регистраций, getLesson, специальный клинический маршрут, deploymentEnabled=false. Node/AST, npm run audit:course, tsc, build, браузер и экспертная вычитка KZ не запускались. Контейнер: Could not resolve host github.com. Следующие разделы модуля 5: tests, virtual-patient, media, glossary, voice, progress, notes, references. Полный аудит 425 разделов не завершён; main и Vercel не изменялись.
 
 Practice follow-up: 27 static checks passed. Code commits 6be4462b, 972977d5, c9959474. Full validation pending.
+
+Practice evidence: independent release measurement and unchanged end-plate response to an identical local acetylcholine dose, in RU/EN/KZ. Coexisting defects remain possible.
