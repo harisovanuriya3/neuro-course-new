@@ -20,4 +20,15 @@ const anim=read("components/ModuleFiveMediaAnimation.tsx");
 for(const lang of ["RU","EN","KZ"]) assert(anim.includes(lang+": {"),"Animation missing "+lang);
 const vercel=JSON.parse(read("vercel.json"));
 assert.equal(vercel.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false);
+
+const optionsByLanguage = [...source.matchAll(/\n  options:\[([\s\S]*?)\n  \],/g)];
+const feedbackByLanguage = [...source.matchAll(/\n  feedback:\[([\s\S]*?)\n  \]/g)];
+assert.equal(optionsByLanguage.length,3,"RU/EN/KZ option arrays");
+assert.equal(feedbackByLanguage.length,3,"RU/EN/KZ feedback arrays");
+for(let i=0;i<3;i++){
+ assert.equal((optionsByLanguage[i][1].match(/^\s*"/gm)||[]).length,4,"Exactly four options per language");
+ assert.equal((feedbackByLanguage[i][1].match(/^\s*"/gm)||[]).length,4,"Exactly four feedback messages per language");
+}
+assert(source.includes('id:["a","b","c","d"][index]'),"Four unique option IDs");
+assert(source.includes('theoryAnchor:"mechanism"'),"Theory link required");
 console.log("PASS: module 5 media syntax, localization, route, animation and preview lock.");
