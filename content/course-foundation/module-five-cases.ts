@@ -46,7 +46,7 @@ const copy: Record<Language, Copy> = {
     ],
     stages: ["What do the observations show?", "Which mechanism fits?", "What control separates the hypotheses?"],
     questions: [
-      ["Which is preserved: axonal spike propagation or evoked postsynaptic response size? State both observations.", "How can reduced Ca²⁺ entry lower the mean response while the action potential is intact?", "How would measuring presynaptic Ca²⁺ current and evoked release distinguish impaired exocytosis from failed axonal propagation?"],
+      ["What does the terminal recording establish? How did the mean evoked postsynaptic response change?", "How can reduced Ca²⁺ entry lower the mean response while the action potential is intact?", "How would measuring presynaptic Ca²⁺ current and evoked release distinguish impaired exocytosis from failed axonal propagation?"],
       ["Why does preserved direct muscle excitability not uniquely locate the nerve–muscle transmission defect?", "With other conditions held constant, how should the mean miniature end-plate potential amplitude differ between A1 and A2?", "Which measurements of evoked quantal content and miniature-response amplitude would distinguish A1 from A2?"],
       ["Which observations favor electrical coupling, and why are they not yet definitive?", "How does ionic current through gap junctions differ from vesicular transmitter release?", "How could paired recording, coupling-coefficient measurements and selective genetic or molecular controls rule out common extracellular stimulation and nonspecific drug effects?"]
     ],
