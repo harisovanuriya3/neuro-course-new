@@ -18,6 +18,11 @@ const renderer=read("components/MediaContent.tsx");
 assert(renderer.includes("<ModuleFiveMediaAnimation"),"Module 5 animation renderer missing");
 const anim=read("components/ModuleFiveMediaAnimation.tsx");
 for(const lang of ["RU","EN","KZ"]) assert(anim.includes(lang+": {"),"Animation missing "+lang);
+assert(anim.includes("step<2"),"Vesicle must visibly dock and fuse at stage 3");
+assert(anim.includes('d="M290 133 A13 13 0 1 0 290 157"'),"Fusion pore visual missing");
+assert(anim.includes("step>=3?367+"),"Stage 4 must show transmitter reaching receptor");
+for(const phrase of ["диффундирует через синаптическую щель","diffuses across the synaptic cleft","синапстық саңылау арқылы диффузияланып"])
+ assert(anim.includes(phrase),"Missing localized cleft-diffusion explanation: "+phrase);
 const vercel=JSON.parse(read("vercel.json"));
 assert.equal(vercel.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false);
 
