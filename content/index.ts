@@ -36,6 +36,7 @@ import { createModuleFiveCases } from "./course-foundation/module-five-cases";
 import { createModuleFivePretest } from "./course-foundation/module-five-pretest";
 import { createModuleFiveQuestions } from "./course-foundation/module-five-questions";
 import { createModuleFiveSummary } from "./course-foundation/module-five-summary";
+import { createModuleFiveGlossary } from "./course-foundation/module-five-glossary";
 import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-foundation/module-three-learning";
 import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
@@ -300,6 +301,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   5: {
     ...foundationLessons[5],
+    glossary: { RU: createModuleFiveGlossary("RU"), EN: createModuleFiveGlossary("EN"), KZ: createModuleFiveGlossary("KZ") },
     objectives: { RU: createModuleFiveObjectives("RU"), EN: createModuleFiveObjectives("EN"), KZ: createModuleFiveObjectives("KZ") },
     clinical: { RU: createModuleFiveClinical("RU"), EN: createModuleFiveClinical("EN"), KZ: createModuleFiveClinical("KZ") },
     practice: {
