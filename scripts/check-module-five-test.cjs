@@ -39,7 +39,16 @@ assert(source.includes('correctAnswer:"a"'),"Stable correct answer ID missing");
 assert(source.includes("options.slice(shift)"),"Answer rotation missing");
 assert(source.includes('skill+":review-"+depth'),"Remediation not localized by skill");
 const route=read("app/modules/[id]/[section]/page.tsx");
-assert(route.includes("section === \"tests\""),"Tests route not reachable");
+const renderer=read("components/SectionContent.tsx");
+assert(route.includes("getLesson(moduleNumber, section, lang)"),"Section route must resolve registered lesson");
+assert(route.includes("<SectionContent"),"Section route must render resolved lesson");
+assert(renderer.includes('case "tests":'),"Shared section renderer must support tests");
+assert(renderer.includes("<BranchingTestContent test={lesson}"),"Tests must use the branching test renderer");
+assert(registry.includes("function moduleFiveBaseTest(language: Language)"),"Module 5 typed base test guard absent");
+assert(registry.includes('lesson.kind !== "tests"'),"Module 5 test guard must narrow lesson kind");
+for(const lang of ["RU","EN","KZ"])
+ assert(registry.includes('createModuleFiveTest("'+lang+'", moduleFiveBaseTest("'+lang+'"))'),
+   "Module 5 "+lang+" tests must use typed base guard");
 const vercel=JSON.parse(read("vercel.json"));
 assert.equal(vercel.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false,"Preview branch must remain disabled");
 console.log("PASS: module 5 tests: 5 skills × 3 prompts × 3 languages, choices, feedback and registry.");
