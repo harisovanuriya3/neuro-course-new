@@ -29,10 +29,10 @@ data.initializer.elements.forEach((stage,i)=>{
 const layer=fs.readFileSync("content/reviewed-virtual-patients.ts","utf8");
 const view=fs.readFileSync("components/UnifiedVirtualPatient.tsx","utf8");
 assert(layer.includes("return reviewModuleFourVirtualPatient(base,language)"),"Review not wired");
-assert(view.includes("moduleId !== 3 && moduleId !== 4 && <div"),"Human portrait must be hidden");
-assert(view.includes("(moduleId === 3 || moduleId === 4)"),"Teaching-model label missing");
+assert(view.includes("moduleId !== 3 && moduleId !== 4 && moduleId !== 5 && <div"),"Human portrait must be hidden");
+assert(view.includes("(moduleId === 3 || moduleId === 4 || moduleId === 5)"),"Teaching-model label missing");
 assert(src.includes('options[stage.correctOption].id.endsWith("-decision-1")'),"Answer-key guard missing");
 console.log("PASS: module 4 six stages, three localized decisions, model-only UI and answer-key guard.");
 
 assert(view.includes("moduleId === 4 ? membraneModelDecisionCopy[language]"),"Module 4 must use model-specific feedback");
-assert(view.includes("(moduleId === 3 || moduleId === 4) && <p"),"Model scoring disclosure missing");
+assert(view.includes('(moduleId === 3 || moduleId === 4 || moduleId === 5) && "scope" in d && <p'),"Model scoring disclosure missing");

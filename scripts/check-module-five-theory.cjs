@@ -34,7 +34,7 @@ for(const phrase of ["E(Cl)","Vm","Cl⁻","шунт","shunting","Шунттау�
 assert(questions.includes('id:"shunting",target:"theory"'),
  "Shunting review question must link to theory");
 for(const lang of ["RU","EN","KZ"]){
- assert(registry.includes('createModuleFiveTheory("'+lang+'", moduleFiveBaseTheory("'+lang+'"))',
+ assert(registry.includes('createModuleFiveTheory("'+lang+'", moduleFiveBaseTheory("'+lang+'"))'),
   "Module 5 theory not registered for "+lang);
 }
 const config=JSON.parse(fs.readFileSync("vercel.json","utf8"));

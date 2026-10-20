@@ -43,7 +43,9 @@ export function createModuleFourReferences(language: Language, base: ReadingLess
     introduction: introductions[language],
     sources: [
       { ...guyton, description: guytonDescription, links: [{ section: "theory" }] },
-      { ...ganong, description: ganongDescription, links: [{ section: "interactive" }] },
+      // Ganong supports the authored membrane theory; the laboratory remains
+      // available through the course Interactive navigation.
+      { ...ganong, description: ganongDescription, links: [{ section: "theory" }] },
       {
         title: "C. L. Ghai · A Textbook of Practical Physiology, 8th ed. (2013)",
         href: "https://opac.iitrpr.ac.in/cgi-bin/koha/opac-MARCdetail.pl?biblionumber=10003",

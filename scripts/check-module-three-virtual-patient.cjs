@@ -49,9 +49,9 @@ assert(visual.includes("Астроцитарное буферирование K�
  visual.includes("Astrocytic K⁺ buffering") &&
  visual.includes("Астроциттердің K⁺ буферлеуі"),
  "Module 3 model graphic must be labeled for K+ buffering in all three languages");
-assert(visual.includes("active=(safeStage-1+(moduleId===3?0:(selected??0)))%6"),
+assert(visual.includes("active=(safeStage-1+((moduleId===3||moduleId===5)?0:(selected??0)))%6"),
  "Selecting a choice must not change module 3 model stage visualization");
-assert(visual.includes("selected={moduleId===3?null:selected}"),
+assert(visual.includes("selected={(moduleId===3||moduleId===5)?null:selected}"),
  "Model graphic must not depict predefined data as a response to a selected action");
 assert(visual.includes("modelNote:") && visual.includes("c.modelNote"),
  "The predefined-data disclaimer must be visible");

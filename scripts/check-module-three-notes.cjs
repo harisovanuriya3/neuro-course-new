@@ -52,7 +52,7 @@ assert.deepEqual(Array.from(readModuleNotes(3).bookmarks), [], "Corrupt storage 
 const notesUI = read("components/NotesContent.tsx");
 const bookmarkUI = read("components/BookmarkCurrent.tsx");
 assert(notesUI.includes('useState<"idle" | "saved" | "cleared" | "failed">("idle")'), "No success notice before an edit");
-assert(notesUI.includes('setSaveStatus(saveModuleNotes(moduleId,next) ? "saved" : "failed")'), "Write result must control status");
+assert(notesUI.includes('setSaveStatus(saveModuleNotes(moduleId, next) ? "saved" : "failed")'), "Write result must control status");
 assert(bookmarkUI.includes("if (saved) setBookmarked(next);"), "Failed bookmark writes must not appear saved");
 assert(bookmarkUI.includes('window.addEventListener("storage", onStorage)'), "Other tabs must refresh bookmark state");
 for (const value of ["Не записывайте персональные данные пациентов", "Do not enter identifiable patient information", "Пациенттердің жеке деректерін енгізбеңіз"])

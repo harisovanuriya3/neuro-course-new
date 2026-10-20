@@ -4,7 +4,16 @@ on:
   push:
     branches:
       - refactor/evidence-based-assessment-audit
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+      - 'git-status.txt'
   workflow_dispatch:
+
+# Keep one current run per branch; never commit or deploy from QA.
+concurrency:
+  group: scientific-course-qa-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read

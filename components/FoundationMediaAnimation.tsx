@@ -12,6 +12,7 @@ export default function FoundationMediaAnimation({moduleId,language}:{moduleId:n
   <div style={{display:"flex",justifyContent:"space-between",gap:12,flexWrap:"wrap",alignItems:"center"}}>
    <strong>{labels[step]}</strong><span>{language==="RU"?"Модуль":language==="EN"?"Module":"Модуль"} {moduleId}</span>
   </div>
+  {moduleId===3&&<p>{language==="RU"?"Схема иллюстративная: размеры, кривая и изменения по шагам не являются измерениями или расчётом клеточных процессов.":language==="EN"?"Illustrative diagram: sizes, trace and step changes are not measurements or a calculation of cellular processes.":"Бұл көрнекі сызба: өлшемдер, қисық және қадамдық өзгерістер өлшеулер не жасушалық үдерістердің есебі емес."}</p>}
   <svg viewBox="0 0 640 170" role="img" aria-label={labels[step]} style={{width:"100%",marginTop:12,background:"#06131f",borderRadius:12}}>
    <defs><linearGradient id={`media-gradient-${moduleId}`} x1="0" x2="1"><stop stopColor="#38bdf8"/><stop offset="1" stopColor="#4ade80"/></linearGradient></defs>
    <path d={`M10 95 C70 ${95-value/3},105 ${95+value/4},150 95 S230 ${95-value},280 95 S370 ${95+value/2},420 95 S520 ${95-value*.7},630 95`} fill="none" stroke={`url(#media-gradient-${moduleId})`} strokeWidth="5"/>
