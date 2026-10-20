@@ -1,0 +1,1 @@
+Module 5 practice reviewed against Ganong, Guyton and Ghai. Three-language corrections committed. 27 static checks passed; full build and browser checks pending.
