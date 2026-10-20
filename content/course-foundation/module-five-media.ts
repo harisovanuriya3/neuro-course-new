@@ -9,7 +9,7 @@ type Copy = {
  title:string; introduction:string; preview:string;
  transcript:[string,string,string,string];
  prompt:string; explanation:string;
- options:[string,string,string]; feedback:[string,string,string];
+ options:[string,string,string,string]; feedback:[string,string,string,string];
 };
 const authored:Record<Language,Copy>={
  RU:{
@@ -22,17 +22,19 @@ const authored:Record<Language,Copy>={
    "3. Ca²⁺ повышает вероятность слияния везикул в активной зоне. Реальное высвобождение квантовое и вероятностное; нарисованные точки не обозначают фиксированное число квантов.",
    "4. Медиатор связывается с постсинаптическими рецепторами и вызывает градуальный ответ. Его знак и влияние на разряд зависят от рецепторов и ионных градиентов; новый потенциал действия не гарантирован."
   ],
-  prompt:"Что означают пять жёлтых точек на учебной схеме?",
-  explanation:"Точки служат условными маркерами медиатора. По этой схеме нельзя определить число выделенных везикул, вероятность выброса, величину тока или клинический диагноз. Для таких выводов необходимы экспериментальные данные.",
+  prompt:"Потенциал действия зарегистрирован в пресинаптическом окончании, но вход Ca²⁺ заблокирован. Как изменится вызванная химическая передача?",
+  explanation:"Приход импульса в окончание и Ca²⁺-зависимый экзоцитоз — разные этапы. Блокада входа Ca²⁺ резко снижает вероятность слияния везикул и вызванное выделение медиатора; отдельные спонтанные миниатюрные события могут сохраняться. Пять жёлтых точек на схеме — условные обозначения, а не измеренное число квантов.",
   options:[
-   "При каждом импульсе в реальном синапсе всегда выделяется ровно пять квантов медиатора.",
-   "Это условные маркеры медиатора, а не измеренное количество квантов или везикул.",
-   "Они показывают пять зарегистрированных потенциалов действия постсинаптического нейрона."
+   "Вызванное выделение останется прежним: сам потенциал действия гарантирует слияние везикул без входа Ca²⁺.",
+   "Вызванное выделение резко уменьшится, хотя импульс достигает окончания; спонтанные события могут сохраняться.",
+   "Вызванное выделение усилится, поскольку блокада Ca²⁺ снимает ограничение на слияние везикул.",
+   "Вызванное выделение снизится только при одновременном исчезновении постсинаптических рецепторов."
   ],
   feedback:[
-   "Квантовое выделение вероятностно, а количество точек выбрано только для наглядности.",
-   "Верно: изображение помогает понять механизм, но не даёт количественного измерения.",
-   "Схема не является записью потенциалов действия и не показывает число разрядов."
+   "Нет: для обычного быстрого вызванного экзоцитоза необходим локальный вход Ca²⁺; приход импульса сам по себе недостаточен.",
+   "Верно: Ca²⁺ связывает деполяризацию окончания с вероятностью экзоцитоза; спонтанные миниатюрные события не обязательно исчезают.",
+   "Нет: Ca²⁺ запускает, а не подавляет обычное быстрое вызванное слияние везикул.",
+   "Нет: пресинаптическая блокада Ca²⁺ снижает выделение медиатора даже при сохранных постсинаптических рецепторах."
   ]
  },
  EN:{
@@ -45,17 +47,19 @@ const authored:Record<Language,Copy>={
    "3. Ca²⁺ increases the probability of vesicle fusion at active zones. Real release is quantal and probabilistic; the drawn dots do not indicate a fixed number of quanta.",
    "4. Transmitter binds to postsynaptic receptors, producing a graded response. Its polarity and effect on firing depend on receptors and ionic gradients; another action potential is not guaranteed."
   ],
-  prompt:"What do the five yellow dots in this teaching diagram represent?",
-  explanation:"The dots are illustrative transmitter markers. The diagram cannot determine how many vesicles fused, release probability, current magnitude or a clinical diagnosis. Such conclusions require experimental evidence.",
+  prompt:"An action potential is recorded at the presynaptic terminal, but Ca²⁺ entry is blocked. What happens to evoked chemical transmission?",
+  explanation:"Spike arrival and Ca²⁺-dependent exocytosis are distinct steps. Blocking Ca²⁺ entry sharply reduces vesicle fusion probability and evoked transmitter release; some spontaneous miniature events may persist. The five yellow dots are illustrative markers, not a measured quantal count.",
   options:[
-   "Exactly five transmitter quanta are always released per spike in a real synapse.",
-   "They are illustrative transmitter markers, not a measured number of quanta or vesicles.",
-   "They are five recorded action potentials in the postsynaptic neuron."
+   "Evoked release stays normal because a terminal action potential guarantees vesicle fusion without Ca²⁺ entry.",
+   "Evoked release falls markedly despite terminal spike arrival; spontaneous miniature events may persist.",
+   "Evoked release increases because Ca²⁺ blockade removes a restraint on synaptic vesicle fusion.",
+   "Evoked release falls only if postsynaptic receptors are also removed from the membrane."
   ],
   feedback:[
-   "Quantal release is probabilistic; the dot count is chosen only for illustration.",
-   "Correct: the diagram explains a mechanism but does not provide quantitative measurements.",
-   "The diagram is not an action-potential recording and cannot count spikes."
+   "Not quite: local Ca²⁺ entry is required for typical fast evoked exocytosis; a terminal spike alone is insufficient.",
+   "Correct: Ca²⁺ couples terminal depolarization to exocytosis probability; miniature events need not disappear.",
+   "Not quite: Ca²⁺ triggers rather than inhibits typical fast evoked vesicle fusion.",
+   "Not quite: presynaptic Ca²⁺ blockade reduces release even when postsynaptic receptors remain functional."
   ]
  },
  KZ:{
@@ -68,17 +72,19 @@ const authored:Record<Language,Copy>={
    "3. Ca²⁺ белсенді аймақта көпіршіктердің мембранамен қосылу ықтималдығын арттырады. Нақты бөліну кванттық әрі ықтималдық сипатта; нүктелер кванттардың тұрақты санын білдірмейді.",
    "4. Медиатор постсинапстық рецепторлармен байланысып, градуалды жауап туғызады. Жауаптың бағыты мен импульске әсері рецепторларға және иондық градиенттерге тәуелді; жаңа әрекет потенциалы міндетті емес."
   ],
-  prompt:"Оқу сызбасындағы бес сары нүкте нені білдіреді?",
-  explanation:"Нүктелер — медиатордың шартты белгілері. Бұл сызбадан бөлінген көпіршіктер санын, бөліну ықтималдығын, ток шамасын немесе клиникалық диагнозды анықтау мүмкін емес. Мұндай қорытындыға эксперименттік деректер қажет.",
+  prompt:"Пресинапстық ұшта әрекет потенциалы тіркелді, бірақ Ca²⁺ енуі бөгелді. Шақырылған химиялық берілу қалай өзгереді?",
+  explanation:"Импульстің ұшқа жетуі мен Ca²⁺-ке тәуелді экзоцитоз — бөлек кезеңдер. Ca²⁺ енуін бөгеу көпіршіктердің қосылу ықтималдығын және шақырылған медиатор бөлінуін күрт азайтады; кейбір өздігінен пайда болатын миниатюралық оқиғалар сақталуы мүмкін. Бес сары нүкте — шартты белгілер, кванттардың өлшенген саны емес.",
   options:[
-   "Нақты синапста әр импульсте медиатордың дәл бес кванты міндетті түрде бөлінеді.",
-   "Бұл медиатордың шартты белгілері, кванттардың немесе көпіршіктердің өлшенген саны емес.",
-   "Олар постсинапстық нейронда тіркелген бес әрекет потенциалын көрсетеді."
+   "Шақырылған бөліну өзгермейді: ұштағы әрекет потенциалы Ca²⁺ енбей-ақ көпіршіктердің қосылуын қамтамасыз етеді.",
+   "Импульс ұшқа жетсе де шақырылған бөліну күрт азаяды; өздігінен болатын миниатюралық оқиғалар сақталуы мүмкін.",
+   "Шақырылған бөліну күшейеді, өйткені Ca²⁺ бөгелуі көпіршіктердің қосылуын шектейтін әсерді жояды.",
+   "Шақырылған бөліну тек постсинапстық рецепторлар да мембранадан жоғалған жағдайда азаяды."
   ],
   feedback:[
-   "Кванттық бөліну ықтималдық сипатта; нүктелер саны тек көрнекілік үшін таңдалған.",
-   "Дұрыс: сызба механизмді түсіндіреді, бірақ сандық өлшем бермейді.",
-   "Бұл әрекет потенциалдарының жазбасы емес және импульстер санын көрсетпейді."
+   "Дұрыс емес: әдеттегі жылдам шақырылған экзоцитоз үшін Ca²⁺ жергілікті енуі қажет; ұшқа импульстің жетуі жеткіліксіз.",
+   "Дұрыс: Ca²⁺ ұштың деполяризациясын экзоцитоз ықтималдығымен байланыстырады; миниатюралық оқиғалар міндетті түрде жойылмайды.",
+   "Дұрыс емес: Ca²⁺ әдеттегі жылдам шақырылған көпіршік қосылуын тежемейді, оны іске қосады.",
+   "Дұрыс емес: постсинапстық рецепторлар сақталса да, пресинапстық Ca²⁺ бөгелуі медиатор бөлінуін азайтады."
   ]
  }
 };
@@ -94,7 +100,7 @@ export function createModuleFiveMedia(language:Language,base:MediaLesson):MediaL
    question:{
     prompt:c.prompt,correctAnswer:"b",explanation:c.explanation,
     options:c.options.map((text,index)=>({
-     id:["a","b","c"][index],text,feedback:c.feedback[index],
+     id:["a","b","c","d"][index],text,feedback:c.feedback[index],
     })),
    },
   }],
