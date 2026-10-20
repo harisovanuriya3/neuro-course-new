@@ -29,6 +29,10 @@ import { createModuleFourMedia } from "./course-foundation/module-four-media";
 import { createModuleFourGlossary } from "./course-foundation/module-four-glossary";
 import { createModuleFourReferences } from "./course-foundation/module-four-references";
 import { createModuleFiveTheory } from "./course-foundation/module-five-theory";
+import { createModuleFiveObjectives } from "./course-foundation/module-five-learning";
+import { createModuleFiveClinical } from "./course-foundation/module-five-clinical";
+import { createModuleFivePractice } from "./course-foundation/module-five-practice";
+import { createModuleFiveCases } from "./course-foundation/module-five-cases";
 import { createModuleFivePretest } from "./course-foundation/module-five-pretest";
 import { createModuleFiveQuestions } from "./course-foundation/module-five-questions";
 import { createModuleFiveSummary } from "./course-foundation/module-five-summary";
@@ -139,6 +143,16 @@ function moduleThreeBasePractice(language: Language) {
 function moduleFiveBaseTheory(language: Language) {
   const lesson = foundationLessons[5]?.theory?.[language];
   if (!lesson || lesson.kind !== "theory") throw new Error("Module 5 base theory missing for " + language);
+  return lesson;
+}
+function moduleFiveBasePractice(language: Language) {
+  const lesson = foundationLessons[5]?.practice?.[language];
+  if (!lesson || lesson.kind !== "practice") throw new Error("Module 5 base practice missing for " + language);
+  return lesson;
+}
+function moduleFiveBaseCases(language: Language) {
+  const lesson = foundationLessons[5]?.cases?.[language];
+  if (!lesson || lesson.kind !== "cases") throw new Error("Module 5 base cases missing for " + language);
   return lesson;
 }
 
@@ -286,6 +300,18 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   5: {
     ...foundationLessons[5],
+    objectives: { RU: createModuleFiveObjectives("RU"), EN: createModuleFiveObjectives("EN"), KZ: createModuleFiveObjectives("KZ") },
+    clinical: { RU: createModuleFiveClinical("RU"), EN: createModuleFiveClinical("EN"), KZ: createModuleFiveClinical("KZ") },
+    practice: {
+      RU: createModuleFivePractice("RU", moduleFiveBasePractice("RU")),
+      EN: createModuleFivePractice("EN", moduleFiveBasePractice("EN")),
+      KZ: createModuleFivePractice("KZ", moduleFiveBasePractice("KZ")),
+    },
+    cases: {
+      RU: createModuleFiveCases("RU", moduleFiveBaseCases("RU")),
+      EN: createModuleFiveCases("EN", moduleFiveBaseCases("EN")),
+      KZ: createModuleFiveCases("KZ", moduleFiveBaseCases("KZ")),
+    },
     "one-minute": {
       RU: createModuleFiveSummary("RU"),
       EN: createModuleFiveSummary("EN"),
