@@ -142,6 +142,14 @@ function moduleThreeBasePractice(language: Language) {
   return lesson;
 }
 
+function moduleFiveBaseTest(language: Language) {
+  const lesson = foundationLessons[5]?.tests?.[language];
+  if (!lesson || lesson.kind !== "tests") {
+    throw new Error("Module 5 base test is missing for " + language);
+  }
+  return lesson;
+}
+
 function moduleFiveBaseTheory(language: Language) {
   const lesson = foundationLessons[5]?.theory?.[language];
   if (!lesson || lesson.kind !== "theory") throw new Error("Module 5 base theory missing for " + language);
@@ -303,7 +311,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   5: {
     ...foundationLessons[5],
     glossary: { RU: createModuleFiveGlossary("RU"), EN: createModuleFiveGlossary("EN"), KZ: createModuleFiveGlossary("KZ") },
-    tests: { RU: createModuleFiveTest("RU", foundationLessons[5].tests.RU), EN: createModuleFiveTest("EN", foundationLessons[5].tests.EN), KZ: createModuleFiveTest("KZ", foundationLessons[5].tests.KZ) },
+    tests: { RU: createModuleFiveTest("RU", moduleFiveBaseTest("RU")), EN: createModuleFiveTest("EN", moduleFiveBaseTest("EN")), KZ: createModuleFiveTest("KZ", moduleFiveBaseTest("KZ")) },
     objectives: { RU: createModuleFiveObjectives("RU"), EN: createModuleFiveObjectives("EN"), KZ: createModuleFiveObjectives("KZ") },
     clinical: { RU: createModuleFiveClinical("RU"), EN: createModuleFiveClinical("EN"), KZ: createModuleFiveClinical("KZ") },
     practice: {
