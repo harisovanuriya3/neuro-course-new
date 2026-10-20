@@ -142,6 +142,32 @@ const stages: [Stage,Stage,Stage,Stage,Stage,Stage] = [
     "Ұштағы ӘП → Ca²⁺ енуі → ықтималдық экзоцитоз → рецептор белсенуі → соңғы пластинка потенциалы → табалдырыққа жетсе бұлшықет ӘП. Бұл диагноз емес, тұжырымдамалық тізбек.")
  }
 ];
+const correctChoices: Record<Language,[string,string,string,string,string,string]> = {
+ RU:[
+  "Проверить приход импульса непосредственно в окончание и сопоставить с ответом концевой пластинки.",
+  "Раздельно записать концевой потенциал и мышечное сокращение; прямую стимуляцию мышцы использовать как контроль.",
+  "При сохранённом импульсе в окончании сравнить вызванное выделение при изменении входа Ca²⁺.",
+  "Отдельно оценить выделение медиатора и ответ рецепторов при двух воздействиях.",
+  "Не делать вывод о точной локализации без записей проведения, концевых и миниатюрных потенциалов.",
+  "Объяснить цепь ПД–Ca²⁺–экзоцитоз–рецептор–концевой потенциал и границы модели."
+ ],
+ EN:[
+  "Verify spike arrival directly at the terminal and compare it with the end-plate response.",
+  "Record end-plate voltage and contraction separately; use direct muscle stimulation as a control.",
+  "With terminal spike arrival preserved, compare evoked release when Ca²⁺ entry changes.",
+  "Assess transmitter release and receptor responsiveness independently under both interventions.",
+  "Avoid definitive localization without conduction, end-plate and miniature-potential recordings.",
+  "Explain spike–Ca²⁺–exocytosis–receptor–end-plate potential and the model limitations."
+ ],
+ KZ:[
+  "Импульстің ұшқа жетуін тікелей тексеріп, соңғы пластинка жауабымен салыстыру.",
+  "Соңғы пластинка потенциалы мен жиырылуды бөлек жазып, бұлшықетті тікелей қоздыруды бақылау ету.",
+  "Ұштағы импульс сақталғанда Ca²⁺ енуін өзгертіп, шақырылған бөлінуді салыстыру.",
+  "Екі әсерде медиатор бөлінуі мен рецептор жауабын бөлек бағалау.",
+  "Өткізу, соңғы пластинка және миниатюралық потенциалдарды жазбай нақты локализацияны бекітпеу.",
+  "ӘП–Ca²⁺–экзоцитоз–рецептор–соңғы пластинка потенциалы тізбегін және модель шектеулерін түсіндіру."
+ ]
+};
 const label = l("Компьютерная модель (не пациент)","Computer model (not a patient)","Компьютерлік модель (пациент емес)");
 const profile = l("Учебная модель нервно-мышечного соединения, без данных реального пациента.",
  "Teaching model of a neuromuscular junction; no real-patient data.",
@@ -164,7 +190,7 @@ export function reviewModuleFiveVirtualPatient(base:VirtualPatientScenario,langu
     const wrongIndex=id==="2"?0:1;
     return {
      ...option,
-     text:correct?option.text:c.wrong[wrongIndex][language],
+     text:correct?correctChoices[language][index]:c.wrong[wrongIndex][language],
      response:note[language],
      feedback:(correct?correctFeedback[language]:wrongFeedback[language])+c.explanation[language]
     };
