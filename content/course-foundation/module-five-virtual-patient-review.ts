@@ -101,12 +101,12 @@ const stages: [Stage,Stage,Stage,Stage,Stage,Stage] = [
   situation:l("Анализируется локализация нарушения передачи в учебном эксперименте.",
     "The teaching experiment now considers localization of the transmission deficit.",
     "Оқу тәжірибесінде берілу бұзылысының орналасуы талданады."),
-  data:l("Известны ответы на стимуляцию нерва и мышцы, но измерений квантового содержания и рецепторного тока пока нет.",
-    "Nerve- and muscle-stimulation responses are available, but quantal-content and receptor-current measurements are not.",
-    "Жүйке мен бұлшықетті қоздыру жауаптары бар, бірақ кванттық құрам мен рецепторлық ток өлшенбеген."),
-  task:l("Какой вывод об уровне нарушения можно обосновать без дополнительных записей?",
-    "What localization claim is justified without additional recordings?",
-    "Қосымша жазбаларсыз бұзылыстың орналасуы туралы қандай қорытынды негізді?"),
+  data:l("Ранее показаны уменьшенный потенциал концевой пластинки и сохранённое сокращение при прямой стимуляции мышцы. Количественных данных о квантовом выделении и реакции на локальное введение ацетилхолина нет.",
+    "Earlier stages showed a reduced end-plate potential and preserved contraction with direct muscle stimulation. Quantal release and the response to locally applied acetylcholine have not been quantified.",
+    "Алдыңғы кезеңдерде соңғы пластинка потенциалының азайғаны және бұлшықетті тікелей қоздырғанда жиырылудың сақталғаны көрсетілді. Кванттық бөліну мен жергілікті енгізілген ацетилхолинге жауап сандық түрде бағаланбаған."),
+  task:l("Какие дополнительные измерения нужны, чтобы различить снижение выделения медиатора и снижение чувствительности концевой пластинки?",
+    "Which additional measurements would distinguish reduced transmitter release from reduced end-plate responsiveness?",
+    "Медиатор бөлінуінің азаюын соңғы пластинка сезімталдығының төмендеуінен ажырату үшін қандай қосымша өлшеулер қажет?"),
   wrong:[
    l("Определить точное число выделенных везикул по амплитуде сокращения.",
      "Determine the exact vesicle count from contraction amplitude.",
@@ -115,9 +115,9 @@ const stages: [Stage,Stage,Stage,Stage,Stage,Stage] = [
      "Treat a reduced muscle response as proof of an exclusively postsynaptic defect.",
      "Бұлшықет жауабының азаюын тек постсинапстық ақаудың дәлелі деу.")
   ],
-  explanation:l("Нужны независимые записи проведения, концевого потенциала и/или миниатюрных ответов с учётом нелинейной суммации. Один суммарный мышечный ответ не доказывает пре- или постсинаптическую локализацию.",
-    "Independent conduction, end-plate and/or miniature-potential measurements are needed, accounting for nonlinear summation. A compound muscle response alone cannot prove pre- versus postsynaptic localization.",
-    "Өткізуді, соңғы пластинка және/немесе миниатюралық потенциалдарды бөлек жазу, сызықтық емес қосылуды ескеру қажет. Жиынтық бұлшықет жауабы ақаудың пре- не постсинапстық орнын дәлелдемейді.")
+  explanation:l("Уменьшенный вызванный потенциал концевой пластинки возможен как при меньшем выделении ацетилхолина, так и при ослаблении постсинаптического ответа. Сопоставляют миниатюрные и вызванные ответы, а также реакцию на локальный ацетилхолин; при оценке квантового содержания учитывают нелинейную суммацию. Сохранённая прямая стимуляция мышцы сама по себе не разделяет эти причины.",
+    "A smaller evoked end-plate potential may reflect reduced acetylcholine release or reduced postsynaptic responsiveness. Compare miniature and evoked responses with responses to locally applied acetylcholine; account for nonlinear summation when estimating quantal content. Preserved contraction on direct muscle stimulation alone does not distinguish these mechanisms.",
+    "Шақырылған соңғы пластинка потенциалының азаюы ацетилхолин бөлінуінің төмендеуінен де, постсинапстық жауаптың әлсіреуінен де болуы мүмкін. Миниатюралық және шақырылған жауаптарды жергілікті енгізілген ацетилхолинге жауаппен салыстырады; кванттық құрамды бағалағанда сызықтық емес қосылуды ескереді. Бұлшықетті тікелей қоздырғанда жиырылудың сақталуы бұл себептерді өздігінен ажыратпайды.")
  },
  {
   situation:l("Завершение компьютерной модели нервно-мышечной передачи.",
@@ -148,7 +148,7 @@ const correctChoices: Record<Language,[string,string,string,string,string,string
   "Раздельно записать концевой потенциал и мышечное сокращение; прямую стимуляцию мышцы использовать как контроль.",
   "При сохранённом импульсе в окончании сравнить вызванное выделение при изменении входа Ca²⁺.",
   "Отдельно оценить выделение медиатора и ответ рецепторов при двух воздействиях.",
-  "Не делать вывод о точной локализации без записей проведения, концевых и миниатюрных потенциалов.",
+  "Сравнить миниатюрные и вызванные концевые потенциалы с ответом на локальный ацетилхолин; не выводить точную локализацию из одного сокращения.",
   "Объяснить цепь ПД–Ca²⁺–экзоцитоз–рецептор–концевой потенциал и границы модели."
  ],
  EN:[
@@ -156,7 +156,7 @@ const correctChoices: Record<Language,[string,string,string,string,string,string
   "Record end-plate voltage and contraction separately; use direct muscle stimulation as a control.",
   "With terminal spike arrival preserved, compare evoked release when Ca²⁺ entry changes.",
   "Assess transmitter release and receptor responsiveness independently under both interventions.",
-  "Avoid definitive localization without conduction, end-plate and miniature-potential recordings.",
+  "Compare miniature and evoked end-plate potentials with the response to locally applied acetylcholine; do not infer exact localization from contraction alone.",
   "Explain spike–Ca²⁺–exocytosis–receptor–end-plate potential and the model limitations."
  ],
  KZ:[
@@ -164,7 +164,7 @@ const correctChoices: Record<Language,[string,string,string,string,string,string
   "Соңғы пластинка потенциалы мен жиырылуды бөлек жазып, бұлшықетті тікелей қоздыруды бақылау ету.",
   "Ұштағы импульс сақталғанда Ca²⁺ енуін өзгертіп, шақырылған бөлінуді салыстыру.",
   "Екі әсерде медиатор бөлінуі мен рецептор жауабын бөлек бағалау.",
-  "Өткізу, соңғы пластинка және миниатюралық потенциалдарды жазбай нақты локализацияны бекітпеу.",
+  "Миниатюралық және шақырылған соңғы пластинка потенциалдарын жергілікті ацетилхолинге жауаппен салыстыру; тек жиырылуға қарап нақты локализация жасамау.",
   "ӘП–Ca²⁺–экзоцитоз–рецептор–соңғы пластинка потенциалы тізбегін және модель шектеулерін түсіндіру."
  ]
 };
