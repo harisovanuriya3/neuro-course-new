@@ -93,7 +93,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
     recordOutcome(moduleId, "virtual-patient", correct, scenario.stages.length);
     // Modules 3 and 4 are computer teaching models, not clinical patient encounters.
     // Their keyed decisions assess physiological mechanism, not clinical competence.
-    const criterion = moduleId === 3 || moduleId === 4
+    const criterion = moduleId === 3 || moduleId === 4 || moduleId === 5
       ? "criterion:mechanism:virtual-model"
       : "criterion:clinical:virtual-patient";
     recordOutcome(moduleId, criterion, correct, scenario.stages.length);
@@ -176,12 +176,12 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
     <p className={styles.stageHelp}>{c.stagesLocked}</p>
     <div className={styles.desk}>
       <aside className={styles.patientCard}>
-        {moduleId !== 3 && moduleId !== 4 && <div className={styles.patientPortrait} data-patient-age={scenario.visualProfile.age} data-patient-sex={scenario.visualProfile.sex} data-patient-age-group={scenario.visualProfile.visualAgeGroup}>
+        {moduleId !== 3 && moduleId !== 4 && moduleId !== 5 && <div className={styles.patientPortrait} data-patient-age={scenario.visualProfile.age} data-patient-sex={scenario.visualProfile.sex} data-patient-age-group={scenario.visualProfile.visualAgeGroup}>
           <Image src={scenario.visualProfile.patientVisual} width={1536} height={1024} priority sizes="(max-width: 700px) 100vw, (max-width: 900px) 320px, 280px" alt={`${c.case}: ${scenario.profile}`} />
           <span>{c.stage} {state.current + 1}/6</span>
         </div>}
         <VirtualPatientVisual moduleId={moduleId} stage={state.current + 1} selected={decisionCommitted ? selected : null} language={language} />
-        <div className={styles.caseLabel}>{(moduleId === 3 || moduleId === 4) ? {RU:"Компьютерная модель",EN:"Computer model",KZ:"Компьютерлік модель"}[language] : c.case}</div><h2>{scenario.patient}</h2><p className={styles.profile}>{scenario.profile}</p><div className={styles.patientBubble}>{scenario.opening}</div>
+        <div className={styles.caseLabel}>{(moduleId === 3 || moduleId === 4 || moduleId === 5) ? {RU:"Компьютерная модель",EN:"Computer model",KZ:"Компьютерлік модель"}[language] : c.case}</div><h2>{scenario.patient}</h2><p className={styles.profile}>{scenario.profile}</p><div className={styles.patientBubble}>{scenario.opening}</div>
       </aside>
       <section className={styles.workspace} aria-labelledby="vp-stage-title">
         <div className={styles.stageCount}>{c.stage} {state.current + 1}/6</div>
