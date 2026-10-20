@@ -53,3 +53,6 @@ const vercel=JSON.parse(read("vercel.json"));
 assert.equal(vercel.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false,"Preview branch must remain disabled");
 console.log("PASS: module 5 tests: 5 skills × 3 prompts × 3 languages, choices, feedback and registry.");
 console.log("NOTE: AST checks are not equivalent to TypeScript build or browser verification.");
+
+// The module 5 media check is part of the existing science-audit chain.
+require("./check-module-five-media.cjs");
