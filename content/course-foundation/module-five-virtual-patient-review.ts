@@ -179,6 +179,12 @@ const correctFeedback=l("Физиологически обоснованный �
 const wrongFeedback=l("Этот вывод не следует из приведённых данных. ","This inference is not supported by the observations. ","Бұл қорытынды берілген деректерден шықпайды. ");
 export function reviewModuleFiveVirtualPatient(base:VirtualPatientScenario,language:Language):VirtualPatientScenario {
  if(base.moduleId!==5 || base.stages.length!==6) throw new Error("Module 5 requires six stages");
+ // The base scenario rotates options; the correct answer must still refer to
+ // the physiology-based decision, not a distractor after reordering.
+ for(const [index,stage] of base.stages.entries()){
+  if(stage.options.length!==3 || !stage.options[stage.correctOption]?.id.endsWith("-decision-1"))
+   throw new Error("Module 5 answer key mismatch at stage "+(index+1));
+ }
  return {
   ...base,patient:label[language],profile:profile[language],opening:note[language],
   syntheticNote:note[language],
