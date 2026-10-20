@@ -202,7 +202,7 @@ export function reviewModuleFiveVirtualPatient(base:VirtualPatientScenario,langu
     };
    }) as VirtualPatientStage["options"];
    return {...stage,situation:c.situation[language],newData:c.data[language],
-    task:c.task[language],mentorPrompt:c.explanation[language],
+    task:c.task[language],mentorPrompt:c.task[language],
     mechanism:c.explanation[language],options};
   })
  };
