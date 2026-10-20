@@ -49,6 +49,12 @@ const membraneModelDecisionCopy = {
   }
 } as const;
 
+const synapseModelDecisionCopy = {
+  RU: { ...modelDecisionCopy.RU, formingNext:"Повторите проведение импульса, Ca²⁺-зависимое выделение и ответ концевой пластинки.", reviewNext:"Повторите квантовое выделение и пре-/постсинаптическую локализацию." },
+  EN: { ...modelDecisionCopy.EN, formingNext:"Review axonal conduction, Ca²⁺-dependent release and the end-plate response.", reviewNext:"Revisit quantal release and pre/post-synaptic localization." },
+  KZ: { ...modelDecisionCopy.KZ, formingNext:"Импульстің өтуін, Ca²⁺-ке тәуелді бөлінуді және соңғы пластинка жауабын қайталаңыз.", reviewNext:"Кванттық бөлінуді және пре-/постсинапстық локализацияны қайталаңыз." }
+} as const;
+
 type StoredState = { current: number; unlocked: number; selected: (number | null)[]; notes: string[] };
 const emptyState = (): StoredState => ({ current: 0, unlocked: 0, selected: [null, null, null, null, null, null], notes: ["", "", "", "", "", ""] });
 
@@ -109,7 +115,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   const complete = selected !== null;
   const reasoningComplete = state.notes[state.current].trim().length >= 12;
   const decisionCommitted = complete && reasoningComplete;
-  const d = moduleId === 4 ? membraneModelDecisionCopy[language] : moduleId === 3 ? modelDecisionCopy[language] : decisionCopy[language];
+  const d = moduleId === 4 ? membraneModelDecisionCopy[language] : moduleId === 3 ? modelDecisionCopy[language] : moduleId === 5 ? synapseModelDecisionCopy[language] : decisionCopy[language];
   const correctDecisions = scenario.stages.reduce((sum, reviewStage, index) => sum + (state.selected[index] === reviewStage.correctOption ? 1 : 0), 0);
   const decisionPercent = Math.round((correctDecisions / scenario.stages.length) * 100);
   const decisionLevel = decisionPercent >= 80 ? d.strong : decisionPercent >= 50 ? d.forming : d.review;
@@ -205,7 +211,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
             <p style={{margin:"0 0 6px"}}><strong>{d.correct}: {correctDecisions}/6 · {decisionPercent}%</strong></p>
             <progress value={correctDecisions} max={6} aria-label={d.profile} style={{width:"100%"}} />
             <p style={{margin:"8px 0 4px"}}>{decisionLevel}</p>
-            {(moduleId === 3 || moduleId === 4) && <p style={{margin:"6px 0"}}>{d.scope}</p>}
+            {(moduleId === 3 || moduleId === 4 || moduleId === 5) && "scope" in d && <p style={{margin:"6px 0"}}>{d.scope}</p>}
             <p style={{margin:0}}><strong>{d.next}:</strong> {decisionAdvice}</p>
           </div>
           <p>{scenario.mechanismSummary}</p>
