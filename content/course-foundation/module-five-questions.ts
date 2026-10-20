@@ -38,7 +38,7 @@ const data=[
 export function createModuleFiveQuestions(language:Language):QuestionsLesson{
  return {
   kind:"questions",title:getSectionTitle("questions",language),
-  introduction:t("Алдымен өзіңіз жауап беріңіз, содан кейін түсіндірмені салыстырыңыз.","Answer first, then compare the explanation.","Алдымен өзіңіз жауап беріп, кейін түсіндірмені салыстырыңыз.")[language],
+  introduction:t("Сначала ответьте самостоятельно, затем сравните свой ответ с объяснением.","Answer first, then compare the explanation.","Алдымен өзіңіз жауап беріп, кейін түсіндірмені салыстырыңыз.")[language],
   questions:data.map(item=>({id:"module-5-review-"+item.id,prompt:item.prompt[language],
    explanation:item.explanation[language],target:{section:item.target}}))
  };
