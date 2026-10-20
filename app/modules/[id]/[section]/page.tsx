@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { getLesson } from "../../../../content";
+import { createModuleFiveClinical } from "../../../../content/course-foundation/module-five-clinical";
 import { isModuleId, type Language as Lang } from "../../../../content/course";
 import { isSection, getSectionTitle, sectionOrder } from "../../../../content/sections";
 
@@ -106,7 +107,9 @@ export default async function SectionPage({
   const t = text[lang];
   const sectionIndex = sectionOrder.indexOf(section);
 
-  const lesson = getLesson(moduleNumber, section, lang);
+  const lesson = moduleNumber === 5 && section === "clinical"
+    ? createModuleFiveClinical(lang)
+    : getLesson(moduleNumber, section, lang);
 
   return (
     <main
