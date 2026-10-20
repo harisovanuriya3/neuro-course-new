@@ -42,7 +42,7 @@ const copy: Record<Language, Copy> = {
     prompts: [
       "Compare acetylcholine in two different tissues: the skeletal-muscle end-plate nicotinic receptor and the cardiac sinoatrial-node muscarinic M2 receptor. For each, identify receptor class, signaling mechanism and direction of effect. Do not transfer one receptor's effect to the other.",
       "In model A an action potential reaches the axon terminal, but Ca²⁺ entry is reduced. In model B Ca²⁺ entry and transmitter release are preserved, but muscle end-plate nicotinic receptors are blocked. Before revealing the explanation, predict acetylcholine release and end-plate potential in each case. These are schematic conditions, not clinical measurements.",
-      "Observation A: fewer vesicles are released and the end-plate potential decreases, but the muscle still responds to locally applied acetylcholine. Observation B: the end-plate potential decreases, but release and receptor responsiveness were not measured. Which observation supports a presynaptic mechanism? Why does B not locate the defect? Suggest another experiment.",
+      "Observation A: an independent assay detects reduced vesicle release and the end-plate potential falls. End-plate depolarization evoked by the same locally applied acetylcholine dose is unchanged. Observation B: the end-plate potential falls, but neither release nor the response to local acetylcholine was measured. Which observation supports a presynaptic mechanism? Why does B not locate the defect? Suggest another experiment.",
     ],
     answers: [
       ["The muscle nicotinic receptor is a ligand-gated cation channel. Predominant Na⁺ influx depolarizes the end plate; sufficient depolarization initiates a muscle action potential.",
