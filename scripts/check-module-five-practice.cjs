@@ -14,6 +14,17 @@ for (const key of ["titles", "prompts", "answers", "criteria"]) {
 }
 assert(source.includes("Observation B:") && source.includes("Наблюдение B:") && source.includes("B бақылауы:"),
   "Missing ambiguous observation and its limitations");
+for (const phrase of [
+ "Observation A: an independent assay",
+ "Наблюдение A: независимый метод",
+ "A бақылауы: тәуелсіз әдіспен",
+ "Coexisting defects",
+ "сопутствующих нарушений",
+ "қатар жүретін бұзылыстарды",
+ "same locally applied acetylcholine dose",
+ "одинаковую дозу ацетилхолина",
+ "ацетилхолиннің бірдей дозасына"
+]) assert(source.includes(phrase), "Missing evidence/translation caveat: " + phrase);
 assert(source.includes("nicotinic") && source.includes("muscarinic M2"),
   "Missing receptor comparison");
 assert(config.git.deploymentEnabled["refactor/evidence-based-assessment-audit"] === false,
