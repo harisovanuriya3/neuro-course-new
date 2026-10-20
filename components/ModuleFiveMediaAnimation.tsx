@@ -10,7 +10,7 @@ const copy = {
    ["Приход импульса", "Потенциал действия достиг пресинаптического окончания. Сам по себе приход импульса ещё не равен выделению медиатора."],
    ["Вход Ca²⁺", "Деполяризация открывает потенциал-зависимые Ca²⁺-каналы пресинаптической мембраны. Ca²⁺ входит в окончание."],
    ["Выделение медиатора", "Ca²⁺ увеличивает вероятность слияния синаптических везикул в активной зоне. Выделение квантовое и вероятностное."],
-   ["Постсинаптический ответ", "Медиатор связывается с рецепторами; возникает градуальный ответ. Он не обязательно достигает порога нового потенциала действия."],
+   ["Постсинаптический ответ", "После экзоцитоза медиатор диффундирует через синаптическую щель и связывается с рецепторами; возникает градуальный ответ. Он не обязательно достигает порога нового потенциала действия."],
   ],
   note: "Учебная схема: число точек, размеры, расположение и интервалы не соответствуют измеренным молекулам, квантам или миллисекундам. Случайное выделение и миниатюрные ответы здесь не моделируются.",
   back:"Назад",next:"Следующий этап",reset:"С начала",
@@ -21,7 +21,7 @@ const copy = {
    ["Spike arrival", "An action potential reaches the presynaptic terminal. Spike arrival is not itself transmitter release."],
    ["Ca²⁺ entry", "Depolarization opens voltage-gated Ca²⁺ channels in the presynaptic membrane. Ca²⁺ enters the terminal."],
    ["Transmitter release", "Ca²⁺ raises the probability of vesicle fusion at the active zone. Release is quantal and probabilistic."],
-   ["Postsynaptic response", "Transmitter binds to receptors, generating a graded response. This does not necessarily trigger another action potential."],
+   ["Postsynaptic response", "After exocytosis, transmitter diffuses across the synaptic cleft and binds to receptors, generating a graded response. This does not necessarily trigger another action potential."],
   ],
   note: "Teaching schematic: dot counts, sizes, locations and intervals are not measured molecules, quanta or milliseconds. Stochastic release and miniature events are not simulated.",
   back:"Back",next:"Next stage",reset:"Restart",
@@ -32,7 +32,7 @@ const copy = {
    ["Импульстің келуі", "Әрекет потенциалы пресинапстық ұшқа жетеді. Импульстің келуі медиатордың бөлінуімен бірдей емес."],
    ["Ca²⁺ енуі", "Деполяризация пресинапстық мембранадағы кернеуге тәуелді Ca²⁺ арналарын ашады. Ca²⁺ ұшқа енеді."],
    ["Медиатордың бөлінуі", "Ca²⁺ белсенді аймақта көпіршіктердің мембранамен қосылу ықтималдығын арттырады. Бөліну кванттық әрі ықтималдық сипатта болады."],
-   ["Постсинапстық жауап", "Медиатор рецепторлармен байланысып, градуалды жауап туғызады. Ол әрдайым жаңа әрекет потенциалын бастамайды."],
+   ["Постсинапстық жауап", "Экзоцитоздан кейін медиатор синапстық саңылау арқылы диффузияланып, рецепторлармен байланысады да градуалды жауап туғызады. Ол әрдайым жаңа әрекет потенциалын бастамайды."],
   ],
   note: "Оқу сызбасы: нүктелердің саны, өлшемі, орны мен уақыт аралықтары нақты молекулаларға, кванттарға немесе миллисекундтарға сәйкес келмейді. Кездейсоқ бөліну мен миниатюралық жауаптар модельденбейді.",
   back:"Артқа",next:"Келесі кезең",reset:"Басынан",
@@ -57,10 +57,16 @@ export default function ModuleFiveMediaAnimation({language}:{language:Language})
    <path d="M65 145 H140" stroke={step>=0?"#fde047":"#64748b"} strokeWidth="7" strokeLinecap="round"/>
    <path d="M135 133 L155 145 L135 157" fill="none" stroke="#fde047" strokeWidth="5"/>
    <text x="63" y="122" fontSize="17" fill="#fde047">AP</text>
-   {[0,1,2].map(i=><g key={i}>
+   {[0,1].map(i=><g key={i}>
     <circle cx={207+i*23} cy={116+(i%2)*28} r="12" fill="#c4b5fd" stroke="#ddd6fe" strokeWidth="2"/>
     <circle cx={207+i*23} cy={116+(i%2)*28} r="4" fill="#7c3aed"/>
    </g>)}
+   {step<2
+    ? <circle cx="268" cy="145" r="12" fill="#c4b5fd" stroke="#ddd6fe" strokeWidth="2"/>
+    : <g aria-hidden="true">
+       <path d="M290 133 A13 13 0 1 0 290 157" fill="none" stroke="#ddd6fe" strokeWidth="4"/>
+       <path d="M290 133 H299 M290 157 H299" fill="none" stroke="#ddd6fe" strokeWidth="3"/>
+      </g>}
    <rect x="281" y="162" width="19" height="31" rx="5" fill="#38bdf8"/>
    {step>=1 && <g>
     <text x="221" y="191" fontSize="18" fill="#7dd3fc">Ca²⁺</text>
@@ -68,7 +74,7 @@ export default function ModuleFiveMediaAnimation({language}:{language:Language})
     <path d="M283 168 L272 175 L283 182" fill="none" stroke="#7dd3fc" strokeWidth="3"/>
    </g>}
    {step>=2 && <g>
-    {[0,1,2,3,4].map(i=><circle key={i} cx={326+(i%3)*24} cy={100+(i%2)*42} r="6" fill="#fde047"/>)}
+    {[0,1,2,3,4].map(i=><circle key={i} cx={step>=3?367+(i%3)*15:326+(i%3)*24} cy={step>=3?122+(i%2)*16:100+(i%2)*42} r="6" fill="#fde047"/>)}
     <path d="M297 139 H390" stroke="#fde047" strokeWidth="3" strokeDasharray="6 7"/>
    </g>}
    <path d="M412 113 h17 v35 h-17" fill="none" stroke="#fbbf24" strokeWidth="6" strokeLinecap="round"/>
