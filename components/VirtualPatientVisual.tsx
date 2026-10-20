@@ -55,11 +55,11 @@ function Scene({config,active,selected,language}:{config:Config;active:number;se
 }
 
 export default function VirtualPatientVisual({moduleId,stage,selected,language}:{moduleId:number;stage:number;selected:number|null;language:Language}) {
-  const config=configs[moduleId]??configs[1], safeStage=Math.max(1,Math.min(6,stage)), active=(safeStage-1+(moduleId===3?0:(selected??0)))%6, c=copy[language];
+  const config=configs[moduleId]??configs[1], safeStage=Math.max(1,Math.min(6,stage)), active=(safeStage-1+((moduleId===3||moduleId===5)?0:(selected??0)))%6, c=copy[language];
   return <figure className={styles.figure} data-testid="virtual-patient-visual" data-module={moduleId} data-stage={safeStage} data-selected={selected??"none"}>
     <div className={styles.mediaHeader}><div><span>{c.scene}</span><strong>{config.title[language]}</strong></div><b>{c.stage} {safeStage}/6</b></div>
-    <Scene config={config} active={active} selected={moduleId===3?null:selected} language={language}/>
+    <Scene config={config} active={active} selected={(moduleId===3||moduleId===5)?null:selected} language={language}/>
     <div className={styles.structureLegend}>{config.labels.map((label,i)=><span key={label.EN} className={i===active%3?styles.legendActive:undefined}><i>{i+1}</i>{label[language]}</span>)}</div>
-    <figcaption><span>{c.phase}: {config.labels[active%3][language]}</span>{moduleId===3?<strong>{c.modelNote}</strong>:selected!==null&&<strong>{c.changed}</strong>}</figcaption>
+    <figcaption><span>{c.phase}: {config.labels[active%3][language]}</span>{(moduleId===3||moduleId===5)?<strong>{c.modelNote}</strong>:selected!==null&&<strong>{c.changed}</strong>}</figcaption>
   </figure>;
 }
