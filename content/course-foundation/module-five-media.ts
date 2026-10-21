@@ -91,17 +91,22 @@ const authored:Record<Language,Copy>={
 
 export function createModuleFiveMedia(language:Language,base:MediaLesson):MediaLesson {
  const c=authored[language];
+ // Rotate display order without changing answer IDs or introducing SSR randomness.
+ // This avoids the correct choice appearing in the same position in all locales.
+ const options=c.options.map((text,index)=>({
+  id:["a","b","c","d"][index],text,feedback:c.feedback[index],
+ }));
+ const shift=language==="RU"?0:language==="EN"?1:2;
  return {
   ...base,introduction:c.introduction,
   blocks:[{
    id:"module-5-chemical-synapse-stages",
    title:c.title,preview:c.preview,transcript:c.transcript,
-   theoryAnchor:"mechanism",animation:"foundation",
+   // Link to the detailed synapse mechanism, not the generic foundation paragraph.
+   theoryAnchor:"chemical-electrical-comparison",animation:"foundation",
    question:{
     prompt:c.prompt,correctAnswer:"b",explanation:c.explanation,
-    options:c.options.map((text,index)=>({
-     id:["a","b","c","d"][index],text,feedback:c.feedback[index],
-    })),
+    options:[...options.slice(shift),...options.slice(0,shift)],
    },
   }],
  };
