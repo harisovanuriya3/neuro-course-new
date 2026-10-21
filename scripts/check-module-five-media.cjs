@@ -35,5 +35,15 @@ for(let i=0;i<3;i++){
  assert.equal((feedbackByLanguage[i][1].match(/^\s*"/gm)||[]).length,4,"Exactly four feedback messages per language");
 }
 assert(source.includes('id:["a","b","c","d"][index]'),"Four unique option IDs");
-assert(source.includes('theoryAnchor:"mechanism"'),"Theory link required");
+assert(source.includes('theoryAnchor:"chemical-electrical-comparison"'),"Media must link to the detailed chemical-synapse theory");
+const theory=read("content/course-foundation/module-five-theory.ts");
+assert(theory.includes('id: "chemical-electrical-comparison"'),"Detailed synapse theory anchor missing");
+assert(source.includes('const shift=language==="RU"?0:language==="EN"?1:2;'),"Locale-stable answer rotation missing");
+assert(source.includes('options:[...options.slice(shift),...options.slice(0,shift)]'),"Answer rotation not applied");
+assert(source.includes('correctAnswer:"b"'),"Stable correct-answer ID must be retained");
+const optionPositions=["RU","EN","KZ"].map(lang=>{
+ const shift=lang==="RU"?0:lang==="EN"?1:2;
+ return (1-shift+4)%4;
+});
+assert.equal(new Set(optionPositions).size,3,"Correct answer must not always be in one display position");
 console.log("PASS: module 5 media syntax, localization, route, animation and preview lock.");
