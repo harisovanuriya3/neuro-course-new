@@ -33,4 +33,4 @@ for(const language of ["RU","EN","KZ"]){
 assert(src.includes('target: { section: "theory" as const }'),"Theory return link absent");
 console.log("PASS: module 6 pretest authored in RU/EN/KZ (2 questions, 4 choices each).");
 const registry=fs.readFileSync("content/index.ts","utf8");
-if(!registry.includes('createModuleSixPretest("RU"'))console.warn("NOT WIRED: content/index.ts still uses the generic module 6 pretest.");
+for(const lang of ["RU","EN","KZ"]) assert(registry.includes('createModuleSixPretest("'+lang+'"'),"Module 6 "+lang+" pretest not registered");
