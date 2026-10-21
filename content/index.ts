@@ -39,6 +39,7 @@ import { createModuleFiveSummary } from "./course-foundation/module-five-summary
 import { createModuleFiveGlossary } from "./course-foundation/module-five-glossary";
 import { createModuleFiveTest } from "./course-foundation/module-five-test";
 import { createModuleFiveMedia } from "./course-foundation/module-five-media";
+import { createModuleFiveReferences } from "./course-foundation/module-five-references";
 import { createModuleThreeObjectives, createModuleThreeSummary } from "./course-foundation/module-three-learning";
 import { createModuleThreeClinical } from "./course-foundation/module-three-clinical";
 import { createModuleThreePractice } from "./course-foundation/module-three-practice";
@@ -139,6 +140,14 @@ function moduleThreeBasePractice(language: Language) {
   const lesson = foundationLessons[3]?.practice?.[language];
   if (!lesson || lesson.kind !== "practice") {
     throw new Error("Module 3 base practice is missing for " + language);
+  }
+  return lesson;
+}
+
+function moduleFiveBaseReferences(language: Language) {
+  const lesson = foundationLessons[5]?.references?.[language];
+  if (!lesson || lesson.kind !== "references") {
+    throw new Error("Module 5 base references are missing for " + language);
   }
   return lesson;
 }
@@ -319,6 +328,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   5: {
     ...foundationLessons[5],
+    references: {
+      RU: createModuleFiveReferences("RU", moduleFiveBaseReferences("RU")),
+      EN: createModuleFiveReferences("EN", moduleFiveBaseReferences("EN")),
+      KZ: createModuleFiveReferences("KZ", moduleFiveBaseReferences("KZ")),
+    },
     media: { RU: createModuleFiveMedia("RU", moduleFiveBaseMedia("RU")), EN: createModuleFiveMedia("EN", moduleFiveBaseMedia("EN")), KZ: createModuleFiveMedia("KZ", moduleFiveBaseMedia("KZ")) },
     glossary: { RU: createModuleFiveGlossary("RU"), EN: createModuleFiveGlossary("EN"), KZ: createModuleFiveGlossary("KZ") },
     tests: { RU: createModuleFiveTest("RU", moduleFiveBaseTest("RU")), EN: createModuleFiveTest("EN", moduleFiveBaseTest("EN")), KZ: createModuleFiveTest("KZ", moduleFiveBaseTest("KZ")) },
