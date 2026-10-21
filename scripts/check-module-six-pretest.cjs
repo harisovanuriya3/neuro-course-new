@@ -1,4 +1,4 @@
-// Module 6 formative-pretest source regression (run manually until registered).
+// Module 6 formative-pretest source regression (part of audit:science).
 // This verifies authored language structure; not a scientific or browser test.
 const fs=require("node:fs");
 const assert=require("node:assert/strict");
