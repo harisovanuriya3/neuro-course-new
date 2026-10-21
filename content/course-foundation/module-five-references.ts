@@ -41,7 +41,7 @@ export function createModuleFiveReferences(language: Language, base: ReadingLess
     introduction: c.intro,
     sources: [
       { ...guyton, description: c.descriptions[0], links: [{ section: "theory" }] },
-      { ...ganong, description: c.descriptions[1], links: [{ section: "interactive" }] },
+      { ...ganong, description: c.descriptions[1], links: [{ section: "theory" }] },
       {
         title: "C. L. Ghai · A Textbook of Practical Physiology, 8th ed. (2013)",
         href: "https://opac.iitrpr.ac.in/cgi-bin/koha/opac-MARCdetail.pl?biblionumber=10003",
