@@ -56,3 +56,6 @@ console.log("NOTE: AST checks are not equivalent to TypeScript build or browser 
 
 // The module 5 media check is part of the existing science-audit chain.
 require("./check-module-five-media.cjs");
+
+// Verify that source citations remain connected to the reviewed module.
+require("./check-module-five-references.cjs");
