@@ -10,7 +10,7 @@ assert.equal(ast.parseDiagnostics.length,0,"Module 5 questions TypeScript syntax
 assert(registry.includes('import { createModuleFiveQuestions } from "./course-foundation/module-five-questions"'),"Missing module 5 questions import");
 for(const lang of ["RU","EN","KZ"])
  assert(registry.includes('createModuleFiveQuestions("'+lang+'")'),"Missing "+lang+" registration");
-const ids=["calcium","shunting","nerve-muscle"];
+const ids=["calcium","shunting","nerve-muscle","electrical-rectification","metabotropic"];
 for(const id of ids)assert(source.includes('id:"'+id+'"'),"Missing synapse mechanism "+id);
 const strings=[...source.matchAll(/t\(\s*"([^"]+)",\s*"([^"]+)",\s*"([^"]+)"\s*\)/g)];
 assert(strings.length>=7,"Missing localized prompts and explanations");
@@ -22,5 +22,5 @@ for(const phrase of ["Ca²⁺","Cl⁻","E(Cl)","ацетилхолин","acetylc
 assert(source.includes('target:{section:item.target}'),"Missing explanatory navigation target");
 const config=JSON.parse(fs.readFileSync("vercel.json","utf8"));
 assert.equal(config.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false,"Previews must stay disabled");
-console.log("PASS module 5 questions: 3 topics × RU/EN/KZ, registration, AST, mechanism and preview guard.");
+console.log("PASS module 5 questions: 5 topics × RU/EN/KZ, registration, AST, mechanism and preview guard.");
 console.log("NOTE: clinical accuracy, translation and browser behavior need separate review.");
