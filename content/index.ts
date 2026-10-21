@@ -35,6 +35,7 @@ import { createModuleFivePractice } from "./course-foundation/module-five-practi
 import { createModuleFiveCases } from "./course-foundation/module-five-cases";
 import { createModuleFivePretest } from "./course-foundation/module-five-pretest";
 import { createModuleSixPretest } from "./course-foundation/module-six-pretest";
+import { createModuleSixTheory } from "./course-foundation/module-six-theory";
 import { createModuleFiveQuestions } from "./course-foundation/module-five-questions";
 import { createModuleFiveSummary } from "./course-foundation/module-five-summary";
 import { createModuleFiveGlossary } from "./course-foundation/module-five-glossary";
@@ -169,6 +170,11 @@ function moduleFiveBaseTest(language: Language) {
   return lesson;
 }
 
+function moduleSixBaseTheory(language: Language) {
+  const lesson = foundationLessons[6]?.theory?.[language];
+  if (!lesson || lesson.kind !== "theory") throw new Error("Module 6 base theory missing for " + language);
+  return lesson;
+}
 function moduleFiveBaseTheory(language: Language) {
   const lesson = foundationLessons[5]?.theory?.[language];
   if (!lesson || lesson.kind !== "theory") throw new Error("Module 5 base theory missing for " + language);
@@ -368,6 +374,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   6: {
     ...foundationLessons[6],
+    theory: {
+      RU: createModuleSixTheory("RU", moduleSixBaseTheory("RU")),
+      EN: createModuleSixTheory("EN", moduleSixBaseTheory("EN")),
+      KZ: createModuleSixTheory("KZ", moduleSixBaseTheory("KZ")),
+    },
     pretest: {
       RU: createModuleSixPretest("RU", `6. ${modules.RU[5]}`, getSectionTitle("pretest", "RU")),
       EN: createModuleSixPretest("EN", `6. ${modules.EN[5]}`, getSectionTitle("pretest", "EN")),
