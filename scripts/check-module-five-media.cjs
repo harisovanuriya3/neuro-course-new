@@ -23,6 +23,14 @@ assert(anim.includes('d="M290 133 A13 13 0 1 0 290 157"'),"Fusion pore visual mi
 assert(anim.includes("step>=3?367+"),"Stage 4 must show transmitter reaching receptor");
 for(const phrase of ["диффундирует через синаптическую щель","diffuses across the synaptic cleft","синапстық саңылау арқылы диффузияланып"])
  assert(anim.includes(phrase),"Missing localized cleft-diffusion explanation: "+phrase);
+// A fast chemical synapse may depolarize, hyperpolarize or shunt; the SVG
+// must not depict excitation as the only possible postsynaptic response.
+for(const token of ['+ΔVm','−ΔVm','shunt current','шунтирующим','шунттаушы'])
+ assert(anim.includes(token),'Missing visual/physiological caveat: '+token);
+for(const token of ['шунтирующим','shunt current','шунттаушы','Метаботропные','Metabotropic','Метаботроптық'])
+ assert(source.includes(token),'Missing localized graded/shunting/metabotropic transcript: '+token);
+assert(!anim.includes('d="M445 130 H568"'),
+ 'Old one-direction green postsynaptic arrow must not return');
 const vercel=JSON.parse(read("vercel.json"));
 assert.equal(vercel.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false);
 
