@@ -1,0 +1,13 @@
+# 21 October 2026 — Module 5, voice: source and textbook audit
+
+Scope: module 5 / voice (one of 425 sections). Read `components/VoiceContent.tsx`, route `app/modules/[id]/[section]/page.tsx`, `content/course-foundation/module-five-theory.ts`, `content/course-foundation/module-five-virtual-patient-review.ts`, and module 5 formative test, cases and media sources. Read the actual Library PDFs: Ganong 23e PDF pp. 127–130; Guyton & Hall 13e PDF pp. 556–558; C. L. Ghai Practical Physiology 8e PDF pp. 353–354.
+
+Confirmed pedagogical gap: `VoiceContent` has specialized RU/EN/KZ prompts for modules 3 and 4 but module 5 falls back to the generic “what starts the process” task. The voice section therefore does not explicitly elicit terminal action-potential arrival, Ca²⁺-dependent quantal exocytosis, nicotinic receptor response, graded end-plate potential, muscle action-potential threshold, or pre-/postsynaptic differential. This is weaker than the module's reviewed theory, cases and tests.
+
+Textbook-supported target: ask students to distinguish axonal propagation from terminal invasion, release from receptor action, and graded end-plate potentials from all-or-none muscle spikes; contrast Ca²⁺-entry blockade with nicotinic receptor blockade. Preserve the existing disclaimer that checkboxes assess answer structure only, not correctness. Ghai's fatigue demonstration is an isolated nerve–muscle preparation and cannot diagnose causes of fatigue in patients.
+
+Confirmed wiring: the route renders `<VoiceContent language={lang} moduleId={moduleNumber} />`; the component currently selects `moduleThreeCopy` for 3 and `moduleFourCopy` for 4, then generic `copy` for module 5. Language selection and localStorage are present. Browser dictation, storage quota failures, accessibility and translation quality were not tested.
+
+Write attempt: tried to update `components/VoiceContent.tsx` with localized module-five prompts twice. Both GitHub `update_file` requests were blocked by tool safety checks; **no code change to VoiceContent is claimed**. This document records the unresolved issue rather than silently marking it fixed. The 20 October journal's module 5 tests TODOs are now resolved in source: `moduleFiveBaseTest` exists, the test script checks `SectionContent`, and the script is listed in `audit:science`; execution still unverified.
+
+Validation limits: local `git ls-remote` failed DNS resolution for github.com. Node scripts, TypeScript, Next build, browser, dictation and KZ native review were not run. Full 25 × 17 certification remains incomplete. No merge to main, production or preview deployment was requested.
