@@ -130,16 +130,16 @@ const stages: [Stage,Stage,Stage,Stage,Stage,Stage] = [
     "How should the causal sequence and the model's limitations be summarized?",
     "Себеп-салдар тізбегі мен модель шектеулерін қалай қорытындылау керек?"),
   wrong:[
-   l("Сделать вывод, что каждый пресинаптический импульс обязательно вызывает мышечный ПД.",
-     "Conclude that every presynaptic spike necessarily triggers a muscle action potential.",
-     "Әр пресинапстық импульс міндетті түрде бұлшықет ӘП туғызады деу."),
+   l("Утверждать, что даже при сильной блокаде нервно-мышечной передачи каждый импульс обязательно вызывает мышечный ПД.",
+     "Claim that every nerve impulse must trigger a muscle action potential even when neuromuscular transmission is severely blocked.",
+     "Жүйке-бұлшықет берілуі қатты бөгелсе де, әр жүйке импульсі міндетті түрде бұлшықет ӘП туғызады деу."),
    l("Назвать шесть учебных этапов подтверждённым диагнозом реального пациента.",
      "Call the six teaching stages a confirmed diagnosis in a real patient.",
      "Алты оқу кезеңін нақты пациенттің расталған диагнозы деу.")
   ],
-  explanation:l("ПД в окончании → вход Ca²⁺ → вероятностный экзоцитоз → активация рецепторов → потенциал концевой пластинки → при достижении порога мышечный ПД. Это концептуальная последовательность, не диагноз.",
-    "Terminal spike → Ca²⁺ entry → probabilistic exocytosis → receptor activation → end-plate potential → muscle spike if threshold is reached. This is a conceptual sequence, not a diagnosis.",
-    "Ұштағы ӘП → Ca²⁺ енуі → ықтималдық экзоцитоз → рецептор белсенуі → соңғы пластинка потенциалы → табалдырыққа жетсе бұлшықет ӘП. Бұл диагноз емес, тұжырымдамалық тізбек.")
+  explanation:l("ПД в окончании → вход Ca²⁺ → вероятностный экзоцитоз → активация рецепторов → потенциал концевой пластинки → при достижении порога мышечный ПД. В норме высокий запас надёжности нервно-мышечной передачи обычно обеспечивает мышечный ПД при каждом пришедшем нервном импульсе; при выраженном нарушении передачи потенциал концевой пластинки может не достичь порога. Это концептуальная последовательность, не диагноз.",
+    "Terminal spike → Ca²⁺ entry → probabilistic exocytosis → receptor activation → end-plate potential → muscle spike if threshold is reached. Normally the high safety factor of neuromuscular transmission means that an arriving nerve impulse usually triggers a muscle action potential; with severe transmission impairment the end-plate potential may remain subthreshold. This is a conceptual sequence, not a diagnosis.",
+    "Ұштағы ӘП → Ca²⁺ енуі → ықтималдық экзоцитоз → рецептор белсенуі → соңғы пластинка потенциалы → табалдырыққа жетсе бұлшықет ӘП. Қалыпты жағдайда жүйке-бұлшықет берілуінің жоғары сенімділік қоры келген жүйке импульсінің әдетте бұлшықет ӘП туғызуын қамтамасыз етеді; берілу айқын бұзылса, соңғы пластинка потенциалы табалдырыққа жетпеуі мүмкін. Бұл диагноз емес, тұжырымдамалық тізбек.")
  }
 ];
 const correctChoices: Record<Language,[string,string,string,string,string,string]> = {
