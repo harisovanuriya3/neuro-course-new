@@ -10,7 +10,7 @@ const copy = {
    ["Приход импульса", "Потенциал действия достиг пресинаптического окончания. Сам по себе приход импульса ещё не равен выделению медиатора."],
    ["Вход Ca²⁺", "Деполяризация открывает потенциал-зависимые Ca²⁺-каналы пресинаптической мембраны. Ca²⁺ входит в окончание."],
    ["Выделение медиатора", "Ca²⁺ увеличивает вероятность слияния синаптических везикул в активной зоне. Выделение квантовое и вероятностное."],
-   ["Постсинаптический ответ", "После экзоцитоза медиатор диффундирует через синаптическую щель и связывается с рецепторами; возникает градуальный ответ. Он не обязательно достигает порога нового потенциала действия."],
+   ["Постсинаптический ответ", "После экзоцитоза медиатор диффундирует через щель и связывается с рецепторами. Быстрый ионотропный ответ может быть деполяризующим, гиперполяризующим или шунтирующим (с малым изменением Vm); новый импульс не гарантирован."],
   ],
   note: "Учебная схема: число точек, размеры, расположение и интервалы не соответствуют измеренным молекулам, квантам или миллисекундам. Случайное выделение и миниатюрные ответы здесь не моделируются.",
   back:"Назад",next:"Следующий этап",reset:"С начала",
@@ -21,7 +21,7 @@ const copy = {
    ["Spike arrival", "An action potential reaches the presynaptic terminal. Spike arrival is not itself transmitter release."],
    ["Ca²⁺ entry", "Depolarization opens voltage-gated Ca²⁺ channels in the presynaptic membrane. Ca²⁺ enters the terminal."],
    ["Transmitter release", "Ca²⁺ raises the probability of vesicle fusion at the active zone. Release is quantal and probabilistic."],
-   ["Postsynaptic response", "After exocytosis, transmitter diffuses across the synaptic cleft and binds to receptors, generating a graded response. This does not necessarily trigger another action potential."],
+   ["Postsynaptic response", "After exocytosis, transmitter diffuses across the synaptic cleft and binds to receptors. A fast ionotropic response can depolarize, hyperpolarize, or shunt current (with little change in Vm); another spike is not guaranteed."],
   ],
   note: "Teaching schematic: dot counts, sizes, locations and intervals are not measured molecules, quanta or milliseconds. Stochastic release and miniature events are not simulated.",
   back:"Back",next:"Next stage",reset:"Restart",
@@ -32,7 +32,7 @@ const copy = {
    ["Импульстің келуі", "Әрекет потенциалы пресинапстық ұшқа жетеді. Импульстің келуі медиатордың бөлінуімен бірдей емес."],
    ["Ca²⁺ енуі", "Деполяризация пресинапстық мембранадағы кернеуге тәуелді Ca²⁺ арналарын ашады. Ca²⁺ ұшқа енеді."],
    ["Медиатордың бөлінуі", "Ca²⁺ белсенді аймақта көпіршіктердің мембранамен қосылу ықтималдығын арттырады. Бөліну кванттық әрі ықтималдық сипатта болады."],
-   ["Постсинапстық жауап", "Экзоцитоздан кейін медиатор синапстық саңылау арқылы диффузияланып, рецепторлармен байланысады да градуалды жауап туғызады. Ол әрдайым жаңа әрекет потенциалын бастамайды."],
+   ["Постсинапстық жауап", "Экзоцитоздан кейін медиатор синапстық саңылау арқылы диффузияланып, рецепторлармен байланысады. Жылдам ионотроптық жауап деполяризация, гиперполяризация немесе Vm аз өзгеретін шунттаушы тежелу тудыруы мүмкін; жаңа импульс міндетті емес."],
   ],
   note: "Оқу сызбасы: нүктелердің саны, өлшемі, орны мен уақыт аралықтары нақты молекулаларға, кванттарға немесе миллисекундтарға сәйкес келмейді. Кездейсоқ бөліну мен миниатюралық жауаптар модельденбейді.",
   back:"Артқа",next:"Келесі кезең",reset:"Басынан",
@@ -79,9 +79,11 @@ export default function ModuleFiveMediaAnimation({language}:{language:Language})
    </g>}
    <path d="M412 113 h17 v35 h-17" fill="none" stroke="#fbbf24" strokeWidth="6" strokeLinecap="round"/>
    {step>=3 && <g>
-    <path d="M445 130 H568" stroke="#4ade80" strokeWidth="6" strokeLinecap="round"/>
-    <path d="M558 119 L576 130 L558 141" stroke="#4ade80" strokeWidth="5" fill="none"/>
-    <text x="457" y="113" fontSize="15" fill="#bbf7d0">ΔVm</text>
+    <path d="M445 130 H485 Q498 130 507 109 Q525 96 548 121 L558 130" stroke="#4ade80" strokeWidth="4" fill="none" strokeLinecap="round"/>
+    <path d="M445 130 H485 Q498 130 507 151 Q525 164 548 139 L558 130" stroke="#c4b5fd" strokeWidth="4" fill="none" strokeLinecap="round"/>
+    <path d="M445 130 H558" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="4 5" />
+    <text x="563" y="106" fontSize="14" fill="#bbf7d0">+ΔVm</text>
+    <text x="563" y="160" fontSize="14" fill="#ddd6fe">−ΔVm</text>
    </g>}
   </svg>
   <p>{phase[1]}</p>
