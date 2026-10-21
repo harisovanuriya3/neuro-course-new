@@ -34,6 +34,7 @@ import { createModuleFiveClinical } from "./course-foundation/module-five-clinic
 import { createModuleFivePractice } from "./course-foundation/module-five-practice";
 import { createModuleFiveCases } from "./course-foundation/module-five-cases";
 import { createModuleFivePretest } from "./course-foundation/module-five-pretest";
+import { createModuleSixPretest } from "./course-foundation/module-six-pretest";
 import { createModuleFiveQuestions } from "./course-foundation/module-five-questions";
 import { createModuleFiveSummary } from "./course-foundation/module-five-summary";
 import { createModuleFiveGlossary } from "./course-foundation/module-five-glossary";
@@ -363,6 +364,14 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       RU: createModuleFivePretest("RU", `5. ${modules.RU[4]}`, getSectionTitle("pretest", "RU")),
       EN: createModuleFivePretest("EN", `5. ${modules.EN[4]}`, getSectionTitle("pretest", "EN")),
       KZ: createModuleFivePretest("KZ", `5. ${modules.KZ[4]}`, getSectionTitle("pretest", "KZ")),
+    },
+  },
+  6: {
+    ...foundationLessons[6],
+    pretest: {
+      RU: createModuleSixPretest("RU", `6. ${modules.RU[5]}`, getSectionTitle("pretest", "RU")),
+      EN: createModuleSixPretest("EN", `6. ${modules.EN[5]}`, getSectionTitle("pretest", "EN")),
+      KZ: createModuleSixPretest("KZ", `6. ${modules.KZ[5]}`, getSectionTitle("pretest", "KZ")),
     },
   },
   1: {
