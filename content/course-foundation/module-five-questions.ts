@@ -29,7 +29,7 @@ const data=[
   prompt:t(
    "В изолированном нервно-мышечном препарате мышца перестала сокращаться при стимуляции нерва, но отвечает на прямую стимуляцию. Что можно заключить и чего нельзя доказать?",
    "In an isolated nerve–muscle preparation, the muscle stops responding to nerve stimulation but still responds to direct stimulation. What does this show, and what does it not prove?",
-   "Оқшауланған бұлшықет жүйке тітіркендіргенде жауап бермейді, бірақ тікелей тітіркендіруге жауап береді. Нені қорытындылауға болады, нені дәлелдей алмаймыз?"),
+   "Жүйке-бұлшықет препаратында жүйкені тітіркендіргенде бұлшықет жиырылмайды, бірақ бұлшықетті тікелей тітіркендіру жиырылу туғызады. Нені қорытындылауға болады, нені дәлелдей алмаймыз?"),
   explanation:t(
    "Нарушен путь непрямой активации; мышца сохраняет прямую возбудимость. Один опыт не различает блок проведения по нерву, нарушение выделения ацетилхолина и дефект нервно-мышечного соединения. Это не модель утомления человека.",
    "Indirect activation has failed while direct muscle excitability remains. One observation does not distinguish nerve conduction failure, impaired acetylcholine release or junctional dysfunction. It is not a model of human fatigue.",
