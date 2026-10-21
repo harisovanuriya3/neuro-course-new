@@ -68,8 +68,38 @@ const moduleFourCopy = {
  },
 } as const;
 
+const moduleFiveCopy = {
+ RU: {
+  intro:"Сравните два разных способа передачи сигнала. В химическом синапсе потенциал действия зарегистрирован непосредственно в пресинаптическом окончании, но вход Ca²⁺ снижен. Объясните, что происходит с вызванным выделением медиатора. Затем объясните, как ток передаётся через щелевые контакты электрического синапса. Отметки ниже — самооценка, а не автоматическая проверка физиологии.",
+  prompt:"Химический и электрический синапсы: механизм, наблюдение и пределы вывода",
+  cause:"Я различил(а) приход потенциала действия в окончание и вход Ca²⁺, запускающий выделение медиатора",
+  path:"Я объяснил(а), почему уменьшение входа Ca²⁺ снижает вероятность вызванного экзоцитоза, а электрическая передача идёт через щелевые контакты без обязательного выделения медиатора",
+  result:"Я указал(а), что спонтанные миниатюрные ответы могут сохраняться; уменьшенный постсинаптический ответ сам по себе не доказывает блок проведения по аксону или точную локализацию дефекта",
+  ready:"Три пункта самооценки отмечены. Проверьте по теории, различены ли химический и электрический механизмы; отметки не подтверждают правильность объяснения.",
+  good:"Три пункта самооценки отмечены",
+ },
+ EN: {
+  intro:"Compare two distinct transmission mechanisms. In a chemical synapse, an action potential is recorded directly at the presynaptic terminal but Ca²⁺ entry is reduced. Explain the effect on evoked transmitter release. Then explain current flow through gap junctions at an electrical synapse. The checkboxes are self-assessment, not automated physiology grading.",
+  prompt:"Chemical versus electrical synapses: mechanism, observation and limits of inference",
+  cause:"I distinguished arrival of the terminal action potential from Ca²⁺ entry that triggers transmitter release",
+  path:"I explained why reduced Ca²⁺ entry lowers the probability of evoked vesicle exocytosis, while electrical coupling uses gap junctions without requiring transmitter release",
+  result:"I noted that spontaneous miniature events may persist; a smaller postsynaptic response alone proves neither axonal conduction block nor the precise location of the defect",
+  ready:"All three self-check items are marked. Compare the two transmission mechanisms with the theory; checkmarks do not establish physiological correctness.",
+  good:"Three self-check items marked",
+ },
+ KZ: {
+  intro:"Берілудің екі түрлі механизмін салыстырыңыз. Химиялық синапста әрекет потенциалы пресинапстық ұшта тікелей тіркелді, бірақ Ca²⁺ енуі азайды. Бұл шақырылған медиатор бөлінуіне қалай әсер ететінін түсіндіріңіз. Содан кейін электрлік синапста токтың саңылаулы түйіспелер арқылы қалай өтетінін түсіндіріңіз. Белгілер — өзіндік бағалау, физиологиялық білімді автоматты тексеру емес.",
+  prompt:"Химиялық және электрлік синапстар: механизм, бақылау және қорытынды шегі",
+  cause:"Мен ұшқа әрекет потенциалының жетуін медиатор бөлінуін бастайтын Ca²⁺ енуінен ажыраттым",
+  path:"Мен Ca²⁺ енуі азайса, шақырылған везикула экзоцитозының ықтималдығы төмендейтінін, ал электрлік беріліс медиатор бөлінуін міндетті түрде қажет етпейтін саңылаулы түйіспелер арқылы жүретінін түсіндірдім",
+  result:"Мен өздігінен туатын миниатюралық жауаптар сақталуы мүмкін екенін және постсинапстық жауаптың азаюы өздігінен аксондағы өткізудің бөгелуін де, ақаудың нақты орнын да дәлелдемейтінін көрсеттім",
+  ready:"Өзіндік тексерудің үш тармағы белгіленді. Екі механизмді теориямен салыстырыңыз: белгілер физиологиялық дұрыстықты дәлелдемейді.",
+  good:"Үш өзіндік тексеру тармағы белгіленді",
+ },
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : copy[language];
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : copy[language];
  const key=`neuro-course:mechanism:${moduleId}:${language}`;
  const[answer,setAnswer]=useState("");
  const[persisted,setPersisted]=useState(false);
