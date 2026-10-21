@@ -27,6 +27,12 @@ for(const lang of ["RU","EN","KZ"]){
   assert(stage.options.every(o=>o.feedback.length>40),lang+" missing explanation "+i);
  }
 }
+
+for(const lang of ["RU","EN","KZ"]){
+ const final=m.exports.reviewModuleFiveVirtualPatient(makeBase(),lang).stages[5];
+ const expected={RU:"высокий запас надёжности",EN:"high safety factor",KZ:"жоғары сенімділік қоры"};
+ assert(final.mechanism.includes(expected[lang]),lang+" missing physiology qualification");
+}
 const layer=fs.readFileSync("content/reviewed-virtual-patients.ts","utf8");
 const view=fs.readFileSync("components/UnifiedVirtualPatient.tsx","utf8");
 assert(layer.includes("reviewModuleFiveVirtualPatient(base,language)"),"Reviewed model not registered");
