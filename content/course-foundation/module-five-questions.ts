@@ -28,7 +28,7 @@ const data=[
  {id:"nerve-muscle",target:"cases" as const,
   prompt:t(
    "Изолированная мышца перестала сокращаться при стимуляции нерва, но отвечает на прямую стимуляцию. Что можно заключить и чего нельзя доказать?",
-   "An isolated muscle stops responding to nerve stimulation but still responds to direct stimulation. What does this show, and what does it not prove?",
+   "In an isolated nerve–muscle preparation, the muscle stops responding to nerve stimulation but still responds to direct stimulation. What does this show, and what does it not prove?",
    "Оқшауланған бұлшықет жүйке тітіркендіргенде жауап бермейді, бірақ тікелей тітіркендіруге жауап береді. Нені қорытындылауға болады, нені дәлелдей алмаймыз?"),
   explanation:t(
    "Нарушен путь непрямой активации; мышца сохраняет прямую возбудимость. Один опыт не различает блок проведения по нерву, нарушение выделения ацетилхолина и дефект нервно-мышечного соединения. Это не модель утомления человека.",
