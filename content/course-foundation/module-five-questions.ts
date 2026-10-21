@@ -32,7 +32,7 @@ const data=[
    "Жүйке-бұлшықет препаратында жүйкені тітіркендіргенде бұлшықет жиырылмайды, бірақ бұлшықетті тікелей тітіркендіру жиырылу туғызады. Нені қорытындылауға болады, нені дәлелдей алмаймыз?"),
   explanation:t(
    "Нарушен путь непрямой активации; мышца сохраняет прямую возбудимость. Один опыт не различает блок проведения по нерву, нарушение выделения ацетилхолина и снижение чувствительности постсинаптических рецепторов. Это не модель утомления человека.",
-   "Indirect activation has failed while direct muscle excitability remains. One observation does not distinguish nerve conduction failure, impaired acetylcholine release or junctional dysfunction. It is not a model of human fatigue.",
+   "Indirect activation has failed while direct muscle excitability remains. One observation does not distinguish nerve conduction failure, impaired acetylcholine release or reduced postsynaptic receptor sensitivity. It is not a model of human fatigue.",
    "Жанама белсендіру бұзылған, бірақ бұлшықет тікелей қозуға қабілетті. Бір бақылау жүйкедегі өткізудің, ацетилхолин бөлінуінің немесе түйіспе қызметінің бұзылуын ажыратпайды. Бұл адамдағы шаршаудың моделі емес.")}
  ,{id:"electrical-rectification",target:"theory" as const,
   prompt:t(
