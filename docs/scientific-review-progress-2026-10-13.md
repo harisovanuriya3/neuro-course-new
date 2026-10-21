@@ -235,3 +235,8 @@ Directly re-read the module 3 reference sources in Library: Guyton & Hall 13e PD
 21.10.2026: Модуль 5 media — исправлен односторонний постсинаптический ответ (+/- ΔVm); RU/EN/KZ; 36/36 текстовых проверок; Node/build/E2E не запускались. Коммиты 19893c76, d52bfa68, ecb976b2, 20a7a08a, 548d5b08.
 
 21.10.2026: Module 5 questions — checked five RU/EN/KZ questions against Library Guyton 13e pp.97–99,556–559, Ganong 23e pp.127–130,138–140, Ghai 8e pp.353–354; corrected six locale strings (nerve-muscle preparation; separate presynaptic release vs postsynaptic receptor response), commits 9951c86b through 2dae2213, regression 6cca69c2. Source checks 6/6 and registration 3/3. Node/TypeScript/build/browser not run; no main or previews. Full 425 not complete.
+
+
+## 21.10.2026 — модуль 5, references
+
+Проверены RU/EN/KZ и страницы оригиналов: Guyton 13e PDF 97–99, 556–559; Ganong 23e PDF 127–130; Ghai 8e PDF 353–354. Проверены три внешние страницы издателя/каталогов. Исправлены типы источников и описание назначения ссылок (0bc9185b); добавлен AST-регрессионный тест (d4aecfc6) и его включение через уже зарегистрированный скрипт (fc6bf5d7). Проверки чтением: 24/24, плюс 12 локализованных фрагментов. Node, tsc, build, браузер и KZ-native вычитка не выполнены. Полная проверка 425 разделов не завершена; main и Vercel previews не затронуты.
