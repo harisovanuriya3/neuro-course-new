@@ -20,7 +20,7 @@ const authored:Record<Language,Copy>={
    "1. Потенциал действия достигает пресинаптического окончания. Проведение по аксону и выделение медиатора — разные процессы.",
    "2. Деполяризация открывает потенциал-зависимые Ca²⁺-каналы в пресинаптической мембране; локальный вход Ca²⁺ необходим для обычного быстрого вызванного выделения.",
    "3. Ca²⁺ повышает вероятность слияния везикул в активной зоне. Реальное высвобождение квантовое и вероятностное; нарисованные точки не обозначают фиксированное число квантов.",
-   "4. Медиатор связывается с постсинаптическими рецепторами и вызывает градуальный ответ. Его знак и влияние на разряд зависят от рецепторов и ионных градиентов; новый потенциал действия не гарантирован."
+   "4. Медиатор диффундирует через синаптическую щель и связывается с рецепторами. Быстрый ионотропный ответ может быть деполяризующим, гиперполяризующим или шунтирующим (проводимость растёт без выраженного изменения Vm). Метаботропные эффекты могут развиваться медленнее; новый импульс не гарантирован."
   ],
   prompt:"Потенциал действия зарегистрирован в пресинаптическом окончании, но вход Ca²⁺ заблокирован. Как изменится вызванная химическая передача?",
   explanation:"Приход импульса в окончание и Ca²⁺-зависимый экзоцитоз — разные этапы. Блокада входа Ca²⁺ резко снижает вероятность слияния везикул и вызванное выделение медиатора; отдельные спонтанные миниатюрные события могут сохраняться. Пять жёлтых точек на схеме — условные обозначения, а не измеренное число квантов.",
@@ -45,7 +45,7 @@ const authored:Record<Language,Copy>={
    "1. An action potential reaches the presynaptic terminal. Axonal conduction and transmitter release are distinct processes.",
    "2. Depolarization opens voltage-gated Ca²⁺ channels in the presynaptic membrane; local Ca²⁺ entry is required for typical fast evoked release.",
    "3. Ca²⁺ increases the probability of vesicle fusion at active zones. Real release is quantal and probabilistic; the drawn dots do not indicate a fixed number of quanta.",
-   "4. Transmitter binds to postsynaptic receptors, producing a graded response. Its polarity and effect on firing depend on receptors and ionic gradients; another action potential is not guaranteed."
+   "4. Transmitter diffuses across the cleft and binds to receptors. A fast ionotropic response may depolarize, hyperpolarize, or shunt current (increased conductance with little Vm change). Metabotropic effects may develop more slowly; another spike is not guaranteed."
   ],
   prompt:"An action potential is recorded at the presynaptic terminal, but Ca²⁺ entry is blocked. What happens to evoked chemical transmission?",
   explanation:"Spike arrival and Ca²⁺-dependent exocytosis are distinct steps. Blocking Ca²⁺ entry sharply reduces vesicle fusion probability and evoked transmitter release; some spontaneous miniature events may persist. The five yellow dots are illustrative markers, not a measured quantal count.",
@@ -70,7 +70,7 @@ const authored:Record<Language,Copy>={
    "1. Әрекет потенциалы пресинапстық ұшқа жетеді. Аксон бойымен өткізу мен медиатордың бөлінуі — бөлек үдерістер.",
    "2. Деполяризация пресинапстық мембранадағы кернеуге тәуелді Ca²⁺ арналарын ашады; Ca²⁺ жергілікті енуі әдеттегі жылдам шақырылған бөліну үшін қажет.",
    "3. Ca²⁺ белсенді аймақта көпіршіктердің мембранамен қосылу ықтималдығын арттырады. Нақты бөліну кванттық әрі ықтималдық сипатта; нүктелер кванттардың тұрақты санын білдірмейді.",
-   "4. Медиатор постсинапстық рецепторлармен байланысып, градуалды жауап туғызады. Жауаптың бағыты мен импульске әсері рецепторларға және иондық градиенттерге тәуелді; жаңа әрекет потенциалы міндетті емес."
+   "4. Медиатор синапстық саңылаудан өтіп, рецепторлармен байланысады. Жылдам ионотроптық жауап деполяризация, гиперполяризация немесе Vm айқын өзгермей өткізгіштік артатын шунттаушы тежелу тудыруы мүмкін. Метаботроптық әсерлер баяуырақ дамуы мүмкін; жаңа импульс міндетті емес."
   ],
   prompt:"Пресинапстық ұшта әрекет потенциалы тіркелді, бірақ Ca²⁺ енуі бөгелді. Шақырылған химиялық берілу қалай өзгереді?",
   explanation:"Импульстің ұшқа жетуі мен Ca²⁺-ке тәуелді экзоцитоз — бөлек кезеңдер. Ca²⁺ енуін бөгеу көпіршіктердің қосылу ықтималдығын және шақырылған медиатор бөлінуін күрт азайтады; кейбір өздігінен пайда болатын миниатюралық оқиғалар сақталуы мүмкін. Бес сары нүкте — шартты белгілер, кванттардың өлшенген саны емес.",
