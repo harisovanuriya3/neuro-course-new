@@ -34,6 +34,25 @@ const data=[
    "Нарушен путь непрямой активации; мышца сохраняет прямую возбудимость. Один опыт не различает блок проведения по нерву, нарушение выделения ацетилхолина и дефект нервно-мышечного соединения. Это не модель утомления человека.",
    "Indirect activation has failed while direct muscle excitability remains. One observation does not distinguish nerve conduction failure, impaired acetylcholine release or junctional dysfunction. It is not a model of human fatigue.",
    "Жанама белсендіру бұзылған, бірақ бұлшықет тікелей қозуға қабілетті. Бір бақылау жүйкедегі өткізудің, ацетилхолин бөлінуінің немесе түйіспе қызметінің бұзылуын ажыратпайды. Бұл адамдағы шаршаудың моделі емес.")}
+ ,{id:"electrical-rectification",target:"theory" as const,
+  prompt:t(
+   "Два нейрона связаны щелевыми контактами: ток от одного вызывает быстрый ответ другого. Доказывает ли это выделение медиатора и обязательную двусторонность связи?",
+   "Two neurons are coupled by gap junctions: current in one produces a rapid response in the other. Does this prove transmitter release or invariably bidirectional coupling?",
+   "Екі нейрон саңылаулы түйіспелермен байланысқан: біріндегі ток екіншісінде жылдам жауап туғызады. Бұл медиатор бөлінгенін немесе байланыстың міндетті түрде екі бағытты екенін дәлелдей ме?"),
+  explanation:t(
+   "Нет. Электрический синапс проводит ионный ток через щелевые контакты без обязательного везикулярного выделения медиатора. Связь часто двусторонняя, но возможны выпрямляющие контакты; одного опыта в одном направлении недостаточно.",
+   "No. Electrical coupling carries ionic current through gap junctions without requiring vesicular transmitter release. Coupling is often bidirectional, but rectifying junctions exist; a test in one direction cannot establish bidirectionality.",
+   "Жоқ. Электрлік байланыста иондық ток саңылаулы түйіспелер арқылы өтеді, медиатордың везикуладан бөлінуі міндетті емес. Байланыс көбіне екі бағытты, бірақ түзеткіш түйіспелер де бар; бір бағыттағы тәжірибе екі бағыттылықты дәлелдемейді.")},
+ {id:"metabotropic",target:"theory" as const,
+  prompt:t(
+   "Медиатор связывается с рецептором, запускает G-белковый путь и изменяет K⁺-проводимость клетки. Почему этот рецептор называют метаботропным, а не ионотропным?",
+   "A transmitter activates a G-protein pathway that changes cellular K⁺ conductance. Why is the receptor metabotropic rather than ionotropic?",
+   "Медиатор рецепторға байланысып, G-ақуыз жолын іске қосады да, жасушаның K⁺ өткізгіштігін өзгертеді. Неліктен бұл рецептор ионотроптық емес, метаботроптық?"),
+  explanation:t(
+   "Метаботропный рецептор передаёт сигнал через внутриклеточные посредники, которые затем регулируют ионные каналы или другие процессы. Ионотропный рецептор сам образует канал. Знак ответа нельзя определить только по скорости или названию медиатора.",
+   "A metabotropic receptor signals through intracellular intermediates that subsequently regulate channels or other processes. An ionotropic receptor itself forms an ion channel. Response polarity cannot be inferred from speed or transmitter name alone.",
+   "Метаботроптық рецептор сигналды жасушаішілік аралық тетіктер арқылы беріп, кейін иондық арналарды немесе өзге үдерістерді реттейді. Ионотроптық рецептордың өзі иондық арна түзеді. Жауап бағытын тек жылдамдығына не медиатор атауына қарап анықтауға болмайды.")}
+
 ] as const;
 export function createModuleFiveQuestions(language:Language):QuestionsLesson{
  return {
