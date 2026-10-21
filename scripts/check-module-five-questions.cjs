@@ -1,4 +1,5 @@
-// Structural regression for module 5 authored synapse review (not a browser test).
+// Module 5 explanatory questions: structural and localization regression.
+// This does not certify scientific correctness, native-language translation or UI.
 const fs=require("node:fs");
 const assert=require("node:assert/strict");
 const ts=require("typescript");
@@ -7,20 +8,40 @@ const source=fs.readFileSync(file,"utf8");
 const registry=fs.readFileSync("content/index.ts","utf8");
 const ast=ts.createSourceFile(file,source,ts.ScriptTarget.Latest,true,ts.ScriptKind.TS);
 assert.equal(ast.parseDiagnostics.length,0,"Module 5 questions TypeScript syntax");
-assert(registry.includes('import { createModuleFiveQuestions } from "./course-foundation/module-five-questions"'),"Missing module 5 questions import");
+assert(registry.includes('import { createModuleFiveQuestions } from "./course-foundation/module-five-questions"'),"Module 5 questions import missing");
 for(const lang of ["RU","EN","KZ"])
- assert(registry.includes('createModuleFiveQuestions("'+lang+'")'),"Missing "+lang+" registration");
-const ids=["calcium","shunting","nerve-muscle","electrical-rectification","metabotropic"];
-for(const id of ids)assert(source.includes('id:"'+id+'"'),"Missing synapse mechanism "+id);
-const strings=[...source.matchAll(/t\(\s*"([^"]+)",\s*"([^"]+)",\s*"([^"]+)"\s*\)/g)];
-assert(strings.length>=7,"Missing localized prompts and explanations");
-for(const match of strings)for(const str of match.slice(1))
- assert(str.trim().length>30,"Uninformative translated text");
-for(const phrase of ["Ca²⁺","Cl⁻","E(Cl)","ацетилхолин","acetylcholine","шунт","shunt","аксон","axonal"]){
- assert(source.includes(phrase),"Missing key mechanism "+phrase);
+ assert(registry.includes('createModuleFiveQuestions("'+lang+'")'),"Module 5 "+lang+" registration missing");
+
+const statement=ast.statements.find(s=>ts.isVariableStatement(s)&&s.declarationList.declarations.some(d=>d.name.getText(ast)==="data"));
+assert(statement,"Authored questions data declaration missing");
+const declaration=statement.declarationList.declarations.find(d=>d.name.getText(ast)==="data");
+const array=ts.isAsExpression(declaration.initializer)?declaration.initializer.expression:declaration.initializer;
+assert(ts.isArrayLiteralExpression(array),"Questions must be an array");
+const expected=["calcium","shunting","nerve-muscle","electrical-rectification","metabotropic"];
+assert.equal(array.elements.length,expected.length,"Expected five independently authored question topics");
+const ids=[];
+for(const item of array.elements){
+ assert(ts.isObjectLiteralExpression(item),"Question entry must be object");
+ const get=(name)=>item.properties.find(p=>ts.isPropertyAssignment(p)&&p.name.getText(ast)===name);
+ const id=get("id"),target=get("target"),prompt=get("prompt"),explanation=get("explanation");
+ assert(id&&ts.isStringLiteral(id.initializer),"Missing question ID");
+ ids.push(id.initializer.text);
+ assert(target&&ts.isAsExpression(target.initializer)&&ts.isStringLiteral(target.initializer.expression),"Missing navigation target");
+ assert(["theory","interactive","cases"].includes(target.initializer.expression.text),"Unexpected target");
+ for(const [name,property] of [["prompt",prompt],["explanation",explanation]]){
+  assert(property&&ts.isCallExpression(property.initializer)&&property.initializer.expression.getText(ast)==="t",id.initializer.text+" "+name+" must use localized t()");
+  assert.equal(property.initializer.arguments.length,3,id.initializer.text+" "+name+" must include RU/EN/KZ");
+  for(const text of property.initializer.arguments){
+   assert(ts.isStringLiteral(text)&&text.text.trim().length>=50,id.initializer.text+" "+name+" has empty or too short locale");
+  }
+ }
 }
-assert(source.includes('target:{section:item.target}'),"Missing explanatory navigation target");
+assert.deepEqual(ids,expected,"Missing/duplicate/reordered module 5 question topic");
+for(const phrase of ["Ca²⁺","Cl⁻","E(Cl)","acetylcholine","shunt","axonal","gap junctions","metabotropic"]){
+ assert(source.includes(phrase),"Missing mechanism "+phrase);
+}
+assert(source.includes('target:{section:item.target}'),"Explanatory navigation target missing");
 const config=JSON.parse(fs.readFileSync("vercel.json","utf8"));
-assert.equal(config.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false,"Previews must stay disabled");
-console.log("PASS module 5 questions: 5 topics × RU/EN/KZ, registration, AST, mechanism and preview guard.");
-console.log("NOTE: clinical accuracy, translation and browser behavior need separate review.");
+assert.equal(config.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false,"Preview branch must remain disabled");
+console.log("PASS: module 5 questions: 5 authored mechanisms, 10 localized triples, valid routes and registry.");
+console.log("NOTE: source-level AST checks do not replace TypeScript build, browser tests or independent translation review.");
