@@ -1,3 +1,5 @@
 # Module 5 questions — 2026-10-21
 
 Reviewed five questions and explanations in RU/EN/KZ. Cross-checked Ganong 23e PDF 130–133, Guyton & Hall 13e PDF 558–561, and Ghai 8e PDF 353–354 (nerve–muscle preparation only). No confirmed physiological error in these five questions. Fixed source QA to cover all five instead of three: commits 7e216efc, d0af8753. Node, TypeScript, build, browser and native KZ review remain unverified. Full 25×17 review incomplete. Main and Vercel untouched.
+
+Module 6 theory: read existing generic foundation mechanism/interpretation, Ganong PDF 130–133, Guyton PDF 558–561 and Ghai PDF 353–354. Prepared a new RU/EN/KZ source at content/course-foundation/module-six-theory.ts (c6d416b2), but registry integration in content/index.ts is NOT committed: GitHub rejected large-file updates. Thus module 6 theory remains unchanged at runtime and cannot be counted as fixed. Next step: integrate and test before claiming this section complete. No complete 425-section certification.
