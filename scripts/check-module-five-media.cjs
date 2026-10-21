@@ -1,3 +1,4 @@
+// Evidence checkpoint 2026-10-21: module 5 media checked against Ganong 23e 127-132, Guyton 13e 556-558 and Ghai 8e 353-354; full build pending.
 // Targeted source checks for module 5 media; run from the repository root.
 const assert=require("node:assert/strict");
 const fs=require("node:fs");
