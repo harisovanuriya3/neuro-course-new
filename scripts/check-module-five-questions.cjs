@@ -40,6 +40,16 @@ assert.deepEqual(ids,expected,"Missing/duplicate/reordered module 5 question top
 for(const phrase of ["Ca²⁺","Cl⁻","E(Cl)","acetylcholine","shunt","axonal","gap junctions","metabotropic"]){
  assert(source.includes(phrase),"Missing mechanism "+phrase);
 }
+// Guard the actual experimental preparation and distinct physiological alternatives.
+for(const phrase of [
+ "В изолированном нервно-мышечном препарате",
+ "In an isolated nerve–muscle preparation",
+ "Жүйке-бұлшықет препаратында",
+ "снижение чувствительности постсинаптических рецепторов",
+ "reduced postsynaptic receptor sensitivity",
+ "постсинапстық рецепторлар сезімталдығының төмендеуін"
+])assert(source.includes(phrase),"Missing corrected experimental distinction: "+phrase);
+assert(!source.includes("junctional dysfunction."),"Overlapping pre-/postsynaptic alternative returned");
 assert(source.includes('target:{section:item.target}'),"Explanatory navigation target missing");
 const config=JSON.parse(fs.readFileSync("vercel.json","utf8"));
 assert.equal(config.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false,"Preview branch must remain disabled");
