@@ -25,3 +25,6 @@ for(const lang of ["RU","EN","KZ"])
  assert(registry.includes('createModuleSixSummary("'+lang+'")'),"Missing "+lang+" registration");
 assert.equal(JSON.parse(fs.readFileSync("vercel.json","utf8")).git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false);
 console.log("PASS: module 6 recap RU/EN/KZ and route");
+
+// Run the authored learning-outcomes contract within audit:science.
+require('./check-module-six-objectives.cjs');
