@@ -36,6 +36,7 @@ import { createModuleFiveCases } from "./course-foundation/module-five-cases";
 import { createModuleFivePretest } from "./course-foundation/module-five-pretest";
 import { createModuleSixPretest } from "./course-foundation/module-six-pretest";
 import { createModuleSixTheory } from "./course-foundation/module-six-theory";
+import { createModuleSixSummary } from "./course-foundation/module-six-summary";
 import { createModuleFiveQuestions } from "./course-foundation/module-five-questions";
 import { createModuleFiveSummary } from "./course-foundation/module-five-summary";
 import { createModuleFiveGlossary } from "./course-foundation/module-five-glossary";
@@ -374,6 +375,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   6: {
     ...foundationLessons[6],
+    "one-minute": { RU: createModuleSixSummary("RU"), EN: createModuleSixSummary("EN"), KZ: createModuleSixSummary("KZ") },
     theory: {
       RU: createModuleSixTheory("RU", moduleSixBaseTheory("RU")),
       EN: createModuleSixTheory("EN", moduleSixBaseTheory("EN")),
