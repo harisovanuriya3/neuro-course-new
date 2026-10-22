@@ -49,7 +49,7 @@ assert(source.includes('kind: "clinical"'),"Wrong lesson kind");
 assert(source.includes('getSectionTitle("clinical", language)'),"Missing localized title");
 const registry=read("content/index.ts");
 assert(registry.includes('import { createModuleSixClinical } from "./course-foundation/module-six-clinical"'),"Missing clinical import");
-const moduleSix=registry.slice(registry.indexOf("\n  6: {"),registry.indexOf("\n  7: {"));
+const moduleSix=registry.slice(registry.indexOf("\n  6: {"),registry.indexOf("\n  1: {",registry.indexOf("\n  6: {")));
 assert(moduleSix.startsWith("\n  6: {"),"Module 6 registry not found");
 for(const lang of langs)assert(moduleSix.includes('createModuleSixClinical("'+lang+'")'),"Module 6 "+lang+" not registered");
 const route=read("app/modules/[id]/[section]/page.tsx");
