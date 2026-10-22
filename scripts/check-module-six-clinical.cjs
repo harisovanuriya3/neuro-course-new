@@ -36,9 +36,9 @@ for(const lang of langs){
  });
 }
 const terms={
- RU:["Ia-афферент","Тормоз","ГАМК","контрактур","H-рефлекс"],
- EN:["Ia afferent","inhibitory","GABA","contracture","H-reflex"],
- KZ:["Ia-афферент","Тежеуші","ГАМҚ","контрактура","H-рефлекс"]
+ RU:["Ia-афферент","Тормоз","ГАМК","контрактур","H-рефлекс","электрически"],
+ EN:["Ia afferent","inhibitory","GABA","contracture","H-reflex","electrically evoked"],
+ KZ:["Ia-афферент","Тежеуші","ГАМҚ","контрактура","H-рефлекс","электрлік"]
 };
 for(const [lang,words] of Object.entries(terms)){
  const p=map.properties.find(x=>x.name.getText(ast)===lang);
