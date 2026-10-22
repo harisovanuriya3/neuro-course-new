@@ -21,7 +21,7 @@ const notes={
 } as const;
 export function createModuleSixTheory(language:Language,base:Lesson & {kind:"theory"}):Lesson & {kind:"theory"} {
  return {...base,sections:[...base.sections,...notes[language].map(([title,text],i)=>({
-  id:i===0?"summation-mechanisms":"shunting-and-threshold",
+  id:["summation-mechanisms","shunting-and-threshold","presynaptic-vs-postsynaptic-inhibition"][i],
   title,blocks:[{type:"paragraph" as const,text}]
  }))]};
 }
