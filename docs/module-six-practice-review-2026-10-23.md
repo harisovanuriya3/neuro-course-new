@@ -1,0 +1,3 @@
+# Module 6 practice review — 23 October 2026
+
+The authored RU/EN/KZ practice exists in `content/course-foundation/module-six-practice.ts` but is not registered in `content/index.ts`; students currently receive the generic lesson. The passive model uses 0.1 nA and 100/50 MOhm, giving 10/5 mV. Cross-checked against Library Ganong 23e PDF 132–134, Guyton & Hall 13e PDF 563–565 and Ghai 8e PDF 353–354 (peripheral nerve–muscle preparation only). Register the authored practice for all three locales and add a regression test. Node, TypeScript, build and browser verification remain open. This is not a completed 425-section audit.
