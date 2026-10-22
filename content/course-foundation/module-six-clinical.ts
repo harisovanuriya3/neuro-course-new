@@ -1,6 +1,7 @@
-// AUDIT STATUS 2026-10-22: DRAFT ONLY. Not yet imported by content/index.ts or page route.
-// GitHub tool declined writes to those routes; do not claim student-facing delivery.
-// Still requires route integration, AST checks, CI build and RU/EN/KZ browser review.
+// AUDIT STATUS 2026-10-23: registered in content/index.ts for RU/EN/KZ.
+// Scientific source review: Ganong 23e PDF 133–134, 256; Guyton & Hall 13e
+// PDF 667–668, 680–682; Ghai 8e PDF 353–354 (peripheral preparation only).
+// Browser interaction, native-speaker KZ review and full module audit remain open.
 import type { Language } from "../course";
 import type { ReadingLesson } from "../study";
 import { getSectionTitle } from "../sections";
