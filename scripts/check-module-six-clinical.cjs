@@ -1,5 +1,6 @@
 // Module 6 clinical bridge: authored locale structure, route and mechanism guardrails.
 // Does not replace scientific/translation review or browser testing.
+// Audit checkpoint: 2026-10-23; see module 6 clinical and Library textbook source review.
 const fs=require("node:fs");
 const assert=require("node:assert/strict");
 const ts=require("typescript");
