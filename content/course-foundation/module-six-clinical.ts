@@ -1,3 +1,6 @@
+// AUDIT STATUS 2026-10-22: DRAFT ONLY. Not yet imported by content/index.ts or page route.
+// GitHub tool declined writes to those routes; do not claim student-facing delivery.
+// Still requires route integration, AST checks, CI build and RU/EN/KZ browser review.
 import type { Language } from "../course";
 import type { ReadingLesson } from "../study";
 import { getSectionTitle } from "../sections";
