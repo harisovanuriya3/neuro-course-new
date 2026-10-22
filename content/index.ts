@@ -38,6 +38,7 @@ import { createModuleSixPretest } from "./course-foundation/module-six-pretest";
 import { createModuleSixTheory } from "./course-foundation/module-six-theory";
 import { createModuleSixSummary } from "./course-foundation/module-six-summary";
 import { createModuleSixObjectives } from "./course-foundation/module-six-objectives";
+import { createModuleSixClinical } from "./course-foundation/module-six-clinical";
 import { createModuleFiveQuestions } from "./course-foundation/module-five-questions";
 import { createModuleFiveSummary } from "./course-foundation/module-five-summary";
 import { createModuleFiveGlossary } from "./course-foundation/module-five-glossary";
@@ -378,6 +379,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
     ...foundationLessons[6],
     objectives: { RU: createModuleSixObjectives("RU"), EN: createModuleSixObjectives("EN"), KZ: createModuleSixObjectives("KZ") },
     "one-minute": { RU: createModuleSixSummary("RU"), EN: createModuleSixSummary("EN"), KZ: createModuleSixSummary("KZ") },
+    clinical: { RU: createModuleSixClinical("RU"), EN: createModuleSixClinical("EN"), KZ: createModuleSixClinical("KZ") },
     theory: {
       RU: createModuleSixTheory("RU", moduleSixBaseTheory("RU")),
       EN: createModuleSixTheory("EN", moduleSixBaseTheory("EN")),
