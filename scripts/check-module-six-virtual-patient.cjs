@@ -15,9 +15,9 @@ const compiled=ts.transpileModule(source,{
 });
 assert.equal((compiled.diagnostics||[]).filter(d=>d.category===ts.DiagnosticCategory.Error).length,0,
  "Transpilation diagnostics");
-const exports={};
-vm.runInNewContext(compiled.outputText,{exports},{timeout:1000});
-const review=exports.reviewModuleSixVirtualPatient;
+const sandboxExports={};
+vm.runInNewContext(compiled.outputText,{exports:sandboxExports},{timeout:1000});
+const review=sandboxExports.reviewModuleSixVirtualPatient;
 assert.equal(typeof review,"function","Module 6 review function not exported");
 
 for(const language of ["RU","EN","KZ"]){
