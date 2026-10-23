@@ -144,3 +144,40 @@ interpretation: t('Улучшение выполнения может отраж
 question: t('Как отличить восстановление функции от компенсации при выполнении задания?', 'How can functional recovery be distinguished from task compensation?', 'Тапсырмада қызметтің қалпына келуін өтемдік стратегиядан қалай ажыратуға болады?'),
 task: t('Предложите исследование изменения навыка: исходное выполнение, тренировка, повторная оценка и перенос на новое задание. Укажите альтернативные объяснения улучшения и какие данные их проверяют.', 'Design a skill-change study: baseline, practice, repeat assessment and transfer to a new task. Identify alternative explanations for improvement and the data needed to test them.', 'Дағды өзгерісін зерттеуді ұсыныңыз: бастапқы орындау, жаттығу, қайталама бағалау және жаңа тапсырмаға көшіру. Жақсарудың балама түсіндірмелері мен оларды тексеретін деректерді көрсетіңіз.'), terms: [t('Нейропластичность', 'Neuroplasticity', 'Нейропластикалық өзгеріс'), t('Компенсация', 'Compensation', 'Өтемдік бейімделу')] },
 ];
+
+// Module-specific experimental checks complement the shared learning tasks.
+const experimentalChecks: Record<number, Text> = {
+  2: t("Сравните альфа-активность с открытыми и закрытыми глазами; контролируйте моргание ЭОГ.", "Compare eyes-open and eyes-closed alpha; control blinking with EOG.", "Көз ашық және жұмулы альфа белсенділігін салыстырып, жыпылықтауды ЭОГ арқылы бақылаңыз."),
+  3: t("Сопоставьте проведение в миелиновых и безмиелиновых аксонах при одинаковой температуре.", "Compare myelinated and unmyelinated axonal conduction at fixed temperature.", "Бірдей температурада миелинді және миелинсіз аксон өткізгіштігін салыстырыңыз."),
+  4: t("Измените внеклеточный K⁺ и измерьте потенциал и доступность Na⁺-каналов.", "Vary extracellular K⁺ and measure membrane voltage and Na⁺ channel availability.", "Сыртқы K⁺ өзгертіп, мембрана потенциалы мен Na⁺ арналарының қолжетімділігін өлшеңіз."),
+  5: t("Измерьте второй импульс при разных интервалах между стимулами.", "Measure the second spike at different paired-stimulus intervals.", "Қос тітіркендіргіш аралықтарын өзгертіп, екінші импульсті өлшеңіз."),
+  6: t("Сравните ответы при блокаде пресинаптических Ca²⁺-каналов и постсинаптических рецепторов.", "Compare responses after presynaptic Ca²⁺ channel versus postsynaptic receptor blockade.", "Пресинапстық Ca²⁺ арналары мен постсинапстық рецепторлар тежелгендегі жауаптарды салыстырыңыз."),
+  7: t("Сравните временную и пространственную суммацию возбуждающих постсинаптических потенциалов.", "Compare temporal and spatial summation of excitatory postsynaptic potentials.", "Қоздырғыш постсинапстық потенциалдардың уақыттық және кеңістіктік қосылуын салыстырыңыз."),
+  8: t("Измените силу стимула и измерьте амплитуду и латентность рефлекса.", "Vary stimulus intensity and measure reflex amplitude and latency.", "Тітіркендіргіш күшін өзгертіп, рефлекстің амплитудасы мен латенттілігін өлшеңіз."),
+  9: t("Сопоставьте признаки поражения пути с уровнем перекрёста волокон.", "Relate tract lesion signs to the level of fiber crossing.", "Өткізгіш жол зақымының белгілерін талшықтардың айқасу деңгейімен салыстырыңыз."),
+  10: t("Сравните сухожильный рефлекс до и после предварительного мышечного сокращения.", "Compare tendon reflexes before and after preceding muscle contraction.", "Алдыңғы бұлшықет жиырылуына дейін және кейін сіңір рефлексін салыстырыңыз."),
+  11: t("Разделите изменения дыхания, бодрствования и реакции зрачков при моделях поражения ствола.", "Differentiate respiration, arousal and pupil changes across brainstem lesion models.", "Ми бағаны зақымының үлгілерінде тыныс, сергектік және қарашық өзгерісін ажыратыңыз."),
+  12: t("Сопоставьте мышечную активность при одинаковой нагрузке до и после изменения сенсорной обратной связи.", "Compare muscle activity at constant load before and after altered sensory feedback.", "Бірдей жүктемеде сенсорлық кері байланыс өзгергенге дейін және кейін бұлшықет белсенділігін салыстырыңыз."),
+  13: t("Сравните точность движения с зрительной обратной связью и без неё.", "Compare movement precision with and without visual feedback.", "Көру кері байланысы бар және жоқ кездегі қозғалыс дәлдігін салыстырыңыз."),
+  14: t("Различите сенсорный дефицит при поражении таламуса и периферического рецептора.", "Differentiate sensory deficits following thalamic and peripheral receptor lesions.", "Таламус пен шеткі рецептор зақымындағы сезімталдық тапшылығын ажыратыңыз."),
+  15: t("Оцените жажду при контролируемом изменении осмоляльности плазмы.", "Assess thirst after a controlled change in plasma osmolality.", "Плазма осмолялдығы бақыланып өзгергендегі шөлдеу реакциясын бағалаңыз."),
+  16: t("Сравните отсроченное воспроизведение эмоционального и нейтрального материала.", "Compare delayed recall of emotional and neutral material.", "Эмоциялық және бейтарап материалды кешіктіріп еске түсіруді салыстырыңыз."),
+  17: t("Сравните условную реакцию на угрозу до и после угасания.", "Compare conditioned threat responses before and after extinction.", "Шартты қауіп жауабын сөндіруге дейін және кейін салыстырыңыз."),
+  18: t("Раздельно оцените речевую продукцию, понимание и повторение.", "Assess speech production, comprehension and repetition separately.", "Сөйлеуді өндіру, түсіну және қайталауды бөлек бағалаңыз."),
+  19: t("Определите сенсорный порог при изменении силы и длительности стимула.", "Measure detection threshold as stimulus intensity and duration vary.", "Стимул күші мен ұзақтығын өзгертіп, сезімталдық табалдырығын анықтаңыз."),
+  20: t("Сравните ЧСС и давление при ортостазе в контрольной и моделируемой блокированной автономной системе.", "Compare orthostatic heart rate and pressure responses with and without modeled autonomic blockade.", "Автономды тежелуі бар және жоқ модельде ортостаз кезіндегі пульс пен қысымды салыстырыңыз."),
+  21: t("Сравните приобретение и угасание условных реакций при различном подкреплении.", "Compare conditioned response acquisition and extinction across reinforcement schedules.", "Әртүрлі бекітуде шартты жауаптың қалыптасуы мен сөнуін салыстырыңыз."),
+  22: t("Проследите ЧСС и артериальное давление в первые две минуты после вставания.", "Track heart rate and arterial pressure in the first two minutes after standing.", "Тұрғаннан кейінгі екі минутта жүрек жиілігі мен қан қысымын бақылаңыз."),
+  23: t("Различите первичное повреждение нервной ткани и последующую воспалительную реакцию.", "Distinguish primary neural injury from subsequent inflammatory responses.", "Бастапқы жүйке зақымын кейінгі қабыну реакциясынан ажыратыңыз."),
+  24: t("Сопоставьте стадии сна с ЭЭГ, исключая артефакты движений глаз.", "Match sleep stages with EEG while excluding eye movement artifacts.", "Ұйқы кезеңдерін көз қозғалысы артефактілерін ескеріп, ЭЭГ-мен сәйкестендіріңіз."),
+  25: t("Измерьте перенос освоенного навыка на новую задачу в сравнении с повторением исходной.", "Measure skill transfer to a new task versus repeated practice of the original.", "Үйренген дағдының жаңа тапсырмаға ауысуын бастапқы тапсырманы қайталаумен салыстырыңыз."),
+};
+for (const topic of topics) {
+  const check = experimentalChecks[topic.id];
+  if (!check) continue;
+  topic.task = t(
+    topic.task.RU + " " + check.RU,
+    topic.task.EN + " " + check.EN,
+    topic.task.KZ + " " + check.KZ
+  );
+}
