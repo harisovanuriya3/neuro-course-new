@@ -38,9 +38,9 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
           <strong>{guide.title}</strong>
           <p style={{margin:"6px 0 0",lineHeight:1.6}}>{guide.text}</p>
         </aside>
+        <PhysiologyInfographic moduleId={Number(moduleId)} language={language} />
         <TheoryMedia moduleId={Number(moduleId)} language={language} />
         <LessonContent lesson={lesson} />
-        <PhysiologyInfographic moduleId={Number(moduleId)} language={language} />
       </>;
     }
     case "practice":
