@@ -177,6 +177,11 @@ function moduleFiveBaseTest(language: Language) {
   return lesson;
 }
 
+function moduleSixBaseGlossary(language: Language) {
+  const lesson = foundationLessons[6]?.glossary?.[language];
+  if (!lesson || lesson.kind !== "glossary") throw new Error("Module 6 base glossary missing for " + language);
+  return lesson;
+}
 function moduleSixBaseCases(language: Language) {
   const lesson = foundationLessons[6]?.cases?.[language];
   if (!lesson || lesson.kind !== "cases") throw new Error("Module 6 base cases missing for " + language);
@@ -391,7 +396,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   6: {
     ...foundationLessons[6],
-    glossary: { RU: createModuleSixGlossary("RU", foundationLessons[6]!.glossary!.RU!), EN: createModuleSixGlossary("EN", foundationLessons[6]!.glossary!.EN!), KZ: createModuleSixGlossary("KZ", foundationLessons[6]!.glossary!.KZ!) },
+    glossary: { RU: createModuleSixGlossary("RU", moduleSixBaseGlossary("RU")), EN: createModuleSixGlossary("EN", moduleSixBaseGlossary("EN")), KZ: createModuleSixGlossary("KZ", moduleSixBaseGlossary("KZ")) },
     objectives: { RU: createModuleSixObjectives("RU"), EN: createModuleSixObjectives("EN"), KZ: createModuleSixObjectives("KZ") },
     "one-minute": { RU: createModuleSixSummary("RU"), EN: createModuleSixSummary("EN"), KZ: createModuleSixSummary("KZ") },
     clinical: { RU: createModuleSixClinical("RU"), EN: createModuleSixClinical("EN"), KZ: createModuleSixClinical("KZ") },
