@@ -21,31 +21,24 @@ const decisionCopy = {
   KZ: { profile:"Шешімдер профилі", correct:"Сәйкес шешімдер", strong:"Осы жағдайдағы шешімдердің көбі дұрыс", forming:"Клиникалық ойлау қалыптасуда", review:"Механизмді қайталау қажет", next:"Ұсыныс", strongNext:"Келесі модульге немесе қорытынды бақылауға өтіңіз.", formingNext:"Қате кезеңдерді қайталап, механизмді қайта түсіндіріңіз.", reviewNext:"Теория мен клиникалық көпірге оралып, пациент жағдайын қайта өтіңіз.", errorStage:"Талдау қажет" },
 } as const;
 
-type StoredState = { current: number; unlocked: number; selected: (number | null)[]; notes: string[] };
-const emptyState = (): StoredState => ({ current: 0, unlocked: 0, selected: [null, null, null, null, null, null], notes: ["", "", "", "", "", ""] });
+import { emptyUnifiedPatient as emptyState, restoreUnifiedPatient, type UnifiedPatientState as StoredState } from "../lib/unifiedPatientState";
 
 export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId: number; language: Language }) {
   const scenario = useMemo(() => getVirtualPatientScenario(moduleId, language), [moduleId, language]);
   const [state, setState] = useState<StoredState>(emptyState);
-  const [ready, setReady] = useState(false);
+  const [loadedKey, setLoadedKey] = useState<string | null>(null);
   const [activeAudio, setActiveAudio] = useState<"patient" | "mentor" | null>(null);
-  const storageKey = `neuro-course:virtual-patient:${moduleId}:${language}:v1`;
+  const storageKey = `neuro-course:virtual-patient:${moduleId}:v2`;
+  const ready = loadedKey === storageKey;
 
   useEffect(() => {
-    setReady(false);
+    if (loadedKey === storageKey) return;
     try {
-      const parsed = JSON.parse(localStorage.getItem(storageKey) || "null") as Partial<StoredState> | null;
-      if (parsed && Array.isArray(parsed.selected) && Array.isArray(parsed.notes)) {
-        setState({
-          current: Math.max(0, Math.min(5, Number(parsed.current) || 0)),
-          unlocked: Math.max(0, Math.min(5, Number(parsed.unlocked) || 0)),
-          selected: [0, 1, 2, 3, 4, 5].map((i) => Number.isInteger(parsed.selected?.[i]) ? Number(parsed.selected?.[i]) : null),
-          notes: [0, 1, 2, 3, 4, 5].map((i) => typeof parsed.notes?.[i] === "string" ? parsed.notes[i].slice(0, 5000) : ""),
-        });
-      } else setState(emptyState());
+      const raw = localStorage.getItem(storageKey) ?? localStorage.getItem(`neuro-course:virtual-patient:${moduleId}:${language}:v1`);
+      setState(restoreUnifiedPatient(raw));
     } catch { setState(emptyState()); }
-    setReady(true);
-  }, [storageKey]);
+    setLoadedKey(storageKey);
+  }, [storageKey, moduleId, language, loadedKey]);
 
   useEffect(() => {
     if (!ready) return;
