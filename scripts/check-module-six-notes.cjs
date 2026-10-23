@@ -32,11 +32,11 @@ for(const lang of ["RU","EN","KZ"]){
   lang+": unqualified chloride effect");
 }
 for(const [lang,required] of Object.entries({
- RU:["временную суммацию","пространственную суммацию","шунтирующее торможение","пресинаптическим торможением","не проверяются автоматически","сомe"],
+ RU:["временную суммацию","пространственную суммацию","шунтирующее торможение","пресинаптическим торможением","не проверяются автоматически","на соме"],
  EN:["temporal summation","spatial summation","shunting inhibition","presynaptic inhibition","not graded automatically","somatic Vm"],
  KZ:["уақыттық суммациясын","кеңістіктік суммациясымен","шунттаушы тежелу","пресинапстық тежелумен","автоматты түрде бағаланбайды","сомада"]
 })){
- for(const word of required.filter(x=>x!=="сомe"))
+ for(const word of required)
   assert(copy[lang].includes(word),lang+": missing "+word);
 }
 assert(source.includes("moduleId === 6 && <p>{moduleSixPrompt[language]}</p>"),
