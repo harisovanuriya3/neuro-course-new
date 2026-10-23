@@ -42,6 +42,7 @@ import { createModuleSixClinical } from "./course-foundation/module-six-clinical
 import { createModuleSixPractice } from "./course-foundation/module-six-practice";
 import { createModuleSixCases } from "./course-foundation/module-six-cases";
 import { createModuleSixQuestions } from "./course-foundation/module-six-questions";
+import { createModuleSixGlossary } from "./course-foundation/module-six-glossary";
 import { createModuleFiveQuestions } from "./course-foundation/module-five-questions";
 import { createModuleFiveSummary } from "./course-foundation/module-five-summary";
 import { createModuleFiveGlossary } from "./course-foundation/module-five-glossary";
@@ -390,6 +391,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   6: {
     ...foundationLessons[6],
+    glossary: { RU: createModuleSixGlossary("RU", foundationLessons[6]!.glossary!.RU!), EN: createModuleSixGlossary("EN", foundationLessons[6]!.glossary!.EN!), KZ: createModuleSixGlossary("KZ", foundationLessons[6]!.glossary!.KZ!) },
     objectives: { RU: createModuleSixObjectives("RU"), EN: createModuleSixObjectives("EN"), KZ: createModuleSixObjectives("KZ") },
     "one-minute": { RU: createModuleSixSummary("RU"), EN: createModuleSixSummary("EN"), KZ: createModuleSixSummary("KZ") },
     clinical: { RU: createModuleSixClinical("RU"), EN: createModuleSixClinical("EN"), KZ: createModuleSixClinical("KZ") },
