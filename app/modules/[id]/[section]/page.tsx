@@ -24,6 +24,7 @@ import AdvancedAnatomyReference from "../../../../components/AdvancedAnatomyRefe
 import ModuleSidebar from "../../../../components/ModuleSidebar";
 import NerveFiberLab from "../../../../components/NerveFiberLab";
 import EEGLab from "../../../../components/EEGLab";
+import EvokedAveragingLab from "../../../../components/EvokedAveragingLab";
 import MembraneElectrophysiologyLab from "../../../../components/MembraneElectrophysiologyLab";
 import SynapseExperimentLab from "../../../../components/SynapseExperimentLab";
 import IntegrationExperimentLab from "../../../../components/IntegrationExperimentLab";
@@ -244,7 +245,7 @@ export default async function SectionPage({
           ) : section === "notes" ? (
             <NotesContent language={lang} moduleId={moduleNumber} />
           ) : moduleNumber === 2 && section === "interactive" ? (
-            <EEGLab language={lang} />
+            <><EEGLab language={lang} /><EvokedAveragingLab language={lang} /></>
           ) : moduleNumber === 3 && section === "interactive" ? (
             <NerveFiberLab language={lang} />
           ) : moduleNumber === 4 && section === "interactive" ? (
@@ -299,6 +300,7 @@ export default async function SectionPage({
                 moduleId={id}
                 language={lang}
               />
+              {section === 'theory' && moduleNumber === 2 && <EvokedAveragingLab language={lang} />}
               {section === 'theory' && moduleNumber > 1 && (
                 <div id="theory-visuals">
                   <FoundationVisual moduleId={moduleNumber} language={lang} />
