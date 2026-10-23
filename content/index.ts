@@ -41,6 +41,7 @@ import { createModuleSixObjectives } from "./course-foundation/module-six-object
 import { createModuleSevenObjectives } from "./course-foundation/module-seven-objectives";
 import { createModuleSevenTheory } from "./course-foundation/module-seven-theory";
 import { createModuleSevenSummary } from "./course-foundation/module-seven-summary";
+import { createModuleSevenClinical } from "./course-foundation/module-seven-clinical";
 import { createModuleSevenPretest } from "./course-foundation/module-seven-pretest";
 import { createModuleSixClinical } from "./course-foundation/module-six-clinical";
 import { createModuleSixPractice } from "./course-foundation/module-six-practice";
@@ -422,6 +423,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   7: {
     ...foundationLessons[7],
+    clinical: {
+      RU: createModuleSevenClinical("RU"),
+      EN: createModuleSevenClinical("EN"),
+      KZ: createModuleSevenClinical("KZ"),
+    },
     "one-minute": {
       RU: createModuleSevenSummary("RU"),
       EN: createModuleSevenSummary("EN"),
