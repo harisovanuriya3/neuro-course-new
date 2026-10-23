@@ -74,6 +74,15 @@ const lesson: Lesson = {
         { type: "list", items: ["Guyton and Hall, Textbook of Medical Physiology — sections on excitable tissues and neural physiology.", "Ganong’s Review of Medical Physiology — chapters on membrane potentials and cellular electrical activity.", "Kandel et al., Principles of Neural Science — chapters on action potentials, ion channels, and signal propagation.", "OpenStax Anatomy and Physiology, The Action Potential: https://openstax.org/books/anatomy-and-physiology/pages/12-4-the-action-potential."] },
       ],
     },
+    {
+      id: "extracellular-potassium-experiment",
+      title: "Experimental reasoning: extracellular K⁺, excitability and conduction failure",
+      blocks: [
+        { type: "paragraph", text: "A moderate rise in extracellular K⁺ makes the potassium equilibrium potential less negative and often depolarizes the membrane. This may initially bring the membrane closer to threshold, but sustained marked depolarization causes a larger fraction of voltage-gated Na⁺ channels to remain inactivated. Action-potential upstroke and amplitude may then decrease, and propagation can become unreliable." },
+        { type: "paragraph", text: "An experiment must distinguish resting potential, threshold, maximum depolarization rate and axonal conduction velocity. Different protocols measure different quantities. Current clamp measures membrane voltage responses to injected current; voltage clamp measures ionic currents while voltage is controlled. Temperature, exposure duration and solution composition can materially alter the results." },
+        { type: "paragraph", text: "Teaching scenario: after a moderate increase in extracellular K⁺, a cell depolarizes from −70 to −60 mV. Predict early and sustained effects on excitability, consider Na⁺ channel inactivation and propose a recovery control after restoring baseline extracellular K⁺. One membrane voltage measurement does not diagnose a cause of conduction failure." },
+      ],
+    },
   ],
   outcomes: {
     title: "Learning outcomes",
