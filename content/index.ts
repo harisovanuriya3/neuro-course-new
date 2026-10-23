@@ -44,6 +44,7 @@ import { createModuleSixCases } from "./course-foundation/module-six-cases";
 import { createModuleSixQuestions } from "./course-foundation/module-six-questions";
 import { createModuleSixGlossary } from "./course-foundation/module-six-glossary";
 import { createModuleSixTests } from "./course-foundation/module-six-tests";
+import { createModuleSixMedia } from "./course-foundation/module-six-media";
 import { createModuleFiveQuestions } from "./course-foundation/module-five-questions";
 import { createModuleFiveSummary } from "./course-foundation/module-five-summary";
 import { createModuleFiveGlossary } from "./course-foundation/module-five-glossary";
@@ -402,6 +403,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   6: {
     ...foundationLessons[6],
+    media: { RU: createModuleSixMedia("RU", foundationLessons[6].media.RU), EN: createModuleSixMedia("EN", foundationLessons[6].media.EN), KZ: createModuleSixMedia("KZ", foundationLessons[6].media.KZ) },
     tests: { RU: createModuleSixTests("RU", modules.RU[5], moduleSixBaseTest("RU")), EN: createModuleSixTests("EN", modules.EN[5], moduleSixBaseTest("EN")), KZ: createModuleSixTests("KZ", modules.KZ[5], moduleSixBaseTest("KZ")) },
     glossary: { RU: createModuleSixGlossary("RU", moduleSixBaseGlossary("RU")), EN: createModuleSixGlossary("EN", moduleSixBaseGlossary("EN")), KZ: createModuleSixGlossary("KZ", moduleSixBaseGlossary("KZ")) },
     objectives: { RU: createModuleSixObjectives("RU"), EN: createModuleSixObjectives("EN"), KZ: createModuleSixObjectives("KZ") },
