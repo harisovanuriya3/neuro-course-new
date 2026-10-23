@@ -73,6 +73,15 @@ const lesson: Lesson = {
         { type: "list", items: ["Guyton and Hall, Textbook of Medical Physiology — sections on synaptic transmission and neurotransmitters.", "Ganong’s Review of Medical Physiology — chapters on chemical and electrical synapses.", "Kandel et al., Principles of Neural Science — chapters on synaptic transmission, receptors, and short-term plasticity.", "OpenStax Anatomy and Physiology, Communication Between Neurons: https://openstax.org/books/anatomy-and-physiology-2e/pages/12-5-communication-between-neurons."] },
       ],
     },
+    {
+      id: "quantal-release-paired-pulse",
+      title: "Quantal neurotransmitter release and short-term synaptic plasticity",
+      blocks: [
+        { type: "paragraph", text: "A presynaptic action potential opens voltage-gated Ca²⁺ channels. Calcium influx triggers fusion of primed synaptic vesicles; each vesicle contributes a quantum of neurotransmitter. Postsynaptic response amplitude also depends on release probability, active sites, and receptor sensitivity. Miniature postsynaptic events can reveal quantal release, although quantal amplitudes are not perfectly uniform." },
+        { type: "paragraph", text: "In a paired-pulse experiment, identical presynaptic stimuli are separated by a short interval. A larger second response can reflect facilitation, often because residual presynaptic Ca²⁺ transiently increases release probability. A smaller second response may reflect depletion of the readily releasable vesicle pool, receptor desensitization, or other mechanisms of short-term depression. The amplitude ratio alone does not uniquely identify the mechanism." },
+        { type: "paragraph", text: "Worked task: the first EPSP is 2 mV and the second 3 mV under equal stimulation, giving a paired-pulse ratio of 1.5. Propose a plausible mechanism class, predict the effect of varying the interval, and specify a control involving extracellular Ca²⁺. Explain why this observation alone cannot establish an increase in postsynaptic receptor number. Control the resting voltage and recording conditions." },
+      ],
+    },
   ],
   outcomes: {
     title: "Learning outcomes",
