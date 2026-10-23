@@ -35,7 +35,7 @@ export default function LessonContent({ lesson, moduleId, language }: { lesson: 
         <p>{lesson.outcomes.introduction}</p>
         <ul>{lesson.outcomes.items.map((item) => <li key={item}>{item}</li>)}</ul>
       </section>
-      <section className={styles.terms}>
+      <section id="key-terms" className={styles.terms}>
         <h2>{lesson.terms.title}</h2>
         <ul>{lesson.terms.items.map((item) => <li key={item}><Link href={`/modules/${moduleId}/glossary?lang=${language}${glossaryId(item)}`}>{item}</Link></li>)}</ul>
       </section>
