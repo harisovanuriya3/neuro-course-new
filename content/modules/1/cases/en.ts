@@ -119,6 +119,16 @@ const lesson: CasesLesson = {
       explanation: ["Closing the eyes removes one source of sensory information. Increased center-of-pressure sway demonstrates altered postural control but does not itself diagnose dysfunction of a specific nervous-system structure.","Visual, vestibular and somatosensory inputs contribute to estimating body position. Central circuits generate corrective muscle commands, and ongoing afferent feedback supports continuous adjustment.","Keep stance width, surface and instructions consistent, repeat trials and assess fatigue. Foam changes the reliability of somatosensory information and may increase reliance on other sensory inputs."],
       diagram: ["Vision and proprioception","Central integration","Muscle commands","Postural sway","Sensory feedback"],
     },
+    {
+      id: "myelin-conduction-clinical", title: "Clinical bridge: impaired myelinated-axon conduction",
+      situation: "After an inflammatory illness, a patient develops weakness of ankle dorsiflexion and reduced motor nerve conduction velocity. Nerve conduction testing shows increased response latency and substantial temporal dispersion, with reduced muscle strength. These are educational data and do not by themselves establish a specific diagnosis.",
+      stages: [
+        { title: "From impulse to measurement", questions: ["What does a nerve conduction study actually measure?","Why is response latency not a direct measurement of muscle strength?"] },
+        { title: "Build a physiological hypothesis", questions: ["How can myelin injury affect conduction velocity and temporal synchrony?","What other forms of injury might influence the amplitude of the muscle response?"] },
+        { title: "Make a cautious inference", questions: ["Why can a single test not establish every cause and lesion site?","Which clinical and electrophysiological findings should be considered together?"] },
+      ],
+      explanation: ["Peripheral nerve conduction studies assess electrical responses following nerve stimulation, including latency, amplitude and compound muscle action potential shape; they do not directly measure muscle force.","Myelin damage may slow impulse conduction, increase temporal dispersion and cause conduction block. Reduced response amplitude can have different causes, including axonal loss, and should not be interpreted in isolation.","Interpretation requires stimulation-site details, limb temperature, artifact checks, weakness distribution, sensory examination, reflexes and potentially needle electromyography. Diagnosis depends on the full clinical context."],
+    },
   ],
   sources: [
     { title: "Neuroscience: Chemical Synapses", href: "https://www.ncbi.nlm.nih.gov/books/NBK11009/" },
