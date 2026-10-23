@@ -2,6 +2,9 @@ import type { Language, LocalizedLesson, Section } from "./types";
 import RU from "./modules/1/theory/ru";
 import KZ from "./modules/1/theory/kz";
 import EN from "./modules/1/theory/en";
+import membraneTheoryRU from "./modules/4/theory/ru";
+import membraneTheoryKZ from "./modules/4/theory/kz";
+import membraneTheoryEN from "./modules/4/theory/en";
 import practiceRU from "./modules/1/practice/ru";
 import practiceKZ from "./modules/1/practice/kz";
 import practiceEN from "./modules/1/practice/en";
@@ -43,6 +46,14 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
     practice: { RU: practiceRU, KZ: practiceKZ, EN: practiceEN },
     cases: { RU: casesRU, KZ: casesKZ, EN: casesEN },
     tests: { RU: testsRU, KZ: testsKZ, EN: testsEN },
+  },
+  4: {
+    ...foundationLessons[4],
+    theory: {
+      RU: { ...membraneTheoryRU, kind: "theory" },
+      KZ: { ...membraneTheoryKZ, kind: "theory" },
+      EN: { ...membraneTheoryEN, kind: "theory" },
+    },
   },
 };
 
