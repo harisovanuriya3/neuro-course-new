@@ -11,6 +11,7 @@ import FoundationMediaAnimation from "./FoundationMediaAnimation";
 import ModuleThreeMediaAnimation from "./ModuleThreeMediaAnimation";
 import ModuleFourMediaAnimation from "./ModuleFourMediaAnimation";
 import ModuleFiveMediaAnimation from "./ModuleFiveMediaAnimation";
+import ModuleSixMediaAnimation from "./ModuleSixMediaAnimation";
 
 function durationLabel(seconds?: number) {
   if (seconds === undefined || !Number.isFinite(seconds) || seconds <= 0) return null;
@@ -83,7 +84,8 @@ export default function MediaContent({ lesson, moduleId, language }: { lesson: M
     {lesson.blocks.map((block, index) => <section key={block.id} id={`media-${block.id}`} data-media={block.id} className={shared.card} aria-labelledby={`${block.id}-title`}>
       <h2 id={`${block.id}-title`}>{index + 1}. {block.title}</h2>
       <p><strong>{ui.preview}: </strong>{block.preview}</p>
-      {moduleId === "5" && block.animation === "foundation" ? <ModuleFiveMediaAnimation key={language} language={language} />
+      {moduleId === "6" && block.animation === "foundation" ? <ModuleSixMediaAnimation key={language} language={language} />
+        : moduleId === "5" && block.animation === "foundation" ? <ModuleFiveMediaAnimation key={language} language={language} />
         : moduleId === "4" && block.animation === "foundation" ? <ModuleFourMediaAnimation key={language} language={language} />
         : moduleId === "3" && block.animation === "foundation" ? <ModuleThreeMediaAnimation key={language} language={language} />
         : block.animation === "organization" ? <OrganizationAnimation key={language} language={language} />
