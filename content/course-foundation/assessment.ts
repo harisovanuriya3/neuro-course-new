@@ -1,4 +1,5 @@
 import {physiologicalRelations} from "../physiological-relations";
+import {module4Cases} from "./module4-cases";
 import {termDefinitions} from "./topics";
 import type { Language } from "../course";
 import type { CasesLesson } from "../cases";
@@ -54,6 +55,7 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
  return {kind:"cases",title:l==="RU"?"Ситуационные задачи":l==="EN"?"Case Problems":"Ситуациялық тапсырмалар",moduleTitle,
  introduction:l==="RU"?"Здесь не нужно пересказывать теорию. Работайте с данными: выделите ключевой признак, локализуйте нарушенное звено, постройте причинную цепь и назовите проверку, которая отличит вашу гипотезу от альтернативной.":l==="EN"?"Do not retell the theory here. Work from the data: identify the key finding, localize the disturbed link, build a causal chain, and choose a check that distinguishes your hypothesis from an alternative.":"Мұнда теорияны қайталау қажет емес. Деректермен жұмыс істеңіз: негізгі белгіні анықтаңыз, бұзылған буынды локализациялаңыз, себептік тізбек құрыңыз және болжамыңызды баламадан ажырататын тексеруді атаңыз.",
  ui:ui(l),cases:[
+  ...(topic.id===4 ? module4Cases(l) : []),
   {id:`m${topic.id}-localization`,title:l==="RU"?"Задача 1. Локализация по данным":l==="EN"?"Case 1. Data-driven localization":"1-жағдай. Деректер бойынша локализация",situation:task,stages:[
    {title:l==="RU"?"Выделите данные":l==="EN"?"Extract the evidence":"Деректерді бөліңіз",questions:[
     l==="RU"?"Назовите два факта из условия, которые действительно влияют на физиологический вывод.":l==="EN"?"Name two findings in the case that materially affect the physiological conclusion.":"Физиологиялық қорытындыға әсер ететін жағдайдағы екі деректі атаңыз.",
