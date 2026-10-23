@@ -2,6 +2,7 @@ import {physiologicalRelations} from "../physiological-relations";
 import {module4Cases} from "./module4-cases";
 import {module5Cases} from "./module5-cases";
 import {withModule4Questions} from "./module4-tests";
+import {withModule5Questions} from "./module5-tests";
 import {termDefinitions} from "./topics";
 import type { Language } from "../course";
 import type { CasesLesson } from "../cases";
@@ -225,5 +226,5 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   transfer:{title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [justifyComp]:{title:l==="RU"?"Обоснование вывода":l==="EN"?"Justification of conclusion":"Қорытындыны негіздеу",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}}
  },nodes};
- return topic.id===4 ? withModule4Questions(lesson,l) : lesson;
+ return topic.id===4 ? withModule4Questions(lesson,l) : topic.id===5 ? withModule5Questions(lesson,l) : lesson;
 }
