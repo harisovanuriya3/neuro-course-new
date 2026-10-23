@@ -7,6 +7,11 @@ const lesson: Lesson = {
       id: "nervous-system",
       title: "1. General Organization of the Nervous System",
       blocks: [
+        {"type":"subheading","text":"Neurons and glia: distinct physiological roles"},
+        {"type":"paragraph","text":"Neurons have dendrites, a cell body and an axon. Dendrites and the soma receive multiple synaptic inputs, while the axon initial segment is commonly a site of action-potential initiation because of its high density of voltage-gated sodium channels. Neurons vary widely in structure and include sensory neurons, interneurons and motor neurons."},
+        {"type":"paragraph","text":"Astrocytes contribute to extracellular K⁺ regulation, metabolic support and neurovascular interactions. Oligodendrocytes form myelin in the CNS, whereas Schwann cells produce myelin in the PNS. Microglia provide immune surveillance and phagocytic functions. Normal neural signaling therefore depends on interactions between neurons and glial cells."},
+        {"type":"subheading","text":"Somatic and autonomic functions"},
+        {"type":"paragraph","text":"Somatic motor pathways regulate skeletal muscle contraction. Autonomic pathways influence smooth muscle, myocardium and glands. Sympathetic and parasympathetic influences often act together, with organ-specific patterns; some organs are predominantly supplied by one division. This functional distinction does not eliminate integration of somatic and autonomic activity within the CNS."},
         { type: "paragraph", text: "The nervous system is a complex functional system that receives, transmits, processes, and integrates information from the body's external and internal environments." },
         { type: "paragraph", text: "It coordinates organs and functional systems, enables the body to adapt to changing environmental conditions, and contributes to the organization of behavior." },
         { type: "paragraph", text: "The neuron is the fundamental structural and functional unit of the nervous system: a specialized cell that receives, processes, and transmits signals. Glial cells support neuronal function, help maintain the local cellular environment, and participate in the formation of myelin sheaths." },
