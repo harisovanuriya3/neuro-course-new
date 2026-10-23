@@ -27,7 +27,7 @@ for(const lang of ["RU","EN","KZ"]){
  const entry=review[lang];
  assert(entry.title.length>15&&entry.note.length>60,lang+": missing title/note");
  assert.equal(entry.items.length,3,lang+": expected three self-check tasks");
- assert.deepEqual(entry.items.map(item=>item.section),["theory","interactive","cases"]);
+ assert.deepEqual(Array.from(entry.items,item=>item.section),["theory","interactive","cases"]);
  for(const item of entry.items) assert(item.question.length>110&&item.link.length>8,lang+": underspecified self-check");
  for(const token of ["Vm","E(Cl)","Cl⁻","−65"]) assert(entry.items[1].question.includes(token),lang+": missing shunting condition "+token);
 }
