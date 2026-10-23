@@ -76,6 +76,7 @@ const ui=read("components/UnifiedVirtualPatient.tsx");
 assert(ui.includes("moduleId === 6 ? integrationModelDecisionCopy[language]"),"Module 6 rubric must be a teaching model");
 assert(ui.includes("moduleId === 3 || moduleId === 4 || moduleId === 5 || moduleId === 6"),"Module 6 model labels/criterion missing");
 assert(ui.includes("criterion:mechanism:virtual-model"),"Mechanism score missing");
+assert(ui.includes('moduleId === 6 ? "v2" : "v1"'),"Module 6 revised choices must use versioned localStorage");
 const vercel=JSON.parse(read("vercel.json"));
 assert.equal(vercel.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false,
  "Review previews must remain disabled");
