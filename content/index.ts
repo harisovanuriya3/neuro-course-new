@@ -40,6 +40,7 @@ import { createModuleSixSummary } from "./course-foundation/module-six-summary";
 import { createModuleSixObjectives } from "./course-foundation/module-six-objectives";
 import { createModuleSevenObjectives } from "./course-foundation/module-seven-objectives";
 import { createModuleSevenTheory } from "./course-foundation/module-seven-theory";
+import { createModuleSevenSummary } from "./course-foundation/module-seven-summary";
 import { createModuleSevenPretest } from "./course-foundation/module-seven-pretest";
 import { createModuleSixClinical } from "./course-foundation/module-six-clinical";
 import { createModuleSixPractice } from "./course-foundation/module-six-practice";
@@ -421,6 +422,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   7: {
     ...foundationLessons[7],
+    "one-minute": {
+      RU: createModuleSevenSummary("RU"),
+      EN: createModuleSevenSummary("EN"),
+      KZ: createModuleSevenSummary("KZ"),
+    },
     theory: {
       RU: createModuleSevenTheory("RU", foundationLessons[7].theory.RU as Lesson & { kind: "theory" }),
       EN: createModuleSevenTheory("EN", foundationLessons[7].theory.EN as Lesson & { kind: "theory" }),
