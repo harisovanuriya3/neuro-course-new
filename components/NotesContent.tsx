@@ -46,6 +46,13 @@ export default function NotesContent({ language, moduleId }: { language: Languag
     EN: "For self-review: at 37 °C with all other inputs fixed, how do E(K) and calculated Vm change when extracellular K⁺ rises from 4 to 8 mM? Why can marked sustained depolarization reduce Na⁺-channel availability? Why does an unchanged illustrative spike trace in a two-ion model not establish normal excitability in a patient? Notes are not graded automatically.",
     KZ: "Өзіндік тексеру үшін: 37 °C-та басқа параметрлер тұрақты болғанда жасушадан тыс K⁺ 4-тен 8 мМ-ге артса, E(K) және есептелген Vm қалай өзгереді? Неліктен айқын әрі ұзақ деполяризация Na⁺ арналарының қолжетімділігін төмендетуі мүмкін? Екі ионды модельдегі өзгермейтін шартты импульс қисығы неге пациенттің қалыпты қозғыштығын дәлелдемейді? Жазбалар автоматты түрде бағаланбайды.",
   } as const;
+  // Module 6: use a concrete mechanism-comparison task rather than generic reflection.
+  // These notes are a learning scaffold, not a scored diagnostic or a measured trace.
+  const moduleSixPrompt = {
+    RU: "Для самопроверки: (1) сравните временную суммацию последовательных ВПСП и пространственную суммацию входов разных синапсов; (2) при Vm = −65 мВ и E(Cl) ≈ −65 мВ объясните, почему увеличение Cl⁻-проводимости может ослабить совпадающий ВПСП без заметной гиперполяризации (шунтирующее торможение); (3) сравните это с пресинаптическим торможением, когда уменьшаются вход Ca²⁺ и выделение медиатора. Почему одного измерения Vm на соме недостаточно, чтобы установить место торможения или факт разряда? Числа условны; заметки не проверяются автоматически.",
+    EN: "For self-review: (1) compare temporal summation of successive EPSPs with spatial summation of inputs from different synapses; (2) at Vm = −65 mV and E(Cl) ≈ −65 mV, explain why increased Cl⁻ conductance can attenuate a coincident EPSP without clear hyperpolarization (shunting inhibition); (3) contrast this with presynaptic inhibition that reduces Ca²⁺ entry and transmitter release. Why is a somatic Vm recording alone insufficient to locate inhibition or establish that a spike occurred? Values are illustrative; notes are not graded automatically.",
+    KZ: "Өзіндік тексеру үшін: (1) бірінен кейін бірі келетін ҚПСП-лардың уақыттық суммациясын әртүрлі синапстардан келетін кірістердің кеңістіктік суммациясымен салыстырыңыз; (2) Vm = −65 мВ және E(Cl) ≈ −65 мВ кезінде Cl⁻ өткізгіштігінің артуы айқын гиперполяризациясыз қатар келген ҚПСП-ны неге әлсірететінін түсіндіріңіз (шунттаушы тежелу); (3) мұны Ca²⁺ енуі мен медиатор бөлінуі азаятын пресинапстық тежелумен салыстырыңыз. Тек сомада тіркелген Vm тежелу орнын немесе әрекет потенциалының пайда болғанын анықтауға неге жеткіліксіз? Сандар шартты; жазбалар автоматты түрде бағаланбайды.",
+  } as const;
   const bookmarked = value.bookmarks.includes(selected);
   const update = (change: (current: ModuleNotes) => ModuleNotes) => {
     // Re-read immediately before writing so editing a note in one tab does not
@@ -67,7 +74,7 @@ export default function NotesContent({ language, moduleId }: { language: Languag
     }
   };
   return <article className={styles.tool}>
-    <h1>{c.title}</h1><p>{c.intro}</p>{moduleId === 3 && <p>{moduleThreePrompt[language]}</p>}{moduleId === 4 && <p>{moduleFourPrompt[language]}</p>}
+    <h1>{c.title}</h1><p>{c.intro}</p>{moduleId === 3 && <p>{moduleThreePrompt[language]}</p>}{moduleId === 4 && <p>{moduleFourPrompt[language]}</p>}{moduleId === 6 && <p>{moduleSixPrompt[language]}</p>}
     <label htmlFor="notes-section">{c.pick}</label>
     <select id="notes-section" value={selected} onChange={event => { setSelected(event.target.value as Section); }}>
       {sectionOrder.map(section => <option key={section} value={section}>{getSectionTitle(section, language)}</option>)}
