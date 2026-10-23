@@ -23,15 +23,25 @@ const base={
   onCorrect:"end",onIncorrect:"end"}]),...ids.map(id=>[id.replace(":main",":corrective"),{
    id:id.replace(":main",":corrective"),type:"question",level:"corrective",competency:id.split(":")[0],
    prompt:"generic corrective",options:shuffled.map(o=>({...o})),correctAnswer:"a",explanation:"generic",
-   onCorrect:"end",onIncorrect:"end"}]),["concept:basic",{id:"concept:basic",type:"question",level:"basic",prompt:"keep basic",options:shuffled,correctAnswer:"a"}]])
+   onCorrect:"end",onIncorrect:"end"}]),...ids.map(id=>[id.replace(":main",":basic"),{id:id.replace(":main",":basic"),type:"question",level:"basic",competency:id.split(":")[0],prompt:"generic basic",options:shuffled.map(o=>({...o})),correctAnswer:"a",explanation:"generic",onCorrect:"end",onIncorrect:"end"}])])
 };
 for(const language of ["RU","EN","KZ"]){
  const result=sandboxExports.createModuleSixTests(language,"Module 6",base);
  assert.equal(result.kind,"tests");
  assert.equal(result.moduleTitle,"Module 6");
- assert.equal(result.nodes["concept:basic"].prompt,"keep basic","Unreviewed basic nodes must remain unchanged");
+
  for(const id of ids){
-  const main=result.nodes[id],corrective=result.nodes[id.replace(":main",":corrective")];
+  const main=result.nodes[id],corrective=result.nodes[id.replace(":main",":corrective")],basic=result.nodes[id.replace(":main",":basic")];
+  assert.notEqual(basic.prompt,main.prompt,language+" "+id+" basic must differ from main");
+  assert.notEqual(basic.prompt,corrective.prompt,language+" "+id+" basic must differ from corrective");
+  assert.equal(basic.level,"basic",language+" "+id+" basic level");
+  assert.equal(basic.correctAnswer,"a",language+" "+id+" basic key");
+  assert.equal(basic.options.length,4,language+" "+id+" basic option count");
+  assert.deepEqual(Array.from(basic.options,o=>o.id),["c","a","d","b"],language+" "+id+" basic order");
+  assert.equal(new Set(Array.from(basic.options,o=>o.text)).size,4,language+" "+id+" basic unique options");
+  assert(basic.prompt.length>75,language+" "+id+" basic stem");
+  assert(basic.explanation.length>75,language+" "+id+" basic explanation");
+  for(const option of basic.options)assert(option.text.length>30,language+" "+id+" basic distractor");
   assert.notEqual(main.prompt,corrective.prompt,language+" "+id+" must not repeat main question");
   assert.equal(corrective.level,"corrective",language+" "+id+" must preserve level");
   assert.equal(corrective.correctAnswer,"a",language+" "+id+" corrective key");
@@ -60,5 +70,5 @@ const route=read("app/modules/[id]/[section]/page.tsx");
 assert(route.includes("getLesson(moduleNumber, section, lang)"),"Lesson route missing");
 const vercel=JSON.parse(read("vercel.json"));
 assert.equal(vercel.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false,"Preview deployment must stay disabled");
-console.log("PASS: module 6 tests, 5 main + 5 distinct corrective questions × 3 languages; keys, distractors, registry and preview policy.");
-console.log("LIMITATION: 5 generic basic questions and browser behavior still require review.");
+console.log("PASS: module 6 tests, 5 main + 5 corrective + 5 basic questions × 3 languages; keys, distractors, registry and preview policy.");
+console.log("LIMITATION: live branching, scoring, browser accessibility and independent KZ editing still require review.");
