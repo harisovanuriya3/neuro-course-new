@@ -14,7 +14,7 @@ export function withModule4Questions(base:BranchingTest,l:Language):BranchingTes
   const display=[...options.slice(offset),...options.slice(0,offset)];
   const id="module4:main:"+i;
   ids.push(id);
-  nodes[id]={id,type:"question",level:"main",competency:"mechanism",prompt,options:display,correctAnswer:"0",explanation:reasoning[i][l==="RU"?0:l==="EN"?1:2],onCorrect:i===questions.length-1?"end": "module4:main:"+(i+1),onIncorrect:i===questions.length-1?"end":"module4:main:"+(i+1)} satisfies QuestionNode;
+  nodes[id]={id,type:"question",level:"main",competency:"mechanism",prompt,options:display,correctAnswer:"0",explanation:(l==="RU"?"Механизм: ":l==="EN"?"Mechanism: ":"Тетік: ")+reasoning[i][l==="RU"?0:l==="EN"?1:2]+"\\n"+variants.slice(1).map((incorrect,j)=>(l==="RU"?"Почему неверен вариант «":l==="EN"?"Why option “":"«")+incorrect+(l==="RU"?"»: ":l==="EN"?"” is incorrect: ":"» нұсқасы неге қате: ")+ (l==="RU"?"этот вариант описывает иной процесс и не объясняет условие; сопоставьте его с требуемым направлением изменения и измеряемой величиной.":l==="EN"?"it describes a different process and does not account for the stated observation; compare its mechanism with the measured variable and expected direction.":"ол басқа үдерісті сипаттайды және берілген бақылауды түсіндірмейді; механизмді өлшенген шамамен және күтілетін бағытпен салыстырыңыз.")).join("\\n"),onCorrect:i===questions.length-1?"end": "module4:main:"+(i+1),onIncorrect:i===questions.length-1?"end":"module4:main:"+(i+1)} satisfies QuestionNode;
  }
  return {...base,start:ids[0],mainIds:ids,nodes};
 }
