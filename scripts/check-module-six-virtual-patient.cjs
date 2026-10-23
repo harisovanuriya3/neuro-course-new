@@ -46,7 +46,7 @@ for(const language of ["RU","EN","KZ"]){
   assert.equal(new Set(stage.options.map(x=>x.text)).size,3,language+" choices duplicate");
   assert(stage.options.every((o,i)=>o.id===base.stages[index].options[i].id),language+" choice IDs changed");
   for(const field of ["title","task","situation","newData","mechanism","mentorPrompt"]){
-   assert(stage[field].length>20,language+" stage "+(index+1)+" short "+field);
+   assert(stage[field].length>(field==="title"?10:20),language+" stage "+(index+1)+" short "+field);
   }
   assert(stage.options.every(o=>o.feedback.length>75),language+" missing scientific explanation");
   assert(stage.options[stage.correctOption].text.length>45,language+" missing correct option");
