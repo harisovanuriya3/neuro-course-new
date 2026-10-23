@@ -57,6 +57,17 @@ const lesson: Lesson = {
         { type: "paragraph", text: "Understanding normal mechanisms is essential for studying nervous system pathophysiology: it helps explain how disturbances of excitability, conduction, or synaptic transmission can lead to functional impairment." },
       ],
     },
+    {
+      id: "sensorimotor-feedback",
+      title: "Functional organization: from receptors to response and feedback",
+      blocks: [
+        { type: "paragraph", text: "Nervous-system function begins when a physical or chemical stimulus is transduced into a receptor potential. If the resulting input reaches threshold, action potentials travel along afferent fibers toward central structures. Discharge frequency and recruitment patterns encode relevant stimulus features; the amplitude of an individual all-or-none action potential does not grow with stimulus intensity." },
+        { type: "paragraph", text: "Sensory information enters neural circuits receiving both excitatory and inhibitory synaptic influences. Neurons integrate postsynaptic potentials across time and space; circuit output depends on membrane excitability, connectivity and physiological state. Not every response requires the cerebral cortex: spinal cord and brainstem networks can organize rapid protective responses, while descending pathways can modulate them." },
+        { type: "paragraph", text: "Motor commands travel along efferent pathways to effectors such as skeletal muscle. Movement changes muscle length, joint configuration and cutaneous stimulation. The resulting new afferent information returns to neural circuits and helps reduce errors relative to the intended action. A reflex is therefore usefully understood as part of a dynamic feedback system, not only a one-way chain of five structures." },
+        { type: "paragraph", text: "Negative feedback counteracts a deviation from an operating range, but it does not imply that every physiological variable is held perfectly constant. For example, standing alters venous return and recruits cardiovascular reflexes; the nervous system integrates pressure-receptor signals and generates autonomic responses. Such mechanisms illustrate the interaction of neural, cardiovascular and endocrine regulation." },
+        { type: "paragraph", text: "Sound physiological reasoning separates the intervention, the measurement and the interpretation. Electromyography records electrical activity in muscle, not force directly; scalp EEG reflects population-level electrical fields, not individual thoughts or single-neuron action potentials. An experimental conclusion must specify conditions, controls, potential artifacts and credible alternative explanations." },
+      ],
+    },
   ],
   outcomes: {
     title: "6. Learning Outcomes",
