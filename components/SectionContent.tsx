@@ -41,7 +41,7 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
         </aside>
         <PhysiologyInfographic moduleId={Number(moduleId)} language={language} />
         <TheoryMedia moduleId={Number(moduleId)} language={language} />
-        <LessonContent lesson={lesson} />
+        <LessonContent lesson={lesson} moduleId={moduleId} language={language} />
         {Number(moduleId) === 3 && <NerveFiberExpandedTheory language={language} />}
       </>;
     }
