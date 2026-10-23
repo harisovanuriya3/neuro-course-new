@@ -63,7 +63,7 @@ assert.equal(labAst.parseDiagnostics.length,0,"Integration laboratory TSX syntax
 const estimator=labAst.statements.find(node=>ts.isFunctionDeclaration(node)&&
  node.name?.text==="estimateIntegrationVoltage");
 assert(estimator?.body,"Numerical integration estimator missing");
-const estimateCode=ts.transpileModule("("+estimator.getText(labAst).replace(/^export\\s+/,"")+")",{
+const estimateCode=ts.transpileModule("("+estimator.getText(labAst).replace(/^export\s+/,"")+")",{
  compilerOptions:{target:ts.ScriptTarget.ES2020}
 });
 const estimate=vm.runInNewContext(estimateCode.outputText);
