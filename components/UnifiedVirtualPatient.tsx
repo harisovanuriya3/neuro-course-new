@@ -55,6 +55,13 @@ const synapseModelDecisionCopy = {
   KZ: { ...modelDecisionCopy.KZ, formingNext:"Импульстің өтуін, Ca²⁺-ке тәуелді бөлінуді және соңғы пластинка жауабын қайталаңыз.", reviewNext:"Кванттық бөлінуді және пре-/постсинапстық локализацияны қайталаңыз." }
 } as const;
 
+// Module 6 is a computer integration exercise, not an assessment of patient care.
+const integrationModelDecisionCopy = {
+  RU: { ...modelDecisionCopy.RU, formingNext:"Сравните временную и пространственную суммацию и проверьте, что линейная модель не вычисляет шунтирование.", reviewNext:"Повторите ВПСП, ТПСП, порог и влияние проводимости; затем пересчитайте условные примеры." },
+  EN: { ...modelDecisionCopy.EN, formingNext:"Compare temporal and spatial summation; remember that the linear model does not simulate shunting.", reviewNext:"Review EPSPs, IPSPs, threshold and conductance, then recalculate the illustrative examples." },
+  KZ: { ...modelDecisionCopy.KZ, formingNext:"Уақыттық және кеңістіктік суммацияны салыстырыңыз; сызықтық модель шунттауды есептемейтінін ескеріңіз.", reviewNext:"ҚПСП, ТПСП, табалдырық пен өткізгіштікті қайталап, шартты мысалдарды қайта есептеңіз." }
+} as const;
+
 type StoredState = { current: number; unlocked: number; selected: (number | null)[]; notes: string[] };
 const emptyState = (): StoredState => ({ current: 0, unlocked: 0, selected: [null, null, null, null, null, null], notes: ["", "", "", "", "", ""] });
 
@@ -97,9 +104,9 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
     if (!scenario || !allStagesCompleted) return;
     const correct = scenario.stages.reduce((sum, reviewStage, index) => sum + (state.selected[index] === reviewStage.correctOption ? 1 : 0), 0);
     recordOutcome(moduleId, "virtual-patient", correct, scenario.stages.length);
-    // Modules 3 and 4 are computer teaching models, not clinical patient encounters.
+    // Modules 3–6 are computer teaching models, not clinical patient encounters.
     // Their keyed decisions assess physiological mechanism, not clinical competence.
-    const criterion = moduleId === 3 || moduleId === 4 || moduleId === 5
+    const criterion = moduleId === 3 || moduleId === 4 || moduleId === 5 || moduleId === 6
       ? "criterion:mechanism:virtual-model"
       : "criterion:clinical:virtual-patient";
     recordOutcome(moduleId, criterion, correct, scenario.stages.length);
@@ -115,7 +122,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   const complete = selected !== null;
   const reasoningComplete = state.notes[state.current].trim().length >= 12;
   const decisionCommitted = complete && reasoningComplete;
-  const d = moduleId === 4 ? membraneModelDecisionCopy[language] : moduleId === 3 ? modelDecisionCopy[language] : moduleId === 5 ? synapseModelDecisionCopy[language] : decisionCopy[language];
+  const d = moduleId === 4 ? membraneModelDecisionCopy[language] : moduleId === 3 ? modelDecisionCopy[language] : moduleId === 5 ? synapseModelDecisionCopy[language] : moduleId === 6 ? integrationModelDecisionCopy[language] : decisionCopy[language];
   const correctDecisions = scenario.stages.reduce((sum, reviewStage, index) => sum + (state.selected[index] === reviewStage.correctOption ? 1 : 0), 0);
   const decisionPercent = Math.round((correctDecisions / scenario.stages.length) * 100);
   const decisionLevel = decisionPercent >= 80 ? d.strong : decisionPercent >= 50 ? d.forming : d.review;
@@ -187,7 +194,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
           <span>{c.stage} {state.current + 1}/6</span>
         </div>}
         <VirtualPatientVisual moduleId={moduleId} stage={state.current + 1} selected={decisionCommitted ? selected : null} language={language} />
-        <div className={styles.caseLabel}>{(moduleId === 3 || moduleId === 4 || moduleId === 5) ? {RU:"Компьютерная модель",EN:"Computer model",KZ:"Компьютерлік модель"}[language] : c.case}</div><h2>{scenario.patient}</h2><p className={styles.profile}>{scenario.profile}</p><div className={styles.patientBubble}>{scenario.opening}</div>
+        <div className={styles.caseLabel}>{(moduleId === 3 || moduleId === 4 || moduleId === 5 || moduleId === 6) ? {RU:"Компьютерная модель",EN:"Computer model",KZ:"Компьютерлік модель"}[language] : c.case}</div><h2>{scenario.patient}</h2><p className={styles.profile}>{scenario.profile}</p><div className={styles.patientBubble}>{scenario.opening}</div>
       </aside>
       <section className={styles.workspace} aria-labelledby="vp-stage-title">
         <div className={styles.stageCount}>{c.stage} {state.current + 1}/6</div>
@@ -211,7 +218,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
             <p style={{margin:"0 0 6px"}}><strong>{d.correct}: {correctDecisions}/6 · {decisionPercent}%</strong></p>
             <progress value={correctDecisions} max={6} aria-label={d.profile} style={{width:"100%"}} />
             <p style={{margin:"8px 0 4px"}}>{decisionLevel}</p>
-            {(moduleId === 3 || moduleId === 4 || moduleId === 5) && "scope" in d && <p style={{margin:"6px 0"}}>{d.scope}</p>}
+            {(moduleId === 3 || moduleId === 4 || moduleId === 5 || moduleId === 6) && "scope" in d && <p style={{margin:"6px 0"}}>{d.scope}</p>}
             <p style={{margin:0}}><strong>{d.next}:</strong> {decisionAdvice}</p>
           </div>
           <p>{scenario.mechanismSummary}</p>
