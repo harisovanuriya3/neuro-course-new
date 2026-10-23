@@ -5,6 +5,9 @@ import EN from "./modules/1/theory/en";
 import membraneTheoryRU from "./modules/4/theory/ru";
 import membraneTheoryKZ from "./modules/4/theory/kz";
 import membraneTheoryEN from "./modules/4/theory/en";
+import synapseTheoryRU from "./modules/5/theory/ru";
+import synapseTheoryKZ from "./modules/5/theory/kz";
+import synapseTheoryEN from "./modules/5/theory/en";
 import practiceRU from "./modules/1/practice/ru";
 import practiceKZ from "./modules/1/practice/kz";
 import practiceEN from "./modules/1/practice/en";
@@ -53,6 +56,14 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       RU: { ...membraneTheoryRU, kind: "theory" },
       KZ: { ...membraneTheoryKZ, kind: "theory" },
       EN: { ...membraneTheoryEN, kind: "theory" },
+    },
+  },
+  5: {
+    ...foundationLessons[5],
+    theory: {
+      RU: { ...synapseTheoryRU, kind: "theory" },
+      KZ: { ...synapseTheoryKZ, kind: "theory" },
+      EN: { ...synapseTheoryEN, kind: "theory" },
     },
   },
 };
