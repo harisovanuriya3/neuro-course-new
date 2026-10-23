@@ -47,10 +47,10 @@ export default function IntegrationExperimentLab({language}:{language:Language})
     setTrial(null);
     setProgress(0);
   };
-  const beginTrial=()=>{
+  const beginTrial=(forceNew=false)=>{
     if(!prediction || running)return;
     // Resume the same frozen experiment rather than silently starting a different trial.
-    if(trial && progress>0 && progress<1){
+    if(!forceNew && trial && progress>0 && progress<1){
       setRunning(true);
       return;
     }
@@ -120,12 +120,12 @@ export default function IntegrationExperimentLab({language}:{language:Language})
             ))}
           </fieldset>
           <div>
-            <button type="button" disabled={!prediction||running} onClick={beginTrial}>
+            <button type="button" disabled={!prediction||running} onClick={()=>beginTrial()}>
               {trial&&progress>0&&progress<1?c.resume:c.run}
             </button>
             <button type="button" disabled={!running} onClick={()=>setRunning(false)}>{c.pause}</button>
             <button type="button" disabled={!prediction||running}
-              onClick={()=>{setTrial(null);setProgress(0);setRunning(false);}}>{c.replay}</button>
+              onClick={()=>beginTrial(true)}>{c.replay}</button>
           </div>
         </div>
         <div className={styles.graph}>
