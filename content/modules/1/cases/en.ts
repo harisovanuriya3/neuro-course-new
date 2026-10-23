@@ -139,6 +139,96 @@ const lesson: CasesLesson = {
       ],
       explanation: ["The recorded nerve action potential shows that an impulse reached the recording site; the compound muscle response represents the electrical activity of muscle fibers after additional transmission steps.","Neuromuscular transmission, muscle membrane excitability and other links may affect the response. Decrement during repeated stimulation can be informative, but interpretation depends on the exact protocol and exclusion of artifacts.","Repeated nerve conduction measurements, compound muscle action potential analysis and, when indicated, needle EMG help localization. A specific disorder cannot be diagnosed from these limited findings alone."],
     },
+    {
+      id: "receptor-adaptation", title: "Receptor adaptation",
+      situation: "During sustained gentle skin pressure, firing of a rapidly adapting mechanoreceptor is initially high and then falls despite continued pressure.",
+      stages: [
+        { title: "Evidence", questions: ["How do the physical stimulus and neural signal differ?"] },
+        { title: "Physiological mechanism", questions: ["Why does declining firing not prove that pressure has ended?"] },
+        { title: "Controls and conclusion", questions: ["How would you compare rapidly and slowly adapting receptors?"] },
+      ],
+      explanation: ["Adaptation changes the encoding of a sustained stimulus; slowly adapting receptors preserve information about its continuation longer."],
+    },
+    {
+      id: "stimulus-frequency", title: "Stimulus intensity and firing rate",
+      situation: "With increasing skin pressure, action-potential firing rate rises in one afferent fiber but the amplitude of each recorded spike remains nearly constant.",
+      stages: [
+        { title: "Evidence", questions: ["Which parameter encodes increasing stimulation?"] },
+        { title: "Physiological mechanism", questions: ["Why does spike amplitude not rise in proportion to pressure?"] },
+        { title: "Controls and conclusion", questions: ["How might recruitment change as the stimulus grows?"] },
+      ],
+      explanation: ["Stimulus intensity can be encoded by firing frequency and recruitment of receptor units rather than by larger individual action potentials."],
+    },
+    {
+      id: "spinal-withdrawal", title: "Protective spinal reflex",
+      situation: "A person touches a very hot surface and withdraws the hand before consciously identifying the exact site of pain.",
+      stages: [
+        { title: "Evidence", questions: ["Which links organize the early withdrawal?"] },
+        { title: "Physiological mechanism", questions: ["Why can conscious perception follow movement?"] },
+        { title: "Controls and conclusion", questions: ["What happens if the efferent part of the reflex circuit is damaged?"] },
+      ],
+      explanation: ["Spinal circuits can generate rapid protective movement; ascending pathways support conscious perception, whereas efferent damage weakens the motor response."],
+    },
+    {
+      id: "patellar-reflex", title: "Patellar reflex and inhibition",
+      situation: "A tap on the quadriceps tendon produces knee extension while activity of some antagonist flexor motor neurons is suppressed.",
+      stages: [
+        { title: "Evidence", questions: ["Which receptor detects muscle stretch?"] },
+        { title: "Physiological mechanism", questions: ["Why is extensor excitation accompanied by antagonist inhibition?"] },
+        { title: "Controls and conclusion", questions: ["How could peripheral nerve damage alter the reflex independently of conscious movement planning?"] },
+      ],
+      explanation: ["Muscle spindles detect stretch; spinal connections excite extensor motor neurons and recruit inhibitory interneurons affecting antagonists."],
+    },
+    {
+      id: "reaction-time", title: "Reaction time and response selection",
+      situation: "A participant presses one button after a tone in 210 ms; when choosing among three buttons based on distinct tones, mean reaction time is 360 ms.",
+      stages: [
+        { title: "Evidence", questions: ["What changed between the experimental conditions?"] },
+        { title: "Physiological mechanism", questions: ["Why does the longer time not establish slower axonal conduction?"] },
+        { title: "Controls and conclusion", questions: ["How would you control for practice and anticipation?"] },
+      ],
+      explanation: ["Choice tasks add discrimination and decision processes; measured reaction time includes sensory, central and motor components."],
+    },
+    {
+      id: "autonomic-standing", title: "Autonomic regulation on standing",
+      situation: "After moving from supine to standing, a healthy volunteer experiences a brief blood-pressure fall followed by increased heart rate and partial pressure recovery.",
+      stages: [
+        { title: "Evidence", questions: ["Which mechanoreceptors help regulate the immediate response?"] },
+        { title: "Physiological mechanism", questions: ["How do autonomic influences on the heart and vessels change?"] },
+        { title: "Controls and conclusion", questions: ["Why is this not solely a voluntary skeletal-muscle reflex?"] },
+      ],
+      explanation: ["Arterial baroreceptors report changes in vessel-wall stretch to brainstem centers; reduced baroreceptor input generally increases sympathetic and decreases vagal influence."],
+    },
+    {
+      id: "temperature-control", title: "Thermoregulation and feedback",
+      situation: "Skin cooling causes cutaneous vasoconstriction; with greater cooling, shivering may develop.",
+      stages: [
+        { title: "Evidence", questions: ["Which sensory inputs initiate the response?"] },
+        { title: "Physiological mechanism", questions: ["How do effector responses limit heat loss or increase heat production?"] },
+        { title: "Controls and conclusion", questions: ["Why is skin cooling not identical to a fall in core temperature?"] },
+      ],
+      explanation: ["Thermoreceptor inputs are integrated by central networks including the hypothalamus; vasoconstriction reduces heat loss and shivering increases heat production."],
+    },
+    {
+      id: "eeg-artifact", title: "EEG signal or artifact",
+      situation: "During scalp EEG, a participant blinks. A large slow deflection appears in frontal channels while the occipital rhythm remains largely unchanged.",
+      stages: [
+        { title: "Evidence", questions: ["What observations suggest an ocular artifact?"] },
+        { title: "Physiological mechanism", questions: ["Why must the waveform not automatically be labeled a pathological cortical discharge?"] },
+        { title: "Controls and conclusion", questions: ["What control recordings could help verify its source?"] },
+      ],
+      explanation: ["Blinking and eye movements generate electrical artifacts prominent over anterior electrodes; time-locking and electrooculography can clarify their origin."],
+    },
+    {
+      id: "emg-vs-force", title: "EMG versus muscle force",
+      situation: "During a progressively loaded task, forearm surface EMG amplitude increases but its relation to measured force is nonlinear.",
+      stages: [
+        { title: "Evidence", questions: ["What physical signal is recorded by EMG?"] },
+        { title: "Physiological mechanism", questions: ["Why is EMG amplitude not a direct readout of contraction force?"] },
+        { title: "Controls and conclusion", questions: ["Which factors, including electrode position and fatigue, require control?"] },
+      ],
+      explanation: ["EMG reflects summated electrical activity of motor units; force also depends on muscle mechanics, length, contraction velocity and other conditions."],
+    },
   ],
   sources: [
     { title: "Neuroscience: Chemical Synapses", href: "https://www.ncbi.nlm.nih.gov/books/NBK11009/" },
