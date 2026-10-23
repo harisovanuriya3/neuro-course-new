@@ -19,10 +19,11 @@ for(const prop of base.initializer.properties){
  for(const e of prop.initializer.elements)assert(ts.isStringLiteral(e)&&e.text.length>95,"Short base definition");
 }
 const extra=variables.find(d=>d.name.getText(ast)==="extra");
-assert(extra&&ts.isArrayLiteralExpression(extra.initializer),"Additional terminology missing");
-assert.equal(extra.initializer.elements.length,6,"Expected six additional terms");
+const extraArray=extra&&(ts.isAsExpression(extra.initializer)?extra.initializer.expression:extra.initializer);
+assert(extraArray&&ts.isArrayLiteralExpression(extraArray),"Additional terminology missing");
+assert.equal(extraArray.elements.length,6,"Expected six additional terms");
 const ids=[];
-for(const item of extra.initializer.elements){
+for(const item of extraArray.elements){
  assert(ts.isObjectLiteralExpression(item),"Glossary entry must be an object");
  const props=new Map(item.properties.filter(ts.isPropertyAssignment).map(p=>[p.name.getText(ast),p.initializer]));
  const id=props.get("id");
