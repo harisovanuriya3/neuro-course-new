@@ -1,5 +1,6 @@
 import {physiologicalRelations} from "../physiological-relations";
 import {module4Cases} from "./module4-cases";
+import {withModule4Questions} from "./module4-tests";
 import {termDefinitions} from "./topics";
 import type { Language } from "../course";
 import type { CasesLesson } from "../cases";
@@ -216,11 +217,12 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   "justification:review-2":{id:"justification:review-2",type:"remediation",competency:justifyComp,depth:2,text:l==="RU"?"Сравните свою причинную цепь с теорией: найдите первое звено, где направление связи расходится, и исправьте только его.":l==="EN"?"Compare your causal chain with the theory: find the first link where the direction differs and correct only that link.":"Себептік тізбегіңізді теориямен салыстырыңыз: бағыт сәйкес келмейтін алғашқы буынды тауып, тек соны түзетіңіз.",theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:jBasic},
   [jBasic]:{id:jBasic,type:"question",level:"basic",competency:justifyComp,prompt:justificationPrompt,options:opts(justificationCorrect,justificationWrong2,justificationWrong3,justificationWrong1),correctAnswer:"a",explanation:l==="RU"?"Хорошее обоснование объясняет причинную связь и не делает вывод сильнее, чем позволяют данные.":l==="EN"?"A good justification explains the causal link without making a stronger claim than the data support.":"Жақсы негіздеме себептік байланысты түсіндіреді және деректерден артық қорытынды жасамайды.",onCorrect:"end",onIncorrect:"end"}
  };
- return {kind:"tests",title:l==="RU"?"Тест с разбором":l==="EN"?"Test with Feedback":"Түсіндірмесі бар тест",moduleTitle,ui:testUi(l),start:cMain,mainIds:[cMain,mMain,aMain,tMain,jMain],competencies:{
+ const lesson:BranchingTest={kind:"tests",title:l==="RU"?"Тест с разбором":l==="EN"?"Test with Feedback":"Түсіндірмесі бар тест",moduleTitle,ui:testUi(l),start:cMain,mainIds:[cMain,mMain,aMain,tMain,jMain],competencies:{
   [conceptComp]:{title:l==="RU"?"Ключевые понятия":l==="EN"?"Key concepts":"Негізгі ұғымдар",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [mechComp]:{title:l==="RU"?"Механизм":l==="EN"?"Mechanism":"Тетік",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [appComp]:{title:l==="RU"?"Применение и интерпретация":l==="EN"?"Application and interpretation":"Қолдану және түсіндіру",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}},
   transfer:{title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [justifyComp]:{title:l==="RU"?"Обоснование вывода":l==="EN"?"Justification of conclusion":"Қорытындыны негіздеу",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}}
  },nodes};
+ return topic.id===4 ? withModule4Questions(lesson,l) : lesson;
 }
