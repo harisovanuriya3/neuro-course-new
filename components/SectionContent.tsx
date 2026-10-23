@@ -47,6 +47,21 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
             <figcaption style={{fontSize:14,marginTop:10,color:"#3c566a"}}>{language==="RU"?"Анатомический атлас нервной системы. Нажмите, чтобы увеличить.":language==="EN"?"Anatomical atlas of the nervous system. Select to enlarge.":"Жүйке жүйесінің анатомиялық атласы. Үлкейту үшін басыңыз."}</figcaption>
           </figure>
         )}
+        {Number(moduleId) >= 1 && Number(moduleId) <= 10 && (
+          <figure style={{margin:"14px 0 24px",border:"1px solid #dce4eb",padding:12,borderRadius:12}}>
+            <a href={`/images/neuro-modules/module-${String(moduleId).padStart(2,"0")}.webp`} target="_blank" rel="noopener noreferrer">
+              <img
+                src={`/images/neuro-modules/module-${String(moduleId).padStart(2,"0")}.webp`}
+                loading="lazy"
+                alt={language==="RU"?`Иллюстрация физиологии нервной системы — модуль ${moduleId}`:language==="EN"?`Nervous system physiology illustration — module ${moduleId}`:`Жүйке жүйесі физиологиясының суреті — ${moduleId}-модуль`}
+                style={{width:"100%",height:"auto",maxHeight:560,objectFit:"contain",display:"block",borderRadius:8}}
+              />
+            </a>
+            <figcaption style={{fontSize:14,lineHeight:1.5,marginTop:8,color:"#3c566a"}}>
+              {language==="RU"?"Тематическая учебная иллюстрация. Нажмите, чтобы увеличить.":language==="EN"?"Topic illustration. Select to enlarge.":"Тақырыптық оқу суреті. Үлкейту үшін басыңыз."}
+            </figcaption>
+          </figure>
+        )}
         <PhysiologyInfographic moduleId={Number(moduleId)} language={language} />
         <TheoryMedia moduleId={Number(moduleId)} language={language} />
         <LessonContent lesson={lesson} moduleId={moduleId} language={language} />
