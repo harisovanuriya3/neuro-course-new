@@ -7,6 +7,7 @@ import { isSection, getSectionTitle, sectionOrder } from "../../../../content/se
 
 import SectionContent from "../../../../components/SectionContent";
 import CourseNavigation from "../../../../components/CourseNavigation";
+import SectionProgressStrip from "../../../../components/SectionProgressStrip";
 import DocumentLanguage from "../../../../components/DocumentLanguage";
 import VirtualPatient from "../../../../components/VirtualPatient";
 import VisualPathwayLocalizer from "../../../../components/VisualPathwayLocalizer";
@@ -131,6 +132,7 @@ export default async function SectionPage({
       >
         <ModuleSidebar moduleNumber={moduleNumber} currentSection={section} currentSectionTitle={getSectionTitle(section, lang)} lang={lang} />
         <div style={{ minWidth: 0 }}>
+        <SectionProgressStrip moduleId={moduleNumber} current={section} language={lang} />
         <div
           style={{
             padding: "clamp(22px, 4vw, 36px)",
