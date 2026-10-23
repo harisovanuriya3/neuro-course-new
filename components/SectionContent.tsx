@@ -39,6 +39,14 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
           <strong>{guide.title}</strong>
           <p style={{margin:"6px 0 0",lineHeight:1.6}}>{guide.text}</p>
         </aside>
+        {Number(moduleId) >= 1 && Number(moduleId) <= 5 && (
+          <figure style={{margin:"12px 0 28px",padding:"12px",border:"1px solid #dce4eb",borderRadius:12}}>
+            <a href={`/images/neuro-atlas-${language.toLowerCase()}.png`} target="_blank" rel="noopener noreferrer" aria-label={language==="RU"?"Увеличить анатомическую иллюстрацию":language==="EN"?"Open full-size anatomy illustration":"Анатомиялық суретті үлкейту"}>
+              <img src={`/images/neuro-atlas-${language.toLowerCase()}.png`} alt={language==="RU"?"Нервная система человека: мозг, спинной мозг, периферические нервы, нейрон и синапс":language==="EN"?"Human nervous system: brain, spinal cord, peripheral nerves, neuron and synapse":"Адамның жүйке жүйесі: ми, жұлын, шеткі жүйкелер, нейрон және синапс"} style={{display:"block",width:"100%",height:"auto",borderRadius:8}} loading="lazy" />
+            </a>
+            <figcaption style={{fontSize:14,marginTop:10,color:"#3c566a"}}>{language==="RU"?"Анатомический атлас нервной системы. Нажмите, чтобы увеличить.":language==="EN"?"Anatomical atlas of the nervous system. Select to enlarge.":"Жүйке жүйесінің анатомиялық атласы. Үлкейту үшін басыңыз."}</figcaption>
+          </figure>
+        )}
         <PhysiologyInfographic moduleId={Number(moduleId)} language={language} />
         <TheoryMedia moduleId={Number(moduleId)} language={language} />
         <LessonContent lesson={lesson} moduleId={moduleId} language={language} />
