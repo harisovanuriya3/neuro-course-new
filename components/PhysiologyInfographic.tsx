@@ -17,7 +17,7 @@ export default function PhysiologyInfographic({moduleId,language}:{moduleId:numb
     {label:t.mechanism,detail:relation.mechanism},
     {label:t.effect,detail:relation.effect}
   ];
-  return <figure aria-label={t.title} style={{margin:"24px 0",padding:"clamp(16px,3vw,26px)",border:"1px solid #b9d4df",borderRadius:18,background:"#f6fbfd"}}>
+  return <figure id="physiology-infographic" aria-label={t.title} style={{margin:"24px 0",padding:"clamp(16px,3vw,26px)",border:"1px solid #b9d4df",borderRadius:18,background:"#f6fbfd"}}>
     <figcaption style={{fontSize:"1.2rem",fontWeight:750,marginBottom:12}}>{t.title}</figcaption>
     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,215px),1fr))",gap:12,alignItems:"stretch"}}>
       {nodes.map((node,index)=><div key={index} style={{padding:16,background:"#fff",border:"1px solid #cedfe8",borderTop:"4px solid "+(["#2475a0","#5b6aa7","#287d73"][index]),borderRadius:12,minWidth:0}}>
