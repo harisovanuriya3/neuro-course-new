@@ -20,14 +20,27 @@ const base={
  kind:"tests",moduleTitle:"old",start:"concept:main",mainIds:ids,
  nodes:Object.fromEntries([...ids.map(id=>[id,{id,type:"question",level:"main",competency:id.split(":")[0],
   prompt:"generic",options:shuffled.map(o=>({...o})),correctAnswer:"a",explanation:"generic",
-  onCorrect:"end",onIncorrect:"end"}]),["concept:corrective",{id:"concept:corrective",type:"question",level:"corrective",prompt:"keep",options:shuffled,correctAnswer:"a"}]])
+  onCorrect:"end",onIncorrect:"end"}]),...ids.map(id=>[id.replace(":main",":corrective"),{
+   id:id.replace(":main",":corrective"),type:"question",level:"corrective",competency:id.split(":")[0],
+   prompt:"generic corrective",options:shuffled.map(o=>({...o})),correctAnswer:"a",explanation:"generic",
+   onCorrect:"end",onIncorrect:"end"}]),["concept:basic",{id:"concept:basic",type:"question",level:"basic",prompt:"keep basic",options:shuffled,correctAnswer:"a"}]])
 };
 for(const language of ["RU","EN","KZ"]){
  const result=sandboxExports.createModuleSixTests(language,"Module 6",base);
  assert.equal(result.kind,"tests");
  assert.equal(result.moduleTitle,"Module 6");
- assert.equal(result.nodes["concept:corrective"].prompt,"keep","Remedial nodes must remain unchanged");
+ assert.equal(result.nodes["concept:basic"].prompt,"keep basic","Unreviewed basic nodes must remain unchanged");
  for(const id of ids){
+  const main=result.nodes[id],corrective=result.nodes[id.replace(":main",":corrective")];
+  assert.notEqual(main.prompt,corrective.prompt,language+" "+id+" must not repeat main question");
+  assert.equal(corrective.level,"corrective",language+" "+id+" must preserve level");
+  assert.equal(corrective.correctAnswer,"a",language+" "+id+" corrective key");
+  assert.equal(corrective.options.length,4,language+" "+id+" corrective option count");
+  assert.deepEqual(Array.from(corrective.options,o=>o.id),["c","a","d","b"],"Corrective option order changed");
+  assert.equal(new Set(Array.from(corrective.options,o=>o.text)).size,4,language+" "+id+" corrective distractors");
+  assert(corrective.prompt.length>75,language+" "+id+" corrective stem too short");
+  assert(corrective.explanation.length>75,language+" "+id+" corrective explanation too short");
+  for(const option of corrective.options)assert(option.text.length>30,language+" "+id+" corrective option too short");
   const q=result.nodes[id];
   assert(q.prompt.length>75,language+" "+id+" prompt too short");
   assert(q.explanation.length>75,language+" "+id+" explanation too short");
@@ -47,5 +60,5 @@ const route=read("app/modules/[id]/[section]/page.tsx");
 assert(route.includes("getLesson(moduleNumber, section, lang)"),"Lesson route missing");
 const vercel=JSON.parse(read("vercel.json"));
 assert.equal(vercel.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false,"Preview deployment must stay disabled");
-console.log("PASS: module 6 tests, 5 authored main questions × 3 languages; keys, distractors, registry and preview policy.");
-console.log("LIMITATION: generic corrective/basic questions and browser behavior still require review.");
+console.log("PASS: module 6 tests, 5 main + 5 distinct corrective questions × 3 languages; keys, distractors, registry and preview policy.");
+console.log("LIMITATION: 5 generic basic questions and browser behavior still require review.");
