@@ -25,6 +25,11 @@ export default function TheoryMedia({ moduleId, language }: { moduleId: number; 
       <a href="#theory-visuals">{c.images}</a>
       <Link href={`/modules/${moduleId}/media?lang=${language}`}>{c.media}</Link>
     </nav>
+    {moduleId === 2 && <nav aria-label={language === "RU" ? "Связанные разделы вызванных потенциалов" : language === "KZ" ? "Шақырылған потенциалдардың байланысты бөлімдері" : "Related evoked-potential sections"} style={{display:"flex",gap:14,flexWrap:"wrap",padding:"12px 0"}}>
+      <Link href={`/modules/2/interactive?lang=${language}#evoked-averaging-lab`}>{language === "RU" ? "Лабораторная работа: усреднение вызванных потенциалов" : language === "KZ" ? "Зертханалық жұмыс: шақырылған потенциалдарды орташалау" : "Laboratory: averaging evoked potentials"}</Link>
+      <Link href={`/modules/2/cases?lang=${language}`}>{language === "RU" ? "Ситуационные задачи" : language === "KZ" ? "Жағдаяттық тапсырмалар" : "Clinical cases"}</Link>
+      <Link href={`/modules/2/tests?lang=${language}`}>{language === "RU" ? "Тесты" : language === "KZ" ? "Тесттер" : "Tests"}</Link>
+    </nav>}
     <details style={{ marginTop: 18 }}><summary style={{ cursor: "pointer", fontWeight: 700 }}>{c.animation}</summary>
       {moduleId === 1 ? <OrganizationAnimation language={language} /> : <FoundationMediaAnimation moduleId={moduleId} language={language} />}
     </details>
