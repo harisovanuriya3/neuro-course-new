@@ -11,9 +11,9 @@ const ast=ts.createSourceFile(file,source,ts.ScriptTarget.Latest,true,ts.ScriptK
 assert.equal(ast.parseDiagnostics.length,0,"Module 6 tests: TypeScript syntax error");
 const js=ts.transpileModule(source,{fileName:file,compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020},reportDiagnostics:true});
 assert.equal(js.diagnostics?.filter(d=>d.category===ts.DiagnosticCategory.Error).length||0,0,"Module 6 tests: transpilation error");
-const exports={};
-vm.runInNewContext(js.outputText,{exports,require:()=>{throw new Error("Unexpected runtime import");}}, {timeout:3000});
-assert.equal(typeof exports.createModuleSixTests,"function","Module 6 test factory not exported");
+const sandboxExports={};
+vm.runInNewContext(js.outputText,{exports:sandboxExports,require:()=>{throw new Error("Unexpected runtime import");}}, {timeout:3000});
+assert.equal(typeof sandboxExports.createModuleSixTests,"function","Module 6 test factory not exported");
 const ids=["concept:main","mechanism:main","application:main","transfer:main","justification:main"];
 const shuffled=[{id:"c",text:"old c"},{id:"a",text:"old a"},{id:"d",text:"old d"},{id:"b",text:"old b"}];
 const base={
@@ -23,7 +23,7 @@ const base={
   onCorrect:"end",onIncorrect:"end"}]),["concept:corrective",{id:"concept:corrective",type:"question",level:"corrective",prompt:"keep",options:shuffled,correctAnswer:"a"}]])
 };
 for(const language of ["RU","EN","KZ"]){
- const result=exports.createModuleSixTests(language,"Module 6",base);
+ const result=sandboxExports.createModuleSixTests(language,"Module 6",base);
  assert.equal(result.kind,"tests");
  assert.equal(result.moduleTitle,"Module 6");
  assert.equal(result.nodes["concept:corrective"].prompt,"keep","Remedial nodes must remain unchanged");
