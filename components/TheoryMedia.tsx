@@ -3,6 +3,7 @@ import type { Language } from "../content/course";
 import OrganizationAnimation from "./OrganizationAnimation";
 import FoundationMediaAnimation from "./FoundationMediaAnimation";
 import ReferenceImage from "./ReferenceImage";
+import EvokedPotentialInfographic from "./EvokedPotentialInfographic";
 
 const copy = {
   RU: { title: "Увидеть механизм", intro: "Сначала рассмотрите последовательность событий, затем сопоставьте её с объяснением в тексте.", animation: "Открыть пошаговую анимацию", images: "Анатомия и лаборатория ниже", media: "Все медиаматериалы модуля", video: "Учебное видео", note: "Khan Academy · на английском языке. Подписи и пошаговое объяснение в учебнике доступны на выбранном языке.", watch: "Открыть видео и расшифровку у автора", unavailable: "Если встроенный проигрыватель недоступен, откройте видео у автора.", brain: "Препарат головного и спинного мозга: сравните их расположение и непрерывность. На этом обзорном фото отдельные ядра не размечены.", source: "Источник и лицензия", neuron: "Как работает нейрон", potential: "Как возникает и распространяется потенциал действия", synapse: "Передача сигнала через химический синапс" },
@@ -30,6 +31,7 @@ export default function TheoryMedia({ moduleId, language }: { moduleId: number; 
       <Link href={`/modules/2/cases?lang=${language}`}>{language === "RU" ? "Ситуационные задачи" : language === "KZ" ? "Жағдаяттық тапсырмалар" : "Clinical cases"}</Link>
       <Link href={`/modules/2/tests?lang=${language}`}>{language === "RU" ? "Тесты" : language === "KZ" ? "Тесттер" : "Tests"}</Link>
     </nav>}
+    {moduleId === 2 && <EvokedPotentialInfographic language={language} />}
     <details style={{ marginTop: 18 }}><summary style={{ cursor: "pointer", fontWeight: 700 }}>{c.animation}</summary>
       {moduleId === 1 ? <OrganizationAnimation language={language} /> : <FoundationMediaAnimation moduleId={moduleId} language={language} />}
     </details>
