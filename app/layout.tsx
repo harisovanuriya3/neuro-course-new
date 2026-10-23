@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import StudyToolbar from "../components/StudyToolbar";
 import { headers } from "next/headers";
 
 export const metadata = {
@@ -13,7 +15,7 @@ export default async function RootLayout({
   const language = (await headers()).get("x-course-language");
   return (
     <html lang={language === "en" || language === "kk" ? language : "ru"}>
-      <body>
+      <body><Suspense fallback={null}><StudyToolbar /></Suspense>
         {children}
       </body>
     </html>
