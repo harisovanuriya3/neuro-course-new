@@ -58,6 +58,12 @@ assert(source.includes('kind: "questions"'),"Wrong question lesson kind");
 assert(source.includes('target: {section}'),"Question explanations must link to lesson sections");
 const route=read("app/modules/[id]/[section]/page.tsx");
 assert(route.includes("getLesson(moduleNumber, section, lang)"),"Questions route must use localized lesson");
+// Written-response UX: an explanation is revealed only after a meaningful attempt.
+const renderer=read("components/StudyContent.tsx");
+assert(renderer.includes("function ReviewQuestion("),"Questions must use the written-response renderer");
+assert(renderer.includes("<VoiceTextarea"),"Written or voice response input missing");
+assert(renderer.includes("disabled={!meaningful}"),"Empty attempts must not unlock the explanation");
+assert(renderer.includes("hidden={!checked || !open}"),"Explanation must stay hidden until attempted and opened");
 const vercel=JSON.parse(read("vercel.json"));
 assert.equal(vercel.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false,"Review branch previews must remain disabled");
 console.log("PASS: module 6 questions: 5 physiological prompts and explanations × RU/EN/KZ; registered, routed, previews disabled.");
