@@ -17,11 +17,11 @@ const copy = {
     title: "Лаборатория: где прервётся рефлекс?", intro: "Смоделируйте отдёргивание руки от болезненно горячей поверхности. Выберите состояние одного пути, предскажите движение и запустите опыт.",
     condition: "Включение / исключение участка дуги", intact: "✓ Вся дуга включена", receptor: "✕ Выключить рецептор", afferent: "✕ Выключить афферентный путь", spinal: "✕ Выключить спинальный центр", efferent: "✕ Выключить эфферентный путь",
     predict: "Ваш прогноз до опыта", moves: "Рука отдёрнется", still: "Рефлекторного движения не будет", run: "Запустить опыт", replay: "Повторить", reset: "Новый прогноз",
-    stages: ["Раздражитель действует на кожу", "Сенсорный сигнал идёт к спинному мозгу", "В спинном мозге формируется ответ", "Моторный сигнал идёт к мышцам", "Мышцы сокращаются: рука отдёргивается"],
+    stages: ["Ноцицептор преобразует болевой стимул в афферентные импульсы", "Сенсорный сигнал идёт к спинному мозгу", "В спинном мозге формируется ответ", "Моторный сигнал идёт к мышцам", "Мышцы сокращаются: рука отдёргивается"],
     waiting: "Сначала выберите условие и прогноз.", running: "Опыт идёт", stopped: "Передача остановилась", finished: "Опыт завершён", blockedAt: { receptor: "Ноцицептор выключен: афферентный сигнал не возникает", afferent: "Сенсорный сигнал не дошёл до спинного мозга", spinal: "Спинальный центр выключен: моторная команда не сформирована", efferent: "Моторный сигнал не дошёл до мышц" },
     correct: "Прогноз подтвердился.", incorrect: "Прогноз не подтвердился.",
     outcome: { intact: "Все звенья дуги работают: сенсорный сигнал достигает спинного мозга, а моторный ответ — мышцы.", receptor: "При выключенном ноцицепторе сигнал не возникает, поэтому рефлекс не запускается.", afferent: "Сигнал возник у рецептора, но не дошёл до спинного мозга по выбранному пути. Рефлекторный ответ в этой модели не запускается.", spinal: "Афферентный сигнал достигает спинного мозга, но при выключенном спинальном центре моторный ответ не формируется.", efferent: "Сенсорный сигнал достиг спинного мозга, но команда не прошла по моторному пути к мышцам. Рефлекторного сокращения нет." },
-    limit: "Учебная модель одного рефлекторного пути. Анимация показывает движение руки и распространение нервного сигнала по анатомической схеме. Сознательное восприятие боли, другие пути и защитные реакции здесь не моделируются. Не проверяйте это на себе горячими предметами.",
+    limit: "Учебная модель одного рефлекторного пути. Анимация показывает движение руки и распространение нервного сигнала по анатомической схеме. Полисинаптическая сеть показана одним вставочным нейроном; торможение разгибателей, перекрёстный разгибательный рефлекс, нисходящая регуляция и сознательное восприятие боли здесь не моделируются. Не проверяйте это на себе горячими предметами.",
     anatomy: ["Ноцицептор кожи","Чувствительный нейрон","Задний корешок","Вставочный нейрон","Мотонейрон переднего рога","Передний корешок","Мышца-сгибатель"], ascending: "Коллатераль к восходящим путям: осознание боли не требуется для запуска спинального ответа", photo: "Постановочные изображения, созданные ИИ для учебника", contactAlt: "Кисть у металлической чашки до отдёргивания", withdrawalAlt: "Та же кисть отведена от металлической чашки", record: "Записать результат", journal: "Журнал опытов", explanation: "Почему рефлекс возник или прервался?", source: "Физиология рефлекса: OpenStax, Anatomy and Physiology 2e, гл. 14",
   },
   EN: {
@@ -29,11 +29,11 @@ const copy = {
     title: "Laboratory: where does the reflex stop?", intro: "Model hand withdrawal from a painfully hot surface. Choose the state of one pathway, predict movement, and run the experiment.",
     condition: "Include / exclude reflex-arc segment", intact: "✓ Entire arc enabled", receptor: "✕ Disable receptor", afferent: "✕ Disable afferent pathway", spinal: "✕ Disable spinal center", efferent: "✕ Disable efferent pathway",
     predict: "Your prediction before the run", moves: "The hand withdraws", still: "No reflex movement", run: "Run experiment", replay: "Replay", reset: "New prediction",
-    stages: ["Stimulus activates receptors in the skin", "Sensory signal travels toward the spinal cord", "A response is formed in the spinal cord", "Motor signal travels toward the muscles", "Muscles contract: the hand withdraws"],
+    stages: ["The skin nociceptor transduces a noxious stimulus into afferent impulses", "Sensory signal travels toward the spinal cord", "A response is formed in the spinal cord", "Motor signal travels toward the muscles", "Muscles contract: the hand withdraws"],
     waiting: "Choose a condition and make a prediction first.", running: "Experiment running", stopped: "Transmission stopped", finished: "Experiment complete", blockedAt: { receptor: "Nociceptor disabled: no afferent signal is generated", afferent: "Sensory input did not reach the spinal cord", spinal: "Spinal center disabled: no motor command is formed", efferent: "Motor output did not reach the muscles" },
     correct: "Your prediction was supported.", incorrect: "Your prediction was not supported.",
     outcome: { intact: "All reflex-arc links work: sensory input reaches the spinal cord and motor output reaches the muscle.", receptor: "With the nociceptor disabled, no afferent signal is generated and the reflex does not start.", afferent: "A signal arises at the receptor but cannot reach the spinal cord along the selected pathway. The modeled reflex response does not begin.", spinal: "Afferent input reaches the spinal cord, but with the spinal center disabled no motor response is formed.", efferent: "Sensory input reaches the spinal cord, but the command cannot pass along the motor pathway to the muscles. No reflex contraction occurs." },
-    limit: "A teaching model of one reflex pathway. The animation shows hand withdrawal and nerve-signal propagation along the anatomical diagram. Conscious pain perception, alternative pathways and other protective responses are outside this model. Do not try this with hot objects.",
+    limit: "A teaching model of one reflex pathway. The animation shows hand withdrawal and nerve-signal propagation along the anatomical diagram. One interneuron represents a polysynaptic network; extensor inhibition, crossed extension, descending modulation and conscious pain perception are outside this model. Do not try this with hot objects.",
     anatomy: ["Skin nociceptor","Sensory neuron","Dorsal root","Interneuron","Ventral-horn motor neuron","Ventral root","Flexor muscle"], ascending: "Collateral to ascending pathways: conscious pain perception is not required to initiate the spinal response", photo: "Staged AI-generated photographs for this textbook", contactAlt: "Hand by a metal cup before withdrawal", withdrawalAlt: "The same hand moved away from the metal cup", record: "Record result", journal: "Experiment log", explanation: "Why did the reflex occur or stop?", source: "Reflex physiology: OpenStax, Anatomy and Physiology 2e, ch. 14",
   },
   KZ: {
@@ -41,11 +41,11 @@ const copy = {
     title: "Зертхана: рефлекс қай жерде үзіледі?", intro: "Қолды ауырсындыратын ыстық беттен тартып алу жағдайын модельдеңіз. Жолдың күйін таңдап, қозғалысты болжаңыз және тәжірибені бастаңыз.",
     condition: "Доға бөлігін қосу / алып тастау", intact: "✓ Бүкіл доға қосулы", receptor: "✕ Рецепторды өшіру", afferent: "✕ Афференттік жолды өшіру", spinal: "✕ Жұлын орталығын өшіру", efferent: "✕ Эфференттік жолды өшіру",
     predict: "Тәжірибеге дейінгі болжамыңыз", moves: "Қол тартылады", still: "Рефлекстік қозғалыс болмайды", run: "Тәжірибені бастау", replay: "Қайталау", reset: "Жаңа болжам",
-    stages: ["Тітіркендіргіш тері рецепторларына әсер етеді", "Сенсорлық сигнал жұлынға бағытталады", "Жұлында жауап қалыптасады", "Моторлық сигнал бұлшықеттерге бағытталады", "Бұлшықеттер жиырылады: қол тартылады"],
+    stages: ["Тері ноцицепторы ауырсыну тітіркендіргішін афференттік импульстерге түрлендіреді", "Сенсорлық сигнал жұлынға бағытталады", "Жұлында жауап қалыптасады", "Моторлық сигнал бұлшықеттерге бағытталады", "Бұлшықеттер жиырылады: қол тартылады"],
     waiting: "Алдымен шарт пен болжамды таңдаңыз.", running: "Тәжірибе жүріп жатыр", stopped: "Сигналдың өтуі тоқтады", finished: "Тәжірибе аяқталды", blockedAt: { receptor: "Ноцицептор өшірілді: афференттік сигнал пайда болмайды", afferent: "Сенсорлық сигнал жұлынға жетпеді", spinal: "Жұлын орталығы өшірілді: моторлық команда қалыптаспайды", efferent: "Моторлық сигнал бұлшықеттерге жетпеді" },
     correct: "Болжамыңыз расталды.", incorrect: "Болжамыңыз расталмады.",
     outcome: { intact: "Рефлекс доғасының барлық буыны жұмыс істейді: сенсорлық сигнал жұлынға, моторлық жауап бұлшықетке жетеді.", receptor: "Ноцицептор өшірілсе, афференттік сигнал пайда болмайды және рефлекс басталмайды.", afferent: "Рецепторда сигнал пайда болады, бірақ таңдалған жолмен жұлынға жетпейді. Бұл модельде рефлекстік жауап басталмайды.", spinal: "Афференттік сигнал жұлынға жетеді, бірақ жұлын орталығы өшірілсе моторлық жауап қалыптаспайды.", efferent: "Сенсорлық сигнал жұлынға жетеді, бірақ бұйрық моторлық жолмен бұлшықеттерге өтпейді. Рефлекстік жиырылу болмайды." },
-    limit: "Бұл — бір рефлекс жолының оқу моделі. Анимация қолдың қозғалысын және анатомиялық сызба бойымен жүйке сигналының таралуын көрсетеді. Ауырсынуды саналы сезіну, басқа жолдар мен қорғаныш реакциялары модельденбейді. Мұны ыстық заттармен өзіңізде сынамаңыз.",
+    limit: "Бұл — бір рефлекс жолының оқу моделі. Анимация қолдың қозғалысын және анатомиялық сызба бойымен жүйке сигналының таралуын көрсетеді. Полисинапстық желі бір аралық нейронмен шартты түрде көрсетілген; жазғыш бұлшықеттердің тежелуі, айқасқан жазғыш рефлекс, төмендеуші реттелу және ауырсынуды саналы сезіну модельденбейді. Мұны ыстық заттармен өзіңізде сынамаңыз.",
     anatomy: ["Тері ноцицепторы","Сезімтал нейрон","Артқы түбір","Аралық нейрон","Алдыңғы мүйіз мотонейроны","Алдыңғы түбір","Бүккіш бұлшықет"], ascending: "Жоғарылаушы жолдарға коллатераль: жұлындық жауаптың басталуы үшін ауырсынуды саналы сезіну міндетті емес", photo: "Оқулық үшін ЖИ жасаған қойылымдық фотосуреттер", contactAlt: "Қол тартылғанға дейін металл тостағанның жанында", withdrawalAlt: "Сол қол металл тостағаннан алыстатылған", record: "Нәтижені жазу", journal: "Тәжірибелер журналы", explanation: "Рефлекс неге пайда болды немесе үзілді?", source: "Рефлекс физиологиясы: OpenStax, Anatomy and Physiology 2e, 14-тарау",
   },
 } satisfies Record<Language, {
@@ -70,18 +70,30 @@ export default function ReflexLab({ language }: { language: Language }) {
 
   useEffect(() => {
     if (!running || paused) return;
-    const timer = window.setInterval(() => {
-      setStage(current => {
-        if (current >= lastStage[condition]) { setRunning(false); return current; }
-        return current + 1;
-      });
+    const timer = window.setTimeout(() => {
+      if (stage >= lastStage[condition]) {
+        const actual: Prediction = condition === "intact" ? "moves" : "still";
+        recordOutcome(7, "interactive", prediction === actual ? 1 : 0, 1);
+        recordOutcome(7, "criterion:mechanism:reflex-arc", prediction === actual ? 1 : 0, 1);
+        setRunning(false);
+      } else {
+        setStage(stage + 1);
+      }
     }, slow ? 1500 : 850);
-    return () => window.clearInterval(timer);
-  }, [condition, running, slow, paused]);
+    return () => window.clearTimeout(timer);
+  }, [condition, running, slow, paused, stage, prediction]);
 
   function changeCondition(next: Condition) { setCondition(next); setExcluded(next === "intact" ? new Set() : new Set([next])); setPrediction(null); setStage(-1); setRunning(false); }
-  function togglePart(part: Exclude<Condition,"intact">) { if (running || stage >= 0) return; const next = new Set(excluded); if (next.has(part)) next.delete(part); else next.add(part); setExcluded(next); const first = (["receptor","afferent","spinal","efferent"] as const).find(x=>next.has(x)); setCondition(first ?? "intact"); setPrediction(null); }
-  function start() { if (!prediction) return; const actual: Prediction = condition === "intact" ? "moves" : "still"; recordOutcome(7,"interactive",prediction === actual ? 1 : 0,1); recordOutcome(7,"criterion:mechanism:reflex-arc",prediction === actual ? 1 : 0,1); setPaused(false); setStage(0); setRunning(true); }
+  function togglePart(part: Exclude<Condition,"intact">) {
+    if (running || stage >= 0) return;
+    // Only one segment may be excluded per trial: otherwise the outcome
+    // and stopping stage would describe a different experiment.
+    const next = excluded.has(part) ? new Set<Exclude<Condition,"intact">>() : new Set([part]);
+    setExcluded(next);
+    setCondition(next.size ? part : "intact");
+    setPrediction(null);
+  }
+  function start() { if (!prediction || running) return; setPaused(false); setStage(0); setRunning(true); }
   function reset() { setPrediction(null); setStage(-1); setRunning(false); setPaused(false); }
 
   return <section id="reflex-lab" className={styles.lab} aria-labelledby="reflex-lab-title" lang={language === "KZ" ? "kk" : language.toLowerCase()}>
@@ -141,18 +153,18 @@ export default function ReflexLab({ language }: { language: Language }) {
             <path className={styles.photoAfferent} d="M170 365 C300 330 405 335 505 270 C585 218 635 190 700 210"/>
             <path className={styles.photoInterneuron} d="M700 210 C730 235 742 275 730 315"/>
             <path className={styles.photoEfferent} d="M730 315 C680 365 630 410 545 435 C445 462 350 448 270 420"/>
-            {stage>=0&&!excluded.has("receptor")&&!excluded.has("afferent")&&<path className={styles.photoPulseBlue} d="M170 365 C300 330 405 335 505 270 C585 218 635 190 700 210"/>}
-            {stage>=2&&!excluded.has("spinal")&&<path className={styles.photoPulsePurple} d="M700 210 C730 235 742 275 730 315"/>}
-            {stage>=3&&!excluded.has("efferent")&&<path className={styles.photoPulseOrange} d="M730 315 C680 365 630 410 545 435 C445 462 350 448 270 420"/>}
+            {stage>=1&&!excluded.has("receptor")&&!excluded.has("afferent")&&<path className={styles.photoPulseBlue} d="M170 365 C300 330 405 335 505 270 C585 218 635 190 700 210"/>}
+            {stage>=2&&!excluded.has("receptor")&&!excluded.has("afferent")&&!excluded.has("spinal")&&<path className={styles.photoPulsePurple} d="M700 210 C730 235 742 275 730 315"/>}
+            {stage>=3&&!excluded.has("receptor")&&!excluded.has("afferent")&&!excluded.has("spinal")&&!excluded.has("efferent")&&<path className={styles.photoPulseOrange} d="M730 315 C680 365 630 410 545 435 C445 462 350 448 270 420"/>}
           </svg>
           <div className={styles.sceneCallout} data-callout="stimulus"><b>1</b><span>{language==="RU"?"Болевой стимул → рецептор":language==="KZ"?"Ауырсыну стимулы → рецептор":"Painful stimulus → receptor"}</span></div>
           <div className={styles.sceneCallout} data-callout="afferent"><b>2</b><span>{language==="RU"?"Афферентный путь":language==="KZ"?"Афференттік жол":"Afferent pathway"}</span></div>
           <div className={styles.sceneCallout} data-callout="center"><b>3</b><span>{language==="RU"?"Спинальный центр":language==="KZ"?"Жұлын орталығы":"Spinal center"}</span></div>
           <div className={styles.sceneCallout} data-callout="motor"><b>4</b><span>{language==="RU"?"Эфферентный путь":language==="KZ"?"Эфференттік жол":"Efferent pathway"}</span></div>
-          <div className={styles.sceneCallout} data-callout="response"><b>6</b><span>{language==="RU"?"Сокращение сгибателя → отдёргивание":language==="KZ"?"Бүккіш жиырылады → қол тартылады":"Flexor contracts → withdrawal"}</span></div>
+          <div className={styles.sceneCallout} data-callout="response"><b>5</b><span>{language==="RU"?"Сокращение сгибателя → отдёргивание":language==="KZ"?"Бүккіш жиырылады → қол тартылады":"Flexor contracts → withdrawal"}</span></div>
         </div>
       </div>
-      <div className={styles.stageRail} aria-hidden="true">{[language==="RU"?"Стимул (укол)":language==="KZ"?"Стимул":"Stimulus",language==="RU"?"Рецептор":language==="KZ"?"Рецептор":"Receptor",language==="RU"?"Афферентный нейрон":language==="KZ"?"Афференттік нейрон":"Afferent neuron",language==="RU"?"Спинальный центр":language==="KZ"?"Жұлын орталығы":"Spinal center",language==="RU"?"Эфферентный нейрон":language==="KZ"?"Эфференттік нейрон":"Efferent neuron",language==="RU"?"Ответ (движение)":language==="KZ"?"Жауап (қозғалыс)":"Response (movement)"].map((label,i)=><span key={label} data-active={(stage+1)===i} data-done={(stage+1)>i}><b>{i+1}</b><small>{label}</small></span>)}</div>
+      <div className={styles.stageRail} aria-hidden="true">{c.stages.map((label,i)=><span key={i} data-active={stage===i} data-done={stage>i}><b>{i+1}</b><small>{label}</small></span>)}</div>
       <figcaption>{stage < 0 ? c.waiting : c.stages[Math.max(0,stage)]}</figcaption>
     </figure>
     {complete && <div className={styles.feedback}>
