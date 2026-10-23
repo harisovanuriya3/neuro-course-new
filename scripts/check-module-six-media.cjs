@@ -55,6 +55,22 @@ assert.equal(visualAst.parseDiagnostics.length,0,"Module 6 media visual TSX synt
 for(const s of ["vm:-70","vm:-58","vm:-52","vm:-56.5","exc:3,inh:1",
  "aria-live=\"polite\"","disabled={step===0}","disabled={step===3}","onClick={()=>setStep(0)}"])
  assert(visual.includes(s),"Module 6 media visual missing "+s);
+// Cross-check displayed states against the actual module 6 laboratory formula.
+const labPath="components/IntegrationExperimentLab.tsx";
+const labSource=read(labPath);
+const labAst=ts.createSourceFile(labPath,labSource,ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
+assert.equal(labAst.parseDiagnostics.length,0,"Integration laboratory TSX syntax errors");
+const estimator=labAst.statements.find(node=>ts.isFunctionDeclaration(node)&&
+ node.name?.text==="estimateIntegrationVoltage");
+assert(estimator?.body,"Numerical integration estimator missing");
+const estimateCode=ts.transpileModule("("+estimator.getText(labAst).replace(/^export\\s+/,"")+")",{
+ compilerOptions:{target:ts.ScriptTarget.ES2020}
+});
+const estimate=vm.runInNewContext(estimateCode.outputText);
+assert.equal(estimate("spatial",0,0,8),-70);
+assert.equal(estimate("spatial",2,0,8),-58);
+assert.equal(estimate("spatial",3,0,8),-52);
+assert.equal(estimate("spatial",3,1,8),-56.5);
 const registration=read("content/index.ts");
 assert(registration.includes('import { createModuleSixMedia } from "./course-foundation/module-six-media";'));
 for(const lang of ["RU","EN","KZ"])
