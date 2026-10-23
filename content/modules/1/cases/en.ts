@@ -108,6 +108,17 @@ const lesson: CasesLesson = {
       ],
       diagram: ["Stimuli / environmental changes", "Receptors", "Afferent pathways", "CNS and integration", "Efferent pathways", "Effectors", "Response", "Sensory feedback", "Subsequent correction"],
     },
+    {
+      id: "sensory-reweighting-experiment", title: "Experiment: changing sensory feedback",
+      situation: "A volunteer stands on a stable force platform with eyes open, then closes their eyes without changing foot position. Mean center-of-pressure sway speed rises from 7 to 12 mm/s. When the eyes reopen, sway decreases. The participant neither falls nor shows muscle weakness.",
+      stages: [
+        { title: "What was measured?", questions: ["Identify the manipulated condition and two directly observed findings.","Does this result alone establish dysfunction of vestibular receptors?"] },
+        { title: "Explain the mechanism", questions: ["How can vision help limit postural sway?","Which sensory signals remain with eyes closed, and how does the CNS combine them with motor commands?"] },
+        { title: "Test another explanation", questions: ["How would you control for changes in stance width, fatigue or instructions?","What would you predict if the experiment were repeated on a compliant foam surface, and why?"] },
+      ],
+      explanation: ["Closing the eyes removes one source of sensory information. Increased center-of-pressure sway demonstrates altered postural control but does not itself diagnose dysfunction of a specific nervous-system structure.","Visual, vestibular and somatosensory inputs contribute to estimating body position. Central circuits generate corrective muscle commands, and ongoing afferent feedback supports continuous adjustment.","Keep stance width, surface and instructions consistent, repeat trials and assess fatigue. Foam changes the reliability of somatosensory information and may increase reliance on other sensory inputs."],
+      diagram: ["Vision and proprioception","Central integration","Muscle commands","Postural sway","Sensory feedback"],
+    },
   ],
   sources: [
     { title: "Neuroscience: Chemical Synapses", href: "https://www.ncbi.nlm.nih.gov/books/NBK11009/" },
