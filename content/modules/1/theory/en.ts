@@ -37,6 +37,9 @@ const lesson: Lesson = {
       id: "principles",
       title: "4. Fundamental Principles of Nervous System Function",
       blocks: [
+        { type: "paragraph", text: "The resting membrane potential depends on ion concentration gradients and selective membrane permeability; the Na⁺/K⁺-ATPase maintains the gradients. At threshold, voltage-gated sodium channels open, followed by increased potassium conductance that helps repolarize the membrane. Absolute and relative refractory periods limit firing frequency and shape impulse propagation." },
+        { type: "paragraph", text: "Myelin electrically insulates internodal axon segments and reduces current leakage. During saltatory conduction, action potentials are regenerated mainly at nodes of Ranvier. Demyelination may therefore slow conduction, increase temporal dispersion and, in severe cases, cause conduction block." },
+        { type: "paragraph", text: "At a chemical synapse, an arriving impulse opens presynaptic calcium channels, and Ca²⁺ entry triggers transmitter release. The transmitter binds postsynaptic receptors and changes membrane conductance or intracellular signaling. Synaptic effects can be excitatory or inhibitory depending on receptor mechanisms and ionic gradients." },
         { type: "subheading", text: "Excitability and conduction" },
         { type: "paragraph", text: "Excitability is the ability of a cell to respond to a stimulus by changing the electrical state of its membrane. An action potential may be generated when threshold is reached. Conduction is the propagation of an electrical signal along the membrane of a nerve fiber. In myelinated axons, action potentials are regenerated at successive nodes of Ranvier, increasing the speed of signal transmission." },
         { type: "subheading", text: "Excitation and inhibition" },
