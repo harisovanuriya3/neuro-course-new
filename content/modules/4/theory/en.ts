@@ -83,6 +83,15 @@ const lesson: Lesson = {
         { type: "paragraph", text: "Teaching scenario: after a moderate increase in extracellular K⁺, a cell depolarizes from −70 to −60 mV. Predict early and sustained effects on excitability, consider Na⁺ channel inactivation and propose a recovery control after restoring baseline extracellular K⁺. One membrane voltage measurement does not diagnose a cause of conduction failure." },
       ],
     },
+    {
+      id: "paired-pulse-refractoriness",
+      title: "Reasoning exercise: refractory periods during paired stimulation",
+      blocks: [
+        { type: "paragraph", text: "In a teaching experiment, two identical suprathreshold stimuli are delivered to an isolated axon. At a 1 ms interval the second action potential is absent; at 3 ms the second response may be reduced or require a stronger stimulus; by 10 ms the usual response returns. These intervals are illustrative and depend on fiber type, temperature and recording conditions." },
+        { type: "paragraph", text: "Students should distinguish the absolute refractory period, when many Na⁺ channels remain inactivated and another propagating impulse cannot be elicited, from the relative period, when partial Na⁺ channel recovery and residual K⁺ conductance increase threshold. Two stimuli therefore need not produce two identical spikes." },
+        { type: "paragraph", text: "Controls include keeping temperature stable and comparing identical stimuli over different intervals while measuring response threshold and waveform. If suppression persists at a long interval, examine axonal damage, solution changes and recording artifacts rather than automatically attributing the finding to normal refractoriness." },
+      ],
+    },
   ],
   outcomes: {
     title: "Learning outcomes",
