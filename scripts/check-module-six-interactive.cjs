@@ -34,8 +34,9 @@ assert(source.includes('начальный сегмент аксона'),"RU ini
 assert(source.includes('аксонның бастапқы сегменті'),"KZ initial segment wording missing");
 assert(source.includes('axon initial segment'),"EN initial segment wording missing");
 assert(source.includes('disabled={running}'),"Controls must freeze during playback");
-assert(source.includes('if(trial && progress>0 && progress<1)'),"Paused trial must resume");
+assert(source.includes('if(!forceNew && trial && progress>0 && progress<1)'),"Paused trial must resume");
 assert(source.includes('setPrediction(null);'),"Changing conditions must invalidate prediction");
+assert(source.includes('onClick={()=>beginTrial(true)}'),"Replay must start a new experiment");
 assert(source.includes('progress<1 || lastRecordedId.current===trial.id'),"Do not record unfinished or repeated trials");
 assert(source.includes('recordOutcome(6,"interactive",1,1)'),"Completion must save progress");
 assert(source.includes('setRows(history=>[trial,...history]'),"History must use frozen trial");
