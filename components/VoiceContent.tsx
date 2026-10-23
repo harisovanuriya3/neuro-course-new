@@ -98,8 +98,42 @@ const moduleFiveCopy = {
  },
 } as const;
 
+// Module 6: guided explanation of synaptic integration, not speech-based grading.
+// Ganong 23e, PDF pp. 132–134; Guyton & Hall 13e, PDF pp. 559–560.
+// Ghai 8e, PDF pp. 353–354 covers peripheral nerve–muscle fatigue,
+// not central EPSP/IPSP integration or chloride shunting.
+const moduleSixCopy = {
+ RU: {
+  intro:"Разберите два наблюдения. (1) Vm = −65 мВ, E(Cl) ≈ −65 мВ: после открытия постсинаптической Cl⁻-проводимости исходный Vm почти не изменился, но совпадающий ВПСП уменьшился. (2) При активации пресинаптических GABA_B-рецепторов снизились вход Ca²⁺ в окончание и вызванное выделение медиатора. Объясните различие механизмов и границы вывода. Это самооценка, а не автоматическая проверка физиологической правильности.",
+  prompt:"Шунтирующее и пресинаптическое торможение: объяснение механизма и ограничений",
+  cause:"Я различил(а) постсинаптическое открытие Cl⁻-проводимости и пресинаптическое снижение входа Ca²⁺",
+  path:"Я объяснил(а), что при Vm ≈ E(Cl) входное сопротивление уменьшается и ВПСП может ослабнуть без заметной гиперполяризации; снижение входа Ca²⁺ в окончание уменьшает вероятность вызванного выделения медиатора",
+  result:"Я указал(а), что отсутствие гиперполяризации не доказывает отсутствие торможения, а по одному ВПСП нельзя определить точное место торможения или гарантировать наличие либо отсутствие потенциала действия",
+  ready:"Три пункта самооценки отмечены. Сравните объяснение с теорией: отметки не подтверждают физиологическую правильность.",
+  good:"Три пункта самооценки отмечены",
+ },
+ EN: {
+  intro:"Explain two observations. (1) Vm = −65 mV and E(Cl) ≈ −65 mV: after postsynaptic Cl⁻ conductance increased, baseline Vm barely changed, but a coincident EPSP became smaller. (2) Presynaptic GABA_B receptor activation reduced terminal Ca²⁺ entry and evoked transmitter release. Compare the mechanisms and limits of inference. This is self-assessment, not automatic grading of scientific correctness.",
+  prompt:"Shunting versus presynaptic inhibition: mechanism and limits of inference",
+  cause:"I distinguished postsynaptic Cl⁻ conductance from presynaptic reduction of Ca²⁺ entry",
+  path:"I explained why Vm near E(Cl) allows lower input resistance and a smaller EPSP without clear hyperpolarization, while reduced terminal Ca²⁺ entry lowers evoked transmitter-release probability",
+  result:"I noted that no visible hyperpolarization does not rule out inhibition; one EPSP alone cannot locate inhibition precisely or prove whether an action potential occurred",
+  ready:"All three self-check items are marked. Compare your explanation with the theory: checkmarks do not verify physiological accuracy.",
+  good:"Three self-check items marked",
+ },
+ KZ: {
+  intro:"Екі бақылауды түсіндіріңіз. (1) Vm = −65 мВ, E(Cl) ≈ −65 мВ: постсинапстық Cl⁻ өткізгіштігі артқанда бастапқы Vm айтарлықтай өзгермеді, бірақ қатар келген қоздырушы постсинапстық потенциал (ҚПСП) кішірейді. (2) Пресинапстық GABA_B-рецепторлары белсенгенде аксон ұшына Ca²⁺ енуі және шақырылған медиатор бөлінуі азайды. Екі тетікті және қорытындының шегін салыстырыңыз. Бұл — өзіндік бағалау, физиологиялық дұрыстықты автоматты тексеру емес.",
+  prompt:"Шунттаушы және пресинапстық тежелу: тетік пен қорытынды шегі",
+  cause:"Мен постсинапстық Cl⁻ өткізгіштігінің артуын пресинапстық Ca²⁺ енуінің азаюынан ажыраттым",
+  path:"Мен Vm E(Cl)-ге жақын кезде кіріс кедергісі төмендеп, айқын гиперполяризациясыз ҚПСП әлсірейтінін, ал аксон ұшына Ca²⁺ енуінің азаюы шақырылған медиатор бөліну ықтималдығын төмендететінін түсіндірдім",
+  result:"Мен айқын гиперполяризацияның болмауы тежелудің жоқтығын дәлелдемейтінін, ал бір ҚПСП арқылы тежелудің нақты орнын немесе әрекет потенциалының пайда болғанын не болмағанын анықтауға болмайтынын көрсеттім",
+  ready:"Өзіндік тексерудің үш тармағы белгіленді. Жауабыңызды теориямен салыстырыңыз: белгілер физиологиялық дұрыстықты дәлелдемейді.",
+  good:"Үш өзіндік тексеру тармағы белгіленді",
+ },
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : copy[language];
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : copy[language];
  const key=`neuro-course:mechanism:${moduleId}:${language}`;
  const[answer,setAnswer]=useState("");
  const[persisted,setPersisted]=useState(false);
