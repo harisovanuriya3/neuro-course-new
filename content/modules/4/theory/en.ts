@@ -101,6 +101,16 @@ const lesson: Lesson = {
         { type: "paragraph", text: "Worked reasoning: (1) predict the direction of E_K shift; (2) explain early and sustained effects on threshold and Na⁺ channel availability; (3) propose controlled measurements of membrane potential and response amplitude; (4) state the limits of extrapolating such experiments to a patient. This connects membrane biophysics to clinical reasoning without treating a mechanism as a diagnosis." },
       ],
     },
+    {
+      id: "membrane-cable-properties",
+      title: "Membrane cable properties: time constant and spatial decay",
+      blocks: [
+        { type: "paragraph", text: "Local postsynaptic potentials spread passively along dendrites and decay with distance. The membrane behaves electrically like a capacitance in parallel with ionic conductances, while the cytoplasm provides axial resistance. Signal shape therefore depends on both channel opening and neuronal geometry." },
+        { type: "paragraph", text: "In a simplified passive model, the time constant τ = RₘCₘ describes how quickly membrane voltage approaches a new steady value after a small current step: after one τ, approximately 63% of the final change has occurred. The length constant λ is the distance at which a steady local voltage deflection in an idealized long cable falls to about 37% of its initial value. These approximations do not capture every feature of branched dendrites." },
+        { type: "paragraph", text: "Experiment: apply identical brief current pulses to a passive dendrite model at high and low membrane resistance while keeping capacitance constant. Predict the changes in amplitude, charging time and spatial spread. Then add a second input after a short delay: temporal summation can occur while the first response persists. Distinguish passive summation from regenerative activation of voltage-gated channels." },
+        { type: "paragraph", text: "Clinical and methodological limitation: τ or λ cannot be determined from one scalp EEG channel. Cellular analysis requires intracellular or patch-clamp measurements, or a justified model that accounts for morphology. Different ion channels can alter membrane resistance, so one electrical quantity cannot uniquely identify a molecular mechanism." },
+      ],
+    },
   ],
   outcomes: {
     title: "Learning outcomes",
