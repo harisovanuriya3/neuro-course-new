@@ -179,6 +179,14 @@ function moduleFiveBaseTest(language: Language) {
   return lesson;
 }
 
+function moduleSixBaseMedia(language: Language) {
+  const lesson = foundationLessons[6]?.media?.[language];
+  if (!lesson || lesson.kind !== "media") {
+    throw new Error("Module 6 base media is missing for " + language);
+  }
+  return lesson;
+}
+
 function moduleSixBaseTest(language: Language) {
   const lesson = foundationLessons[6]?.tests?.[language];
   if (!lesson || lesson.kind !== "tests") throw new Error("Module 6 base test missing for " + language);
@@ -403,7 +411,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   6: {
     ...foundationLessons[6],
-    media: { RU: createModuleSixMedia("RU", foundationLessons[6].media.RU), EN: createModuleSixMedia("EN", foundationLessons[6].media.EN), KZ: createModuleSixMedia("KZ", foundationLessons[6].media.KZ) },
+    media: { RU: createModuleSixMedia("RU", moduleSixBaseMedia("RU")), EN: createModuleSixMedia("EN", moduleSixBaseMedia("EN")), KZ: createModuleSixMedia("KZ", moduleSixBaseMedia("KZ")) },
     tests: { RU: createModuleSixTests("RU", modules.RU[5], moduleSixBaseTest("RU")), EN: createModuleSixTests("EN", modules.EN[5], moduleSixBaseTest("EN")), KZ: createModuleSixTests("KZ", modules.KZ[5], moduleSixBaseTest("KZ")) },
     glossary: { RU: createModuleSixGlossary("RU", moduleSixBaseGlossary("RU")), EN: createModuleSixGlossary("EN", moduleSixBaseGlossary("EN")), KZ: createModuleSixGlossary("KZ", moduleSixBaseGlossary("KZ")) },
     objectives: { RU: createModuleSixObjectives("RU"), EN: createModuleSixObjectives("EN"), KZ: createModuleSixObjectives("KZ") },
