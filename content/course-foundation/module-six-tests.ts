@@ -1,8 +1,8 @@
 import type { Language } from "../course";
 import type { BranchingTest, QuestionNode } from "../tests";
 
-// Five authored main questions for module 6. Corrective/basic questions still
-// come from the shared test builder and require a separate content audit.
+// Five authored main and five independent corrective questions for module 6.
+// Basic-level questions still require a separate scientific audit.
 // References checked: Ganong 23e PDF 132–134; Guyton & Hall 13e PDF 563–565.
 // Ghai 8e PDF 353–354 describes a peripheral preparation, not CNS inhibition.
 type Text = Record<Language, string>;
@@ -80,6 +80,105 @@ const authored: Record<string,Item>={
   explanation:t("Гиперрефлексия и зависимый от скорости компонент сопротивления согласуются с нарушением нисходящей регуляции, но не являются прямым измерением ГАМК или отдельного синапса. Проверяют также механическую жёсткость и контрактуру.","Hyperreflexia and velocity-dependent resistance can reflect altered descending modulation, but do not directly measure GABA or a specific synapse. Mechanical stiffness and contracture also require assessment.","Гиперрефлексия мен жылдамдыққа тәуелді қарсылық төмендеуші реттелудің өзгеруімен үйлеседі, бірақ ГАМҚ-ны не нақты синапсты тікелей өлшемейді. Механикалық қаттылық пен контрактура да тексеріледі.")
  }
 };
+
+/**
+ * Independent corrective questions: a wrong main answer is followed by a
+ * different physiological experiment, not a repetition of the same stem.
+ * Keep the existing branch targets, question IDs and stable option IDs.
+ */
+const corrective: Record<string,Item>={
+ "concept:corrective":{
+  prompt:t(
+   "В нейроне при включении тормозного синапса мембрана слегка деполяризуется, но вероятность потенциала действия уменьшается. Какой вывод верен?",
+   "Activating an inhibitory synapse slightly depolarizes a neuron, yet the probability of an action potential falls. Which conclusion is correct?",
+   "Нейронда тежеуші синапс белсенгенде мембрана аздап деполяризацияланады, бірақ әрекет потенциалының пайда болу ықтималдығы төмендейді. Қай тұжырым дұрыс?"
+  ),
+  options:[
+   t("Знак изменения Vm сам по себе не определяет эффект: увеличение тормозной проводимости может шунтировать возбуждающий ток.","The sign of the Vm change alone does not define the effect: increased inhibitory conductance can shunt excitatory current.","Vm өзгерісінің бағыты әсерді өздігінен анықтамайды: тежеуші өткізгіштіктің артуы қоздырушы токты шунттауы мүмкін."),
+   t("Любая деполяризация обязательно повышает частоту разрядов.","Any depolarization necessarily increases firing rate.","Кез келген деполяризация разряд жиілігін міндетті түрде арттырады."),
+   t("Если Vm растёт, тормозная проводимость не может увеличиваться.","Inhibitory conductance cannot increase if Vm becomes less negative.","Vm теріс мәні азайса, тежеуші өткізгіштік арта алмайды."),
+   t("Снижение вероятности разряда доказывает отсутствие возбуждающих синапсов.","Reduced firing probability proves that excitatory synapses are absent.","Разряд ықтималдығының төмендеуі қоздырушы синапстардың жоқ екенін дәлелдейді.")
+  ],
+  explanation:t(
+   "Торможение оценивают по влиянию на вероятность разряда, а не только по знаку изменения Vm. При росте проводимости уменьшается входное сопротивление; даже деполяризующий тормозный вход может шунтировать ВПСП. Результат зависит от Eрев, положения синапса и времени входов.",
+   "Inhibition is judged by its effect on firing probability, not merely the sign of Vm. Greater conductance lowers input resistance; even a depolarizing inhibitory input can shunt an EPSP. The result depends on reversal potential, synapse location and input timing.",
+   "Тежелуді тек Vm өзгерісінің таңбасымен емес, разряд ықтималдығына әсерімен бағалайды. Өткізгіштік артқанда кіріс кедергісі азаяды; деполяризациялайтын тежеуші кіріс те ҚПСП-ны шунттауы мүмкін. Нәтиже реверсиялық потенциалға, синапс орнына және кірістер уақытына тәуелді."
+  )
+ },
+ "mechanism:corrective":{
+  prompt:t(
+   "Два пространственно раздельных возбуждающих синапса активированы одновременно. По отдельности каждый создаёт подпороговый ВПСП. Какой механизм может усилить деполяризацию начального сегмента аксона?",
+   "Two spatially separate excitatory synapses are activated simultaneously. Each produces a subthreshold EPSP alone. What mechanism can increase depolarization at the axon initial segment?",
+   "Кеңістікте бөлек орналасқан екі қоздырушы синапс бір мезгілде белсенеді. Әрқайсысы жеке табалдырықасты ҚПСП туғызады. Аксонның бастапқы сегментіндегі деполяризацияны не күшейтуі мүмкін?"
+  ),
+  options:[
+   t("Пространственная суммация распространяющихся к начальному сегменту постсинаптических потенциалов.","Spatial summation of postsynaptic potentials spreading toward the axon initial segment.","Аксонның бастапқы сегментіне таралатын постсинапстық потенциалдардың кеңістіктік суммациясы."),
+   t("Полная блокада всех возбуждающих рецепторов.","Complete blockade of all excitatory receptors.","Барлық қоздырушы рецепторлардың толық бөгелуі."),
+   t("Обязательная генерация отдельного потенциала действия в каждом синапсе.","Mandatory generation of a separate action potential at each synapse.","Әр синапста міндетті түрде жеке әрекет потенциалының пайда болуы."),
+   t("Отсутствие электротонического распространения от дендритов к соме.","Absence of electrotonic spread from dendrites to the soma.","Дендриттерден сомаға электротондық таралудың болмауы.")
+  ],
+  explanation:t(
+   "Одновременные ВПСП из разных участков могут пространственно суммироваться при распространении к зоне инициации разряда. Достижение порога не гарантировано: важны затухание, расположение синапсов и одновременные тормозные входы.",
+   "Simultaneous EPSPs from different sites may sum spatially as they spread toward the spike-initiation zone. Threshold is not guaranteed: attenuation, synapse location and concurrent inhibition matter.",
+   "Әртүрлі аймақтардан келген бір мезгілдегі ҚПСП-лар разряд басталатын аймаққа таралу барысында кеңістікте қосылуы мүмкін. Табалдырыққа жету міндетті емес: бәсеңдеу, синапстар орны және қатар жүретін тежелу маңызды."
+  )
+ },
+ "application:corrective":{
+  prompt:t(
+   "В постсинаптическом нейроне открылись дополнительные K⁺-каналы. При Vm = −65 мВ и EK = −90 мВ какой непосредственный эффект наиболее вероятен?",
+   "Additional postsynaptic K⁺ channels open. With Vm = −65 mV and EK = −90 mV, which immediate effect is most likely?",
+   "Постсинапстық нейронда қосымша K⁺ арналары ашылды. Vm = −65 мВ, EK = −90 мВ болса, ең ықтимал тікелей әсер қандай?"
+  ),
+  options:[
+   t("Выход K⁺ и сдвиг Vm к EK с гиперполяризацией и снижением возбудимости.","K⁺ efflux drives Vm toward EK, hyperpolarizing the cell and reducing excitability.","K⁺ сыртқа шығып, Vm EK мәніне жақындайды; гиперполяризация болып, қозғыштық төмендейді."),
+   t("Вход K⁺ и обязательное достижение порога потенциала действия.","K⁺ influx necessarily brings the neuron to action-potential threshold.","K⁺ ішке кіріп, нейрон міндетті түрде әрекет потенциалының табалдырығына жетеді."),
+   t("Усиление пресинаптического высвобождения доказано без измерения окончания.","Increased presynaptic release is proved without measuring the terminal.","Ұшты өлшемей-ақ пресинапстық медиатор бөлінуінің артуы дәлелденеді."),
+   t("K⁺-проводимость не влияет на Vm при любой разности Vm и EK.","K⁺ conductance never affects Vm regardless of the difference between Vm and EK.","Vm мен EK айырмасы қандай болса да, K⁺ өткізгіштігі Vm-ге әсер етпейді.")
+  ],
+  explanation:t(
+   "При Vm выше EK увеличение постсинаптической K⁺-проводимости вызывает преимущественно выход K⁺ и приближение Vm к более отрицательному EK. Это постсинаптический механизм; по нему нельзя заключить, что изменилось пресинаптическое выделение медиатора.",
+   "When Vm is more positive than EK, increasing postsynaptic K⁺ conductance favors K⁺ efflux and drives Vm toward the more negative EK. This is postsynaptic; it does not establish a change in presynaptic transmitter release.",
+   "Vm EK-тен оң болғанда постсинапстық K⁺ өткізгіштігінің артуы K⁺ иондарының сыртқа шығуын күшейтіп, Vm-ді терісірек EK мәніне жақындатады. Бұл постсинапстық тетік; ол пресинапстық медиатор бөлінуінің өзгергенін дәлелдемейді."
+  )
+ },
+ "transfer:corrective":{
+  prompt:t(
+   "Аксонная коллатераль активного спинального α-мотонейрона возбуждает клетку Реншоу. После этого разряд того же мотонейрона ослабевает. Какая цепь наиболее вероятна?",
+   "An axon collateral of an active spinal alpha motor neuron excites a Renshaw cell. Firing of the same motor neuron then declines. Which circuit is most likely?",
+   "Белсенді жұлындық α-мотонейронның аксон коллатералы Реншоу жасушасын қоздырады. Одан кейін сол мотонейронның разряды әлсірейді. Қай тізбек ықтимал?"
+  ),
+  options:[
+   t("Рекуррентное торможение: коллатераль мотонейрона → тормозный интернейрон Реншоу → мотонейрон.","Recurrent inhibition: motor-neuron collateral → inhibitory Renshaw interneuron → motor neuron.","Қайтымды тежелу: мотонейрон коллатералы → тежеуші Реншоу интернейроны → мотонейрон."),
+   t("Моносинаптическое возбуждение антагониста без интернейрона.","Monosynaptic excitation of the antagonist without an interneuron.","Антагонистің интернейронсыз моносинапстық қозуы."),
+   t("Прямое прекращение проведения в каждом периферическом нервном волокне.","Direct failure of conduction in every peripheral nerve fiber.","Әрбір шеткі жүйке талшығында өткізудің тікелей тоқтауы."),
+   t("Обязательное выключение коры больших полушарий.","Necessary shutdown of the cerebral cortex.","Үлкен ми сыңарлары қыртысының міндетті түрде өшуі.")
+  ],
+  explanation:t(
+   "Клетка Реншоу получает возбуждающую коллатераль от мотонейрона и обеспечивает отрицательную обратную связь через тормозные синапсы. Это рекуррентное торможение, отличное от Ia-зависимого реципрокного торможения антагониста.",
+   "A Renshaw cell receives an excitatory motor-neuron collateral and supplies inhibitory negative feedback. This recurrent inhibition differs from Ia-mediated reciprocal inhibition of the antagonist.",
+   "Реншоу жасушасы мотонейроннан қоздырушы коллатераль алып, тежеуші синапстар арқылы теріс кері байланыс жасайды. Бұл антагонистің Ia-афферентке тәуелді реципрокты тежелуінен бөлек қайтымды тежелу."
+  )
+ },
+ "justification:corrective":{
+  prompt:t(
+   "У пациента сопротивление пассивному растяжению выше при быстром движении, а при медленном ниже; во время быстрого растяжения появляется растяжение-зависимая ЭМГ-активность. Какой вывод наиболее обоснован?",
+   "A patient's resistance to passive stretch is greater at high speed than at low speed, and stretch-related EMG activity appears during fast stretch. Which conclusion is best supported?",
+   "Науқаста пассивті созуға қарсылық жылдам қозғалыста жоғары, баяу қозғалыста төмен; жылдам созғанда созылуға байланысты ЭМГ белсенділігі пайда болады. Қай қорытынды негіздірек?"
+  ),
+  options:[
+   t("Данные поддерживают рефлекторный, зависящий от скорости компонент; сопутствующую механическую жёсткость надо оценивать отдельно.","The data support a velocity-dependent reflex component; coexisting mechanical stiffness needs separate assessment.","Деректер жылдамдыққа тәуелді рефлекстік құрамдасты қолдайды; қатар жүретін механикалық қаттылық бөлек бағалануы керек."),
+   t("Доказано, что все сопротивление вызвано только укорочением сухожилия.","All resistance is proved to result solely from tendon shortening.","Барлық қарсылық тек сіңірдің қысқаруынан туатыны дәлелденді."),
+   t("ЭМГ прямо измеряет концентрацию ГАМК в синаптической щели.","EMG directly measures GABA concentration in the synaptic cleft.","ЭМГ синапстық саңылаудағы ГАМҚ концентрациясын тікелей өлшейді."),
+   t("Зависимость от скорости исключает участие спинальных рефлексов.","Velocity dependence rules out spinal reflex contributions.","Жылдамдыққа тәуелділік жұлын рефлекстерінің қатысуын жоққа шығарады.")
+  ],
+  explanation:t(
+   "Зависимость сопротивления от скорости вместе с вызванной растяжением ЭМГ согласуется с нейрогенным рефлекторным вкладом. По этим данным нельзя определить конкретный медиатор или исключить фиксированные изменения мышц и сухожилий.",
+   "Velocity dependence plus stretch-evoked EMG supports a neural reflex contribution. These observations neither identify a particular transmitter nor exclude fixed muscle or tendon changes.",
+   "Қарсылықтың жылдамдыққа тәуелділігі және созылудан туындаған ЭМГ нейрогендік рефлекстік үлесті қолдайды. Бұл деректер нақты медиаторды анықтамайды әрі бұлшықет пен сіңірдің тұрақты өзгерістерін жоққа шығармайды."
+  )
+ }
+};
+
 const ids=["concept:main","mechanism:main","application:main","transfer:main","justification:main"] as const;
 export function createModuleSixTests(language:Language,moduleTitle:string,base:BranchingTest):BranchingTest{
  const nodes:BranchingTest["nodes"]={...base.nodes};
@@ -94,6 +193,17 @@ export function createModuleSixTests(language:Language,moduleTitle:string,base:B
   if(options.length!==4 || new Set(options.map(option=>option.text)).size!==4) throw new Error("Invalid module 6 test options: "+id);
   const reviewed:QuestionNode={...original,prompt:q.prompt[language],options,correctAnswer:"a",explanation:q.explanation[language]};
   nodes[id]=reviewed;
+ }
+ for(const id of ["concept:corrective","mechanism:corrective","application:corrective","transfer:corrective","justification:corrective"]){
+  const original=nodes[id];
+  if(!original || original.type!=="question" || original.level!=="corrective") throw new Error("Missing module 6 corrective node: "+id);
+  const q=corrective[id];
+  const options=original.options.map(option=>({
+   ...option,
+   text:q.options[["a","b","c","d"].indexOf(option.id)]?.[language] ?? option.text
+  }));
+  if(options.length!==4 || new Set(options.map(option=>option.text)).size!==4) throw new Error("Invalid module 6 corrective options: "+id);
+  nodes[id]={...original,prompt:q.prompt[language],options,correctAnswer:"a",explanation:q.explanation[language]};
  }
  return {...base,moduleTitle,nodes};
 }
