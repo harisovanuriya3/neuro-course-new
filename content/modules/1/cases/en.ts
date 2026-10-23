@@ -129,6 +129,16 @@ const lesson: CasesLesson = {
       ],
       explanation: ["Peripheral nerve conduction studies assess electrical responses following nerve stimulation, including latency, amplitude and compound muscle action potential shape; they do not directly measure muscle force.","Myelin damage may slow impulse conduction, increase temporal dispersion and cause conduction block. Reduced response amplitude can have different causes, including axonal loss, and should not be interpreted in isolation.","Interpretation requires stimulation-site details, limb temperature, artifact checks, weakness distribution, sensory examination, reflexes and potentially needle electromyography. Diagnosis depends on the full clinical context."],
     },
+    {
+      id: "neuromuscular-transmission-lab", title: "Laboratory case: locating a transmission deficit",
+      situation: "During motor-nerve stimulation, an action potential is recorded in the distal axon, but the compound muscle response is smaller than the control response. With closely spaced repeated stimuli, it decreases further. Temperature, electrode placement and stimulus strength are controlled. These are simulated teaching data, not a patient diagnosis.",
+      stages: [
+        { title: "Describe the observations", questions: ["Which two signals are recorded by different electrodes?","What can be concluded about conduction up to the axonal recording site?"] },
+        { title: "Explain the mechanism", questions: ["Which steps between arrival of the impulse and muscle contraction might be affected?","Why cannot the smaller muscle response be attributed solely to a myelin defect without further evidence?"] },
+        { title: "Plan verification", questions: ["What further electrophysiological or clinical measurements could help locate the problem?","Why must temperature, electrode position and reproducible stimulation be controlled?"] },
+      ],
+      explanation: ["The recorded nerve action potential shows that an impulse reached the recording site; the compound muscle response represents the electrical activity of muscle fibers after additional transmission steps.","Neuromuscular transmission, muscle membrane excitability and other links may affect the response. Decrement during repeated stimulation can be informative, but interpretation depends on the exact protocol and exclusion of artifacts.","Repeated nerve conduction measurements, compound muscle action potential analysis and, when indicated, needle EMG help localization. A specific disorder cannot be diagnosed from these limited findings alone."],
+    },
   ],
   sources: [
     { title: "Neuroscience: Chemical Synapses", href: "https://www.ncbi.nlm.nih.gov/books/NBK11009/" },
