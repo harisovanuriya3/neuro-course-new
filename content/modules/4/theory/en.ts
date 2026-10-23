@@ -92,6 +92,15 @@ const lesson: Lesson = {
         { type: "paragraph", text: "Controls include keeping temperature stable and comparing identical stimuli over different intervals while measuring response threshold and waveform. If suppression persists at a long interval, examine axonal damage, solution changes and recording artifacts rather than automatically attributing the finding to normal refractoriness." },
       ],
     },
+    {
+      id: "hyperkalemia-clinical-bridge",
+      title: "Clinical reasoning: hyperkalemia and electrical excitability",
+      blocks: [
+        { type: "paragraph", text: "Hyperkalemia increases extracellular K⁺ and makes the potassium equilibrium potential less negative, often depolarizing excitable cells. The response is nonlinear: modest depolarization may initially facilitate threshold crossing, while larger or sustained depolarization reduces available voltage-gated Na⁺ channels through inactivation. Excitation and impulse propagation may consequently become impaired." },
+        { type: "paragraph", text: "A student must distinguish an isolated neuron's electrical properties from clinical findings. ECG manifestations of hyperkalemia reflect cardiac electrophysiology and are not direct recordings of neuronal resting potential. One extracellular K⁺ value alone cannot reliably predict conduction velocity in a particular nerve fiber; the rate of change, tissue state and other electrolyte disturbances matter." },
+        { type: "paragraph", text: "Worked reasoning: (1) predict the direction of E_K shift; (2) explain early and sustained effects on threshold and Na⁺ channel availability; (3) propose controlled measurements of membrane potential and response amplitude; (4) state the limits of extrapolating such experiments to a patient. This connects membrane biophysics to clinical reasoning without treating a mechanism as a diagnosis." },
+      ],
+    },
   ],
   outcomes: {
     title: "Learning outcomes",
