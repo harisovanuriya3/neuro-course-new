@@ -82,7 +82,30 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
    ]}
   ],explanation:[
     l==="RU" ? "Сильный ответ формулирует две конкурирующие физиологические гипотезы и выбирает измерение, для которого они предсказывают разные результаты." : l==="EN" ? "A strong answer states two competing physiological hypotheses and selects a measurement for which they predict different outcomes." : "Күшті жауап екі бәсекелес физиологиялық болжамды тұжырымдап, олар әртүрлі нәтиже болжайтын өлшеуді таңдайды."
-  ]}
+  ]},
+
+  ...(topic.id===2 ? [{
+    id:"m2-evoked-averaging",
+    title:l==="RU"?"Задача 3. Истинный вызванный ответ или артефакт?":l==="EN"?"Case 3. Evoked response or artifact?":"3-жағдай. Шынайы жауап па, әлде артефакт па?",
+    situation:l==="RU"
+      ?"Во время исследования слуховых вызванных потенциалов пациенту предъявляли 100 одинаковых звуковых стимулов. На отдельных пробах видны небольшие колебания ЭЭГ и крупное фронтальное отклонение примерно через 70 мс. При усреднении случайные колебания уменьшаются, но фронтальный пик остаётся. Видеозапись показывает, что пациент моргал после большинства стимулов. Исследователь назвал оставшийся пик корковым ответом. Оцените этот вывод."
+      :l==="EN"
+      ?"During an auditory evoked-potential experiment, 100 identical sounds were presented. Individual EEG epochs contain varying background fluctuations and a prominent frontal deflection around 70 ms. Averaging suppresses the variable background but leaves the frontal peak. Video shows that the participant blinked after most stimuli. The investigator calls the remaining peak a cortical response. Evaluate this inference."
+      :"Есту шақырылған потенциалын зерттегенде 100 бірдей дыбыстық стимул берілді. Жеке ЭЭГ үзінділерінде кездейсоқ ауытқулар және шамамен 70 мс-та маңдай аймағында ірі толқын көрінеді. Орташалау фондық ауытқуларды азайтқанымен, маңдайдағы шың сақталады. Бейнежазба бойынша қатысушы стимулдардың көбінен кейін көзін жыпылықтатқан. Зерттеуші осы шыңды қыртыстық жауап деп атады. Бұл қорытындыны бағалаңыз.",
+    stages:[
+      {title:l==="RU"?"Данные и предварительный вывод":l==="EN"?"Evidence and provisional conclusion":"Деректер және бастапқы қорытынды",
+       questions:[l==="RU"?"Какие два факта указывают на возможное происхождение пика от движения глаз?":l==="EN"?"Which two observations suggest an ocular origin of the peak?":"Қандай екі дерек шыңның көз қозғалысымен байланысты екенін көрсетеді?",
+       l==="RU"?"Почему исчезновение случайного шума не доказывает, что оставшийся пик является нейронным?":l==="EN"?"Why does removal of unrelated noise not establish that the remaining peak is neural?":"Кездейсоқ шудың азаюы қалған шыңның нейрондық екенін неге дәлелдемейді?"]},
+      {title:l==="RU"?"Контрольный опыт":l==="EN"?"Controlled repeat":"Бақылау тәжірибесі",
+       questions:[l==="RU"?"Предложите повторную запись с контролем моргания и дополнительным каналом ЭОГ. Какие изменения ожидаются, если пик вызван морганием?":l==="EN"?"Propose a repeat recording with blink control and an EOG channel. What change is expected if the peak is ocular?":"Көз жыпылықтауын бақылап және ЭОГ арнасын қосып қайта жазуды ұсыныңыз. Егер шың көз қозғалысына байланысты болса, қандай нәтиже күтіледі?",
+       l==="RU"?"Какие признаки — форма, топография, латентность и воспроизводимость — необходимо сопоставить с ожидаемым вызванным потенциалом?":l==="EN"?"Which features—waveform, scalp topography, latency and replication—should be checked against an expected evoked response?":"Толқын пішіні, топографиясы, латенттілігі мен қайталануын күтілетін шақырылған жауаппен қалай салыстырасыз?"]}
+    ],
+    explanation:l==="RU"
+      ?["Усреднение подавляет независимую, не связанную со стимулом составляющую, но сохраняет любые достаточно устойчивые компоненты, синхронные стимулу, в том числе моргание.","До проверки ЭОГ, видеозаписи и контрольной серии вывод о корковом происхождении пика преждевременен. При уменьшении моргания глазной компонент должен ослабнуть, хотя истинный нейронный ответ может сохраниться."]
+      :l==="EN"
+      ?["Averaging reduces independent, stimulus-unrelated noise, but retains consistently stimulus-locked activity, including a blink artifact.","A cortical interpretation is premature without EOG, video and control trials. Reducing blinks should attenuate the ocular component while a genuine neural response may persist."]
+      :["Орташалау стимулмен байланыссыз шуды азайтады, бірақ бір уақытта қайталанатын компоненттерді, оның ішінде көз жыпылықтау артефактісін сақтайды.","ЭОГ, бейнежазба және бақылау сериясын тексермей тұрып шыңды қыртыстық жауап деуге ерте. Жыпылықтау азайғанда көзге қатысты компонент әлсіреуі керек, ал нейрондық жауап сақталуы мүмкін."]
+  }] : [])
  ]};
 }
 
