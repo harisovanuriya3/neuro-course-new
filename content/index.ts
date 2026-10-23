@@ -180,6 +180,12 @@ function moduleFiveBaseTest(language: Language) {
   return lesson;
 }
 
+function moduleSixBaseReferences(language: Language) {
+  const lesson = foundationLessons[6]?.references?.[language];
+  if (!lesson || lesson.kind !== "references") throw new Error("Module 6 base references missing for " + language);
+  return lesson;
+}
+
 function moduleSixBaseMedia(language: Language) {
   const lesson = foundationLessons[6]?.media?.[language];
   if (!lesson || lesson.kind !== "media") {
@@ -413,9 +419,9 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   6: {
     ...foundationLessons[6],
     references: {
-      RU: createModuleSixReferences("RU", foundationLessons[6].references.RU),
-      EN: createModuleSixReferences("EN", foundationLessons[6].references.EN),
-      KZ: createModuleSixReferences("KZ", foundationLessons[6].references.KZ),
+      RU: createModuleSixReferences("RU", moduleSixBaseReferences("RU")),
+      EN: createModuleSixReferences("EN", moduleSixBaseReferences("EN")),
+      KZ: createModuleSixReferences("KZ", moduleSixBaseReferences("KZ")),
     },
     media: { RU: createModuleSixMedia("RU", moduleSixBaseMedia("RU")), EN: createModuleSixMedia("EN", moduleSixBaseMedia("EN")), KZ: createModuleSixMedia("KZ", moduleSixBaseMedia("KZ")) },
     tests: { RU: createModuleSixTests("RU", modules.RU[5], moduleSixBaseTest("RU")), EN: createModuleSixTests("EN", modules.EN[5], moduleSixBaseTest("EN")), KZ: createModuleSixTests("KZ", modules.KZ[5], moduleSixBaseTest("KZ")) },
