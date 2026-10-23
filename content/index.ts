@@ -40,6 +40,7 @@ import { createModuleSixSummary } from "./course-foundation/module-six-summary";
 import { createModuleSixObjectives } from "./course-foundation/module-six-objectives";
 import { createModuleSixClinical } from "./course-foundation/module-six-clinical";
 import { createModuleSixPractice } from "./course-foundation/module-six-practice";
+import { createModuleSixCases } from "./course-foundation/module-six-cases";
 import { createModuleFiveQuestions } from "./course-foundation/module-five-questions";
 import { createModuleFiveSummary } from "./course-foundation/module-five-summary";
 import { createModuleFiveGlossary } from "./course-foundation/module-five-glossary";
@@ -174,6 +175,11 @@ function moduleFiveBaseTest(language: Language) {
   return lesson;
 }
 
+function moduleSixBaseCases(language: Language) {
+  const lesson = foundationLessons[6]?.cases?.[language];
+  if (!lesson || lesson.kind !== "cases") throw new Error("Module 6 base cases missing for " + language);
+  return lesson;
+}
 function moduleSixBasePractice(language: Language) {
   const lesson = foundationLessons[6]?.practice?.[language];
   if (!lesson || lesson.kind !== "practice") throw new Error("Module 6 base practice missing for " + language);
@@ -386,6 +392,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
     objectives: { RU: createModuleSixObjectives("RU"), EN: createModuleSixObjectives("EN"), KZ: createModuleSixObjectives("KZ") },
     "one-minute": { RU: createModuleSixSummary("RU"), EN: createModuleSixSummary("EN"), KZ: createModuleSixSummary("KZ") },
     clinical: { RU: createModuleSixClinical("RU"), EN: createModuleSixClinical("EN"), KZ: createModuleSixClinical("KZ") },
+    cases: {
+      RU: createModuleSixCases("RU", moduleSixBaseCases("RU")),
+      EN: createModuleSixCases("EN", moduleSixBaseCases("EN")),
+      KZ: createModuleSixCases("KZ", moduleSixBaseCases("KZ")),
+    },
     practice: {
       RU: createModuleSixPractice("RU", moduleSixBasePractice("RU")),
       EN: createModuleSixPractice("EN", moduleSixBasePractice("EN")),
