@@ -19,7 +19,7 @@ new Function("exports", compiled.outputText)(exported);
 assert.equal(typeof exported.createModuleEightCases, "function");
 const markers = {
   RU: ["Лиссауэр", "медиальная петля", "пирамид", "камертон"],
-  EN: ["Lissauer", "medial lemniscus", "pyramidal", "tuning fork"],
+  EN: ["Lissauer", "medial lemniscus", "pyramidal", "tuning-fork"],
   KZ: ["Лиссауэр", "медиалдық ілмек", "пирамид", "камертон"]
 };
 for (const lang of ["RU", "EN", "KZ"]) {
