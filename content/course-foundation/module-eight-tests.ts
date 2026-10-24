@@ -227,7 +227,6 @@ const copy: Record<Language,Pair[]> = {
  ]
 };
 const ids=["concept","mechanism","application","transfer","justification"] as const;
-const next=["mechanism:main","application:main","transfer:main","justification:main","end"];
 const shuffled=(item:Q,offset:number):QuestionCopy=>{
  const options=[
   {id:"a",text:item[1]},{id:"b",text:item[2]},
