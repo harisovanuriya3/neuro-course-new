@@ -38,7 +38,7 @@ for(const [lang,phrases] of Object.entries({
 assert(src.includes("moduleId===6 ? {...copy[language],...moduleSixCopy[language]}"),
  "Module 6 voice is not selected in actual component");
 assert(src.includes("disabled={answer.trim().length<12}"),"Very short/empty answer must not be submitted");
-assert(src.includes("const key=`neuro-course:mechanism:${moduleId}:${language}`"),
+assert(src.includes("moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`"),
  "Local answer storage must be isolated by module and language");
 assert(src.includes("<VoiceTextarea language={language}"),"Speech/text input missing");
 assert(src.includes("This is a structure self-check, not an automatic knowledge grade."),
