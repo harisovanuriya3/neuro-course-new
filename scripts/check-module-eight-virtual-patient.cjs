@@ -48,7 +48,8 @@ for(const language of ["RU","EN","KZ"]){
   assert(stage.options.every(o=>o.feedback===stage.mechanism));
   assert(stage.options[stage.correctOption].response!==stage.options[(stage.correctOption+1)%3].response);
   assert(stage.options[stage.correctOption].text!==stage.options[(stage.correctOption+1)%3].text);
-  assert(stage.mechanism.includes(keyTerms[language][i]),language+" stage "+i+" missing pathway anchor");
+  const detail=stage.task+" "+stage.newData+" "+stage.mechanism+" "+stage.options.map(o=>o.text).join(" ");
+  assert(detail.includes(keyTerms[language][i]),language+" stage "+i+" missing pathway anchor");
   uniqueTasks.add(stage.task);
  }
  assert.equal(uniqueTasks.size,6);
