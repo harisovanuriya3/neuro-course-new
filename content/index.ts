@@ -1,4 +1,5 @@
 import type { Language, LocalizedLesson, Section, Lesson, PracticeLesson } from "./types";
+import type { CasesLesson } from "./cases";
 import RU from "./modules/1/theory/ru";
 import KZ from "./modules/1/theory/kz";
 import EN from "./modules/1/theory/en";
@@ -43,6 +44,7 @@ import { createModuleSevenTheory } from "./course-foundation/module-seven-theory
 import { createModuleSevenSummary } from "./course-foundation/module-seven-summary";
 import { createModuleSevenClinical } from "./course-foundation/module-seven-clinical";
 import { createModuleSevenPractice } from "./course-foundation/module-seven-practice";
+import { createModuleSevenCases } from "./course-foundation/module-seven-cases";
 import { createModuleSevenPretest } from "./course-foundation/module-seven-pretest";
 import { createModuleSixClinical } from "./course-foundation/module-six-clinical";
 import { createModuleSixPractice } from "./course-foundation/module-six-practice";
@@ -424,6 +426,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   7: {
     ...foundationLessons[7],
+    cases: {
+      RU: createModuleSevenCases("RU", foundationLessons[7].cases.RU as CasesLesson),
+      EN: createModuleSevenCases("EN", foundationLessons[7].cases.EN as CasesLesson),
+      KZ: createModuleSevenCases("KZ", foundationLessons[7].cases.KZ as CasesLesson),
+    },
     practice: {
       RU: createModuleSevenPractice("RU", foundationLessons[7].practice.RU as PracticeLesson),
       EN: createModuleSevenPractice("EN", foundationLessons[7].practice.EN as PracticeLesson),
