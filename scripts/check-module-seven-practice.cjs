@@ -13,9 +13,9 @@ const transpiled = ts.transpileModule(source, {
   reportDiagnostics: true,
 });
 assert.equal((transpiled.diagnostics || []).filter(d => d.category === ts.DiagnosticCategory.Error).length, 0);
-const exports = {};
-new Function("exports", transpiled.outputText)(exports);
-assert.equal(typeof exports.createModuleSevenPractice, "function");
+const moduleExports = {};
+new Function("exports", transpiled.outputText)(moduleExports);
+assert.equal(typeof moduleExports.createModuleSevenPractice, "function");
 const base = { kind: "practice", title: "Practice", moduleTitle: "Reflexes",
   ui: { showAnswer: "Show", check: "", reset: "", undo: "", correct: "",
     incorrect: "", incomplete: "", available: "", selected: "", empty: "",
@@ -26,7 +26,7 @@ const markers = {
   KZ: ["Ia", "Ib", "Ендрассик", "интернейрон"],
 };
 for (const language of ["RU", "EN", "KZ"]) {
-  const result = exports.createModuleSevenPractice(language, base);
+  const result = moduleExports.createModuleSevenPractice(language, base);
   assert.equal(result.kind, "practice");
   assert.equal(result.sections.length, 5, language + " section count");
   assert.equal(new Set(result.sections.map(s => s.title)).size, 5, language + " duplicate titles");
