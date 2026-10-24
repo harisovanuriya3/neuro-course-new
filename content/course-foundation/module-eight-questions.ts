@@ -31,8 +31,8 @@ const questions: Record<Language, Five> = {
       section: "cases"
     },
     {
-      prompt: "Сравните два изолированных поражения: левую заднюю ножку внутренней капсулы и правый латеральный корково-спинномозговой тракт в грудном отделе. На какой стороне преимущественно ожидается слабость произвольных движений в каждом случае и почему?",
-      explanation: "Большинство корково-спинномозговых волокон пересекается в пирамидном перекрёсте каудальной части продолговатого мозга. Поэтому левый очаг внутренней капсулы выше перекрёста преимущественно нарушает движения справа, а правый латеральный тракт в спинном мозге ниже перекрёста — справа. Сила и характер дефицита зависят от объёма поражения и участия других нисходящих путей.",
+      prompt: "Сравните два изолированных поражения: левую заднюю ножку внутренней капсулы и левый латеральный корково-спинномозговой тракт в грудном отделе. На какой стороне преимущественно ожидается слабость произвольных движений в каждом случае и почему?",
+      explanation: "Большинство корково-спинномозговых волокон пересекается в пирамидном перекрёсте каудальной части продолговатого мозга. Поэтому левый очаг внутренней капсулы выше перекрёста преимущественно нарушает движения справа, а левый латеральный тракт в спинном мозге ниже перекрёста — слева. Сила и характер дефицита зависят от объёма поражения и участия других нисходящих путей.",
       section: "theory"
     },
     {
@@ -58,8 +58,8 @@ const questions: Record<Language, Five> = {
       section: "cases"
     },
     {
-      prompt: "Compare an isolated lesion in the left posterior limb of the internal capsule with a lesion of the right lateral corticospinal tract in the thoracic cord. Which side predominantly develops impaired voluntary movement in each case, and why?",
-      explanation: "Most corticospinal fibers cross at the pyramidal decussation in the caudal medulla. A left internal-capsule lesion above the crossing therefore mainly affects movement on the right, while a right lateral corticospinal lesion below the crossing also mainly affects the right. Severity and pattern depend on lesion extent and other descending pathways.",
+      prompt: "Compare an isolated lesion in the left posterior limb of the internal capsule with a lesion of the left lateral corticospinal tract in the thoracic cord. Which side predominantly develops impaired voluntary movement in each case, and why?",
+      explanation: "Most corticospinal fibers cross at the pyramidal decussation in the caudal medulla. A left internal-capsule lesion above the crossing therefore mainly affects movement on the right, while a left lateral corticospinal lesion below the crossing mainly affects the left. Severity and pattern depend on lesion extent and other descending pathways.",
       section: "theory"
     },
     {
@@ -85,8 +85,8 @@ const questions: Record<Language, Five> = {
       section: "cases"
     },
     {
-      prompt: "Екі оқшау зақымды салыстырыңыз: ішкі капсуланың артқы аяқшасының сол жақ зақымы және кеуде деңгейіндегі оң латералдық қыртыс-жұлын жолының зақымы. Әр жағдайда ерікті қозғалыс қай жақта басым бұзылады және неліктен?",
-      explanation: "Қыртыс-жұлын талшықтарының көпшілігі сопақша мидың каудалдық бөлігіндегі пирамидалық айқасуда қарсы жаққа өтеді. Сондықтан айқасудан жоғары сол ішкі капсула зақымы көбіне оң жақ қозғалысын, ал айқасудан төмен жұлындағы оң латералдық жол зақымы да көбіне оң жақ қозғалысын бұзады. Бұзылыстың дәрежесі мен сипаты зақым көлеміне және басқа төмендеуші жолдарға байланысты.",
+      prompt: "Екі оқшау зақымды салыстырыңыз: ішкі капсуланың артқы аяқшасының сол жақ зақымы және кеуде деңгейіндегі сол латералдық қыртыс-жұлын жолының зақымы. Әр жағдайда ерікті қозғалыс қай жақта басым бұзылады және неліктен?",
+      explanation: "Қыртыс-жұлын талшықтарының көпшілігі сопақша мидың каудалдық бөлігіндегі пирамидалық айқасуда қарсы жаққа өтеді. Сондықтан айқасудан жоғары сол ішкі капсула зақымы көбіне оң жақ қозғалысын, ал айқасудан төмен жұлындағы сол латералдық жол зақымы көбіне сол жақ қозғалысын бұзады. Бұзылыстың дәрежесі мен сипаты зақым көлеміне және басқа төмендеуші жолдарға байланысты.",
       section: "theory"
     },
     {
