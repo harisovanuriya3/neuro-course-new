@@ -3,6 +3,7 @@ import type { CasesLesson } from "../cases";
 import type { BranchingTest, TestUI } from "../tests";
 import type { Topic } from "./topics";
 import { createModuleEightCases } from "./module-eight-cases";
+import { adaptModuleEightTest } from "./module-eight-tests";
 
 type Vignette = Record<Language,string>;
 const v=(RU:string,EN:string,KZ:string):Vignette=>({RU,EN,KZ});
@@ -208,11 +209,12 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   "justification:review-2":{id:"justification:review-2",type:"remediation",competency:justifyComp,depth:2,text:mechanism,theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:jBasic},
   [jBasic]:{id:jBasic,type:"question",level:"basic",competency:justifyComp,prompt:justificationPrompt,options:opts(justificationCorrect,justificationWrong2,justificationWrong3,justificationWrong1),correctAnswer:"a",explanation:interpretation,onCorrect:"end",onIncorrect:"end"}
  };
- return {kind:"tests",title:l==="RU"?"Тест с разбором":l==="EN"?"Test with Feedback":"Түсіндірмесі бар тест",moduleTitle,ui:testUi(l),start:cMain,mainIds:[cMain,mMain,aMain,tMain,jMain],competencies:{
+ const result:BranchingTest = {kind:"tests",title:l==="RU"?"Тест с разбором":l==="EN"?"Test with Feedback":"Түсіндірмесі бар тест",moduleTitle,ui:testUi(l),start:cMain,mainIds:[cMain,mMain,aMain,tMain,jMain],competencies:{
   [conceptComp]:{title:l==="RU"?"Ключевые понятия":l==="EN"?"Key concepts":"Негізгі ұғымдар",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [mechComp]:{title:l==="RU"?"Механизм":l==="EN"?"Mechanism":"Тетік",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [appComp]:{title:l==="RU"?"Применение и интерпретация":l==="EN"?"Application and interpretation":"Қолдану және түсіндіру",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}},
   transfer:{title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [justifyComp]:{title:l==="RU"?"Обоснование вывода":l==="EN"?"Justification of conclusion":"Қорытындыны негіздеу",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}}
  },nodes};
+ return topic.id===8 ? adaptModuleEightTest(result,l) : result;
 }
