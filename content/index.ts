@@ -48,6 +48,7 @@ import { createModuleSevenCases } from "./course-foundation/module-seven-cases";
 import { createModuleSevenTests } from "./course-foundation/module-seven-tests";
 import { createModuleSevenPretest } from "./course-foundation/module-seven-pretest";
 import { createModuleSevenQuestions } from "./course-foundation/module-seven-questions";
+import { createModuleSevenMedia } from "./course-foundation/module-seven-media";
 import { createModuleSixClinical } from "./course-foundation/module-six-clinical";
 import { createModuleSixPractice } from "./course-foundation/module-six-practice";
 import { createModuleSixCases } from "./course-foundation/module-six-cases";
@@ -428,6 +429,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   7: {
     ...foundationLessons[7],
+    media: {
+      RU: createModuleSevenMedia("RU", foundationLessons[7].media.RU as import("./media").MediaLesson),
+      EN: createModuleSevenMedia("EN", foundationLessons[7].media.EN as import("./media").MediaLesson),
+      KZ: createModuleSevenMedia("KZ", foundationLessons[7].media.KZ as import("./media").MediaLesson),
+    },
     questions: { RU: createModuleSevenQuestions("RU"), EN: createModuleSevenQuestions("EN"), KZ: createModuleSevenQuestions("KZ") },
     tests: {
       RU: createModuleSevenTests("RU", modules.RU[6], foundationLessons[7].tests.RU as import("./tests").BranchingTest),
