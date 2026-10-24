@@ -95,3 +95,4 @@ console.log("PASS: module 7 / tests: 15 authored main/corrective/basic questions
 console.log("OPEN: full browser, TypeScript build, independent Kazakh and scientific review.");
 require("./check-module-seven-questions.cjs");
 require("./check-module-seven-virtual-patient.cjs");
+require("./check-module-seven-media.cjs");
