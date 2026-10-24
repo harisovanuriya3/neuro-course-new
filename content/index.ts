@@ -1,3 +1,4 @@
+import { createModuleEightQuestions } from "./course-foundation/module-eight-questions";
 import { createModuleSevenReferences } from "./course-foundation/module-seven-references";
 import type { Language, LocalizedLesson, Section, Lesson, PracticeLesson } from "./types";
 import type { CasesLesson } from "./cases";
@@ -437,6 +438,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   8: {
     ...foundationLessons[8],
+    questions: {
+      RU: createModuleEightQuestions("RU"),
+      EN: createModuleEightQuestions("EN"),
+      KZ: createModuleEightQuestions("KZ"),
+    },
     practice: {
       RU: createModuleEightPractice("RU", foundationLessons[8].practice.RU as PracticeLesson),
       EN: createModuleEightPractice("EN", foundationLessons[8].practice.EN as PracticeLesson),
