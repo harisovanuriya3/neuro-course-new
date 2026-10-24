@@ -3,6 +3,7 @@ import {useState} from "react";
 import type {Language} from "../content/course";
 import ExperimentReflection from "./ExperimentReflection";
 import {recordOutcome} from "../lib/courseProgress";
+import {predictSpinalTractDeficit} from "../lib/pathwayLocalization";
 type Path="dorsal"|"spinothalamic"|"corticospinal"; type Side="left"|"right";
 type Row={id:number;path:Path;side:Side;level:string;finding:string;note:string;predicted:Side;correct:boolean};
 const T={RU:{title:"Лаборатория проводящих путей",intro:"Выберите путь и сторону условного поражения. Проследите направление сигнала, место перекрёста и ожидаемую сторону дефицита ниже выбранного уровня.",path:"Путь",side:"Сторона поражения",left:"левая",right:"правая",level:"Уровень",save:"Записать опыт",finding:"Ожидаемый учебный результат",note:"Объясните через место перекрёста",paths:{dorsal:"Задние канатики — медиальная петля",spinothalamic:"Спиноталамический путь",corticospinal:"Латеральный кортикоспинальный путь"},findings:{dorsal:"Ниже спинального поражения: ипсилатеральное нарушение тонкого осязания/вибрации/проприоцепции.",spinothalamic:"После сегментарного перекрёста: преимущественно контралатеральное нарушение боли и температуры ниже поражения.",corticospinal:"Ниже спинального поражения: ипсилатеральные признаки поражения нисходящего кортикоспинального пути."},limit:"Это локализационная учебная модель спинального поражения. Реальная клиническая картина зависит от точного уровня, протяжённости поражения и анатомии волокон; для спиноталамического пути начало дефицита может не совпадать точно с уровнем очага."},EN:{title:"Neural pathway laboratory",intro:"Choose a tract and side of a teaching lesion. Trace signal direction, decussation, and the expected side of deficit below the selected level.",path:"Pathway",side:"Lesion side",left:"left",right:"right",level:"Level",save:"Record trial",finding:"Expected teaching finding",note:"Explain using the decussation",paths:{dorsal:"Dorsal column–medial lemniscus",spinothalamic:"Spinothalamic tract",corticospinal:"Lateral corticospinal tract"},findings:{dorsal:"Below a spinal lesion: ipsilateral loss of fine touch/vibration/proprioception.",spinothalamic:"After segmental crossing: predominantly contralateral loss of pain and temperature below the lesion.",corticospinal:"Below a spinal lesion: ipsilateral signs of descending corticospinal tract damage."},limit:"This is a localization model of a spinal lesion. Real findings depend on exact level, lesion extent and fiber anatomy; spinothalamic sensory loss may not begin exactly at the lesion level."},KZ:{title:"Өткізгіш жолдар зертханасы",intro:"Жолды және шартты зақымдану жағын таңдаңыз. Сигнал бағытын, айқасу орнын және таңдалған деңгейден төмен күтілетін тапшылық жағын бақылаңыз.",path:"Жол",side:"Зақым жағы",left:"сол",right:"оң",level:"Деңгей",save:"Тәжірибені жазу",finding:"Күтілетін оқу нәтижесі",note:"Айқасу орны арқылы түсіндіріңіз",paths:{dorsal:"Артқы бағандар — медиалдық ілмек",spinothalamic:"Спиноталамустық жол",corticospinal:"Латералды кортикоспиналдық жол"},findings:{dorsal:"Жұлын зақымынан төмен: нәзік жанасу/вибрация/проприоцепцияның ипсилатералды бұзылысы.",spinothalamic:"Сегменттік айқасудан кейін: зақымнан төмен ауырсыну мен температураның негізінен контралатералды бұзылысы.",corticospinal:"Жұлын зақымынан төмен: төмендейтін кортикоспиналдық жол зақымының ипсилатералды белгілері."},limit:"Бұл жұлын зақымын локализациялауға арналған оқу моделі. Нақты көрініс деңгейге, зақым көлеміне және талшық анатомиясына тәуелді; спиноталамустық тапшылық ошақ деңгейімен дәл сәйкес келмеуі мүмкін."}} as const;
@@ -14,7 +15,6 @@ const EXTRA={
   EN:{segment:"Spinal cord segment",prediction:"Prediction: side of deficit below lesion",reason:"Explain your prediction before the trial (at least 20 characters)",left:"on the left",right:"on the right",expected:"Expected side of deficit",correct:"Predicted side matches the model.",incorrect:"Predicted side differs from the model. Recheck the decussation level.",cross:"Site of crossing",medulla:"medulla oblongata",cord:"spinal cord (across nearby segments)",cortex:"Cortex",spinal:"Spinal cord",direction:"Conduction direction",ascending:"ascending",descending:"descending",model:"Schematic direction only; not to anatomical scale. The lesion is in the selected spinal cord segment. The arrow indicates signal direction, not the side of impairment.",predicted:"Prediction",observed:"Result",evaluation:"Comparison",notes:"Explanation (not automatically graded)",prompt:"First select a side and write a physiological explanation. Then record and compare with the model.",trial:"Trial"},
   KZ:{segment:"Жұлын сегменті",prediction:"Болжам: ошақтан төмен бұзылыс жағы",reason:"Тәжірибеге дейін болжамды түсіндіріңіз (кемінде 20 таңба)",left:"сол жақта",right:"оң жақта",expected:"Күтілетін бұзылыс жағы",correct:"Болжанған жақ үлгімен сәйкес келді.",incorrect:"Болжанған жақ үлгімен сәйкес келмеді. Айқасу деңгейін қайта тексеріңіз.",cross:"Айқасу орны",medulla:"сопақша ми",cord:"жұлын (бірнеше көрші сегмент бойында)",cortex:"Қыртыс",spinal:"Жұлын",direction:"Өткізу бағыты",ascending:"жоғарылаушы",descending:"төмендеуші",model:"Бағытты көрсететін шартты сызба, анатомиялық масштаб сақталмаған. Ошақ таңдалған жұлын сегментінде орналасқан. Жебе бұзылыс жағын емес, сигнал бағытын көрсетеді.",predicted:"Болжам",observed:"Нәтиже",evaluation:"Салыстыру",notes:"Негіздеме (автоматты бағаланбайды)",prompt:"Алдымен бұзылыс жағын таңдап, физиологиялық түсіндірме жазыңыз. Содан кейін нәтижені үлгімен салыстырыңыз.",trial:"Тәжірибе"}
 } as const;
-const opposite=(side:Side):Side=>side==="left"?"right":"left";
 
 export default function PathwayLab({language}:{language:Language}){
   const c=T[language], x=EXTRA[language];
@@ -25,9 +25,10 @@ export default function PathwayLab({language}:{language:Language}){
   const [side,setSide]=useState<Side>("left");
   const [level,setLevel]=useState("T10");
   const [rows,setRows]=useState<Row[]>([]);
-  const expectedSide:Side=path==="spinothalamic"?opposite(side):side;
-  const crossing=path==="spinothalamic"?x.cord:x.medulla;
-  const motor=path==="corticospinal";
+  const model=predictSpinalTractDeficit(path,side);
+  const expectedSide:Side=model.expectedSide;
+  const crossing=model.crossingSite==="spinal"?x.cord:x.medulla;
+  const motor=model.direction==="descending";
   const direction=motor?x.descending:x.ascending;
   const sideLabel=(s:Side)=>s==="left"?x.left:x.right;
   const resetPrediction=()=>{
@@ -43,8 +44,8 @@ export default function PathwayLab({language}:{language:Language}){
     setRevealed(true);
     recordOutcome(8,"interactive",Number(correct),1);
     recordOutcome(8,"criterion:application:lab",Number(correct),1);
-    recordOutcome(8,"criterion:mechanism:prediction",Number(correct),1);
-    // Written reasoning is stored but never marked correct just because it is long.
+    // A correct side prediction does not establish a correct mechanism explanation.
+    // Written reasoning is stored but is not graded by its length.
   };
   return <section style={{margin:"28px 0",padding:20,border:"1px solid #cfe0ea",borderRadius:16}}>
     <h2>{c.title}</h2><p>{c.intro}</p>
