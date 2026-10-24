@@ -28,7 +28,7 @@ assert.equal(typeof create, "function");
 const markers = {
   RU: ["заднего столба", "антеролатеральной", "Броун-Секара", "корково-спинномозговых", "камертоном"],
   EN: ["dorsal-column", "anterolateral", "Brown-Séquard", "corticospinal", "tuning-fork"],
-  KZ: ["артқы баған", "антеролатералдық", "Броун-Секар", "қыртыс-жұлын", "камертонмен"]
+  KZ: ["артқы баған", "антеролатералдық", "Броун-Секар", "Қыртыс-жұлын", "камертонмен"]
 };
 for (const lang of ["RU", "EN", "KZ"]) {
   const lesson = create(lang);
