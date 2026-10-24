@@ -1,8 +1,8 @@
 import type { Language } from "../course";
 import type { BranchingTest, QuestionNode } from "../tests";
 
-// Module 7 / tests: five explicitly authored MAIN-route questions.
-// Corrective/basic branches are still the foundation templates and remain to be reviewed.
+// Module 7 / tests: five authored main and five authored corrective questions.
+// Five basic branches remain foundation templates and require review.
 // Source checks: Ganong 23e, chapter 9, Library PDF pp. 169–171;
 // Guyton & Hall 13e, chapter 55, Library PDF pp. 666–669;
 // C. L. Ghai Practical Physiology 8e, Library PDF pp. 317–319.
@@ -143,14 +143,69 @@ const authored: Record<string, Item> = {
   }
 };
 
+const corrective: Record<string, Item> = {
+  "concept:corrective": {
+    prompt: t("При медленном пассивном растяжении четырёхглавой мышцы без удара по сухожилию какой рецептор передаёт информацию о длине мышцы?", "During slow passive stretching of the quadriceps without a tendon tap, which receptor signals muscle length?", "Сіңірді соқпай, төртбасты бұлшықетті баяу пассивті созғанда бұлшықет ұзындығы туралы қай рецептор хабарлайды?"),
+    options: [
+      t("Мышечное веретено: афференты Ia и II передают сведения о растяжении и поддерживаемой длине.", "The muscle spindle: Ia and group II afferents signal stretch and sustained muscle length.", "Бұлшықет ұршығы: Ia және II топ афференттері созылу мен сақталған ұзындық туралы хабарлайды."),
+      t("Сухожильный орган Гольджи: его Ib-афференты являются главным датчиком длины мышечных волокон.", "The Golgi tendon organ: its Ib afferents are the primary sensor of muscle-fiber length.", "Гольджи сіңірлік органы: оның Ib-афференттері бұлшықет талшықтары ұзындығының негізгі датчигі."),
+      t("Кожный ноцицептор: без болевого сигнала проприоцепция длины невозможна.", "A cutaneous nociceptor: muscle-length proprioception requires pain input.", "Терілік ноцицептор: ауырсыну сигналы болмаса, ұзындық проприоцепциясы мүмкін емес."),
+      t("Нервно-мышечный синапс: он самостоятельно измеряет статическую длину мышцы.", "The neuromuscular junction: it directly measures static muscle length.", "Жүйке-бұлшықет синапсы: ол бұлшықеттің тұрақты ұзындығын тікелей өлшейді.")
+    ],
+    explanation: t("Веретёна расположены параллельно экстрафузальным волокнам. Первичные Ia-окончания особенно чувствительны к скорости изменения длины, а Ia и II передают информацию о сохраняющемся растяжении. Сухожильный орган Гольджи преимущественно отражает мышечное напряжение, а не является главным датчиком длины.", "Spindles lie in parallel with extrafusal fibers. Primary Ia endings are especially sensitive to the rate of length change, while Ia and group II endings signal maintained stretch. Golgi tendon organs primarily signal muscle tension rather than serving as the principal length receptors.", "Ұршықтар экстрафузалдық талшықтарға параллель орналасады. Бастапқы Ia-ұштар ұзындық өзгерісінің жылдамдығына әсіресе сезімтал, ал Ia және II топ ұштары сақталған созылуды хабарлайды. Гольджи сіңірлік органдары негізінен бұлшықет кернеуін сезеді, ұзындықтың басты рецепторы емес.")
+  },
+  "mechanism:corrective": {
+    prompt: t("Ia-афферент мышечного веретена образует прямой возбуждающий синапс с альфа-мотонейроном. Какой медиатор обычно обеспечивает эту центральную передачу?", "A muscle-spindle Ia afferent forms a direct excitatory synapse on an alpha motor neuron. Which transmitter normally mediates this central connection?", "Бұлшықет ұршығының Ia-афференті альфа-мотонейронмен тікелей қоздырушы синапс түзеді. Осы орталық байланыста әдетте қандай медиатор қызмет етеді?"),
+    options: [
+      t("Глутамат, вызывающий возбуждающий постсинаптический ответ мотонейрона.", "Glutamate, producing an excitatory postsynaptic response in the motor neuron.", "Глутамат, мотонейронда қоздырушы постсинапстық жауап туғызады."),
+      t("Глицин, поскольку прямая Ia-связь обязательно тормозит мотонейрон агониста.", "Glycine, because the direct Ia connection necessarily inhibits the agonist motor neuron.", "Глицин, өйткені тікелей Ia-байланыс агонист мотонейронын міндетті түрде тежейді."),
+      t("ГАМК, поскольку мышечное веретено не может вызывать центрального возбуждения.", "GABA, because muscle-spindle input cannot excite spinal motor neurons.", "ГАМҚ, өйткені бұлшықет ұршығынан келетін сигнал жұлын мотонейрондарын қоздыра алмайды."),
+      t("Ацетилхолин, потому что медиатор нервно-мышечного соединения обязательно тот же и в центральном Ia-синапсе.", "Acetylcholine, because the transmitter at the neuromuscular junction must also mediate the central Ia synapse.", "Ацетилхолин, өйткені жүйке-бұлшықет түйіспесіндегі медиатор орталық Ia-синапста да міндетті түрде бірдей.")
+    ],
+    explanation: t("Прямое центральное возбуждение альфа-мотонейрона Ia-афферентом является глутаматергическим. Это не следует путать с холинергической передачей от мотонейрона к мышце и с тормозными интернейронными путями реципрокного торможения, где возможны глицинергические механизмы.", "Direct central excitation of alpha motor neurons by Ia afferents is glutamatergic. It must not be confused with cholinergic transmission at the motor end plate or inhibitory interneuronal pathways of reciprocal inhibition, which can involve glycine.", "Ia-афференттің альфа-мотонейронды тікелей орталық қоздыруы глутамат арқылы жүреді. Мұны мотонейрон мен бұлшықет арасындағы холинергиялық беріліспен немесе глицин қатысуы мүмкін реципрокты тежелудің интернейрондық жолдарымен шатастырмау керек.")
+  },
+  "application:corrective": {
+    prompt: t("У пациента справа коленный рефлекс кажется слабее, чем слева, но ноги при первом осмотре были в разном положении. Какой следующий шаг наиболее обоснован до вывода о поражении?", "A patient's right knee jerk seems weaker than the left, but the legs were positioned differently during the first examination. What is the best next step before inferring a lesion?", "Науқастың оң жақ тізе рефлексі сол жақтан әлсіз көрінеді, бірақ алғашқы тексеруде аяқтардың қалпы әртүрлі болды. Зақым туралы қорытынды жасамас бұрын қандай қадам орынды?"),
+    options: [
+      t("Повторить двустороннюю проверку при сопоставимой позе, расслаблении и ударе; затем оценить силу, чувствительность и другие рефлексы.", "Repeat bilateral testing with comparable posture, relaxation and taps; then assess strength, sensation and other reflexes.", "Екі жақты тексеруді бірдей қалыпта, босаңсуда және соққы жағдайында қайталап, содан кейін күшті, сезімталдықты және өзге рефлекстерді бағалау."),
+      t("Немедленно диагностировать изолированное повреждение правого бедренного нерва только по первому сравнению.", "Immediately diagnose isolated right femoral neuropathy from the initial comparison alone.", "Алғашқы салыстыруға ғана сүйеніп, оң сан жүйкесінің оқшау нейропатиясын бірден анықтау."),
+      t("Заключить, что справа обязательно поражена кора больших полушарий, не повторяя пробу.", "Conclude that the right cerebral cortex is necessarily injured without repeating the test.", "Сынақты қайталамай-ақ оң жақ ми қыртысы міндетті түрде зақымдалған деп тұжырымдау."),
+      t("Считать положение конечностей несущественным и отказаться от исследования других неврологических признаков.", "Treat limb position as irrelevant and omit examination of other neurological signs.", "Аяқ қалпы маңызды емес деп санап, өзге неврологиялық белгілерді тексермеу.")
+    ],
+    explanation: t("Амплитуда сухожильного рефлекса зависит от позы, предрастяжения, расслабления, силы удара и нисходящей модуляции. Асимметрию сначала подтверждают при сопоставимых условиях; затем интерпретируют вместе с силой, чувствительностью и другими рефлексами. Одна слабая реакция не локализует поражение.", "Tendon-jerk amplitude depends on posture, prestretch, relaxation, tap strength and descending modulation. First confirm asymmetry under comparable conditions, then interpret it with strength, sensory findings and other reflexes. One weak response does not uniquely localize a lesion.", "Сіңірлік рефлекс амплитудасы қалыпқа, алдын ала созылуға, босаңсуға, соққы күшіне және төмендеуші реттеуге тәуелді. Асимметрияны алдымен бірдей жағдайда растау, кейін оны күшпен, сезімталдықпен және басқа рефлекстермен бірге бағалау қажет. Бір әлсіз жауап зақым орнын нақты анықтамайды.")
+  },
+  "transfer:corrective": {
+    prompt: t("Во время произвольного укорочения мышцы альфа-мотонейроны активны, но в учебной модели гамма-мотонейроны выключены. Какое последствие наиболее вероятно для мышечного веретена?", "During voluntary muscle shortening, alpha motor neurons remain active but gamma motor neurons are silenced in a teaching model. What is the most likely consequence for the spindle?", "Ерікті бұлшықет қысқаруы кезінде альфа-мотонейрондар белсенді, бірақ оқу моделінде гамма-мотонейрондар өшірілген. Бұлшықет ұршығында қандай өзгеріс ықтимал?"),
+    options: [
+      t("Интрафузальные концы не сокращаются вместе с мышцей; веретено может провиснуть, а его сигнал о длине стать менее надёжным.", "Intrafusal ends fail to contract with the muscle; the spindle may become slack and its length feedback less reliable.", "Интрафузалдық ұштар бұлшықетпен бірге жиырылмайды; ұршық босаңсып, ұзындық туралы кері байланыс сенімсіздеу болуы мүмкін."),
+      t("Гамма-мотонейроны непосредственно обеспечивают основную силу экстрафузального сокращения, поэтому мышца полностью парализуется.", "Gamma motor neurons generate the main extrafusal force, so the muscle becomes completely paralyzed.", "Гамма-мотонейрондар экстрафузалдық жиырылудың негізгі күшін жасайды, сондықтан бұлшықет толық салданады."),
+      t("Без гамма-активации Ia-афференты обязательно превращаются в Ib-афференты сухожильного органа Гольджи.", "Without gamma activation, Ia afferents necessarily become Golgi-tendon-organ Ib afferents.", "Гамма-белсенділік болмаса, Ia-афференттер міндетті түрде Гольджи сіңірлік органының Ib-афференттеріне айналады."),
+      t("Отключение гамма-мотонейронов всегда увеличивает динамическую чувствительность веретена при любом движении.", "Silencing gamma motor neurons always increases spindle dynamic sensitivity during every movement.", "Гамма-мотонейрондарды өшіру кез келген қозғалыста ұршықтың динамикалық сезімталдығын міндетті түрде арттырады.")
+    ],
+    explanation: t("Альфа-гамма-коактивация позволяет сокращаться экстрафузальным и полярным интрафузальным волокнам одновременно, сохраняя натяжение чувствительной области веретена при укорочении мышцы. В этой упрощённой модели отсутствие гамма-привода может уменьшить афферентную обратную связь; это не означает потери альфа-иннервации.", "Alpha–gamma coactivation contracts extrafusal fibers and intrafusal polar ends together, maintaining tension in the spindle's sensory region during shortening. In this simplified model, loss of gamma drive may reduce afferent feedback; it does not imply loss of alpha innervation.", "Альфа-гамма-коактивация экстрафузалдық талшықтар мен интрафузалдық полюстік ұштарды қатар жиырылтып, бұлшықет қысқарғанда ұршықтың сезімтал бөлігін керілген күйде ұстайды. Бұл қарапайым модельде гамма-жетектің болмауы афференттік кері байланысты азайтуы мүмкін, бірақ альфа-иннервацияның жоғалғанын білдірмейді.")
+  },
+  "justification:corrective": {
+    prompt: t("После приёма Ендрассика коленный рефлекс стал заметнее. Какое сравнение лучше отделит влияние условий теста от устойчивой неврологической асимметрии?", "The knee jerk becomes more evident during the Jendrassik maneuver. Which comparison best separates examination effects from persistent neurological asymmetry?", "Ендрассик тәсілі кезінде тізе рефлексі айқынырақ болды. Тексеру жағдайының әсерін тұрақты неврологиялық асимметриядан қай салыстыру жақсы ажыратады?"),
+    options: [
+      t("Сравнить обе стороны до и во время подкрепления при одинаковом положении, расслаблении и сопоставимой силе удара.", "Compare both sides before and during reinforcement with matched posture, relaxation and comparable tap strength.", "Екі жақты күшейтуге дейін және күшейту кезінде бірдей қалыпта, босаңсуда әрі ұқсас соққы күшімен салыстыру."),
+      t("Сравнить один сильный удар справа с едва заметным ударом слева и назвать различие заболеванием.", "Compare a strong tap on the right with a barely perceptible tap on the left and label the difference disease.", "Оң жаққа күшті, сол жаққа өте әлсіз соққы беріп, айырманы ауру деп атау."),
+      t("По усилению ответа вычислить концентрацию глицина без биохимических измерений.", "Calculate spinal glycine concentration from the larger jerk without biochemical measurements.", "Жауаптың күшеюіне қарап, биохимиялық өлшемсіз жұлындағы глицин концентрациясын есептеу."),
+      t("Считать, что подкрепление автоматически исключает поражение периферического нерва, и прекратить осмотр.", "Assume reinforcement automatically excludes peripheral-nerve disease and stop the examination.", "Күшейту шеткі жүйке ауруын автоматты түрде жоққа шығарады деп, тексеруді тоқтату.")
+    ],
+    explanation: t("Приём Ендрассика изменяет возбудимость и условия выявления сухожильного рефлекса, поэтому наблюдение следует воспроизводить с контролем позы, предрастяжения и стимула на обеих сторонах. Увеличение ответа не даёт количественной оценки медиаторов и само по себе не подтверждает или исключает поражение нерва.", "The Jendrassik maneuver changes reflex excitability and examination conditions, so the observation should be reproduced with posture, prestretch and stimulus controlled on both sides. A larger response does not quantify transmitters or by itself confirm or exclude nerve injury.", "Ендрассик тәсілі рефлекстік қозғыштық пен тексеру жағдайын өзгертеді, сондықтан бақылауды екі жақта да қалыпты, алдын ала созылуды және стимулды біріздендіріп қайталау қажет. Жауаптың күшеюі медиатор мөлшерін өлшемейді және жүйке зақымын өздігінен дәлелдемейді не жоққа шығармайды.")
+  }
+};
+
 const ids = ["concept:main", "mechanism:main", "application:main", "transfer:main", "justification:main"] as const;
+const correctiveIds = ["concept:corrective", "mechanism:corrective", "application:corrective", "transfer:corrective", "justification:corrective"] as const;
 export function createModuleSevenTests(language: Language, moduleTitle: string, base: BranchingTest): BranchingTest {
   const nodes: BranchingTest["nodes"] = { ...base.nodes };
-  for (const id of ids) {
+  for (const id of [...ids, ...correctiveIds]) {
     const original = nodes[id];
-    if (!original || original.type !== "question" || original.level !== "main")
-      throw new Error("Missing module 7 main test node: " + id);
-    const q = authored[id];
+    const level = id.endsWith(":main") ? "main" : "corrective";
+    if (!original || original.type !== "question" || original.level !== level)
+      throw new Error("Missing module 7 " + level + " test node: " + id);
+    const q = id.endsWith(":main") ? authored[id] : corrective[id];
     const options = original.options.map(option => {
       const optionIndex = ["a", "b", "c", "d"].indexOf(option.id);
       if (optionIndex < 0) throw new Error("Unexpected module 7 option id: " + option.id);
