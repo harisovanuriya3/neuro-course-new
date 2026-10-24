@@ -1,4 +1,4 @@
-import type { Language, LocalizedLesson, Section, Lesson } from "./types";
+import type { Language, LocalizedLesson, Section, Lesson, PracticeLesson } from "./types";
 import RU from "./modules/1/theory/ru";
 import KZ from "./modules/1/theory/kz";
 import EN from "./modules/1/theory/en";
