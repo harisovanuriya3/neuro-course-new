@@ -2,6 +2,7 @@ import type { Language } from "../course";
 import type { CasesLesson } from "../cases";
 import type { BranchingTest, TestUI } from "../tests";
 import type { Topic } from "./topics";
+import { createModuleEightCases } from "./module-eight-cases";
 
 type Vignette = Record<Language,string>;
 const v=(RU:string,EN:string,KZ:string):Vignette=>({RU,EN,KZ});
@@ -37,6 +38,7 @@ const ui = (l: Language): CasesLesson["ui"] => ({
 });
 
 export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):CasesLesson{
+ if (topic.id === 8) return createModuleEightCases(l, moduleTitle, ui(l));
  const task=clinicalVignettes[topic.id]?.[l] ?? (
   l==="RU"
    ? `В теме «${moduleTitle}» изменился измеряемый физиологический показатель. По данным определите вероятно изменённое звено, предложите альтернативное объяснение и назовите измерение, которое различит эти гипотезы.`
