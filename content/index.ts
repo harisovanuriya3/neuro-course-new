@@ -1,3 +1,4 @@
+import { createModuleEightGlossary } from "./course-foundation/module-eight-glossary";
 import { createModuleEightQuestions } from "./course-foundation/module-eight-questions";
 import { createModuleEightMedia } from "./course-foundation/module-eight-media";
 import { createModuleSevenReferences } from "./course-foundation/module-seven-references";
@@ -439,6 +440,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   8: {
     ...foundationLessons[8],
+    glossary: {
+      RU: createModuleEightGlossary("RU", foundationLessons[8].glossary.RU as import("./study").GlossaryLesson),
+      EN: createModuleEightGlossary("EN", foundationLessons[8].glossary.EN as import("./study").GlossaryLesson),
+      KZ: createModuleEightGlossary("KZ", foundationLessons[8].glossary.KZ as import("./study").GlossaryLesson),
+    },
     media: {
       RU: createModuleEightMedia("RU", foundationLessons[8].media.RU as import("./media").MediaLesson),
       EN: createModuleEightMedia("EN", foundationLessons[8].media.EN as import("./media").MediaLesson),
