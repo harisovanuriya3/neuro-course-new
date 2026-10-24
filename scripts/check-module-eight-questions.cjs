@@ -26,7 +26,7 @@ vm.runInNewContext(compiled.outputText, context);
 const create = context.exports.createModuleEightQuestions;
 assert.equal(typeof create, "function");
 const markers = {
-  RU: ["заднего столба", "антеролатерального", "Броун-Секара", "корково-спинномозговых", "камертоном"],
+  RU: ["заднего столба", "антеролатеральной", "Броун-Секара", "корково-спинномозговых", "камертоном"],
   EN: ["dorsal-column", "anterolateral", "Brown-Séquard", "corticospinal", "tuning-fork"],
   KZ: ["артқы баған", "антеролатералдық", "Броун-Секар", "қыртыс-жұлын", "камертонмен"]
 };
