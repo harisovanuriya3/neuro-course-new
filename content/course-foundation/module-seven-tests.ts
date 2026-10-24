@@ -1,8 +1,7 @@
 import type { Language } from "../course";
 import type { BranchingTest, QuestionNode } from "../tests";
 
-// Module 7 / tests: five authored main and five authored corrective questions.
-// Five basic branches remain foundation templates and require review.
+// Module 7 / tests: 15 authored main, corrective and basic questions (5 per level).
 // Source checks: Ganong 23e, chapter 9, Library PDF pp. 169–171;
 // Guyton & Hall 13e, chapter 55, Library PDF pp. 666–669;
 // C. L. Ghai Practical Physiology 8e, Library PDF pp. 317–319.
@@ -196,16 +195,70 @@ const corrective: Record<string, Item> = {
   }
 };
 
+const basic: Record<string, Item> = {
+  "concept:basic": {
+    prompt: t("Какое сочетание рецептора и двигательного нейрона соответствует основному коленному рефлексу?", "Which receptor and motor-neuron pair mediates the principal knee-jerk reflex?", "Негізгі тізе рефлексіне қай рецептор мен қозғалтқыш нейрон жұбы қатысады?"),
+    options: [
+      t("Мышечное веретено четырёхглавой мышцы и её альфа-мотонейрон.", "The quadriceps muscle spindle and its alpha motor neuron.", "Төртбасты бұлшықет ұршығы және оның альфа-мотонейроны."),
+      t("Сухожильный орган Гольджи и гамма-мотонейрон как главный двигатель разгибания.", "A Golgi tendon organ and a gamma motor neuron as the principal driver of extension.", "Гольджи сіңірлік органы және жазылудың негізгі қозғалтқышы ретіндегі гамма-мотонейрон."),
+      t("Кожный болевой рецептор и симпатический нейрон, сокращающий четырёхглавую мышцу.", "A skin nociceptor and a sympathetic neuron contracting the quadriceps.", "Терілік ноцицептор және төртбасты бұлшықетті жиыратын симпатикалық нейрон."),
+      t("Вестибулярный рецептор и парасимпатический нейрон, разгибающий колено.", "A vestibular receptor and a parasympathetic neuron extending the knee.", "Вестибулярлық рецептор және тізені жазатын парасимпатикалық нейрон.")
+    ],
+    explanation: t("Удар по связке надколенника быстро растягивает четырёхглавую мышцу и её веретёна. Ia-афферент возбуждает альфа-мотонейрон этой мышцы, вызывая сокращение экстрафузальных волокон. Гамма-мотонейроны регулируют интрафузальные волокна, а не являются основным источником силы разгибания.", "A patellar-tendon tap rapidly stretches the quadriceps and its spindles. An Ia afferent excites a quadriceps alpha motor neuron, contracting extrafusal fibers. Gamma motor neurons regulate intrafusal fibers rather than producing the main knee-extension force.", "Тізе тобығы байламына соққы төртбасты бұлшықет пен оның ұршықтарын тез созады. Ia-афферент осы бұлшықеттің альфа-мотонейронын қоздырып, экстрафузалдық талшықтарды жиырылтады. Гамма-мотонейрондар негізгі жазылу күшін тудырмай, интрафузалдық талшықтарды реттейді.")
+  },
+  "mechanism:basic": {
+    prompt: t("Коленный рефлекс начинается с Ia-сигнала от мышечного веретена. Через какой корешок он входит в спинной мозг и через какой выходит двигательный ответ?", "The knee jerk begins with an Ia signal from a muscle spindle. Which spinal root carries it inward, and which carries the motor response outward?", "Тізе рефлексі бұлшықет ұршығынан Ia-сигналдан басталады. Ол жұлынға қай түбіршек арқылы кіріп, қозғалтқыш жауап қай түбіршек арқылы шығады?"),
+    options: [
+      t("Чувствительный сигнал входит через задний корешок; двигательный аксон выходит через передний корешок.", "Sensory input enters through the dorsal root; the motor axon exits through the ventral root.", "Сезімтал сигнал артқы түбіршекпен кіреді; қозғалтқыш аксон алдыңғы түбіршекпен шығады."),
+      t("Чувствительный сигнал входит через передний корешок, а двигательный выходит через задний.", "Sensory input enters through the ventral root, while motor output leaves through the dorsal root.", "Сезімтал сигнал алдыңғы түбіршекпен кіріп, қозғалтқыш жауап артқы түбіршекпен шығады."),
+      t("Оба сигнала обязательно проходят только по заднему корешку, минуя передние рога.", "Both signals travel only through the dorsal root and bypass the ventral horn.", "Екі сигнал да алдыңғы мүйізді айналып өтіп, тек артқы түбіршекпен өтеді."),
+      t("Оба сигнала обязательно проходят только через мозжечок без сегментарной связи в спинном мозге.", "Both signals must travel through the cerebellum without a spinal segmental connection.", "Екі сигнал да жұлындағы сегменттік байланыссыз міндетті түрде тек мишық арқылы өтеді.")
+    ],
+    explanation: t("По закону Белла–Мажанди чувствительные волокна входят через задние корешки, а соматические двигательные аксоны выходят через передние. Ia-афферент коленного рефлекса имеет прямую центральную возбуждающую связь с альфа-мотонейроном растянутой мышцы; дополнительная интернейронная ветвь может тормозить антагонист.", "By the Bell–Magendie principle, sensory fibers enter via dorsal roots and somatic motor axons leave via ventral roots. The knee-jerk Ia afferent directly excites an alpha motor neuron of the stretched muscle; a separate interneuronal branch may inhibit its antagonist.", "Белл–Мажанди қағидасына сай сезімтал талшықтар артқы түбіршекпен кіріп, соматикалық қозғалтқыш аксондар алдыңғы түбіршекпен шығады. Тізе рефлексінің Ia-афференті созылған бұлшықеттің альфа-мотонейронын тікелей қоздырады; бөлек интернейрондық тармақ антагонисті тежеуі мүмкін.")
+  },
+  "application:basic": {
+    prompt: t("После удара по связке надколенника голень кратко разгибается. Какая мышца является главным эффектором этого ответа?", "After a patellar-tendon tap, the lower leg briefly extends. Which muscle is the main effector of this response?", "Тізе тобығы байламына соққаннан кейін сирақ қысқа уақытқа жазылады. Осы жауаптың негізгі эффектор бұлшықеті қайсы?"),
+    options: [
+      t("Четырёхглавая мышца бедра, сокращение которой разгибает коленный сустав.", "The quadriceps femoris, whose contraction extends the knee joint.", "Тізе буынын жазатын төртбасты сан бұлшықеті."),
+      t("Двуглавая мышца бедра, сокращение которой преимущественно сгибает колено.", "The biceps femoris, whose contraction mainly flexes the knee.", "Тізені негізінен бүгетін екібасты сан бұлшықеті."),
+      t("Икроножная мышца, которая является главным разгибателем колена в этом рефлексе.", "The gastrocnemius, which is the primary knee extensor in this reflex.", "Осы рефлексте тізенің негізгі жазғышы саналатын балтыр бұлшықеті."),
+      t("Диафрагма, сокращение которой непосредственно разгибает голень.", "The diaphragm, whose contraction directly extends the lower leg.", "Жиырылуы сирақтың жазылуын тікелей туғызатын көкет.")
+    ],
+    explanation: t("Коленный сухожильный рефлекс — это ответ на быстрое растяжение четырёхглавой мышцы бедра. Её альфа-мотонейроны активируют экстрафузальные волокна, вызывая разгибание колена. Сгибатели могут одновременно тормозиться через интернейронную реципрокную ветвь, но это не главный эффектор разгибания.", "The patellar tendon reflex responds to rapid quadriceps stretch. Its alpha motor neurons activate extrafusal fibers, extending the knee. Flexors may also be inhibited through a reciprocal interneuronal branch, but they are not the principal extensor effectors.", "Тізе сіңірлік рефлексі төртбасты сан бұлшықетінің тез созылуына жауап береді. Оның альфа-мотонейрондары экстрафузалдық талшықтарды белсендіріп, тізені жазады. Бүккіштер интернейрондық реципрокты тармақ арқылы тежелуі мүмкін, бірақ олар жазылудың негізгі эффекторлары емес.")
+  },
+  "transfer:basic": {
+    prompt: t("Болевой стимул на стопе вызывает быстрое отдёргивание ноги. Чем этот защитный ответ отличается от прямой возбуждающей ветви коленного рефлекса?", "A painful stimulus to the foot evokes rapid leg withdrawal. How does this protective response differ from the direct excitatory limb of the knee jerk?", "Табанға ауырсындырғыш әсер еткенде аяқ тез тартылады. Бұл қорғаныш жауабы тізе рефлексінің тікелей қоздырушы тармағынан несімен ерекшеленеді?"),
+    options: [
+      t("Отдёргивание включает полисинаптические интернейронные цепи, активирующие сгибатели и часто тормозящие разгибатели.", "Withdrawal uses polysynaptic interneuronal circuits that activate flexors and often inhibit extensors.", "Тартып алу бүгкіштерді белсендіріп, көбіне жазғыштарды тежейтін полисинапстық интернейрондық тізбектерге сүйенеді."),
+      t("Отдёргивание обязательно передаётся единственным прямым Ia-синапсом от веретена к разгибателю.", "Withdrawal must use only one direct Ia synapse from a spindle to an extensor.", "Тартып алу міндетті түрде ұршықтан жазғышқа баратын бір ғана тікелей Ia-синапс арқылы өтеді."),
+      t("Отдёргивание всегда является произвольным движением и не использует спинальные рефлекторные цепи.", "Withdrawal is always voluntary and does not involve spinal reflex circuits.", "Тартып алу әрқашан ерікті қозғалыс және жұлын рефлекстік тізбектерін пайдаланбайды."),
+      t("Отдёргивание возникает только при сокращении диафрагмы, без участия мышц ноги.", "Withdrawal occurs only through diaphragm contraction without involving leg muscles.", "Тартып алу аяқ бұлшықеттерінсіз, тек көкеттің жиырылуынан туындайды.")
+    ],
+    explanation: t("Защитное ноцицептивное отдёргивание опирается на полисинаптическую сеть спинальных интернейронов и обычно включает сгибательную синергию с торможением разгибателей. В отличие от неё основная возбуждающая ветвь коленного рефлекса имеет прямой центральный Ia→альфа-мотонейронный синапс. Перекрёстный разгибательный ответ возможен, но не обязателен в каждом наблюдении.", "Protective nociceptive withdrawal relies on polysynaptic spinal interneuronal networks and typically recruits flexors while inhibiting extensors. By contrast, the principal excitatory knee-jerk limb has a direct central Ia-to-alpha-motor-neuron synapse. A crossed extensor response may occur but is not obligatory in every observation.", "Қорғаныш ноцицептивтік тартып алу жұлын интернейрондарының полисинапстық желісіне сүйеніп, әдетте бүгкіштерді белсендіріп, жазғыштарды тежейді. Ал тізе рефлексінің негізгі қоздырушы тармағында орталық тікелей Ia→альфа-мотонейрон синапсы бар. Қарама-қарсы аяқтың жазылу жауабы болуы мүмкін, бірақ әр бақылауда міндетті емес.")
+  },
+  "justification:basic": {
+    prompt: t("Почему удар по связке надколенника вызывает рефлекторное сокращение мышцы, а не просто «сокращение сухожилия»?", "Why does tapping the patellar tendon elicit a muscle reflex rather than simply making the tendon contract?", "Неліктен тізе тобығы байламына соққы «сіңірдің жиырылуын» емес, бұлшықеттің рефлекстік жиырылуын туғызады?"),
+    options: [
+      t("Удар растягивает мышечные веретёна, Ia-сигнал проходит через спинной мозг и возбуждает альфа-мотонейроны четырёхглавой мышцы.", "The tap stretches muscle spindles; Ia input passes through the spinal cord and excites quadriceps alpha motor neurons.", "Соққы бұлшықет ұршықтарын созады; Ia-сигнал жұлын арқылы өтіп, төртбасты бұлшықеттің альфа-мотонейрондарын қоздырады."),
+      t("Сухожилие само состоит из сократительных экстрафузальных мышечных волокон и сокращается без нервной системы.", "The tendon itself consists of contractile extrafusal muscle fibers and contracts without neural input.", "Сіңірдің өзі жиырылғыш экстрафузалдық бұлшықет талшықтарынан тұрады және жүйке жүйесінсіз жиырылады."),
+      t("Удар возбуждает только болевые рецепторы кожи, а мышцы вообще не участвуют в наблюдаемом ответе.", "The tap activates only skin pain receptors, and muscles do not participate in the response.", "Соққы тек терінің ауырсыну рецепторларын қоздырады, ал бұлшықеттер жауапқа мүлде қатыспайды."),
+      t("Удар вызывает прямое произвольное сокращение четырёхглавой мышцы без участия афферентного пути.", "The tap causes direct voluntary quadriceps contraction without an afferent pathway.", "Соққы афференттік жолсыз төртбасты бұлшықеттің тікелей ерікті жиырылуын туғызады.")
+    ],
+    explanation: t("Сухожилие передаёт механическую силу, но не является сократительным эффектором. Короткий удар растягивает мышцу и её веретёна; Ia-афферент возбуждает спинальный альфа-мотонейрон, а тот активирует мышечные волокна через нервно-мышечное соединение. Поэтому проверяется рефлекторная дуга, а не сократимость сухожилия.", "A tendon transmits mechanical force but is not a contractile effector. A brief tap stretches the muscle and its spindles; Ia afferent input excites a spinal alpha motor neuron, which activates muscle fibers at the neuromuscular junction. The test therefore probes a reflex arc, not tendon contractility.", "Сіңір механикалық күшті өткізеді, бірақ жиырылғыш эффектор емес. Қысқа соққы бұлшықет пен оның ұршықтарын созады; Ia-афферент жұлындағы альфа-мотонейронды қоздырады, ол жүйке-бұлшықет түйіспесі арқылы бұлшықет талшықтарын белсендіреді. Демек, сынақ сіңірдің жиырылуын емес, рефлекстік доғаны тексереді.")
+  }
+};
+
 const ids = ["concept:main", "mechanism:main", "application:main", "transfer:main", "justification:main"] as const;
 const correctiveIds = ["concept:corrective", "mechanism:corrective", "application:corrective", "transfer:corrective", "justification:corrective"] as const;
+const basicIds = ["concept:basic", "mechanism:basic", "application:basic", "transfer:basic", "justification:basic"] as const;
 export function createModuleSevenTests(language: Language, moduleTitle: string, base: BranchingTest): BranchingTest {
   const nodes: BranchingTest["nodes"] = { ...base.nodes };
-  for (const id of [...ids, ...correctiveIds]) {
+  for (const id of [...ids, ...correctiveIds, ...basicIds]) {
     const original = nodes[id];
-    const level = id.endsWith(":main") ? "main" : "corrective";
+    const level = id.split(":")[1] as "main" | "corrective" | "basic";
     if (!original || original.type !== "question" || original.level !== level)
       throw new Error("Missing module 7 " + level + " test node: " + id);
-    const q = id.endsWith(":main") ? authored[id] : corrective[id];
+    const q = level === "main" ? authored[id] : level === "corrective" ? corrective[id] : basic[id];
     const options = original.options.map(option => {
       const optionIndex = ["a", "b", "c", "d"].indexOf(option.id);
       if (optionIndex < 0) throw new Error("Unexpected module 7 option id: " + option.id);
