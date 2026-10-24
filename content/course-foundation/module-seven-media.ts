@@ -109,7 +109,7 @@ export function createModuleSevenMedia(language: Language, base: MediaLesson): M
       title: c.title,
       preview: c.preview,
       transcript: c.transcript,
-      theoryAnchor: "reflex-arc",
+      theoryAnchor: "reflex-arc-path",
       animation: "foundation",
       question: {
         prompt: c.prompt,
