@@ -97,3 +97,5 @@ require("./check-module-seven-questions.cjs");
 require("./check-module-seven-virtual-patient.cjs");
 require("./check-module-seven-media.cjs");
 require("./check-module-seven-glossary.cjs");
+
+require("./check-module-seven-voice.cjs");
