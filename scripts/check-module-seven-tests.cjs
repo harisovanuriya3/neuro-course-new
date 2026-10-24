@@ -96,3 +96,4 @@ console.log("OPEN: full browser, TypeScript build, independent Kazakh and scient
 require("./check-module-seven-questions.cjs");
 require("./check-module-seven-virtual-patient.cjs");
 require("./check-module-seven-media.cjs");
+require("./check-module-seven-glossary.cjs");
