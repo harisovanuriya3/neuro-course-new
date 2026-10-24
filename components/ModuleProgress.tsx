@@ -30,6 +30,24 @@ const moduleSixReview={
   {section:"interactive",question:"Шартты модельде Vm = −65 мВ және E(Cl) ≈ −65 мВ. Cl⁻ өткізгіштігі артқанда айқын гиперполяризациясыз қатар келген ҚПСП неліктен әлсіреуі мүмкін? Қандай параметрлерді өзгертіп тексересіз?",link:"Зертханада тексеру"},
   {section:"cases",question:"Тітіркендіру бірдей болса да, постсинапстық жауап азайды. Пресинапстық медиатор бөлінуінің азаюын постсинапстық өткізгіштіктің артуынан ажырату үшін қандай қосымша өлшеулер керек?",link:"Жағдайларды талдау"}]}
 } as const;
+// Module 7: formative reflection on the stretch reflex; NEVER scored as evidence of mastery.
+// Checked against Guyton & Hall 13e ch. 55 (Library PDF pp. 666–667),
+// Ganong 23e ch. 9 (Library PDF pp. 169–170), and
+// C. L. Ghai Practical Physiology 8e (Library PDF pp. 317–318).
+const moduleSevenReview={
+ RU:{title:"Самопроверка: рефлекторная дуга и коленный рефлекс",note:"Объясните каждый механизм, затем сравните с теорией, моделью и клиническим разбором. Ответы здесь не проверяются автоматически и не изменяют показатель освоения.",items:[
+  {section:"theory",question:"После удара по связке надколенника что именно растягивается и какой рецептор запускает коленный рефлекс? Проследите путь Ia → альфа-мотонейрон → четырёхглавая мышца; отделите прямой моносинаптический путь от реципрокного торможения через интернейрон. Где действуют глутамат и ацетилхолин?",link:"Проверить рефлекторную дугу"},
+  {section:"interactive",question:"При одинаковой конечной длине мышцы сравните быстрый и медленный этапы растяжения. Как отличаются динамический ответ Ia и статические сигналы Ia/II? Почему гамма-мотонейроны поддерживают чувствительность мышечного веретена при сокращении мышцы, а Ib-афференты сухожильного органа Гольджи не являются основным входом коленного рефлекса?",link:"Сопоставить с интерактивной моделью"},
+  {section:"cases",question:"Слабый коленный рефлекс стал заметнее после расслабления и приёма Ендрассика. Какие условия осмотра следует стандартизировать и какие дополнительные неврологические признаки проверить? Почему нельзя по одному слабому рефлексу или изменению после подкрепления установить диагноз и точный уровень поражения?",link:"Разобрать клиническую ситуацию"}]},
+ EN:{title:"Self-check: reflex arc and knee jerk",note:"Explain each mechanism, then compare with the theory, model and clinical cases. These responses are not automatically graded and do not change your mastery score.",items:[
+  {section:"theory",question:"After a tap on the patellar ligament, what is stretched and which receptor initiates the knee jerk? Trace Ia afferent → alpha motor neuron → quadriceps; distinguish the direct monosynaptic branch from reciprocal inhibition through an interneuron. Where do glutamate and acetylcholine act?",link:"Review the reflex arc"},
+  {section:"interactive",question:"With the same final muscle length, compare rapid and slow stretch. How do the dynamic Ia response and static Ia/II signals differ? Why does gamma motor drive help preserve spindle sensitivity during contraction, and why are Golgi tendon organ Ib afferents not the primary input to the knee jerk?",link:"Compare with the interactive model"},
+  {section:"cases",question:"A weak knee jerk becomes more visible after relaxation and the Jendrassik maneuver. Which examination conditions must be standardized and what other neurological findings should be assessed? Why can neither a single weak reflex nor its change with reinforcement establish a diagnosis or precisely localize a lesion?",link:"Analyze the clinical case"}]},
+ KZ:{title:"Өзіндік тексеру: рефлекстік доға және тізе рефлексі",note:"Әр механизмді түсіндіріп, жауабыңызды теориямен, модельмен және клиникалық талдаумен салыстырыңыз. Бұл жауаптар автоматты түрде бағаланбайды және меңгеру көрсеткішін өзгертпейді.",items:[
+  {section:"theory",question:"Тізе тостағаншасының байламын соққанда нақты не созылады және тізе рефлексін қай рецептор бастайды? Ia-афферент → альфа-мотонейрон → санның төртбасты бұлшықеті жолын сипаттаңыз; тікелей моносинапстық тармақты аралық нейрон арқылы жүретін реципроктық тежелуден ажыратыңыз. Глутамат пен ацетилхолин қай жерде әсер етеді?",link:"Рефлекстік доғаны қайталау"},
+  {section:"interactive",question:"Бұлшықеттің соңғы ұзындығы бірдей болғанда жылдам және баяу созылуды салыстырыңыз. Ia талшығының динамикалық жауабы мен Ia/II талшықтарының статикалық сигналдары қалай ерекшеленеді? Жиырылу кезінде гамма-мотонейрондар бұлшықет ұршығының сезімталдығын неге сақтайды және Гольджи сіңір мүшесінің Ib-афференттері тізе рефлексінің негізгі кірісі неге емес?",link:"Интерактивті модельмен салыстыру"},
+  {section:"cases",question:"Босаңсығаннан және Ендрассик әдісінен кейін әлсіз тізе рефлексі айқынырақ байқалды. Қараудың қандай жағдайларын бірдей ұстау және қандай қосымша неврологиялық белгілерді тексеру қажет? Неліктен бір әлсіз рефлекс немесе оның күшейтуден кейінгі өзгерісі диагнозды не зақымның нақты деңгейін анықтамайды?",link:"Клиникалық жағдайды талдау"}]}
+} as const;
 function level(correct:number,total:number):Level{if(!total)return"none";const p=correct/total;return p>=.8?"mastered":p>=.5?"forming":"review"}
 export default function ModuleProgress({language,moduleId}:{language:Language;moduleId:number}){
  const [data,setData]=useState<CourseProgressData|null>(null);
@@ -84,6 +102,11 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     <h2 style={{marginTop:0}}>{moduleSixReview[language].title}</h2>
     <p>{moduleSixReview[language].note}</p>
     <ol>{moduleSixReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
+  </section>}
+  {moduleId===7 && <section aria-label={moduleSevenReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
+    <h2 style={{marginTop:0}}>{moduleSevenReview[language].title}</h2>
+    <p>{moduleSevenReview[language].note}</p>
+    <ol>{moduleSevenReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
   </section>}
   <section style={{margin:"18px 0",padding:"16px",border:"2px solid #b9d3e6",borderRadius:14,background:"#fff"}}>
     <h2 style={{marginTop:0}}>{language==="RU"?"Панель курса":language==="KZ"?"Курс панелі":"Course dashboard"}</h2>
