@@ -93,3 +93,4 @@ assert.equal(config.git.deploymentEnabled["refactor/evidence-based-assessment-au
   "Review branch must never auto-deploy previews");
 console.log("PASS: module 7 / tests: 15 authored main/corrective/basic questions × RU/EN/KZ, 4 options, stable answer IDs, explanations, routing.");
 console.log("OPEN: full browser, TypeScript build, independent Kazakh and scientific review.");
+require("./check-module-seven-questions.cjs");
