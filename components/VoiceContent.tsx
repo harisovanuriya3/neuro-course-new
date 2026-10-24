@@ -132,9 +132,42 @@ const moduleSixCopy = {
  },
 } as const;
 
+// Module 7: verbal reasoning about the patellar stretch reflex; self-check, NOT speech grading.
+// Guyton & Hall 13e, Library PDF pp. 666–668; Ganong 23e pp. 169–171;
+// C. L. Ghai Practical Physiology 8e pp. 317–319.
+const moduleSevenCopy = {
+ RU: {
+  intro:"Клиническая ситуация: при первом ударе по связке надколенника у студента коленный рефлекс слабый, но после расслабления и приёма Ендрассика становится заметнее. Объясните путь рефлекса, отдельную ветвь реципрокного торможения и почему по одному ответу нельзя установить поражение нерва. Отметки — самооценка, а не автоматическая проверка физиологической правильности.",
+  prompt:"Коленный рефлекс: рецептор, Ia-путь, антагонист и границы клинического вывода",
+  cause:"Я объяснил(а), что удар по связке растягивает мышечные веретёна четырёхглавой мышцы, а не непосредственно активирует сухожильные органы Гольджи",
+  path:"Я описал(а) Ia-афферент, моносинаптическое возбуждение альфа-мотонейрона в L2–L4 (преимущественно L3–L4), глутамат в центральном синапсе и ацетилхолин в нервно-мышечном соединении; реципрокное торможение выделил(а) как интернейронную ветвь",
+  result:"Я связал(а) сокращение четырёхглавой мышцы с разгибанием колена и указал(а), что расслабление и приём Ендрассика меняют условия теста, но не доказывают диагноз или точную локализацию поражения",
+  ready:"Три пункта самооценки отмечены. Сравните текст с теорией: отметки не доказывают правильность физиологии и не заменяют клиническое обследование.",
+  good:"Три пункта самооценки отмечены"
+ },
+ EN: {
+  intro:"Clinical scenario: a student's knee jerk is weak on the first patellar ligament tap, but becomes clearer after relaxation and the Jendrassik maneuver. Explain the reflex pathway, the separate reciprocal-inhibition branch and why one response cannot establish a nerve lesion. Checkmarks are self-assessment, not automated grading of physiological accuracy.",
+  prompt:"Knee jerk: receptor, Ia pathway, antagonist and limits of clinical inference",
+  cause:"I explained that tapping the ligament stretches quadriceps muscle spindles rather than directly activating Golgi tendon organs",
+  path:"I described the Ia afferent, monosynaptic excitation of the alpha motor neuron at L2–L4 (especially L3–L4), glutamate at the central synapse and acetylcholine at the neuromuscular junction; reciprocal inhibition is a separate interneuron-mediated branch",
+  result:"I linked quadriceps contraction to knee extension and explained why relaxation and the Jendrassik maneuver change test conditions without proving a diagnosis or precisely localizing a lesion",
+  ready:"All three self-check items are marked. Compare your text with theory: checkmarks do not verify physiological accuracy or replace clinical examination.",
+  good:"Three self-check items marked"
+ },
+ KZ: {
+  intro:"Клиникалық жағдай: студенттің тізе тостағаншасының байламын алғаш соққанда тізе рефлексі әлсіз, ал бұлшықеттерді босаңсытып, Ендрассик тәсілін қолданғаннан кейін анық көрінеді. Рефлекс жолын, реципроктық тежелудің бөлек тармағын және бір ғана жауап жүйке зақымын неліктен дәлелдемейтінін түсіндіріңіз. Белгілер — өзіндік бағалау, физиологиялық дұрыстықты автоматты тексеру емес.",
+  prompt:"Тізе рефлексі: рецептор, Ia жолы, антагонист және клиникалық қорытынды шегі",
+  cause:"Мен байламға соққы төртбасты бұлшықеттің ұршықтарын созатынын, ал Гольджи сіңір органдарын тікелей белсендірмейтінін түсіндірдім",
+  path:"Мен Ia-афферентті, L2–L4 (әсіресе L3–L4) деңгейіндегі альфа-мотонейронның моносинапстық қозуын, орталық синапстағы глутамат пен жүйке-бұлшықет түйіспесіндегі ацетилхолинді сипаттадым; реципроктық тежелуді интернейрон арқылы өтетін бөлек тармақ деп ажыраттым",
+  result:"Мен төртбасты бұлшықет жиырылуын тізенің жазылуымен байланыстырдым және босаңсу мен Ендрассик тәсілі тексеру жағдайларын өзгертсе де, диагнозды немесе зақым орнын дәлелдемейтінін көрсеттім",
+  ready:"Өзіндік тексерудің үш тармағы белгіленді. Жауапты теориямен салыстырыңыз: белгілер физиологиялық дұрыстықты дәлелдемейді және клиникалық тексеруді алмастырмайды.",
+  good:"Үш өзіндік тексеру тармағы белгіленді"
+ }
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : copy[language];
- const key=`neuro-course:mechanism:${moduleId}:${language}`;
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : copy[language];
+ const key=moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
  const[answer,setAnswer]=useState("");
  const[persisted,setPersisted]=useState(false);
  const[cause,setCause]=useState(false),[path,setPath]=useState(false),[result,setResult]=useState(false),[checked,setChecked]=useState(false);
