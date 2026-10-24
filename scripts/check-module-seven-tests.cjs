@@ -101,3 +101,4 @@ require("./check-module-seven-glossary.cjs");
 require("./check-module-seven-voice.cjs");
 require("./check-module-seven-progress.cjs");
 require("./check-module-seven-notes.cjs");
+require("./check-module-seven-references.cjs");
