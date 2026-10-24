@@ -1,5 +1,4 @@
-// Module 7 / tests: execute the authored main and corrective questions after TypeScript transpilation.
-// Five basic-route questions remain under scientific review.
+// Module 7 / tests: execute all 15 authored main, corrective and basic questions after TypeScript transpilation.
 const fs = require("node:fs");
 const assert = require("node:assert/strict");
 const ts = require("typescript");
@@ -19,6 +18,7 @@ const create = mod.exports.createModuleSevenTests;
 assert.equal(typeof create, "function");
 const ids = ["concept:main", "mechanism:main", "application:main", "transfer:main", "justification:main"];
 const correctiveIds = ids.map(id => id.replace(":main", ":corrective"));
+const basicIds = ids.map(id => id.replace(":main", ":basic"));
 const labels = ["RU", "EN", "KZ"];
 const firstCorrectPositions = [];
 for (const language of labels) {
@@ -42,11 +42,15 @@ for (const language of labels) {
       onCorrect: "next:main", onIncorrect: id.replace(":corrective", ":review-2")
     };
   }
-  nodes["concept:basic"] = {
-    id: "concept:basic", type: "question", level: "basic", competency: "concept",
-    prompt: "unreviewed basic", options: [], correctAnswer: "a",
-    explanation: "unreviewed basic", onCorrect: "end", onIncorrect: "end"
-  };
+  for (const id of basicIds) {
+    const order = ["b", "d", "c", "a"];
+    nodes[id] = {
+      id, type: "question", level: "basic", competency: id.split(":")[0],
+      prompt: "unreviewed", options: order.map(x => ({ id: x, text: "old-" + x })),
+      correctAnswer: "a", explanation: "unreviewed",
+      onCorrect: "next:main", onIncorrect: "next:main"
+    };
+  }
   const base = { kind: "tests", title: "Formative test", moduleTitle: "Old", ui: {}, start: ids[0],
     mainIds: ids, competencies: {}, nodes };
   const result = create(language, "Module 7", base);
@@ -54,12 +58,12 @@ for (const language of labels) {
   assert.equal(result.moduleTitle, "Module 7");
   assert.equal(result.start, base.start);
   assert.deepEqual(result.mainIds, base.mainIds);
-  assert.equal(result.nodes["concept:basic"], base.nodes["concept:basic"],
-    "Unreviewed basic branches must remain untouched");
+  assert.equal(result.nodes["concept:basic"] !== base.nodes["concept:basic"], true,
+    "Basic nodes must be authored without mutating base nodes");
   assert.equal(result.nodes !== base.nodes, true, "Do not mutate the base node dictionary");
-  for (const id of [...ids, ...correctiveIds]) {
+  for (const id of [...ids, ...correctiveIds, ...basicIds]) {
     const q = result.nodes[id];
-    assert.equal(q.level, id.endsWith(":main") ? "main" : "corrective");
+    assert.equal(q.level, id.split(":")[1]);
     assert.equal(q.onCorrect, base.nodes[id].onCorrect);
     assert.equal(q.onIncorrect, base.nodes[id].onIncorrect);
     assert.equal(q.type, "question");
@@ -68,7 +72,8 @@ for (const language of labels) {
     assert(q.explanation.trim().length > 110, language + " " + id + " lacks feedback");
     assert.equal(q.options.length, 4);
     assert.deepEqual(q.options.map(o => o.id),
-      id.endsWith(":main") ? ["c", "a", "d", "b"] : ["d", "b", "a", "c"],
+      id.endsWith(":main") ? ["c", "a", "d", "b"] :
+      id.endsWith(":corrective") ? ["d", "b", "a", "c"] : ["b", "d", "c", "a"],
       "Original deterministic shuffle must be preserved");
     assert.equal(new Set(q.options.map(o => o.text)).size, 4,
       language + " " + id + " has duplicate options");
@@ -86,5 +91,5 @@ for (const lang of labels) assert(registry.includes('createModuleSevenTests("' +
 const config = JSON.parse(read("vercel.json"));
 assert.equal(config.git.deploymentEnabled["refactor/evidence-based-assessment-audit"], false,
   "Review branch must never auto-deploy previews");
-console.log("PASS: module 7 / tests: 10 authored main/corrective questions × RU/EN/KZ, 4 options, stable answer IDs, explanations, routing.");
-console.log("OPEN: 5 basic questions, full browser and scientific review.");
+console.log("PASS: module 7 / tests: 15 authored main/corrective/basic questions × RU/EN/KZ, 4 options, stable answer IDs, explanations, routing.");
+console.log("OPEN: full browser, TypeScript build, independent Kazakh and scientific review.");
