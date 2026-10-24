@@ -17,7 +17,7 @@ for(const lang of ["RU","EN","KZ"]){
  assert.equal(entry.items.length,3);assert.deepEqual(Array.from(entry.items,x=>x.section),["theory","interactive","cases"]);
  for(const item of entry.items)assert(item.question.length>200&&item.link.length>12);
  const joined=entry.items.map(x=>x.question).join(" ").toLowerCase();
- for(const term of ["ia","ib","глутамат".slice(0,0)])if(term)assert(joined.includes(term),lang+" missing "+term);
+ for(const term of ["ia","ib"])assert(joined.includes(term),lang+" missing "+term);
 }
 for(const [lang,terms] of Object.entries({
  RU:["веретена","моносинаптический","глутамат","ацетилхолин","Гольджи","Ендрассика"],
