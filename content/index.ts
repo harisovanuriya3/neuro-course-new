@@ -1,3 +1,4 @@
+import { createModuleSevenReferences } from "./course-foundation/module-seven-references";
 import type { Language, LocalizedLesson, Section, Lesson, PracticeLesson } from "./types";
 import type { CasesLesson } from "./cases";
 import RU from "./modules/1/theory/ru";
@@ -430,6 +431,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   },
   7: {
     ...foundationLessons[7],
+    references: {
+      RU: createModuleSevenReferences("RU", foundationLessons[7].references.RU as import("./study").ReadingLesson),
+      EN: createModuleSevenReferences("EN", foundationLessons[7].references.EN as import("./study").ReadingLesson),
+      KZ: createModuleSevenReferences("KZ", foundationLessons[7].references.KZ as import("./study").ReadingLesson),
+    },
     glossary: {
       RU: createModuleSevenGlossary("RU", foundationLessons[7].glossary.RU as import("./study").GlossaryLesson),
       EN: createModuleSevenGlossary("EN", foundationLessons[7].glossary.EN as import("./study").GlossaryLesson),
