@@ -47,6 +47,7 @@ import { createModuleSixObjectives } from "./course-foundation/module-six-object
 import { createModuleSevenObjectives } from "./course-foundation/module-seven-objectives";
 import { createModuleEightObjectives } from "./course-foundation/module-eight-objectives";
 import { createModuleNineObjectives } from "./course-foundation/module-nine-objectives";
+import { createModuleNinePretest } from "./course-foundation/module-nine-pretest";
 import { createModuleEightPretest } from "./course-foundation/module-eight-pretest";
 import { createModuleEightTheory } from "./course-foundation/module-eight-theory";
 import { createModuleEightSummary } from "./course-foundation/module-eight-summary";
@@ -446,6 +447,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       RU: createModuleNineObjectives("RU"),
       EN: createModuleNineObjectives("EN"),
       KZ: createModuleNineObjectives("KZ"),
+    },
+    pretest: {
+      RU: createModuleNinePretest("RU", `9. ${modules.RU[8]}`, getSectionTitle("pretest", "RU")),
+      EN: createModuleNinePretest("EN", `9. ${modules.EN[8]}`, getSectionTitle("pretest", "EN")),
+      KZ: createModuleNinePretest("KZ", `9. ${modules.KZ[8]}`, getSectionTitle("pretest", "KZ")),
     },
   },
   8: {
