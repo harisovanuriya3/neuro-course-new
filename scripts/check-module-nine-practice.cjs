@@ -15,9 +15,9 @@ const transpiled = ts.transpileModule(source, {
 });
 assert.equal((transpiled.diagnostics || []).filter(d => d.category === ts.DiagnosticCategory.Error).length,
   0, "Module 9 practice transpilation");
-const exports = {};
-new Function("exports", transpiled.outputText)(exports);
-assert.equal(typeof exports.createModuleNinePractice, "function");
+const exported = {};
+new Function("exports", transpiled.outputText)(exported);
+assert.equal(typeof exported.createModuleNinePractice, "function");
 const base = { kind: "practice", title: "Practice", moduleTitle: "Spinal cord",
   ui: { showAnswer: "Show", check: "", reset: "", undo: "", correct: "",
     incorrect: "", incomplete: "", available: "", selected: "", empty: "",
@@ -28,7 +28,7 @@ const markers = {
   KZ: ["Ia", "Ib", "α", "γ", "L2–L4", "S1–S2", "нейрогендік", "моносинапстық"]
 };
 for (const lang of ["RU", "EN", "KZ"]) {
-  const result = exports.createModuleNinePractice(lang, base);
+  const result = exported.createModuleNinePractice(lang, base);
   assert.equal(result.kind, "practice", lang);
   assert.equal(result.sections.length, 5, lang + ": four exercises and self-check");
   assert.equal(new Set(result.sections.map(s => s.title)).size, 5, lang + ": unique titles");
