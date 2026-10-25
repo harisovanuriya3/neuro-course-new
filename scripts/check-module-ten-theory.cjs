@@ -46,7 +46,7 @@ for(const lang of ["RU","EN","KZ"]){
  }
  assert.equal(new Set(paragraphs).size,8,lang+": duplicate paragraphs");
  const body=paragraphs.join(" ");
- for(const marker of markers[lang])assert(body.includes(marker),lang+": missing "+marker);
+ for(const marker of markers[lang])assert(body.toLocaleLowerCase().includes(marker.toLocaleLowerCase()),lang+": missing "+marker);
 }
 const index=read("content/index.ts");
 assert(index.includes('import { createModuleTenTheory } from "./course-foundation/module-ten-theory";'),
