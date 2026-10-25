@@ -209,29 +209,29 @@ const moduleEightCopy = {
 // Reciprocal inhibition requires an interneuron. No painful elicitation is requested.
 const moduleNineCopy = {
  RU: {
-  intro:"Учебная ситуация: при ударе по связке надколенника возникает разгибание колена. Объясните, почему рецептором служит мышечное веретено четырёхглавой мышцы, чем отличается прямое Ia→α-мотонейронное звено от ветви реципрокного торможения и почему слабый ответ сам по себе не доказывает поражение спинного мозга. Это письменное или устное рассуждение; галочки — самооценка структуры, а не автоматическая проверка правильности.",
-  prompt:"Коленный рефлекс: мышечное веретено, Ia, α-мотонейрон и реципрокное торможение",
-  cause:"Я указал(а), что удар по связке растягивает четырёхглавую мышцу и её мышечные веретёна, а не непосредственно сухожильные органы Гольджи",
-  path:"Я описал(а) Ia-афферент через задний корешок, прямое моносинаптическое возбуждение α-мотонейрона и отдельную полисинаптическую ветвь торможения антагониста через интернейрон",
-  result:"Я объяснил(а) сокращение четырёхглавой мышцы и разгибание колена, влияние условий исследования и нисходящей модуляции; один рефлекс не устанавливает диагноз. Я не предлагал(а) болезненных проб",
+  intro:"Сравните два разных спинальных рефлекса. При ударе по связке надколенника возникает разгибание колена, а при условном ноцицептивном раздражении кожи — защитное отдёргивание. Объясните рецепторы, афференты, центральные цепи и почему перекрёстное разгибание другой ноги не обязательно при каждом раздражении. Не выполняйте болезненные пробы. Галочки — самооценка структуры, а не автоматическая проверка физиологической правильности.",
+  prompt:"Рефлекс растяжения и защитное отдёргивание: Ia, α-мотонейрон, интернейроны",
+  cause:"Я различил(а) мышечное веретено четырёхглавой мышцы (растяжение, Ia) и кожные ноцицепторы (защитное отдёргивание); удар по связке не стимулирует напрямую органы Гольджи",
+  path:"Я описал(а) прямое моносинаптическое Ia→α-мотонейронное возбуждение, отдельное реципрокное торможение антагониста через интернейрон и полисинаптические цепи защитного отдёргивания",
+  result:"Я связал(а) коленный рефлекс с разгибанием, защитное отдёргивание — с активацией сгибателей, указал(а) необязательность перекрёстного разгибания и роль нисходящей модуляции; один рефлекс не устанавливает диагноз, болезненные пробы не нужны",
   ready:"Три пункта структуры отмечены. Сравните написанное с теорией: отметки не подтверждают физиологическую правильность и не заменяют клиническую оценку.",
   good:"Три пункта самооценки отмечены"
  },
  EN: {
-  intro:"Teaching scenario: a patellar tendon tap produces knee extension. Explain why the receptor is the quadriceps muscle spindle, how the direct Ia→alpha-motor-neuron connection differs from the reciprocal-inhibition branch, and why a weak response alone cannot establish a spinal cord lesion. This is spoken or written reasoning; checkboxes assess structure, not scientific correctness.",
-  prompt:"Knee jerk: muscle spindle, Ia afferent, alpha motor neuron and reciprocal inhibition",
-  cause:"I explained that tapping the patellar tendon stretches quadriceps muscle spindles rather than directly stimulating Golgi tendon organs",
-  path:"I traced the Ia afferent through the dorsal root to direct monosynaptic excitation of the alpha motor neuron and distinguished the separate interneuron-mediated inhibition of the antagonist",
-  result:"I connected quadriceps contraction with knee extension, considered examination conditions and descending modulation, and noted that one reflex cannot establish a diagnosis. I did not propose painful testing",
+  intro:"Compare two different spinal reflexes. A patellar tendon tap causes knee extension, whereas a hypothetical noxious skin stimulus evokes protective withdrawal. Explain the receptors, afferents and central circuits, and why crossed extension of the other leg is not obligatory with every stimulus. Do not perform painful tests. Checkmarks assess answer structure, not physiological correctness.",
+  prompt:"Stretch versus protective withdrawal reflex: Ia, alpha motor neurons and interneurons",
+  cause:"I distinguished quadriceps muscle spindles (stretch, Ia) from cutaneous nociceptors (withdrawal); tapping the tendon does not directly stimulate Golgi tendon organs",
+  path:"I traced direct monosynaptic Ia excitation of the alpha motor neuron, the separate interneuron-mediated reciprocal inhibition of antagonists, and polysynaptic protective withdrawal circuits",
+  result:"I connected the knee jerk with extension and withdrawal with flexor activation, noted that crossed extension is optional and descending pathways modulate reflexes; one reflex does not establish a diagnosis, and painful testing is unnecessary",
   ready:"All three structure items are checked. Compare your text with theory: checkmarks do not verify physiological accuracy or replace clinical assessment.",
   good:"Three self-check items marked"
  },
  KZ: {
-  intro:"Оқу жағдайы: тізе тобығының сіңірін соққанда тізе жазылады. Рецептор неліктен төртбасты бұлшықеттің ұршығы екенін, тікелей Ia→α-мотонейрон байланысының реципроктық тежелу тармағынан айырмасын және әлсіз жауаптың өзі жұлын зақымын неліктен дәлелдемейтінін түсіндіріңіз. Бұл ауызша не жазбаша талдау; белгілер жауап құрылымын ғана өзіндік бағалауға арналған.",
-  prompt:"Тізе рефлексі: бұлшықет ұршығы, Ia-афферент, α-мотонейрон және реципроктық тежелу",
-  cause:"Мен тізе тобығының сіңірін соққанда Гольджи сіңір мүшелері тікелей қозбай, төртбасты бұлшықет пен оның ұршықтары созылатынын түсіндірдім",
-  path:"Мен Ia-афференттің артқы түбір арқылы өтіп, α-мотонейронды тікелей моносинапстық қоздыратынын және антагонистің интернейрон арқылы тежелетін бөлек тармағын ажыраттым",
-  result:"Мен төртбасты бұлшықеттің жиырылуын тізенің жазылуымен байланыстырдым, тексеру жағдайлары мен төмендеуші реттелуді ескердім; бір рефлекс диагноз қоймайды. Ауырсындыратын сынама ұсынбадым",
+  intro:"Екі түрлі жұлын рефлексін салыстырыңыз. Тізе тобығының сіңірін соққанда тізе жазылады, ал терінің шартты ауырсындырғыш тітіркенуі қорғаныштық тартып алуды туғызады. Рецепторларды, афференттерді, орталық тізбектерді және қарсы аяқтың айқаспалы жазылуы әрбір тітіркендіргіште неге міндетті емес екенін түсіндіріңіз. Ауырсындыратын сынама жасамаңыз. Белгілер жауап құрылымын ғана өзіндік бағалауға арналған.",
+  prompt:"Созылу және қорғаныштық тартып алу рефлекстері: Ia, α-мотонейрон және интернейрондар",
+  cause:"Мен төртбасты бұлшықеттің ұршығы (созылу, Ia) мен тері ноцицепторларын (тартып алу) ажыраттым; сіңірді соғу Гольджи сіңір мүшелерін тікелей қоздырмайды",
+  path:"Мен Ia-афференттің α-мотонейронды тікелей моносинапстық қоздыруын, антагонистің интернейрон арқылы реципроктық тежелуін және қорғаныштық тартып алудың полисинапстық тізбектерін сипаттадым",
+  result:"Мен тізе рефлексін жазылумен, қорғаныштық тартып алуды бүккіштердің белсенуімен байланыстырдым; айқаспалы жазылудың міндетті еместігін және төмендеуші реттелуді ескердім. Бір рефлекс диагноз қоймайды, ауырсындыратын сынама қажет емес",
   ready:"Жауап құрылымының үш тармағы белгіленді. Мәтінді теориямен салыстырыңыз: белгілер физиологиялық дұрыстықты дәлелдемейді және клиникалық бағалауды алмастырмайды.",
   good:"Үш өзіндік тексеру тармағы белгіленді"
  }
