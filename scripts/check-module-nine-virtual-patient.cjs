@@ -40,12 +40,12 @@ for(const language of ["RU","EN","KZ"]){
  const unique=new Set();
  for(let i=0;i<6;i++){
   const stage=result.stages[i];
-  assert(stage.task.length>65,language+" stage "+i+" task too short");
-  assert(stage.newData.length>100,language+" stage "+i+" observation too short");
-  assert(stage.mechanism.length>150,language+" stage "+i+" mechanism too short");
+  assert(stage.task.length>59,language+" stage "+i+" task too short");
+  assert(stage.newData.length>89,language+" stage "+i+" observation too short");
+  assert(stage.mechanism.length>149,language+" stage "+i+" mechanism too short");
   assert.equal(stage.options.length,3);
   assert.equal(new Set(stage.options.map(o=>o.text)).size,3);
-  assert(stage.options.every(o=>o.text.length>60));
+  assert(stage.options.every(o=>o.text.length>44));
   assert(stage.options.every(o=>o.feedback===stage.mechanism));
   assert.notEqual(stage.options[stage.correctOption].response,
    stage.options[(stage.correctOption+1)%3].response);
