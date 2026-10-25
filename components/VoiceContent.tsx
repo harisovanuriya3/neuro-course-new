@@ -165,19 +165,55 @@ const moduleSevenCopy = {
  }
 } as const;
 
+
+// Module 8: spoken/written reasoning about a partial spinal cord lesion.
+// Source check: Guyton & Hall 13e PDF pp. 584–585; Ganong 23e pp. 185–186;
+// C. L. Ghai Practical Physiology 8e pp. 324–325.
+// This is a teaching pattern, not a clinical localization or an automated speech grade.
+const moduleEightCopy = {
+ RU: {
+  intro:"Клиническая ситуация: при частичном левостороннем поражении спинного мозга около сегмента T10 ниже очага снижены вибрация и чувство положения слева, а боль и температура — преимущественно справа, начиная несколько ниже. Объясните, где перекрещиваются два восходящих пути и почему нельзя по одному такому описанию точно определить уровень позвонка или причину поражения. Отметки — самооценка структуры, не проверка физиологической правильности.",
+  prompt:"Проводящие пути: сторона нарушения, уровень перекрёста и границы локализации",
+  cause:"Я различил(а) вибрацию/проприоцепцию и боль/температуру и назвал(а) левосторонний очаг спинного мозга",
+  path:"Я объяснил(а), что задние столбы поднимаются на своей стороне до ядер продолговатого мозга и перекрещиваются там; болевые и температурные сигналы переключаются в заднем роге, а многие аксоны переходят через переднюю белую спайку в спинном мозге",
+  result:"Я связал(а) левостороннее нарушение вибрации с правосторонним нарушением боли ниже очага, учёл(ла) смещение начала болевого дефицита на несколько сегментов и не приравнял(а) спинномозговой сегмент T10 к позвонку T10; синдром сам по себе не доказывает причину",
+  ready:"Отмечены три пункта самооценки. Сравните механизм и стороны нарушений с теорией: отметки не подтверждают правильность ответа и не заменяют клиническое обследование.",
+  good:"Три пункта самооценки отмечены"
+ },
+ EN: {
+  intro:"Clinical scenario: with a partial left-sided spinal cord lesion near cord segment T10, vibration and joint-position sense are reduced on the left below the lesion, whereas pain and temperature are reduced mainly on the right, beginning somewhat lower. Explain where the two ascending pathways cross and why this pattern alone cannot determine the exact vertebral level or cause. Checkmarks assess response structure, not physiological correctness.",
+  prompt:"Neural pathways: side of loss, crossing level and limits of localization",
+  cause:"I distinguished vibration/proprioception from pain/temperature and identified a left-sided spinal cord lesion",
+  path:"I explained that dorsal-column fibers ascend ipsilaterally to medullary nuclei before crossing there, whereas pain/temperature afferents relay in the dorsal horn and many second-order axons cross in the spinal anterior white commissure",
+  result:"I linked left-sided vibration loss to right-sided pain loss below the lesion, noted that pain loss can begin a few segments lower, and did not equate spinal cord segment T10 with vertebra T10; the pattern alone does not establish etiology",
+  ready:"All three self-check items are marked. Compare the pathways and laterality with theory: checkmarks do not verify scientific correctness or replace clinical examination.",
+  good:"Three self-check items marked"
+ },
+ KZ: {
+  intro:"Клиникалық жағдай: жұлынның T10 сегменті маңындағы сол жақты жартылай зақымдануда ошақтан төмен сол жақта діріл мен буын қалпын сезу, ал оң жақта ауырсыну мен температураны сезу көбіне бірнеше сегмент төменнен бастап әлсірейді. Екі жоғарылаушы жолдың қайда айқасатынын және бұл үлгімен омыртқаның нақты деңгейі мен зақым себебін неге анықтау мүмкін еместігін түсіндіріңіз. Белгілер — жауап құрылымының өзіндік бағасы, физиологиялық дұрыстықты тексеру емес.",
+  prompt:"Өткізгіш жолдар: сезімталдық бұзылған жақ, айқасу деңгейі және қорытынды шегі",
+  cause:"Мен діріл мен проприоцепцияны ауырсыну мен температурадан ажыратып, жұлынның сол жақты зақымын атадым",
+  path:"Мен артқы баған талшықтары өз жағымен сопақша ми ядроларына дейін көтеріліп, сонда айқасатынын, ал ауырсыну мен температура афференттері артқы мүйізде ауысып, екінші нейрон аксондарының көбі жұлындағы алдыңғы ақ комиссура арқылы қарсы жаққа өтетінін түсіндірдім",
+  result:"Мен сол жақтағы діріл сезімінің төмендеуін ошақтан төмен оң жақтағы ауырсыну сезімінің төмендеуімен байланыстырдым, оның бірнеше сегмент төмен басталуы мүмкін екенін ескердім және жұлынның T10 сегментін T10 омыртқасымен теңестірмедім; бұл үлгі зақымның себебін дәлелдемейді",
+  ready:"Өзіндік тексерудің үш тармағы белгіленді. Жолдарды және бұзылыстың қай жақта екенін теориямен салыстырыңыз: белгілер ғылыми дұрыстықты дәлелдемейді және клиникалық тексеруді алмастырмайды.",
+  good:"Үш өзіндік тексеру тармағы белгіленді"
+ }
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : copy[language];
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : copy[language];
  const key=moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
+ const storageKey=moduleId===8 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : key;
  const[answer,setAnswer]=useState("");
  const[persisted,setPersisted]=useState(false);
  const[cause,setCause]=useState(false),[path,setPath]=useState(false),[result,setResult]=useState(false),[checked,setChecked]=useState(false);
  useEffect(()=>{
   let saved="";
-  try{saved=localStorage.getItem(key)||"";setPersisted(Boolean(saved))}catch{setPersisted(false)}
+  try{saved=localStorage.getItem(storageKey)||"";setPersisted(Boolean(saved))}catch{setPersisted(false)}
   setAnswer(saved);
   setCause(false);setPath(false);setResult(false);setChecked(false);
- },[key]);
- function update(v:string){setAnswer(v);setChecked(false);setCause(false);setPath(false);setResult(false);try{localStorage.setItem(key,v);setPersisted(true)}catch{setPersisted(false)}}
+ },[storageKey]);
+ function update(v:string){setAnswer(v);setChecked(false);setCause(false);setPath(false);setResult(false);try{localStorage.setItem(storageKey,v);setPersisted(true)}catch{setPersisted(false)}}
  const checks=[{ok:cause,label:c.cause},{ok:path,label:c.path},{ok:result,label:c.result}];
  const done=checks.filter(x=>x.ok).length;
  const missing=checks.filter(x=>!x.ok).map(x=>x.label);
