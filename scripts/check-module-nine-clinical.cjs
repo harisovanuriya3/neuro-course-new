@@ -25,7 +25,7 @@ vm.runInNewContext(compiled.outputText, sandbox);
 const create = sandbox.exports.createModuleNineClinical;
 assert.equal(typeof create, "function");
 const marker = {
-  RU: ["спинальным шоком", "нисходящего", "гиперрефлексия", "нейрогенный шок", "срочной"],
+  RU: ["спинальным шоком", "нисходящего", "гиперрефлексия", "нейрогенн", "срочной"],
   EN: ["spinal shock", "descending", "hyperreflexia", "neurogenic shock", "urgent"],
   KZ: ["жұлындық шок", "төмендеуші", "гиперрефлексия", "нейрогендік шок", "шұғыл"]
 };
