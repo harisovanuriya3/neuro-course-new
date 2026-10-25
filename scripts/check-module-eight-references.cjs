@@ -19,7 +19,7 @@ const {getLesson}=load("content/index.ts");
 const expected=[
  ["Guyton & Hall",["609–610","584–585","709–710","677–678"],"theory"],
  ["Ganong",["173–174","185–186","242–243","254–255","VPL"],"theory"],
- ["C. L. Ghai",["302–305","324–327","304","326","Aγ"],"clinical"],
+ ["C. L. Ghai",["302–305","324–327","304","326","Aγ","696","664"],"clinical"],
  ["OpenStax · Sensory Perception",["§14.1"],"interactive"],
  ["OpenStax · Motor Responses",["§14.3"],"cases"]
 ];
