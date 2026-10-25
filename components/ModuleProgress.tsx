@@ -66,6 +66,27 @@ const moduleEightReview={
   {section:"interactive",question:"Сапалық сызбада сол жақ артқы баған жолын нәзік ядро мен медиалдық ілмекке дейін, ал оң жақтағы ауырсыну сигналын артқы мүйіз және алдыңғы ақ комиссура арқылы қадағалаңыз. Оқу анимациясын нақты физиологиялық жазбамен шатастырмау үшін қай жақтар мен деңгейлерді көрсету керек?",link:"Сызбадағы жолдарды салыстыру"},
   {section:"cases",question:"Жұлынның T10 сегменті маңындағы сол жақты жартылай зақымында ошақтан төмен сол жақта діріл, оң жақта ауырсыну мен температура сезімі төмендеген. Неліктен ауырсыну сезімінің бұзылуы бірнеше сегмент төмен басталуы мүмкін? Неліктен жұлынның T10 сегменті T10 омыртқасына тең емес және бұл үлгі зақымның себебін дәлелдемейді?",link:"Клиникалық локализацияны талдау"}]}
 } as const;
+
+/**
+ * Module 9: ungraded reflection on segmental spinal circuitry.
+ * Library cross-check: Ganong 23e PDF 169–170, Guyton & Hall 13e PDF 670–671,
+ * C. L. Ghai Practical Physiology 8e PDF 317–319.
+ * These questions cannot be counted as automatically checked mastery evidence.
+ */
+const moduleNineReview={
+ RU:{title:"Самопроверка: спинальные цепи и границы клинического вывода",note:"Ответьте своими словами, затем сверьте механизмы с теорией, лабораторией и кейсами. Открытые ответы не проверяются автоматически и не повышают показатель освоения.",items:[
+  {section:"theory",question:"При ударе по связке надколенника что растягивается: сухожильный орган Гольджи или мышечные веретёна четырёхглавой мышцы? Проследите прямой Ia→α-мотонейронный путь и отдельную ветвь через тормозный интернейрон антагониста. Почему защитное отдёргивание нельзя назвать тем же моносинаптическим рефлексом?",link:"Сверить два рефлекторных механизма"},
+  {section:"interactive",question:"В учебной модели сохраните одинаковый условный Ia-вход и сравните ответ антагониста при включённом и выключенном тормозном интернейроне. Почему направление изменения объяснимо схемой, а численные проценты не являются измеренной ЭМГ, силой мышцы или частотой разрядов? Какие влияния модель не учитывает?",link:"Проверить условия модели"},
+  {section:"cases",question:"После тяжёлой травмы спинного мозга сухожильные рефлексы сначала ослаблены, а спустя время часть из них усиливается без восстановления произвольных движений. Чем спинальный шок отличается от нейрогенного гемодинамического шока? Почему возвращение рефлекса не доказывает восстановление нисходящих путей и что нужно оценить дополнительно?",link:"Разобрать временную динамику"}]},
+ EN:{title:"Self-check: spinal circuits and limits of clinical inference",note:"Explain in your own words, then compare with theory, laboratory and cases. These open responses are not automatically graded and do not raise the mastery indicator.",items:[
+  {section:"theory",question:"When the patellar ligament is tapped, is the primary receptor a Golgi tendon organ or the quadriceps muscle spindle? Trace the direct Ia→α-motor neuron pathway and the separate inhibitory interneuron branch to the antagonist. Why is protective withdrawal not the same monosynaptic reflex?",link:"Compare the two reflex mechanisms"},
+  {section:"interactive",question:"In the teaching model, keep the illustrative Ia input constant and compare antagonist output with its inhibitory interneuron enabled and disabled. Why does the circuit predict the direction of change, while the percentages are not recorded EMG, muscle force or firing rate? Which physiological influences are omitted?",link:"Check the model assumptions"},
+  {section:"cases",question:"After severe spinal cord injury, tendon reflexes are initially depressed and some later become brisker without recovery of voluntary movement. How does spinal shock differ from hemodynamic neurogenic shock? Why does return of a segmental reflex not establish restoration of descending pathways, and what additional findings matter?",link:"Review the time course"}]},
+ KZ:{title:"Өзіндік тексеру: жұлын тізбектері және клиникалық қорытынды шектері",note:"Жауапты өз сөзіңізбен түсіндіріп, теориямен, зертханамен және жағдайлармен салыстырыңыз. Ашық жауаптар автоматты түрде бағаланбайды және меңгеру көрсеткішін арттырмайды.",items:[
+  {section:"theory",question:"Тізе тостағаншасының байламын соққанда негізгі рецептор Гольджи сіңір мүшесі ме, әлде санның төртбасты бұлшықетінің ұршығы ма? Тікелей Ia→α-мотонейрон жолын және антагонисті тежейтін интернейрон арқылы өтетін бөлек тармақты сипаттаңыз. Қорғаныштық тартып алу неге дәл осындай моносинапстық рефлекс емес?",link:"Екі рефлекс механизмін салыстыру"},
+  {section:"interactive",question:"Оқу моделінде шартты Ia кірісін бірдей ұстап, тежеуші интернейрон қосылған және өшірілген кездегі антагонист жауабын салыстырыңыз. Неліктен сызба өзгеріс бағытын түсіндіреді, бірақ пайыздар нақты ЭМГ, бұлшықет күші немесе импульс жиілігінің өлшемі емес? Қандай физиологиялық ықпалдар ескерілмеген?",link:"Модельдің шарттарын тексеру"},
+  {section:"cases",question:"Жұлын ауыр зақымданғаннан кейін сіңір рефлекстері бастапқыда бәсеңдеп, кейін кейбірі күшейді, бірақ ерікті қимылдар қалпына келмеді. Жұлындық шок гемодинамикалық нейрогендік шоктан несімен ерекшеленеді? Неліктен сегменттік рефлекстің оралуы төмендеуші жолдардың қалпына келгенін дәлелдемейді және тағы нені бағалау керек?",link:"Уақытқа байланысты өзгерісті талдау"}]}
+} as const;
 function level(correct:number,total:number):Level{if(!total)return"none";const p=correct/total;return p>=.8?"mastered":p>=.5?"forming":"review"}
 export default function ModuleProgress({language,moduleId}:{language:Language;moduleId:number}){
  const [data,setData]=useState<CourseProgressData|null>(null);
@@ -130,6 +151,11 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     <h2 style={{marginTop:0}}>{moduleEightReview[language].title}</h2>
     <p>{moduleEightReview[language].note}</p>
     <ol>{moduleEightReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
+  </section>}
+  {moduleId===9 && <section aria-label={moduleNineReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
+    <h2 style={{marginTop:0}}>{moduleNineReview[language].title}</h2>
+    <p>{moduleNineReview[language].note}</p>
+    <ol>{moduleNineReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
   </section>}
   <section style={{margin:"18px 0",padding:"16px",border:"2px solid #b9d3e6",borderRadius:14,background:"#fff"}}>
     <h2 style={{marginTop:0}}>{language==="RU"?"Панель курса":language==="KZ"?"Курс панелі":"Course dashboard"}</h2>
