@@ -6,6 +6,7 @@ import { reviewModuleFiveVirtualPatient } from "./course-foundation/module-five-
 import { reviewModuleSixVirtualPatient } from "./course-foundation/module-six-virtual-patient-review";
 import { reviewModuleSevenVirtualPatient } from "./course-foundation/module-seven-virtual-patient-review";
 import { reviewModuleEightVirtualPatient } from "./course-foundation/module-eight-virtual-patient-review";
+import { reviewModuleNineVirtualPatient } from "./course-foundation/module-nine-virtual-patient-review";
 
 // Review layer for module 3 only. Other module scenarios are unchanged.
 // Ganong 23e, chapter 4: astrocytic K+ buffering, CNS myelin and microglia.
@@ -108,6 +109,7 @@ export function getReviewedVirtualPatientScenario(moduleId:number, language:Lang
  if(moduleId===6 && base) return reviewModuleSixVirtualPatient(base,language);
  if(moduleId===7 && base) return reviewModuleSevenVirtualPatient(base,language);
  if(moduleId===8 && base) return reviewModuleEightVirtualPatient(base,language);
+ if(moduleId===9 && base) return reviewModuleNineVirtualPatient(base,language);
  if(moduleId!==3 || !base) return base;
  if(base.stages.length!==6 || moduleThreeWrongChoices[language].length!==6 || prompts[language].length!==6)
    throw new Error("Module 3 virtual-model stages must remain six");
