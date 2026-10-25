@@ -5,6 +5,7 @@ import type { Topic } from "./topics";
 import { createModuleEightCases } from "./module-eight-cases";
 import { createModuleNineCases } from "./module-nine-cases";
 import { adaptModuleEightTest } from "./module-eight-tests";
+import { adaptModuleNineTest } from "./module-nine-tests";
 
 type Vignette = Record<Language,string>;
 const v=(RU:string,EN:string,KZ:string):Vignette=>({RU,EN,KZ});
@@ -218,5 +219,5 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   transfer:{title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [justifyComp]:{title:l==="RU"?"Обоснование вывода":l==="EN"?"Justification of conclusion":"Қорытындыны негіздеу",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}}
  },nodes};
- return topic.id===8 ? adaptModuleEightTest(result,l) : result;
+ return topic.id===8 ? adaptModuleEightTest(result,l) : topic.id===9 ? adaptModuleNineTest(result,l) : result;
 }
