@@ -23,9 +23,9 @@ const context={};vm.runInNewContext(js,context);
 const localized=context.localized;
 assert.deepEqual(Object.keys(localized).sort(),["EN","KZ","RU"]);
 const markers={
- RU:["веретено","Гольджи","Ia","моносинаптическое","интернейрон","разгибание","самооценка"],
- EN:["muscle spindle","Golgi","Ia","monosynaptic","interneuron","knee extension","structure"],
- KZ:["ұршығы","Гольджи","Ia","моносинапстық","интернейрон","жазылу","өзіндік"]
+ RU:["веретено","Гольджи","Ia","моносинаптическое","интернейрон","разгибание","самооценка","полисинаптические","необязательность"],
+ EN:["muscle spindle","Golgi","Ia","monosynaptic","interneuron","knee extension","structure","polysynaptic","not obligatory"],
+ KZ:["ұршығы","Гольджи","Ia","моносинапстық","интернейрон","жазылу","өзіндік","полисинапстық","міндетті емес"]
 };
 for(const lang of ["RU","EN","KZ"]){
  const c=localized[lang];
