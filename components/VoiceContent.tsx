@@ -239,8 +239,8 @@ const moduleNineCopy = {
 
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
  const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : copy[language];
- const key=moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
- const storageKey=(moduleId===8 || moduleId===9) ? `neuro-course:mechanism:v2:${moduleId}:${language}` : key;
+ const key=moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===9 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
+ const storageKey=moduleId===8 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : key;
  const[answer,setAnswer]=useState("");
  const[persisted,setPersisted]=useState(false);
  const[cause,setCause]=useState(false),[path,setPath]=useState(false),[result,setResult]=useState(false),[checked,setChecked]=useState(false);
