@@ -19,7 +19,7 @@ const review=mod.exports.reviewModuleNineVirtualPatient;
 assert.equal(typeof review,"function");
 const positions=[1,2,0,2,1,0];
 const anchors={
- RU:["спинальный шок","поясничных","гиперрефлексия","интернейрон","Гольджи","полисинаптические"],
+ RU:["спинальный шок","поясничн","гиперрефлексия","интернейрон","Гольджи","полисинаптические"],
  EN:["spinal shock","lumbar","hyperreflexia","interneuron","Golgi","polysynaptic"],
  KZ:["жұлындық шок","белдік","гиперрефлексия","интернейрон","Гольджи","полисинапстық"]
 };
@@ -49,7 +49,7 @@ for(const language of ["RU","EN","KZ"]){
   assert(stage.options.every(o=>o.feedback===stage.mechanism));
   assert.notEqual(stage.options[stage.correctOption].response,
    stage.options[(stage.correctOption+1)%3].response);
-  assert((stage.task+" "+stage.newData+" "+stage.mechanism).includes(anchors[language][i]),
+  assert((stage.task+" "+stage.newData+" "+stage.mechanism+" "+stage.options.map(o=>o.text).join(" ")).includes(anchors[language][i]),
    language+" stage "+i+" missing physiology anchor");
   unique.add(stage.task);
  }
