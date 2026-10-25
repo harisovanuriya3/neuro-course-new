@@ -26,7 +26,7 @@ const create = context.exports.createModuleNineSummary;
 assert.equal(typeof create, "function", "Summary factory missing");
 const markers = {
   RU: ["задние корешки", "передние корешки", "Ia", "Ib", "γ-мотонейроны",
-    "полисинаптическая", "спинальный шок", "нейрогенного шока", "L2–L4", "S1–S2"],
+    "полисинаптическая", "Спинальный шок", "нейрогенного шока", "L2–L4", "S1–S2"],
   EN: ["dorsal roots", "ventral roots", "Ia", "Ib", "γ-motor neurons",
     "polysynaptic", "Spinal shock", "neurogenic shock", "L2–L4", "S1–S2"],
   KZ: ["артқы түбіршектер", "алдыңғы түбіршектер", "Ia", "Ib", "γ-мотонейрондар",
