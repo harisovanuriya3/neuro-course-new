@@ -200,10 +200,47 @@ const moduleEightCopy = {
  }
 } as const;
 
+
+
+// Module 9: spinal reflex physiology; structure-only self-check, never automated grading.
+// Cross-checked against Guyton & Hall 13e, Library PDF pp. 667–671;
+// Ganong 23e, PDF pp. 169–171; Ghai Practical Physiology 8e, PDF pp. 317–319.
+// A tendon tap stretches a muscle spindle; Ia→alpha is the monosynaptic branch.
+// Reciprocal inhibition requires an interneuron. No painful elicitation is requested.
+const moduleNineCopy = {
+ RU: {
+  intro:"Учебная ситуация: при ударе по связке надколенника возникает разгибание колена. Объясните, почему рецептором служит мышечное веретено четырёхглавой мышцы, чем отличается прямое Ia→α-мотонейронное звено от ветви реципрокного торможения и почему слабый ответ сам по себе не доказывает поражение спинного мозга. Это письменное или устное рассуждение; галочки — самооценка структуры, а не автоматическая проверка правильности.",
+  prompt:"Коленный рефлекс: мышечное веретено, Ia, α-мотонейрон и реципрокное торможение",
+  cause:"Я указал(а), что удар по связке растягивает четырёхглавую мышцу и её мышечные веретёна, а не непосредственно сухожильные органы Гольджи",
+  path:"Я описал(а) Ia-афферент через задний корешок, прямое моносинаптическое возбуждение α-мотонейрона и отдельную полисинаптическую ветвь торможения антагониста через интернейрон",
+  result:"Я объяснил(а) сокращение четырёхглавой мышцы и разгибание колена, влияние условий исследования и нисходящей модуляции; один рефлекс не устанавливает диагноз. Я не предлагал(а) болезненных проб",
+  ready:"Три пункта структуры отмечены. Сравните написанное с теорией: отметки не подтверждают физиологическую правильность и не заменяют клиническую оценку.",
+  good:"Три пункта самооценки отмечены"
+ },
+ EN: {
+  intro:"Teaching scenario: a patellar tendon tap produces knee extension. Explain why the receptor is the quadriceps muscle spindle, how the direct Ia→alpha-motor-neuron connection differs from the reciprocal-inhibition branch, and why a weak response alone cannot establish a spinal cord lesion. This is spoken or written reasoning; checkboxes assess structure, not scientific correctness.",
+  prompt:"Knee jerk: muscle spindle, Ia afferent, alpha motor neuron and reciprocal inhibition",
+  cause:"I explained that tapping the patellar tendon stretches quadriceps muscle spindles rather than directly stimulating Golgi tendon organs",
+  path:"I traced the Ia afferent through the dorsal root to direct monosynaptic excitation of the alpha motor neuron and distinguished the separate interneuron-mediated inhibition of the antagonist",
+  result:"I connected quadriceps contraction with knee extension, considered examination conditions and descending modulation, and noted that one reflex cannot establish a diagnosis. I did not propose painful testing",
+  ready:"All three structure items are checked. Compare your text with theory: checkmarks do not verify physiological accuracy or replace clinical assessment.",
+  good:"Three self-check items marked"
+ },
+ KZ: {
+  intro:"Оқу жағдайы: тізе тобығының сіңірін соққанда тізе жазылады. Рецептор неліктен төртбасты бұлшықеттің ұршығы екенін, тікелей Ia→α-мотонейрон байланысының реципроктық тежелу тармағынан айырмасын және әлсіз жауаптың өзі жұлын зақымын неліктен дәлелдемейтінін түсіндіріңіз. Бұл ауызша не жазбаша талдау; белгілер жауап құрылымын ғана өзіндік бағалауға арналған.",
+  prompt:"Тізе рефлексі: бұлшықет ұршығы, Ia-афферент, α-мотонейрон және реципроктық тежелу",
+  cause:"Мен тізе тобығының сіңірін соққанда Гольджи сіңір мүшелері тікелей қозбай, төртбасты бұлшықет пен оның ұршықтары созылатынын түсіндірдім",
+  path:"Мен Ia-афференттің артқы түбір арқылы өтіп, α-мотонейронды тікелей моносинапстық қоздыратынын және антагонистің интернейрон арқылы тежелетін бөлек тармағын ажыраттым",
+  result:"Мен төртбасты бұлшықеттің жиырылуын тізенің жазылуымен байланыстырдым, тексеру жағдайлары мен төмендеуші реттелуді ескердім; бір рефлекс диагноз қоймайды. Ауырсындыратын сынама ұсынбадым",
+  ready:"Жауап құрылымының үш тармағы белгіленді. Мәтінді теориямен салыстырыңыз: белгілер физиологиялық дұрыстықты дәлелдемейді және клиникалық бағалауды алмастырмайды.",
+  good:"Үш өзіндік тексеру тармағы белгіленді"
+ }
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : copy[language];
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : copy[language];
  const key=moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
- const storageKey=moduleId===8 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : key;
+ const storageKey=(moduleId===8 || moduleId===9) ? `neuro-course:mechanism:v2:${moduleId}:${language}` : key;
  const[answer,setAnswer]=useState("");
  const[persisted,setPersisted]=useState(false);
  const[cause,setCause]=useState(false),[path,setPath]=useState(false),[result,setResult]=useState(false),[checked,setChecked]=useState(false);
