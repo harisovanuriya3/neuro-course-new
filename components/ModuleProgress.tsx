@@ -48,6 +48,24 @@ const moduleSevenReview={
   {section:"interactive",question:"Бұлшықеттің соңғы ұзындығы бірдей болғанда жылдам және баяу созылуды салыстырыңыз. Ia талшығының динамикалық жауабы мен Ia/II талшықтарының статикалық сигналдары қалай ерекшеленеді? Жиырылу кезінде гамма-мотонейрондар бұлшықет ұршығының сезімталдығын неге сақтайды және Гольджи сіңір мүшесінің Ib-афференттері тізе рефлексінің негізгі кірісі неге емес?",link:"Интерактивті модельмен салыстыру"},
   {section:"cases",question:"Босаңсығаннан және Ендрассик әдісінен кейін әлсіз тізе рефлексі айқынырақ байқалды. Қараудың қандай жағдайларын бірдей ұстау және қандай қосымша неврологиялық белгілерді тексеру қажет? Неліктен бір әлсіз рефлекс немесе оның күшейтуден кейінгі өзгерісі диагнозды не зақымның нақты деңгейін анықтамайды?",link:"Клиникалық жағдайды талдау"}]}
 } as const;
+
+// Module 8: ungraded pathway localization reflection, not evidence of mastery.
+// Guyton & Hall 13e PDF 584–585; Ganong 23e PDF 185–186;
+// C. L. Ghai Practical Physiology 8e PDF 324–325.
+const moduleEightReview={
+ RU:{title:"Самопроверка: восходящие пути и локализация",note:"Сопоставьте ответы с теорией и клиническими задачами. Эти открытые вопросы не оцениваются автоматически и не увеличивают показатель освоения.",items:[
+  {section:"theory",question:"Сравните путь вибрации и сознательной проприоцепции с путём боли и температуры от левой ноги: где расположены тела первых нейронов, где происходят переключения и на каком уровне аксоны перекрещиваются? Почему задние столбы и антеролатеральная система дают разные стороны выпадения при очаге в спинном мозге?",link:"Повторить перекрёсты и реле"},
+  {section:"interactive",question:"В качественной схеме проследите левый задний столб до тонкого ядра и медиальной петли, а правосторонний болевой сигнал — через задний рог и переднюю белую спайку. Какие стороны и уровни нужно отметить, чтобы не принять условную анимацию за реальную запись проводимости?",link:"Сопоставить пути на схеме"},
+  {section:"cases",question:"При частичном левостороннем поражении около спинномозгового сегмента T10 снижены вибрация слева и боль/температура справа ниже очага. Почему начало болевого дефицита может быть смещено на несколько сегментов? Почему T10 сегмент не равен T10 позвонку и почему один синдром не устанавливает причину?",link:"Разобрать клиническую локализацию"}]},
+ EN:{title:"Self-check: ascending pathways and localization",note:"Compare your answers with theory and clinical cases. These open prompts are not automatically graded and do not raise the mastery indicator.",items:[
+  {section:"theory",question:"Compare the pathway for vibration and conscious proprioception with pain and temperature from the left leg: where are first-order cell bodies, relays and decussations? Why can a spinal cord lesion produce sensory losses on different sides for dorsal columns versus the anterolateral system?",link:"Review crossing and relay levels"},
+  {section:"interactive",question:"In the qualitative diagram, trace the left dorsal column through the gracile nucleus and medial lemniscus, and right-sided pain input through the dorsal horn and anterior white commissure. Which sides and levels must be labelled so that the teaching animation is not mistaken for a physiological recording?",link:"Compare pathways in the diagram"},
+  {section:"cases",question:"With a partial left-sided lesion near spinal cord segment T10, vibration is reduced on the left and pain/temperature on the right below the lesion. Why can pain loss begin a few segments lower? Why is cord segment T10 not vertebra T10, and why does the pattern alone not establish the cause?",link:"Analyze clinical localization"}]},
+ KZ:{title:"Өзіндік тексеру: жоғарылаушы жолдар және зақым орнын анықтау",note:"Жауаптарды теориямен және клиникалық жағдайлармен салыстырыңыз. Бұл ашық сұрақтар автоматты түрде бағаланбайды және меңгеру көрсеткішін арттырмайды.",items:[
+  {section:"theory",question:"Сол аяқтан келетін діріл мен саналы проприоцепция жолын ауырсыну және температура жолымен салыстырыңыз: бірінші нейрондардың денелері, ауысу орындары және айқасу деңгейлері қайда? Неліктен жұлын зақымында артқы баған мен антеролатералдық жүйе әртүрлі жақтағы сезімталдық бұзылысын береді?",link:"Айқасу мен ауысу деңгейлерін қайталау"},
+  {section:"interactive",question:"Сапалық сызбада сол жақ артқы баған жолын нәзік ядро мен медиалдық ілмекке дейін, ал оң жақтағы ауырсыну сигналын артқы мүйіз және алдыңғы ақ комиссура арқылы қадағалаңыз. Оқу анимациясын нақты физиологиялық жазбамен шатастырмау үшін қай жақтар мен деңгейлерді көрсету керек?",link:"Сызбадағы жолдарды салыстыру"},
+  {section:"cases",question:"Жұлынның T10 сегменті маңындағы сол жақты жартылай зақымында ошақтан төмен сол жақта діріл, оң жақта ауырсыну мен температура сезімі төмендеген. Неліктен ауырсыну сезімінің бұзылуы бірнеше сегмент төмен басталуы мүмкін? Неліктен жұлынның T10 сегменті T10 омыртқасына тең емес және бұл үлгі зақымның себебін дәлелдемейді?",link:"Клиникалық локализацияны талдау"}]}
+} as const;
 function level(correct:number,total:number):Level{if(!total)return"none";const p=correct/total;return p>=.8?"mastered":p>=.5?"forming":"review"}
 export default function ModuleProgress({language,moduleId}:{language:Language;moduleId:number}){
  const [data,setData]=useState<CourseProgressData|null>(null);
@@ -107,6 +125,11 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     <h2 style={{marginTop:0}}>{moduleSevenReview[language].title}</h2>
     <p>{moduleSevenReview[language].note}</p>
     <ol>{moduleSevenReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
+  </section>}
+  {moduleId===8 && <section aria-label={moduleEightReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
+    <h2 style={{marginTop:0}}>{moduleEightReview[language].title}</h2>
+    <p>{moduleEightReview[language].note}</p>
+    <ol>{moduleEightReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
   </section>}
   <section style={{margin:"18px 0",padding:"16px",border:"2px solid #b9d3e6",borderRadius:14,background:"#fff"}}>
     <h2 style={{marginTop:0}}>{language==="RU"?"Панель курса":language==="KZ"?"Курс панелі":"Course dashboard"}</h2>
