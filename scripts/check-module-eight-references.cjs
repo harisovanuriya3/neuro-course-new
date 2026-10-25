@@ -41,8 +41,8 @@ for(const lang of ["RU","EN","KZ"]){
  }
  const ghai=lesson.sources[2].description;
  assert(/Aγ/.test(ghai),lang+" must flag inaccurate A-gamma sensory classification");
- assert(/Aγ/.test(ghai)&&/Aβ/.test(fs.readFileSync("content/course-foundation/module-eight-theory.ts","utf8")),
-  "Retain A-beta sensory pathway teaching");
+ const efferent={RU:"двигательные",EN:"motor efferents",KZ:"қозғалтқыш эфференттер"}[lang];
+ assert(ghai.includes(efferent),lang+" Aγ motor classification correction missing");
 }
 const config=JSON.parse(fs.readFileSync("vercel.json","utf8"));
 assert.equal(config.git.deploymentEnabled["refactor/evidence-based-assessment-audit"],false,
