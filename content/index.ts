@@ -1,4 +1,5 @@
 import { createModuleElevenObjectives } from "./course-foundation/module-eleven-objectives";
+import { createModuleElevenPretest } from "./course-foundation/module-eleven-pretest";
 import { createModuleEightReferences } from "./course-foundation/module-eight-references";
 import { createModuleNineReferences } from "./course-foundation/module-nine-references";
 import { createModuleEightGlossary } from "./course-foundation/module-eight-glossary";
@@ -334,6 +335,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       RU: createModuleElevenObjectives("RU"),
       EN: createModuleElevenObjectives("EN"),
       KZ: createModuleElevenObjectives("KZ"),
+    },
+    pretest: {
+      RU: createModuleElevenPretest("RU", modules.RU[10], getSectionTitle("pretest", "RU")),
+      EN: createModuleElevenPretest("EN", modules.EN[10], getSectionTitle("pretest", "EN")),
+      KZ: createModuleElevenPretest("KZ", modules.KZ[10], getSectionTitle("pretest", "KZ")),
     },
   },
   3: {
