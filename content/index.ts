@@ -1,3 +1,4 @@
+import { createModuleElevenClinical } from "./course-foundation/module-eleven-clinical";
 import { createModuleElevenObjectives } from "./course-foundation/module-eleven-objectives";
 import { createModuleElevenPretest } from "./course-foundation/module-eleven-pretest";
 import { createModuleElevenTheory } from "./course-foundation/module-eleven-theory";
@@ -333,6 +334,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   11: {
     ...foundationLessons[11],
+    clinical: { RU: createModuleElevenClinical("RU"), EN: createModuleElevenClinical("EN"), KZ: createModuleElevenClinical("KZ") },
     objectives: {
       RU: createModuleElevenObjectives("RU"),
       EN: createModuleElevenObjectives("EN"),
