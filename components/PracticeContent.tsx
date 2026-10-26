@@ -71,11 +71,10 @@ function Sequence({ steps, ui, onComplete }: { steps: string[]; ui: UI; onComple
 
   function check() {
     if (selected.length !== steps.length) return;
+    const isCorrect = selected.every((value, index) => value === index);
     setChecked(true);
-    onComplete?.(true);
-    setFeedback(selected.length !== steps.length
-      ? ui.incomplete
-      : selected.every((value, index) => value === index) ? ui.correct : ui.incorrect);
+    onComplete?.(isCorrect);
+    setFeedback(isCorrect ? ui.correct : ui.incorrect);
   }
 
   return (
@@ -142,7 +141,7 @@ function Classification({ block, ui, language, onComplete }: { block: Extract<Pr
       </table>
     </div>
     {([0, 1] as const).map(index => <VoiceTextarea key={block.groups[index]} language={language} label={block.reasonLabels[index]} value={reasons[index]} onValue={(value) => reason(index, value)} rows={3} placeholder={ui.input} />)}
-    <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={() => { setChecked(true); onComplete?.(true); }}>{copy.check}</button></div>
+    <div className={styles.actions}><button type="button" className={styles.primary} disabled={!ready} onClick={() => { setChecked(true); onComplete?.(allCorrect); }}>{copy.check}</button></div>
     {!ready && <p className={styles.note}>{copy.complete}</p>}
     {checked && <p role="status" aria-live="polite" className={allCorrect ? styles.success : styles.retry}>{allCorrect ? copy.correct : copy.retry}</p>}
     {checked && !allCorrect && <div className={styles.actions}><button type="button" onClick={() => setShowCorrect(true)}>{copy.show}</button></div>}
