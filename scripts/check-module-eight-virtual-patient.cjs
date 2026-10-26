@@ -58,7 +58,7 @@ const wrapper=read("content/reviewed-virtual-patients.ts");
 assert(wrapper.includes('import { reviewModuleEightVirtualPatient } from "./course-foundation/module-eight-virtual-patient-review";'));
 assert(wrapper.includes('if(moduleId===8 && base) return reviewModuleEightVirtualPatient(base,language);'));
 const ui=read("components/UnifiedVirtualPatient.tsx");
-assert(ui.includes('moduleId === 6 || moduleId === 7 || moduleId === 8 ? "v2" : "v1"'));
+assert(ui.includes('moduleId >= 6 && moduleId <= 10 ? "v2" : "v1"'));
 const route=read("app/modules/[id]/[section]/page.tsx");
 assert(route.includes("<UnifiedVirtualPatient moduleId={moduleNumber} language={lang} />"));
 const config=JSON.parse(read("vercel.json"));
