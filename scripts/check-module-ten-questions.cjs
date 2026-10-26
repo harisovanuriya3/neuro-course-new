@@ -23,7 +23,7 @@ vm.runInNewContext(compiled.outputText,context);
 const create=context.exports.createModuleTenQuestions;
 assert.equal(typeof create,"function","Module 10 question factory missing");
 const markers={
- RU:["претект","барорецептор","NTS","слуховой","продолговат","V1"],
+ RU:["афферент","барорецептор","NTS","слуховой","продолговат","V1"],
  EN:["optic nerve","baroreceptor","NTS","auditory","medull","V1"],
  KZ:["торқабық","барорецептор","NTS","есту","сопақша","V1"]
 };
