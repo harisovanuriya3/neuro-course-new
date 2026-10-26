@@ -66,6 +66,7 @@ import { createModuleTenTheory } from "./course-foundation/module-ten-theory";
 import { createModuleTenSummary } from "./course-foundation/module-ten-summary";
 import { createModuleTenClinical } from "./course-foundation/module-ten-clinical";
 import { createModuleTenPractice } from "./course-foundation/module-ten-practice";
+import { createModuleElevenPractice } from "./course-foundation/module-eleven-practice";
 import { createModuleNinePretest } from "./course-foundation/module-nine-pretest";
 import { createModuleNineTheory } from "./course-foundation/module-nine-theory";
 import { createModuleNineSummary } from "./course-foundation/module-nine-summary";
@@ -334,6 +335,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   11: {
     ...foundationLessons[11],
+    practice: {
+      RU: createModuleElevenPractice("RU", foundationLessons[11].practice.RU as PracticeLesson),
+      EN: createModuleElevenPractice("EN", foundationLessons[11].practice.EN as PracticeLesson),
+      KZ: createModuleElevenPractice("KZ", foundationLessons[11].practice.KZ as PracticeLesson),
+    },
     clinical: { RU: createModuleElevenClinical("RU"), EN: createModuleElevenClinical("EN"), KZ: createModuleElevenClinical("KZ") },
     objectives: {
       RU: createModuleElevenObjectives("RU"),
