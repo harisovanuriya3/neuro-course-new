@@ -237,9 +237,48 @@ const moduleNineCopy = {
  }
 } as const;
 
+
+/**
+ * Module 10: self-explanation of distinct brainstem mechanisms, not a diagnostic test.
+ * Compared with Library Guyton & Hall 13e PDF 718–719 (ascending activation),
+ * Ganong 23e PDF 249–250 (distributed sleep–wake systems),
+ * Ghai Practical Physiology 8e PDF 301 (pupillary light reflex),
+ * 256–257 (BAEP recording and limits).
+ * Self-check boxes cannot determine scientific correctness or awareness.
+ */
+const moduleTenCopy = {
+ RU: {
+  intro:"Объясните два разных стволовых механизма: прямую и содружественную реакцию зрачков на свет и восходящую регуляцию бодрствования. Затем оцените пределы раннего слухового вызванного ответа (КСВП). Это учебное рассуждение по схеме: не светите человеку в глаза и не проверяйте роговицу самостоятельно. Галочки показывают лишь вашу самооценку структуры, а не правильность физиологии.",
+  prompt:"Ствол мозга: II → претектальная область → двусторонние ядра III; бодрствование и КСВП",
+  cause:"Я объяснил(а), что свет активирует сетчатку и афферентный путь II нерва; ранний слуховой ответ вызывается отдельным звуковым стимулом, а не светом",
+  path:"Я проследил(а) двустороннюю претектальную связь с парасимпатическими ядрами III нерва, ресничный узел и сфинктер зрачка; отдельно назвал(а) распределённые стволовые, таламические, гипоталамические и корковые связи бодрствования",
+  result:"Я различил(а) прямое и содружественное сужение зрачков, объяснил(а), что сохранный ранний КСВП указывает лишь на проведение по части слухового пути и не доказывает сознание; один рефлекс не устанавливает диагноз",
+  ready:"Вы отметили три элемента самооценки. Проверьте реальную причинную цепочку по теории и медиа: галочки не подтверждают правильность объяснения или состояние сознания пациента.",
+  good:"Три пункта самооценки отмечены"
+ },
+ EN: {
+  intro:"Explain two different brainstem mechanisms: direct and consensual pupillary responses to light, and ascending regulation of wakefulness. Then state the limits of an early brainstem auditory evoked potential (BAEP). This is a diagram-based reasoning exercise: do not shine light into another person's eyes or test their cornea yourself. Checkmarks assess structure, not physiological accuracy.",
+  prompt:"Brainstem: CN II → pretectal region → bilateral CN III nuclei; arousal and BAEPs",
+  cause:"I identified retinal light input and the optic nerve (II) as the light-reflex afferent limb; a BAEP instead follows a separate sound stimulus",
+  path:"I traced bilateral pretectal projections to parasympathetic III nuclei, the ciliary ganglion and the pupillary sphincter; separately, I described distributed brainstem, thalamic, hypothalamic and cortical arousal connections",
+  result:"I distinguished direct from consensual pupil constriction and explained that a preserved early BAEP supports conduction in part of the auditory pathway but cannot establish awareness; a single reflex cannot establish a diagnosis",
+  ready:"You marked three self-check elements. Compare the actual causal chain with the theory and media: checkmarks do not verify correctness or a patient's level of consciousness.",
+  good:"Three self-check items marked"
+ },
+ KZ: {
+  intro:"Ми бағанының екі бөлек механизмін түсіндіріңіз: жарыққа қарашықтың тікелей және екінші көздегі келісімді жауабы, сондай-ақ сергектіктің жоғарылаушы реттелуі. Содан кейін ми бағанының ерте есту шақырылған потенциалының (КСВП) қорытынды жасау шегін көрсетіңіз. Бұл — сызба бойынша талдау: басқа адамның көзіне жарық түсірмеңіз және қасаң қабығын өзіңіз тексермеңіз. Белгілер физиологиялық дұрыстықты емес, жауап құрылымын өзіндік бағалауды көрсетеді.",
+  prompt:"Ми бағаны: II жүйке → претекталдық аймақ → III жүйкенің екіжақты ядролары; сергектік және КСВП",
+  cause:"Мен жарық рефлексінің афференттік буыны торқабық пен II көру жүйкесі екенін, ал ерте есту жауабы бөлек дыбыстық тітіркендіргіштен туатынын ажыраттым",
+  path:"Мен претекталдық аймақтан III жүйкенің екі жақтағы парасимпатикалық ядроларына, кірпікшелі түйінге және қарашық сфинктеріне баратын жолды сипаттадым; сергектіктің ми бағаны, таламус, гипоталамус пен қыртыс арасындағы таралған байланыстарын бөлек түсіндірдім",
+  result:"Мен қарашықтың тікелей және келісімді тарылуын ажыраттым; ерте КСВП-ның сақталуы есту жолының бір бөлігінде өткізуді ғана көрсететінін, сананың сақталғанын дәлелдемейтінін және бір рефлекс диагноз қоймайтынын айттым",
+  ready:"Өзіндік тексерудің үш тармағын белгіледіңіз. Нақты себеп-салдар тізбегін теория және медиа бөлімдерімен салыстырыңыз: белгілер жауаптың дұрыстығын да, науқастың сана деңгейін де растамайды.",
+  good:"Үш өзіндік тексеру тармағы белгіленді"
+ }
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : copy[language];
- const key=moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===9 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : moduleId===10 ? {...copy[language],...moduleTenCopy[language]} : copy[language];
+ const key=moduleId===10 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===9 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
  const storageKey=moduleId===8 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : key;
  const[answer,setAnswer]=useState("");
  const[persisted,setPersisted]=useState(false);
