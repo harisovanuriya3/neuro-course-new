@@ -4,264 +4,207 @@ import { useState } from "react";
 import type { Language } from "../content/course";
 import ExperimentReflection from "./ExperimentReflection";
 import { recordOutcome } from "../lib/courseProgress";
-import {isMeaningfulResponse} from "../lib/meaningfulResponse";
+import { compareMotorFeedback, type MotorFeedbackTrend } from "../lib/motorControlModel";
 
 type Row = {
   id: number;
   drive: number;
   sensory: number;
+  baselineError: number;
   output: number;
   error: number;
+  correct: boolean;
   note: string;
 };
 
 const T = {
   RU: {
     title: "Лаборатория моторного контроля",
-    intro:
-      "Изменяйте нисходящую моторную команду и качество сенсорной обратной связи. Модель показывает, как обратная связь позволяет обнаруживать расхождение между требуемым и фактическим движением и поддерживает онлайн-коррекцию.",
-    drive: "Нисходящая команда",
-    sensory: "Сенсорная обратная связь",
-    output: "Моторный выход",
-    error: "Ошибка движения",
-    save: "Записать опыт",
-    note: "Объясните роль обратной связи",
-    task:
-      "Сравните одинаковую моторную команду при слабой и сильной сенсорной обратной связи.",
-    anatomy: "Анатомическая опора: моторная кора и нисходящий контроль",
-    prediction: "Прогноз до опыта",
-    limit:
-      "Это учебная модель замкнутого моторного контроля. Сенсорная обратная связь не создаёт моторную команду и не гарантирует точность сама по себе: мозг сопоставляет эфферентную команду/предсказание с сенсорными последствиями и использует ошибку для коррекции. Реальное движение также зависит от мозжечка, базальных ганглиев, спинальных сетей, биомеханики и задержек обратной связи; проценты условны.",
+    intro: "Сравните выполнение одной условной двигательной команды без сенсорной коррекции и при выбранном качестве обратной связи. В модели внешнее возмущение одинаково; обратная связь может компенсировать часть ошибки.",
+    task: "Сохраните одинаковую команду и сравните два опыта с разным качеством обратной связи. Перед каждым опытом предскажите изменение ошибки относительно нулевой обратной связи.",
+    drive: "Заданная двигательная команда (условные единицы)",
+    sensory: "Качество обратной связи (условный индекс)",
+    target: "Цель",
+    output: "Результат",
+    error: "Остаточная ошибка",
+    baseline: "Ошибка без обратной связи",
+    prediction: "Прогноз: как изменится ошибка относительно режима без обратной связи?",
+    lower: "Уменьшится",
+    same: "Не изменится",
+    higher: "Увеличится",
+    save: "Проверить прогноз и записать опыт",
+    note: "Объяснение результата (проверяется преподавателем)",
+    trial: "Опыт",
+    comparison: "Сопоставление прогноза",
+    correct: "Прогноз совпал с результатом учебной модели.",
+    incorrect: "Прогноз не совпал с результатом учебной модели. Сравните две ошибки в таблице.",
+    anatomy: "Историческая анатомическая схема коры, а не схема измерения моторного выхода",
+    limit: "Это не запись движения человека и не диагностический тест. В модели условное возмущение равно 30% команды; обратная связь компенсирует до 80% этого возмущения. Эти коэффициенты выбраны для обучения, не являются физиологическими константами. Реальное движение зависит от предсказания, задержек, проприоцепции, зрения, вестибулярного входа, мозжечка, базальных ганглиев, спинальных сетей и биомеханики. Числа — индексы, не клинические проценты; правильность письменного объяснения автоматически не оценивается."
   },
   EN: {
     title: "Motor control laboratory",
-    intro:
-      "Change descending motor drive and sensory-feedback quality. The model illustrates how feedback detects mismatch between intended and actual movement and supports online correction.",
-    drive: "Descending command",
-    sensory: "Sensory feedback",
-    output: "Motor output",
-    error: "Movement error",
-    save: "Record trial",
-    note: "Explain the role of feedback",
-    task:
-      "Compare the same motor command with weak and strong sensory feedback.",
-    anatomy: "Anatomical reference: motor cortex and descending control",
-    prediction: "Prediction before trial",
-    limit:
-      "This is a teaching model of closed-loop motor control. Sensory feedback neither generates the motor command nor guarantees accuracy by itself: the nervous system compares efferent command/prediction with sensory consequences and uses error signals for correction. Real movement also depends on cerebellar, basal-ganglia and spinal networks, biomechanics, and feedback delays; percentages are modeled.",
+    intro: "Compare the same illustrative motor target without sensory correction and with a selected feedback quality. The modeled disturbance stays constant; feedback can compensate for part of the error.",
+    task: "Keep the command fixed and compare two trials with different feedback quality. Before each trial predict the error relative to the no-feedback baseline.",
+    drive: "Target motor command (arbitrary units)",
+    sensory: "Feedback quality (illustrative index)",
+    target: "Target",
+    output: "Outcome",
+    error: "Residual error",
+    baseline: "Error without feedback",
+    prediction: "Prediction: how will error change relative to no feedback?",
+    lower: "Decrease",
+    same: "Stay the same",
+    higher: "Increase",
+    save: "Check prediction and record trial",
+    note: "Explain the result (for instructor review)",
+    trial: "Trial",
+    comparison: "Prediction check",
+    correct: "Prediction agrees with the teaching model.",
+    incorrect: "Prediction does not agree with the teaching model. Compare both errors in the table.",
+    anatomy: "Historical cortical anatomy, not a measurement of motor output",
+    limit: "This is not a human movement recording or a diagnostic test. The illustrative disturbance is 30% of the target and feedback compensates at most 80% of it. These teaching coefficients are not physiological constants. Real movements also depend on prediction, delays, proprioception, vision, vestibular input, cerebellar and basal-ganglia circuits, spinal networks and biomechanics. Numbers are model indices, not clinical percentages; written explanations are not automatically graded."
   },
   KZ: {
     title: "Қозғалысты басқару зертханасы",
-    intro:
-      "Төмендейтін моторлық команданы және сенсорлық кері байланыс сапасын өзгертіңіз. Модель кері байланыстың жоспарланған және нақты қозғалыс арасындағы сәйкессіздікті анықтап, ағымдағы түзетуді қалай қолдайтынын көрсетеді.",
-    drive: "Төмендейтін команда",
-    sensory: "Сенсорлық кері байланыс",
-    output: "Моторлық шығыс",
-    error: "Қозғалыс қатесі",
-    save: "Тәжірибені жазу",
-    note: "Кері байланыстың рөлін түсіндіріңіз",
-    task:
-      "Бірдей моторлық команданы әлсіз және күшті сенсорлық кері байланыста салыстырыңыз.",
-    anatomy: "Анатомиялық тірек: моторлық қыртыс және төмендейтін бақылау",
-    prediction: "Тәжірибеге дейінгі болжам",
-    limit:
-      "Бұл тұйық контурлы моторлық бақылаудың оқу моделі. Сенсорлық кері байланыс моторлық команданы өзі тудырмайды және дәлдікке жалғыз өзі кепіл болмайды: жүйке жүйесі эфференттік команда/болжамды сенсорлық салдармен салыстырып, қате сигналын түзету үшін қолданады. Нақты қозғалысқа мишық, базальды ганглийлер, жұлын желілері, биомеханика және кері байланыс кідірістері де әсер етеді; пайыздар шартты.",
-  },
+    intro: "Бірдей шартты қозғалыс командасының сенсорлық түзетусіз және кері байланыс сапасы өзгерген кездегі орындалуын салыстырыңыз. Модельдегі сыртқы ауытқу тұрақты, ал кері байланыс қатенің бір бөлігін өтей алады.",
+    task: "Команданы өзгертпей, кері байланыс сапасы әртүрлі екі тәжірибені салыстырыңыз. Әр тәжірибенің алдында қатенің кері байланыссыз жағдайға қатысты өзгерісін болжаңыз.",
+    drive: "Мақсатты қозғалыс командасы (шартты бірлік)",
+    sensory: "Кері байланыс сапасы (шартты индекс)",
+    target: "Мақсат",
+    output: "Нәтиже",
+    error: "Қалдық қате",
+    baseline: "Кері байланыссыз қате",
+    prediction: "Болжам: кері байланыссыз жағдаймен салыстырғанда қате қалай өзгереді?",
+    lower: "Азаяды",
+    same: "Өзгермейді",
+    higher: "Артады",
+    save: "Болжамды тексеріп, тәжірибені жазу",
+    note: "Нәтижені түсіндіру (оқытушы тексереді)",
+    trial: "Тәжірибе",
+    comparison: "Болжамды тексеру",
+    correct: "Болжам оқу моделінің нәтижесіне сәйкес келді.",
+    incorrect: "Болжам оқу моделінің нәтижесіне сәйкес келмеді. Кестедегі екі қатені салыстырыңыз.",
+    anatomy: "Қыртыстың тарихи анатомиялық сызбасы; қозғалыс нәтижесінің өлшемі емес",
+    limit: "Бұл адам қозғалысының нақты жазбасы да, диагностикалық сынақ та емес. Оқу моделінде шартты ауытқу команда шамасының 30%-ына тең, ал кері байланыс оның ең көбі 80%-ын өтейді. Бұл коэффициенттер физиологиялық тұрақтылар емес. Нақты қозғалыс болжамға, кідіріске, проприоцепцияға, көру және вестибулярлық ақпаратқа, мишыққа, базальды ганглийлерге, жұлын желілеріне және биомеханикаға тәуелді. Сандар клиникалық пайыздар емес, модель индекстері; жазбаша түсіндірме автоматты түрде бағаланбайды."
+  }
 } as const;
 
-export default function MotorControlLab({
-  language,
-}: {
-  language: Language;
-}) {
+export default function MotorControlLab({ language }: { language: Language }) {
   const c = T[language];
-  const [prediction, setPrediction] = useState("");
-  const [revealed, setRevealed] = useState(false);
   const [drive, setDrive] = useState(65);
   const [sensory, setSensory] = useState(50);
+  const [prediction, setPrediction] = useState<MotorFeedbackTrend | "">("");
+  const [result, setResult] = useState<ReturnType<typeof compareMotorFeedback> | null>(null);
+  const [wasCorrect, setWasCorrect] = useState(false);
   const [rows, setRows] = useState<Row[]>([]);
+  const current = compareMotorFeedback(drive, sensory);
 
-  const movementError = Math.max(0, Math.round((100 - sensory) * 0.35));
-  const output = Math.max(
-    0,
-    Math.min(100, Math.round(drive - movementError * 0.45)),
-  );
-
+  const invalidate = () => {
+    setPrediction("");
+    setResult(null);
+  };
   const recordTrial = () => {
-    setRevealed(true);
-    recordOutcome(11, "interactive", 1, 1);
-    recordOutcome(11, "criterion:application:lab", 1, 1);
-    setRows((current) => [
-      ...current,
-      {
-        id: Date.now(),
-        drive,
-        sensory,
-        output,
-        error: movementError,
-        note: "",
-      },
-    ]);
+    if (!prediction) return;
+    const comparison = compareMotorFeedback(drive, sensory);
+    const correct = prediction === comparison.trend;
+    setResult(comparison);
+    setWasCorrect(correct);
+    recordOutcome(11, "interactive", Number(correct), 1);
+    if (correct) recordOutcome(11, "criterion:application:lab", 1, 1);
+    setRows(previous => [...previous, {
+      id: previous.length + 1,
+      drive, sensory,
+      baselineError: comparison.baseline.error,
+      output: comparison.observed.output,
+      error: comparison.observed.error,
+      correct, note: ""
+    }]);
   };
-
-  const updateNote = (id: number, note: string) => {
-    setRows((current) =>
-      current.map((row) => (row.id === id ? { ...row, note } : row)),
-    );
-    if (isMeaningfulResponse(note,30,4)) {
-      recordOutcome(11, "criterion:justification:lab", 1, 1);
-    }
-  };
+  const updateNote = (id: number, note: string) =>
+    setRows(previous => previous.map(row => row.id === id ? { ...row, note } : row));
 
   return (
-    <section
-      style={{
-        margin: "28px 0",
-        padding: 20,
-        border: "1px solid #cfe0ea",
-        borderRadius: 16,
-      }}
-    >
+    <section style={{ margin: "28px 0", padding: 20, border: "1px solid #cfe0ea", borderRadius: 16 }}>
       <h2>{c.title}</h2>
       <p>{c.intro}</p>
-      <p>
-        <strong>{c.task}</strong>
-      </p>
-
+      <p><strong>{c.task}</strong></p>
       <figure>
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/8/88/Gray726-Brodman.png"
           alt={c.anatomy}
+          loading="lazy"
           style={{ maxWidth: 420, width: "100%", height: "auto" }}
         />
-        <figcaption>
-          {c.anatomy} — Gray&apos;s Anatomy / Wikimedia Commons, public domain.
-        </figcaption>
+        <figcaption>{c.anatomy} — Gray&apos;s Anatomy (1918), Wikimedia Commons, public domain.</figcaption>
       </figure>
-
-      <label>
-        {c.drive}: {drive}%
-        <input
-          type="range"
-          min={0}
-          max={100}
-          value={drive}
-          onChange={(event) => setDrive(Number(event.target.value))}
-          style={{ width: "100%" }}
-        />
+      <label style={{ display: "block" }}>
+        {c.drive}: {drive}
+        <input type="range" min={0} max={100} value={drive}
+          onChange={event => { setDrive(Number(event.target.value)); invalidate(); }}
+          style={{ width: "100%" }} />
       </label>
-
-      <label>
-        {c.sensory}: {sensory}%
-        <input
-          type="range"
-          min={0}
-          max={100}
-          value={sensory}
-          onChange={(event) => setSensory(Number(event.target.value))}
-          style={{ width: "100%" }}
-        />
+      <label style={{ display: "block" }}>
+        {c.sensory}: {sensory}
+        <input type="range" min={0} max={100} value={sensory}
+          onChange={event => { setSensory(Number(event.target.value)); invalidate(); }}
+          style={{ width: "100%" }} />
       </label>
-
-      <svg
-        viewBox="0 0 600 145"
-        style={{ width: "100%", background: "#fff", margin: "12px 0" }}
-        aria-label={c.title}
-        role="img"
-      >
-        <circle
-          cx="80"
-          cy="70"
-          r="30"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="3"
-        />
-        <path
-          d="M110 70 H285"
-          stroke="currentColor"
-          strokeWidth={2 + drive / 25}
-        />
-        <circle
-          cx="320"
-          cy="70"
-          r="28"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="3"
-        />
-        <path
-          d="M348 70 H535"
-          stroke="currentColor"
-          strokeWidth={2 + output / 25}
-        />
-        <path
-          d="M500 105 C390 140 250 140 190 105"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2 + sensory / 30}
-          strokeDasharray="7 5"
-        />
-        {revealed && (
-          <>
-            <text x="250" y="25">
-              {c.output}: {output}%
-            </text>
-            <text x="245" y="135">
-              {c.error}: {movementError}%
-            </text>
-          </>
-        )}
+      <svg viewBox="0 0 600 150" role="img" aria-label={c.intro}
+        style={{ width: "100%", background: "#fff", margin: "12px 0" }}>
+        <circle cx="80" cy="75" r="29" fill="none" stroke="currentColor" strokeWidth="3" />
+        <path d="M109 75 H285" stroke="currentColor" strokeWidth={2 + drive / 25} />
+        <circle cx="320" cy="75" r="27" fill="none" stroke="currentColor" strokeWidth="3" />
+        <path d="M347 75 H535" stroke="currentColor"
+          strokeWidth={2 + current.observed.output / 25} />
+        <path d="M500 111 C390 144 250 144 190 111" fill="none"
+          stroke="currentColor" strokeWidth={2 + sensory / 30} strokeDasharray="7 5" />
+        <text x="10" y="22" fontSize="15">{c.target}: {drive}</text>
+        {result && <text x="330" y="22" fontSize="15">{c.output}: {result.observed.output}</text>}
       </svg>
-
       <label style={{ display: "block", margin: "12px 0" }}>
         {c.prediction}
-        <textarea
-          value={prediction}
-          onChange={(event) => {
-            setPrediction(event.target.value);
-            setRevealed(false);
-          }}
-          rows={2}
-          style={{ width: "100%" }}
-        />
+        <select value={prediction} onChange={event => {
+          setPrediction(event.target.value as MotorFeedbackTrend | "");
+          setResult(null);
+        }} style={{ display: "block", width: "100%", padding: 8 }}>
+          <option value="">—</option>
+          <option value="lower">{c.lower}</option>
+          <option value="same">{c.same}</option>
+          <option value="higher">{c.higher}</option>
+        </select>
       </label>
-
-      <button disabled={!isMeaningfulResponse(prediction,20,3)} onClick={recordTrial}>
-        {c.save}
-      </button>
-
+      <button type="button" disabled={!prediction} onClick={recordTrial}>{c.save}</button>
+      {result && <div role="status" aria-live="polite">
+        <p>{wasCorrect ? c.correct : c.incorrect}</p>
+        <p>{c.baseline}: {result.baseline.error}; {c.error}: {result.observed.error};
+          {" "}{c.output}: {result.observed.output}.</p>
+      </div>}
       <div style={{ overflowX: "auto" }}>
         <table>
+          <thead><tr>
+            <th scope="col">{c.trial}</th>
+            <th scope="col">{c.drive}</th>
+            <th scope="col">{c.sensory}</th>
+            <th scope="col">{c.baseline}</th>
+            <th scope="col">{c.output}</th>
+            <th scope="col">{c.error}</th>
+            <th scope="col">{c.comparison}</th>
+            <th scope="col">{c.note}</th>
+          </tr></thead>
           <tbody>
-            {rows.map((row, index) => (
-              <tr key={row.id}>
-                <td>{index + 1}</td>
-                <td>{row.drive}%</td>
-                <td>{row.sensory}%</td>
-                <td>{row.output}%</td>
-                <td>{row.error}%</td>
-                <td>
-                  <input
-                    aria-label={c.note}
-                    value={row.note}
-                    onChange={(event) => updateNote(row.id, event.target.value)}
-                  />
-                </td>
-              </tr>
-            ))}
+            {rows.map(row => <tr key={row.id}>
+              <td>{row.id}</td><td>{row.drive}</td><td>{row.sensory}</td>
+              <td>{row.baselineError}</td><td>{row.output}</td><td>{row.error}</td>
+              <td>{row.correct ? c.correct : c.incorrect}</td>
+              <td><input aria-label={c.note} value={row.note}
+                onChange={event => updateNote(row.id, event.target.value)} /></td>
+            </tr>)}
           </tbody>
         </table>
       </div>
-
-      <p>
-        <small>{c.limit}</small>
-      </p>
-
-      <ExperimentReflection
-        language={language}
-        theoryHref={`/modules/11/theory?lang=${language}`}
-      />
+      <p><small>{c.limit}</small></p>
+      <ExperimentReflection language={language}
+        theoryHref={`/modules/11/theory?lang=${language}`} />
     </section>
   );
 }
