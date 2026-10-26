@@ -49,7 +49,7 @@ const wrapper=read("content/reviewed-virtual-patients.ts");
 assert(wrapper.includes('import { reviewModuleSevenVirtualPatient } from "./course-foundation/module-seven-virtual-patient-review";'));
 assert(wrapper.includes('if(moduleId===7 && base) return reviewModuleSevenVirtualPatient(base,language);'));
 const ui=read("components/UnifiedVirtualPatient.tsx");
-assert(ui.includes('moduleId === 6 || moduleId === 7 ? "v2" : "v1"'),
+assert(ui.includes('moduleId >= 6 && moduleId <= 10 ? "v2" : "v1"'),
  "Module 7 must not reinterpret previously stored choice indices");
 const route=read("app/modules/[id]/[section]/page.tsx");
 assert(route.includes("<UnifiedVirtualPatient moduleId={moduleNumber} language={lang} />"));
