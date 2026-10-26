@@ -5,6 +5,7 @@ import type { Topic } from "./topics";
 import { createModuleEightCases } from "./module-eight-cases";
 import { createModuleNineCases } from "./module-nine-cases";
 import { createModuleTenCases } from "./module-ten-cases";
+import { createModuleElevenCases } from "./module-eleven-cases";
 import { adaptModuleEightTest } from "./module-eight-tests";
 import { adaptModuleNineTest } from "./module-nine-tests";
 import { adaptModuleTenTest } from "./module-ten-tests";
@@ -46,6 +47,7 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
  if (topic.id === 8) return createModuleEightCases(l, moduleTitle, ui(l));
  if (topic.id === 9) return createModuleNineCases(l, moduleTitle, ui(l));
  if (topic.id === 10) return createModuleTenCases(l, moduleTitle, ui(l));
+ if (topic.id === 11) return createModuleElevenCases(l, moduleTitle, ui(l));
  const task=clinicalVignettes[topic.id]?.[l] ?? (
   l==="RU"
    ? `В теме «${moduleTitle}» изменился измеряемый физиологический показатель. По данным определите вероятно изменённое звено, предложите альтернативное объяснение и назовите измерение, которое различит эти гипотезы.`
