@@ -9,6 +9,7 @@ import { createModuleEightGlossary } from "./course-foundation/module-eight-glos
 import { createModuleEightQuestions } from "./course-foundation/module-eight-questions";
 import { createModuleNineQuestions } from "./course-foundation/module-nine-questions";
 import { createModuleTenQuestions } from "./course-foundation/module-ten-questions";
+import { createModuleElevenQuestions } from "./course-foundation/module-eleven-questions";
 import { createModuleNineGlossary } from "./course-foundation/module-nine-glossary";
 import { createModuleEightMedia } from "./course-foundation/module-eight-media";
 import { createModuleNineMedia } from "./course-foundation/module-nine-media";
@@ -335,6 +336,7 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   11: {
     ...foundationLessons[11],
+    questions: { RU: createModuleElevenQuestions("RU"), EN: createModuleElevenQuestions("EN"), KZ: createModuleElevenQuestions("KZ") },
     practice: {
       RU: createModuleElevenPractice("RU", foundationLessons[11].practice.RU as PracticeLesson),
       EN: createModuleElevenPractice("EN", foundationLessons[11].practice.EN as PracticeLesson),
