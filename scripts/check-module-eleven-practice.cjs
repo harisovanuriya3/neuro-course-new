@@ -15,9 +15,9 @@ const transpiled = ts.transpileModule(source, {
 });
 assert.equal((transpiled.diagnostics || []).filter(d => d.category === ts.DiagnosticCategory.Error).length,
   0, "Module 11 practice TS transpilation");
-const exports = {};
-new Function("exports", transpiled.outputText)(exports);
-assert.equal(typeof exports.createModuleElevenPractice, "function");
+const exported = {};
+new Function("exports", transpiled.outputText)(exported);
+assert.equal(typeof exported.createModuleElevenPractice, "function");
 const base = {
   kind: "practice", title: "Practice", moduleTitle: "Motor control",
   ui: { showAnswer: "Show", check: "Check", reset: "Reset", undo: "Undo",
@@ -31,7 +31,7 @@ const markers = {
   KZ: ["айқасу", "кортикоспинал", "проприоцеп", "ретикулоспинал", "вестибулоспинал", "Ia", "α", "спастик", "ұршық"]
 };
 for (const lang of ["RU", "EN", "KZ"]) {
-  const lesson = exports.createModuleElevenPractice(lang, base);
+  const lesson = exported.createModuleElevenPractice(lang, base);
   assert.equal(lesson.kind, "practice", lang);
   assert.equal(lesson.sections.length, 5, lang + ": 4 tasks + self-check");
   assert.equal(new Set(lesson.sections.map(section => section.title)).size, 5,
