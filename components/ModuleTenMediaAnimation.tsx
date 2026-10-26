@@ -80,7 +80,7 @@ export default function ModuleTenMediaAnimation({language}:{language:Language}){
     style={{marginBottom:10,opacity:i<=step?1:0.48,
      borderInlineStart:i===step?"4px solid #67e8f9":"4px solid transparent",
      paddingInlineStart:8,fontWeight:i===step?700:400}}>
-    <strong>{c.phases[i]}: </strong>{stage}
+    <strong>{c.phases[i]}: </strong>{i<=step?stage:"…"}
    </li>)}
   </ol>
   <p style={{fontSize:"0.9rem",lineHeight:1.5}}>{c.note}</p>
