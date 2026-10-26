@@ -2,8 +2,9 @@ import type { Language } from "../course";
 import type { PracticeLesson } from "../types";
 
 // Module 10, brainstem physiology. Sources consulted in Library:
-// Guyton & Hall 13e PDF 718–720; Ganong 23e PDF 243–244;
-// C. L. Ghai Practical Physiology 8e PDF 301–303.
+// Guyton & Hall 13e PDF 217–218 (baroreflex), 718–720 (arousal);
+// Ganong 23e PDF 243–244 (RAS), 579 (baroreflex), 638–640 (respiration);
+// C. L. Ghai Practical Physiology 8e PDF 301–303 (cranial reflexes).
 // Thought experiments only; corneal testing must be performed by clinicians.
 type Text = Record<Language, string>;
 const t = (RU: string, EN: string, KZ: string): Text => ({ RU, EN, KZ });
