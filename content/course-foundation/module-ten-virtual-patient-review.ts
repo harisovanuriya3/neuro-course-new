@@ -3,7 +3,7 @@ import type { VirtualPatientScenario, VirtualPatientStage } from "../virtual-pat
 
 // Synthetic module 10 case. Sources actually read in Library:
 // Guyton & Hall 13e PDF 718–720; Ganong 23e PDF 249–250, 579;
-// C. L. Ghai Practical Physiology 8e PDF 301–303.
+// C. L. Ghai Practical Physiology 8e PDF 256–257 (BAEP), 301–303 (reflexes).
 // This is NOT a diagnostic protocol. No corneal/gag stimulation or
 // provocative blood-pressure manoeuvre is performed.
 type Step=readonly [task:string,observation:string,correct:string,wrongA:string,wrongB:string,explanation:string];
