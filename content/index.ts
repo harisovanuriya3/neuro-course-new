@@ -1,5 +1,6 @@
 import { createModuleElevenObjectives } from "./course-foundation/module-eleven-objectives";
 import { createModuleElevenPretest } from "./course-foundation/module-eleven-pretest";
+import { createModuleElevenTheory } from "./course-foundation/module-eleven-theory";
 import { createModuleEightReferences } from "./course-foundation/module-eight-references";
 import { createModuleNineReferences } from "./course-foundation/module-nine-references";
 import { createModuleEightGlossary } from "./course-foundation/module-eight-glossary";
@@ -335,6 +336,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       RU: createModuleElevenObjectives("RU"),
       EN: createModuleElevenObjectives("EN"),
       KZ: createModuleElevenObjectives("KZ"),
+    },
+    theory: {
+      RU: createModuleElevenTheory("RU", foundationLessons[11].theory.RU as Lesson & { kind: "theory" }),
+      EN: createModuleElevenTheory("EN", foundationLessons[11].theory.EN as Lesson & { kind: "theory" }),
+      KZ: createModuleElevenTheory("KZ", foundationLessons[11].theory.KZ as Lesson & { kind: "theory" }),
     },
     pretest: {
       RU: createModuleElevenPretest("RU", modules.RU[10], getSectionTitle("pretest", "RU")),
