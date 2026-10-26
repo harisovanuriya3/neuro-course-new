@@ -97,7 +97,6 @@ export default function MotorControlLab({ language }: { language: Language }) {
   const [result, setResult] = useState<ReturnType<typeof compareMotorFeedback> | null>(null);
   const [wasCorrect, setWasCorrect] = useState(false);
   const [rows, setRows] = useState<Row[]>([]);
-  const current = compareMotorFeedback(drive, sensory);
 
   const invalidate = () => {
     setPrediction("");
@@ -155,7 +154,7 @@ export default function MotorControlLab({ language }: { language: Language }) {
         <path d="M109 75 H285" stroke="currentColor" strokeWidth={2 + drive / 25} />
         <circle cx="320" cy="75" r="27" fill="none" stroke="currentColor" strokeWidth="3" />
         <path d="M347 75 H535" stroke="currentColor"
-          strokeWidth={2 + current.observed.output / 25} />
+          strokeWidth={2 + (result ? result.observed.output : 0) / 25} />
         <path d="M500 111 C390 144 250 144 190 111" fill="none"
           stroke="currentColor" strokeWidth={2 + sensory / 30} strokeDasharray="7 5" />
         <text x="10" y="22" fontSize="15">{c.target}: {drive}</text>
