@@ -87,6 +87,29 @@ const moduleNineReview={
   {section:"interactive",question:"Оқу моделінде шартты Ia кірісін бірдей ұстап, тежеуші интернейрон қосылған және өшірілген кездегі антагонист жауабын салыстырыңыз. Неліктен сызба өзгеріс бағытын түсіндіреді, бірақ пайыздар нақты ЭМГ, бұлшықет күші немесе импульс жиілігінің өлшемі емес? Қандай физиологиялық ықпалдар ескерілмеген?",link:"Модельдің шарттарын тексеру"},
   {section:"cases",question:"Жұлын ауыр зақымданғаннан кейін сіңір рефлекстері бастапқыда бәсеңдеп, кейін кейбірі күшейді, бірақ ерікті қимылдар қалпына келмеді. Жұлындық шок гемодинамикалық нейрогендік шоктан несімен ерекшеленеді? Неліктен сегменттік рефлекстің оралуы төмендеуші жолдардың қалпына келгенін дәлелдемейді және тағы нені бағалау керек?",link:"Уақытқа байланысты өзгерісті талдау"}]}
 } as const;
+
+/**
+ * Module 10: ungraded reflection on brainstem mechanisms, not a clinical
+ * examination or evidence of automatically assessed mastery.
+ * Checked against Library PDFs: Guyton & Hall 13e pp. 718–719;
+ * Ganong 23e pp. 249–250, 579;
+ * C. L. Ghai Practical Physiology 8e pp. 301–302, 256–257.
+ */
+const moduleTenReview={
+ RU:{title:"Самопроверка: рефлексы и сети ствола мозга",note:"Сначала объясните механизм своими словами, затем сопоставьте ответ с теорией, клиническим разбором и моделью. Эти открытые ответы не проверяются автоматически, не повышают показатель освоения и не служат клиническим диагнозом. Не проверяйте корнеальный рефлекс самостоятельно.",items:[
+  {section:"theory",question:"Сравните две дуги: свет → сетчатка → II нерв → претектальная область → двусторонние ядра Эдингера—Вестфаля → III нерв → ресничный узел → сфинктер зрачка; прикосновение к роговице → V1 → стволовые интернейроны → VII нерв → круговая мышца глаза. Какие ответы прямые и содружественные? Почему сохранность одного рефлекса не доказывает целостность всего ствола и наличие сознания?",link:"Сопоставить рефлекторные дуги"},
+  {section:"interactive",question:"В учебной модели входящий сенсорный сигнал изменяет условный индекс восходящей связи. Что можно заключить о направлении изменения только внутри этой модели? Почему условный индекс нельзя считать реальной ЭЭГ, измеренной активностью ретикулярной формации или количественным показателем сознания? Назовите роль таламо-корковых и гипоталамических сетей.",link:"Проверить допущения модели"},
+  {section:"media",question:"Ранний слуховой вызванный потенциал регистрируют после повторных звуковых стимулов с усреднением малых ответов. Какой ограниченный вывод позволяет сохранная ранняя волна о проведении по части слухового пути? Почему она не доказывает осознанное восприятие, а её отсутствие без контроля слуха, стимула и помех не устанавливает конкретный очаг?",link:"Повторить ограничения КСВП"}]},
+ EN:{title:"Self-check: brainstem reflexes and distributed networks",note:"Explain the mechanism first, then compare with theory, the clinical discussion and the model. These open responses are not automatically graded, do not raise the mastery score and are not a clinical diagnosis. Do not test the corneal reflex yourself.",items:[
+  {section:"theory",question:"Compare the arcs: light → retina → CN II → pretectal area → bilateral Edinger–Westphal nuclei → CN III → ciliary ganglion → pupillary sphincter; corneal contact → V1 → brainstem interneurons → CN VII → orbicularis oculi. Which responses are direct and consensual? Why does a preserved reflex prove neither integrity of the whole brainstem nor conscious awareness?",link:"Compare the reflex arcs"},
+  {section:"interactive",question:"In the teaching model, sensory input changes an arbitrary ascending-relay index. What directional conclusion is justified within this model only? Why is the index neither recorded EEG, measured reticular-formation activity nor a numerical measure of consciousness? Explain the contribution of thalamocortical and hypothalamic networks.",link:"Examine model assumptions"},
+  {section:"media",question:"An early brainstem auditory evoked potential is recorded after repeated clicks by averaging small responses. What limited conclusion does a preserved early wave support about conduction along part of the auditory pathway? Why does it not establish awareness, and why cannot an absent response localize a lesion without checking hearing, stimulus delivery and recording artifacts?",link:"Review BAEP limitations"}]},
+ KZ:{title:"Өзіндік тексеру: ми бағанының рефлекстері мен желілері",note:"Алдымен механизмді өз сөзіңізбен түсіндіріп, содан кейін теориямен, клиникалық талдаумен және модельмен салыстырыңыз. Ашық жауаптар автоматты түрде бағаланбайды, меңгеру көрсеткішін арттырмайды және клиникалық диагноз емес. Қасаң қабық рефлексін өз бетіңізше тексермеңіз.",items:[
+  {section:"theory",question:"Екі доғаны салыстырыңыз: жарық → торқабық → II жүйке → претекталдық аймақ → екі жақтағы Эдингер—Вестфаль ядролары → III жүйке → кірпікшелі түйін → қарашық сфинктері; қасаң қабыққа жанасу → V1 → ми бағанының интернейрондары → VII жүйке → көздің айналма бұлшықеті. Тікелей және содружестволық жауаптардың айырмасы қандай? Бір рефлекстің сақталуы неліктен бүкіл ми бағанының бүтіндігін немесе саналы қабылдауды дәлелдемейді?",link:"Рефлекс доғаларын салыстыру"},
+  {section:"interactive",question:"Оқу моделінде сенсорлық кіріс жоғарылаушы байланыстың шартты индексін өзгертеді. Өзгеріс бағыты туралы тек осы модель аясында қандай қорытынды жасауға болады? Неліктен индекс нақты ЭЭГ де, ретикулярлық формация белсенділігінің өлшемі де, сана деңгейінің сандық көрсеткіші де емес? Таламус-қыртыстық және гипоталамустық желілердің рөлін түсіндіріңіз.",link:"Модельдің жорамалдарын тексеру"},
+  {section:"media",question:"Ми бағанының ерте есту шақырылған потенциалы қайталанған дыбыс стимулдарынан кейін шағын жауаптарды орташа есептеу арқылы тіркеледі. Ерте толқынның сақталуы есту жолының бір бөлігіндегі өткізгіштік туралы қандай шектеулі қорытындыға мүмкіндік береді? Неліктен бұл саналы қабылдауды дәлелдемейді, ал жауаптың болмауы естуді, стимулды және жазба артефактілерін тексермей нақты ошақты көрсетпейді?",link:"Есту потенциалдарының шектеулерін қайталау"}]}
+} as const;
+
 function level(correct:number,total:number):Level{if(!total)return"none";const p=correct/total;return p>=.8?"mastered":p>=.5?"forming":"review"}
 export default function ModuleProgress({language,moduleId}:{language:Language;moduleId:number}){
  const [data,setData]=useState<CourseProgressData|null>(null);
@@ -156,6 +179,11 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     <h2 style={{marginTop:0}}>{moduleNineReview[language].title}</h2>
     <p>{moduleNineReview[language].note}</p>
     <ol>{moduleNineReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
+  </section>}
+  {moduleId===10 && <section aria-label={moduleTenReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
+    <h2 style={{marginTop:0}}>{moduleTenReview[language].title}</h2>
+    <p>{moduleTenReview[language].note}</p>
+    <ol>{moduleTenReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={\`/modules/\${moduleId}/\${item.section}?lang=\${language}\`}>{item.link}</Link></li>)}</ol>
   </section>}
   <section style={{margin:"18px 0",padding:"16px",border:"2px solid #b9d3e6",borderRadius:14,background:"#fff"}}>
     <h2 style={{marginTop:0}}>{language==="RU"?"Панель курса":language==="KZ"?"Курс панелі":"Course dashboard"}</h2>
