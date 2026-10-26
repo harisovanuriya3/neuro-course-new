@@ -18,7 +18,7 @@ const review=exports.reviewModuleTenVirtualPatient;
 assert.equal(typeof review,"function");
 const positions=[2,0,1,2,0,1];
 const anchors={
- RU:["бодрствование","Эдингера","V1","слуховые","CVLM","таламуса"],
+ RU:["Бодрствование","Эдингера","V1","слуховые","CVLM","таламуса"],
  EN:["Arousal","Edinger","V1","auditory","CVLM","thalamus"],
  KZ:["Сергектік","Эдингер","V1","есту","CVLM","таламус"]
 };
