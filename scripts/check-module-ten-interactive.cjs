@@ -61,6 +61,9 @@ assert(lab.includes("<thead>")&&lab.includes('role="status"')&&
 assert(lab.includes("previous.length+1"),"Trial keys must be stable and unique");
 assert(!lab.includes("Date.now()"),"Timestamp keys can collide");
 assert(lab.includes("not automatically graded"),"Explanations must not be claimed graded");
+const frame=read("components/GuidedLabFrame.tsx");
+assert(frame.includes("Why is this index not a measure of consciousness?"),
+ "Guided prediction must not equate modeled drive with consciousness");
 const route=read("app/modules/[id]/[section]/page.tsx");
 assert(route.includes('<GuidedLabFrame moduleId={10} language={lang}><BrainstemLab language={lang} /></GuidedLabFrame>'),
  "Module 10 interactive route missing");
