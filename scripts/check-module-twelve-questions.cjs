@@ -6,9 +6,9 @@ const file=ts.createSourceFile("module-twelve-questions.ts",source,ts.ScriptTarg
 assert.equal(file.parseDiagnostics.length,0);
 const result=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022},reportDiagnostics:true});
 assert.equal(result.diagnostics.filter(x=>x.category===ts.DiagnosticCategory.Error).length,0);
-const exports={};new Function("exports",result.outputText)(exports);
+const adaptedExports={};new Function("exports",result.outputText)(adaptedExports);
 for(const language of ["RU","EN","KZ"]){
- const questions=exports.moduleTwelveReviewQuestions(language);
+ const questions=adaptedExports.moduleTwelveReviewQuestions(language);
  assert.equal(questions.length,5);
  assert.equal(new Set(questions.map(q=>q.id)).size,5);
  assert(questions.every(q=>q.prompt.length>=90&&q.explanation.length>=140));
