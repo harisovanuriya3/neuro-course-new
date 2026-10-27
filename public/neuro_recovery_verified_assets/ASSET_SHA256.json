@@ -1,0 +1,186 @@
+{
+  "public/images/eeg-verified/open.jpg": {
+    "bytes": 71036,
+    "sha256": "69cc48ec0b0bacc0385b7c16fa978f85b816c4a91e413bdb0b115256fdf2925b"
+  },
+  "public/images/eeg-verified/closed.jpg": {
+    "bytes": 73828,
+    "sha256": "590b4c9b726998073c0f9e8dd17e4e5444f94c1cd50284cf904c9848d85c33aa"
+  },
+  "public/images/eeg-verified/n3.jpg": {
+    "bytes": 69878,
+    "sha256": "9c5ab115e7ac8649b6f34f92b26ac5353fb4478a37235b6e0a4dde8c72eb546b"
+  },
+  "public/images/eeg-verified/n2.jpg": {
+    "bytes": 70614,
+    "sha256": "7f190fc8757e822210695a75f798d1d4b41c6050bb8ade3d93ac6f03c6da27e9"
+  },
+  "public/images/eeg-verified/eyes.jpg": {
+    "bytes": 69118,
+    "sha256": "4f171f9456873b1f46fcbe60230ed78d8fe5a844f44c239bdcd12bfcf5ac1b5a"
+  },
+  "public/images/eeg-verified/mental.jpg": {
+    "bytes": 69823,
+    "sha256": "ddebcc2d7dc28bbefe43eb709a5a2828f228e2926d98e6c85f2540cb2844cdf8"
+  },
+  "public/images/neuro-modules/module-03.webp": {
+    "bytes": 51574,
+    "sha256": "8ed6b198e687c0e80ac08f4fe720ea1263da5fcb77867d2c83e4080c35807245"
+  },
+  "public/images/neuro-modules/module-04.webp": {
+    "bytes": 32418,
+    "sha256": "55a56b26d6858d286cf16115281c4dcd1896413994d51c80784e8a9d188998e1"
+  },
+  "public/images/neuro-modules/module-06.webp": {
+    "bytes": 48470,
+    "sha256": "7f4fdf8de230622bdb116ca44d802944b398607d3a09ab7ef1b6fd20e2e94a09"
+  },
+  "public/images/neuro-modules/module-01.webp": {
+    "bytes": 49166,
+    "sha256": "529fed2862802e8dadc805a8c4c0141ecfa43ed8a30d3934321da73482447ea5"
+  },
+  "public/images/neuro-modules/module-10.webp": {
+    "bytes": 31620,
+    "sha256": "f15edaa586917dd8dc63fa3a8fbf426b0d4717a22516f65738c09506e4b9ecff"
+  },
+  "public/images/neuro-modules/module-07.webp": {
+    "bytes": 29586,
+    "sha256": "ff5f6b2e46843e8bd09e7dffde658971fbb528c3d3107c87c6538020518e67b6"
+  },
+  "public/images/neuro-modules/module-09.webp": {
+    "bytes": 38652,
+    "sha256": "edce225b3b50069da4bcc61b4e19cc396c7c3eefd48dd930c19fc64a6168af3e"
+  },
+  "public/images/neuro-modules/module-02.webp": {
+    "bytes": 41790,
+    "sha256": "8e28f96cf942ff2fa6a947e3ddea251eb2380f370dd0691b5468dd4b0562752a"
+  },
+  "public/images/neuro-modules/module-05.webp": {
+    "bytes": 27234,
+    "sha256": "70097a277addb7d99425222ecc04238e55c892c378df70f124ca13a736872adc"
+  },
+  "public/images/neuro-modules/module-08.webp": {
+    "bytes": 30572,
+    "sha256": "6a5c2be2ba28abd1abff74f501426341ff8496d04affc38ba6485f1ee373f8f5"
+  },
+  "public/images/anatomy/brain-spinal-cord.jpg": {
+    "bytes": 1425654,
+    "sha256": "36600c4ec7a252cab769e275cc3eabce0488188afb63582c1a531903c3655945"
+  },
+  "public/images/anatomy/neuromuscular-junction.jpg": {
+    "bytes": 58635,
+    "sha256": "167434c83f5a2d04a14e910aa63d5d2a213d031644bb9b60f2074d37a58752b9"
+  },
+  "public/images/anatomy/peripheral-nerve.jpg": {
+    "bytes": 91208,
+    "sha256": "11c6753d736bcf637cb45a645722354a2672b537f0c75b6570dcc0a3b9a3c6df"
+  },
+  "public/images/lab/reflex-background.webp": {
+    "bytes": 37842,
+    "sha256": "b7b64e37dd8ed9ff1a855adfc317095656776f207f2b26da7b3bf36506e7ba35"
+  },
+  "public/images/lab/reflex-contact.webp": {
+    "bytes": 56046,
+    "sha256": "fe23b0257cf1983e814486cb4cf6437e874aa59e83c5a73e1b596eb4e60f2d26"
+  },
+  "public/images/lab/reflex-hand.webp": {
+    "bytes": 83012,
+    "sha256": "648d8fe5816a1c99250287be65899b246cda90ee0dac06286e0835d8bdc34979"
+  },
+  "public/images/lab/reflex-withdrawal.webp": {
+    "bytes": 54626,
+    "sha256": "6bc30ddae5b39fe79bd87983c255ea04ff40966df3f61f4eae8487105a419dd4"
+  },
+  "public/images/module1/balance/approach.webp": {
+    "bytes": 104104,
+    "sha256": "606275d1c3754bb143d97fde732cc3a083e86f2037f5d08d036ad4bbea783897"
+  },
+  "public/images/module1/balance/correction.webp": {
+    "bytes": 91156,
+    "sha256": "5b3a6fc98da6beabe8bc5168b1f3c3c56d5d21ac5bb6ea22bfe43ebbbaf1a317"
+  },
+  "public/images/module1/balance/signals.webp": {
+    "bytes": 95400,
+    "sha256": "07f3324391a7014b2ab49aaa72f004c464c2f98b647d7684e5a972abaca09bee"
+  },
+  "public/images/module1/virtual-mentor-clinic.png": {
+    "bytes": 1693662,
+    "sha256": "516a5777bf704d35c192ca226c539c742c446549414c64c469105603022054d1"
+  },
+  "public/images/module1/virtual-patient-clinic.png": {
+    "bytes": 2153641,
+    "sha256": "1bf129258de55cc3f9b04f3c2f5a9e86df0d98f063970a1456bac7cd74664d1d"
+  },
+  "public/images/module1/virtual-patient-real.webp": {
+    "bytes": 4656,
+    "sha256": "7e612aaf5dd3a22d1df6740101125205b611c3b9bfa86ddd1a1ea81671f7641c"
+  },
+  "public/images/module1/virtual-patient.webp": {
+    "bytes": 62378,
+    "sha256": "d3fecfc344ee281470cd33da51cf87da583905e25e9ea4a2d517e4b0eb9f2645"
+  },
+  "public/images/module1/virtual-teacher-real.webp": {
+    "bytes": 6156,
+    "sha256": "48963253fc5f7526ef187b1e43f42cb0d79d82879e06dfd710a6e2f7cf874763"
+  },
+  "public/images/module2/evoked-averaging-en.png": {
+    "bytes": 1667155,
+    "sha256": "c7bb489b41680e34e401ad3144f64a49b47954756fd9cdfe52465ef35e857600"
+  },
+  "public/images/module2/evoked-averaging-kz.png": {
+    "bytes": 1699058,
+    "sha256": "44f23152e8da826bf124be958d4755cc6902efdd4abdb3796ec335f4852ba1d0"
+  },
+  "public/images/module2/evoked-averaging-ru.png": {
+    "bytes": 1689878,
+    "sha256": "e4f8840ca23e0ac7e401a38b89cc540e70c005148244a9c9519624c2794a2136"
+  },
+  "public/images/module3/nerve-fiber-woman-reference.png": {
+    "bytes": 2323881,
+    "sha256": "926bada27400cd477b5413d74b673eaa640388117621f095a5694e391135a7fb"
+  },
+  "public/images/neuro-atlas-en.png": {
+    "bytes": 2534942,
+    "sha256": "106c89f1dd3fa1da278dc3daffba2a732282db5ba7539e448fc61b6df276c1e4"
+  },
+  "public/images/neuro-atlas-kz.png": {
+    "bytes": 2547309,
+    "sha256": "3916189d43e89f2b204a2aa6a643486bdf4e5fae9929a8325f0700e5d757b54c"
+  },
+  "public/images/neuro-atlas-ru.png": {
+    "bytes": 2568305,
+    "sha256": "47092ecb83e9721a4212529bba967ff383fdba10cec9b0372f76f7d7d51a04d9"
+  },
+  "public/images/patients/adult-man.png": {
+    "bytes": 2090781,
+    "sha256": "304e7165aed3ab7b236c42c03cf16ec872e1f445b3f7e6f0e5ceca8db485b12d"
+  },
+  "public/images/patients/adult-woman.png": {
+    "bytes": 2058792,
+    "sha256": "6dbc8b7e0952503ff99abcdb6152e40d17907fa3d2fa277c9c7ecd1566012bc7"
+  },
+  "public/images/patients/senior-man.png": {
+    "bytes": 2135593,
+    "sha256": "b95634d7015d3e5c9da4296aceddc74fc391e50de56977cbb2d8efd30ccfadf9"
+  },
+  "public/images/patients/senior-woman.png": {
+    "bytes": 2244458,
+    "sha256": "9a8d2d5cb5ef0b6f0a57c48728529e4e35876c16f7f3829931324f96e04800b1"
+  },
+  "public/images/patients/young-man.png": {
+    "bytes": 2025124,
+    "sha256": "da5dde346401fb0f77591a2e2a09f7b070dfd1ef512869fb6cc4bcc61d4aa40e"
+  },
+  "public/images/patients/young-woman.png": {
+    "bytes": 2282697,
+    "sha256": "91ce9101ae683d0638477713c7142111da846070282450e033b70b5fbfef6023"
+  },
+  "public/neuron-bg.jpg": {
+    "bytes": 2177415,
+    "sha256": "ee504916fd2dd8476aaa9a25c643a625f019986444f9b3cb6a5856a9c05fd21e"
+  },
+  "public/neuron-bg.jpg.jpg": {
+    "bytes": 2197890,
+    "sha256": "7772db5975f63311f835e1ca8a1b9283c830433e1b3852fdc4c8a26099ab8d11"
+  }
+}
