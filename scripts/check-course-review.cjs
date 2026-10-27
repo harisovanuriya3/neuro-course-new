@@ -17,7 +17,16 @@ for(const lang of ['RU','EN','KZ']){
    if(service.has(section)||(section==='interactive'&&id>1))continue;
    const lesson=getLesson(id,section,lang);
    assert(lesson,`${id}/${section}/${lang}: missing content`);assert(lesson.title?.trim());lessons++;
-   if(section==='tests'){validateTest(lesson);tests++}
+   if(section==='tests'){
+    validateTest(lesson);tests++;
+    const graphNodes=Array.isArray(lesson.nodes)?lesson.nodes:[];
+    const questionNodes=graphNodes.filter(node=>Array.isArray(node.options)&&node.options.length);
+    for(const node of questionNodes){
+      assert.equal(node.options.length,4,`${id}/${section}/${lang}/${node.id}: expected exactly 4 answers`);
+      assert.equal(new Set(node.options.map(opt=>opt.id)).size,4,`${id}/${section}/${lang}/${node.id}: duplicate option IDs`);
+      assert(node.options.every(opt=>typeof opt.text==='string'&&opt.text.trim()),`${id}/${section}/${lang}/${node.id}: missing answer text`);
+    }
+   }
   }
   if(id>1){const steps=mediaWalkthroughs[id][lang];assert.equal(steps.length,4);assert.equal(new Set(steps).size,4);steps.forEach(s=>assert(s.length>20));}
  }
