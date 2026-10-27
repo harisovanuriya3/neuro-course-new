@@ -200,7 +200,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
     <p className={styles.stageHelp}>{c.stagesLocked}</p>
     <div className={styles.desk}>
       <aside className={styles.patientCard}>
-        {moduleId !== 3 && moduleId !== 4 && moduleId !== 5 && <div className={styles.patientPortrait} data-patient-age={scenario.visualProfile.age} data-patient-sex={scenario.visualProfile.sex} data-patient-age-group={scenario.visualProfile.visualAgeGroup}>
+        {moduleId !== 3 && moduleId !== 4 && moduleId !== 5 && moduleId !== 6 && <div className={styles.patientPortrait} data-patient-age={scenario.visualProfile.age} data-patient-sex={scenario.visualProfile.sex} data-patient-age-group={scenario.visualProfile.visualAgeGroup}>
           <Image src={scenario.visualProfile.patientVisual} width={1536} height={1024} priority sizes="(max-width: 700px) 100vw, (max-width: 900px) 320px, 280px" alt={`${c.case}: ${scenario.profile}`} />
           <span>{c.stage} {state.current + 1}/6</span>
         </div>}
