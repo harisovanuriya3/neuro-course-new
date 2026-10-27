@@ -11,7 +11,8 @@
     "build": "next build",
     "start": "next start",
     "check:review": "node scripts/check-course-review.cjs",
-    "check:study-tools": "node scripts/check-study-tools.cjs"
+    "check:study-tools": "node scripts/check-study-tools.cjs",
+    "audit:coverage": "node scripts/audit-content-coverage.cjs"
   },
   "dependencies": {
     "next": "16.3.5",
