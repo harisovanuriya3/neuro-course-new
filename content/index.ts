@@ -24,6 +24,7 @@ import { createModuleNineMedia } from "./course-foundation/module-nine-media";
 import { createModuleTenMedia } from "./course-foundation/module-ten-media";
 import { createModuleTenGlossary } from "./course-foundation/module-ten-glossary";
 import { createModuleElevenGlossary } from "./course-foundation/module-eleven-glossary";
+import { createModuleTwelveGlossary } from "./course-foundation/module-twelve-glossary";
 import { createModuleTenReferences } from "./course-foundation/module-ten-references";
 import { createModuleElevenReferences } from "./course-foundation/module-eleven-references";
 import { createModuleSevenReferences } from "./course-foundation/module-seven-references";
@@ -346,6 +347,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   12: {
     ...foundationLessons[12],
+    glossary: {
+      RU: createModuleTwelveGlossary("RU", foundationLessons[12].glossary.RU as import("./study").GlossaryLesson),
+      EN: createModuleTwelveGlossary("EN", foundationLessons[12].glossary.EN as import("./study").GlossaryLesson),
+      KZ: createModuleTwelveGlossary("KZ", foundationLessons[12].glossary.KZ as import("./study").GlossaryLesson),
+    },
     media: {
       RU: createModuleTwelveMedia("RU", foundationLessons[12].media.RU as import("./media").MediaLesson),
       EN: createModuleTwelveMedia("EN", foundationLessons[12].media.EN as import("./media").MediaLesson),
