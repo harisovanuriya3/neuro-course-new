@@ -81,7 +81,7 @@ const entries = [
       "section": "practice"
     }
   }
-];
+] as const;
 export function moduleTwelveReviewQuestions(language:Language){
  return entries.map(item=>({id:item.id,prompt:item.prompt[language],explanation:item.explanation[language],target:item.target}));
 }
