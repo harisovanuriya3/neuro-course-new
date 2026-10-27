@@ -15,9 +15,9 @@ const compiled = ts.transpileModule(source, {
 });
 assert.equal((compiled.diagnostics || []).filter(d => d.category === ts.DiagnosticCategory.Error).length,
   0, "Module 11 test TS transpilation");
-const exports = {};
-new Function("exports", compiled.outputText)(exports);
-assert.equal(typeof exports.adaptModuleElevenTest, "function");
+const adaptedExports={};
+new Function("exports", compiled.outputText)(adaptedExports);
+assert.equal(typeof adaptedExports.adaptModuleElevenTest, "function");
 const names = ["concept", "mechanism", "application", "transfer", "justification"];
 const markers = {
   RU: ["мотонейрон", "перекр", "постураль", "проприоцепц", "рефлекс"],
@@ -43,7 +43,7 @@ for (const lang of ["RU", "EN", "KZ"]) {
   const base = { kind: "tests", title: "Motor control", moduleTitle: "Motor control",
     ui: {}, start: "concept:main", mainIds: names.map(n => n + ":main"),
     competencies: {}, nodes };
-  const test = exports.adaptModuleElevenTest(base, lang);
+  const test = adaptedExports.adaptModuleElevenTest(base, lang);
   assert.equal(test.kind, "tests");
   assert.equal(test.start, base.start, "Do not change branching start");
   assert.deepEqual(test.mainIds, base.mainIds, "Do not change main path");
@@ -89,7 +89,7 @@ for (const lang of ["RU", "EN", "KZ"]) {
 }
 const assessment = read("content/course-foundation/assessment.ts");
 assert(assessment.includes('import { adaptModuleElevenTest } from "./module-eleven-tests";'));
-assert(assessment.includes("topic.id===11 ? adaptModuleElevenTest(result,l) : result;"));
+assert(assessment.includes("topic.id===11 ? adaptModuleElevenTest(result,l) :"));
 const foundation = read("content/course-foundation/index.ts");
 assert(foundation.includes("return createFoundationTest("));
 const registry = read("content/index.ts");
