@@ -47,6 +47,13 @@ assert(src.includes("moduleElevenReview[language].items.map"),"Module 11 reflect
 assert(src.includes("moduleId===10 && <section"),"Module 10 reflection panel lost");
 assert(!src.includes(String.fromCharCode(92,96)),"Invalid escaped template literal in TSX");
 assert(!src.includes(String.fromCharCode(92,36)),"Invalid escaped interpolation in TSX");
+assert(src.includes("const testEvidence=combined([test])"),"Checked tests must be separate from case completion");
+assert(!src.includes("combined([test,cases])"),"Case completion must not count as mastery evidence");
+const caseSource=read("components/CasesContent.tsx");
+assert(caseSource.includes('recordOutcome(moduleId, "cases", next.length, lesson.cases.length)'),
+ "Cases completion contract changed: reassess scoring semantics");
+assert(caseSource.includes('recordOutcome(moduleId, "criterion:clinical:cases"'),
+ "Checked case decisions must be stored separately from completion");
 const route=read("app/modules/[id]/[section]/page.tsx");
 assert(route.includes('<ModuleProgress language={lang} moduleId={moduleNumber} />'),"Progress route missing");
 const sections=read("content/sections.ts");
