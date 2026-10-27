@@ -12,7 +12,7 @@ export function simulateBasalGanglia(dopamine: number): BasalGangliaResult {
   const d = clamp(dopamine);
   const directIndex = Math.round(35 + 0.5 * d);
   const indirectIndex = Math.round(85 - 0.5 * d);
-  const thalamicFacilitationIndex = Math.round(clamp(50 + 0.55 * (directIndex - indirectIndex)));
+  const thalamicFacilitationIndex = Math.round(clamp(50 + (55 * (directIndex - indirectIndex)) / 100));
   return { dopamine: d, directIndex, indirectIndex, thalamicFacilitationIndex };
 }
 export function compareBasalGanglia(dopamine: number) {
