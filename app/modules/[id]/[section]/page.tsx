@@ -6,6 +6,7 @@ import { isModuleId, type Language as Lang } from "../../../../content/course";
 import { isSection, getSectionTitle, sectionOrder } from "../../../../content/sections";
 
 import SectionContent from "../../../../components/SectionContent";
+import AuthorRestoredVisuals from "../../../../components/AuthorRestoredVisuals";
 import CourseNavigation from "../../../../components/CourseNavigation";
 import SectionProgressStrip from "../../../../components/SectionProgressStrip";
 import DocumentLanguage from "../../../../components/DocumentLanguage";
@@ -309,6 +310,7 @@ export default async function SectionPage({
                 moduleId={id}
                 language={lang}
               />
+              {section === "theory" && moduleNumber <= 10 && <AuthorRestoredVisuals moduleId={moduleNumber} language={lang} />}
               {moduleNumber === 2 && ["theory","practice","cases","clinical"].includes(section) && (
                 <section aria-label={lang === "RU" ? "Восстановленные материалы модуля 2" : lang === "EN" ? "Restored module 2 materials" : "2-модульдің қалпына келтірілген материалдары"} style={{marginTop:28}}>
                   <Module2Content section={section} language={lang} />
