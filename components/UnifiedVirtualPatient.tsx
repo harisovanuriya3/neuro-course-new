@@ -71,7 +71,8 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   const [ready, setReady] = useState(false);
   const [activeAudio, setActiveAudio] = useState<"patient" | "mentor" | null>(null);
   // Modules 6–10 changed choice meanings; never reinterpret old saved indexes.
-  const storageVersion = moduleId >= 6 && moduleId <= 10 ? "v2" : "v1";
+  // Module 11 has newly authored answer meanings; isolate its stored answer indices.
+  const storageVersion = moduleId === 11 ? "v2" : moduleId >= 6 && moduleId <= 10 ? "v2" : "v1";
   const storageKey = `neuro-course:virtual-patient:${moduleId}:${language}:${storageVersion}`;
 
   useEffect(() => {
