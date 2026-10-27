@@ -10,12 +10,26 @@ for (const topic of topics) for (const language of ['RU', 'EN', 'KZ']) {
   assert.equal(new Set(hints.map(n => n.text)).size, 5, 'Five skill-specific hints required');
   for (const node of Object.values(test.nodes)) {
     if (node.type === 'question') {
-      assert([topic.mechanism[language], topic.interpretation[language]].includes(node.explanation),
-        `${topic.id}/${language}/${node.id}: post-answer feedback must explain the topic`);
+      // Modules 8–12 have separately audited, topic-specific test adapters.
+      // Their explanations intentionally replace the generic foundation copy.
+      if ([8,9,10,11,12].includes(topic.id)) {
+        assert(node.explanation.trim().length >= 50,
+          `${topic.id}/${language}/${node.id}: authored explanation is missing`);
+        assert(!/^(correct|верно|дұрыс)[.! ]*$/i.test(node.explanation.trim()),
+          `${topic.id}/${language}/${node.id}: feedback must explain the mechanism`);
+      } else {
+        assert([topic.mechanism[language], topic.interpretation[language]].includes(node.explanation),
+          `${topic.id}/${language}/${node.id}: post-answer feedback must explain the topic`);
+      }
       assert(node.options.some(o => o.id === node.correctAnswer), 'Preserve answer keys');
     }
-    if (node.type === 'remediation' && node.depth === 2)
-      assert.equal(node.text, topic.mechanism[language], 'Second support must provide the mechanism');
+    if (node.type === 'remediation' && node.depth === 2) {
+      if ([8,9,10,11,12].includes(topic.id))
+        assert(node.text.trim().length >= 50,
+          `${topic.id}/${language}/${node.id}: second support must explain the mechanism`);
+      else
+        assert.equal(node.text, topic.mechanism[language], 'Second support must provide the mechanism');
+    }
   }
 }
-console.log('PASS: 24 foundation assessments × RU/EN/KZ: branching engine, keys, skill-specific hints and topic feedback.');
+console.log('PASS: 24 assessments × RU/EN/KZ: branching engine, keys, foundation feedback and subject-specific adapter feedback.');
