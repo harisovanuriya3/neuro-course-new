@@ -10,9 +10,9 @@ assert.equal(ast.parseDiagnostics.length,0,"Module 8 test TS syntax");
 const compiled=ts.transpileModule(source,{fileName:path,reportDiagnostics:true,
  compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}});
 assert.equal((compiled.diagnostics||[]).filter(d=>d.category===ts.DiagnosticCategory.Error).length,0);
-const exports={};
-new Function("exports",compiled.outputText)(exports);
-assert.equal(typeof exports.adaptModuleEightTest,"function");
+const adaptedExports={};
+new Function("exports",compiled.outputText)(adaptedExports);
+assert.equal(typeof adaptedExports.adaptModuleEightTest,"function");
 const skills=["concept","mechanism","application","transfer","justification"];
 const levels=["main","corrective","basic"];
 const baseNodes={};
@@ -32,7 +32,7 @@ for(const skill of skills){
 const base={kind:"tests",title:"",moduleTitle:"Pathways",ui:{},
  start:"concept:main",mainIds:skills.map(x=>x+":main"),competencies:{},nodes:baseNodes};
 for(const lang of ["RU","EN","KZ"]){
- const out=exports.adaptModuleEightTest(base,lang);
+ const out=adaptedExports.adaptModuleEightTest(base,lang);
  assert.equal(Object.keys(out.nodes).length,25);
  assert.equal(out.mainIds.length,5);
  let distinct=new Set();
