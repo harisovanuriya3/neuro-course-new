@@ -67,7 +67,9 @@ for (const language of ["RU", "EN", "KZ"]) {
   for (const slug of expectedIds)
     assert(ids.includes("module-10-glossary-" + slug), language + ": missing " + slug);
   for (const term of lesson.terms) {
-    assert(term.term.trim().length >= 5, language + ": empty term " + term.id);
+    assert(term.term.trim().length >= (term.id === "module-10-glossary-pons" ? 4 : 5), language + ": empty term " + term.id);
+    if (term.id === "module-10-glossary-pons")
+      assert.equal(term.term, { RU: "Мост", EN: "Pons", KZ: "Көпір" }[language], language + ": precise anatomical term");
     assert(term.definition.trim().length >= 120, language + ": weak definition " + term.id);
     if (term.id === "module-10-glossary-baep") {
       assert.equal(term.target.section, "media", language + ": BAEP must lead to authored media");
