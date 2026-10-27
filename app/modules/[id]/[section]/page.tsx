@@ -25,6 +25,7 @@ import AdvancedAnatomyReference from "../../../../components/AdvancedAnatomyRefe
 import ModuleSidebar from "../../../../components/ModuleSidebar";
 import NerveFiberLab from "../../../../components/NerveFiberLab";
 import EEGLab from "../../../../components/EEGLab";
+import Module2Content from "../../../../components/Module2Content";
 import EvokedAveragingLab from "../../../../components/EvokedAveragingLab";
 import MembraneElectrophysiologyLab from "../../../../components/MembraneElectrophysiologyLab";
 import SynapseExperimentLab from "../../../../components/SynapseExperimentLab";
@@ -308,6 +309,11 @@ export default async function SectionPage({
                 moduleId={id}
                 language={lang}
               />
+              {moduleNumber === 2 && ["theory","practice","cases","clinical"].includes(section) && (
+                <section aria-label={lang === "RU" ? "Восстановленные материалы модуля 2" : lang === "EN" ? "Restored module 2 materials" : "2-модульдің қалпына келтірілген материалдары"} style={{marginTop:28}}>
+                  <Module2Content section={section} language={lang} />
+                </section>
+              )}
               {section === 'theory' && moduleNumber === 2 && <EvokedAveragingLab language={lang} />}
               {section === 'theory' && moduleNumber > 1 && (
                 <div id="theory-visuals">
