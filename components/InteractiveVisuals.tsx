@@ -44,18 +44,40 @@ function Legend({ nodes, selected, language }: { nodes: DiagramNode[]; selected:
 }
 
 export function OrganizationVisual({ nodes, selected, language, onSelect }: { nodes: DiagramNode[]; selected: string; language: Language; onSelect: (id: string) => void }) {
-  const action = (id: string): Action => { const node=nodes.find(item=>item.id===id); return { label:node?.label??copy[language].unavailable, onActivate:()=>{if(node)onSelect(id)} }; };
   const current = nodes.find(node => node.id === selected) ?? nodes[0];
   if (!current) return <p role="status">{copy[language].unavailable}</p>;
-  return <Frame title={`${copy[language].selected}: ${current.label}`} description={current.explanation} state={selected} legend={<Legend {...{ nodes, selected, language }} />}>
-    <path className={styles.outline} d="M151 92 Q119 99 107 133 L70 207 87 218 130 163 132 231 111 306 139 306 179 238 218 306 246 306 226 231 229 163 271 218 289 207 250 133 Q238 99 209 92 M151 92 Q129 77 137 42 Q142 14 180 14 Q217 14 223 42 Q232 77 209 92" />
-    <Part {...action('brain')} active={selected === 'brain'}><path d="M178 32 C164 21 144 43 153 53 C139 65 155 84 177 77 C192 88 213 72 207 58 C221 39 194 22 178 32Z" /><path d="M179 33V76 M157 45Q173 40 174 54 M189 44Q204 49 193 59 M159 66Q169 55 177 65" fill="none" /></Part>
-    <Part {...action('spinal')} active={selected === 'spinal'}><path d="M175 81 L184 81 184 220 180 235 175 220Z" /></Part>
-    <Part {...action('nerves')} active={selected === 'nerves'}><path d="M174 111L133 127 87 203 M185 111L226 127 272 203 M174 146L132 153 M185 146L226 153 M175 210L149 251 128 296 M185 210L210 251 231 296" fill="none" /></Part>
-    <Part {...action('ganglia')} active={selected === 'ganglia'}>{[[154,119],[207,119],[153,149],[207,149]].map(([x,y])=><ellipse key={`${x}-${y}`} cx={x} cy={y} rx="7" ry="10" />)}</Part>
-    <Part {...action('endings')} active={selected === 'endings'}><path d="M87 203l-11 1m11-1-4 11m189-11 12 1m-12-1 4 11m-148 82-10 5m10-5 4 10m99-10 10 5m-10-5-3 10" fill="none" /></Part>
-    {[[235,43,"brain"],[211,189,"spinal"],[102,158,"nerves"],[240,113,"ganglia"],[66,237,"endings"]].map(([x,y,nodeId],i)=><Badge {...action(String(nodeId))} key={String(nodeId)} x={Number(x)} y={Number(y)} n={i+1} active={nodeId === selected} />)}
-  </Frame>;
+  const title = language === "RU" ? "Анатомические структуры ЦНС и ПНС" : language === "EN" ? "Anatomical structures of the CNS and PNS" : "ОЖЖ және ШЖЖ анатомиялық құрылымдары";
+  const detail = language === "RU" ? "Выберите структуру: выделение и импульс покажут её участие в передаче сигнала. Фотографии ниже позволяют рассмотреть реальные препараты." : language === "EN" ? "Select a structure to highlight its role in signal transmission. The photographs below show real anatomical specimens." : "Құрылымды таңдаңыз: белгілеу мен импульс сигнал берілуіндегі рөлін көрсетеді. Төменде нақты анатомиялық препараттар берілген.";
+  const region = selected === "brain" || selected === "spinal" ? "central" : "peripheral";
+  const signal = region === "central" ? "M 180 28 C 180 90 180 110 180 185 L 180 275" : "M 180 90 Q 230 132 300 172 Q 325 186 330 265";
+  return <figure className={styles.figure} data-visual-state={selected} aria-label={title}>
+    <div style={{padding:16}}>
+      <h3 style={{margin:"0 0 8px"}}>{title}</h3><p style={{lineHeight:1.6}}>{detail}</p>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",gap:16}}>
+        <div style={{position:"relative",minHeight:360,border:"1px solid #c5dae5",borderRadius:14,background:"#eaf4f8",overflow:"hidden",display:"grid",placeItems:"center"}}>
+          <img src="/images/anatomy/brain-spinal-cord.jpg" alt={language==="RU"?"Анатомический препарат головного и спинного мозга":language==="EN"?"Anatomical specimen of the brain and spinal cord":"Бас миы мен жұлынның анатомиялық препараты"} style={{height:360,maxWidth:"100%",objectFit:"contain"}} />
+          <span style={{position:"absolute",bottom:8,left:8,right:8,background:"#ffffffeb",padding:8,borderRadius:8,fontSize:13}}>{region==="central"?"ЦНС / CNS / ОЖЖ":"ЦНС и отходящие нервы / CNS and exiting nerves"}</span>
+        </div>
+        <div style={{display:"grid",gap:12,alignContent:"start"}}>
+          <div style={{position:"relative",padding:10,border:"1px solid #c5dae5",borderRadius:14,background:"#f7fbfe"}}>
+            <svg viewBox="0 0 360 300" role="img" aria-label={current.explanation} style={{display:"block",width:"100%"}}>
+              <path d="M180 20 Q130 5 112 42 Q91 78 146 100 L175 105 L175 232 M180 20 Q230 5 248 42 Q269 78 214 100 L185 105 L185 232" fill="none" stroke="#567b93" strokeWidth="10" strokeLinecap="round"/>
+              <path d="M177 107 L177 275 M184 107 L184 275 M178 143 Q109 126 44 180 M184 143 Q251 126 317 180 M178 205 Q110 228 50 275 M184 205 Q250 228 310 275" fill="none" stroke="#b68c4d" strokeWidth="5" strokeLinecap="round"/>
+              <path d={signal} fill="none" stroke={region==="central"?"#116ca8":"#d06a26"} strokeWidth="5" strokeDasharray="12 10">
+                <animate attributeName="stroke-dashoffset" from="44" to="0" dur="1.4s" repeatCount="indefinite"/>
+              </path>
+              <circle cx={region==="central"?180:300} cy={region==="central"?125:173} r="12" fill="#e9faff" stroke="#005b91" strokeWidth="3"/>
+              <text x="180" y="294" textAnchor="middle" fontSize="12" fill="#24465d">{region==="central"?"CNS / ОЖЖ":"PNS / ШЖЖ"}</text>
+            </svg>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(125px,1fr))",gap:8}}>
+            {nodes.map((node,i)=><button key={node.id} type="button" aria-pressed={node.id===selected} onClick={()=>onSelect(node.id)} style={{padding:"10px",borderRadius:10,cursor:"pointer",border:node.id===selected?"2px solid #005b91":"1px solid #b7d1df",background:node.id===selected?"#d5eef9":"#fff",fontWeight:node.id===selected?750:500,textAlign:"left"}}>{i+1}. {node.label}</button>)}
+          </div>
+          <p aria-live="polite" style={{margin:0,lineHeight:1.55}}><strong>{current.label}.</strong> {current.explanation}</p>
+        </div>
+      </div>
+    </div>
+  </figure>;
 }
 
 export function PathwayVisual({ nodes, selected, returned, language, onSelect }: { nodes: DiagramNode[]; selected: string; returned: boolean; language: Language; onSelect: (id: string) => void }) {
