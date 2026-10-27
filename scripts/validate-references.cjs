@@ -4,6 +4,28 @@ const { load } = require("./check-tests.cjs");
 const { getLesson } = load("content/index.ts");
 const { getSectionTitle } = load("content/sections.ts");
 const languages = ["RU", "EN", "KZ"];
+// Interactive labs for modules 2–25 are real App Router component routes,
+// not entries in content/index.ts. Validate the actual component and route
+// instead of falsely requiring a duplicate/fictitious content lesson.
+const fs = require("node:fs");
+const routeSource = fs.readFileSync("app/modules/[id]/[section]/page.tsx", "utf8");
+const interactiveComponents = {
+  2:"EEGLab",3:"NerveFiberLab",4:"MembraneElectrophysiologyLab",
+  5:"SynapseExperimentLab",6:"IntegrationExperimentLab",7:"ReflexLab",
+  8:"PathwayLab",9:"SpinalRegulationLab",10:"BrainstemLab",
+  11:"MotorControlLab",12:"BasalGangliaLab",13:"CerebellumLab",
+  14:"ThalamusLab",15:"HypothalamusLab",16:"LimbicLab",
+  17:"AmygdalaLab",18:"CortexLab",19:"SomatosensoryLab",
+  20:"VisionLab",21:"SensorySystemsLab",22:"AutonomicLab",
+  23:"LearningMemoryLab",24:"SleepRhythmLab",25:"PlasticityLab"
+};
+function hasActualInteractiveRoute(moduleId) {
+  const component = interactiveComponents[moduleId];
+  return Boolean(component &&
+    routeSource.includes('moduleNumber === '+moduleId+' && section === "interactive"') &&
+    routeSource.includes('import '+component+' from ') &&
+    routeSource.includes('<'+component+' language={lang} />'));
+}
 let navigationBlocks = 0;
 let externalSourceBlocks = 0;
 
@@ -33,7 +55,14 @@ function validateInternalBlock(links, moduleId, language, context) {
   const entries = links.map(target => {
     assert.notEqual(target.section, "references", `${context}: self-referential References link`);
     const destination = getLesson(moduleId, target.section, language);
-    assert(destination, `${context}: missing internal destination ${target.section}`);
+    const routedInteractive = !destination && target.section === "interactive" &&
+      hasActualInteractiveRoute(moduleId);
+    assert(destination || routedInteractive,
+      `${context}: missing internal destination ${target.section}`);
+    if (routedInteractive) {
+      assert(!target.anchor,
+        `${context}: interactive route has no verified anchor #${target.anchor}`);
+    }
     if (target.anchor) {
       const ids = value => Array.isArray(value) ? value.map(item => item.id) : [];
       const anchorIds = [
