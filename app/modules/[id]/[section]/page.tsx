@@ -232,6 +232,12 @@ export default async function SectionPage({
           <PageVoiceTools key={`${id}/${section}/${lang}`} moduleId={moduleNumber} language={lang} contentId="module1-page-content" section={section} />
           {section !== "notes" && <BookmarkCurrent section={section} language={lang} moduleId={moduleNumber} />}
 
+          {moduleNumber === 2 && (section === "theory" || section === "interactive") && (
+            <nav aria-label={lang === "RU" ? "Теория и лаборатория ЭЭГ" : lang === "EN" ? "EEG theory and laboratory" : "ЭЭГ теориясы мен зертханасы"} style={{display:"flex",flexWrap:"wrap",gap:12,margin:"0 0 20px",padding:14,border:"1px solid #c3d9e6",borderRadius:12,background:"#eff8fc"}}>
+              <Link href={`/modules/2/theory?lang=${lang}`} style={{color:"#075783",fontWeight:700}}>{lang==="RU"?"Теория: ЭЭГ и артефакты":lang==="EN"?"Theory: EEG and artifacts":"Теория: ЭЭГ және артефактілер"}</Link>
+              <Link href={`/modules/2/interactive?lang=${lang}`} style={{color:"#075783",fontWeight:700}}>{lang==="RU"?"Лабораторная работа: запись ЭЭГ":lang==="EN"?"Laboratory: EEG recording":"Зертханалық жұмыс: ЭЭГ тіркеу"}</Link>
+            </nav>
+          )}
           <div id="module1-page-content">
           {moduleNumber === 1 && section === "virtual-patient" ? (
             <VirtualPatient language={lang} />
