@@ -70,3 +70,6 @@
 @media(max-width:980px){.anatomicalView{grid-template-columns:minmax(0,1fr)}.mainAtlas img{height:380px}.mainAtlas a{min-height:200px}}
 @media(max-width:650px){.mainAtlas img{height:300px}.conduction .stageButton{min-height:50px}}
 @media(prefers-reduced-motion:reduce){.impulse,.impulsePassed{transition:none}.impulse::after{animation:none}}
+
+.lab{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.55;overflow-wrap:anywhere}
+.lab :is(button,select,input){font-family:inherit}
