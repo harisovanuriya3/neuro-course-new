@@ -1,5 +1,7 @@
 "use client";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {recordOutcome} from "../lib/courseProgress";
+import styles from "./CompletePathwayLab.module.css";
 import type {Language} from "../content/course";
 type Item={id:string;group:"ascending"|"descending";names:[string,string,string];origin:[string,string,string];route:[string,string,string];cross:[string,string,string];end:[string,string,string];function:[string,string,string];deficit:[string,string,string];laterality:"same"|"opposite"|"mixed";};
 const items:Item[]=[
@@ -24,4 +26,158 @@ const items:Item[]=[
 {"id":"vestibulospinal-lateral","group":"descending","names":["Латеральный вестибулоспинальный","Lateral vestibulospinal","Латералды вестибулоспиналдық"],"origin":["Латеральное вестибулярное ядро (Дейтерса)","Lateral vestibular nucleus (Deiters)","Латералды вестибулярлық ядро (Дейтерс)"],"route":["Преимущественно ипсилатеральный передний канатик вдоль спинного мозга","Mainly ipsilateral anterior funiculus through spinal cord","Көбіне өз жағындағы алдыңғы баған"],"cross":["Преимущественно без перекрёста","Mostly uncrossed","Негізінен айқаспайды"],"end":["Спинальные сети разгибателей","Spinal extensor motor networks","Жазғыш бұлшықеттердің жұлын желілері"],"function":["Разгибательный тонус, поза и равновесие","Extensor tone, posture and balance","Жазғыш бұлшықет тонусы, дене қалпы, тепе-теңдік"],"deficit":["Изолированное поражение может ухудшать позу и равновесие; простого одностороннего синдрома нет","Posture and balance impairment; isolated simple sided syndrome not established","Дене қалпы мен тепе-теңдік бұзылады; нақты біржақты синдром жоқ"],"laterality":"mixed"}
 ];
 const tr={RU:{title:"Виртуальная лаборатория: основные восходящие и нисходящие пути",ascending:"Восходящие — чувствительность",descending:"Нисходящие — движение и поза",origin:"Начало",route:"Анатомический ход",cross:"Перекрёст",end:"Окончание",function:"Функция",deficit:"Симптомы поражения",prediction:"Ваш прогноз при одностороннем спинальном поражении",same:"На стороне очага",opposite:"На противоположной стороне",mixed:"Не определяется однозначно",check:"Проверить прогноз",result:"Результат",correct:"Прогноз соответствует описанной модели.",wrong:"Проверьте уровень перекрёста и наличие двусторонних проекций.",note:"Модель сравнивает преимущественно поражения трактов в спинном мозге. Для ряда нисходящих путей изолированный клинический синдром не определён; при поражениях ствола и мозга сторона дефицита может быть другой.",select:"Выберите тракт",reset:"Новый опыт"},EN:{title:"Virtual lab: major ascending and descending pathways",ascending:"Ascending — sensation",descending:"Descending — movement and posture",origin:"Origin",route:"Anatomical course",cross:"Decussation",end:"Termination",function:"Function",deficit:"Lesion findings",prediction:"Predict laterality after unilateral spinal lesion",same:"Ipsilateral",opposite:"Contralateral",mixed:"Not uniquely predictable",check:"Check prediction",result:"Result",correct:"Your prediction matches this model.",wrong:"Review the decussation and bilateral projections.",note:"Teaching model of spinal tract lesions. Several descending pathways have no isolated definitive clinical syndrome. Brainstem or supraspinal lesions may yield different laterality.",select:"Choose a tract",reset:"New trial"},KZ:{title:"Виртуалды зертхана: негізгі жоғарылаушы және төмендеуші жолдар",ascending:"Жоғарылаушы — сезімталдық",descending:"Төмендеуші — қимыл және қалып",origin:"Басталуы",route:"Анатомиялық жүрісі",cross:"Айқасуы",end:"Аяқталуы",function:"Қызметі",deficit:"Зақым белгілері",prediction:"Біржақты жұлын зақымындағы белгілердің жағын болжаңыз",same:"Ошақ жағында",opposite:"Қарсы жағында",mixed:"Бір жақты анықталмайды",check:"Болжамды тексеру",result:"Нәтиже",correct:"Болжам оқу үлгісіне сәйкес.",wrong:"Айқасу орны мен екіжақты проекцияларды тексеріңіз.",note:"Жұлын жолдары зақымының оқу моделі. Кейбір төмендеуші жолдардың жеке клиникалық синдромы жоқ. Ми бағаны мен мидың зақымында белгілердің жағы өзгеруі мүмкін.",select:"Жолды таңдаңыз",reset:"Жаңа тәжірибе"}} as const;
-export default function CompletePathwayLab({language}:{language:Language}){const c=tr[language],i=language==="RU"?0:language==="EN"?1:2;const[group,setGroup]=useState<"ascending"|"descending">("ascending");const[selected,setSelected]=useState("dcml");const[answer,setAnswer]=useState<"same"|"opposite"|"mixed"|null>(null);const[checked,setChecked]=useState(false);const item=items.find(x=>x.id===selected)||items[0];function choose(id:string){setSelected(id);setAnswer(null);setChecked(false)}const nonSpinal=selected==="corticobulbar";const datum=[["origin",c.origin],["route",c.route],["cross",c.cross],["end",c.end],["function",c.function],["deficit",c.deficit]] as const;return <section style={{margin:"24px 0",padding:"clamp(12px,3vw,24px)",background:"#f3f9fd",border:"1px solid #b5d5e7",borderRadius:18}}><h2>{c.title}</h2><div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{(["ascending","descending"] as const).map(g=><button key={g} type="button" aria-pressed={group===g} onClick={()=>{setGroup(g);choose(items.find(x=>x.group===g)!.id)}} style={{padding:"10px 14px",border:"1px solid #80b4cd",borderRadius:9,background:group===g?"#075c85":"white",color:group===g?"white":"#075078",cursor:"pointer"}}>{c[g]}</button>)}</div><label style={{display:"block",marginTop:14,fontWeight:700}}>{c.select}<select value={selected} onChange={e=>choose(e.target.value)} style={{display:"block",width:"100%",padding:12,marginTop:6,fontSize:16,borderRadius:8}}>{items.filter(x=>x.group===group).map(x=><option key={x.id} value={x.id}>{x.names[i]}</option>)}</select></label><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,260px),1fr))",gap:12,marginTop:16}}>{datum.map(([k,label])=><div key={k} style={{padding:14,background:"white",borderRadius:11,border:"1px solid #d3e2eb"}}><strong style={{color:"#075078"}}>{label}</strong><p style={{lineHeight:1.6,margin:"8px 0 0"}}>{item[k][i]}</p></div>)}</div><section aria-label={language==="RU"?"Последовательность передачи сигнала":language==="EN"?"Signal route sequence":"Сигнал жолының кезеңдері"} style={{margin:"18px 0",padding:16,background:"#fff",border:"1px solid #c6dae4",borderRadius:12}}><h3 style={{margin:"0 0 12px",color:"#075078"}}>{language==="RU"?"Проследите путь сигнала":language==="EN"?"Trace the signal route":"Сигнал жолын бақылаңыз"}</h3><div style={{display:"flex",alignItems:"stretch",flexWrap:"wrap",gap:8}}>{[item.origin[i],item.route[i],item.cross[i],item.end[i]].map((step,j)=><div key={j} style={{flex:"1 1 170px",padding:12,borderLeft:"4px solid "+(["#18748b","#447cb8","#a66f3a","#417d61"][j]),background:"#f3f8fb",borderRadius:8}}><strong>{j+1}</strong><p style={{lineHeight:1.5,fontSize:14,margin:"6px 0 0"}}>{step}</p></div>)}</div><p style={{fontSize:13,color:"#465e6e"}}>{language==="RU"?"Это учебная последовательность, не масштабная анатомическая реконструкция.":language==="EN"?"This is a teaching sequence, not a scale anatomical reconstruction.":"Бұл нақты масштабтағы анатомиялық реконструкция емес, оқу тізбегі."}</p></section><details style={{margin:"12px 0 20px",padding:14,background:"#fff",border:"1px solid #c6dae4",borderRadius:12}}><summary style={{cursor:"pointer",fontWeight:700}}>{language==="RU"?"Настоящие анатомические препараты и атлас":language==="EN"?"Real anatomical specimens and atlas":"Нақты анатомиялық препараттар мен атлас"}</summary><div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))",gap:16,marginTop:12}}><figure style={{margin:0}}><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cross-section%20through%20the%20spinal%20cord.jpg?width=960" alt={language==="RU"?"Реальная фотография поперечных срезов спинного мозга":language==="EN"?"Actual photographed spinal cord cross sections":"Жұлынның нақты көлденең кесінділерінің фотосы"} loading="lazy" style={{display:"block",width:"100%",maxHeight:320,objectFit:"contain",background:"#edf4f7",borderRadius:8}}/><figcaption style={{fontSize:13}}>{language==="RU"?"Реальные поперечные срезы. Сопоставьте серое и белое вещество с картой трактов; отдельные проводящие пути на фото не размечены.":language==="EN"?"Real cross sections. Compare gray and white matter with the tract descriptions; individual tracts are not labelled in the photo.":"Нақты көлденең кесінділер. Сұр және ақ затты жолдар картасымен салыстырыңыз; фотода жеке жолдар белгіленбеген."} <a href="https://commons.wikimedia.org/wiki/File:Cross-section_through_the_spinal_cord.jpg" target="_blank" rel="noopener noreferrer">Didkov · Wikimedia Commons · CC BY-SA 4.0</a></figcaption></figure><figure style={{margin:0}}><img src={`/images/neuro-atlas-${language.toLowerCase()}.png`} alt={language==="RU"?"Авторский нейроанатомический атлас":language==="EN"?"Neuroanatomical reference atlas":"Нейроанатомиялық атлас"} loading="lazy" style={{display:"block",width:"100%",maxHeight:320,objectFit:"contain",background:"#edf4f7",borderRadius:8}}/><figcaption style={{fontSize:13}}>{language==="RU"?"Иллюстративный атлас для сопоставления со схемой путей.":language==="EN"?"Reference atlas to compare with the pathway description.":"Жолдардың сипаттамасымен салыстыруға арналған атлас."}</figcaption></figure></div></details>{nonSpinal?<p style={{padding:14,borderRadius:10,background:"#fff2d7"}}>{language==="RU"?"Корково-ядерный путь заканчивается в стволе мозга: прогноз спинального очага к нему неприменим. Изучите центральный парез нижней половины лица и особенности двусторонней иннервации.":language==="EN"?"Corticobulbar fibers terminate in brainstem motor nuclei; a spinal tract lesion prediction is inapplicable. Study supranuclear facial weakness and bilateral innervation.":"Қыртыс-ядролық жол ми бағанының қозғалтқыш ядроларында аяқталады; жұлын ошағының болжамы оған жарамайды."}</p>:<fieldset style={{border:"1px solid #adccde",borderRadius:12,padding:14,marginTop:18}}><legend style={{fontWeight:700}}>{c.prediction}</legend><div style={{display:"flex",flexWrap:"wrap",gap:10}}>{(["same","opposite","mixed"] as const).map(a=><label key={a} style={{display:"inline-flex",gap:6,alignItems:"center",padding:8,borderRadius:8,background:answer===a?"#ccebf7":"white"}}><input type="radio" name="pathway-prediction" checked={answer===a} onChange={()=>{setAnswer(a);setChecked(false)}}/>{c[a]}</label>)}</div><button type="button" disabled={!answer} onClick={()=>setChecked(true)} style={{marginTop:12,padding:"10px 16px",borderRadius:8,background:"#075c85",color:"white",border:0,cursor:"pointer"}}>{c.check}</button>{checked&&<p role="status"><strong>{c.result}: </strong>{answer===item.laterality?c.correct:c.wrong} {c.cross}: {item.cross[i]}. {c.deficit}: {item.deficit[i]}</p>}</fieldset>}<p style={{fontSize:13,lineHeight:1.5}}>{c.note}</p></section>}
+
+export default function CompletePathwayLab({language}:{language:Language}) {
+  const c=tr[language];
+  const i=language==="RU"?0:language==="EN"?1:2;
+  const [group,setGroup]=useState<"ascending"|"descending">("ascending");
+  const [selected,setSelected]=useState("dcml");
+  const [phase,setPhase]=useState(0);
+  const [playing,setPlaying]=useState(false);
+  const [lesionSide,setLesionSide]=useState<"left"|"right">("left");
+  const [lesionLevel,setLesionLevel]=useState<"C5"|"T10"|"L2">("T10");
+  const [answer,setAnswer]=useState<"same"|"opposite"|"mixed"|null>(null);
+  const [checked,setChecked]=useState(false);
+  const [tries,setTries]=useState(0);
+  const item=items.find(x=>x.id===selected)||items[0];
+  const noSpinalPrediction=item.id==="corticobulbar";
+  const cervicalOnly=["cuneocerebellar","spinocerebellar-rostral","vestibulospinal-medial","tectospinal"];
+  const levelUnsupported=cervicalOnly.includes(item.id)&&lesionLevel!=="C5";
+  const labels=language==="RU"?{
+    intro:"Выберите путь, проследите распространение сигнала, установите очаг и предскажите функциональные нарушения.",
+    stages:["Начало","Ход волокон","Перекрёст","Окончание"],
+    heading:"Проведение нервного сигнала",back:"Предыдущий этап",next:"Следующий этап",play:"Запустить прохождение",pause:"Остановить",
+    level:"Уровень очага в спинном мозге",side:"Сторона очага",left:"Левая",right:"Правая",experiment:"Эксперимент: что произойдёт при повреждении?",
+    predicted:"Прогноз до опыта",check:"Проверить прогноз",correct:"Верно: прогноз соответствует анатомии выбранного пути.",wrong:"Ответ не совпадает с моделью. Уточните перекрёст и характер двусторонних связей.",
+    expected:"Ожидаемая сторона дефицита",onLeft:"левая",onRight:"правая",uncertain:"не определяется однозначно",
+    deficit:"Объяснение нарушений",function:"Что делает путь в норме",anatomy:"Реальные анатомические изображения и источники",
+    photo:"Поперечный срез спинного мозга",atlas:"Авторский нейроатлас",source:"Источник и лицензия",
+    photoInfo:"На микрофотографии различимы серое и белое вещество. Границы отдельных трактов на ней не размечены.",
+    atlasInfo:"Анатомическое справочное изображение; не путайте с динамическим экспериментом.",
+    noSpinal:"Корково-ядерный путь заканчивается в двигательных ядрах черепных нервов. Спинальное поражение для него не моделируется.",
+    noLevel:"Этот путь преимущественно связан с шейным отделом. Выберите C5 для этого учебного опыта; вывод для T10 или L2 здесь ненадёжен.",
+    note:"Это интерактивная учебная модель. Траектория показывает последовательность анатомических звеньев, а не точную форму и масштаб тракта. В клинике симптомы зависят от объёма и уровня поражения.",
+    progress:"Шаг",restart:"Сначала",attempt:"Проверено прогнозов",reading:"Анатомические подробности",labelCross:"Место перекрёста"
+  }:language==="EN"?{
+    intro:"Select a pathway, trace signal transmission, place a lesion and predict functional impairment.",
+    stages:["Origin","Fiber course","Crossing","Termination"],
+    heading:"Neural signal transmission",back:"Previous stage",next:"Next stage",play:"Run signal",pause:"Pause",
+    level:"Spinal lesion level",side:"Lesion side",left:"Left",right:"Right",experiment:"Experiment: what changes after a lesion?",
+    predicted:"Prediction before revealing outcome",check:"Check prediction",correct:"Correct: prediction matches the chosen tract anatomy.",wrong:"Compare the prediction with decussation and bilateral projection patterns.",
+    expected:"Predicted deficit side",onLeft:"left",onRight:"right",uncertain:"cannot be inferred uniquely",
+    deficit:"Functional consequences",function:"Normal function",anatomy:"Real anatomical references and sources",
+    photo:"Spinal cord cross-section",atlas:"Author-provided neuroanatomy atlas",source:"Source and license",
+    photoInfo:"Gray and white matter are visible; individual tract boundaries are not identified in this micrograph.",
+    atlasInfo:"Anatomical reference, not a live physiological recording.",
+    noSpinal:"Corticobulbar fibers terminate in cranial motor nuclei, not in the spinal cord. A spinal lesion is not applicable.",
+    noLevel:"This pathway is primarily relevant to cervical connections. Select C5 for this teaching experiment; T10/L2 inference is unsupported.",
+    note:"Interactive educational model: the route shows anatomical sequence, not precise tract shape or scale. Clinical findings depend on lesion level and extent.",
+    progress:"Stage",restart:"Restart",attempt:"Predictions checked",reading:"Anatomical detail",labelCross:"Decussation"
+  }:{
+    intro:"Жолды таңдап, сигналдың өтуін бақылаңыз, зақым орнын көрсетіп, қызмет бұзылысын болжаңыз.",
+    stages:["Басталуы","Талшықтардың жүрісі","Айқасуы","Аяқталуы"],
+    heading:"Жүйке сигналының өтуі",back:"Алдыңғы кезең",next:"Келесі кезең",play:"Сигналды іске қосу",pause:"Тоқтату",
+    level:"Жұлын зақымының деңгейі",side:"Зақым жағы",left:"Сол",right:"Оң",experiment:"Тәжірибе: зақымданғанда не өзгереді?",
+    predicted:"Нәтижеге дейінгі болжам",check:"Болжамды тексеру",correct:"Дұрыс: болжам жол анатомиясына сәйкес.",wrong:"Айқасу орнын және екіжақты проекцияларды қайта қараңыз.",
+    expected:"Тапшылық жағы",onLeft:"сол",onRight:"оң",uncertain:"бірмәнді анықталмайды",
+    deficit:"Бұзылудың түсіндірмесі",function:"Қалыпты қызметі",anatomy:"Нақты анатомиялық суреттер және дереккөздер",
+    photo:"Жұлынның көлденең кесіндісі",atlas:"Авторлық нейроанатомиялық атлас",source:"Дереккөз және лицензия",
+    photoInfo:"Микрофотода сұр және ақ зат көрінеді, жеке жолдардың шекарасы көрсетілмеген.",
+    atlasInfo:"Анатомиялық анықтамалық, физиологиялық тіркеу емес.",
+    noSpinal:"Қыртыс-ядролық жол бассүйек жүйкелерінің қозғалтқыш ядроларына барады. Жұлын зақымы бұл жерде модельденбейді.",
+    noLevel:"Бұл жол көбіне мойын бөліміндегі байланыстарға қатысты. Оқу тәжірибесі үшін C5 деңгейін таңдаңыз.",
+    note:"Бұл интерактивті оқу моделі: жолдың нақты пішіні мен масштабы емес, анатомиялық кезеңдер көрсетілген. Клиникалық көрініс зақым деңгейі мен көлеміне тәуелді.",
+    progress:"Кезең",restart:"Бастапқыға",attempt:"Тексерілген болжам",reading:"Анатомиялық түсініктеме",labelCross:"Айқасу орны"
+  };
+  const route=[item.origin[i],item.route[i],item.cross[i],item.end[i]];
+  function choose(id:string){setSelected(id);setPhase(0);setPlaying(false);setAnswer(null);setChecked(false)}
+  useEffect(()=>{
+    if(!playing)return;
+    if(phase>=3){setPlaying(false);return}
+    const timeout=window.setTimeout(()=>setPhase(v=>Math.min(3,v+1)),1150);
+    return ()=>window.clearTimeout(timeout);
+  },[playing,phase,selected]);
+  const sideOfDeficit=item.laterality==="mixed" ? null : item.laterality==="same"?lesionSide:(lesionSide==="left"?"right":"left");
+  const deficitText=sideOfDeficit===null?labels.uncertain:sideOfDeficit==="left"?labels.onLeft:labels.onRight;
+  function submit(){
+    if(!answer||noSpinalPrediction||levelUnsupported)return;
+    setChecked(true);
+    setTries(n=>n+1);
+    recordOutcome(8,"experiment:tract:"+item.id,answer===item.laterality?1:0,1);
+  }
+  return <section className={styles.lab}>
+    <header className={styles.header}>
+      <h2>{c.title}</h2><p>{labels.intro}</p>
+    </header>
+    <div className={styles.tabs} role="group" aria-label={c.title}>
+      {(["ascending","descending"] as const).map(g=><button key={g} type="button" className={styles.tab} aria-pressed={group===g} onClick={()=>{setGroup(g);choose(items.find(it=>it.group===g)!.id)}}>{c[g]} · {items.filter(it=>it.group===g).length}</button>)}
+    </div>
+    <label className={styles.selector}>{c.select}
+      <select value={selected} onChange={e=>choose(e.target.value)}>
+        {items.filter(it=>it.group===group).map(it=><option key={it.id} value={it.id}>{it.names[i]}</option>)}
+      </select>
+    </label>
+    <section className={styles.panel} aria-label={labels.heading}>
+      <h3 className={styles.sectionHeading}>{labels.heading}</h3>
+      <p className={styles.pathName}>{item.names[i]}</p>
+      <span className={styles.direction}>{c[group]}</span>
+      <div className={styles.track} role="group" aria-label={labels.heading}>
+        {route.map((_,j)=><button className={styles.stageButton} key={j} type="button" aria-current={phase===j?"step":undefined} data-complete={j<phase} onClick={()=>{setPhase(j);setPlaying(false)}}>
+          <span className={styles.stageNo}>{j+1}</span><span>{labels.stages[j]}</span>
+        </button>)}
+      </div>
+      <div className={styles.stageDetail} aria-live="polite" aria-atomic="true">
+        <h4>{labels.progress} {phase+1} / 4 — {labels.stages[phase]}</h4>
+        <p>{route[phase]}</p>
+      </div>
+      <div className={styles.stageControl}>
+        <button type="button" disabled={phase===0} onClick={()=>{setPhase(v=>Math.max(v-1,0));setPlaying(false)}}>{labels.back}</button>
+        <button type="button" className={styles.primary} onClick={()=>{setPhase(0);setPlaying(true)}}>{labels.play}</button>
+        <button type="button" disabled={phase===3} onClick={()=>{setPhase(v=>Math.min(v+1,3));setPlaying(false)}}>{labels.next}</button>
+      </div>
+      <div className={styles.functionCard}><strong>{labels.function}</strong><p>{item.function[i]}</p></div>
+      <details style={{marginTop:16}}>
+        <summary style={{cursor:"pointer",fontWeight:700,color:"#075078"}}>{labels.reading}</summary>
+        <div className={styles.functionCard}><strong>{labels.labelCross}</strong><p>{item.cross[i]}</p></div>
+      </details>
+      <p className={styles.note}>{labels.note}</p>
+    </section>
+    <section className={styles.experiment} aria-labelledby="tract-experiment-heading">
+      <h3 id="tract-experiment-heading">{labels.experiment}</h3>
+      {noSpinalPrediction ? <p className={styles.explanation}>{labels.noSpinal}</p> : <>
+        <label className={styles.selector}>{labels.level}
+          <select value={lesionLevel} onChange={e=>{setLesionLevel(e.target.value as "C5"|"T10"|"L2");setChecked(false)}}><option>C5</option><option>T10</option><option>L2</option></select>
+        </label>
+        <fieldset style={{border:0,margin:"15px 0",padding:0}}><legend style={{fontWeight:700}}>{labels.side}</legend><div className={styles.sideOptions}>{(["left","right"] as const).map(s=><label key={s}><input type="radio" name="tract-side" checked={lesionSide===s} onChange={()=>{setLesionSide(s);setChecked(false)}}/>{labels[s]}</label>)}</div></fieldset>
+        {levelUnsupported?<p className={styles.explanation}>{labels.noLevel}</p>:<>
+          <fieldset style={{border:0,margin:0,padding:0}}><legend style={{fontWeight:700}}>{labels.predicted}</legend>
+            <div className={styles.answerOptions}>{(["same","opposite","mixed"] as const).map(a=><label key={a}><input type="radio" name="tract-laterality" checked={answer===a} onChange={()=>{setAnswer(a);setChecked(false)}}/>{c[a]}</label>)}</div>
+          </fieldset>
+          <button type="button" className={styles.primary+" "+styles.action} disabled={!answer} onClick={submit}>{labels.check}</button>
+          {checked&&<div className={styles.explanation} data-correct={answer===item.laterality} role="status">
+            <strong>{answer===item.laterality?labels.correct:labels.wrong}</strong>
+            <p>{labels.expected}: <strong>{deficitText}</strong>.</p>
+            <p><strong>{labels.deficit}:</strong> {item.deficit[i]}</p>
+            <p><strong>{labels.labelCross}:</strong> {item.cross[i]}</p>
+          </div>}
+        </>}
+      </>}
+      <p className={styles.note}>{labels.attempt}: {tries}</p>
+    </section>
+    <details className={styles.media}>
+      <summary>{labels.anatomy}</summary>
+      <div className={styles.mediaGrid}>
+        <figure className={styles.figure}>
+          <a href="https://commons.wikimedia.org/wiki/File:Cross-section_through_the_spinal_cord.jpg" target="_blank" rel="noopener noreferrer">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cross-section%20through%20the%20spinal%20cord.jpg?width=960" loading="lazy" alt={labels.photo}/>
+          </a>
+          <figcaption>{labels.photoInfo} <a href="https://commons.wikimedia.org/wiki/File:Cross-section_through_the_spinal_cord.jpg" target="_blank" rel="noopener noreferrer">Didkov, CC BY-SA 4.0</a></figcaption>
+        </figure>
+        <figure className={styles.figure}>
+          <img src={"/images/neuro-atlas-"+language.toLowerCase()+".png"} loading="lazy" alt={labels.atlas}/>
+          <figcaption>{labels.atlasInfo}</figcaption>
+        </figure>
+      </div>
+    </details>
+  </section>;
+}
