@@ -143,7 +143,7 @@ async function main() {
         assert.equal(await evaluate(`${element(`${root} [aria-expanded]`)}.getAttribute('aria-expanded')`), "true");
         assert.equal(await evaluate(`${element(`${root}-explanation`)}.hidden`), false);
         assert.equal(await evaluate("getComputedStyle(document.activeElement).outlineStyle"), "solid");
-        if (item.diagram) assert.equal(await evaluate(`${element(`${root}-explanation`)}.querySelectorAll('ol li').length`), 9);
+        if (item.diagram) assert.equal(await evaluate(`${element(`${root}-explanation`)}.querySelectorAll('ol li').length`), item.diagram.length);
         await keyboard(" ", "Space", 32);
         assert.equal(await evaluate(`${element(`${root}-explanation`)}.hidden`), true);
         assert.equal(await evaluate(`${element(`${root} textarea`)}?.value ?? 'sequence'`), item.interaction?.type === "sequence" ? "sequence" : "Independent physiological reasoning");
