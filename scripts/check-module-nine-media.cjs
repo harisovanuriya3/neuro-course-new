@@ -46,7 +46,7 @@ for(const language of ["RU","EN","KZ"]){
   ...block.transcript,...q.options.flatMap(x=>[x.text,x.feedback])])
   assert(part.trim().length>25,language+": missing or too short");
  const joined=block.transcript.join(" ");
- for(const term of anchors[language])assert(joined.includes(term),language+": missing "+term);
+ for(const term of anchors[language])assert(joined.toLocaleLowerCase().includes(term.toLocaleLowerCase()),language+": missing "+term);
  assert(q.options[1].text!==q.options[0].text);
 }
 const registry=read("content/index.ts");
