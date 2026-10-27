@@ -276,9 +276,47 @@ const moduleTenCopy = {
  }
 } as const;
 
+
+/*
+ * Module 11: motor planning and feedback. Self-assessment only; the speech
+ * recognizer transcribes words but does not grade physiological accuracy.
+ * Guyton & Hall 13e, ch. 56, printed pp. 709–711;
+ * Ganong 23e, ch. 16, printed pp. 241–242;
+ * C. L. Ghai 8e, printed pp. 295–296 (stretch reflex examination).
+ */
+const moduleElevenCopy = {
+ RU: {
+  intro:"Учебная ситуация: студент направляет палец к неподвижной цели, но во время движения цель неожиданно смещается вправо. Объясните сначала подготовку движения до получения нового зрительного сигнала, затем сенсорную коррекцию. Различайте прогнозирующее управление и обратную связь. Это самооценка структуры ответа, а не автоматическая проверка физиологии или диагностика пациента.",
+  prompt:"Планирование движения → нисходящие команды → сенсорная ошибка → коррекция: объясните своими словами",
+  cause:"Я объяснил(а), как кора с участием базальных ганглиев и мозжечка подготавливает движение до появления нового зрительного сигнала",
+  path:"Я описал(а) нисходящие кортикоспинальные и стволовые влияния на спинальные сети и α-мотонейроны, а затем поступление зрительной и проприоцептивной обратной связи",
+  result:"Я различил(а) прогноз до результата и запаздывающую коррекцию при смещении цели; указал(а), что базальные ганглии не посылают прямую команду к мышце и что одна ошибка попадания не определяет место поражения или диагноз",
+  ready:"Вы отметили три пункта самооценки. Сверьте объяснение с теорией и схемой: отметки не подтверждают научную правильность, а речевой ввод только преобразует речь в текст.",
+  good:"Три пункта самооценки отмечены"
+ },
+ EN: {
+  intro:"Learning scenario: a student reaches toward a stationary target, but the target unexpectedly shifts to the right during the movement. Explain the preparation of movement before new visual information arrives, then the sensory correction. Distinguish predictive control from feedback. This is a structure self-check, not automated physiology grading or a patient diagnosis.",
+  prompt:"Movement planning → descending commands → sensory error → correction: explain in your own words",
+  cause:"I explained how cortical networks, interacting with the basal ganglia and cerebellum, prepare movement before the new visual signal arrives",
+  path:"I described corticospinal and brainstem influences on spinal circuits and alpha motor neurons, followed by visual and proprioceptive feedback during the movement",
+  result:"I distinguished prediction before the outcome from delayed correction after target displacement; I noted that basal ganglia do not directly command muscles and that a single reaching error cannot localize a lesion or establish a diagnosis",
+  ready:"You marked all three self-check items. Compare your explanation with the theory and diagram: checkmarks do not verify scientific accuracy, and speech input only transcribes your words.",
+  good:"Three self-check items marked"
+ },
+ KZ: {
+  intro:"Оқу жағдайы: студент қозғалмай тұрған нысанаға саусағын созады, бірақ қозғалыс кезінде нысана күтпеген жерден оңға ығысады. Алдымен жаңа көру сигналы келмей тұрып қозғалыстың қалай дайындалатынын, содан кейін сенсорлық түзетуді түсіндіріңіз. Болжамға негізделген басқаруды кері байланыстан ажыратыңыз. Бұл — жауап құрылымын өзіндік бағалау, физиологиялық білімді автоматты бағалау немесе науқасқа диагноз қою емес.",
+  prompt:"Қозғалысты жоспарлау → төмендеуші командалар → сенсорлық қате → түзету: өз сөзіңізбен түсіндіріңіз",
+  cause:"Мен жаңа көру сигналы келмей тұрып қыртыс желілерінің базальды ганглийлермен және мишықпен бірлесіп қозғалысты дайындайтынын түсіндірдім",
+  path:"Мен кортикоспиналдық және ми бағанынан төмендеуші ықпалдардың жұлын тізбектері мен α-мотонейрондарға әсерін, содан кейін көру және проприоцептивтік кері байланысты сипаттадым",
+  result:"Мен нәтиже белгілі болмай тұрып жасалатын болжамды нысана ығысқаннан кейінгі кешігетін түзетуден ажыраттым; базальды ганглийлер бұлшықетке тікелей команда жібермейтінін және нысанаға дәл тимеу бір ғана белгі ретінде зақым орнын да, диагнозды да анықтамайтынын айттым",
+  ready:"Өзіндік тексерудің үш тармағын белгіледіңіз. Түсіндірмені теориямен және сызбамен салыстырыңыз: белгілер ғылыми дұрыстықты растамайды, ал дауыспен енгізу тек сөзді мәтінге айналдырады.",
+  good:"Өзіндік тексерудің үш тармағы белгіленді"
+ }
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : moduleId===10 ? {...copy[language],...moduleTenCopy[language]} : copy[language];
- const key=moduleId===10 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===9 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : moduleId===10 ? {...copy[language],...moduleTenCopy[language]} : moduleId===11 ? {...copy[language],...moduleElevenCopy[language]} : copy[language];
+ const key=moduleId===11 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===10 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===9 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
  const storageKey=moduleId===8 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : key;
  const[answer,setAnswer]=useState("");
  const[persisted,setPersisted]=useState(false);
