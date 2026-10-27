@@ -55,13 +55,14 @@ export default function PathwayLab({language}:{language:Language}){
  const finding=`${c.findings[path]} ${u.deficit}: ${c[result.deficitSide]}.`;
  const resetResult=()=>setRevealed(false);
  return <section className={styles.lab}>
+  <CompletePathwayLab language={language}/>
+  <details style={{margin:"24px 0",padding:"16px",border:"1px solid #bdd5e3",borderRadius:14,background:"#f8fcff"}}><summary style={{cursor:"pointer",fontWeight:700,fontSize:18}}>{language==="RU"?"Дополнительный опыт: определить сторону поражения":language==="EN"?"Additional experiment: localize a unilateral spinal lesion":"Қосымша тәжірибе: зақым жағын анықтау"}</summary>
   <h2>{c.title}</h2><p>{c.intro}</p><p>{u.segment}</p>
   <div className={styles.controls}>
    <label>{c.path}<select aria-label={c.path} value={path} onChange={e=>{setPath(e.target.value as Path);resetResult()}}>{Object.entries(c.paths).map(([k,v])=><option key={k} value={k}>{v}</option>)}</select></label>
    <label>{c.side}<select aria-label={c.side} value={side} onChange={e=>{setSide(e.target.value as Side);resetResult()}}><option value="left">{c.left}</option><option value="right">{c.right}</option></select></label>
    <label>{c.level}<select aria-label={c.level} value={level} onChange={e=>{setLevel(e.target.value as SpinalLevel);resetResult()}}>{(["C5","T10","L2"] as const).map(v=><option key={v}>{v}</option>)}</select></label>
   </div>
-  <CompletePathwayLab language={language}/>
   <section style={{margin:"22px 0",padding:"clamp(12px,2vw,20px)",border:"1px solid #a9cbdc",borderRadius:14,background:"#fff"}}><h3 style={{margin:"0 0 8px",color:"#075078"}}>{anatomy[language].heading}</h3><p>{anatomy[language].how}</p><ol style={{display:"grid",gap:12,padding:0,margin:"16px 0",listStyle:"none"}}>{anatomy[language].paths[path].steps.map(([stage,detail],i)=><li key={stage} style={{display:"grid",gridTemplateColumns:"minmax(0,1fr)",gap:6,padding:"14px 16px",border:"1px solid #ccdfe9",borderLeft:"5px solid #18799a",borderRadius:10,background:i%2?"#f5f9fc":"#fff",minWidth:0,overflowWrap:"anywhere"}}><strong style={{fontSize:16,color:"#075078"}}><span style={{display:"inline-block",marginRight:8}}>{i+1}.</span>{stage}</strong><p style={{margin:0,fontSize:15,lineHeight:1.7,overflowWrap:"anywhere"}}>{detail}</p></li>)}</ol><dl style={{display:"grid",gap:10,marginTop:18}}>{([["cross","cross"],["function","function"],["damage","damage"]] as const).map(([label,value])=><div key={label} style={{padding:12,background:"#eaf4fa",borderRadius:9}}><dt style={{fontWeight:700}}>{anatomy[language][label]}</dt><dd style={{margin:"6px 0 0",lineHeight:1.6}}>{anatomy[language].paths[path][value]}</dd></div>)}</dl><p style={{fontSize:13}}>{anatomy[language].disclaimer}</p><p style={{fontSize:13}}><a href="https://www.ncbi.nlm.nih.gov/books/NBK11142/" target="_blank" rel="noopener noreferrer">Purves et al. · Neuroscience · NCBI Bookshelf</a></p></section>
   <details><summary style={{cursor:"pointer",fontWeight:700,padding:"10px 0"}}>{anatomy[language].schematic}</summary>
   <figure><div className={styles.diagram} tabIndex={0} aria-label={c.title}><svg viewBox="0 0 560 490" role="img" aria-labelledby={`${uid}-title ${uid}-desc`}>
@@ -80,6 +81,6 @@ export default function PathwayLab({language}:{language:Language}){
   <button type="button" disabled={prediction.trim().length<20} onClick={()=>{setRevealed(true);recordOutcome(8,"completion:pathway-lab",1,1);setRows(xs=>[...xs,{id:Date.now(),path,side,level,finding,note:""}])}}>{c.save}</button>
   {revealed&&<div role="status"><p><strong>{c.finding}:</strong> {finding}</p><p>{u.notice}</p></div>}
   <div className={styles.table}><table><caption>{u.table}</caption><thead><tr><th>#</th><th>{c.path}</th><th>{c.side}</th><th>{c.level}</th><th>{c.finding}</th><th>{c.note}</th></tr></thead><tbody>{rows.map((r,i)=><tr key={r.id}><td>{i+1}</td><td>{c.paths[r.path]}</td><td>{c[r.side]}</td><td>{r.level}</td><td>{r.finding}</td><td><textarea aria-label={`${c.note} ${i+1}`} value={r.note} onChange={e=>{const note=e.target.value;setRows(xs=>xs.map(x=>x.id===r.id?{...x,note}:x))}}/></td></tr>)}</tbody></table></div>
-  <p><small>{u.limit}</small></p><ExperimentReflection language={language} theoryHref={`/modules/8/theory?lang=${language}`}/>
+  <p><small>{u.limit}</small></p><ExperimentReflection language={language} theoryHref={`/modules/8/theory?lang=${language}`}/></details>
  </section>;
 }
