@@ -121,14 +121,37 @@ export default function CompletePathwayLab({language}:{language:Language}) {
       <h3 className={styles.sectionHeading}>{labels.heading}</h3>
       <p className={styles.pathName}>{item.names[i]}</p>
       <span className={styles.direction}>{c[group]}</span>
-      <div className={styles.track} role="group" aria-label={labels.heading}>
-        {route.map((_,j)=><button className={styles.stageButton} key={j} type="button" aria-current={phase===j?"step":undefined} data-complete={j<phase} onClick={()=>{setPhase(j);setPlaying(false)}}>
-          <span className={styles.stageNo}>{j+1}</span><span>{labels.stages[j]}</span>
-        </button>)}
-      </div>
-      <div className={styles.stageDetail} aria-live="polite" aria-atomic="true">
-        <h4>{labels.progress} {phase+1} / 4 — {labels.stages[phase]}</h4>
-        <p>{route[phase]}</p>
+
+      <div className={styles.anatomicalView}>
+        <figure className={styles.mainAtlas}>
+          <a href={group==="ascending"?"https://commons.wikimedia.org/wiki/File:1417_Ascending_Pathways_of_Spinal_Cord.jpg":selected==="corticospinal"||selected==="corticospinal-anterior"?"https://commons.wikimedia.org/wiki/File:1426_Corticospinal_Pathway.jpg":"https://doi.org/10.3389/fnana.2017.00129"} target="_blank" rel="noopener noreferrer">
+            <img
+              src={group==="ascending"&&(selected==="dcml"||selected==="spinothalamic")?"https://commons.wikimedia.org/wiki/Special:FilePath/1417%20Ascending%20Pathways%20of%20Spinal%20Cord.jpg?width=780":selected==="corticospinal"||selected==="corticospinal-anterior"?"https://commons.wikimedia.org/wiki/Special:FilePath/1426%20Corticospinal%20Pathway.jpg?width=680":"https://www.frontiersin.org/files/Articles/300929/xml-images/fnana-11-00129-g0001.webp"}
+              alt={group==="ascending"?language==="RU"?"Научная анатомическая иллюстрация восходящих трактов":language==="EN"?"Anatomical illustration of ascending tracts":"Жоғарылаушы жолдардың анатомиялық суреті":language==="RU"?"Анатомическая карта проводящих путей":language==="EN"?"Anatomical map of spinal pathways":"Жұлын жолдарының анатомиялық картасы"}
+              loading="lazy"/>
+          </a>
+          <figcaption>
+            {language==="RU"?"Анатомический ориентир. Сигнал показан в интерактивной последовательности справа: границы всех 19 путей на рисунке не выделены.":language==="EN"?"Anatomical reference. Follow the active signal stages on the right; this illustration does not specifically delineate all 19 pathways.":"Анатомиялық бағдар. Белсенді сигнал кезеңдері оң жақта; суретте 19 жолдың бәрі жеке белгіленбеген."}
+            {" "} {group==="ascending"&&(selected==="dcml"||selected==="spinothalamic")||selected==="corticospinal"||selected==="corticospinal-anterior"?"OpenStax · CC BY 3.0":"Saliani et al., Frontiers in Neuroanatomy (2017) · CC BY 4.0"}
+          </figcaption>
+        </figure>
+        <div className={styles.conduction}>
+          <h4>{labels.heading}</h4>
+          <div className={styles.track} role="group" aria-label={labels.heading}>
+            {route.map((_,j)=><button className={styles.stageButton} key={j} type="button" aria-current={phase===j?"step":undefined} data-complete={j<phase} onClick={()=>{setPhase(j);setPlaying(false)}}>
+              <span className={styles.stageNo}>{j+1}</span><span>{labels.stages[j]}</span>
+            </button>)}
+          </div>
+          <div className={styles.impulseTrack} role="img" aria-label={language==="RU"?"Прохождение импульса по четырём этапам":language==="EN"?"Signal impulse through four pathway stages":"Жүйке импульсінің төрт кезең бойынша өтуі"}>
+            <div className={styles.impulseRail}/>
+            <div className={styles.impulsePassed} style={{width:(phase/3*100)+"%"}}/>
+            <div className={styles.impulse} style={{left:(phase/3*100)+"%"}}/>
+          </div>
+          <div className={styles.stageDetail} aria-live="polite" aria-atomic="true">
+            <h4>{labels.progress} {phase+1} / 4 — {labels.stages[phase]}</h4>
+            <p>{route[phase]}</p>
+          </div>
+        </div>
       </div>
       <div className={styles.stageControl}>
         <button type="button" disabled={phase===0} onClick={()=>{setPhase(v=>Math.max(v-1,0));setPlaying(false)}}>{labels.back}</button>
