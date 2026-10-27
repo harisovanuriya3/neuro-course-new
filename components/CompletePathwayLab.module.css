@@ -49,3 +49,24 @@
 @media(max-width:650px){.track{grid-template-columns:repeat(2,minmax(0,1fr))}.tabs{grid-template-columns:1fr}.stageControl button{flex:1 1 130px}.lab{margin:12px 0}.figure img{height:210px}}
 @media(max-width:380px){.track{grid-template-columns:1fr}.stageButton{min-height:45px;justify-content:flex-start;padding-inline:15px}}
 @media(prefers-reduced-motion:reduce){.lab *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+.anatomicalView{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start;gap:20px;margin:14px 0}
+.mainAtlas{min-width:0;margin:0;padding:12px;background:#f4f8fa;border:1px solid #cfdee6;border-radius:14px;overflow:hidden}
+.mainAtlas a{display:flex;justify-content:center;align-items:center;min-height:310px;overflow:hidden}
+.mainAtlas img{display:block;max-width:100%;width:100%;height:clamp(310px,34vw,510px);object-fit:contain;object-position:center;background:#fff;border-radius:10px}
+.mainAtlas figcaption{font-size:.82rem;line-height:1.65;color:#4e6776;margin-top:10px;overflow-wrap:anywhere}
+.conduction{min-width:0;display:flex;flex-direction:column;gap:10px}
+.conduction h4{margin:0;color:#075078;font-size:1rem;line-height:1.4}
+.conduction .track{grid-template-columns:repeat(2,minmax(0,1fr));margin:0;gap:8px}
+.conduction .stageButton{min-height:57px;padding:8px;font-size:.86rem}
+.conduction .stageDetail{min-height:190px}
+.impulseTrack{width:100%;height:34px;position:relative;padding:0 10px;margin:7px 0 4px}
+.impulseRail,.impulsePassed{height:7px;position:absolute;left:0;top:14px;border-radius:8px}
+.impulseRail{width:100%;background:#d4e2e9}
+.impulsePassed{background:linear-gradient(90deg,#25a4bb,#0a689d);transition:width .7s ease}
+.impulse{position:absolute;top:9px;transform:translateX(-50%);width:17px;height:17px;border:3px solid #fff;background:#075e8a;border-radius:50%;box-shadow:0 0 0 3px #6cc3d4,0 0 13px #0d90b8;transition:left .7s ease}
+.impulse::after{content:"";position:absolute;inset:-5px;border:1px solid #0780aa;border-radius:50%;animation:impulseHalo 1.15s ease-out infinite}
+@keyframes impulseHalo{from{transform:scale(.8);opacity:.9}to{transform:scale(1.8);opacity:0}}
+@media(max-width:980px){.anatomicalView{grid-template-columns:minmax(0,1fr)}.mainAtlas img{height:380px}.mainAtlas a{min-height:200px}}
+@media(max-width:650px){.mainAtlas img{height:300px}.conduction .stageButton{min-height:50px}}
+@media(prefers-reduced-motion:reduce){.impulse,.impulsePassed{transition:none}.impulse::after{animation:none}}
