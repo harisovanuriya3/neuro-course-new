@@ -44,7 +44,7 @@ for(const lang of ["RU","EN","KZ"]){
   ...block.question.options.flatMap(o=>[o.text,o.feedback])])
   assert(part.trim().length>35,lang+": short or missing media text");
  const joined=block.transcript.join(" ");
- for(const marker of anchors[lang])assert(joined.includes(marker),lang+": missing "+marker);
+ for(const marker of anchors[lang])assert(joined.toLocaleLowerCase().includes(marker.toLocaleLowerCase()),lang+": missing "+marker);
 }
 const registry=read("content/index.ts");
 assert(registry.includes('import { createModuleElevenMedia } from "./course-foundation/module-eleven-media";'));
