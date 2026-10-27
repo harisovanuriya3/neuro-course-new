@@ -39,29 +39,24 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
           <strong>{guide.title}</strong>
           <p style={{margin:"6px 0 0",lineHeight:1.6}}>{guide.text}</p>
         </aside>
-        {Number(moduleId) >= 1 && Number(moduleId) <= 5 && (
-          <figure style={{margin:"12px 0 28px",padding:"12px",border:"1px solid #dce4eb",borderRadius:12}}>
-            <a href={`/images/neuro-atlas-${language.toLowerCase()}.png`} target="_blank" rel="noopener noreferrer" aria-label={language==="RU"?"Увеличить анатомическую иллюстрацию":language==="EN"?"Open full-size anatomy illustration":"Анатомиялық суретті үлкейту"}>
-              <img src={`/images/neuro-atlas-${language.toLowerCase()}.png`} alt={language==="RU"?"Нервная система человека: мозг, спинной мозг, периферические нервы, нейрон и синапс":language==="EN"?"Human nervous system: brain, spinal cord, peripheral nerves, neuron and synapse":"Адамның жүйке жүйесі: ми, жұлын, шеткі жүйкелер, нейрон және синапс"} style={{display:"block",width:"100%",height:"auto",borderRadius:8}} loading="lazy" />
+        {(() => {
+          const illustrations: Record<number, {src:string; RU:string; EN:string; KZ:string}> = {
+            1:{src:"/images/anatomy/brain-spinal-cord.jpg",RU:"Анатомический препарат головного и спинного мозга",EN:"Anatomical specimen of brain and spinal cord",KZ:"Бас миы мен жұлынның анатомиялық препараты"},
+            2:{src:"/images/module2/evoked-averaging-ru.png",RU:"Иллюстрация усреднения вызванных потенциалов",EN:"Illustration of evoked-potential averaging",KZ:"Шақырылған потенциалдарды орташалау иллюстрациясы"},
+            3:{src:"/images/anatomy/peripheral-nerve.jpg",RU:"Микрофотография периферического нерва",EN:"Peripheral nerve micrograph",KZ:"Шеткі жүйкенің микрофотографиясы"},
+            5:{src:"/images/anatomy/neuromuscular-junction.jpg",RU:"Электронная микрофотография нервно-мышечного соединения",EN:"Electron micrograph of a neuromuscular junction",KZ:"Жүйке-бұлшықет түйіспесінің электрондық микрофотографиясы"}
+          };
+          const selected=illustrations[Number(moduleId)];
+          if (!selected) return null;
+          const src=Number(moduleId)===2 ? `/images/module2/evoked-averaging-${language.toLowerCase()}.png` : selected.src;
+          const caption=selected[language];
+          return <figure style={{margin:"12px 0 28px",padding:12,border:"1px solid #dce4eb",borderRadius:12}}>
+            <a href={src} target="_blank" rel="noopener noreferrer" aria-label={caption}>
+              <img src={src} alt={caption} loading="lazy" style={{display:"block",width:"100%",height:"auto",maxHeight:520,objectFit:"contain",borderRadius:8}} />
             </a>
-            <figcaption style={{fontSize:14,marginTop:10,color:"#3c566a"}}>{language==="RU"?"Анатомический атлас нервной системы. Нажмите, чтобы увеличить.":language==="EN"?"Anatomical atlas of the nervous system. Select to enlarge.":"Жүйке жүйесінің анатомиялық атласы. Үлкейту үшін басыңыз."}</figcaption>
-          </figure>
-        )}
-        {Number(moduleId) >= 1 && Number(moduleId) <= 10 && (
-          <figure style={{margin:"14px 0 24px",border:"1px solid #dce4eb",padding:12,borderRadius:12}}>
-            <a href={`/images/neuro-modules/module-${String(moduleId).padStart(2,"0")}.webp`} target="_blank" rel="noopener noreferrer">
-              <img
-                src={`/images/neuro-modules/module-${String(moduleId).padStart(2,"0")}.webp`}
-                loading="lazy"
-                alt={language==="RU"?`Иллюстрация физиологии нервной системы — модуль ${moduleId}`:language==="EN"?`Nervous system physiology illustration — module ${moduleId}`:`Жүйке жүйесі физиологиясының суреті — ${moduleId}-модуль`}
-                style={{width:"100%",height:"auto",maxHeight:560,objectFit:"contain",display:"block",borderRadius:8}}
-              />
-            </a>
-            <figcaption style={{fontSize:14,lineHeight:1.5,marginTop:8,color:"#3c566a"}}>
-              {language==="RU"?"Тематическая учебная иллюстрация. Нажмите, чтобы увеличить.":language==="EN"?"Topic illustration. Select to enlarge.":"Тақырыптық оқу суреті. Үлкейту үшін басыңыз."}
-            </figcaption>
-          </figure>
-        )}
+            <figcaption style={{fontSize:14,marginTop:10,color:"#3c566a"}}>{caption}</figcaption>
+          </figure>;
+        })()}
         <PhysiologyInfographic moduleId={Number(moduleId)} language={language} />
         <TheoryMedia moduleId={Number(moduleId)} language={language} />
         <LessonContent lesson={lesson} moduleId={moduleId} language={language} />
