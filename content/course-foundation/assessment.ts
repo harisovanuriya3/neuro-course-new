@@ -1,6 +1,7 @@
 import {physiologicalRelations} from "../physiological-relations";
 import {module4Cases} from "./module4-cases";
 import {module5Cases} from "./module5-cases";
+import {module6Cases} from "./module6-cases";
 import {withModule4Questions} from "./module4-tests";
 import {withModule5Questions} from "./module5-tests";
 import {termDefinitions} from "./topics";
@@ -111,7 +112,7 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
       :["Орташалау стимулмен байланыссыз шуды азайтады, бірақ бір уақытта қайталанатын компоненттерді, оның ішінде көз жыпылықтау артефактісін сақтайды.","ЭОГ, бейнежазба және бақылау сериясын тексермей тұрып шыңды қыртыстық жауап деуге ерте. Жыпылықтау азайғанда көзге қатысты компонент әлсіреуі керек, ал нейрондық жауап сақталуы мүмкін."]
   }] : [])
  ]};
- return topic.id===4 ? {...lesson,cases:module4Cases(l)} : topic.id===5 ? {...lesson,cases:module5Cases(l)} : lesson;
+ return topic.id===4 ? {...lesson,cases:module4Cases(l)} : topic.id===5 ? {...lesson,cases:module5Cases(l)} : topic.id===6 ? {...lesson,cases:module6Cases(l)} : lesson;
 }
 
 const testUi=(l:Language):TestUI=>({
