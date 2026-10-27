@@ -98,12 +98,11 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
             {lesson.ui.theory}
           </Link>
           <PracticeContent lesson={lesson} language={language} moduleId={moduleId} />
-          <PhysiologyInfographic moduleId={Number(moduleId)} language={language} />
           <AnatomyPathBuilder moduleId={Number(moduleId)} language={language} />
         </>
       );
     case "cases":
-      return <><CasesContent lesson={lesson} language={language} moduleId={Number(moduleId)} /><PhysiologyInfographic moduleId={Number(moduleId)} language={language} /><AnatomyPathBuilder moduleId={Number(moduleId)} language={language} /></>;
+      return <CasesContent lesson={lesson} language={language} moduleId={Number(moduleId)} />;
     case "tests":
       return <BranchingTestContent test={lesson} language={language} moduleId={Number(moduleId)} />;
     case "objectives": case "pretest": case "one-minute": case "clinical":
