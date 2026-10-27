@@ -50,17 +50,15 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
           if (!selected) return null;
           const src=selected.src;
           const caption=selected[language];
-          return <figure style={{margin:"12px 0 28px",padding:12,border:"1px solid #dce4eb",borderRadius:12}}>
-            <a href={src} target="_blank" rel="noopener noreferrer" aria-label={caption}>
-              <img src={src} alt={caption} loading="lazy" style={{display:"block",width:"100%",height:"auto",maxHeight:520,objectFit:"contain",borderRadius:8}} />
+          return <figure id={Number(moduleId)===1?"theory-visuals":undefined} style={{margin:"12px 0 28px",padding:"clamp(12px,2vw,20px)",border:"1px solid #dce4eb",borderRadius:12,display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,260px),1fr))",gap:20,alignItems:"center",background:"#f8fbfd"}}>
+            <a href={src} target="_blank" rel="noopener noreferrer" aria-label={caption} style={{display:"flex",justifyContent:"center",background:"#e9f3f7",borderRadius:10,padding:10}}>
+              <img src={src} alt={caption} loading="lazy" style={{display:"block",width:"auto",maxWidth:"100%",height:"clamp(230px,34vw,440px)",objectFit:"contain",borderRadius:8}} />
             </a>
-            <figcaption style={{fontSize:14,marginTop:10,color:"#3c566a"}}>
-              {caption}
-              {Number(moduleId) === 2 && (
-                <> — <a href="https://commons.wikimedia.org/wiki/File:EEG_recording.jpg" target="_blank" rel="noopener noreferrer">
-                  Petter Kallioinen / Wikimedia Commons, CC BY-SA 3.0
-                </a></>
-              )}
+            <figcaption style={{fontSize:16,lineHeight:1.7,color:"#28495f"}}>
+              <strong>{caption}</strong>
+              <p style={{margin:"12px 0 0"}}>{language==="RU"?"Рассмотрите препарат в увеличенном виде. Определите головной мозг, спинной мозг и их непрерывность. Изображение служит анатомическим ориентиром, а не схемой электрических сигналов.":language==="EN"?"Inspect the specimen at a larger scale. Identify the brain, spinal cord and their continuity. The image is an anatomical reference, not a map of electrical signaling.":"Препаратты үлкейтіп қараңыз. Бас миын, жұлынды және олардың жалғасуын анықтаңыз. Бұл электр сигналдарының сызбасы емес, анатомиялық бағдар."}</p>
+              {Number(moduleId) === 1 && <p style={{fontSize:13}}><a href="https://commons.wikimedia.org/wiki/File:Human_brain_and_spinal_cord.jpg" target="_blank" rel="noopener noreferrer">Z22 / Wikimedia Commons · CC BY-SA 4.0</a></p>}
+              {Number(moduleId) === 2 && <p style={{fontSize:13}}><a href="https://commons.wikimedia.org/wiki/File:EEG_recording.jpg" target="_blank" rel="noopener noreferrer">Petter Kallioinen / Wikimedia Commons · CC BY-SA 3.0</a></p>}
             </figcaption>
           </figure>;
         })()}
