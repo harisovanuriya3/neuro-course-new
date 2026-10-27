@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { Language } from "../content/course";
 import OrganizationAnimation from "./OrganizationAnimation";
 import FoundationMediaAnimation from "./FoundationMediaAnimation";
-import ReferenceImage from "./ReferenceImage";
 import EvokedPotentialInfographic from "./EvokedPotentialInfographic";
 
 const copy = {
@@ -41,9 +40,5 @@ export default function TheoryMedia({ moduleId, language }: { moduleId: number; 
       <p><a href={video.url} target="_blank" rel="noopener noreferrer">{c.watch}</a></p>
       {moduleId === 4 && <p>{c.unavailable}</p>}
     </details>}
-    {moduleId === 1 && <figure id="theory-visuals" style={{ margin: "20px 0 0" }}>
-      <ReferenceImage src="/images/anatomy/brain-spinal-cord.jpg" alt={c.brain} page="https://commons.wikimedia.org/wiki/File:Human_brain_and_spinal_cord.jpg" language={language} />
-      <figcaption><p>{c.brain}</p><a href="https://commons.wikimedia.org/wiki/File:Human_brain_and_spinal_cord.jpg" target="_blank" rel="noopener noreferrer">{c.source}</a> · Z22 · National Museum of Health and Medicine · CC BY-SA 4.0</figcaption>
-    </figure>}
   </section>;
 }
