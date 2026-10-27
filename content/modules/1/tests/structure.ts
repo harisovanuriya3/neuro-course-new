@@ -12,6 +12,16 @@ export const topics = [
   { id: "integration", anchor: "principles" },
   { id: "feedback", anchor: "cns-pns" },
   { id: "regulation", anchor: "functions" },
+  { id: "receptor", anchor: "cns-pns" },
+  { id: "ganglion", anchor: "cns-pns" },
+  { id: "spinal", anchor: "cns-pns" },
+  { id: "cranial", anchor: "cns-pns" },
+  { id: "motor", anchor: "functions" },
+  { id: "sensory", anchor: "cns-pns" },
+  { id: "reflex", anchor: "functions" },
+  { id: "plasticity", anchor: "functions" },
+  { id: "glia", anchor: "functions" },
+  { id: "homeostasis", anchor: "functions" },
 ] as const;
 
 export type TopicId = (typeof topics)[number]["id"];
