@@ -18,6 +18,7 @@ import { createModuleTenMedia } from "./course-foundation/module-ten-media";
 import { createModuleTenGlossary } from "./course-foundation/module-ten-glossary";
 import { createModuleElevenGlossary } from "./course-foundation/module-eleven-glossary";
 import { createModuleTenReferences } from "./course-foundation/module-ten-references";
+import { createModuleElevenReferences } from "./course-foundation/module-eleven-references";
 import { createModuleSevenReferences } from "./course-foundation/module-seven-references";
 import type { Language, LocalizedLesson, Section, Lesson, PracticeLesson } from "./types";
 import type { CasesLesson } from "./cases";
@@ -338,6 +339,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   11: {
     ...foundationLessons[11],
+    references: {
+      RU: createModuleElevenReferences("RU", foundationLessons[11].references.RU as import("./study").ReadingLesson),
+      EN: createModuleElevenReferences("EN", foundationLessons[11].references.EN as import("./study").ReadingLesson),
+      KZ: createModuleElevenReferences("KZ", foundationLessons[11].references.KZ as import("./study").ReadingLesson),
+    },
     glossary: { RU: createModuleElevenGlossary("RU", foundationLessons[11].glossary.RU as import("./study").GlossaryLesson), EN: createModuleElevenGlossary("EN", foundationLessons[11].glossary.EN as import("./study").GlossaryLesson), KZ: createModuleElevenGlossary("KZ", foundationLessons[11].glossary.KZ as import("./study").GlossaryLesson) },
     media: { RU: createModuleElevenMedia("RU", foundationLessons[11].media.RU as import("./media").MediaLesson), EN: createModuleElevenMedia("EN", foundationLessons[11].media.EN as import("./media").MediaLesson), KZ: createModuleElevenMedia("KZ", foundationLessons[11].media.KZ as import("./media").MediaLesson) },
     questions: { RU: createModuleElevenQuestions("RU"), EN: createModuleElevenQuestions("EN"), KZ: createModuleElevenQuestions("KZ") },
