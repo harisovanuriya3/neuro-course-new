@@ -1,4 +1,9 @@
 import {physiologicalRelations} from "../physiological-relations";
+import {module4Cases} from "./module4-cases";
+import {module5Cases} from "./module5-cases";
+import {module6Cases} from "./module6-cases";
+import {withModule4Questions} from "./module4-tests";
+import {withModule5Questions} from "./module5-tests";
 import {termDefinitions} from "./topics";
 import type { Language } from "../course";
 import type { CasesLesson } from "../cases";
@@ -8,7 +13,7 @@ import type { Topic } from "./topics";
 type Vignette = Record<Language,string>;
 const v=(RU:string,EN:string,KZ:string):Vignette=>({RU,EN,KZ});
 export const clinicalVignettes:Record<number,Vignette>={
- 2:v('Во время регистрации ЭЭГ у бодрствующего студента появляются крупные медленные отклонения одновременно с движением глаз. После фиксации взгляда они исчезают. Определите, что следует проверить до физиологической интерпретации записи.','During EEG recording in an awake student, large slow deflections appear with eye movements and disappear when gaze is fixed. Determine what must be checked before physiological interpretation.','Сергек студенттің ЭЭГ жазбасында көз қозғалысымен қатар ірі баяу ауытқулар пайда болып, көзқарас бекітілгенде жоғалады. Физиологиялық түсіндіруге дейін нені тексеру керегін анықтаңыз.'),
+ 2:v('У взрослого добровольца в трёх сериях с закрытыми глазами выражена затылочная альфа-активность 10 Гц. При открытии глаз её мощность снижается, а одновременное моргание вызывает крупные медленные отклонения во фронтальных отведениях. Разделите два механизма, назовите подходящие контрольные записи и объясните, почему по этому опыту нельзя установить заболевание.','In three eyes-closed epochs, an adult volunteer shows prominent occipital alpha activity at 10 Hz. Opening the eyes reduces alpha power, while concurrent blinking produces large slow frontal deflections. Distinguish the two mechanisms, propose control recordings and explain why these findings cannot establish a diagnosis.','Ересек еріктінің көз жұмылған үш жазбасында шүйде аймағында 10 Гц альфа белсенділігі анық көрінеді. Көз ашылғанда альфа қуаты төмендейді, ал қатар жүрген көз жыпылықтауы маңдайлық арналарда үлкен баяу ауытқулар туғызады. Екі механизмді ажыратып, бақылау жазбаларын ұсыныңыз және осы тәжірибемен ауруды неге анықтауға болмайтынын түсіндіріңіз.'),
  3:v('После демиелинизирующего повреждения аксон остаётся анатомически непрерывным, но проведение по нему замедляется и становится ненадёжным. Объясните, какая функция миелина нарушена и почему это меняет распространение импульса.','After a demyelinating lesion, an axon remains anatomically continuous but conduction becomes slow and unreliable. Explain which myelin function is lost and why impulse propagation changes.','Демиелинизациядан кейін аксон анатомиялық тұтас қалады, бірақ өткізу баяулап, сенімсіз болады. Миелиннің қандай қызметі бұзылғанын және импульс таралуы неге өзгеретінін түсіндіріңіз.'),
  4:v('В экспериментальной модели повышают внеклеточную концентрацию K⁺. Мембранный потенциал нейрона становится менее отрицательным. Предскажите влияние дальнейшей устойчивой деполяризации на доступность потенциал-зависимых Na⁺-каналов и способность генерировать импульсы.','In an experimental model, extracellular K⁺ is increased and the neuronal membrane potential becomes less negative. Predict how sustained further depolarization affects voltage-gated Na⁺-channel availability and spike generation.','Эксперименттік модельде жасушадан тыс K⁺ артады, нейрон мембранасының потенциалы азырақ теріс болады. Ұзақ деполяризация кернеуге тәуелді Na⁺ арналарының қолжетімділігіне және импульс түзуге қалай әсер ететінін болжаңыз.'),
  5:v('В пресинаптическом окончании уменьшают вход Ca²⁺ при неизменном потенциале действия аксона. Постсинаптический ответ ослабевает. Объясните связь между Ca²⁺, экзоцитозом везикул и величиной постсинаптического ответа.','Presynaptic Ca²⁺ entry is reduced while the axonal action potential is unchanged. The postsynaptic response becomes smaller. Explain the link among Ca²⁺ entry, vesicle exocytosis and postsynaptic response size.','Аксон әрекет потенциалы өзгермей, пресинапстық Ca²⁺ енуі азаяды. Постсинапстық жауап әлсірейді. Ca²⁺ енуі, везикула экзоцитозы және постсинапстық жауап шамасы арасындағы байланысты түсіндіріңіз.'),
@@ -51,7 +56,7 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
   : l==="EN"
    ? `Return to Case 1. Propose a possible new observation that would contradict your initial hypothesis. Clearly distinguish your hypothetical result from the supplied case data. Identify an alternative hypothesis and a measurement needed to test it.`
    : `1-жағдайға оралыңыз. Бастапқы болжамыңызға қайшы келетін ықтимал жаңа бақылауды ұсыныңыз. Өзіңіз ойластырған нәтижені шартта берілген деректерден анық ажыратыңыз. Балама болжам мен оны тексеруге қажетті өлшеуді атаңыз.`;
- return {kind:"cases",title:l==="RU"?"Ситуационные задачи":l==="EN"?"Case Problems":"Ситуациялық тапсырмалар",moduleTitle,
+ const lesson:CasesLesson={kind:"cases",title:l==="RU"?"Ситуационные задачи":l==="EN"?"Case Problems":"Ситуациялық тапсырмалар",moduleTitle,
  introduction:l==="RU"?"Здесь не нужно пересказывать теорию. Работайте с данными: выделите ключевой признак, локализуйте нарушенное звено, постройте причинную цепь и назовите проверку, которая отличит вашу гипотезу от альтернативной.":l==="EN"?"Do not retell the theory here. Work from the data: identify the key finding, localize the disturbed link, build a causal chain, and choose a check that distinguishes your hypothesis from an alternative.":"Мұнда теорияны қайталау қажет емес. Деректермен жұмыс істеңіз: негізгі белгіні анықтаңыз, бұзылған буынды локализациялаңыз, себептік тізбек құрыңыз және болжамыңызды баламадан ажырататын тексеруді атаңыз.",
  ui:ui(l),cases:[
   {id:`m${topic.id}-localization`,title:l==="RU"?"Задача 1. Локализация по данным":l==="EN"?"Case 1. Data-driven localization":"1-жағдай. Деректер бойынша локализация",situation:task,stages:[
@@ -82,8 +87,32 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
    ]}
   ],explanation:[
     l==="RU" ? "Сильный ответ формулирует две конкурирующие физиологические гипотезы и выбирает измерение, для которого они предсказывают разные результаты." : l==="EN" ? "A strong answer states two competing physiological hypotheses and selects a measurement for which they predict different outcomes." : "Күшті жауап екі бәсекелес физиологиялық болжамды тұжырымдап, олар әртүрлі нәтиже болжайтын өлшеуді таңдайды."
-  ]}
+  ]},
+
+  ...(topic.id===2 ? [{
+    id:"m2-evoked-averaging",
+    title:l==="RU"?"Задача 3. Истинный вызванный ответ или артефакт?":l==="EN"?"Case 3. Evoked response or artifact?":"3-жағдай. Шынайы жауап па, әлде артефакт па?",
+    situation:l==="RU"
+      ?"Во время исследования слуховых вызванных потенциалов пациенту предъявляли 100 одинаковых звуковых стимулов. На отдельных пробах видны небольшие колебания ЭЭГ и крупное фронтальное отклонение примерно через 70 мс. При усреднении случайные колебания уменьшаются, но фронтальный пик остаётся. Видеозапись показывает, что пациент моргал после большинства стимулов. Исследователь назвал оставшийся пик корковым ответом. Оцените этот вывод."
+      :l==="EN"
+      ?"During an auditory evoked-potential experiment, 100 identical sounds were presented. Individual EEG epochs contain varying background fluctuations and a prominent frontal deflection around 70 ms. Averaging suppresses the variable background but leaves the frontal peak. Video shows that the participant blinked after most stimuli. The investigator calls the remaining peak a cortical response. Evaluate this inference."
+      :"Есту шақырылған потенциалын зерттегенде 100 бірдей дыбыстық стимул берілді. Жеке ЭЭГ үзінділерінде кездейсоқ ауытқулар және шамамен 70 мс-та маңдай аймағында ірі толқын көрінеді. Орташалау фондық ауытқуларды азайтқанымен, маңдайдағы шың сақталады. Бейнежазба бойынша қатысушы стимулдардың көбінен кейін көзін жыпылықтатқан. Зерттеуші осы шыңды қыртыстық жауап деп атады. Бұл қорытындыны бағалаңыз.",
+    stages:[
+      {title:l==="RU"?"Данные и предварительный вывод":l==="EN"?"Evidence and provisional conclusion":"Деректер және бастапқы қорытынды",
+       questions:[l==="RU"?"Какие два факта указывают на возможное происхождение пика от движения глаз?":l==="EN"?"Which two observations suggest an ocular origin of the peak?":"Қандай екі дерек шыңның көз қозғалысымен байланысты екенін көрсетеді?",
+       l==="RU"?"Почему исчезновение случайного шума не доказывает, что оставшийся пик является нейронным?":l==="EN"?"Why does removal of unrelated noise not establish that the remaining peak is neural?":"Кездейсоқ шудың азаюы қалған шыңның нейрондық екенін неге дәлелдемейді?"]},
+      {title:l==="RU"?"Контрольный опыт":l==="EN"?"Controlled repeat":"Бақылау тәжірибесі",
+       questions:[l==="RU"?"Предложите повторную запись с контролем моргания и дополнительным каналом ЭОГ. Какие изменения ожидаются, если пик вызван морганием?":l==="EN"?"Propose a repeat recording with blink control and an EOG channel. What change is expected if the peak is ocular?":"Көз жыпылықтауын бақылап және ЭОГ арнасын қосып қайта жазуды ұсыныңыз. Егер шың көз қозғалысына байланысты болса, қандай нәтиже күтіледі?",
+       l==="RU"?"Какие признаки — форма, топография, латентность и воспроизводимость — необходимо сопоставить с ожидаемым вызванным потенциалом?":l==="EN"?"Which features—waveform, scalp topography, latency and replication—should be checked against an expected evoked response?":"Толқын пішіні, топографиясы, латенттілігі мен қайталануын күтілетін шақырылған жауаппен қалай салыстырасыз?"]}
+    ],
+    explanation:l==="RU"
+      ?["Усреднение подавляет независимую, не связанную со стимулом составляющую, но сохраняет любые достаточно устойчивые компоненты, синхронные стимулу, в том числе моргание.","До проверки ЭОГ, видеозаписи и контрольной серии вывод о корковом происхождении пика преждевременен. При уменьшении моргания глазной компонент должен ослабнуть, хотя истинный нейронный ответ может сохраниться."]
+      :l==="EN"
+      ?["Averaging reduces independent, stimulus-unrelated noise, but retains consistently stimulus-locked activity, including a blink artifact.","A cortical interpretation is premature without EOG, video and control trials. Reducing blinks should attenuate the ocular component while a genuine neural response may persist."]
+      :["Орташалау стимулмен байланыссыз шуды азайтады, бірақ бір уақытта қайталанатын компоненттерді, оның ішінде көз жыпылықтау артефактісін сақтайды.","ЭОГ, бейнежазба және бақылау сериясын тексермей тұрып шыңды қыртыстық жауап деуге ерте. Жыпылықтау азайғанда көзге қатысты компонент әлсіреуі керек, ал нейрондық жауап сақталуы мүмкін."]
+  }] : [])
  ]};
+ return topic.id===4 ? {...lesson,cases:module4Cases(l)} : topic.id===5 ? {...lesson,cases:module5Cases(l)} : topic.id===6 ? {...lesson,cases:module6Cases(l)} : lesson;
 }
 
 const testUi=(l:Language):TestUI=>({
@@ -191,11 +220,12 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   "justification:review-2":{id:"justification:review-2",type:"remediation",competency:justifyComp,depth:2,text:l==="RU"?"Сравните свою причинную цепь с теорией: найдите первое звено, где направление связи расходится, и исправьте только его.":l==="EN"?"Compare your causal chain with the theory: find the first link where the direction differs and correct only that link.":"Себептік тізбегіңізді теориямен салыстырыңыз: бағыт сәйкес келмейтін алғашқы буынды тауып, тек соны түзетіңіз.",theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:jBasic},
   [jBasic]:{id:jBasic,type:"question",level:"basic",competency:justifyComp,prompt:justificationPrompt,options:opts(justificationCorrect,justificationWrong2,justificationWrong3,justificationWrong1),correctAnswer:"a",explanation:l==="RU"?"Хорошее обоснование объясняет причинную связь и не делает вывод сильнее, чем позволяют данные.":l==="EN"?"A good justification explains the causal link without making a stronger claim than the data support.":"Жақсы негіздеме себептік байланысты түсіндіреді және деректерден артық қорытынды жасамайды.",onCorrect:"end",onIncorrect:"end"}
  };
- return {kind:"tests",title:l==="RU"?"Тест с разбором":l==="EN"?"Test with Feedback":"Түсіндірмесі бар тест",moduleTitle,ui:testUi(l),start:cMain,mainIds:[cMain,mMain,aMain,tMain,jMain],competencies:{
+ const lesson:BranchingTest={kind:"tests",title:l==="RU"?"Тест с разбором":l==="EN"?"Test with Feedback":"Түсіндірмесі бар тест",moduleTitle,ui:testUi(l),start:cMain,mainIds:[cMain,mMain,aMain,tMain,jMain],competencies:{
   [conceptComp]:{title:l==="RU"?"Ключевые понятия":l==="EN"?"Key concepts":"Негізгі ұғымдар",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [mechComp]:{title:l==="RU"?"Механизм":l==="EN"?"Mechanism":"Тетік",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [appComp]:{title:l==="RU"?"Применение и интерпретация":l==="EN"?"Application and interpretation":"Қолдану және түсіндіру",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}},
   transfer:{title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [justifyComp]:{title:l==="RU"?"Обоснование вывода":l==="EN"?"Justification of conclusion":"Қорытындыны негіздеу",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}}
  },nodes};
+ return topic.id===4 ? withModule4Questions(lesson,l) : topic.id===5 ? withModule5Questions(lesson,l) : lesson;
 }

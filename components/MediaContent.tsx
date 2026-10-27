@@ -8,6 +8,7 @@ import shared from "./PracticeContent.module.css";
 import styles from "./MediaContent.module.css";
 import OrganizationAnimation from "./OrganizationAnimation";
 import FoundationMediaAnimation from "./FoundationMediaAnimation";
+import TeacherVideoGallery from "./TeacherVideoGallery";
 
 function durationLabel(seconds?: number) {
   if (seconds === undefined || !Number.isFinite(seconds) || seconds <= 0) return null;
@@ -77,6 +78,7 @@ export default function MediaContent({ lesson, moduleId, language }: { lesson: M
   const ui = lesson.ui;
   return <article className={`${shared.practice} ${styles.media}`} data-testid="media-content" lang={language === "KZ" ? "kk" : language.toLowerCase()}>
     <h1>{lesson.title}</h1><p>{lesson.introduction}</p>
+    <TeacherVideoGallery moduleId={Number(moduleId)} language={language} />
     {lesson.blocks.map((block, index) => <section key={block.id} id={`media-${block.id}`} data-media={block.id} className={shared.card} aria-labelledby={`${block.id}-title`}>
       <h2 id={`${block.id}-title`}>{index + 1}. {block.title}</h2>
       <p><strong>{ui.preview}: </strong>{block.preview}</p>

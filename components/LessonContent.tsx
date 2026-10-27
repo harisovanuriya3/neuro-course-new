@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ContentBlock, Lesson } from "../content/types";
 import styles from "./LessonContent.module.css";
 
@@ -14,7 +15,12 @@ function Block({ block }: { block: ContentBlock }) {
   }
 }
 
-export default function LessonContent({ lesson }: { lesson: Lesson }) {
+export default function LessonContent({ lesson, moduleId, language }: { lesson: Lesson; moduleId: string; language: "RU" | "EN" | "KZ" }) {
+  const glossaryId = (term: string) => {
+    const normalized = term.normalize("NFKC").toLocaleLowerCase().trim();
+    const found = lesson.terms.items.findIndex(item => item.normalize("NFKC").toLocaleLowerCase().trim() === normalized);
+    return found < 0 ? "" : `#module-${moduleId}-term-${found + 1}`;
+  };
   return (
     <article className={styles.lesson}>
       <h1>{lesson.title}</h1>
@@ -29,9 +35,9 @@ export default function LessonContent({ lesson }: { lesson: Lesson }) {
         <p>{lesson.outcomes.introduction}</p>
         <ul>{lesson.outcomes.items.map((item) => <li key={item}>{item}</li>)}</ul>
       </section>
-      <section className={styles.terms}>
+      <section id="key-terms" className={styles.terms}>
         <h2>{lesson.terms.title}</h2>
-        <ul>{lesson.terms.items.map((item) => <li key={item}>{item}</li>)}</ul>
+        <ul>{lesson.terms.items.map((item) => <li key={item}><Link href={`/modules/${moduleId}/glossary?lang=${language}${glossaryId(item)}`}>{item}</Link></li>)}</ul>
       </section>
     </article>
   );

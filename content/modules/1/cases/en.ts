@@ -109,6 +109,127 @@ const lesson: CasesLesson = {
       diagram: ["Stimuli / environmental changes", "Receptors", "Afferent pathways", "CNS and integration", "Efferent pathways", "Effectors", "Response", "Sensory feedback", "Subsequent correction"],
     },
     {
+      id: "sensory-reweighting-experiment", title: "Experiment: changing sensory feedback",
+      situation: "A volunteer stands on a stable force platform with eyes open, then closes their eyes without changing foot position. Mean center-of-pressure sway speed rises from 7 to 12 mm/s. When the eyes reopen, sway decreases. The participant neither falls nor shows muscle weakness.",
+      stages: [
+        { title: "What was measured?", questions: ["Identify the manipulated condition and two directly observed findings.","Does this result alone establish dysfunction of vestibular receptors?"] },
+        { title: "Explain the mechanism", questions: ["How can vision help limit postural sway?","Which sensory signals remain with eyes closed, and how does the CNS combine them with motor commands?"] },
+        { title: "Test another explanation", questions: ["How would you control for changes in stance width, fatigue or instructions?","What would you predict if the experiment were repeated on a compliant foam surface, and why?"] },
+      ],
+      explanation: ["Closing the eyes removes one source of sensory information. Increased center-of-pressure sway demonstrates altered postural control but does not itself diagnose dysfunction of a specific nervous-system structure.","Visual, vestibular and somatosensory inputs contribute to estimating body position. Central circuits generate corrective muscle commands, and ongoing afferent feedback supports continuous adjustment.","Keep stance width, surface and instructions consistent, repeat trials and assess fatigue. Foam changes the reliability of somatosensory information and may increase reliance on other sensory inputs."],
+      diagram: ["Vision and proprioception","Central integration","Muscle commands","Postural sway","Sensory feedback"],
+    },
+    {
+      id: "myelin-conduction-clinical", title: "Clinical bridge: impaired myelinated-axon conduction",
+      situation: "After an inflammatory illness, a patient develops weakness of ankle dorsiflexion and reduced motor nerve conduction velocity. Nerve conduction testing shows increased response latency and substantial temporal dispersion, with reduced muscle strength. These are educational data and do not by themselves establish a specific diagnosis.",
+      stages: [
+        { title: "From impulse to measurement", questions: ["What does a nerve conduction study actually measure?","Why is response latency not a direct measurement of muscle strength?"] },
+        { title: "Build a physiological hypothesis", questions: ["How can myelin injury affect conduction velocity and temporal synchrony?","What other forms of injury might influence the amplitude of the muscle response?"] },
+        { title: "Make a cautious inference", questions: ["Why can a single test not establish every cause and lesion site?","Which clinical and electrophysiological findings should be considered together?"] },
+      ],
+      explanation: ["Peripheral nerve conduction studies assess electrical responses following nerve stimulation, including latency, amplitude and compound muscle action potential shape; they do not directly measure muscle force.","Myelin damage may slow impulse conduction, increase temporal dispersion and cause conduction block. Reduced response amplitude can have different causes, including axonal loss, and should not be interpreted in isolation.","Interpretation requires stimulation-site details, limb temperature, artifact checks, weakness distribution, sensory examination, reflexes and potentially needle electromyography. Diagnosis depends on the full clinical context."],
+    },
+    {
+      id: "neuromuscular-transmission-lab", title: "Laboratory case: locating a transmission deficit",
+      situation: "During motor-nerve stimulation, an action potential is recorded in the distal axon, but the compound muscle response is smaller than the control response. With closely spaced repeated stimuli, it decreases further. Temperature, electrode placement and stimulus strength are controlled. These are simulated teaching data, not a patient diagnosis.",
+      stages: [
+        { title: "Describe the observations", questions: ["Which two signals are recorded by different electrodes?","What can be concluded about conduction up to the axonal recording site?"] },
+        { title: "Explain the mechanism", questions: ["Which steps between arrival of the impulse and muscle contraction might be affected?","Why cannot the smaller muscle response be attributed solely to a myelin defect without further evidence?"] },
+        { title: "Plan verification", questions: ["What further electrophysiological or clinical measurements could help locate the problem?","Why must temperature, electrode position and reproducible stimulation be controlled?"] },
+      ],
+      explanation: ["The recorded nerve action potential shows that an impulse reached the recording site; the compound muscle response represents the electrical activity of muscle fibers after additional transmission steps.","Neuromuscular transmission, muscle membrane excitability and other links may affect the response. Decrement during repeated stimulation can be informative, but interpretation depends on the exact protocol and exclusion of artifacts.","Repeated nerve conduction measurements, compound muscle action potential analysis and, when indicated, needle EMG help localization. A specific disorder cannot be diagnosed from these limited findings alone."],
+    },
+    {
+      id: "receptor-adaptation", title: "Receptor adaptation",
+      situation: "During sustained gentle skin pressure, firing of a rapidly adapting mechanoreceptor is initially high and then falls despite continued pressure.",
+      stages: [
+        { title: "Evidence", questions: ["How do the physical stimulus and neural signal differ?"] },
+        { title: "Physiological mechanism", questions: ["Why does declining firing not prove that pressure has ended?"] },
+        { title: "Controls and conclusion", questions: ["How would you compare rapidly and slowly adapting receptors?"] },
+      ],
+      explanation: ["Adaptation changes the encoding of a sustained stimulus; slowly adapting receptors preserve information about its continuation longer."],
+    },
+    {
+      id: "stimulus-frequency", title: "Stimulus intensity and firing rate",
+      situation: "With increasing skin pressure, action-potential firing rate rises in one afferent fiber but the amplitude of each recorded spike remains nearly constant.",
+      stages: [
+        { title: "Evidence", questions: ["Which parameter encodes increasing stimulation?"] },
+        { title: "Physiological mechanism", questions: ["Why does spike amplitude not rise in proportion to pressure?"] },
+        { title: "Controls and conclusion", questions: ["How might recruitment change as the stimulus grows?"] },
+      ],
+      explanation: ["Stimulus intensity can be encoded by firing frequency and recruitment of receptor units rather than by larger individual action potentials."],
+    },
+    {
+      id: "spinal-withdrawal", title: "Protective spinal reflex",
+      situation: "A person touches a very hot surface and withdraws the hand before consciously identifying the exact site of pain.",
+      stages: [
+        { title: "Evidence", questions: ["Which links organize the early withdrawal?"] },
+        { title: "Physiological mechanism", questions: ["Why can conscious perception follow movement?"] },
+        { title: "Controls and conclusion", questions: ["What happens if the efferent part of the reflex circuit is damaged?"] },
+      ],
+      explanation: ["Spinal circuits can generate rapid protective movement; ascending pathways support conscious perception, whereas efferent damage weakens the motor response."],
+    },
+    {
+      id: "patellar-reflex", title: "Patellar reflex and inhibition",
+      situation: "A tap on the quadriceps tendon produces knee extension while activity of some antagonist flexor motor neurons is suppressed.",
+      stages: [
+        { title: "Evidence", questions: ["Which receptor detects muscle stretch?"] },
+        { title: "Physiological mechanism", questions: ["Why is extensor excitation accompanied by antagonist inhibition?"] },
+        { title: "Controls and conclusion", questions: ["How could peripheral nerve damage alter the reflex independently of conscious movement planning?"] },
+      ],
+      explanation: ["Muscle spindles detect stretch; spinal connections excite extensor motor neurons and recruit inhibitory interneurons affecting antagonists."],
+    },
+    {
+      id: "reaction-time", title: "Reaction time and response selection",
+      situation: "A participant presses one button after a tone in 210 ms; when choosing among three buttons based on distinct tones, mean reaction time is 360 ms.",
+      stages: [
+        { title: "Evidence", questions: ["What changed between the experimental conditions?"] },
+        { title: "Physiological mechanism", questions: ["Why does the longer time not establish slower axonal conduction?"] },
+        { title: "Controls and conclusion", questions: ["How would you control for practice and anticipation?"] },
+      ],
+      explanation: ["Choice tasks add discrimination and decision processes; measured reaction time includes sensory, central and motor components."],
+    },
+    {
+      id: "autonomic-standing", title: "Autonomic regulation on standing",
+      situation: "After moving from supine to standing, a healthy volunteer experiences a brief blood-pressure fall followed by increased heart rate and partial pressure recovery.",
+      stages: [
+        { title: "Evidence", questions: ["Which mechanoreceptors help regulate the immediate response?"] },
+        { title: "Physiological mechanism", questions: ["How do autonomic influences on the heart and vessels change?"] },
+        { title: "Controls and conclusion", questions: ["Why is this not solely a voluntary skeletal-muscle reflex?"] },
+      ],
+      explanation: ["Arterial baroreceptors report changes in vessel-wall stretch to brainstem centers; reduced baroreceptor input generally increases sympathetic and decreases vagal influence."],
+    },
+    {
+      id: "temperature-control", title: "Thermoregulation and feedback",
+      situation: "Skin cooling causes cutaneous vasoconstriction; with greater cooling, shivering may develop.",
+      stages: [
+        { title: "Evidence", questions: ["Which sensory inputs initiate the response?"] },
+        { title: "Physiological mechanism", questions: ["How do effector responses limit heat loss or increase heat production?"] },
+        { title: "Controls and conclusion", questions: ["Why is skin cooling not identical to a fall in core temperature?"] },
+      ],
+      explanation: ["Thermoreceptor inputs are integrated by central networks including the hypothalamus; vasoconstriction reduces heat loss and shivering increases heat production."],
+    },
+    {
+      id: "eeg-artifact", title: "EEG signal or artifact",
+      situation: "During scalp EEG, a participant blinks. A large slow deflection appears in frontal channels while the occipital rhythm remains largely unchanged.",
+      stages: [
+        { title: "Evidence", questions: ["What observations suggest an ocular artifact?"] },
+        { title: "Physiological mechanism", questions: ["Why must the waveform not automatically be labeled a pathological cortical discharge?"] },
+        { title: "Controls and conclusion", questions: ["What control recordings could help verify its source?"] },
+      ],
+      explanation: ["Blinking and eye movements generate electrical artifacts prominent over anterior electrodes; time-locking and electrooculography can clarify their origin."],
+    },
+    {
+      id: "emg-vs-force", title: "EMG versus muscle force",
+      situation: "During a progressively loaded task, forearm surface EMG amplitude increases but its relation to measured force is nonlinear.",
+      stages: [
+        { title: "Evidence", questions: ["What physical signal is recorded by EMG?"] },
+        { title: "Physiological mechanism", questions: ["Why is EMG amplitude not a direct readout of contraction force?"] },
+        { title: "Controls and conclusion", questions: ["Which factors, including electrode position and fatigue, require control?"] },
+      ],
+      explanation: ["EMG reflects summated electrical activity of motor units; force also depends on muscle mechanics, length, contraction velocity and other conditions."],
+    },
+    {
       id: "crossed", title: "Sensory pathways and crossing",
       situation: "A person feels touch on the right hand. The signal must travel from a peripheral receptor to brain structures.",
       stages: [{ title: "Trace the sensory route", questions: ["Where is the receptor located?","How do peripheral and central parts of the pathway differ?","Can the exact level of pathway crossing be identified from this description?"] }],
