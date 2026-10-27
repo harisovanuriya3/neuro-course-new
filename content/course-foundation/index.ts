@@ -1089,17 +1089,12 @@ function create(
   };
 }
 
-export const foundationLessons: Partial<
-  Record<
-    number,
-    Partial<
-      Record<
-        Section,
-        LocalizedLesson
-      >
-    >
-  >
-> = Object.fromEntries(
+// The generator supplies all twelve foundation sections in every language
+// for modules 2–25. Validate this runtime invariant before narrowing the type;
+// do not silently treat a missing translation as a complete lesson.
+type FoundationModuleId = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25;
+type FoundationSection = (typeof foundationSections)[number];
+const generatedFoundationLessons = Object.fromEntries(
   topics.map((topic) => [
     topic.id,
 
@@ -1130,3 +1125,19 @@ export const foundationLessons: Partial<
     ),
   ]),
 );
+
+const foundationById = generatedFoundationLessons as Record<number, Partial<Record<FoundationSection, LocalizedLesson>>>;
+for (let moduleId = 2; moduleId <= 25; moduleId++) {
+  const bySection = foundationById[moduleId];
+  if (!bySection) throw new Error(`Missing foundation lessons for module ${moduleId}`);
+  for (const section of foundationSections) {
+    const localized = bySection[section];
+    if (!localized?.RU || !localized.EN || !localized.KZ) {
+      throw new Error(`Missing foundation lesson ${moduleId}/${section} in RU/EN/KZ`);
+    }
+  }
+}
+export const foundationLessons = generatedFoundationLessons as Record<
+  FoundationModuleId,
+  Record<FoundationSection, LocalizedLesson>
+>;
