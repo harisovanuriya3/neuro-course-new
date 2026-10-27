@@ -24,7 +24,7 @@ const context={};vm.runInNewContext(js,context);
 const review=context.review;
 assert.deepEqual(Object.keys(review).sort(),["EN","KZ","RU"]);
 const markers={
- RU:["кортикоспиналь","пирамид","α-мотонейрон","базальн","проприоцеп","веретен","Гольджи","не проверяются автоматически"],
+ RU:["кортикоспиналь","пирамид","α-мотонейрон","базальн","проприорецеп","веретен","Гольджи","не проверяются автоматически"],
  EN:["corticospinal","pyramids","alpha motor","basal ganglia","proprioceptive","spindle","Golgi","not automatically graded"],
  KZ:["кортикоспинал","пирамид","α-мотонейрон","базальды","проприоцеп","ұршығы","Гольджи","автоматты түрде бағаланбайды"]
 };
