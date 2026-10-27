@@ -103,7 +103,7 @@ const steps: Record<Language, Step[]> = {
       "Which final interpretation of lesion side and level respects the evidence and its limits?",
       "The teaching case is complete. Examination and the stipulated MRI are consistent with a partial left-sided spinal cord lesion near segment T10.",
       "State the most likely left spinal localization, explain the relevant crossings and note that etiology and exact extent require further assessment.",
-      "Claim that intact light touch entirely rules out dorsal-column damage.",
+      "Claim that preserved light touch by itself rules out dorsal-column damage despite impaired vibration and position sense.",
       "Name the T10 vertebra and a single cause of injury without vertebral imaging or history.",
       "This is an educational localization, not a patient-specific diagnosis: dorsal-column fibers cross in the medulla, pain-temperature fibers in the cord, and the corticospinal tract at the medullary pyramids. Vertebral and segmental levels differ."
     ]
