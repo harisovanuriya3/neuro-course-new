@@ -121,7 +121,11 @@ const extra = [
 ] as const;
 
 export function createModuleTenGlossary(language: Language, base: GlossaryLesson): GlossaryLesson {
-  if (base.kind !== "glossary" || base.terms.length !== 2) {
+  // The shared foundation may also append reviewed supplementary terms.
+  // Validate the two original entries by ID, not the total array length.
+  if (base.kind !== "glossary" ||
+      base.terms[0]?.id !== "module-10-term-1" ||
+      base.terms[1]?.id !== "module-10-term-2") {
     throw new Error("Module 10 glossary requires the two original foundation terms");
   }
   return {
@@ -132,11 +136,11 @@ export function createModuleTenGlossary(language: Language, base: GlossaryLesson
       "Ми бағанының құрылысын рефлекстермен, сергектікпен және вегетативтік реттелумен байланыстырыңыз. Афференттік пен эфференттік жолдарды ажыратыңыз; бір сақталған рефлекс немесе шақырылған жауап сананың деңгейін анықтамайды."
     )[language],
     terms: [
-      ...base.terms.map((entry, index) => ({
+      ...base.terms.map((entry, index) => index < 2 ? ({
         ...entry,
         definition: baseDefinitions[index][language],
         target: { section: "theory" as const, anchor: arousal }
-      })),
+      }) : entry),
       ...extra.map(entry => ({
         id: "module-10-glossary-" + entry.id,
         term: entry.term[language],
