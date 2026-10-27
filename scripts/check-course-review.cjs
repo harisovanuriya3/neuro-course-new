@@ -19,7 +19,7 @@ for(const lang of ['RU','EN','KZ']){
    assert(lesson,`${id}/${section}/${lang}: missing content`);assert(lesson.title?.trim());lessons++;
    if(section==='tests'){
     validateTest(lesson);tests++;
-    const graphNodes=Array.isArray(lesson.nodes)?lesson.nodes:[];
+    const graphNodes=Object.values(lesson.nodes||{});
     const questionNodes=graphNodes.filter(node=>Array.isArray(node.options)&&node.options.length);
     for(const node of questionNodes){
       assert.equal(node.options.length,4,`${id}/${section}/${lang}/${node.id}: expected exactly 4 answers`);
