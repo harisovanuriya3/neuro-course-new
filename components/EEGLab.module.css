@@ -10,3 +10,14 @@
 @media(max-width:1100px){.workspace{grid-template-columns:1fr}.protocol{grid-template-columns:1fr 1fr}.protocol>section:last-child{grid-column:1/-1}.visualLab{grid-template-columns:minmax(290px,.7fr) minmax(400px,1.3fr)}}
 @media(max-width:760px){.hero{align-items:flex-start;padding:24px}.heroBadge{display:none}.instructions,.debrief,.visualLab,.protocol{grid-template-columns:1fr}.protocol>section:last-child{grid-column:auto}.comparison{grid-template-columns:1fr}.sceneHeader,.patientState{align-items:flex-start;flex-direction:column}.monitor{padding:12px}.learningPath>div{display:grid}.learningPath a{text-align:center}}
 @media(max-width:420px){.lab{padding:8px}.hero h1{font-size:2rem}.modeGrid{grid-template-columns:1fr}.instructions section{padding:14px}.debrief>div{padding:18px}.debrief div>b{position:static;margin-bottom:10px}}
+
+/* Animated participant: gaze shifts produce ocular artifacts during recording; blinks remain visible in waking modes. */
+.eyesOpen .pupils{transform-box:fill-box;transform-origin:center;animation:patientBlink 6s ease-in-out infinite}
+.eyesOpen[data-tracking=true] .pupils{animation:patientGaze 2.1s ease-in-out infinite}
+.eyesOpen[data-mental=true] .pupils{animation:patientThink 4s ease-in-out infinite}
+.blinkLid{fill:none;stroke:#865f56;stroke-width:3;stroke-linecap:round;opacity:0;animation:patientLid 6s linear infinite}
+@keyframes patientGaze{0%,100%{transform:translateX(-8px)}45%,60%{transform:translateX(8px)}}
+@keyframes patientThink{0%,100%{transform:translate(0,0)}50%{transform:translate(0,-3px)}}
+@keyframes patientBlink{0%,94%,100%{opacity:1}96%{opacity:0}}
+@keyframes patientLid{0%,94%,100%{opacity:0}96%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.eyesOpen .pupils,.eyesOpen[data-tracking=true] .pupils,.eyesOpen[data-mental=true] .pupils,.blinkLid{animation:none}}
