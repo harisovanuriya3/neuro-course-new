@@ -50,9 +50,9 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
           if (!selected) return null;
           const src=selected.src;
           const caption=selected[language];
-          return <figure id={Number(moduleId)===1?"theory-visuals":undefined} style={{margin:"12px 0 28px",padding:"clamp(12px,2vw,20px)",border:"1px solid #dce4eb",borderRadius:12,display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,260px),1fr))",gap:20,alignItems:"center",background:"#f8fbfd"}}>
-            <a href={src} target="_blank" rel="noopener noreferrer" aria-label={caption} style={{display:"flex",justifyContent:"center",background:"#e9f3f7",borderRadius:10,padding:10}}>
-              <img src={src} alt={caption} loading="lazy" style={{display:"block",width:"auto",maxWidth:"100%",height:"clamp(230px,34vw,440px)",objectFit:"contain",borderRadius:8}} />
+          return <figure id={Number(moduleId)===1?"theory-visuals":undefined} style={{margin:"12px 0 28px",padding:"clamp(12px,2vw,20px)",border:"1px solid #dce4eb",borderRadius:12,display:"grid",gridTemplateColumns:"minmax(0,1fr)",gap:14,alignItems:"start",background:"#f8fbfd"}}>
+            <a href={src} target="_blank" rel="noopener noreferrer" aria-label={caption} style={{display:"flex",justifyContent:"center",alignItems:"center",background:"#e9f3f7",borderRadius:10,padding:12,maxWidth:"100%"}}>
+              <img src={src} alt={caption} loading="lazy" style={{display:"block",width:"auto",maxWidth:"100%",height:"min(52vw,440px)",minHeight:240,objectFit:"contain",borderRadius:8}} />
             </a>
             <figcaption style={{fontSize:16,lineHeight:1.7,color:"#28495f"}}>
               <strong>{caption}</strong>
