@@ -1,3 +1,4 @@
+import { createModuleTwelveClinical } from "./course-foundation/module-twelve-clinical";
 import { createModuleElevenMedia } from "./course-foundation/module-eleven-media";
 import { createModuleElevenClinical } from "./course-foundation/module-eleven-clinical";
 import { createModuleElevenObjectives } from "./course-foundation/module-eleven-objectives";
@@ -343,6 +344,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   12: {
     ...foundationLessons[12],
+    clinical: {
+      RU: createModuleTwelveClinical("RU"),
+      EN: createModuleTwelveClinical("EN"),
+      KZ: createModuleTwelveClinical("KZ"),
+    },
     objectives: {
       RU: createModuleTwelveObjectives("RU"),
       EN: createModuleTwelveObjectives("EN"),
