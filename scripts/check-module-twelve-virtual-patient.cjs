@@ -14,9 +14,9 @@ const compiled=ts.transpileModule(source,{
 });
 assert.equal((compiled.diagnostics||[]).filter(d=>d.category===ts.DiagnosticCategory.Error).length,0,
  "Module 12 virtual patient TS transpilation errors");
-const exports={};
-new Function("exports",compiled.outputText)(exports);
-const review=exports.reviewModuleTwelveVirtualPatient;
+const adaptedExports={};
+new Function("exports",compiled.outputText)(adaptedExports);
+const review=adaptedExports.reviewModuleTwelveVirtualPatient;
 assert.equal(typeof review,"function");
 const positions=[2,0,1,2,0,1];
 const anchors={
