@@ -81,6 +81,28 @@ for (const language of ["RU", "EN", "KZ"]) {
   for (const marker of markers[language])
     assert(combined.includes(marker.toLowerCase()), language + ": missing physiology marker " + marker);
 }
+// Shared foundation can append three more terms after the original two.
+// The module-specific adapter must preserve them, not crash or overwrite them.
+for (const language of ["RU","EN","KZ"]) {
+  const original = [
+    {id:"module-10-term-1",term:"Reticular",definition:"old 1",target:{section:"theory"}},
+    {id:"module-10-term-2",term:"Wakefulness",definition:"old 2",target:{section:"theory"}}
+  ];
+  const extraBase = ["cranial-nerve","cranial-nerve-nucleus","visceral-fibers"].map((slug,i)=>({
+    id:"module-10-extra-term-"+(i+1),term:slug,
+    definition:"Supplementary reviewed foundation definition "+slug,
+    target:{section:"theory"}
+  }));
+  const result = create(language,{kind:"glossary",title:"Glossary",introduction:"old",
+    terms:[...original,...extraBase]});
+  assert.equal(result.terms.length,15,"2 original + 3 foundation extra + 10 authored");
+  for(let i=0;i<3;i++){
+    assert.equal(result.terms[i+2].id,extraBase[i].id);
+    assert.equal(result.terms[i+2].definition,extraBase[i].definition);
+    assert.equal(result.terms[i+2].target.section,"theory");
+  }
+  assert.equal(new Set(result.terms.map(x=>x.id)).size,15);
+}
 const registry = read("content/index.ts");
 assert(registry.includes('import { createModuleTenGlossary } from "./course-foundation/module-ten-glossary";'));
 for (const language of ["RU", "EN", "KZ"])
