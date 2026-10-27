@@ -11,9 +11,9 @@ const compiled=ts.transpileModule(src,{fileName:file,compilerOptions:{
  target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS},reportDiagnostics:true});
 assert.equal((compiled.diagnostics||[]).filter(d=>d.category===ts.DiagnosticCategory.Error).length,0,
  "Module 9 tests TS transpilation errors");
-const exports={};
-new Function("exports",compiled.outputText)(exports);
-assert.equal(typeof exports.adaptModuleNineTest,"function");
+const adaptedExports={};
+new Function("exports", compiled.outputText)(adaptedExports);
+assert.equal(typeof adaptedExports.adaptModuleNineTest,"function");
 const names=["concept","mechanism","application","transfer","justification"];
 for(const lang of ["RU","EN","KZ"]){
  const nodes={};
@@ -31,7 +31,7 @@ for(const lang of ["RU","EN","KZ"]){
  }
  const base={kind:"tests",title:"Test",moduleTitle:"Spinal cord",ui:{},start:"concept:main",
   mainIds:names.map(n=>n+":main"),competencies:{},nodes};
- const result=exports.adaptModuleNineTest(base,lang);
+ const result=adaptedExports.adaptModuleNineTest(base,lang);
  assert.equal(result.kind,"tests");
  assert.equal(result.mainIds.length,5);
  const mainPrompts=new Set();
