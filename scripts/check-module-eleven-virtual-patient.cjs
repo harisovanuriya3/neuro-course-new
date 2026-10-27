@@ -59,7 +59,7 @@ const wrapper=read("content/reviewed-virtual-patients.ts");
 assert(wrapper.includes('import { reviewModuleElevenVirtualPatient } from "./course-foundation/module-eleven-virtual-patient-review";'));
 assert(wrapper.includes('if(moduleId===11 && base) return reviewModuleElevenVirtualPatient(base,language);'));
 const ui=read("components/UnifiedVirtualPatient.tsx");
-assert(ui.includes('moduleId === 11 ? "v2"'),"New answer meanings require fresh localStorage namespace");
+assert(ui.includes('moduleId === 11 || moduleId === 12 ? "v2"'),"Modules 11 and 12 must isolate newly authored answer meanings in v2 storage");
 const route=read("app/modules/[id]/[section]/page.tsx");
 assert(route.includes("<UnifiedVirtualPatient moduleId={moduleNumber} language={lang} />"));
 const pkg=JSON.parse(read("package.json"));
