@@ -39,6 +39,7 @@ export default function CompletePathwayLab({language}:{language:Language}) {
   const [answer,setAnswer]=useState<"same"|"opposite"|"mixed"|null>(null);
   const [checked,setChecked]=useState(false);
   const [tries,setTries]=useState(0);
+  const [history,setHistory]=useState<Array<{path:string;level:string;side:string;prediction:string;correct:boolean}>>([]);
   const item=items.find(x=>x.id===selected)||items[0];
   const noSpinalPrediction=item.id==="corticobulbar";
   const cervicalOnly=["cuneocerebellar","spinocerebellar-rostral","vestibulospinal-medial","tectospinal"];
@@ -103,6 +104,7 @@ export default function CompletePathwayLab({language}:{language:Language}) {
     if(!answer||noSpinalPrediction||levelUnsupported)return;
     setChecked(true);
     setTries(n=>n+1);
+    setHistory(rows=>[{path:item.names[i],level:lesionLevel,side:lesionSide,prediction:c[answer],correct:answer===item.laterality},...rows].slice(0,8));
     recordOutcome(8,"experiment:tract:"+item.id,answer===item.laterality?1:0,1);
   }
   return <section className={styles.lab}>
@@ -176,7 +178,7 @@ export default function CompletePathwayLab({language}:{language:Language}) {
           <fieldset style={{border:0,margin:0,padding:0}}><legend style={{fontWeight:700}}>{labels.predicted}</legend>
             <div className={styles.answerOptions}>{(["same","opposite","mixed"] as const).map(a=><label key={a}><input type="radio" name="tract-laterality" checked={answer===a} onChange={()=>{setAnswer(a);setChecked(false)}}/>{c[a]}</label>)}</div>
           </fieldset>
-          <button type="button" className={styles.primary+" "+styles.action} disabled={!answer} onClick={submit}>{labels.check}</button>
+          <button type="button" className={styles.primary+" "+styles.action} disabled={!answer||checked} onClick={submit}>{labels.check}</button>
           {checked&&<div className={styles.explanation} data-correct={answer===item.laterality} role="status">
             <strong>{answer===item.laterality?labels.correct:labels.wrong}</strong>
             <p>{labels.expected}: <strong>{deficitText}</strong>.</p>
@@ -186,6 +188,13 @@ export default function CompletePathwayLab({language}:{language:Language}) {
         </>}
       </>}
       <p className={styles.note}>{labels.attempt}: {tries}</p>
+      {history.length>0&&<details style={{marginTop:16,padding:12,border:"1px solid #c6dae4",borderRadius:10}}>
+        <summary style={{cursor:"pointer",fontWeight:700,color:"#075078"}}>{language==="RU"?"Журнал проведённых опытов":language==="EN"?"Recorded experiments":"Тәжірибелер журналы"} ({history.length})</summary>
+        <ol style={{listStyle:"none",padding:0,display:"grid",gap:8}}>{history.map((entry,j)=><li key={j} style={{padding:11,border:"1px solid #d2e4eb",borderRadius:8,background:entry.correct?"#f2faf5":"#fffaee",lineHeight:1.5,overflowWrap:"anywhere"}}>
+          <strong>{entry.path}</strong> · {entry.level} · {entry.side==="left"?labels.left:labels.right}
+          <div>{labels.predicted}: {entry.prediction} — {entry.correct?labels.correct:labels.wrong}</div>
+        </li>)}</ol>
+      </details>}
     </section>
     <details className={styles.media}>
       <summary>{labels.anatomy}</summary>
