@@ -110,6 +110,29 @@ const moduleTenReview={
   {section:"media",question:"Ми бағанының ерте есту шақырылған потенциалы қайталанған дыбыс стимулдарынан кейін шағын жауаптарды орташа есептеу арқылы тіркеледі. Ерте толқынның сақталуы есту жолының бір бөлігіндегі өткізгіштік туралы қандай шектеулі қорытындыға мүмкіндік береді? Неліктен бұл саналы қабылдауды дәлелдемейді, ал жауаптың болмауы естуді, стимулды және жазба артефактілерін тексермей нақты ошақты көрсетпейді?",link:"Есту потенциалдарының шектеулерін қайталау"}]}
 } as const;
 
+
+/**
+ * Module 11: ungraded formative reflection on distributed motor control.
+ * Physiological anchors: Guyton & Hall 13e ch. 56 (Library PDF 677–679);
+ * Ganong 23e ch. 16 (Library PDF 253–256);
+ * C. L. Ghai Practical Physiology 8e (Library PDF 317–319).
+ * No auto-scoring of free-text reasoning; no clinical diagnosis.
+ */
+const moduleElevenReview={
+ RU:{title:"Самопроверка: управление движением и обратная связь",note:"Объясните механизм своими словами и сопоставьте ответ с теорией и клиническими задачами. Эти открытые ответы не проверяются автоматически, не повышают показатель освоения и не заменяют неврологическое обследование.",items:[
+  {section:"theory",question:"Проследите путь произвольной команды: ассоциативные и премоторные области → моторная кора → внутренняя капсула → пирамиды продолговатого мозга → преимущественно перекрещённый латеральный кортикоспинальный путь → спинальные интернейроны и α-мотонейроны. Почему базальные ганглии и мозжечок участвуют в подготовке и коррекции, но не являются прямым конечным выходом к скелетной мышце?",link:"Сверить нисходящие пути"},
+  {section:"interactive",question:"В учебной схеме сравните заранее подготовленную команду и её коррекцию после неожиданного смещения цели. Какие сигналы от зрения и проприорецепторов могут уточнять действие и почему коррекция не происходит без задержки? Укажите, что пошаговая схема не измеряет скорость проведения, мышечную силу или состояние конкретного пациента.",link:"Проверить ограничения схемы"},
+  {section:"cases",question:"У человека сохранена грубая сила, но затруднена последовательность целенаправленного действия; в другой ситуации наблюдаются дисметрия и нарушение точности. Почему эти наблюдения требуют разных гипотез и дополнительного осмотра? При ударе по сухожилию какой рецептор запускает рефлекс растяжения — мышечное веретено или сухожильный орган Гольджи? Почему один рефлекс не устанавливает точную локализацию поражения?",link:"Разобрать клинические ограничения"}]},
+ EN:{title:"Self-check: motor control and feedback",note:"Explain the mechanism in your own words and compare your answer with the theory and clinical cases. These open responses are not automatically graded, do not raise the mastery indicator, and cannot replace a neurological examination.",items:[
+  {section:"theory",question:"Trace a voluntary command: association and premotor regions → motor cortex → internal capsule → medullary pyramids → predominantly crossed lateral corticospinal tract → spinal interneurons and alpha motor neurons. Why do the basal ganglia and cerebellum contribute to planning and adjustment without being the direct final output to skeletal muscle?",link:"Review descending pathways"},
+  {section:"interactive",question:"In the teaching diagram, compare a prepared motor command with correction after an unexpected shift of the target. How can visual and proprioceptive signals modify performance, and why is sensory correction not instantaneous? Explain why the step-by-step diagram does not measure conduction velocity, muscle force, or an individual patient's condition.",link:"Check the diagram's limitations"},
+  {section:"cases",question:"One person retains gross strength but struggles to sequence a purposeful action; another shows dysmetria and poor targeting. Why do these findings require different hypotheses and further examination? When a tendon is tapped, does the stretch reflex start in a muscle spindle or a Golgi tendon organ? Why can a single reflex not precisely localize a lesion?",link:"Review clinical limitations"}]},
+ KZ:{title:"Өзіндік тексеру: қозғалысты басқару және кері байланыс",note:"Механизмді өз сөзіңізбен түсіндіріп, жауабыңызды теориямен және клиникалық тапсырмалармен салыстырыңыз. Ашық жауаптар автоматты түрде бағаланбайды, меңгеру көрсеткішін арттырмайды және неврологиялық тексеруді алмастырмайды.",items:[
+  {section:"theory",question:"Ерікті қозғалыс командасының жолын көрсетіңіз: ассоциативтік және премоторлық аймақтар → моторлық қыртыс → ішкі капсула → сопақша мидың пирамидалары → негізінен айқасатын латералдық кортикоспиналдық жол → жұлын интернейрондары мен α-мотонейрондар. Неліктен базальды ганглийлер мен мишық жоспарлау және түзетуге қатысқанымен, қаңқа бұлшықетіне тікелей соңғы шығыс болмайды?",link:"Төмендеуші жолдарды қайталау"},
+  {section:"interactive",question:"Оқу сызбасында алдын ала дайындалған қозғалыс командасын нысана күтпеген жерден жылжығанда жасалатын түзетумен салыстырыңыз. Көру және проприоцептивтік сигналдар қозғалысты қалай өзгерте алады, ал түзету неліктен кідіріссіз жүрмейді? Кезеңдік сызба өткізгіштік жылдамдығын, бұлшықет күшін немесе нақты пациенттің жағдайын өлшемейтінін түсіндіріңіз.",link:"Сызбаның шектеулерін тексеру"},
+  {section:"cases",question:"Бір адамда жалпы бұлшықет күші сақталғанымен, мақсатты әрекеттердің ретін орындау қиындаған; басқа жағдайда дисметрия мен дәлдіктің төмендеуі байқалады. Неліктен бұл белгілер әртүрлі болжамдарды және қосымша тексеруді қажет етеді? Сіңірді соққылағанда созылу рефлексін қай рецептор бастайды: бұлшықет ұршығы ма, әлде Гольджидің сіңірлік органы ма? Неліктен бір рефлекс зақымның нақты орнын анықтамайды?",link:"Клиникалық шектеулерді талдау"}]}
+} as const;
+
 function level(correct:number,total:number):Level{if(!total)return"none";const p=correct/total;return p>=.8?"mastered":p>=.5?"forming":"review"}
 export default function ModuleProgress({language,moduleId}:{language:Language;moduleId:number}){
  const [data,setData]=useState<CourseProgressData|null>(null);
@@ -183,7 +206,12 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
   {moduleId===10 && <section aria-label={moduleTenReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
     <h2 style={{marginTop:0}}>{moduleTenReview[language].title}</h2>
     <p>{moduleTenReview[language].note}</p>
-    <ol>{moduleTenReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={\`/modules/\${moduleId}/\${item.section}?lang=\${language}\`}>{item.link}</Link></li>)}</ol>
+    <ol>{moduleTenReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
+  </section>}
+  {moduleId===11 && <section aria-label={moduleElevenReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
+    <h2 style={{marginTop:0}}>{moduleElevenReview[language].title}</h2>
+    <p>{moduleElevenReview[language].note}</p>
+    <ol>{moduleElevenReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
   </section>}
   <section style={{margin:"18px 0",padding:"16px",border:"2px solid #b9d3e6",borderRadius:14,background:"#fff"}}>
     <h2 style={{marginTop:0}}>{language==="RU"?"Панель курса":language==="KZ"?"Курс панелі":"Course dashboard"}</h2>
