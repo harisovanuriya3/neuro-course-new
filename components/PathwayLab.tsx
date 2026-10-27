@@ -2,7 +2,7 @@
 import {useId,useState} from "react";
 import type {Language} from "../content/course";
 import ExperimentReflection from "./ExperimentReflection";
-import SpinalTractAtlas from "./SpinalTractAtlas";
+import CompletePathwayLab from "./CompletePathwayLab";
 import {recordOutcome} from "../lib/courseProgress";
 type Path="dorsal"|"spinothalamic"|"corticospinal"; type Side="left"|"right";
 type Row={id:number;path:Path;side:Side;level:string;finding:string;note:string};
@@ -61,7 +61,7 @@ export default function PathwayLab({language}:{language:Language}){
    <label>{c.side}<select aria-label={c.side} value={side} onChange={e=>{setSide(e.target.value as Side);resetResult()}}><option value="left">{c.left}</option><option value="right">{c.right}</option></select></label>
    <label>{c.level}<select aria-label={c.level} value={level} onChange={e=>{setLevel(e.target.value as SpinalLevel);resetResult()}}>{(["C5","T10","L2"] as const).map(v=><option key={v}>{v}</option>)}</select></label>
   </div>
-  <SpinalTractAtlas path={path} side={side} language={language}/>
+  <CompletePathwayLab language={language}/>
   <section style={{margin:"22px 0",padding:"clamp(12px,2vw,20px)",border:"1px solid #a9cbdc",borderRadius:14,background:"#fff"}}><h3 style={{margin:"0 0 8px",color:"#075078"}}>{anatomy[language].heading}</h3><p>{anatomy[language].how}</p><div style={{overflowX:"auto"}}><table style={{borderCollapse:"collapse",width:"100%",minWidth:340}}><thead><tr>{anatomy[language].columns.map(v=><th key={v} style={{textAlign:"left",padding:10,borderBottom:"2px solid #bed5e2"}}>{v}</th>)}</tr></thead><tbody>{anatomy[language].paths[path].steps.map(([stage,detail],i)=><tr key={stage}><th scope="row" style={{verticalAlign:"top",textAlign:"left",padding:10,background:i%2?"#f1f7fb":"#fff",borderBottom:"1px solid #d9e6ed",width:"30%"}}>{stage}</th><td style={{padding:10,verticalAlign:"top",lineHeight:1.65,borderBottom:"1px solid #d9e6ed",background:i%2?"#f1f7fb":"#fff"}}>{detail}</td></tr>)}</tbody></table></div><dl style={{display:"grid",gap:10,marginTop:18}}>{([["cross","cross"],["function","function"],["damage","damage"]] as const).map(([label,value])=><div key={label} style={{padding:12,background:"#eaf4fa",borderRadius:9}}><dt style={{fontWeight:700}}>{anatomy[language][label]}</dt><dd style={{margin:"6px 0 0",lineHeight:1.6}}>{anatomy[language].paths[path][value]}</dd></div>)}</dl><p style={{fontSize:13}}>{anatomy[language].disclaimer}</p><p style={{fontSize:13}}><a href="https://www.ncbi.nlm.nih.gov/books/NBK11142/" target="_blank" rel="noopener noreferrer">Purves et al. · Neuroscience · NCBI Bookshelf</a></p></section>
   <details><summary style={{cursor:"pointer",fontWeight:700,padding:"10px 0"}}>{anatomy[language].schematic}</summary>
   <figure><div className={styles.diagram} tabIndex={0} aria-label={c.title}><svg viewBox="0 0 560 490" role="img" aria-labelledby={`${uid}-title ${uid}-desc`}>
