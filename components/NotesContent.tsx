@@ -109,7 +109,7 @@ export default function NotesContent({ language, moduleId }: { language: Languag
     }
   };
   return <article className={styles.tool}>
-    <h1>{c.title}</h1><p>{c.intro}</p>{moduleId === 3 && <p>{moduleThreePrompt[language]}</p>}{moduleId === 4 && <p>{moduleFourPrompt[language]}</p>}{moduleId === 6 && <p>{moduleSixPrompt[language]}</p>}{moduleId === 7 && <p>{moduleSevenPrompt[language]}</p>}{moduleId === 8 && <p>{moduleEightPrompt[language]}</p>{moduleId === 9 && <p>{moduleNinePrompt[language]}</p>}{moduleId === 10 && <p>{moduleTenPrompt[language]}</p>}{moduleId === 11 && <p>{moduleElevenPrompt[language]}</p>}
+    <h1>{c.title}</h1><p>{c.intro}</p>{moduleId === 3 && <p>{moduleThreePrompt[language]}</p>}{moduleId === 4 && <p>{moduleFourPrompt[language]}</p>}{moduleId === 6 && <p>{moduleSixPrompt[language]}</p>}{moduleId === 7 && <p>{moduleSevenPrompt[language]}</p>}{moduleId === 8 && <p>{moduleEightPrompt[language]}</p>}{moduleId === 9 && <p>{moduleNinePrompt[language]}</p>}{moduleId === 10 && <p>{moduleTenPrompt[language]}</p>}{moduleId === 11 && <p>{moduleElevenPrompt[language]}</p>}
     <label htmlFor="notes-section">{c.pick}</label>
     <select id="notes-section" value={selected} onChange={event => { setSelected(event.target.value as Section); }}>
       {sectionOrder.map(section => <option key={section} value={section}>{getSectionTitle(section, language)}</option>)}
