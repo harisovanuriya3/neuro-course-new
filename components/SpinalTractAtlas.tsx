@@ -1,0 +1,23 @@
+"use client";
+import type {Language} from "../content/course";
+type Path="dorsal"|"spinothalamic"|"corticospinal";
+type Side="left"|"right";
+const t={RU:{title:"Анатомия поперечного среза спинного мозга",posterior:"ЗАДНИЙ",anterior:"ПЕРЕДНИЙ",gray:"Серое вещество",white:"Белое вещество",dorsal:"Задние канатики",spinothalamic:"Переднебоковая система",corticospinal:"Латеральный кортикоспинальный тракт",note:"Учебная анатомическая карта (приближённые зоны на поперечном срезе). Цветом выделен выбранный проводящий путь, красным отмечена сторона очага. Фактическая форма и границы трактов различаются по уровню спинного мозга.",side:"Очаг справа или слева"},EN:{title:"Spinal cord cross-sectional anatomy",posterior:"POSTERIOR",anterior:"ANTERIOR",gray:"Gray matter",white:"White matter",dorsal:"Dorsal columns",spinothalamic:"Anterolateral system",corticospinal:"Lateral corticospinal tract",note:"Educational anatomy map (approximate regions). The selected tract is highlighted and the lesion side marked in red. Exact tract boundaries and cord shape vary by segmental level.",side:"Lesion side"},KZ:{title:"Жұлынның көлденең кесіндісінің анатомиясы",posterior:"АРТҚЫ",anterior:"АЛДЫҢҒЫ",gray:"Сұр зат",white:"Ақ зат",dorsal:"Артқы бағандар",spinothalamic:"Алдыңғы-бүйір жүйесі",corticospinal:"Бүйір кортикоспиналдық жол",note:"Оқу анатомиялық картасы (жуық аймақтар). Таңдалған жол түспен, зақым жағы қызылмен көрсетілген. Нақты шекаралар жұлын деңгейіне байланысты өзгереді.",side:"Зақым жағы"}} as const;
+export default function SpinalTractAtlas({path,side,language}:{path:Path;side:Side;language:Language}) {
+const c=t[language];const zones={dorsal:"M 177 61 Q 191 49 204 66 L 204 135 Q 192 139 181 126 Z",spinothalamic:"M 112 250 Q 79 210 96 162 L 137 179 Q 129 219 160 244 Z",corticospinal:"M 100 145 Q 89 103 130 78 L 162 110 Q 137 139 145 166 Z"} as const;
+const mirrored=side==="right";
+return <section style={{padding:16,background:"#f5fafc",border:"1px solid #c5dbe6",borderRadius:14,margin:"18px 0"}}>
+<h3 style={{margin:"0 0 8px"}}>{c.title}</h3>
+<svg viewBox="0 0 430 350" role="img" aria-label={c[path]} style={{width:"100%",maxWidth:610,display:"block",margin:"auto",background:"white",borderRadius:12}}>
+<title>{c.title}: {c[path]}</title><text x="215" y="24" textAnchor="middle" fill="#23475e" fontSize="15">{c.posterior}</text>
+<path d="M215 40 C151 39 94 73 70 128 C35 223 103 307 215 312 C327 307 395 223 360 128 C336 73 279 39 215 40 Z" fill="#f3f4e9" stroke="#64748b" strokeWidth="3"/>
+<path d="M215 107 C198 79 177 82 167 94 C146 100 155 135 181 155 L195 179 L169 204 C147 218 150 258 170 263 C189 267 204 243 215 230 C226 243 241 267 260 263 C280 258 283 218 261 204 L235 179 L249 155 C275 135 284 100 263 94 C253 82 232 79 215 107 Z" fill="#d3a6a0" stroke="#945d59" strokeWidth="2"/>
+<circle cx="215" cy="180" r="7" fill="#fbfaf6" stroke="#945d59" strokeWidth="2"/>
+{[false,true].map(right=><g key={String(right)} transform={right?"translate(430 0) scale(-1 1)":undefined}><path d={zones.dorsal} fill={path==="dorsal"?"#27a4bc":"#bbcfd5"} fillOpacity={path==="dorsal"?0.95:0.42} stroke="#66838c"/><path d={zones.spinothalamic} fill={path==="spinothalamic"?"#f2ac3e":"#bbcfd5"} fillOpacity={path==="spinothalamic"?0.95:0.42} stroke="#66838c"/><path d={zones.corticospinal} fill={path==="corticospinal"?"#6265c9":"#bbcfd5"} fillOpacity={path==="corticospinal"?0.95:0.42} stroke="#66838c"/></g>)}
+<circle cx={mirrored?320:110} cy="187" r="12" fill="#fff" stroke="#c02626" strokeWidth="3"/><path d={mirrored?"M314 181 l12 12 m0 -12 l-12 12":"M104 181 l12 12 m0 -12 l-12 12"} stroke="#c02626" strokeWidth="2.5"/>
+<text x="215" y="337" textAnchor="middle" fill="#23475e" fontSize="15">{c.anterior}</text>
+</svg>
+<div style={{display:"flex",gap:10,alignItems:"center",flexWrap:"wrap",fontSize:14,margin:"8px 0"}}><span style={{padding:"5px 10px",background:path==="dorsal"?"#d3f5fa":"#edf2f5",borderRadius:8}}>{c.dorsal}</span><span style={{padding:"5px 10px",background:path==="spinothalamic"?"#fff0cc":"#edf2f5",borderRadius:8}}>{c.spinothalamic}</span><span style={{padding:"5px 10px",background:path==="corticospinal"?"#e2e3ff":"#edf2f5",borderRadius:8}}>{c.corticospinal}</span></div>
+<p style={{lineHeight:1.55,fontSize:14}}>{c.note}</p>
+</section>
+}
