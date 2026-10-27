@@ -15,10 +15,11 @@ assigned. Clip 02 is a JPEG and is retained but not displayed as a video.
 These are AI-generated/illustrative teaching assets, not recordings of verified
 experiments. RU/EN/KZ titles and explanations are editorial annotations, not
 transcripts. Subtitles for the videos have not been created or reviewed; in
-particular, the KZ text must not be presented as Kazakh subtitles. The archive's
-rights, any depicted-person consent, audio, and scientific accuracy have not
-been independently cleared for public release. Keep publication gated until
-those checks are confirmed.
+particular, the KZ text must not be presented as Kazakh subtitles. The publisher
+has confirmed the rights to publicly distribute all files and the required
+depicted-person consents. Audio and scientific accuracy have not been
+independently reviewed; retain the on-page caveats and do not present the clips
+as verified experiments or clinical evidence.
 
 The `organization` block currently uses the local six-step learning animation
 (`animation: "organization"` in `media.ts`). It takes precedence over video assets.
