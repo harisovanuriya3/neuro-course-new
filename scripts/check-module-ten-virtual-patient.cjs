@@ -12,9 +12,9 @@ const compiled=ts.transpileModule(source,{fileName:file,reportDiagnostics:true,
  compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}});
 assert.equal((compiled.diagnostics||[]).filter(d=>d.category===ts.DiagnosticCategory.Error).length,0,
  "Module 10 virtual patient transpilation errors");
-const exports={};
-new Function("exports",compiled.outputText)(exports);
-const review=exports.reviewModuleTenVirtualPatient;
+const adaptedExports={};
+new Function("exports",compiled.outputText)(adaptedExports);
+const review=adaptedExports.reviewModuleTenVirtualPatient;
 assert.equal(typeof review,"function");
 const positions=[2,0,1,2,0,1];
 const anchors={
