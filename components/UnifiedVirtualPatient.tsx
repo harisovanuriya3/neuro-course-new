@@ -29,6 +29,14 @@ const modelDecisionCopy = {
   KZ: { profile:"Оқу моделінің нәтижесі", correct:"Физиологиялық негізделген таңдаулар", strong:"5–6 таңдау модельге сәйкес", forming:"3–4 таңдау модельге сәйкес", review:"0–2 таңдау модельге сәйкес", next:"Келесі қадам", strongNext:"Жазбаша түсіндірмелеріңізді теориядағы механизммен салыстырыңыз.", formingNext:"Қате кезеңдерді қарап, астроциттердің K⁺ буферлеуін түсіндіріңіз.", reviewNext:"Глияның K⁺ буферлеуін қайталап, модельден қайта өтіңіз.", errorStage:"Механизмді тексеріңіз", scope:"Пайыз тек таңдалған жауаптарды бағалайды. Жазбаша түсіндірмелер автоматты түрде бағаланған жоқ." },
 } as const;
 
+// Module 12 has a scripted clinical vignette, but only keyed choices are scored.
+// Written explanations are saved, not scientifically graded; no diagnostic competence is certified.
+const moduleTwelveDecisionCopy = {
+  RU: { profile:"Результат выбора объяснений", correct:"Выборов по учебному ключу", strong:"5–6 ответов соответствуют ключу", forming:"3–4 ответа соответствуют ключу", review:"0–2 ответа соответствуют ключу", next:"Дальше", strongNext:"Сверьте письменные объяснения с теорией; оценка не подтверждает клиническую компетентность.", formingNext:"Повторите ошибочные этапы и сравните прямой и непрямой пути.", reviewNext:"Повторите базальные ганглии, брадикинезию и ограничения учебной схемы.", errorStage:"Пересмотрите выбор", scope:"Процент оценивает только шесть выбранных вариантов. Письменные объяснения автоматически не проверены; диагноз и клиническая компетентность не оцениваются." },
+  EN: { profile:"Explanation-choice result", correct:"Choices matching the teaching key", strong:"5–6 choices match the key", forming:"3–4 choices match the key", review:"0–2 choices match the key", next:"Next", strongNext:"Compare written explanations with theory; this score does not certify clinical competence.", formingNext:"Review incorrect stages and compare direct and indirect pathways.", reviewNext:"Review basal ganglia, bradykinesia and limits of the teaching circuit.", errorStage:"Review choice", scope:"The percentage scores six selected options only. Written reasoning is not automatically checked; diagnosis and clinical competence are not assessed." },
+  KZ: { profile:"Түсіндіруді таңдау нәтижесі", correct:"Оқу кілтіне сәйкес таңдаулар", strong:"5–6 таңдау кілтке сәйкес", forming:"3–4 таңдау кілтке сәйкес", review:"0–2 таңдау кілтке сәйкес", next:"Әрі қарай", strongNext:"Жазбаша түсіндіруді теориямен салыстырыңыз; бұл баға клиникалық құзыреттілікті дәлелдемейді.", formingNext:"Қате кезеңдерді қайталап, тікелей және жанама жолдарды салыстырыңыз.", reviewNext:"Базальды ганглийлерді, брадикинезияны және оқу сызбасының шектеулерін қайталаңыз.", errorStage:"Таңдауды қайта қараңыз", scope:"Пайыз тек алты таңдалған жауапты бағалайды. Жазбаша негіздеме автоматты түрде тексерілмейді; диагноз бен клиникалық құзыреттілік бағаланбайды." }
+} as const;
+
 // Module 4 is a membrane-physiology COMPUTER MODEL, not a clinical case.
 // The rubric scores option selection only; free text is not graded.
 const membraneModelDecisionCopy = {
@@ -71,8 +79,8 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   const [ready, setReady] = useState(false);
   const [activeAudio, setActiveAudio] = useState<"patient" | "mentor" | null>(null);
   // Modules 6–10 changed choice meanings; never reinterpret old saved indexes.
-  // Module 11 has newly authored answer meanings; isolate its stored answer indices.
-  const storageVersion = moduleId === 11 ? "v2" : moduleId >= 6 && moduleId <= 10 ? "v2" : "v1";
+  // Modules 11 and 12 have newly authored answer meanings; isolate old saved indices.
+  const storageVersion = moduleId === 11 || moduleId === 12 ? "v2" : moduleId >= 6 && moduleId <= 10 ? "v2" : "v1";
   const storageKey = `neuro-course:virtual-patient:${moduleId}:${language}:${storageVersion}`;
 
   useEffect(() => {
@@ -125,7 +133,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
   const complete = selected !== null;
   const reasoningComplete = state.notes[state.current].trim().length >= 12;
   const decisionCommitted = complete && reasoningComplete;
-  const d = moduleId === 4 ? membraneModelDecisionCopy[language] : moduleId === 3 ? modelDecisionCopy[language] : moduleId === 5 ? synapseModelDecisionCopy[language] : moduleId === 6 ? integrationModelDecisionCopy[language] : decisionCopy[language];
+  const d = moduleId === 4 ? membraneModelDecisionCopy[language] : moduleId === 3 ? modelDecisionCopy[language] : moduleId === 5 ? synapseModelDecisionCopy[language] : moduleId === 6 ? integrationModelDecisionCopy[language] : moduleId === 12 ? moduleTwelveDecisionCopy[language] : decisionCopy[language];
   const correctDecisions = scenario.stages.reduce((sum, reviewStage, index) => sum + (state.selected[index] === reviewStage.correctOption ? 1 : 0), 0);
   const decisionPercent = Math.round((correctDecisions / scenario.stages.length) * 100);
   const decisionLevel = decisionPercent >= 80 ? d.strong : decisionPercent >= 50 ? d.forming : d.review;
@@ -221,7 +229,7 @@ export default function UnifiedVirtualPatient({ moduleId, language }: { moduleId
             <p style={{margin:"0 0 6px"}}><strong>{d.correct}: {correctDecisions}/6 · {decisionPercent}%</strong></p>
             <progress value={correctDecisions} max={6} aria-label={d.profile} style={{width:"100%"}} />
             <p style={{margin:"8px 0 4px"}}>{decisionLevel}</p>
-            {(moduleId === 3 || moduleId === 4 || moduleId === 5 || moduleId === 6) && "scope" in d && <p style={{margin:"6px 0"}}>{d.scope}</p>}
+            {(moduleId === 3 || moduleId === 4 || moduleId === 5 || moduleId === 6 || moduleId === 12) && "scope" in d && <p style={{margin:"6px 0"}}>{d.scope}</p>}
             <p style={{margin:0}}><strong>{d.next}:</strong> {decisionAdvice}</p>
           </div>
           <p>{scenario.mechanismSummary}</p>
