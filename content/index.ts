@@ -7,6 +7,7 @@ import { createModuleElevenClinical } from "./course-foundation/module-eleven-cl
 import { createModuleElevenObjectives } from "./course-foundation/module-eleven-objectives";
 import { createModuleTwelveObjectives } from "./course-foundation/module-twelve-objectives";
 import { createModuleThirteenObjectives } from "./course-foundation/module-thirteen-objectives";
+import { createModuleThirteenPretest } from "./course-foundation/module-thirteen-pretest";
 import { createModuleTwelvePretest } from "./course-foundation/module-twelve-pretest";
 import { createModuleTwelveTheory } from "./course-foundation/module-twelve-theory";
 import { createModuleTwelveSummary } from "./course-foundation/module-twelve-summary";
@@ -353,6 +354,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       RU: createModuleThirteenObjectives("RU"),
       EN: createModuleThirteenObjectives("EN"),
       KZ: createModuleThirteenObjectives("KZ"),
+    },
+    pretest: {
+      RU: createModuleThirteenPretest("RU", modules.RU[12], getSectionTitle("pretest", "RU")),
+      EN: createModuleThirteenPretest("EN", modules.EN[12], getSectionTitle("pretest", "EN")),
+      KZ: createModuleThirteenPretest("KZ", modules.KZ[12], getSectionTitle("pretest", "KZ")),
     },
   },
   12: {
