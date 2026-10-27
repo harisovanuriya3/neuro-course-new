@@ -133,6 +133,29 @@ const moduleElevenReview={
   {section:"cases",question:"Бір адамда жалпы бұлшықет күші сақталғанымен, мақсатты әрекеттердің ретін орындау қиындаған; басқа жағдайда дисметрия мен дәлдіктің төмендеуі байқалады. Неліктен бұл белгілер әртүрлі болжамдарды және қосымша тексеруді қажет етеді? Сіңірді соққылағанда созылу рефлексін қай рецептор бастайды: бұлшықет ұршығы ма, әлде Гольджидің сіңірлік органы ма? Неліктен бір рефлекс зақымның нақты орнын анықтамайды?",link:"Клиникалық шектеулерді талдау"}]}
 } as const;
 
+
+/**
+ * Module 12: ungraded, mechanism-focused reflection on basal ganglia.
+ * Library evidence: Guyton & Hall 13e ch. 57, PDF 697–699;
+ * Ganong 23e ch. 16, PDF 262–264; Ghai Practical Physiology 8e,
+ * PDF 307–309. The three questions assess neither clinical competence
+ * nor the correctness of written explanations automatically.
+ */
+const moduleTwelveReview={
+ RU:{title:"Самопроверка: базальные ганглии и выбор движения",note:"Сначала объясните механизмы своими словами, затем сверьте их с теорией, интерактивной схемой и клиническими задачами. Открытые ответы не проверяются автоматически и не повышают показатель освоения. Процент виртуального пациента отражает только выбор шести вариантов, а не качество письменных объяснений, диагноз или клиническую компетентность.",items:[
+  {section:"theory",question:"Проследите возбуждающий корковый вход в стриатум и две разные цепи. В прямом пути ГАМК-нейроны стриатума тормозят GPi/SNr: как при неизменных остальных входах меняется торможение выбранных нейронов таламуса? В непрямом пути стриатум тормозит GPe, далее меняется активность STN и GPi/SNr: почему прогноз для таламуса отличается? Объясните, почему дофамин SNc через D1 и D2 нельзя назвать одинаково возбуждающим для всех клеток.",link:"Сверить прямой и непрямой пути"},
+  {section:"interactive",question:"В учебной схеме отдельно включите прямой, непрямой и гиперпрямой пути. Для гиперпрямого пути укажите последовательность кора → STN → GPi/SNr → таламус и знаки влияний. Почему одновременная работа реальных петель не сводится к переключателю «движение включено/выключено»? Почему качественные стрелки и условные значения схемы не являются измеренной активностью нейронов или количественным прогнозом брадикинезии?",link:"Проверить допущения схемы"},
+  {section:"cases",question:"У человека замедляются повторные движения пальцев и уменьшается их амплитуда, но при отдельной проверке грубая мышечная сила сохранена. Чем брадикинезия отличается от пареза и дисметрии? Какие дополнительные данные о тонусе, рефлексах, координации, лекарствах и других признаках нужны до клинического вывода? Почему одна проба и учебная модель не устанавливают болезнь Паркинсона?",link:"Разобрать клинические ограничения"}]},
+ EN:{title:"Self-check: basal ganglia and movement selection",note:"Explain the mechanisms in your own words, then compare with theory, the interactive diagram and clinical cases. Open responses are not automatically graded and do not increase mastery. The virtual-patient percentage scores only six selected options, not written reasoning, a diagnosis or clinical competence.",items:[
+  {section:"theory",question:"Trace excitatory cortical input to the striatum and two distinct circuits. In the direct pathway, striatal GABA neurons inhibit GPi/SNr: with other inputs held fixed, what happens to inhibition of selected thalamic neurons? In the indirect pathway, striatal neurons inhibit GPe, changing STN and GPi/SNr activity: why is the predicted thalamic effect different? Explain why SNc dopamine acting via D1 and D2 cannot be called uniformly excitatory in every cell.",link:"Review direct and indirect pathways"},
+  {section:"interactive",question:"In the teaching diagram, trace direct, indirect and hyperdirect pathways separately. For the hyperdirect route, specify cortex → STN → GPi/SNr → thalamus and the signs of the connections. Why can the simultaneous activity of real loops not be reduced to an on/off movement switch? Why are qualitative arrows and illustrative numbers neither recorded neuronal activity nor a quantitative prediction of bradykinesia?",link:"Check the diagram's assumptions"},
+  {section:"cases",question:"Repeated finger tapping becomes slower and smaller, but gross strength is preserved on separate examination. How does bradykinesia differ from paresis and dysmetria? What additional findings about tone, reflexes, coordination, medication and other signs are needed before clinical interpretation? Why can neither one bedside task nor a teaching circuit diagnose Parkinson disease?",link:"Review clinical limitations"}]},
+ KZ:{title:"Өзіндік тексеру: базальды ганглийлер және қозғалысты таңдау",note:"Механизмдерді өз сөзіңізбен түсіндіріп, теориямен, интерактивті сызбамен және клиникалық жағдайлармен салыстырыңыз. Ашық жауаптар автоматты түрде бағаланбайды және меңгеру көрсеткішін арттырмайды. Виртуалды пациенттің пайызы тек алты таңдалған нұсқаны көрсетеді; жазбаша түсіндірмені, диагнозды немесе клиникалық құзыреттілікті бағаламайды.",items:[
+  {section:"theory",question:"Қыртыстан стриатумға келетін қоздырушы кірісті және екі бөлек тізбекті сипаттаңыз. Тікелей жолда стриатумның ГАМҚ-нейрондары GPi/SNr-ді тежейді: басқа кірістер тұрақты болса, таламустың таңдалған нейрондарына тежегіш әсер қалай өзгереді? Жанама жолда стриатум GPe-ні тежеп, STN мен GPi/SNr белсенділігін өзгертеді: таламусқа әсердің болжамы неліктен өзгеше? SNc дофаминінің D1 және D2 арқылы әсерін барлық жасушаға бірдей қоздырушы деп неге айтуға болмайды?",link:"Тікелей және жанама жолдарды қайталау"},
+  {section:"interactive",question:"Оқу сызбасында тікелей, жанама және гипертікелей жолдарды жеке қадағалаңыз. Гипертікелей жол үшін қыртыс → STN → GPi/SNr → таламус тізбегін және байланыстардың қоздырушы не тежегіш екенін атаңыз. Нақты мидағы қатар жұмыс істейтін тізбектерді неліктен қозғалысты «қосу/өшіру» тетігіне теңестіруге болмайды? Неліктен шартты көрсеткіштер нейрондардың тіркелген белсенділігі де, брадикинезияның сандық болжамы да емес?",link:"Сызбаның шектеулерін тексеру"},
+  {section:"cases",question:"Саусақпен қайталап соққылау баяулап, қозғалыс амплитудасы кішірейеді, бірақ бөлек тексергенде жалпы бұлшықет күші сақталған. Брадикинезия парез бен дисметриядан қалай ерекшеленеді? Клиникалық қорытындыға дейін тонус, рефлекстер, координация, қабылданатын дәрілер және басқа белгілер туралы нені анықтау қажет? Неліктен бір сынама мен оқу моделі Паркинсон ауруының диагнозын дәлелдемейді?",link:"Клиникалық шектеулерді талдау"}]}
+} as const;
+
 function level(correct:number,total:number):Level{if(!total)return"none";const p=correct/total;return p>=.8?"mastered":p>=.5?"forming":"review"}
 export default function ModuleProgress({language,moduleId}:{language:Language;moduleId:number}){
  const [data,setData]=useState<CourseProgressData|null>(null);
@@ -174,7 +197,7 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const masteredCount=available.filter(([,l])=>l==="mastered").length;
  const reviewCount=available.filter(([,l])=>l==="review").length;
  const overallPercent=available.length?Math.round((available.reduce((sum,[,l])=>sum+(l==="mastered"?1:l==="forming"?0.5:0),0)/available.length)*100):0;
- const recommendation=available.length===0?c.none:reviewCount>0?c.low:available.length<3?c.mid:masteredCount===available.length?c.strong:c.mid;
+ const recommendation=available.length===0?c.none:reviewCount>0?c.low:available.length<3?c.mid:masteredCount===available.length?(moduleId===12?c.mid:c.strong):c.mid;
  return <section className={styles.patient}>
   <h1>{c.title}</h1><p>{c.scope}. {c.saved}</p>
   <div className={styles.summary}>
@@ -208,6 +231,11 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     <h2 style={{marginTop:0}}>{moduleTenReview[language].title}</h2>
     <p>{moduleTenReview[language].note}</p>
     <ol>{moduleTenReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
+  </section>}
+  {moduleId===12 && <section aria-label={moduleTwelveReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
+    <h2 style={{marginTop:0}}>{moduleTwelveReview[language].title}</h2>
+    <p>{moduleTwelveReview[language].note}</p>
+    <ol>{moduleTwelveReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
   </section>}
   {moduleId===11 && <section aria-label={moduleElevenReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
     <h2 style={{marginTop:0}}>{moduleElevenReview[language].title}</h2>
