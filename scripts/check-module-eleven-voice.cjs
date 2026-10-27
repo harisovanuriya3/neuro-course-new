@@ -25,7 +25,7 @@ const context={};vm.runInNewContext(js,context);
 const localized=context.localized;
 assert.deepEqual(Object.keys(localized).sort(),["EN","KZ","RU"]);
 const markers={
- RU:["базальными ганглиями","мозжечка","кортикоспинальные","α-мотонейроны","проприоцептивной","запаздывающую","не определяет","самооценки"],
+ RU:["базальных ганглиев","мозжечка","кортикоспинальные","α-мотонейроны","проприоцептивной","запаздывающую","не определяет","самооценки"],
  EN:["basal ganglia","cerebellum","corticospinal","alpha motor neurons","proprioceptive","delayed correction","cannot localize","self-check"],
  KZ:["базальды ганглийлермен","мишықпен","кортикоспиналдық","α-мотонейрондарға","проприоцептивтік","кешігетін","анықтамайтынын","өзіндік"]
 };
