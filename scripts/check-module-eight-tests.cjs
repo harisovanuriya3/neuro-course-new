@@ -65,7 +65,7 @@ for(const lang of ["RU","EN","KZ"]){
 }
 const assessment=fs.readFileSync("content/course-foundation/assessment.ts","utf8");
 assert(assessment.includes('import { adaptModuleEightTest } from "./module-eight-tests";'));
-assert(assessment.includes("return topic.id===8 ? adaptModuleEightTest(result,l) : result;"));
+assert(assessment.includes("return topic.id===8 ? adaptModuleEightTest(result,l) :"), "Module 8 adapter must be first branch of the registered test chain");
 const foundation=fs.readFileSync("content/course-foundation/index.ts","utf8");
 assert(foundation.includes("return createFoundationTest("));
 const config=JSON.parse(fs.readFileSync("vercel.json","utf8"));
