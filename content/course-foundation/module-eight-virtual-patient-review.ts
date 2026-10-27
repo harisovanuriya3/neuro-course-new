@@ -50,7 +50,7 @@ const steps: Record<Language, Step[]> = {
       "Сочетание ипсилатерального заднеканатикового и пирамидного дефицита с контралатеральным боле-температурным дефицитом поддерживает синдром по типу Броун–Секара. Причина поражения из этих признаков не определяется."
     ],
     [
-      "Какой итог соответствует данным и границам метода?",
+      "Какой итог о стороне и уровне поражения согласуется с данными и границами метода?",
       "Учебный случай завершён. Данные осмотра и условной МРТ согласуются с частичным левосторонним очагом спинного мозга вблизи сегмента T10.",
       "Указать наиболее вероятную левостороннюю спинальную локализацию, объяснить оба перекрёста и отметить, что этиология и точные границы требуют дополнительной оценки.",
       "Заявить, что сохранное лёгкое прикосновение полностью исключает повреждение задних столбов.",
@@ -100,7 +100,7 @@ const steps: Record<Language, Step[]> = {
       "Ipsilateral dorsal-column and corticospinal deficits with contralateral pain-temperature loss support a Brown–Séquard-type pattern. The etiology is not determined by this pattern."
     ],
     [
-      "Which final interpretation respects the evidence and its limits?",
+      "Which final interpretation of lesion side and level respects the evidence and its limits?",
       "The teaching case is complete. Examination and the stipulated MRI are consistent with a partial left-sided spinal cord lesion near segment T10.",
       "State the most likely left spinal localization, explain the relevant crossings and note that etiology and exact extent require further assessment.",
       "Claim that intact light touch entirely rules out dorsal-column damage.",
@@ -150,7 +150,7 @@ const steps: Record<Language, Step[]> = {
       "Бір жақтағы артқы баған мен қыртыс-жұлын тапшылығының қарсы жақтағы ауырсыну-температура тапшылығымен қатар болуы Броун–Секар типті үлгіні қолдайды. Оның себебі тек осы белгілерден анықталмайды."
     ],
     [
-      "Қандай қорытынды деректер мен әдістің шектеулеріне сәйкес келеді?",
+      "Зақымның жағы мен деңгейі туралы қандай қорытынды деректер мен әдістің шектеулеріне сәйкес келеді?",
       "Оқу жағдайы аяқталды. Тексеру мен шартты МРТ жұлынның T10 сегменті маңындағы ішінара сол жақ ошақпен үйлеседі.",
       "Жұлынның сол жақтағы ең ықтимал локализациясын атап, тиісті айқасуларды түсіндіру және себеп пен нақты көлем үшін қосымша бағалау қажет екенін көрсету.",
       "Жеңіл жанасу сақталғандықтан, артқы бағанның зақымы толық жоққа шығарылады деу.",
