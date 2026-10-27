@@ -152,7 +152,8 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const needsAttention=allModules.filter(m=>m.total>0&&m.mastery<55).sort((a,b)=>a.mastery-b.mastery).slice(0,5);
  const test=outcomes[`${moduleId}:tests`], cases=outcomes[`${moduleId}:cases`], practice=outcomes[`${moduleId}:practice`], questions=outcomes[`${moduleId}:questions`], patient=outcomes[`${moduleId}:virtual-patient`], sketch=outcomes[`${moduleId}:criterion:application:sketch`], builder=outcomes[`${moduleId}:criterion:application:path-builder`];
  const combined=(items:({correct:number;total:number}|undefined)[])=>{const x=items.filter(Boolean) as {correct:number;total:number}[];return {correct:x.reduce((a,b)=>a+b.correct,0),total:x.reduce((a,b)=>a+b.total,0)}};
- const tc=combined([test,cases]), tOnly=combined([test]), cOnly=combined([cases]);
+ // Case completion is an activity marker, not a checked answer. Never count it as mechanism mastery.
+ const testEvidence=combined([test]);
  const criterion=(name:string)=>{
    const prefix=`${moduleId}:criterion:${name}`;
    const values=Object.entries(outcomes).filter(([key])=>(key===prefix||key.startsWith(prefix+":"))&&!key.endsWith(":sketch")&&!key.endsWith(":path-builder")&&!key.endsWith(":lab-reflection")&&!key.endsWith(":gradient-permeability")&&!key.endsWith(":ghk")&&!key.endsWith(":electrophysiology-prediction")).map(([,value])=>value);
@@ -161,8 +162,8 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  };
  const rows:[string,Level][]=[
   [c.concept,level(criterion("concept")?.correct??0,criterion("concept")?.total??0)],
-  [c.mechanism,level(criterion("mechanism")?.correct??tc.correct,criterion("mechanism")?.total??tc.total)],
-  [c.interpret,level(criterion("application")?.correct??tOnly.correct,criterion("application")?.total??tOnly.total)],
+  [c.mechanism,level(criterion("mechanism")?.correct??testEvidence.correct,criterion("mechanism")?.total??testEvidence.total)],
+  [c.interpret,level(criterion("application")?.correct??testEvidence.correct,criterion("application")?.total??testEvidence.total)],
   [c.transfer,level(criterion("transfer")?.correct??0,criterion("transfer")?.total??0)],
   [c.justification,level(criterion("justification")?.correct??0,criterion("justification")?.total??0)],
   [c.clinical,level(criterion("clinical")?.correct??0,criterion("clinical")?.total??0)],
