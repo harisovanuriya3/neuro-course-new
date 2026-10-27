@@ -20,7 +20,7 @@ assert.equal(typeof create, "function", "Pretest factory missing");
 const ids = ["module-12-pretest-direct", "module-12-pretest-dopamine", "module-12-pretest-signs"];
 const keys = ["b", "d", "a"];
 const terms = {
-  RU: ["стриатум", "GPi/SNr", "ГАМК", "таламус", "D1", "D2", "дофамин", "брадикинез", "дисметри", "мозжеч"],
+  RU: ["стриатум", "GPi/SNr", "ГАМК", "талам", "D1", "D2", "дофамин", "брадикинез", "дисметри", "мозжеч"],
   EN: ["striatal", "GPi/SNr", "GABA", "thalam", "D1", "D2", "dopamine", "bradykinesia", "dysmetria", "cerebell"],
   KZ: ["стриатум", "GPi/SNr", "ГАМҚ", "таламус", "D1", "D2", "дофамин", "брадикинез", "дисметрия", "мишық"]
 };
