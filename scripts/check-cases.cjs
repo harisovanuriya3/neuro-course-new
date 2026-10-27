@@ -64,7 +64,7 @@ async function main() {
   async function ready(lesson) {
     for (let attempt = 0; attempt < 150; attempt++) {
       // Server HTML can appear before React attaches input handlers.
-      if (await evaluate(`document.querySelector('h1')?.textContent === ${JSON.stringify(lesson.title)} && document.querySelectorAll('article').length === lesson.cases.length && Object.keys(document.querySelector('article textarea') ?? {}).some(key => key.startsWith('__reactProps$'))`)) {
+      if (await evaluate(`document.querySelector('h1')?.textContent === ${JSON.stringify(lesson.title)} && document.querySelectorAll('article').length === ${lesson.cases.length} && Object.keys(document.querySelector('article textarea') ?? {}).some(key => key.startsWith('__reactProps$'))`)) {
         await settle();
         return;
       }
@@ -155,7 +155,7 @@ async function main() {
       await click("#case-afferent input[type=checkbox]");
       assert.equal(await evaluate("document.querySelector('progress').value"), lesson.cases.length);
       await answer("#case-afferent-response-0");
-      assert.equal(await evaluate("document.querySelector('progress').value"), 7, "Editing invalidates completion");
+      assert.equal(await evaluate("document.querySelector('progress').value"), lesson.cases.length - 1, "Editing invalidates completion");
       assert(await evaluate("[...document.querySelectorAll('article textarea,article input')].every(el => el.labels.length > 0)"), "All fields labelled");
       await click('a[href="#case-integrative"]');
       assert.equal(await evaluate("location.hash"), "#case-integrative");
@@ -170,7 +170,7 @@ async function main() {
       assert.equal(await evaluate("document.querySelector('progress').value"), 0, "Language switch resets progress");
       assert.equal(await evaluate("document.querySelectorAll('article button[aria-expanded=false]:disabled').length"), lesson.cases.length);
       assert.equal(await evaluate(`document.querySelector('nav a[href="/modules/1/cases?lang=${nextLang}"][aria-current=page]').textContent`), nextLang);
-      console.log(`PASS ${lang}: HTTP 200, ${lesson.cases.length} cases, progressive stages, sequence incorrect/correct/undo/reset, all choices, keyboard disclosures/focus, completion 0–8, language switch, 320/375/1280px`);
+      console.log(`PASS ${lang}: HTTP 200, ${lesson.cases.length} cases, progressive stages, sequence incorrect/correct/undo/reset, all choices, keyboard disclosures/focus, completion 0–${lesson.cases.length}, language switch, 320/375/1280px`);
     }
     assert.deepEqual(errors, [], "No browser runtime exceptions");
     await call("Emulation.setDeviceMetricsOverride", { width: 375, height: 900, deviceScaleFactor: 1, mobile: true });
