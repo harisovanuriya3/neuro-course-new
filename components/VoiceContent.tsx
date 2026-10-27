@@ -314,9 +314,47 @@ const moduleElevenCopy = {
  }
 } as const;
 
+/*
+ * Module 12: basal-ganglia motor selection. Structure-only self-check:
+ * speech recognition transcribes, it does not evaluate the physiological answer.
+ * Cross-check: Guyton & Hall 13e ch. 57, printed pp. 730–732;
+ * Ganong 23e ch. 16, printed pp. 250–252;
+ * C. L. Ghai Practical Physiology 8e, printed pp. 285–287.
+ * The direct/indirect pathways are qualitative canonical models, not recordings.
+ */
+const moduleTwelveCopy = {
+ RU: {
+  intro:"Учебная ситуация: при повторном постукивании пальцами движения становятся медленнее и меньше по амплитуде, хотя в отдельной пробе сила мышц сохранена. Объясните, как корково-стриарные петли участвуют в выборе и масштабировании двигательной программы. Сравните прямой и непрямой пути, роль дофамина SNc и необходимость нисходящих команд для сокращения мышцы. Декремент сам по себе не устанавливает болезнь Паркинсона или локализацию поражения. Отметки ниже — только самооценка структуры, не автоматическая проверка физиологии.",
+  prompt:"Базальные ганглии: стриатум → GPi/SNr или GPe–STN → таламус → кора; объясните механизмы",
+  cause:"Я различил(а) замедление и уменьшение амплитуды повторных движений от снижения силы; объяснил(а), что кора возбуждает стриатум и что это не готовый диагноз",
+  path:"Я описал(а) прямой путь: ГАМК-нейроны стриатума тормозят GPi/SNr, ослабляя их торможение таламуса; и непрямой путь: торможение GPe ослабляет торможение STN, который возбуждает GPi/SNr и может усилить тормозный выход к таламусу",
+  result:"Я указал(а), что дофамин SNc в учебной схеме обычно облегчает D1-зависимый прямой путь и ослабляет D2-зависимый непрямой путь, но не одинаково возбуждает все нейроны; таламокорковая модуляция не заменяет нисходящие пути и мотонейроны, а одиночный признак не устанавливает диагноз",
+  ready:"Все три пункта отмечены. Сверьте объяснение с теорией и схемой: галочки не подтверждают физиологическую правильность, а голосовой ввод лишь преобразует речь в текст.",
+  good:"Три пункта самооценки отмечены"
+ },
+ EN: {
+  intro:"Learning scenario: repeated finger taps become slower and smaller, although strength is preserved on a separate test. Explain how cortico-striatal loops contribute to selecting and scaling a motor program. Contrast direct and indirect pathways, dopamine from SNc, and the need for descending commands to activate muscle. Decrement alone neither diagnoses Parkinson disease nor localizes a lesion. Checkmarks assess answer structure only, not physiological correctness.",
+  prompt:"Basal ganglia: striatum → GPi/SNr or GPe–STN → thalamus → cortex; explain the mechanisms",
+  cause:"I distinguished slowing and decreasing amplitude during repetitive movement from loss of strength; I noted that cortex excites striatum and this finding is not a diagnosis",
+  path:"I traced the direct pathway: striatal GABA neurons inhibit GPi/SNr and reduce their inhibition of thalamus; and the indirect pathway: inhibition of GPe releases STN from inhibition, so STN excites GPi/SNr and may increase thalamic inhibition",
+  result:"I explained that SNc dopamine in the teaching model generally facilitates D1-dependent direct-pathway activity and reduces D2-dependent indirect-pathway activity, rather than exciting every neuron; thalamocortical modulation does not replace descending pathways and motor neurons, and one sign does not establish a diagnosis",
+  ready:"All three self-check items are marked. Compare your explanation with the theory and diagram: checkmarks do not verify physiology, and speech input only transcribes words.",
+  good:"Three self-check items marked"
+ },
+ KZ: {
+  intro:"Оқу жағдайы: саусақпен қайта-қайта тықылдатқанда қозғалыс баяулап, амплитудасы кішірейеді, бірақ жеке тексеруде бұлшықет күші сақталған. Қыртыс-стриатум ілмектері қозғалыс бағдарламасын таңдауға және оның ауқымын реттеуге қалай қатысатынын түсіндіріңіз. Тікелей және жанама жолдарды, SNc дофаминінің әсерін және бұлшықетті жиыру үшін төмендеуші командалардың қажеттігін салыстырыңыз. Бұл белгі өздігінен Паркинсон ауруын да, зақым орнын да анықтамайды. Белгілер тек жауап құрылымын өзіндік бағалауға арналған.",
+  prompt:"Базальды ганглийлер: стриатум → GPi/SNr немесе GPe–STN → таламус → қыртыс; тетіктерін түсіндіріңіз",
+  cause:"Мен қайталанатын қозғалыстың баяулауы мен амплитудасының кішіреюін бұлшықет күшінің төмендеуінен ажыраттым; қыртыс стриатумды қоздыратынын және бұл белгі диагноз емес екенін айттым",
+  path:"Мен тікелей жолда стриатумның ГАМҚ-нейрондары GPi/SNr-ді тежеп, олардың таламусқа тежеуші әсерін азайтатынын түсіндірдім; жанама жолда GPe тежелгенде STN тежелуден босап, GPi/SNr-ді қоздырып, таламусқа тежеуші шығысты күшейтуі мүмкін екенін сипаттадым",
+  result:"Мен оқу үлгісінде SNc дофамині D1-тәуелді тікелей жолды көбіне жеңілдетіп, D2-тәуелді жанама жолдың белсенділігін азайтатынын, бірақ барлық нейронды бірдей қоздырмайтынын айттым; таламус-қыртыс модуляциясы төмендеуші жолдар мен мотонейрондарды алмастырмайды және бір белгі диагноз қойғызбайды",
+  ready:"Үш тармақ белгіленді. Жауапты теориямен және сызбамен салыстырыңыз: белгілер физиологиялық дұрыстықты дәлелдемейді, ал дауыспен енгізу сөзді тек мәтінге айналдырады.",
+  good:"Өзіндік бағалаудың үш тармағы белгіленді"
+ }
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : moduleId===10 ? {...copy[language],...moduleTenCopy[language]} : moduleId===11 ? {...copy[language],...moduleElevenCopy[language]} : copy[language];
- const key=moduleId===11 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===10 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===9 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : moduleId===10 ? {...copy[language],...moduleTenCopy[language]} : moduleId===11 ? {...copy[language],...moduleElevenCopy[language]} : moduleId===12 ? {...copy[language],...moduleTwelveCopy[language]} : copy[language];
+ const key=moduleId===12 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===11 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===10 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===9 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
  const storageKey=moduleId===8 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : key;
  const[answer,setAnswer]=useState("");
  const[persisted,setPersisted]=useState(false);
