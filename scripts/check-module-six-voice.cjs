@@ -38,8 +38,14 @@ for(const [lang,phrases] of Object.entries({
 assert(src.includes("moduleId===6 ? {...copy[language],...moduleSixCopy[language]}"),
  "Module 6 voice is not selected in actual component");
 assert(src.includes("disabled={answer.trim().length<12}"),"Very short/empty answer must not be submitted");
-assert(src.includes("moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`"),
- "Local answer storage must be isolated by module and language");
+// The storage selector now has versioned keys for several reviewed modules.
+ // Check actual read/write use and the module+language namespace, not one old ternary.
+for (const marker of [
+  "neuro-course:mechanism:v2:${moduleId}:${language}",
+  "neuro-course:mechanism:${moduleId}:${language}",
+  "localStorage.getItem(storageKey)",
+  "localStorage.setItem(storageKey,v)"
+]) assert(src.includes(marker),"Local answer storage missing "+marker);
 assert(src.includes("<VoiceTextarea language={language}"),"Speech/text input missing");
 assert(src.includes("This is a structure self-check, not an automatic knowledge grade."),
  "Do not claim to automatically assess scientific correctness");
