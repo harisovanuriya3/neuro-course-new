@@ -96,7 +96,7 @@ const tasks: readonly Task[] = [
   }
 ];
 
-const response = t("Алдымен өз болжамыңызды, механизмді және шектеуді жазыңыз", "First write your prediction, mechanism and limits", "Алдымен болжамды, механизмді және шектеуді жазыңыз");
+const response = t("Сначала запишите прогноз, физиологический механизм и границы вывода", "First write your prediction, mechanism and limits", "Алдымен болжамды, механизмді және шектеуді жазыңыз");
 const checkTitle = t("Самопроверка без автоматической оценки объяснения", "Self-check without automatic grading of explanations", "Түсіндірмені автоматты бағалаусыз өзін-өзі тексеру");
 const criteria: Record<Language, string[]> = {
   RU: [
