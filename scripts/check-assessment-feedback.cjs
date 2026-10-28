@@ -10,9 +10,9 @@ for (const topic of topics) for (const language of ['RU', 'EN', 'KZ']) {
   assert.equal(new Set(hints.map(n => n.text)).size, 5, 'Five skill-specific hints required');
   for (const node of Object.values(test.nodes)) {
     if (node.type === 'question') {
-      // Modules 8–12 have separately audited, topic-specific test adapters.
+      // Modules 8–13 have separately audited, topic-specific test adapters.
       // Their explanations intentionally replace the generic foundation copy.
-      if ([8,9,10,11,12].includes(topic.id)) {
+      if ([8,9,10,11,12,13].includes(topic.id)) {
         assert(node.explanation.trim().length >= 50,
           `${topic.id}/${language}/${node.id}: authored explanation is missing`);
         assert(!/^(correct|верно|дұрыс)[.! ]*$/i.test(node.explanation.trim()),
@@ -24,7 +24,7 @@ for (const topic of topics) for (const language of ['RU', 'EN', 'KZ']) {
       assert(node.options.some(o => o.id === node.correctAnswer), 'Preserve answer keys');
     }
     if (node.type === 'remediation' && node.depth === 2) {
-      if ([8,9,10,11,12].includes(topic.id))
+      if ([8,9,10,11,12,13].includes(topic.id))
         assert(node.text.trim().length >= 50,
           `${topic.id}/${language}/${node.id}: second support must explain the mechanism`);
       else
