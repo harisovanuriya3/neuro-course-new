@@ -7,6 +7,7 @@ import type { LocalizedLesson, PracticeLesson, SectionLesson } from '../types';
 import type { MediaLesson } from '../media';
 import { topics, termDefinitions, type Topic } from './topics';
 import { clinicalVignettes, createFoundationCase, createFoundationTest } from './assessment';
+import { createModuleThirteenSummary } from "./module-thirteen-summary";
 
 const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
   2: { RU: 'сравните две записи ЭЭГ с одинаковым физиологическим состоянием, но разным уровнем артефакта; измерьте амплитуду, частоту и признак, позволяющий распознать артефакт', EN: 'compare two EEG recordings from the same physiological state but with different artifact levels; measure amplitude, frequency, and a feature that identifies the artifact', KZ: 'физиологиялық күйі бірдей, бірақ артефакт деңгейі әртүрлі екі ЭЭГ жазбасын салыстырып, амплитуданы, жиілікті және артефактты тануға көмектесетін белгіні өлшеңіз' },
@@ -1066,3 +1067,13 @@ export const foundationLessons: Partial<
     ),
   ]),
 );
+
+
+// Preserve the shared foundation while replacing only the reviewed Module 13 summary.
+if (foundationLessons[13]) {
+  foundationLessons[13]["one-minute"] = {
+    RU: createModuleThirteenSummary("RU"),
+    EN: createModuleThirteenSummary("EN"),
+    KZ: createModuleThirteenSummary("KZ"),
+  };
+}
