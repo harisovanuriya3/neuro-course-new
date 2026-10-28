@@ -85,7 +85,7 @@ assert(lab.includes("не оценивается автоматически") &&
 assert(lab.includes("VPL") && lab.includes("VPM") &&
   lab.includes("T-type") && lab.includes("ГАМҚ"),
   "Relay anatomy and circuit limitations required");
-assert(model.includes("not a fitted") && model.includes("Number.isFinite"),
+assert(/not a fitted/i.test(model) && model.includes("Number.isFinite"),
   "Illustrative assumption and invalid-input guard required");
 const route = fs.readFileSync("app/modules/[id]/[section]/page.tsx", "utf8");
 assert(route.includes('moduleNumber === 14 && section === "interactive"') &&
