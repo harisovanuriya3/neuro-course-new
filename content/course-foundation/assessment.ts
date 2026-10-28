@@ -13,6 +13,7 @@ import { adaptModuleNineTest } from "./module-nine-tests";
 import { adaptModuleTenTest } from "./module-ten-tests";
 import { adaptModuleElevenTest } from "./module-eleven-tests";
 import { adaptModuleTwelveTest } from "./module-twelve-tests";
+import { adaptModuleThirteenTest } from "./module-thirteen-tests";
 
 type Vignette = Record<Language,string>;
 const v=(RU:string,EN:string,KZ:string):Vignette=>({RU,EN,KZ});
@@ -230,5 +231,5 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   transfer:{title:l==="RU"?"Перенос механизма":l==="EN"?"Mechanism transfer":"Тетікті көшіру",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [justifyComp]:{title:l==="RU"?"Обоснование вывода":l==="EN"?"Justification of conclusion":"Қорытындыны негіздеу",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}}
  },nodes};
- return topic.id===8 ? adaptModuleEightTest(result,l) : topic.id===9 ? adaptModuleNineTest(result,l) : topic.id===10 ? adaptModuleTenTest(result,l) : topic.id===11 ? adaptModuleElevenTest(result,l) : topic.id===12 ? adaptModuleTwelveTest(result,l) : result;
+ return topic.id===8 ? adaptModuleEightTest(result,l) : topic.id===9 ? adaptModuleNineTest(result,l) : topic.id===10 ? adaptModuleTenTest(result,l) : topic.id===11 ? adaptModuleElevenTest(result,l) : topic.id===12 ? adaptModuleTwelveTest(result,l) : topic.id===13 ? adaptModuleThirteenTest(result,l) : result;
 }
