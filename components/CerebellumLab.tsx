@@ -1,8 +1,161 @@
 "use client";
-import {useState} from "react";
-import type {Language} from "../content/course";
+
+import { useState } from "react";
+import type { Language } from "../content/course";
 import ExperimentReflection from "./ExperimentReflection";
-import {recordOutcome} from "../lib/courseProgress";
-type Row={id:number;error:number;feedback:number;correction:number;residual:number;note:string};
-const T={RU:{title:"Лаборатория мозжечковой коррекции",intro:"Задайте исходную ошибку движения и качество сенсорной обратной связи. Модель показывает величину коррекции и остаточную ошибку.",error:"Исходная ошибка движения",feedback:"Сенсорная обратная связь",correction:"Коррекция",residual:"Остаточная ошибка",save:"Записать опыт",note:"Объясните результат",task:"Сравните одну и ту же исходную ошибку при слабой и сильной обратной связи.",cerebellum:"Мозжечок",limit:"Упрощённая модель коррекции по ошибке. Мозжечок сопоставляет информацию о планируемом/командном движении с сенсорными последствиями и участвует в прогнозировании и обновлении моторных команд. Более качественная обратная связь может улучшать обнаружение ошибки, но коррекция не является простой линейной функцией сенсорного сигнала: важны внутренние модели, задержки, обучение, клетки Пуркинье и глубокие ядра. Проценты условны и не соответствуют клиническому тесту."},EN:{title:"Cerebellar correction laboratory",intro:"Set initial movement error and sensory-feedback quality. The model shows correction magnitude and residual error.",error:"Initial movement error",feedback:"Sensory feedback",correction:"Correction",residual:"Residual error",save:"Record trial",note:"Explain the result",task:"Compare the same initial error with weak and strong feedback.",cerebellum:"Cerebellum",limit:"A simplified model of error-based correction. The cerebellum compares information related to intended/commanded movement with sensory consequences and contributes to prediction and updating of motor commands. Better feedback can improve error detection, but correction is not a simple linear function of sensory input: internal models, delays, learning, Purkinje cells, and deep nuclei matter. Percentages are modeled and do not represent a clinical test."},KZ:{title:"Мишықтық түзету зертханасы",intro:"Қозғалыстың бастапқы қатесін және сенсорлық кері байланыс сапасын белгілеңіз. Модель түзету шамасын және қалдық қатені көрсетеді.",error:"Бастапқы қозғалыс қатесі",feedback:"Сенсорлық кері байланыс",correction:"Түзету",residual:"Қалдық қате",save:"Тәжірибені жазу",note:"Нәтижені түсіндіріңіз",task:"Бірдей бастапқы қатені әлсіз және күшті кері байланыста салыстырыңыз.",cerebellum:"Мишық",limit:"Қатеге негізделген түзетудің жеңілдетілген моделі. Мишық жоспарланған/берілген қозғалыс туралы ақпаратты сенсорлық салдармен салыстырып, қозғалысты болжауға және моторлық командаларды жаңартуға қатысады. Жақсы кері байланыс қатені анықтауды жақсарта алады, бірақ түзету сенсорлық сигналдың жай сызықтық функциясы емес: ішкі модельдер, кідірістер, үйрену, Пуркинье жасушалары және терең ядролар маңызды. Пайыздар шартты және клиникалық сынақты білдірмейді."}} as const;
-export default function CerebellumLab({language}:{language:Language}){const c=T[language];const[prediction,setPrediction]=useState("");const[revealed,setRevealed]=useState(false);const[error,setError]=useState(60),[feedback,setFeedback]=useState(70),[rows,setRows]=useState<Row[]>([]);const correction=Math.round(error*feedback/100*.82),residual=Math.max(0,error-correction);return <section style={{margin:"28px 0",padding:20,border:"1px solid #cfe0ea",borderRadius:16}}><h2>{c.title}</h2><p>{c.intro}</p><p><strong>{c.task}</strong></p><label>{c.error}: {error}%<input type="range" min="0" max="100" value={error} onChange={e=>setError(+e.target.value)} style={{width:"100%"}}/></label><label>{c.feedback}: {feedback}%<input type="range" min="0" max="100" value={feedback} onChange={e=>setFeedback(+e.target.value)} style={{width:"100%"}}/></label><svg viewBox="0 0 650 180" style={{width:"100%",background:"#fff",margin:"14px 0"}} role="img" aria-label={c.title}><circle cx="70" cy="90" r="28" fill="none" stroke="currentColor" strokeWidth="3"/><circle cx="325" cy="90" r="38" fill="none" stroke="currentColor" strokeWidth="3"/><circle cx="580" cy="90" r="28" fill="none" stroke="currentColor" strokeWidth="3"/><path d="M98 90 H285 M365 90 H552" stroke="currentColor" strokeWidth="4"/><path d="M565 125 C480 165 205 165 90 125" fill="none" stroke="currentColor" strokeWidth={2+feedback/25} strokeDasharray="8 5"/><text x="265" y="95">{c.cerebellum}</text>{revealed&&<><text x="210" y="40">{c.correction}: {correction}%</text><text x="440" y="55">{c.residual}: {residual}%</text></>}</svg><label style={{display:"block",margin:"12px 0"}}>{language==="RU"?"Прогноз до опыта":language==="KZ"?"Тәжірибеге дейінгі болжам":"Prediction before trial"}<textarea value={prediction} onChange={e=>{setPrediction(e.target.value);setRevealed(false)}} rows={2} style={{width:"100%"}} /></label><button disabled={prediction.trim().length<20} onClick={()=>{setRevealed(true);recordOutcome(13,"interactive",1,1);recordOutcome(13,"criterion:application:lab",1,1);recordOutcome(13,"criterion:mechanism:prediction",1,1);setRows(x=>[...x,{id:Date.now(),error,feedback,correction,residual,note:""}])}}>{c.save}</button><div style={{overflowX:"auto"}}><table><tbody>{rows.map((r,i)=><tr key={r.id}><td>{i+1}</td><td>{r.error}%</td><td>{r.feedback}%</td><td>{r.correction}%</td><td>{r.residual}%</td><td><input aria-label={c.note} value={r.note} onChange={e=>{const note=e.target.value;setRows(xs=>xs.map(x=>x.id===r.id?{...x,note}:x));if(note.trim().length>=30)recordOutcome(13,"criterion:justification:lab",1,1)}}/></td></tr>)}</tbody></table></div><p><small>{c.limit}</small></p><ExperimentReflection language={language} theoryHref={`/modules/13/theory?lang=${language}`} /></section>}
+import { recordOutcome } from "../lib/courseProgress";
+import { compareCerebellum, type CerebellumTrend } from "../lib/cerebellumModel";
+
+type TrialRecord = {
+  id: number;
+  error: number;
+  feedback: number;
+  baseline: number;
+  observed: number;
+  prediction: CerebellumTrend;
+  actual: CerebellumTrend;
+  note: string;
+};
+
+const T = {
+  RU: {
+    title: "Виртуальная лаборатория: коррекция ошибки движения",
+    intro: "Сравните две учебные ситуации при одинаковой исходной ошибке: эталонное качество обратной связи 50% и выбранное вами значение. Сначала предскажите направление изменения остаточной ошибки.",
+    error: "Условный индекс исходной ошибки",
+    feedback: "Условное качество сенсорной обратной связи",
+    prediction: "Прогноз: остаточная ошибка по сравнению с эталоном",
+    lower: "Уменьшится", same: "Не изменится", higher: "Увеличится",
+    choose: "Выберите прогноз", run: "Проверить прогноз", again: "Изменить условия и повторить",
+    baseline: "Эталон (обратная связь 50%)", observed: "Выбранное условие",
+    residual: "Индекс остаточной ошибки", correction: "Индекс коррекции",
+    outcome: "Результат сравнения", right: "Прогноз совпал с результатом учебной модели.",
+    wrong: "Прогноз не совпал. Сравните два индекса и объясните расхождение.",
+    trial: "Опыт", note: "Ваше объяснение (не оценивается автоматически)",
+    limit: "Числа — условные индексы от 0 до 100, а не проценты нейронной активности, точность пациента или результат клинической пробы. Нелинейная зависимость в модели задана для учебного сравнения, не получена экспериментально. В реальной физиологии важны предсказание движения, эфферентная копия, проприоцепция, зрение, задержки, адаптация, клетки Пуркинье и глубокие ядра. Одна сенсорная переменная не позволяет диагностировать поражение мозжечка.",
+    theory: "Сверьте вывод с физиологией: мшистые и лазающие волокна дают возбуждающие входы, клетки Пуркинье тормозят глубокие ядра. Эта схема не моделирует отдельные синапсы.",
+    chart: "Сравнение индекса остаточной ошибки: эталон и выбранное условие",
+  },
+  EN: {
+    title: "Virtual laboratory: movement-error correction",
+    intro: "Compare two teaching conditions with the same initial error: reference feedback quality of 50% and your chosen value. Predict the direction of change in residual error before revealing the result.",
+    error: "Illustrative initial-error index",
+    feedback: "Illustrative sensory-feedback quality",
+    prediction: "Prediction: residual error relative to the reference",
+    lower: "Lower", same: "Unchanged", higher: "Higher",
+    choose: "Choose a prediction", run: "Check prediction", again: "Change conditions and try again",
+    baseline: "Reference (feedback 50%)", observed: "Chosen condition",
+    residual: "Residual-error index", correction: "Correction index",
+    outcome: "Comparison result", right: "Your prediction matches the teaching model.",
+    wrong: "Your prediction differs from the model. Compare the two indices and explain why.",
+    trial: "Trial", note: "Your explanation (not automatically graded)",
+    limit: "Numbers are illustrative indices from 0 to 100, not percentages of neural activity, patient accuracy, or clinical test results. The nonlinear relationship is an explicit teaching assumption, not an experimentally fitted law. Actual physiology also depends on movement prediction, efference copy, proprioception, vision, delays, adaptation, Purkinje cells and deep nuclei. One sensory variable cannot diagnose a cerebellar lesion.",
+    theory: "Check the mechanism: mossy and climbing fibres provide excitatory inputs; Purkinje cells inhibit deep nuclei. This diagram does not simulate individual synapses.",
+    chart: "Residual-error index comparison: reference versus chosen condition",
+  },
+  KZ: {
+    title: "Виртуалды зертхана: қозғалыс қатесін түзету",
+    intro: "Бастапқы қатесі бірдей екі оқу жағдайын салыстырыңыз: кері байланыстың эталондық сапасы 50% және өзіңіз таңдаған мән. Нәтижені ашпай тұрып, қалдық қатенің өзгеру бағытын болжаңыз.",
+    error: "Бастапқы қатенің шартты индексі",
+    feedback: "Сенсорлық кері байланыс сапасының шартты индексі",
+    prediction: "Болжам: эталонмен салыстырғандағы қалдық қате",
+    lower: "Азаяды", same: "Өзгермейді", higher: "Артады",
+    choose: "Болжамды таңдаңыз", run: "Болжамды тексеру", again: "Шарттарды өзгертіп, қайталау",
+    baseline: "Эталон (кері байланыс 50%)", observed: "Таңдалған жағдай",
+    residual: "Қалдық қате индексі", correction: "Түзету индексі",
+    outcome: "Салыстыру нәтижесі", right: "Болжамыңыз оқу моделінің нәтижесіне сәйкес келді.",
+    wrong: "Болжам модель нәтижесіне сәйкес келмеді. Екі индексті салыстырып, айырмашылығын түсіндіріңіз.",
+    trial: "Тәжірибе", note: "Өз түсіндірмеңіз (автоматты түрде бағаланбайды)",
+    limit: "Сандар — 0-ден 100-ге дейінгі шартты индекстер; олар нейрон белсенділігінің пайызы, науқас қозғалысының дәлдігі немесе клиникалық сынақ нәтижесі емес. Модельдегі сызықтық емес тәуелділік тәжірибеден алынған заң емес, оқу үшін таңдалған жорамал. Нақты физиологияда қозғалысты болжау, эфференттік көшірме, проприоцепция, көру, кідіріс, бейімделу, Пуркинье жасушалары мен терең ядролар маңызды. Бір сенсорлық айнымалы мишық зақымын анықтауға жеткіліксіз.",
+    theory: "Механизмді салыстырыңыз: мүк тәрізді және өрмелегіш талшықтар қоздырушы кіріс береді, Пуркинье жасушалары терең ядроларды тежейді. Бұл сызба жеке синапстарды модельдемейді.",
+    chart: "Қалдық қате индексін салыстыру: эталон және таңдалған жағдай",
+  },
+} as const;
+
+export default function CerebellumLab({ language }: { language: Language }) {
+  const c = T[language];
+  const [error, setError] = useState(60);
+  const [feedback, setFeedback] = useState(70);
+  const [prediction, setPrediction] = useState<CerebellumTrend | "">("");
+  const [revealed, setRevealed] = useState(false);
+  const [rows, setRows] = useState<TrialRecord[]>([]);
+  const comparison = compareCerebellum(error, feedback);
+  const correct = prediction !== "" && prediction === comparison.trend;
+
+  function invalidate() {
+    setPrediction("");
+    setRevealed(false);
+  }
+
+  function runTrial() {
+    if (!prediction || revealed) return;
+    const isCorrect = prediction === comparison.trend;
+    recordOutcome(13, "interactive", Number(isCorrect), 1);
+    recordOutcome(13, "criterion:application:lab", Number(isCorrect), 1);
+    // A prediction does not certify a mechanism or a written justification.
+    setRows(previous => [...previous, {
+      id: previous.length + 1,
+      error, feedback,
+      baseline: comparison.baseline.residualErrorIndex,
+      observed: comparison.observed.residualErrorIndex,
+      prediction, actual: comparison.trend, note: "",
+    }]);
+    setRevealed(true);
+  }
+
+  return <section style={{ margin: "28px 0", padding: 20, border: "1px solid #cfe0ea", borderRadius: 16 }}>
+    <h2>{c.title}</h2>
+    <p>{c.intro}</p>
+    <label style={{ display: "block", marginBottom: 16 }}>
+      {c.error}: <strong>{error}</strong>
+      <input type="range" min={0} max={100} value={error}
+        onChange={event => { setError(Number(event.target.value)); invalidate(); }}
+        style={{ display: "block", width: "100%" }} />
+    </label>
+    <label style={{ display: "block", marginBottom: 16 }}>
+      {c.feedback}: <strong>{feedback}</strong>
+      <input type="range" min={0} max={100} value={feedback}
+        onChange={event => { setFeedback(Number(event.target.value)); invalidate(); }}
+        style={{ display: "block", width: "100%" }} />
+    </label>
+    <label style={{ display: "block", marginBottom: 12 }}>
+      {c.prediction}
+      <select value={prediction} onChange={event => { setPrediction(event.target.value as CerebellumTrend | ""); setRevealed(false); }}
+        style={{ display: "block", width: "100%", padding: 10, marginTop: 6 }}>
+        <option value="">{c.choose}</option>
+        <option value="lower">{c.lower}</option>
+        <option value="same">{c.same}</option>
+        <option value="higher">{c.higher}</option>
+      </select>
+    </label>
+    <button type="button" disabled={!prediction || revealed} onClick={runTrial}>{c.run}</button>
+    {revealed && <div role="status" aria-live="polite" style={{ marginTop: 16 }}>
+      <h3>{c.outcome}</h3>
+      <p>{correct ? c.right : c.wrong}</p>
+      <p>{c.baseline}: {comparison.baseline.residualErrorIndex}; {c.observed}: {comparison.observed.residualErrorIndex}.</p>
+      <p>{c.correction}: {comparison.observed.correctionIndex}; {c.residual}: {comparison.observed.residualErrorIndex}.</p>
+      <svg viewBox="0 0 650 150" role="img" aria-label={c.chart} style={{ width: "100%", maxWidth: 650 }}>
+        <text x="10" y="30" fontSize="16" fill="currentColor">{c.baseline}</text>
+        <rect x="10" y="42" width={comparison.baseline.residualErrorIndex * 5} height="18" fill="#397fa8" />
+        <text x="10" y="90" fontSize="16" fill="currentColor">{c.observed}</text>
+        <rect x="10" y="102" width={comparison.observed.residualErrorIndex * 5} height="18" fill="#bd773b" />
+      </svg>
+      <p>{c.theory}</p>
+    </div>}
+    {rows.length > 0 && <div style={{ overflowX: "auto", marginTop: 18 }}>
+      <table>
+        <thead><tr>
+          <th scope="col">{c.trial}</th><th scope="col">{c.error}</th><th scope="col">{c.feedback}</th>
+          <th scope="col">{c.baseline}</th><th scope="col">{c.observed}</th><th scope="col">{c.note}</th>
+        </tr></thead>
+        <tbody>{rows.map(row => <tr key={row.id}>
+          <td>{row.id}</td><td>{row.error}</td><td>{row.feedback}</td>
+          <td>{row.baseline}</td><td>{row.observed}</td>
+          <td><input type="text" aria-label={c.note + " " + row.id} value={row.note}
+            onChange={event => { const note = event.target.value; setRows(previous => previous.map(item => item.id === row.id ? { ...item, note } : item)); }} /></td>
+        </tr>)}</tbody>
+      </table>
+    </div>}
+    <p><small>{c.limit}</small></p>
+    <ExperimentReflection language={language} theoryHref={`/modules/13/theory?lang=${language}`} />
+  </section>;
+}
