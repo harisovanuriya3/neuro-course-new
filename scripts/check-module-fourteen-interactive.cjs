@@ -63,9 +63,10 @@ for (const value of [-100, 150, NaN, Infinity]) {
 }
 for (const lang of ["RU", "EN", "KZ"])
   assert(new RegExp("\\b" + lang + ":\\s*\\{").test(lab), lang + ": localized UI missing");
-assert(lab.includes('disabled={!prediction || revealed}') &&
-  lab.includes('if (!prediction || revealed) return;'),
-  "Prediction must precede result and prevent repeated scoring");
+assert(lab.includes('disabled={!prediction || revealed || alreadyScored}') &&
+  lab.includes('if (!prediction || revealed || alreadyScored) return;') &&
+  lab.includes('scoredConditions.includes(trialKey)'),
+  "Prediction must precede result and prevent repeated scoring of the same conditions");
 assert(lab.includes('prediction === comparison.trend') &&
   lab.includes('recordOutcome(14, "interactive", Number(isCorrect), 1)') &&
   lab.includes('recordOutcome(14, "criterion:application:lab", Number(isCorrect), 1)'),
