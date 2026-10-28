@@ -22,6 +22,7 @@ const T = {
     choose: "Выберите прогноз", run: "Проверить прогноз", baseline: "Эталон (передача 50)",
     observed: "Выбранное условие", relay: "Индекс релейного выхода", cortex: "Индекс условного коркового ответа",
     right: "Прогноз соответствует результату учебной модели.", wrong: "Прогноз не совпал: сравните численные индексы и объясните причину.",
+    repeat: "Это сочетание индексов уже оценено. Измените вход или передачу для нового опыта.",
     outcome: "Результат", trial: "Опыт", note: "Ваше объяснение (не оценивается автоматически)",
     chart: "Сравнение условного коркового ответа при эталонном и выбранном индексе передачи",
     theory: "Таламические релейные нейроны в основном передают возбуждение в кору; ГАМК-ергическое ретикулярное ядро регулирует релейные нейроны. Режимы тонических и пачечных разрядов, T-типа Ca²⁺-каналы, обратная связь коры и состояние бодрствования здесь не рассчитываются.",
@@ -39,6 +40,7 @@ const T = {
     choose: "Choose a prediction", run: "Check prediction", baseline: "Reference (transmission 50)",
     observed: "Chosen condition", relay: "Relay-output index", cortex: "Illustrative cortical-output index",
     right: "Prediction matches the teaching model.", wrong: "Prediction differs from the model: compare the indices and explain why.",
+    repeat: "This index combination has already been scored. Change input or transmission for a new trial.",
     outcome: "Result", trial: "Trial", note: "Your explanation (not automatically graded)",
     chart: "Illustrative cortical-output comparison: reference versus chosen transmission",
     theory: "Thalamic relay neurons mainly provide excitatory output to cortex; the GABAergic thalamic reticular nucleus modulates relay neurons. Tonic/burst modes, T-type Ca²⁺ channels, cortical feedback and vigilance state are not calculated here.",
@@ -56,6 +58,7 @@ const T = {
     choose: "Болжамды таңдаңыз", run: "Болжамды тексеру", baseline: "Эталон (беріліс 50)",
     observed: "Таңдалған жағдай", relay: "Релейлік шығыс индексі", cortex: "Қыртыстық шығыстың шартты индексі",
     right: "Болжам оқу моделінің нәтижесіне сәйкес келді.", wrong: "Болжам модельмен сәйкес келмеді: индекстерді салыстырып, себебін түсіндіріңіз.",
+    repeat: "Индекстердің бұл тіркесімі бағаланды. Жаңа тәжірибе үшін кірісті немесе берілісті өзгертіңіз.",
     outcome: "Нәтиже", trial: "Тәжірибе", note: "Түсіндірмеңіз (автоматты түрде бағаланбайды)",
     chart: "Эталон мен таңдалған берілістегі шартты қыртыстық шығысты салыстыру",
     theory: "Таламустың релейлік нейрондары қыртысқа негізінен қоздырушы сигнал жібереді; ГАМҚ-ергиялық ретикулярлық ядро релейлік нейрондардың жұмысын реттейді. Тоникалық және топтық разряд режимдері, T-типті Ca²⁺ арналары, қыртыстық кері байланыс және сергектік күйі бұл модельде есептелмейді.",
@@ -72,6 +75,9 @@ export default function ThalamusLab({ language }: { language: Language }) {
   const [prediction, setPrediction] = useState<ThalamusTrend | "">("");
   const [revealed, setRevealed] = useState(false);
   const [rows, setRows] = useState<TrialRecord[]>([]);
+  const [scoredConditions, setScoredConditions] = useState<string[]>([]);
+  const trialKey = input + ":" + gate;
+  const alreadyScored = scoredConditions.includes(trialKey);
   const comparison = compareThalamus(input, gate);
   const correct = prediction !== "" && prediction === comparison.trend;
 
@@ -80,11 +86,12 @@ export default function ThalamusLab({ language }: { language: Language }) {
     setRevealed(false);
   }
   function runTrial() {
-    if (!prediction || revealed) return;
+    if (!prediction || revealed || alreadyScored) return;
     const isCorrect = prediction === comparison.trend;
     recordOutcome(14, "interactive", Number(isCorrect), 1);
     recordOutcome(14, "criterion:application:lab", Number(isCorrect), 1);
     // Neither text length nor presence certifies a mechanism or justification.
+    setScoredConditions(previous => [...previous, trialKey]);
     setRows(previous => [...previous, {
       id: previous.length + 1, input, gate,
       baseline: comparison.baseline.corticalIndex,
@@ -97,7 +104,7 @@ export default function ThalamusLab({ language }: { language: Language }) {
     <h2>{c.title}</h2>
     <p>{c.intro}</p>
     <label style={{ display: "block", marginBottom: 14 }}>{c.pathway}
-      <select value={pathway} onChange={e => { setPathway(e.target.value as "body" | "face"); invalidate(); }}
+      <select value={pathway} onChange={e => setPathway(e.target.value as "body" | "face")}
         style={{ display: "block", width: "100%", padding: 8 }}>
         <option value="body">{c.body}</option><option value="face">{c.face}</option>
       </select>
@@ -122,13 +129,14 @@ export default function ThalamusLab({ language }: { language: Language }) {
       <text x="508" y="68" textAnchor="middle" fontSize="13" fill="currentColor">{c.cortexNode}</text>
     </svg>
     <label style={{ display: "block", marginBottom: 12 }}>{c.prediction}
-      <select value={prediction} onChange={e => { setPrediction(e.target.value as ThalamusTrend | ""); setRevealed(false); }}
+      <select value={prediction} disabled={revealed || alreadyScored} onChange={e => { setPrediction(e.target.value as ThalamusTrend | ""); setRevealed(false); }}
         style={{ display: "block", width: "100%", padding: 8 }}>
         <option value="">{c.choose}</option><option value="lower">{c.lower}</option>
         <option value="same">{c.same}</option><option value="higher">{c.higher}</option>
       </select>
     </label>
-    <button type="button" disabled={!prediction || revealed} onClick={runTrial}>{c.run}</button>
+    <button type="button" disabled={!prediction || revealed || alreadyScored} onClick={runTrial}>{c.run}</button>
+    {alreadyScored && !revealed && <p role="status">{c.repeat}</p>}
     {revealed && <div role="status" aria-live="polite" style={{ marginTop: 16 }}>
       <h3>{c.outcome}</h3>
       <p>{correct ? c.right : c.wrong}</p>
