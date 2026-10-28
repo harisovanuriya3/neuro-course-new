@@ -1080,15 +1080,20 @@ if (foundationLessons[13]) {
     KZ: createModuleThirteenObjectives("KZ"),
   };
   foundationLessons[13].pretest = {
-    RU: createModuleThirteenPretest("RU"),
-    EN: createModuleThirteenPretest("EN"),
-    KZ: createModuleThirteenPretest("KZ"),
+    RU: createModuleThirteenPretest("RU", modules.RU[12], getSectionTitle("pretest", "RU")),
+    EN: createModuleThirteenPretest("EN", modules.EN[12], getSectionTitle("pretest", "EN")),
+    KZ: createModuleThirteenPretest("KZ", modules.KZ[12], getSectionTitle("pretest", "KZ")),
   };
-  foundationLessons[13].theory = {
-    RU: { ...createModuleThirteenTheory("RU"), kind: "theory" },
-    EN: { ...createModuleThirteenTheory("EN"), kind: "theory" },
-    KZ: { ...createModuleThirteenTheory("KZ"), kind: "theory" },
-  };
+  const baseTheoryRU = foundationLessons[13].theory?.RU;
+  const baseTheoryEN = foundationLessons[13].theory?.EN;
+  const baseTheoryKZ = foundationLessons[13].theory?.KZ;
+  if (baseTheoryRU?.kind === "theory" && baseTheoryEN?.kind === "theory" && baseTheoryKZ?.kind === "theory") {
+    foundationLessons[13].theory = {
+      RU: createModuleThirteenTheory("RU", baseTheoryRU),
+      EN: createModuleThirteenTheory("EN", baseTheoryEN),
+      KZ: createModuleThirteenTheory("KZ", baseTheoryKZ),
+    };
+  }
   foundationLessons[13]["one-minute"] = {
     RU: createModuleThirteenSummary("RU"),
     EN: createModuleThirteenSummary("EN"),
