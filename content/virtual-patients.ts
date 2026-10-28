@@ -1,5 +1,6 @@
 import { modules, type Language } from "./course";
 import { topics } from "./course-foundation/topics";
+import { createModuleThirteenPatientStages } from "./module-thirteen-virtual-patient";
 
 type Localized = Record<Language, string>;
 
@@ -528,7 +529,7 @@ export function getVirtualPatientScenario(moduleId: number, language: Language):
     opening: seed.opening[language],
     syntheticNote: c.synthetic,
     mechanismSummary: `${mechanism} ${interpretation}`,
-    stages: c.stages.map((title, index) => {
+    stages: moduleId === 13 ? createModuleThirteenPatientStages(language) : c.stages.map((title, index) => {
       const correctDecision = authoredDecisions[index][language];
       const competingDecisionA = authoredDecisions[(index + 1) % 6][language];
       const competingDecisionB = authoredDecisions[(index + 3) % 6][language];
