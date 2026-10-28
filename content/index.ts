@@ -1,3 +1,4 @@
+import { createModuleFourteenPractice } from "./course-foundation/module-fourteen-practice";
 import { createModuleFourteenClinical } from "./course-foundation/module-fourteen-clinical";
 import { createModuleThirteenReferences } from "./course-foundation/module-thirteen-references";
 import { createModuleTwelveReferences } from "./course-foundation/module-twelve-references";
@@ -362,6 +363,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   14: {
     ...foundationLessons[14],
+    practice: {
+      RU: createModuleFourteenPractice("RU", foundationLessons[14].practice.RU as PracticeLesson),
+      EN: createModuleFourteenPractice("EN", foundationLessons[14].practice.EN as PracticeLesson),
+      KZ: createModuleFourteenPractice("KZ", foundationLessons[14].practice.KZ as PracticeLesson),
+    },
     clinical: {
       RU: createModuleFourteenClinical("RU"),
       EN: createModuleFourteenClinical("EN"),
