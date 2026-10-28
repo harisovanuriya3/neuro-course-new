@@ -10,11 +10,11 @@ const result = ts.transpileModule(source, {
   reportDiagnostics: true
 });
 assert.equal(result.diagnostics.filter(x => x.category === ts.DiagnosticCategory.Error).length, 0);
-const exports = {};
-new Function("exports", result.outputText)(exports);
-assert.equal(typeof exports.createModuleThirteenPatientStages, "function");
+const moduleExports = {};
+new Function("exports", result.outputText)(moduleExports);
+assert.equal(typeof moduleExports.createModuleThirteenPatientStages, "function");
 for (const language of ["RU", "EN", "KZ"]) {
-  const stages = exports.createModuleThirteenPatientStages(language);
+  const stages = moduleExports.createModuleThirteenPatientStages(language);
   assert.equal(stages.length, 6, language + " stages");
   assert.equal(new Set(stages.map(s => s.id)).size, 6);
   for (const [index, stage] of stages.entries()) {
