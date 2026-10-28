@@ -30,7 +30,7 @@ const ids = [
   "clinical-signs-and-evidence-limits"
 ];
 const markers = {
-  RU: ["мозжеч", "Пуркинье", "ГАМК", "спиноцеребеллярн", "олива", "копия",
+  RU: ["мозжеч", "Пуркинье", "ГАМК", "спиноцеребеллярн", "олив", "копия",
     "зубчатое", "вставочные", "дисметрия", "интенционн", "проприоцепц", "атаксия"],
   EN: ["cerebell", "Purkinje", "GABA", "spinocerebellar", "olive", "efference",
     "dentate", "interposed", "dysmetria", "intention", "propriocept", "ataxia"],
