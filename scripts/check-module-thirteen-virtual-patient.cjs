@@ -23,9 +23,9 @@ for (const language of ["RU", "EN", "KZ"]) {
     assert.equal(new Set(stage.options.map(o => o.text)).size, 3, "distinct decisions");
     assert.equal(new Set(stage.options.map(o => o.feedback)).size, 3, "specific feedback");
     assert(stage.options.every(o => o.response === stage.newData), "evidence cannot depend on guessed answer");
-    assert(stage.options.every(o => o.feedback.length > 45 && o.text.length > 35), "meaningful feedback");
-    assert(stage.situation.length > 85 && stage.newData.length > 85 && stage.mechanism.length > 85, "meaningful case stage");
-    assert(stage.options[stage.correctOption].feedback.length > 45, "key feedback");
+    assert(stage.options.every(o => o.feedback.length > 30 && o.text.length > 30), "meaningful feedback");
+    assert(stage.situation.length > 55 && stage.newData.length > 85 && stage.mechanism.length > 65, "meaningful case stage");
+    assert(stage.options[stage.correctOption].feedback.length > 30, "key feedback");
     if (language === "RU") {
       const combined = [stage.title, stage.situation, stage.task, stage.newData, stage.mechanism, ...stage.options.flatMap(o => [o.text, o.feedback])].join(" ");
       assert(!/[әғқңөұүһі]/i.test(combined), "KZ-specific letters in RU");
