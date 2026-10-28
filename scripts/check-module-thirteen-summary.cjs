@@ -24,9 +24,9 @@ vm.runInNewContext(compiled.outputText, context);
 const create = context.exports.createModuleThirteenSummary;
 assert.equal(typeof create, "function", "Missing cerebellar summary factory");
 const markers = {
-  RU: ["клочково", "червь", "проприоцеп", "Пуркинье", "ГАМК", "глубок", "агонист", "дисметрия", "интенцион", "мышеч"],
-  EN: ["flocculonodular", "vermis", "proprioceptive", "Purkinje", "GABA", "deep nuclei", "agonist", "dysmetria", "intention", "weakness"],
-  KZ: ["үлпекше", "құртша", "проприоцеп", "Пуркинье", "ГАМҚ", "терең ядро", "агонист", "дисметрия", "интенциялық", "әлсіздігі"]
+  RU: ["клочково", "червь", "проприоцеп", "Пуркинье", "ГАМК", "глубок", "агонист", "дисметрия", "интенцион", "сил"],
+  EN: ["flocculonodular", "vermis", "proprioceptive", "Purkinje", "GABA", "deep nuclei", "agonist", "dysmetria", "intention", "strength"],
+  KZ: ["үлпекше", "құртша", "проприоцеп", "Пуркинье", "ГАМҚ", "терең ядро", "агонист", "дисметрия", "интенциялық", "күшті"]
 };
 for (const lang of ["RU", "EN", "KZ"]) {
   const lesson = create(lang);
