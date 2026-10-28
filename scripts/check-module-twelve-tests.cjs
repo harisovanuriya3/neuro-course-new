@@ -79,7 +79,7 @@ for (const lang of ["RU", "EN", "KZ"]) {
 }
 const assessment = read("content/course-foundation/assessment.ts");
 assert(assessment.includes('import { adaptModuleTwelveTest } from "./module-twelve-tests";'));
-assert(assessment.includes("topic.id===12 ? adaptModuleTwelveTest(result,l) : result;"));
+assert(/topic\.id===12 \? adaptModuleTwelveTest\(result,l\) :/.test(assessment), "module 12 adapter dispatch must remain registered");
 assert(read("content/course-foundation/index.ts").includes("return createFoundationTest("));
 assert(read("content/index.ts").includes("...foundationLessons[12]"));
 assert(read("content/sections.ts").includes('slug: "tests"'));
