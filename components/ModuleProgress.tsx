@@ -156,6 +156,78 @@ const moduleTwelveReview={
   {section:"cases",question:"Саусақпен қайталап соққылау баяулап, қозғалыс амплитудасы кішірейеді, бірақ бөлек тексергенде жалпы бұлшықет күші сақталған. Брадикинезия парез бен дисметриядан қалай ерекшеленеді? Клиникалық қорытындыға дейін тонус, рефлекстер, координация, қабылданатын дәрілер және басқа белгілер туралы нені анықтау қажет? Неліктен бір сынама мен оқу моделі Паркинсон ауруының диагнозын дәлелдемейді?",link:"Клиникалық шектеулерді талдау"}]}
 } as const;
 
+/**
+ * Module 13: ungraded cerebellar physiology reflection, not a diagnostic or graded task.
+ * Guyton & Hall 13e ch. 57 (Library PDF 690–692); Ganong 23e ch. 16
+ * (Library PDF 268–270); C. L. Ghai Practical Physiology 8e
+ * (Library PDF 309–312). Original questions; no copied textbook content.
+ */
+const moduleThirteenReview={
+  "RU": {
+    "title": "Самопроверка: мозжечок, коррекция движений и клинические ограничения",
+    "note": "Ответьте своими словами и сопоставьте объяснение с теорией, лабораторией и клиническими задачами. Эти открытые ответы не оцениваются автоматически и не повышают показатель освоения. Балл виртуального пациента отражает только выбор вариантов на шести этапах, а не качество письменного объяснения, диагноз или клиническую компетентность.",
+    "items": [
+      {
+        "section": "theory",
+        "question": "Сравните два входа в мозжечок: мшистые волокна возбуждают гранулярные клетки, а их параллельные волокна — клетки Пуркинье; лазающие волокна из нижней оливы непосредственно возбуждают клетки Пуркинье. Как обе системы через возбуждающие коллатерали и ГАМК-ергическое торможение Пуркинье влияют на глубокие ядра? Почему выход глубоких ядер не равнозначен непосредственному сокращению мышцы?",
+        "link": "Проверить мозжечковые цепи"
+      },
+      {
+        "section": "interactive",
+        "question": "В качественной лаборатории сравните возбуждающие коллатерали мшистых и лазающих афферентов к глубоким ядрам с тормозным влиянием клеток Пуркинье. Как изменение баланса входов может повлиять на координацию и точность движения? Объясните, почему нарисованные стрелки не задают частоту импульсов, силу мышц, точный временной ход или индивидуальный клинический прогноз.",
+        "link": "Проверить допущения лаборатории"
+      },
+      {
+        "section": "cases",
+        "question": "В пальценосовой пробе наблюдаются промахивание и усиливающееся при приближении к цели дрожание, но грубая сила сохранена. Чем дисметрия и интенционный тремор отличаются от пареза? Как оценить проприоцепцию, походку и влияние закрывания глаз в пробе Ромберга, не объявляя её специфическим тестом мозжечка? Почему внезапная атаксия требует срочной клинической оценки, а одна проба не устанавливает диагноз?",
+        "link": "Разобрать клинические ограничения"
+      }
+    ]
+  },
+  "EN": {
+    "title": "Self-check: cerebellar motor correction and clinical limits",
+    "note": "Explain the mechanisms in your own words and compare with theory, the laboratory and clinical cases. These open answers are not automatically graded and do not increase mastery. The virtual-patient percentage reflects only selected options across six stages, not the quality of written reasoning, a diagnosis or clinical competence.",
+    "items": [
+      {
+        "section": "theory",
+        "question": "Compare two cerebellar inputs: mossy fibers excite granule cells, whose parallel fibers excite Purkinje cells; climbing fibers from the inferior olive directly excite Purkinje cells. How do excitatory afferent collaterals and GABAergic Purkinje inhibition jointly shape deep cerebellar nuclear activity? Why is output from the deep nuclei not a direct command to contract skeletal muscle?",
+        "link": "Review cerebellar circuits"
+      },
+      {
+        "section": "interactive",
+        "question": "In the qualitative laboratory, compare excitatory collaterals from mossy and climbing afferents to the deep nuclei with inhibitory output from Purkinje cells. How might a change in their balance influence movement timing and accuracy? Explain why the diagram's arrows do not quantify neuronal firing rates, muscle force, the precise time course or a clinical prediction for an individual patient.",
+        "link": "Check the model assumptions"
+      },
+      {
+        "section": "cases",
+        "question": "A finger-to-nose examination shows overshooting and tremor that becomes more apparent near the target, while gross strength is preserved. How do dysmetria and intention tremor differ from paresis? What additional assessment of proprioception, gait and eye closure in the Romberg test is needed, without treating Romberg as cerebellum-specific? Why does sudden-onset ataxia warrant urgent clinical assessment rather than diagnosis from one bedside sign?",
+        "link": "Review clinical limitations"
+      }
+    ]
+  },
+  "KZ": {
+    "title": "Өзіндік тексеру: мишық, қозғалысты түзету және клиникалық шектеулер",
+    "note": "Механизмдерді өз сөзіңізбен түсіндіріп, теориямен, зертханамен және клиникалық жағдайлармен салыстырыңыз. Бұл ашық жауаптар автоматты түрде бағаланбайды және меңгеру көрсеткішін арттырмайды. Виртуалды пациенттің пайызы алты кезеңдегі таңдалған нұсқаларды ғана көрсетеді; жазбаша дәлелдің сапасын, диагнозды немесе клиникалық құзыреттілікті бағаламайды.",
+    "items": [
+      {
+        "section": "theory",
+        "question": "Мишыққа келетін екі кірісті салыстырыңыз: мүкті талшықтар түйіршікті жасушаларды, ал олардың параллель талшықтары Пуркинье жасушаларын қоздырады; төменгі оливадан келетін өрмелеуші талшықтар Пуркинье жасушаларын тікелей қоздырады. Қоздырушы афференттік коллатералдар мен Пуркинье жасушаларының ГАМҚ арқылы тежегіш әсері мишықтың терең ядроларының белсенділігін қалай реттейді? Неліктен терең ядролардың шығысы қаңқа бұлшықетіне тікелей жиырылу командасы емес?",
+        "link": "Мишық тізбектерін қайталау"
+      },
+      {
+        "section": "interactive",
+        "question": "Сапалық зертханалық модельде мүкті және өрмелеуші афференттердің мишықтың терең ядроларына бағытталған қоздырушы коллатералдарын Пуркинье жасушаларының тежегіш шығысымен салыстырыңыз. Олардың арақатынасының өзгеруі қозғалыстың уақыты мен дәлдігіне қалай ықпал етуі мүмкін? Сызбадағы бағдаршалар нейрон импульстерінің жиілігін, бұлшықет күшін, нақты уақыттық өзгерісті немесе жеке пациенттің клиникалық болжамын неліктен сандық түрде көрсетпейді?",
+        "link": "Модельдің шектеулерін тексеру"
+      },
+      {
+        "section": "cases",
+        "question": "Саусақ-мұрын сынамасында нысанадан асып кету және нысанаға жақындағанда күшейетін діріл байқалады, бірақ жалпы бұлшықет күші сақталған. Дисметрия мен интенциялық тремор парезден қалай ерекшеленеді? Проприоцепцияны, жүрісті және Ромберг сынамасында көзді жұмудың әсерін қалай бағалау керек, әрі Ромбергті мишыққа ғана тән сынама деп неге санауға болмайды? Кенет басталған атаксия неліктен шұғыл клиникалық бағалауды қажет етеді, ал бір белгі диагноз қойғызбайды?",
+        "link": "Клиникалық шектеулерді талдау"
+      }
+    ]
+  }
+} as const;
+
 function level(correct:number,total:number):Level{if(!total)return"none";const p=correct/total;return p>=.8?"mastered":p>=.5?"forming":"review"}
 export default function ModuleProgress({language,moduleId}:{language:Language;moduleId:number}){
  const [data,setData]=useState<CourseProgressData|null>(null);
@@ -197,7 +269,7 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const masteredCount=available.filter(([,l])=>l==="mastered").length;
  const reviewCount=available.filter(([,l])=>l==="review").length;
  const overallPercent=available.length?Math.round((available.reduce((sum,[,l])=>sum+(l==="mastered"?1:l==="forming"?0.5:0),0)/available.length)*100):0;
- const recommendation=available.length===0?c.none:reviewCount>0?c.low:available.length<3?c.mid:masteredCount===available.length?(moduleId===12?c.mid:c.strong):c.mid;
+ const recommendation=available.length===0?c.none:reviewCount>0?c.low:available.length<3?c.mid:masteredCount===available.length?((moduleId===12||moduleId===13)?c.mid:c.strong):c.mid;
  return <section className={styles.patient}>
   <h1>{c.title}</h1><p>{c.scope}. {c.saved}</p>
   <div className={styles.summary}>
@@ -236,6 +308,11 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     <h2 style={{marginTop:0}}>{moduleTwelveReview[language].title}</h2>
     <p>{moduleTwelveReview[language].note}</p>
     <ol>{moduleTwelveReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
+  </section>}
+  {moduleId===13 && <section aria-label={moduleThirteenReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
+    <h2 style={{marginTop:0}}>{moduleThirteenReview[language].title}</h2>
+    <p>{moduleThirteenReview[language].note}</p>
+    <ol>{moduleThirteenReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
   </section>}
   {moduleId===11 && <section aria-label={moduleElevenReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
     <h2 style={{marginTop:0}}>{moduleElevenReview[language].title}</h2>
