@@ -65,7 +65,7 @@ for (const lang of ["RU", "EN", "KZ"]) {
   assert(!/diagnosis confirmed|диагноз установлен|диагноз анықталды/i.test(body),
     lang + ": unjustified diagnosis");
   if (lang === "KZ")
-    assert(!/\\b(которые|следовательно|однако|потому что)\\b/i.test(body), "KZ: Russian leakage");
+    assert(!/\b(которые|следовательно|однако|потому что)\b/i.test(body), "KZ: Russian leakage");
 }
 const index = read("content/index.ts");
 assert(index.includes('import { createModuleFourteenTheory } from "./course-foundation/module-fourteen-theory";'));
