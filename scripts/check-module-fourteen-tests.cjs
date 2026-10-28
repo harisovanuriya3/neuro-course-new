@@ -77,7 +77,7 @@ for (const lang of ["RU", "EN", "KZ"]) {
 }
 const assessment = read("content/course-foundation/assessment.ts");
 assert(assessment.includes('import { adaptModuleFourteenTest } from "./module-fourteen-tests";'));
-assert(assessment.includes("topic.id===13 ? adaptModuleFourteenTest(result,l) : result;"));
+assert(assessment.includes("topic.id===14 ? adaptModuleFourteenTest(result,l) : result;"));
 assert(read("content/course-foundation/index.ts").includes("return createFoundationTest("));
 assert(read("content/index.ts").includes("...foundationLessons[14]"));
 assert(read("content/sections.ts").includes('slug: "tests"'));
