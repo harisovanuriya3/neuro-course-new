@@ -17,7 +17,7 @@ const copy: Record<Language,Copy> = {
   heading:"Микросхема мозжечка: параллельные влияния",
   back:"Назад",next:"Далее",reset:"Сначала",stage:"Этап",
   excites:"Возбуждает",inhibits:"Тормозит",
-  note:"Знаки показывают тип влияния в упрощённой сети, а не измеренные разряды, скорость, силу движения или диагноз. Все связи действуют в перекрывающихся контурах; этапы служат для объяснения, а не для моделирования реального времени.",
+  note:"Знаки показывают тип влияния в упрощённой сети, а не измеренные разряды, скорость, силу движения или диагноз. Последняя возбуждающая стрелка обозначает основные проекции к указанным мишеням, но не все выходы глубоких ядер. Все связи действуют в перекрывающихся контурах; этапы служат для объяснения, а не для моделирования реального времени.",
   labels:["Мшистые волокна","Гранулярные клетки","Лазающие волокна (нижняя олива)","Клетки Пуркинье","Глубокие ядра","Таламус / ствол мозга"],
   stages:["Входы и гранулярный слой","Тормозный выход коры","Интеграция в глубоких ядрах"],
   descriptions:[
@@ -30,7 +30,7 @@ const copy: Record<Language,Copy> = {
   heading:"Cerebellar microcircuit: parallel influences",
   back:"Back",next:"Next",reset:"Restart",stage:"Stage",
   excites:"Excites",inhibits:"Inhibits",
-  note:"Signs indicate synaptic influences in a simplified circuit, not measured spikes, speed, movement force or diagnosis. Connections act in overlapping networks; stages explain relationships rather than model real time.",
+  note:"Signs indicate synaptic influences in a simplified circuit, not measured spikes, speed, movement force or diagnosis. The final excitatory arrow represents major projections to the targets shown, not every deep-nuclear output. Connections act in overlapping networks; stages explain relationships rather than model real time.",
   labels:["Mossy fibres","Granule cells","Climbing fibres (inferior olive)","Purkinje cells","Deep nuclei","Thalamus / brainstem"],
   stages:["Afferents and granule layer","Inhibitory cortical output","Deep-nuclear integration"],
   descriptions:[
@@ -43,7 +43,7 @@ const copy: Record<Language,Copy> = {
   heading:"Мишық микротізбегі: қатар әсер ететін ықпалдар",
   back:"Артқа",next:"Келесі",reset:"Басынан",stage:"Кезең",
   excites:"Қоздырады",inhibits:"Тежейді",
-  note:"Белгілер жеңілдетілген тізбектегі синапстық ықпалды көрсетеді; олар нақты импульстерді, жылдамдықты, қозғалыс күшін немесе диагнозды білдірмейді. Байланыстар өзара әрекеттесетін желілерде жұмыс істейді; кезеңдер нақты уақытты емес, түсіндіру ретін көрсетеді.",
+  note:"Белгілер жеңілдетілген тізбектегі синапстық ықпалды көрсетеді; олар нақты импульстерді, жылдамдықты, қозғалыс күшін немесе диагнозды білдірмейді. Соңғы қоздырушы көрсеткі көрсетілген нысаналарға бағытталған негізгі проекцияларды білдіреді, терең ядролардың барлық шығысын емес. Байланыстар өзара әрекеттесетін желілерде жұмыс істейді; кезеңдер нақты уақытты емес, түсіндіру ретін көрсетеді.",
   labels:["Мүкті талшықтар","Түйіршікті жасушалар","Өрмелеуші талшықтар (төменгі олива)","Пуркинье жасушалары","Терең ядролар","Таламус / ми бағаны"],
   stages:["Кірістер және түйіршікті қабат","Қыртыстың тежеуші шығысы","Терең ядролардағы біріктіру"],
   descriptions:[
