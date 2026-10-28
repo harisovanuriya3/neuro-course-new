@@ -97,6 +97,7 @@ const tasks: readonly Task[] = [
 ];
 
 const response = t("Сначала запишите прогноз, физиологический механизм и границы вывода", "First write your prediction, mechanism and limits", "Алдымен болжамды, механизмді және шектеуді жазыңыз");
+const gradingNote = t("Приложение проверяет наличие текста, но не его научную правильность. После раскрытия эталона сравните механизм самостоятельно или с преподавателем.", "The app checks that text was entered, not its scientific accuracy. After revealing the model answer, compare the mechanism yourself or with a teacher.", "Қосымша мәтін енгізілгенін ғана тексереді, оның ғылыми дұрыстығын бағаламайды. Үлгі жауапты ашқан соң механизмді өзіңіз немесе оқытушымен салыстырыңыз.");
 const checkTitle = t("Самопроверка без автоматической оценки объяснения", "Self-check without automatic grading of explanations", "Түсіндірмені автоматты бағалаусыз өзін-өзі тексеру");
 const criteria: Record<Language, string[]> = {
   RU: [
@@ -129,7 +130,7 @@ export function createModuleThirteenPractice(language: Language, base: PracticeL
       ...tasks.map(task => ({
         title: task.title[language],
         blocks: [
-          { type: "paragraph" as const, text: task.prompt[language] },
+          { type: "paragraph" as const, text: task.prompt[language] + " " + gradingNote[language] },
           { type: "response" as const, label: response[language] },
           { type: "answer" as const, items: task.answers.map(item => item[language]) }
         ]
