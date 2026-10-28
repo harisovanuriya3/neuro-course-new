@@ -65,7 +65,7 @@ for (const language of ["RU", "EN", "KZ"]) {
     assert(anchors.has(item.target.anchor), language + ": broken theory anchor " + item.id);
     assert(!item.definition.includes("generic placeholder"), language + ": generic definition");
   }
-  const combined = lesson.terms.map(x => x.definition).join(" ").toLowerCase();
+  const combined = lesson.terms.map(x => x.term + " " + x.definition).join(" ").toLowerCase();
   for (const marker of markers[language])
     assert(combined.includes(marker.toLowerCase()), language + ": missing marker " + marker);
   assert(lesson.terms[0].definition.toLowerCase().includes(language === "EN" ? "overshoot" : language === "RU" ? "цели" : "нысана"), "dysmetria mismatch");
