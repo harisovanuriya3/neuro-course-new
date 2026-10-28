@@ -44,7 +44,7 @@ for(const lang of ["RU","EN","KZ"]){
 assert(src.includes("moduleId===12 && <section"),"Module 12 panel not rendered");
 assert(src.includes("moduleTwelveReview[language].items.map"),"Module 12 questions not rendered");
 assert(src.includes("moduleId===11 && <section"),"Module 11 reflection lost");
-assert(src.includes("moduleId===12?c.mid:c.strong"),"Module 12 must not claim readiness based on sparse selections");
+assert(src.includes("(moduleId===12||moduleId===13)?c.mid:c.strong"),"Modules 12 and 13 must not claim readiness based on sparse selections");
 assert(src.includes("const testEvidence=combined([test])"),"Test evidence should remain distinct from case completion");
 assert(!src.includes("combined([test,cases])"),"Case completion must not count as correct answers");
 assert(!src.includes("recordOutcome("),"Open reflection must not be automatically scored");
