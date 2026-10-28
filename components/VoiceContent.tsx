@@ -352,9 +352,45 @@ const moduleTwelveCopy = {
  }
 } as const;
 
+/*
+ * Module 13: cerebellar coordination and sensory feedback. The checklist
+ * assesses explanation structure only; speech recognition transcribes words.
+ * Sources checked: Guyton & Hall 13e PDF pp. 690–692; Ganong 23e pp. 268–270;
+ * C. L. Ghai Practical Physiology 8e pp. 309–312.
+ */
+const moduleThirteenCopy = {
+ RU: {
+  intro:"Учебная ситуация: при пальце-носовой пробе человек иногда проходит мимо цели, а при приближении к ней появляются колебательные коррекции; при отдельной проверке сила мышц сохранена. Объясните, как мозжечок использует сведения о предполагаемом движении и сенсорную обратную связь, а также как возбуждающие входы и тормозные клетки Пуркинье влияют на глубокие ядра. Различайте нарушение координации и слабость. Одна проба не устанавливает причину, точную локализацию поражения или диагноз. Отметки ниже — только самооценка структуры ответа, не автоматическая проверка физиологии.",
+  prompt:"Мозжечок: план движения, проприоцепция, клетки Пуркинье, глубокие ядра и дисметрия — объясните причинную связь",
+  cause:"Я различил(а) дисметрию и интенционный тремор при движении к цели от первичной мышечной слабости; назвал(а) предполагаемую команду и проприоцептивную обратную связь",
+  path:"Я объяснил(а), что мшистые волокна возбуждают зернистые клетки, а лазающие волокна из нижней оливы возбуждают клетки Пуркинье; коллатерали обоих типов афферентов возбуждают глубокие ядра, тогда как ГАМК-ергические клетки Пуркинье тормозят их. Сочетание этих влияний и времени их действия участвует в настройке движения.",
+  result:"Я связал(а) ошибку достижения цели и запаздывающие или чрезмерные коррекции с нарушением координации, а не обязательно с утратой силы; указал(а), что мозжечок влияет на двигательные системы через глубокие и вестибулярные ядра, а не непосредственно сокращает мышцу. Отдельный признак не доказывает конкретный очаг или диагноз.",
+  ready:"Три пункта самооценки отмечены. Сверьте объяснение с теорией: галочки не подтверждают физиологическую правильность, а голосовой ввод только преобразует речь в текст.",
+  good:"Три пункта самооценки отмечены"
+ },
+ EN: {
+  intro:"Learning scenario: during a finger-to-nose task, a person sometimes overshoots the target and makes oscillating corrections on approach, while strength is preserved on separate testing. Explain how cerebellar circuits use information about the intended movement and sensory feedback, and how excitatory inputs and inhibitory Purkinje cells influence deep cerebellar nuclei. Distinguish incoordination from primary weakness. A single test cannot establish the cause, precise lesion site or diagnosis. The checkmarks assess answer structure, not physiological correctness.",
+  prompt:"Cerebellum: motor plan, proprioception, Purkinje cells, deep nuclei and dysmetria — explain the causal mechanism",
+  cause:"I distinguished target overshoot and intention tremor during movement from primary muscle weakness, and identified the intended motor command and proprioceptive feedback",
+  path:"I explained that mossy fibres excite granule cells, climbing fibres from the inferior olive excite Purkinje cells, and collaterals of both afferent classes excite deep cerebellar nuclei; GABAergic Purkinje cells inhibit those nuclei. The balance and timing of excitation and inhibition help adjust movement, rather than acting as a direct command to the muscle.",
+  result:"I connected inaccurate target reaching and delayed or excessive corrections to impaired coordination, which need not imply reduced muscle strength. I explained that cerebellar influence on movement passes through deep and vestibular nuclei and wider motor circuits rather than directly contracting muscle. One finding cannot prove a particular lesion site or diagnosis.",
+  ready:"All three self-check items are marked. Compare your explanation with the theory: checkmarks do not verify physiological accuracy, and speech input only transcribes words.",
+  good:"Three self-check items marked"
+ },
+ KZ: {
+  intro:"Оқу жағдайы: саусақ-мұрын сынамасында адам кейде нысанадан асып кетеді, ал нысанаға жақындағанда тербелмелі түзету қимылдары байқалады; бұлшықет күші бөлек тексергенде сақталған. Мишықтың жоспарланған қимыл туралы ақпарат пен сенсорлық кері байланысты қалай пайдаланатынын, қоздырушы кірістер мен тежеуші Пуркинье жасушаларының терең ядроларға әсерін түсіндіріңіз. Қимыл үйлесімінің бұзылуын бұлшықет әлсіздігінен ажыратыңыз. Бір сынама себепті, зақымның нақты орнын немесе диагнозды анықтамайды. Төмендегі белгілер тек жауап құрылымын өзіндік бағалауға арналған.",
+  prompt:"Мишық: қимыл жоспары, проприоцепция, Пуркинье жасушалары, терең ядролар және дисметрия — себептік тетікті түсіндіріңіз",
+  cause:"Мен нысанадан асып кету мен мақсатқа жақындағандағы интенциялық треморды бұлшықеттің бастапқы әлсіздігінен ажыраттым; жоспарланған моторлық команданы және проприоцептивтік кері байланысты атадым",
+  path:"Мен мүкті талшықтардың түйіршікті жасушаларды, ал төменгі оливадан келетін өрмелеуші талшықтардың Пуркинье жасушаларын қоздыратынын түсіндірдім. Екі афферент түрінің коллатералдары мишықтың терең ядроларын қоздырады, ал ГАМҚ бөлетін Пуркинье жасушалары оларды тежейді. Қозу мен тежелудің арақатынасы және уақыттық үйлесімі қимылды реттеуге қатысады.",
+  result:"Мен нысанаға дәл жете алмау мен кешіккен не шамадан тыс түзету қимылдарын үйлесімнің бұзылуымен байланыстырдым; бұл міндетті түрде бұлшықет күшінің азаюы емес. Мишық қимылға терең және вестибулярлық ядролар мен басқа моторлық желілер арқылы әсер етеді, бұлшықетті тікелей жиырмайды. Бір белгі зақымның нақты орнын да, диагнозды да дәлелдемейді.",
+  ready:"Өзіндік тексерудің үш тармағы белгіленді. Түсіндірмені теориямен салыстырыңыз: белгілер физиологиялық дұрыстықты дәлелдемейді, ал дауыспен енгізу сөзді тек мәтінге айналдырады.",
+  good:"Өзіндік бағалаудың үш тармағы белгіленді"
+ }
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : moduleId===10 ? {...copy[language],...moduleTenCopy[language]} : moduleId===11 ? {...copy[language],...moduleElevenCopy[language]} : moduleId===12 ? {...copy[language],...moduleTwelveCopy[language]} : copy[language];
- const key=moduleId===12 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===11 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===10 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===9 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : moduleId===10 ? {...copy[language],...moduleTenCopy[language]} : moduleId===11 ? {...copy[language],...moduleElevenCopy[language]} : moduleId===12 ? {...copy[language],...moduleTwelveCopy[language]} : moduleId===13 ? {...copy[language],...moduleThirteenCopy[language]} : copy[language];
+ const key=moduleId===13 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===12 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===11 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===10 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===9 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
  const storageKey=moduleId===8 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : key;
  const[answer,setAnswer]=useState("");
  const[persisted,setPersisted]=useState(false);
