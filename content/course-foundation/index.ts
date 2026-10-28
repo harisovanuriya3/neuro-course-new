@@ -1085,9 +1085,9 @@ if (foundationLessons[13]) {
     KZ: createModuleThirteenPretest("KZ"),
   };
   foundationLessons[13].theory = {
-    RU: createModuleThirteenTheory("RU"),
-    EN: createModuleThirteenTheory("EN"),
-    KZ: createModuleThirteenTheory("KZ"),
+    RU: { ...createModuleThirteenTheory("RU"), kind: "theory" },
+    EN: { ...createModuleThirteenTheory("EN"), kind: "theory" },
+    KZ: { ...createModuleThirteenTheory("KZ"), kind: "theory" },
   };
   foundationLessons[13]["one-minute"] = {
     RU: createModuleThirteenSummary("RU"),
