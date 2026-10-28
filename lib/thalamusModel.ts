@@ -12,7 +12,7 @@ export type ThalamusTrial = {
   corticalIndex: number;
 };
 const bounded = (value: number) =>
-  Number.isFinite(value) ? Math.max(0, Math.min(100, value)) : 0;
+  Number.isFinite(value) ? Math.max(0, Math.min(100, Math.round(value))) : 0;
 
 export function simulateThalamus(sensoryInput: number, gatingIndex: number): ThalamusTrial {
   const input = bounded(sensoryInput);
