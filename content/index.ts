@@ -1,3 +1,4 @@
+import { createModuleThirteenReferences } from "./course-foundation/module-thirteen-references";
 import { createModuleTwelveReferences } from "./course-foundation/module-twelve-references";
 import { createModuleTwelveMedia } from "./course-foundation/module-twelve-media";
 import { createModuleTwelveClinical } from "./course-foundation/module-twelve-clinical";
@@ -356,6 +357,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   13: {
     ...foundationLessons[13],
+    references: {
+      RU: createModuleThirteenReferences("RU", foundationLessons[13].references.RU as import("./study").ReadingLesson),
+      EN: createModuleThirteenReferences("EN", foundationLessons[13].references.EN as import("./study").ReadingLesson),
+      KZ: createModuleThirteenReferences("KZ", foundationLessons[13].references.KZ as import("./study").ReadingLesson),
+    },
     glossary: {
       RU: createModuleThirteenGlossary("RU", foundationLessons[13].glossary.RU as import("./study").GlossaryLesson),
       EN: createModuleThirteenGlossary("EN", foundationLessons[13].glossary.EN as import("./study").GlossaryLesson),
