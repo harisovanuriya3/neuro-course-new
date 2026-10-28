@@ -1,16 +1,9 @@
-name: Scientific and course QA (review branch only)
+name: Scientific and course QA (manual only)
 
 on:
-  push:
-    branches:
-      - refactor/evidence-based-assessment-audit
-    paths-ignore:
-      - 'docs/**'
-      - '*.md'
-      - 'git-status.txt'
   workflow_dispatch:
 
-# Keep one current run per branch; never commit or deploy from QA.
+# Manual QA only: this workflow no longer runs automatically on every push.
 concurrency:
   group: scientific-course-qa-${{ github.ref }}
   cancel-in-progress: true
