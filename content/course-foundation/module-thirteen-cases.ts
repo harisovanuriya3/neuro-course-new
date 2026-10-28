@@ -194,7 +194,7 @@ const headings: Record<Language, [string, string, string]> = {
     "Tests and limits"
   ],
   "KZ": [
-    "Бақылау",
+    "Бақылаулар",
     "Физиологиялық тетік",
     "Тексеру және шектеулер"
   ]
