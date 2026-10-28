@@ -361,12 +361,12 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
       EN: createModuleThirteenPretest("EN", modules.EN[12], getSectionTitle("pretest", "EN")),
       KZ: createModuleThirteenPretest("KZ", modules.KZ[12], getSectionTitle("pretest", "KZ")),
     },
-     theory: {
+    theory: {
       RU: createModuleThirteenTheory("RU", foundationLessons[13].theory.RU as Lesson & { kind: "theory" }),
       EN: createModuleThirteenTheory("EN", foundationLessons[13].theory.EN as Lesson & { kind: "theory" }),
       KZ: createModuleThirteenTheory("KZ", foundationLessons[13].theory.KZ as Lesson & { kind: "theory" }),
     },
- },
+  },
   12: {
     ...foundationLessons[12],
     references: {
