@@ -19,6 +19,7 @@ import ModuleTenMediaAnimation from "./ModuleTenMediaAnimation";
 import ModuleElevenMediaAnimation from "./ModuleElevenMediaAnimation";
 import ModuleTwelveMediaAnimation from "./ModuleTwelveMediaAnimation";
 import ModuleThirteenMediaAnimation from "./ModuleThirteenMediaAnimation";
+import ModuleFourteenMediaAnimation from "./ModuleFourteenMediaAnimation";
 
 function durationLabel(seconds?: number) {
   if (seconds === undefined || !Number.isFinite(seconds) || seconds <= 0) return null;
