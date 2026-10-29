@@ -45,3 +45,15 @@ for(const path of [
 ]) assert(fs.existsSync(path),"Missing authored assessment file "+path);
 console.log("PASS: 25 distinct module titles in RU/KZ/EN; 17 section routes; 24 foundation topics with required fields.");
 console.log("NOTE: This checks coverage only, not translation equivalence, physiology, content depth or runtime.");
+
+// Audit the entire 25-module scope rather than accepting a single-module check.
+const assessment=read("content/course-foundation/assessment.ts");
+const specialCaseModules=[...assessment.matchAll(/if \(topic\.id === (\d+)\) return createModule\w+Cases\(/g)].map(m=>Number(m[1]));
+assert.equal(new Set(specialCaseModules).size,specialCaseModules.length,"Duplicate authored-case routing");
+for(const id of specialCaseModules){
+ assert(id>=2 && id<=25,"Authored case route outside the 25-module course: "+id);
+}
+const missingCaseModules=Array.from({length:24},(_,i)=>i+2).filter(id=>!specialCaseModules.includes(id));
+console.log("Authored case routes:",specialCaseModules.join(", "));
+console.log("Modules using shared foundation case generation:",missingCaseModules.join(", "));
+console.log("These routing counts are structural only; they do not certify scientific accuracy or 20 cases per module.");
