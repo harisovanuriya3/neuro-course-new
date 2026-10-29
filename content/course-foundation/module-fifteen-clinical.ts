@@ -10,7 +10,7 @@ const data: Record<Language, {intro:string; cards: {title:string; explanation:st
     "cards": [
       {
         "title": "Гиперосмоляльность: жажда и вазопрессин",
-        "explanation": "У взрослого при ограниченном доступе к питьевой воде эффективная осмоляльность плазмы повысилась с 285 до 298 мОсм/кг, артериальное давление существенно не изменилось. Осмочувствительные структуры переднего гипоталамуса и околожелудочковых органов способствуют жажде и секреции вазопрессина. Через V2-рецепторы собирательных трубочек вазопрессин увеличивает включение AQP2 и реабсорбцию воды. Предскажите изменение жажды, диуреза и осмоляльности мочи при сохранной функции почек. Почему только по объёму мочи нельзя доказать поражение гипоталамуса?"
+        "explanation": "У взрослого при ограниченном доступе к питьевой воде эффективная осмоляльность плазмы повысилась с 285 до 298 мОсм/кг, артериальное давление существенно не изменилось. Осмочувствительные структуры переднего гипоталамуса и околожелудочковых органов способствуют жажде и секреции вазопрессина. Через V2-рецепторы собирательных трубочек вазопрессин увеличивает включение AQP2 и реабсорбцию воды. Предскажите изменение жажды, диуреза и осмоляльности мочи при сохранной функции почек и мозгового осмотического градиента. Сравните также осмотический диурез при гипергликемии и первичное избыточное потребление воды: какие показатели глюкозы, натрия и осмоляльности мочи помогут их различить? Только по объёму мочи нельзя доказать поражение гипоталамуса; самостоятельное ограничение воды недопустимо."
       },
       {
         "title": "Потеря эффективного объёма: неосмотический стимул",
@@ -35,7 +35,7 @@ const data: Record<Language, {intro:string; cards: {title:string; explanation:st
     "cards": [
       {
         "title": "Hyperosmolality: thirst and vasopressin",
-        "explanation": "With limited access to drinking water, an adult's effective plasma osmolality rises from 285 to 298 mOsm/kg while blood pressure remains broadly stable. Osmosensitive structures in the anterior hypothalamus and circumventricular organs contribute to thirst and vasopressin release. Through collecting-duct V2 receptors, vasopressin promotes AQP2 insertion and water reabsorption. Predict thirst, urine volume and urine osmolality assuming intact renal function. Why cannot urine volume alone localize a defect to the hypothalamus?"
+        "explanation": "With limited access to drinking water, an adult's effective plasma osmolality rises from 285 to 298 mOsm/kg while blood pressure remains broadly stable. Osmosensitive structures in the anterior hypothalamus and circumventricular organs contribute to thirst and vasopressin release. Through collecting-duct V2 receptors, vasopressin promotes AQP2 insertion and water reabsorption. Predict thirst, urine volume and urine osmolality assuming intact renal function and a preserved renal medullary osmotic gradient. Compare osmotic diuresis due to hyperglycemia and primary excessive water intake: which glucose, sodium and urine-osmolality findings would help distinguish them? Urine volume alone cannot localize a defect to the hypothalamus; unsupervised water deprivation is unsafe."
       },
       {
         "title": "Reduced effective volume: a nonosmotic drive",
@@ -60,7 +60,7 @@ const data: Record<Language, {intro:string; cards: {title:string; explanation:st
     "cards": [
       {
         "title": "Гиперосмоляльдылық: шөлдеу және вазопрессин",
-        "explanation": "Ауызсуға қолжетімділігі шектеулі ересек адамда плазманың тиімді осмоляльдылығы 285-тен 298 мОсм/кг-ға көтерілді, ал артериялық қысым айтарлықтай өзгермеді. Алдыңғы гипоталамус пен қарыншамаңы мүшелерінің осмосезгіш құрылымдары шөлдеуге және вазопрессин бөлінуіне ықпал етеді. Вазопрессин жинағыш түтікшелердің V2-рецепторлары арқылы AQP2 енгізілуін және судың қайта сіңуін арттырады. Бүйрек қызметі сақталғанда шөлдеу, диурез және несеп осмоляльдылығы қалай өзгеретінін болжаңыз. Неге несеп көлемі ғана гипоталамус зақымын дәлелдемейді?"
+        "explanation": "Ауызсуға қолжетімділігі шектеулі ересек адамда плазманың тиімді осмоляльдылығы 285-тен 298 мОсм/кг-ға көтерілді, ал артериялық қысым айтарлықтай өзгермеді. Алдыңғы гипоталамус пен қарыншамаңы мүшелерінің осмосезгіш құрылымдары шөлдеуге және вазопрессин бөлінуіне ықпал етеді. Вазопрессин жинағыш түтікшелердің V2-рецепторлары арқылы AQP2 енгізілуін және судың қайта сіңуін арттырады. Бүйрек қызметі және бүйрек милы қабатының осмостық градиенті сақталғанда шөлдеу, диурез және несеп осмоляльдылығы қалай өзгеретінін болжаңыз. Гипергликемия кезіндегі осмостық диурезді және суды шамадан тыс ішуді салыстырыңыз: глюкоза, натрий және несеп осмоляльдылығының қандай деректері оларды ажыратуға көмектеседі? Несеп көлемі ғана гипоталамус зақымын дәлелдемейді; суды өз бетінше шектеуге болмайды."
       },
       {
         "title": "Тиімді қан көлемінің азаюы: осмостық емес ықпал",
