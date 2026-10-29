@@ -12,6 +12,7 @@ import { createModuleElevenObjectives } from "./course-foundation/module-eleven-
 import { createModuleTwelveObjectives } from "./course-foundation/module-twelve-objectives";
 import { createModuleThirteenObjectives } from "./course-foundation/module-thirteen-objectives";
 import { createModuleFourteenObjectives } from "./course-foundation/module-fourteen-objectives";
+import { createModuleFifteenObjectives } from "./course-foundation/module-fifteen-objectives";
 import { createModuleFourteenPretest } from "./course-foundation/module-fourteen-pretest";
 import { createModuleFourteenTheory } from "./course-foundation/module-fourteen-theory";
 import { createModuleFourteenSummary } from "./course-foundation/module-fourteen-summary";
@@ -364,6 +365,14 @@ const studyLessons = Object.fromEntries(
 // Register each new module/section here; routes and rendering stay unchanged.
 const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>> = {
   ...foundationLessons,
+  15: {
+    ...foundationLessons[15],
+    objectives: {
+      RU: createModuleFifteenObjectives("RU"),
+      EN: createModuleFifteenObjectives("EN"),
+      KZ: createModuleFifteenObjectives("KZ"),
+    },
+  },
   14: {
     ...foundationLessons[14],
     references: {
