@@ -144,12 +144,7 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
     l==="RU"?"Какое дополнительное исследование поможет проверить вывод?":l==="EN"?"Which additional examination would help test the conclusion?":"Қорытындыны қандай қосымша тексеру арқылы нақтылауға болады?"
    ]}],explanation:[l==="RU"?expRU:l==="EN"?expEN:expKZ]});
  }
- for (const item of additionalCases[topic.id]??[]) {
-  const [id,titleRU,titleEN,titleKZ,sitRU,sitEN,sitKZ,expRU,expEN,expKZ]=item;
-  lesson.cases.push({id:`m${topic.id}-${id}`,title:l==="RU"?titleRU:l==="EN"?titleEN:titleKZ,situation:l==="RU"?sitRU:l==="EN"?sitEN:sitKZ,
-   stages:[{title:l==="RU"?"Обоснуйте физиологический механизм":l==="EN"?"Explain the physiological mechanism":"Физиологиялық тетікті түсіндіріңіз",questions:[l==="RU"?"Какие данные важны для объяснения?":l==="EN"?"Which findings matter?":"Қандай деректер маңызды?"]}],explanation:[l==="RU"?expRU:l==="EN"?expEN:expKZ]});
- }
- return topic.id===4 ? {...lesson,cases:module4Cases(l)} : topic.id===5 ? {...lesson,cases:module5Cases(l)} : topic.id===6 ? {...lesson,cases:module6Cases(l)} : lesson;
+ return topic.id===4 ? {...lesson,cases:[...module4Cases(l),...lesson.cases]} : topic.id===5 ? {...lesson,cases:[...module5Cases(l),...lesson.cases]} : topic.id===6 ? {...lesson,cases:[...module6Cases(l),...lesson.cases]} : lesson;
 }
 
 const testUi=(l:Language):TestUI=>({
