@@ -92,7 +92,8 @@ export default function MediaContent({ lesson, moduleId, language }: { lesson: M
     {lesson.blocks.map((block, index) => <section key={block.id} id={`media-${block.id}`} data-media={block.id} className={shared.card} aria-labelledby={`${block.id}-title`}>
       <h2 id={`${block.id}-title`}>{index + 1}. {block.title}</h2>
       <p><strong>{ui.preview}: </strong>{block.preview}</p>
-      {moduleId === "13" && block.animation === "foundation" ? <ModuleThirteenMediaAnimation key={language} language={language} />
+      {moduleId === "14" && block.animation === "foundation" ? <ModuleFourteenMediaAnimation key={language} language={language} />
+      : moduleId === "13" && block.animation === "foundation" ? <ModuleThirteenMediaAnimation key={language} language={language} />
       : moduleId === "12" && block.animation === "foundation" ? <ModuleTwelveMediaAnimation key={language} language={language} />
       : moduleId === "11" && block.animation === "foundation" ? <ModuleElevenMediaAnimation key={language} language={language} />
       : moduleId === "10" && block.animation === "foundation" ? <ModuleTenMediaAnimation key={language} language={language} />
