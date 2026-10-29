@@ -55,7 +55,43 @@ const scenarios = [
       "EN": "Fever involves an elevated regulated set point, including prostaglandin E2 signaling; environmental hyperthermia reflects heat gain exceeding dissipation.",
       "KZ": "Қызбада простагландин E2 қатысуымен реттелетін температура деңгейі жоғарылайды; қызып кетуде жылу шығару жылу жүктемесін өтей алмайды."
     }
+  },
+{
+  "id": "pituitary-routes",
+  "title": {
+    "RU": "Два пути гипоталамо-гипофизарной связи",
+    "EN": "Two hypothalamic–pituitary routes",
+    "KZ": "Гипоталамус пен гипофиздің екі байланыс жолы"
+  },
+  "situation": {
+    "RU": "На схеме студент провёл одинаковые аксоны из гипоталамуса к передней и задней долям гипофиза. Исправьте схему: сопоставьте крупноклеточные нейроны супраоптического и паравентрикулярного ядер, нейрогипофиз, срединное возвышение и портальную систему аденогипофиза. Объясните, почему изменение одного периферического гормона не позволяет автоматически локализовать нарушение.",
+    "EN": "A learner draws identical hypothalamic axons terminating in both pituitary lobes. Correct the diagram by distinguishing magnocellular supraoptic and paraventricular neurons projecting to the neurohypophysis from median-eminence releasing factors carried by portal vessels to the adenohypophysis. Explain why one peripheral hormone value does not establish lesion location.",
+    "KZ": "Студент гипоталамустан гипофиздің алдыңғы және артқы бөліктеріне бірдей аксондар жүргізген. Сызбаны түзетіңіз: супраоптикалық және паравентрикулярлық ядролардың ірі нейрондарынан нейрогипофизге баратын аксондарды, ортаңғы төмпешіктен аденогипофизге қақпалық тамырлармен жеткізілетін реттеуші факторлардан ажыратыңыз. Бір шеткері гормон көрсеткіші неге зақым орнын дәл анықтамайды?"
+  },
+  "explanation": {
+    "RU": "Вазопрессин и окситоцин синтезируются в гипоталамических нейронах и высвобождаются из окончаний в задней доле. Передняя доля регулируется преимущественно через гипофизарную портальную кровь; её гормональные ответы зависят также от обратной связи периферических желёз.",
+    "EN": "Vasopressin and oxytocin are synthesized in hypothalamic neurons and released from terminals in the posterior lobe. Anterior-pituitary secretion is regulated mainly by hypothalamic factors in portal blood and by peripheral endocrine feedback.",
+    "KZ": "Вазопрессин мен окситоцин гипоталамус нейрондарында түзіліп, артқы бөліктегі аксон ұштарынан бөлінеді. Алдыңғы бөлік негізінен қақпалық қан арқылы келетін факторлармен реттеледі; оған шеткері эндокриндік кері байланыс та әсер етеді."
   }
+},
+{
+  "id": "circadian-light",
+  "title": {
+    "RU": "Световой сигнал и суточные ритмы",
+    "EN": "Light input and circadian rhythms",
+    "KZ": "Жарық сигналы және тәуліктік ырғақ"
+  },
+  "situation": {
+    "RU": "После перелёта через несколько часовых поясов человек засыпает и просыпается по прежнему времени. Объясните роль сетчатки, ретиногипоталамического тракта и супрахиазматического ядра в синхронизации ритмов. Почему по одному дневнику сна нельзя сделать вывод о поражении гипоталамуса? Какие дополнительные данные нужны для оценки режима света и сна?",
+    "EN": "After crossing several time zones, a traveler initially sleeps and wakes according to the old schedule. Explain the roles of retinal input, the retinohypothalamic tract and the suprachiasmatic nucleus in circadian entrainment. Why does a sleep diary alone not establish hypothalamic injury? What additional light-exposure and sleep-timing information would help?",
+    "KZ": "Бірнеше уақыт белдеуінен өткен адам бастапқыда бұрынғы уақытпен ұйықтап, оянады. Тәуліктік ырғақты синхрондауда тор қабықтың, ретиногипоталамустық жолдың және супрахиазматикалық ядроның рөлін түсіндіріңіз. Ұйқы күнделігі ғана гипоталамус зақымын неге дәлелдемейді? Жарық әсері мен ұйқы уақыты туралы қандай қосымша дерек керек?"
+  },
+  "explanation": {
+    "RU": "Сетчатка передаёт сведения об освещении в супрахиазматическое ядро, которое координирует циркадные сигналы. Сдвиг режима после перелёта обычно отражает временное рассогласование внешнего времени и внутренних ритмов, а не доказанное повреждение ядра.",
+    "EN": "Retinal light information reaches the suprachiasmatic nucleus, a central coordinator of circadian timing. Post-travel misalignment is compatible with temporary re-entrainment and does not itself demonstrate injury to this nucleus.",
+    "KZ": "Тор қабықтан келетін жарық ақпараты циркадтық уақытты үйлестіретін супрахиазматикалық ядроға жетеді. Ұшудан кейінгі уақытша сәйкессіздік ырғақтың қайта бейімделуімен түсіндірілуі мүмкін және ядро зақымын дәлелдемейді."
+  }
+}
 ];
 const questions = [
   {
