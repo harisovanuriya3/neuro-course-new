@@ -26,7 +26,14 @@ for (const topic of topics) for (const language of ['RU', 'EN', 'KZ']) {
         assert([topic.mechanism[language], topic.interpretation[language]].includes(node.explanation),
           `${topic.id}/${language}/${node.id}: post-answer feedback must explain the topic`);
       }
-      assert(node.options.some(o => o.id === node.correctAnswer), 'Preserve answer keys');
+      assert(Array.isArray(node.options) && node.options.length === 4,
+        `${topic.id}/${language}/${node.id}: exactly four answer options required`);
+      assert.equal(new Set(node.options.map(o => o.id)).size, 4,
+        `${topic.id}/${language}/${node.id}: duplicate option identifiers`);
+      assert(node.options.every(o => typeof o.text === 'string' && o.text.trim().length > 0),
+        `${topic.id}/${language}/${node.id}: empty answer option`);
+      assert.equal(node.options.filter(o => o.id === node.correctAnswer).length, 1,
+        `${topic.id}/${language}/${node.id}: exactly one keyed answer required`);
     }
     if (node.type === 'remediation' && node.depth === 2) {
       if ([8,9,10,11,12,13,14].includes(topic.id))
