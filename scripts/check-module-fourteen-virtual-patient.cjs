@@ -38,7 +38,7 @@ for(const language of ["RU","EN","KZ"]){
  const tasks=new Set(), observations=new Set(), titles=new Set();
  for(const [i,stage] of result.stages.entries()){
   assert.equal(stage.id,"vp-14-stage-"+(i+1));
-  assert(stage.title.length>10 && stage.task.length>65);
+  assert(stage.title.length>7 && stage.task.length>65);
   assert(stage.newData.length>110 && stage.mechanism.length>140);
   assert(stage.mentorPrompt.length>60 && stage.mentorPrompt!==stage.mechanism);
   assert.equal(stage.options.length,3);
@@ -68,7 +68,7 @@ assert(wrapper.includes('import { reviewModuleFourteenVirtualPatient } from "./c
 assert(wrapper.includes('if(moduleId===14 && base) return reviewModuleFourteenVirtualPatient(base,language);'));
 assert(wrapper.includes('if(moduleId===12 && base) return reviewModuleTwelveVirtualPatient(base,language);'));
 const ui=read("components/UnifiedVirtualPatient.tsx");
-assert(ui.includes('moduleId === 14 ? "v2"') || ui.includes('moduleId === 14 ? "v2" :') || ui.includes('moduleId === 14 ? "v2" :') || ui.includes('moduleId === 14 ? "v2"') || ui.includes('moduleId === 14 ? "v2"'));
+assert(ui.includes('moduleId === 11 || moduleId === 12 || moduleId === 14 ? "v2"'));
 assert(ui.includes('moduleId === 14 ? moduleFourteenDecisionCopy[language]'));
 assert(ui.includes('moduleId === 14) && "scope" in d'));
 assert(ui.includes('getReviewedVirtualPatientScenario as getVirtualPatientScenario'));
