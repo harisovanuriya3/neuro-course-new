@@ -88,15 +88,15 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
  return {kind:"cases",title:l==="RU"?"Ситуационные задачи":l==="EN"?"Case Problems":"Ситуациялық тапсырмалар",moduleTitle,
  introduction:l==="RU"?"Здесь не нужно пересказывать теорию. Работайте с данными: выделите ключевой признак, локализуйте нарушенное звено, постройте причинную цепь и назовите проверку, которая отличит вашу гипотезу от альтернативной.":l==="EN"?"Do not retell the theory here. Work from the data: identify the key finding, localize the disturbed link, build a causal chain, and choose a check that distinguishes your hypothesis from an alternative.":"Мұнда теорияны қайталау қажет емес. Деректермен жұмыс істеңіз: негізгі белгіні анықтаңыз, бұзылған буынды локализациялаңыз, себептік тізбек құрыңыз және болжамыңызды баламадан ажырататын тексеруді атаңыз.",
  ui:ui(l),cases:[
-  {id:`m${topic.id}-localization`,title:l==="RU"?"Задача 1. Локализация по данным":l==="EN"?"Case 1. Data-driven localization":"1-жағдай. Деректер бойынша локализация",situation:task,stages:[
+  {id:`m${topic.id}-localization`,title:l==="RU"?"Задача 1. Анализ физиологических данных":l==="EN"?"Case 1. Physiological data analysis":"1-жағдай. Физиологиялық деректерді талдау",situation:task,stages:[
    {title:l==="RU"?"Выделите данные":l==="EN"?"Extract the evidence":"Деректерді бөліңіз",questions:[
     l==="RU"?"Назовите два факта из условия, которые действительно влияют на физиологический вывод.":l==="EN"?"Name two findings in the case that materially affect the physiological conclusion.":"Физиологиялық қорытындыға әсер ететін жағдайдағы екі деректі атаңыз.",
     topic.id===15
       ? (l==="RU"?"Почему одинаковое количество выделенного пота не означает одинаковую потерю тепла?":l==="EN"?"Why does comparable sweat secretion not imply comparable heat loss?":"Неге тердің бірдей мөлшерде бөлінуі жылудың бірдей мөлшерде шығарылуын білдірмейді?")
       : (l==="RU"?`Какой из них лучше всего помогает связать «${termA}» с «${termB}»?`:l==="EN"?`Which finding best helps link “${termA}” to “${termB}”?`:`Қай дерек «${termA}» мен «${termB}» арасындағы байланысты жақсы көрсетеді?`)
    ]},
-   {title:l==="RU"?"Локализуйте звено":l==="EN"?"Localize the link":"Буынның орнын анықтаңыз",questions:[
-    l==="RU"?"Какое звено системы изменено вероятнее всего? Укажите один признак за и один признак, который заставил бы пересмотреть локализацию.":l==="EN"?"Which system link is most likely altered? Give one supporting finding and one finding that would make you reconsider the localization.":"Жүйенің қай буыны өзгерген болуы ықтимал? Бір қолдайтын және локализацияны қайта қарауға мәжбүр ететін бір белгіні көрсетіңіз."
+   {title:l==="RU"?"Определите изменённое звено":l==="EN"?"Identify the altered link":"Өзгерген буынды анықтаңыз",questions:[
+    l==="RU"?"Какое функциональное звено изменено вероятнее всего? Приведите подтверждающий признак и результат измерения, который заставил бы пересмотреть вывод.":l==="EN"?"Which functional link is most likely altered? Give supporting evidence and a measurement that would make you revise your conclusion.":"Қай қызметтік буын өзгерген болуы ықтимал? Оны қолдайтын деректі және қорытындыны қайта қарауға негіз болатын өлшем нәтижесін атаңыз."
    ]},
    {title:l==="RU"?"Обоснуйте механизм":l==="EN"?"Justify the mechanism":"Тетікті негіздеңіз",questions:[
     l==="RU"?"Постройте цепь минимум из трёх звеньев: исходное изменение → промежуточный механизм → наблюдаемый результат.":l==="EN"?"Build at least a three-link chain: initial change → intermediate mechanism → observed result.":"Кемінде үш буынды тізбек құрыңыз: бастапқы өзгеріс → аралық тетік → байқалатын нәтиже."
