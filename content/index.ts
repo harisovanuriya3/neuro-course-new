@@ -19,6 +19,7 @@ import { createModuleThirteenSummary } from "./course-foundation/module-thirteen
 import { createModuleThirteenClinical } from "./course-foundation/module-thirteen-clinical";
 import { createModuleThirteenPractice } from "./course-foundation/module-thirteen-practice";
 import { createModuleThirteenMedia } from "./course-foundation/module-thirteen-media";
+import { createModuleFourteenMedia } from "./course-foundation/module-fourteen-media";
 import { createModuleThirteenGlossary } from "./course-foundation/module-thirteen-glossary";
 import { createModuleThirteenPretest } from "./course-foundation/module-thirteen-pretest";
 import { createModuleTwelvePretest } from "./course-foundation/module-twelve-pretest";
