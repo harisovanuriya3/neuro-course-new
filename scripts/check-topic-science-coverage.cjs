@@ -57,3 +57,4 @@ const missingCaseModules=Array.from({length:24},(_,i)=>i+2).filter(id=>!specialC
 console.log("Authored case routes:",specialCaseModules.join(", "));
 console.log("Modules using shared foundation case generation:",missingCaseModules.join(", "));
 console.log("These routing counts are structural only; they do not certify scientific accuracy or 20 cases per module.");
+for(let id=1;id<=25;id++) console.log("Module "+id+": independent science, RU/EN/KZ, 20 cases, 20 tests, lab/media and build sign-off PENDING");
