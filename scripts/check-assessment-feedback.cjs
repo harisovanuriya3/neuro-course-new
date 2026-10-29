@@ -3,6 +3,11 @@ const { load } = require('./check-tests.cjs');
 const { topics } = load('content/course-foundation/topics.ts');
 const { createFoundationTest } = load('content/course-foundation/assessment.ts');
 const { validateTest } = load('lib/tests/engine.ts');
+const fs = require('node:fs');
+const adapterSource = fs.readFileSync('content/course-foundation/assessment.ts', 'utf8');
+for (const id of [8,9,10,11,12,13,14]) {
+  assert.match(adapterSource, new RegExp('topic\\.id===' + id + ' \\? adaptModule'), `Module ${id}: missing authored test adapter route`);
+}
 for (const topic of topics) for (const language of ['RU', 'EN', 'KZ']) {
   const test = createFoundationTest(topic, language, String(topic.id));
   validateTest(test);
