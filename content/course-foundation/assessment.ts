@@ -87,7 +87,7 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
    {title:l==="RU"?"Выделите данные":l==="EN"?"Extract the evidence":"Деректерді бөліңіз",questions:[
     l==="RU"?"Назовите два факта из условия, которые действительно влияют на физиологический вывод.":l==="EN"?"Name two findings in the case that materially affect the physiological conclusion.":"Физиологиялық қорытындыға әсер ететін жағдайдағы екі деректі атаңыз.",
     topic.id===15
-      ? (l==="RU"?"Почему одинаковое количество выделенного пота не означает одинаковую потерю тепла?":l==="EN"?"Why does comparable sweat secretion not imply comparable heat loss?":"Неге тердің бірдей мөлшерде бөлінуі жылудың бірдей мөлшерде шығарылуын білдірмейді?")
+      ? (l==="RU"?"Какие данные позволяют отличить осмотическую стимуляцию вазопрессина от реакции на снижение эффективного объёма крови?":l==="EN"?"Which findings distinguish osmotic vasopressin stimulation from the response to reduced effective circulating volume?":"Қандай деректер вазопрессиннің осмостық ынталануын тиімді қан көлемінің азаюына жауаптан ажыратуға мүмкіндік береді?")
       : (l==="RU"?`Какой из них лучше всего помогает связать «${termA}» с «${termB}»?`:l==="EN"?`Which finding best helps link “${termA}” to “${termB}”?`:`Қай дерек «${termA}» мен «${termB}» арасындағы байланысты жақсы көрсетеді?`)
    ]},
    {title:l==="RU"?"Определите изменённое звено":l==="EN"?"Identify the altered link":"Өзгерген буынды анықтаңыз",questions:[
