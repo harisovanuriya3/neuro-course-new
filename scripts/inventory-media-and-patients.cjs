@@ -14,6 +14,7 @@ for (const [,id,body] of clipEntries) {
   const files = [...body.matchAll(/file:\s*["']([^"']+\.mp4)["']/g)].map(m=>m[1]);
   videosByModule[id] = files.map(file=>({file, exists:fs.existsSync(path.join(root,"public/media/teacher",file))}));
 }
+const uniqueClipFiles = [...new Set(Object.values(videosByModule).flatMap(files => files.map(x => x.file)))];
 const visualModules = [...patient.matchAll(/^\s*(\d+):\s*\{kind:/gm)].map(m=>Number(m[1]));
 const modules = Array.from({length:25},(_,i)=>i+1);
 const report = {
@@ -22,6 +23,8 @@ const report = {
     mappedModules:modules.filter(id=>videosByModule[id]),
     unmappedModules:modules.filter(id=>!videosByModule[id]),
     clipsByModule:videosByModule,
+    uniqueReferencedClipFiles:uniqueClipFiles.length,
+    duplicateClipReferences:Object.entries(videosByModule).flatMap(([moduleId,files])=>files.filter(x=>Object.values(videosByModule).flat().filter(y=>y.file===x.file).length>1).map(x=>({moduleId,file:x.file}))),
     missingReferencedFiles:Object.entries(videosByModule).flatMap(([moduleId,files])=>files.filter(x=>!x.exists).map(x=>({moduleId,...x})))
   },
   virtualPatientDiagram:{
