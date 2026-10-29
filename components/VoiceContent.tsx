@@ -388,9 +388,45 @@ const moduleThirteenCopy = {
  }
 } as const;
 
+/*
+ * Module 14: thalamic sensory relays. A qualitative mechanism self-check, not
+ * a validated neurological examination or automatic speech-content grading.
+ * Read in Library: Guyton & Hall 13e PDF pp. 584–586; Ganong 23e
+ * PDF pp. 241–243; C. L. Ghai Practical Physiology 8e PDF pp. 323–325.
+ */
+const moduleFourteenCopy = {
+ RU: {
+  intro:"Учебная ситуация: у человека снижено чувство вибрации и положения пальцев правой руки, при этом чувствительность лица сохранена. Объясните, как сигнал от рецепторов тела проходит по задним канатикам к ядрам тонкого и клиновидного пучков, перекрещивается в продолговатом мозге, поднимается по медиальной петле к VPL таламуса и далее к постцентральной коре. Сравните этот маршрут с болевым и температурным путём, который преимущественно перекрещивается уже в спинном мозге. Не смешивайте VPL (тело) и VPM (лицо); таламическое ретикулярное ядро оказывает ГАМК-ергическое тормозное влияние на релейные ядра, но не является прямой проекцией в кору. По одному симптому нельзя установить очаг поражения или диагноз. Отметки ниже — самооценка структуры, а не проверка физиологической правильности.",
+  prompt:"Таламус: вибрация и проприоцепция, перекрёст, VPL/VPM, ГАМК-ергическое торможение — объясните причинный путь",
+  cause:"Я различил(а) вибрацию и проприоцепцию тела от болевой/температурной чувствительности и чувствительности лица; не назвал(а) один симптом доказательством таламического очага",
+  path:"Я объяснил(а), что путь задних канатиков переключается в ядрах тонкого и клиновидного пучков и перекрещивается в продолговатом мозге, затем медиальная петля идёт к противоположному VPL и соматосенсорной коре; болевой и температурный пути в основном перекрещиваются в спинном мозге, а лицо связано преимущественно с VPM",
+  result:"Я указал(а), что большинство таламокортикальных релейных нейронов возбуждающие (глутаматергические), а нейроны ретикулярного ядра таламуса ГАМК-ергические и тормозят другие таламические ядра, не проецируясь прямо в кору; клиническая сторона симптома сама по себе не устанавливает уровень поражения или диагноз",
+  ready:"Три пункта самооценки отмечены. Сравните объяснение с теорией: отметки не подтверждают физиологическую правильность, а распознавание речи только переводит произнесённое в текст.",
+  good:"Три пункта самооценки отмечены"
+ },
+ EN: {
+  intro:"Learning scenario: vibration and finger-position sense are reduced in the right hand, while facial sensation is preserved. Explain how body afferents ascend in the dorsal columns to the gracile and cuneate nuclei, cross in the medulla, ascend through the medial lemniscus to the contralateral VPL thalamus and then project to postcentral cortex. Contrast this with pain and temperature pathways, which mainly cross in the spinal cord. Distinguish VPL (body) from VPM (face). The GABAergic thalamic reticular nucleus inhibits relay nuclei but does not project directly to cortex. A single symptom cannot establish the lesion site or diagnosis. Checkmarks assess explanation structure, not physiological accuracy.",
+  prompt:"Thalamus: vibration, proprioception, decussation, VPL/VPM and GABAergic inhibition — explain the causal pathway",
+  cause:"I distinguished body vibration and proprioception from pain/temperature and facial sensation; I did not treat a single symptom as proof of a thalamic lesion",
+  path:"I explained how the dorsal columns synapse in gracile and cuneate nuclei and decussate in the medulla, after which the medial lemniscus reaches contralateral VPL and somatosensory cortex; pain and temperature pathways mainly cross in the spinal cord, whereas facial input predominantly reaches VPM",
+  result:"I explained that most thalamocortical relay neurons are excitatory and glutamatergic, whereas GABAergic neurons of the thalamic reticular nucleus inhibit other thalamic nuclei without projecting directly to cortex; symptom laterality alone cannot establish the lesion level or diagnosis",
+  ready:"All three self-check items are marked. Compare the mechanism with the theory: checkmarks do not verify physiological correctness, and speech recognition only transcribes words.",
+  good:"Three self-check items marked"
+ },
+ KZ: {
+  intro:"Оқу жағдайы: оң қол саусақтарының дірілді және қалпын сезуі төмендеген, ал бет сезімталдығы сақталған. Дене рецепторларынан шыққан сигналдың артқы бағандар арқылы нәзік және сына тәрізді ядроларға жетіп, сопақша мида айқасатынын, медиалдық ілмекпен қарама-қарсы жақтағы VPL таламус ядросына, одан постцентралдық қыртысқа өтетінін түсіндіріңіз. Мұны көбіне жұлында айқасатын ауырсыну және температура жолдарымен салыстырыңыз. Денеге қатысты VPL мен бетке қатысты VPM-ді ажыратыңыз. Таламустың ретикулярлық ядросындағы ГАМҚ-ергиялық нейрондар релейлік ядроларды тежейді, бірақ қыртысқа тікелей проекция жібермейді. Бір ғана белгі зақым орнын не диагнозды дәлелдемейді. Белгілер жауап құрылымын өзіндік бағалауға арналған, ғылыми дұрыстықты автоматты тексеру емес.",
+  prompt:"Таламус: діріл, проприоцепция, айқасу, VPL/VPM және ГАМҚ-ергиялық тежелу — себептік жолды түсіндіріңіз",
+  cause:"Мен дененің діріл және проприоцепция сезімдерін ауырсыну, температура және бет сезімталдығынан ажыраттым; бір белгіні таламус зақымының дәлелі деп қабылдамадым",
+  path:"Мен артқы бағандар жолының нәзік және сына тәрізді ядроларда ауысып, сопақша мида айқасатынын, медиалдық ілмекпен қарама-қарсы VPL-ге және соматосенсорлық қыртысқа баратынын түсіндірдім; ауырсыну мен температура жолдары негізінен жұлында айқасады, ал беттен келген ақпарат көбіне VPM-ге жетеді",
+  result:"Мен таламокортикалық релейлік нейрондардың көбі қоздырушы глутаматергиялық екенін, ал таламустың ретикулярлық ядросындағы ГАМҚ-ергиялық нейрондар басқа таламус ядроларын тежеп, қыртысқа тікелей бармайтынын түсіндірдім; белгінің оң не сол жақта болуы зақым деңгейін немесе диагнозды өздігінен анықтамайды",
+  ready:"Өзіндік тексерудің үш тармағы белгіленді. Жауапты теориямен салыстырыңыз: белгілер физиологиялық дұрыстықты дәлелдемейді, ал сөйлеуді тану тек сөздерді мәтінге айналдырады.",
+  good:"Өзіндік бағалаудың үш тармағы белгіленді"
+ }
+} as const;
+
 export default function VoiceContent({language,moduleId}:{language:Language;moduleId:number}){
- const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : moduleId===10 ? {...copy[language],...moduleTenCopy[language]} : moduleId===11 ? {...copy[language],...moduleElevenCopy[language]} : moduleId===12 ? {...copy[language],...moduleTwelveCopy[language]} : moduleId===13 ? {...copy[language],...moduleThirteenCopy[language]} : copy[language];
- const key=moduleId===13 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===12 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===11 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===10 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===9 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
+ const c=moduleId===3 ? {...copy[language],...moduleThreeCopy[language]} : moduleId===4 ? {...copy[language],...moduleFourCopy[language]} : moduleId===5 ? {...copy[language],...moduleFiveCopy[language]} : moduleId===6 ? {...copy[language],...moduleSixCopy[language]} : moduleId===7 ? {...copy[language],...moduleSevenCopy[language]} : moduleId===8 ? {...copy[language],...moduleEightCopy[language]} : moduleId===9 ? {...copy[language],...moduleNineCopy[language]} : moduleId===10 ? {...copy[language],...moduleTenCopy[language]} : moduleId===11 ? {...copy[language],...moduleElevenCopy[language]} : moduleId===12 ? {...copy[language],...moduleTwelveCopy[language]} : moduleId===13 ? {...copy[language],...moduleThirteenCopy[language]} : moduleId===14 ? {...copy[language],...moduleFourteenCopy[language]} : copy[language];
+ const key=moduleId===14 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===13 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===12 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===11 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===10 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===7 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : moduleId===9 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : `neuro-course:mechanism:${moduleId}:${language}`;
  const storageKey=moduleId===8 ? `neuro-course:mechanism:v2:${moduleId}:${language}` : key;
  const[answer,setAnswer]=useState("");
  const[persisted,setPersisted]=useState(false);
