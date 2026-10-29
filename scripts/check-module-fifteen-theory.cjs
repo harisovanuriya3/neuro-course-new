@@ -62,7 +62,7 @@ for (const lang of ["RU", "EN", "KZ"]) {
     assert(body.includes(marker.toLocaleLowerCase()), lang + ": missing " + marker);
   assert(!/diagnosis confirmed|диагноз установлен|диагноз анықталды/i.test(body));
   if (lang === "RU") assert(!/Тиімді айналымдағы көлем азайса/i.test(body), "RU: Kazakh leakage");
-  if (lang === "KZ") assert(!/\\b(которые|однако|следовательно|потому что)\\b/i.test(body));
+  if (lang === "KZ") assert(!/\b(которые|однако|следовательно|потому что)\b/i.test(body));
 }
 const index = read("content/index.ts");
 assert(index.includes('import { createModuleFifteenTheory } from "./course-foundation/module-fifteen-theory";'));
