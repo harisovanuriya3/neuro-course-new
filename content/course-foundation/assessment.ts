@@ -80,7 +80,7 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
   : l==="EN"
    ? `After the initial situation, a new observation appears: a variable related to “${termB}” changes differently from the prediction. Decide whether the original mechanism is sufficient or an additional disturbed link is needed.`
    : `Бастапқы жағдайдан кейін жаңа бақылау пайда болды: «${termB}» байланысты көрсеткіш болжанғаннан өзгеше өзгереді. Бастапқы тетік жеткілікті ме, әлде қосымша бұзылған буын қажет пе — анықтаңыз.`;
- return {kind:"cases",title:l==="RU"?"Ситуационные задачи":l==="EN"?"Case Problems":"Ситуациялық тапсырмалар",moduleTitle,
+ const lesson:CasesLesson = {kind:"cases",title:l==="RU"?"Ситуационные задачи":l==="EN"?"Case Problems":"Ситуациялық тапсырмалар",moduleTitle,
  introduction:l==="RU"?"Работайте с данными: выделите ключевой признак, определите изменённый физиологический механизм, постройте причинную цепь и предложите проверку альтернативного объяснения.":l==="EN"?"Work from the evidence: identify the key finding, explain the altered physiological mechanism, build a causal chain, and propose a test of an alternative explanation.":"Деректермен жұмыс істеңіз: негізгі белгіні анықтаңыз, өзгерген физиологиялық тетікті түсіндіріңіз, себептік тізбек құрыңыз және балама түсіндірмені тексеру жолын ұсыныңыз.",
  ui:ui(l),cases:[
   {id:`m${topic.id}-localization`,title:l==="RU"?"Задача 1. Анализ физиологических данных":l==="EN"?"Case 1. Physiological data analysis":"1-жағдай. Физиологиялық деректерді талдау",situation:task,stages:[
@@ -137,6 +137,32 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
       : (l==="RU" ? "Сильный ответ формулирует две конкурирующие физиологические гипотезы и выбирает измерение, для которого они предсказывают разные результаты." : l==="EN" ? "A strong answer states two competing physiological hypotheses and selects a measurement for which they predict different outcomes." : "Күшті жауап екі бәсекелес физиологиялық болжамды тұжырымдап, олар әртүрлі нәтиже болжайтын өлшеуді таңдайды.")
   ]}
  ]};
+ if (topic.id===7) {
+  const T=(ru:string,en:string,kz:string)=>l==="RU"?ru:l==="EN"?en:kz;
+  lesson.cases.push({
+   id:"m7-withdrawal-reflex",
+   title:T("Отдёргивание руки от горячего предмета","Withdrawal from a hot object","Ыстық заттан қолды тартып алу"),
+   situation:T("Студент случайно касается горячего чайника и быстро отдёргивает руку. Осознание боли возникает позже. Опишите нервную цепь, не предполагая, что она состоит только из двух нейронов.","A student touches a hot kettle and rapidly withdraws the hand before consciously perceiving pain. Describe the neural circuit without assuming it has only two neurons.","Студент ыстық шәйнекке қолын тигізіп, ауырсынуды саналы сезінгенге дейін қолын тез тартып алады. Рефлекстік тізбекті тек екі нейроннан тұрады деп есептемей түсіндіріңіз."),
+   stages:[{title:T("Рефлекторная дуга","Reflex arc","Рефлекс доғасы"),questions:[
+    T("Какие рецепторы и афферентные волокна инициируют защитный ответ?","Which receptors and afferent fibers initiate the protective response?","Қорғаныш жауабын қандай рецепторлар мен афференттік талшықтар бастайды?"),
+    T("Где происходит переключение и какие мышцы активируются или тормозятся?","Where does integration occur, and which muscles are activated or inhibited?","Интеграция қайда өтеді және қандай бұлшықеттер қозады не тежеледі?"),
+    T("Почему осознанное восприятие боли не требуется для начала движения?","Why is conscious pain perception not required to initiate movement?","Қозғалысты бастау үшін ауырсынуды саналы сезіну неліктен қажет емес?")
+   ]}],
+   explanation:[T("Защитный сгибательный рефлекс — полисинаптический спинальный рефлекс. Ноцицепторы активируют афферентные волокна, интернейроны спинного мозга возбуждают сгибатели и тормозят разгибатели. Восходящие пути передают информацию для последующего осознания боли; корковые структуры могут модулировать ответ.","The flexor withdrawal reflex is a polysynaptic spinal reflex. Nociceptor afferents engage spinal interneurons that excite flexors and inhibit extensors. Ascending pathways support subsequent conscious pain perception, while supraspinal circuits can modulate the reflex.","Қорғаныш бүгу рефлексі — полисинапстық жұлын рефлексі. Ноцицептор афференттері жұлын интернейрондарын белсендіреді; олар бүгетін бұлшықеттерді қоздырып, жазатын бұлшықеттерді тежейді. Жоғарылаушы жолдар ауырсынуды кейін саналы сезінуге қатысады, ал жоғары орталықтар рефлексті реттей алады.")],
+  });
+  lesson.cases.push({
+   id:"m7-patellar-reflex",
+   title:T("Коленный рефлекс","Patellar tendon reflex","Тізе рефлексі"),
+   situation:T("Невролог наносит лёгкий удар по связке надколенника, и голень разгибается. Объясните, что проверяет исследование и почему отсутствие ответа не указывает на единственную локализацию повреждения.","A clinician taps the patellar tendon and the lower leg extends. Explain what this examines and why an absent response does not uniquely localize a lesion.","Дәрігер тізе тобығының байламын жеңіл соққанда сирақ жазылады. Тексеру нені бағалайтынын және жауаптың болмауы зақым орнын бірмәнді анықтамайтынын түсіндіріңіз."),
+   stages:[{title:T("Механизм и ограничения","Mechanism and limitations","Тетік және шектеулер"),questions:[
+    T("Какую роль играют мышечные веретёна и афференты Ia?","What roles do muscle spindles and Ia afferents play?","Бұлшықет ұршықтары мен Ia афференттерінің рөлі қандай?"),
+    T("Назовите основные спинальные сегменты и эфферентный путь.","Name the principal spinal segments and efferent pathway.","Негізгі жұлын сегменттері мен эфференттік жолды атаңыз."),
+    T("Какие факторы, помимо повреждения рефлекторной дуги, изменяют выраженность ответа?","What factors besides damage to the reflex arc affect response amplitude?","Рефлекс доғасының зақымынан басқа қандай факторлар жауап күшіне әсер етеді?")
+   ]}],
+   explanation:[T("Растяжение четырёхглавой мышцы активирует мышечные веретёна; афференты Ia через бедренный нерв достигают сегментов L2–L4 и моносинаптически возбуждают α-мотонейроны разгибателей. Через интернейроны происходит реципрокное торможение сгибателей. Ответ зависит также от нисходящих влияний, расслабления пациента и техники исследования; интерпретируйте его вместе с другими признаками.","Stretch of quadriceps activates muscle spindles; Ia afferents travel in the femoral nerve to L2–L4 and monosynaptically excite extensor alpha motor neurons. Interneurons mediate reciprocal inhibition of flexors. Descending control, patient relaxation, and examination technique also influence the response; interpret it with other findings.","Төртбасты бұлшықеттің созылуы бұлшықет ұршықтарын белсендіреді; Ia афференттері сан жүйкесі арқылы L2–L4 сегменттеріне жетіп, жазғыштардың α-мотонейрондарын моносинапстық қоздырады. Интернейрондар бүгетін бұлшықеттерді өзара тежейді. Жауапқа жоғарыдан түсетін әсерлер, науқастың босаңсуы және тексеру әдісі де ықпал етеді.")],
+  });
+ }
+ return lesson;
 }
 
 const testUi=(l:Language):TestUI=>({
