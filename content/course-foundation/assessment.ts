@@ -1,3 +1,4 @@
+import { createModuleFifteenCases } from "./module-fifteen-cases";
 import type { Language } from "../course";
 import type { CasesLesson } from "../cases";
 import type { BranchingTest, TestUI } from "../tests";
@@ -58,6 +59,7 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
  if (topic.id === 12) return createModuleTwelveCases(l, moduleTitle, ui(l));
  if (topic.id === 13) return createModuleThirteenCases(l, moduleTitle, ui(l));
  if (topic.id === 14) return createModuleFourteenCases(l, moduleTitle, ui(l));
+ if (topic.id === 15) return createModuleFifteenCases(l, moduleTitle, ui(l));
  const task=clinicalVignettes[topic.id]?.[l] ?? (
   l==="RU"
    ? `В теме «${moduleTitle}» изменился измеряемый физиологический показатель. По данным определите вероятно изменённое звено, предложите альтернативное объяснение и назовите измерение, которое различит эти гипотезы.`
