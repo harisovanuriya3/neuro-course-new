@@ -52,14 +52,16 @@ const ui = (l: Language): CasesLesson["ui"] => ({
 });
 
 export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):CasesLesson{
- if (topic.id === 8) return createModuleEightCases(l, moduleTitle, ui(l));
- if (topic.id === 9) return createModuleNineCases(l, moduleTitle, ui(l));
- if (topic.id === 10) return createModuleTenCases(l, moduleTitle, ui(l));
- if (topic.id === 11) return createModuleElevenCases(l, moduleTitle, ui(l));
- if (topic.id === 12) return createModuleTwelveCases(l, moduleTitle, ui(l));
- if (topic.id === 13) return createModuleThirteenCases(l, moduleTitle, ui(l));
- if (topic.id === 14) return createModuleFourteenCases(l, moduleTitle, ui(l));
- if (topic.id === 15) return createModuleFifteenCases(l, moduleTitle, ui(l));
+ const specializedCases:CasesLesson | null =
+  topic.id === 8 ? createModuleEightCases(l, moduleTitle, ui(l)) :
+  topic.id === 9 ? createModuleNineCases(l, moduleTitle, ui(l)) :
+  topic.id === 10 ? createModuleTenCases(l, moduleTitle, ui(l)) :
+  topic.id === 11 ? createModuleElevenCases(l, moduleTitle, ui(l)) :
+  topic.id === 12 ? createModuleTwelveCases(l, moduleTitle, ui(l)) :
+  topic.id === 13 ? createModuleThirteenCases(l, moduleTitle, ui(l)) :
+  topic.id === 14 ? createModuleFourteenCases(l, moduleTitle, ui(l)) :
+  topic.id === 15 ? createModuleFifteenCases(l, moduleTitle, ui(l)) :
+  null;
  const task=clinicalVignettes[topic.id]?.[l];
  if (!task) throw new Error(`Missing authored clinical vignette for module ${topic.id}/${l}`);
  const termA=topic.terms[0][l], termB=topic.terms[1][l];
@@ -168,6 +170,10 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
     l==="RU"?"Какая нейронная цепь или структура объясняет признаки?":l==="EN"?"Which neural circuit or structure explains the findings?":"Белгілерді қандай нейрондық тізбек немесе құрылым түсіндіреді?",
     l==="RU"?"Какое дополнительное исследование поможет проверить вывод?":l==="EN"?"Which additional examination would help test the conclusion?":"Қорытындыны қандай қосымша тексеру арқылы нақтылауға болады?"
    ]}],explanation:[l==="RU"?expRU:l==="EN"?expEN:expKZ]});
+ }
+ if (specializedCases) {
+  specializedCases.cases.push(...lesson.cases.filter(c=>c.id.startsWith(`m${topic.id}-`)));
+  return specializedCases;
  }
  if (topic.id===7) {
   const T=(ru:string,en:string,kz:string)=>l==="RU"?ru:l==="EN"?en:kz;
