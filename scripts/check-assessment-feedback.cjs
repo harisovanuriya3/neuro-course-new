@@ -13,6 +13,15 @@ for (const topic of topics) for (const language of ['RU', 'EN', 'KZ']) {
   validateTest(test);
   const hints = Object.values(test.nodes).filter(n => n.type === 'remediation' && n.depth === 1);
   assert.equal(new Set(hints.map(n => n.text)).size, 5, 'Five skill-specific hints required');
+  const mainQuestions = test.mainIds.map(id => test.nodes[id]).filter(node => node && node.type === 'question');
+  assert.equal(mainQuestions.length, 5,
+    `${topic.id}/${language}: expected five formative assessment competencies`);
+  const correctPositions = mainQuestions.map(node => node.options.findIndex(option => option.id === node.correctAnswer));
+  assert(new Set(correctPositions).size >= 3,
+    `${topic.id}/${language}: correct answers are concentrated in too few positions`);
+  const normalizedPrompts = mainQuestions.map(node => node.prompt.trim().toLocaleLowerCase());
+  assert.equal(new Set(normalizedPrompts).size, normalizedPrompts.length,
+    `${topic.id}/${language}: repeated main question prompts`);
   for (const node of Object.values(test.nodes)) {
     if (node.type === 'question') {
       // Modules 8–14 have separately audited, topic-specific test adapters.
