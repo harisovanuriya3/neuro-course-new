@@ -60,13 +60,8 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
  if (topic.id === 13) return createModuleThirteenCases(l, moduleTitle, ui(l));
  if (topic.id === 14) return createModuleFourteenCases(l, moduleTitle, ui(l));
  if (topic.id === 15) return createModuleFifteenCases(l, moduleTitle, ui(l));
- const task=clinicalVignettes[topic.id]?.[l] ?? (
-  l==="RU"
-   ? `В теме «${moduleTitle}» изменился измеряемый физиологический показатель. По данным определите вероятно изменённое звено, предложите альтернативное объяснение и назовите измерение, которое различит эти гипотезы.`
-   : l==="EN"
-    ? `In “${moduleTitle}”, a measurable physiological variable has changed. Use the data to identify the likely altered link, propose an alternative explanation, and name a measurement that would discriminate between the hypotheses.`
-    : `«${moduleTitle}» тақырыбында өлшенетін физиологиялық көрсеткіш өзгерді. Деректер бойынша ықтимал өзгерген буынды анықтап, балама түсіндірме ұсыныңыз және екі болжамды ажырататын өлшемді атаңыз.`
- );
+ const task=clinicalVignettes[topic.id]?.[l];
+ if (!task) throw new Error(`Missing authored clinical vignette for module ${topic.id}/${l}`);
  const termA=topic.terms[0][l], termB=topic.terms[1][l];
  const secondSituation=topic.id===3
   ? (l==="RU"
