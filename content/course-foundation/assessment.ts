@@ -89,7 +89,9 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
   {id:`m${topic.id}-localization`,title:l==="RU"?"Задача 1. Локализация по данным":l==="EN"?"Case 1. Data-driven localization":"1-жағдай. Деректер бойынша локализация",situation:task,stages:[
    {title:l==="RU"?"Выделите данные":l==="EN"?"Extract the evidence":"Деректерді бөліңіз",questions:[
     l==="RU"?"Назовите два факта из условия, которые действительно влияют на физиологический вывод.":l==="EN"?"Name two findings in the case that materially affect the physiological conclusion.":"Физиологиялық қорытындыға әсер ететін жағдайдағы екі деректі атаңыз.",
-    l==="RU"?`Какой из них лучше всего помогает связать «${termA}» с «${termB}»?`:l==="EN"?`Which finding best helps link “${termA}” to “${termB}”?`:`Қай дерек «${termA}» мен «${termB}» арасындағы байланысты жақсы көрсетеді?`
+    topic.id===15
+      ? (l==="RU"?"Почему одинаковое количество выделенного пота не означает одинаковую потерю тепла?":l==="EN"?"Why does comparable sweat secretion not imply comparable heat loss?":"Неге тердің бірдей мөлшерде бөлінуі жылудың бірдей мөлшерде шығарылуын білдірмейді?")
+      : (l==="RU"?`Какой из них лучше всего помогает связать «${termA}» с «${termB}»?`:l==="EN"?`Which finding best helps link “${termA}” to “${termB}”?`:`Қай дерек «${termA}» мен «${termB}» арасындағы байланысты жақсы көрсетеді?`)
    ]},
    {title:l==="RU"?"Локализуйте звено":l==="EN"?"Localize the link":"Буынның орнын анықтаңыз",questions:[
     l==="RU"?"Какое звено системы изменено вероятнее всего? Укажите один признак за и один признак, который заставил бы пересмотреть локализацию.":l==="EN"?"Which system link is most likely altered? Give one supporting finding and one finding that would make you reconsider the localization.":"Жүйенің қай буыны өзгерген болуы ықтимал? Бір қолдайтын және локализацияны қайта қарауға мәжбүр ететін бір белгіні көрсетіңіз."
@@ -113,7 +115,9 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
   ]},
   {id:`m${topic.id}-discrimination`,title:l==="RU"?"Задача 2. Конкурирующие объяснения":l==="EN"?"Case 2. Competing explanations":"2-жағдай. Бәсекелес түсіндірмелер",situation:secondSituation,stages:[
    {title:l==="RU"?"Сделайте новый прогноз":l==="EN"?"Make a new prediction":"Жаңа болжам жасаңыз",questions:[
-    l==="RU"?`Если исходная связь «${termA} → ${termB}» остаётся главным механизмом, какое направление изменения вы ожидаете?`:l==="EN"?`If the original “${termA} → ${termB}” link remains the main mechanism, what direction of change do you predict?`:`Егер бастапқы «${termA} → ${termB}» байланысы негізгі тетік болып қалса, өзгерістің қандай бағытын күтесіз?`
+    topic.id===15
+      ? (l==="RU"?"Что произойдёт с жаждой и вазопрессином при повышении осмоляльности и что может изменить их при снижении эффективного объёма крови?":l==="EN"?"What happens to thirst and vasopressin when osmolality rises, and what can change them when effective blood volume falls?":"Осмоляльдылық жоғарылағанда шөлдеу мен вазопрессин қалай өзгереді және тиімді қан көлемі азайғанда оларды қандай сигналдар өзгерте алады?")
+      : (l==="RU"?`Если исходная связь «${termA} → ${termB}» остаётся главным механизмом, какое направление изменения вы ожидаете?`:l==="EN"?`If the original “${termA} → ${termB}” link remains the main mechanism, what direction of change do you predict?`:`Егер бастапқы «${termA} → ${termB}» байланысы негізгі тетік болып қалса, өзгерістің қандай бағытын күтесіз?`)
    ]},
    {title:l==="RU"?"Предложите альтернативу":l==="EN"?"Propose an alternative":"Баламаны ұсыныңыз",questions:[
     l==="RU"?"Назовите другое физиологическое звено, изменение которого могло бы дать похожий результат.":l==="EN"?"Name another physiological link whose alteration could produce a similar result.":"Ұқсас нәтиже бере алатын басқа физиологиялық буынды атаңыз."
