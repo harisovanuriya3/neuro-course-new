@@ -6,6 +6,7 @@ import { topics, termDefinitions, type Topic } from './topics';
 import { clinicalVignettes, createFoundationCase, createFoundationTest } from './assessment';
 import { moduleTwelveReviewQuestions } from './module-twelve-questions';
 import { moduleThirteenReviewQuestions } from './module-thirteen-questions';
+import { moduleFourteenReviewQuestions } from './module-fourteen-questions';
 
 const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
   2: { RU: 'сравните две записи ЭЭГ с одинаковым физиологическим состоянием, но разным уровнем артефакта; измерьте амплитуду, частоту и признак, позволяющий распознать артефакт', EN: 'compare two EEG recordings from the same physiological state but with different artifact levels; measure amplitude, frequency, and a feature that identifies the artifact', KZ: 'физиологиялық күйі бірдей, бірақ артефакт деңгейі әртүрлі екі ЭЭГ жазбасын салыстырып, амплитуданы, жиілікті және артефактты тануға көмектесетін белгіні өлшеңіз' },
@@ -894,6 +895,7 @@ function create(
   if (section === 'questions') {
     if (topic.id === 12) return {kind:'questions',title,introduction:c.questionsIntro,questions:moduleTwelveReviewQuestions(language)};
     if (topic.id === 13) return {kind:'questions',title,introduction:c.questionsIntro,questions:moduleThirteenReviewQuestions(language)};
+    if (topic.id === 14) return {kind:'questions',title,introduction:c.questionsIntro,questions:moduleFourteenReviewQuestions(language)};
     return {
       kind: 'questions',
       title,
