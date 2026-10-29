@@ -29,7 +29,7 @@ const ctx={};vm.runInNewContext(js,ctx);
 const prompts=ctx.prompts;
 assert.deepEqual(Object.keys(prompts).sort(),["EN","KZ","RU"]);
 const markers={
- RU:["правой кисти","клиновидный","продолговатого","перекрёст","медиальная петля","VPL","VPM","спинальным","белую спайку","глутамат","ГАМК","ретикулярного ядра","не провер"],
+ RU:["правой кисти","клиновидный","продолговатого","перекрёст","медиальная петля","VPL","VPM","спинальным","белую спайку","глутамат","ГАМК","ретикулярного ядра","без автоматической оценки"],
  EN:["right hand","cuneate nucleus","medulla","decussation","medial lemniscus","VPL","VPM","spinal crossing","anterior white commissure","glutamatergic","GABAergic","reticular nucleus","ungraded"],
  KZ:["Оң қолдағы","сына тәрізді ядро","сопақша мида","айқасуы","медиалдық ілмек","VPL","VPM","алдыңғы ақ комиссура","глутамат","ГАМҚ","ретикулярлық ядросының","бағаланбайтын"]
 };
