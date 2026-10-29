@@ -228,6 +228,75 @@ const moduleThirteenReview={
   }
 } as const;
 
+// Module 14 ungraded reflection; directly read: Guyton & Hall 13e PDF 584–586;
+// Ganong 23e PDF 241–243; Ghai Practical Physiology 8e PDF 323–325.
+// Open answers and lesion hypotheses are NOT automatically graded.
+const moduleFourteenReview={
+  "RU": {
+    "title": "Самопроверка: таламические реле, перекрёсты и пределы вывода",
+    "note": "Ответьте своими словами и сверьте с теорией, моделью и кейсами. Открытые ответы не оцениваются автоматически и не повышают показатель освоения. Процент виртуального пациента относится лишь к шести выбранным вариантам, не к письменному обоснованию, диагнозу или клинической компетентности.",
+    "items": [
+      {
+        "section": "theory",
+        "question": "Пациентка хуже ощущает вибрацию и положение пальцев правой кисти, но чувствительность лица сохранена. Проследите путь от рецепторов через задние канатики, клиновидное ядро продолговатого мозга, перекрёст, медиальную петлю и VPL к постцентральной коре. Чем VPM отличается от VPL? Почему сохранность лица не позволяет поставить точный диагноз или доказать поражение конкретного таламического ядра?",
+        "link": "Проверить перекрёсты и VPL/VPM"
+      },
+      {
+        "section": "interactive",
+        "question": "В интерактивной схеме сравните путь вибрации тела по задним канатикам, боли и температуры по переднебоковой системе и чувствительности лица по тройничным путям. На каких уровнях преимущественно перекрещиваются первые два пути? Включите тормозный контур ретикулярного ядра таламуса и объясните роль ГАМК. Почему это ядро не равно ретикулярной формации ствола, а переключатель схемы не является измерением активности нейронов?",
+        "link": "Сравнить маршруты в модели"
+      },
+      {
+        "section": "cases",
+        "question": "При нарушении вибрации справа сопоставьте три возможных уровня: правый задний канатик спинного мозга до перекрёста, левую медиальную петлю после перекрёста и левый VPL. Какие дополнительные модальности, неврологические признаки и исследования помогут различить эти варианты? Почему один сенсорный симптом не определяет точный очаг или диагноз, а внезапное появление нового дефицита требует срочной клинической оценки?",
+        "link": "Разобрать пределы локализации"
+      }
+    ]
+  },
+  "EN": {
+    "title": "Self-check: thalamic relays, crossings and inference limits",
+    "note": "Explain the three situations and compare with theory, model and cases. Open responses are not automatically graded and do not raise the mastery indicator. The virtual-patient percentage covers only six selected options, not written reasoning, diagnosis or clinical competence.",
+    "items": [
+      {
+        "section": "theory",
+        "question": "A patient has impaired vibration and finger-position sensation in the right hand but preserved facial sensation. Trace the pathway from receptors through the dorsal columns, cuneate nucleus in the medulla, decussation, medial lemniscus and VPL to postcentral cortex. How does VPM differ from VPL? Why does preserved facial sensation neither establish a specific thalamic lesion nor prove a clinical diagnosis?",
+        "link": "Review crossings and VPL/VPM"
+      },
+      {
+        "section": "interactive",
+        "question": "In the interactive diagram compare vibration from the body via dorsal columns, pain and temperature via the anterolateral system, and facial sensation via trigeminal pathways. At what levels do the first two pathways mainly cross? Activate the thalamic reticular nucleus circuit and explain GABA-mediated inhibition. Why is this nucleus distinct from the brainstem reticular formation, and why is the diagram switch not a recording of neuronal activity?",
+        "link": "Compare pathways in the model"
+      },
+      {
+        "section": "cases",
+        "question": "For impaired vibration on the right, compare three possible sites: the right spinal dorsal column before crossing, the left medial lemniscus after crossing, and the left VPL. Which other sensory modalities, neurological findings and investigations would distinguish these possibilities? Why can a single sensory sign neither localize a precise lesion nor establish a diagnosis, and why does sudden onset of a new deficit warrant urgent clinical assessment?",
+        "link": "Review localization limits"
+      }
+    ]
+  },
+  "KZ": {
+    "title": "Өзіндік тексеру: таламустық реле, айқасу және қорытынды шегі",
+    "note": "Үш жағдайды өз сөзіңізбен түсіндіріп, теориямен, модельмен және клиникалық тапсырмалармен салыстырыңыз. Ашық жауаптар автоматты түрде бағаланбайды және меңгеру көрсеткішін арттырмайды. Виртуалды пациенттің пайызы алты таңдауды ғана көрсетеді, жазбаша дәлелдің сапасын, диагнозды немесе клиникалық құзыреттілікті дәлелдемейді.",
+    "items": [
+      {
+        "section": "theory",
+        "question": "Пациенттің оң қол саусақтарында діріл мен буын қалпын сезіну төмендеген, ал бет сезімталдығы сақталған. Рецепторлардан басталып, артқы баған, сопақша мидағы сына тәрізді ядро, талшықтардың айқасуы және медиалдық ілмек арқылы VPL мен постцентралдық қыртысқа жететін жолды сипаттаңыз. VPM мен VPL қызметтері қалай ерекшеленеді? Бет сезімінің сақталуы таламустың нақты ядросы зақымданғанын немесе диагнозды неге дәлелдемейді?",
+        "link": "Айқасу мен VPL/VPM-ді қайталау"
+      },
+      {
+        "section": "interactive",
+        "question": "Интерактивті сызбада денеден келетін дірілдің артқы баған жолын, ауырсыну мен температураның алдыңғы-бүйірлік жүйесін және бет сезімталдығының үшкіл жүйке жолын салыстырыңыз. Алғашқы екі жол көбіне қай деңгейде айқасады? Таламустың ретикулярлық ядросының тежегіш контурын қосып, ГАМҚ рөлін түсіндіріңіз. Бұл ядро ми бағанының ретикулярлық формациясынан несімен бөлек және сызбадағы қосқыш неге нейрон белсенділігінің нақты өлшемі емес?",
+        "link": "Модельдегі жолдарды салыстыру"
+      },
+      {
+        "section": "cases",
+        "question": "Оң жақтағы діріл сезімі төмендесе, үш ықтимал деңгейді салыстырыңыз: айқасуға дейінгі жұлынның оң артқы бағаны, айқасудан кейінгі сол медиалдық ілмек және сол VPL. Бұл болжамдарды ажырату үшін тағы қандай сезімталдық түрлерін, неврологиялық белгілерді және зерттеу нәтижелерін ескеру керек? Неліктен жалғыз белгі зақымның нақты орнын немесе диагнозды анықтамайды? Жаңа неврологиялық тапшылық кенет басталса, неге шұғыл клиникалық бағалау қажет?",
+        "link": "Локализация шегін талдау"
+      }
+    ]
+  }
+} as const;
+
 function level(correct:number,total:number):Level{if(!total)return"none";const p=correct/total;return p>=.8?"mastered":p>=.5?"forming":"review"}
 export default function ModuleProgress({language,moduleId}:{language:Language;moduleId:number}){
  const [data,setData]=useState<CourseProgressData|null>(null);
@@ -269,7 +338,7 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const masteredCount=available.filter(([,l])=>l==="mastered").length;
  const reviewCount=available.filter(([,l])=>l==="review").length;
  const overallPercent=available.length?Math.round((available.reduce((sum,[,l])=>sum+(l==="mastered"?1:l==="forming"?0.5:0),0)/available.length)*100):0;
- const recommendation=available.length===0?c.none:reviewCount>0?c.low:available.length<3?c.mid:masteredCount===available.length?((moduleId===12||moduleId===13)?c.mid:c.strong):c.mid;
+ const recommendation=available.length===0?c.none:reviewCount>0?c.low:available.length<3?c.mid:masteredCount===available.length?((moduleId===12||moduleId===13||moduleId===14)?c.mid:c.strong):c.mid;
  return <section className={styles.patient}>
   <h1>{c.title}</h1><p>{c.scope}. {c.saved}</p>
   <div className={styles.summary}>
@@ -313,6 +382,11 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     <h2 style={{marginTop:0}}>{moduleThirteenReview[language].title}</h2>
     <p>{moduleThirteenReview[language].note}</p>
     <ol>{moduleThirteenReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
+  </section>}
+  {moduleId===14 && <section aria-label={moduleFourteenReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
+    <h2 style={{marginTop:0}}>{moduleFourteenReview[language].title}</h2>
+    <p>{moduleFourteenReview[language].note}</p>
+    <ol>{moduleFourteenReview[language].items.map(item=><li key={item.section} style={{marginBottom:12}}><p>{item.question}</p><Link href={`/modules/${moduleId}/${item.section}?lang=${language}`}>{item.link}</Link></li>)}</ol>
   </section>}
   {moduleId===11 && <section aria-label={moduleElevenReview[language].title} style={{margin:"18px 0",padding:"16px",border:"1px solid #b9d3e6",borderRadius:14,background:"#f8fcff"}}>
     <h2 style={{marginTop:0}}>{moduleElevenReview[language].title}</h2>
