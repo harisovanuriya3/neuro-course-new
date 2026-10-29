@@ -32,7 +32,7 @@ for (let i = 0; i < 6; i++) {
   assert(!/[әғқңөұүһі]/i.test(byLanguage.RU[i].prompt + byLanguage.RU[i].explanation), "KZ letters in RU");
 }
 const en = byLanguage.EN.map(q => q.prompt + " " + q.explanation).join(" ").toLowerCase();
-for (const marker of ["vpl", "vpm", "medulla", "gaba", "glutamate", "geniculate", "olfactory", "false-alarm", "internal capsule"]) {
+for (const marker of ["vpl", "vpm", "medulla", "gaba", "glutamatergic", "geniculate", "olfactory", "false-alarm", "internal capsule"]) {
   assert(en.includes(marker), "missing scientific marker: " + marker);
 }
 const foundation = fs.readFileSync("content/course-foundation/index.ts", "utf8");
