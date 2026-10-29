@@ -364,6 +364,11 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
   ...foundationLessons,
   14: {
     ...foundationLessons[14],
+    media: {
+      RU: createModuleFourteenMedia("RU", foundationLessons[14].media.RU as import("./media").MediaLesson),
+      EN: createModuleFourteenMedia("EN", foundationLessons[14].media.EN as import("./media").MediaLesson),
+      KZ: createModuleFourteenMedia("KZ", foundationLessons[14].media.KZ as import("./media").MediaLesson),
+    },
     practice: {
       RU: createModuleFourteenPractice("RU", foundationLessons[14].practice.RU as PracticeLesson),
       EN: createModuleFourteenPractice("EN", foundationLessons[14].practice.EN as PracticeLesson),
