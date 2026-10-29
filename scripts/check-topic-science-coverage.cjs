@@ -48,6 +48,11 @@ console.log("NOTE: This checks coverage only, not translation equivalence, physi
 
 // Audit the entire 25-module scope rather than accepting a single-module check.
 const assessment=read("content/course-foundation/assessment.ts");
+const vignetteBlock=assessment.split("export const clinicalVignettes:Record<number,Vignette>={")[1]?.split("\n};")[0];
+assert(vignetteBlock,"Missing authored vignette dictionary");
+const vignetteIds=[...vignetteBlock.matchAll(/^\s*(\d+):v\(/gm)].map(m=>Number(m[1]));
+assert.deepEqual([...vignetteIds].sort((a,b)=>a-b),Array.from({length:24},(_,i)=>i+2),"Each foundation module 2–25 must have an authored clinical vignette");
+assert(!assessment.includes("const task=clinicalVignettes[topic.id]?.[l] ?? ("),"Generic clinical case fallback must not conceal missing content");
 const specialCaseModules=[...assessment.matchAll(/if \(topic\.id === (\d+)\) return createModule\w+Cases\(/g)].map(m=>Number(m[1]));
 assert.equal(new Set(specialCaseModules).size,specialCaseModules.length,"Duplicate authored-case routing");
 for(const id of specialCaseModules){
