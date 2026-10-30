@@ -4,6 +4,7 @@ import OrganizationAnimation from "../../components/OrganizationAnimation";
 import FoundationMediaAnimation from "../../components/FoundationMediaAnimation";
 import AnatomyReference from "../../components/AnatomyReference";
 import AdvancedAnatomyReference from "../../components/AdvancedAnatomyReference";
+import FoundationVisual from "../../components/FoundationVisual";
 import { modules, type Language } from "../../content/course";
 import styles from "./resources.module.css";
 
@@ -106,7 +107,10 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                   {moduleId === 1
                     ? <OrganizationAnimation language={lang} />
                     : <FoundationMediaAnimation moduleId={moduleId} language={lang} />}
-                  <section aria-label={t.anatomy}>
+                  {moduleId > 1 && <section className={styles.labPanel} aria-label={t.lab}>
+                    <FoundationVisual moduleId={moduleId} language={lang} />
+                  </section>}
+                  <section className={styles.anatomyPanel} aria-label={t.anatomy}>
                     <AnatomyReference moduleId={moduleId} language={lang} />
                     <AdvancedAnatomyReference moduleId={moduleId} language={lang} />
                   </section>
