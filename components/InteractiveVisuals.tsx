@@ -47,18 +47,14 @@ export function OrganizationVisual({ nodes, selected, language, onSelect }: { no
   const current = nodes.find(node => node.id === selected) ?? nodes[0];
   if (!current) return <p role="status">{copy[language].unavailable}</p>;
   const title = language === "RU" ? "Анатомические структуры ЦНС и ПНС" : language === "EN" ? "Anatomical structures of the CNS and PNS" : "ОЖЖ және ШЖЖ анатомиялық құрылымдары";
-  const detail = language === "RU" ? "Выберите структуру: выделение и импульс покажут её участие в передаче сигнала. Фотографии ниже позволяют рассмотреть реальные препараты." : language === "EN" ? "Select a structure to highlight its role in signal transmission. The photographs below show real anatomical specimens." : "Құрылымды таңдаңыз: белгілеу мен импульс сигнал берілуіндегі рөлін көрсетеді. Төменде нақты анатомиялық препараттар берілген.";
+  const detail = language === "RU" ? "Выберите структуру: выделение и импульс покажут её участие в передаче сигнала. Реальный анатомический препарат показан один раз ниже." : language === "EN" ? "Select a structure to highlight its role in signal transmission. The real anatomical specimen is shown once below." : "Құрылымды таңдаңыз: белгілеу мен импульс сигнал берілуіндегі рөлін көрсетеді. Нақты анатомиялық препарат төменде бір рет көрсетілген.";
   const region = selected === "brain" || selected === "spinal" ? "central" : "peripheral";
   const signal = region === "central" ? "M 180 28 C 180 90 180 110 180 185 L 180 275" : "M 180 90 Q 230 132 300 172 Q 325 186 330 265";
   return <figure className={styles.figure} data-visual-state={selected} aria-label={title}>
     <div style={{padding:16}}>
       <h3 style={{margin:"0 0 8px"}}>{title}</h3><p style={{lineHeight:1.6}}>{detail}</p>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",gap:16}}>
-        <div style={{position:"relative",minHeight:360,border:"1px solid #c5dae5",borderRadius:14,background:"#eaf4f8",overflow:"hidden",display:"grid",placeItems:"center"}}>
-          <img src="/images/anatomy/brain-spinal-cord.jpg" alt={language==="RU"?"Анатомический препарат головного и спинного мозга":language==="EN"?"Anatomical specimen of the brain and spinal cord":"Бас миы мен жұлынның анатомиялық препараты"} style={{height:360,maxWidth:"100%",objectFit:"contain"}} />
-          <span style={{position:"absolute",bottom:8,left:8,right:8,background:"#ffffffeb",padding:8,borderRadius:8,fontSize:13}}>{region==="central"?"ЦНС / CNS / ОЖЖ":"ЦНС и отходящие нервы / CNS and exiting nerves"}</span>
-        </div>
-        <div style={{display:"grid",gap:12,alignContent:"start"}}>
+        <div style={{display:"grid",gap:12}}>
           <div style={{position:"relative",padding:10,border:"1px solid #c5dae5",borderRadius:14,background:"#f7fbfe"}}>
             <svg viewBox="0 0 360 300" role="img" aria-label={current.explanation} style={{display:"block",width:"100%"}}>
               <path d="M180 20 Q130 5 112 42 Q91 78 146 100 L175 105 L175 232 M180 20 Q230 5 248 42 Q269 78 214 100 L185 105 L185 232" fill="none" stroke="#567b93" strokeWidth="10" strokeLinecap="round"/>
