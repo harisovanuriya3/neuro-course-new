@@ -1,33 +1,16 @@
-.player { min-width: 0; padding: clamp(12px, 2vw, 20px); border: 1px solid #b6c9d9; border-radius: 16px; background: linear-gradient(145deg, #f5f9fd, #edf5fa); box-shadow: 0 10px 30px rgba(26, 72, 102, 0.08); }
+.player { min-width: 0; padding: clamp(12px, 2vw, 20px); border: 1px solid #b6c9d9; border-radius: 12px; background: #f4f8fc; }
 .player h3 { margin-top: 0; }
-.visual { overflow: hidden; background: radial-gradient(circle at 50% 18%, #ffffff 0, #f7fbfd 50%, #eaf3f8 100%); border: 1px solid #cbdce7; border-radius: 14px; padding: clamp(8px, 2vw, 16px); }
-.visual svg { display: block; width: 100%; height: auto; max-width: 640px; margin: auto; }
-.anatomyBackdrop { fill: #f1d1bd; stroke: #9d7568; stroke-width: 1.5; opacity: .45; }
-.anatomyBackdrop ellipse { fill: #9eb7c5; stroke: none; opacity: .22; }
-.structure { color: #8195a5; fill: #d9e2e8; stroke: #6d8292; stroke-width: 2.6; opacity: .55; transition: opacity .45s ease, filter .45s ease; }
-.highlight { color: #07679c; fill: #a8ddeb; stroke: #00669d; stroke-width: 3.4; opacity: 1; transition: opacity .45s ease, filter .45s ease; }
+.visual { background: #fff; border: 1px solid #d4e0ea; border-radius: 10px; padding: 12px; }
+.visual svg { display: block; width: 100%; height: auto; max-width: 490px; margin: auto; }
+.body { fill: #f2f6f9; stroke: #9aafbf; stroke-width: 2; }
+.structure { fill: #dce6ee; stroke: #73899b; stroke-width: 2; }
+.highlight { fill: #c1e5ee; stroke: #00599c; stroke-width: 4; }
 .structure, .highlight { stroke-linejoin: round; stroke-linecap: round; }
-.brain { stroke: #91445e; stroke-width: 2.4; }
-.brainFold { fill: none; stroke: #a74e6b; stroke-width: 2.3; }
-.brainStem { fill: #e395a9; stroke: #91445e; }
-.spinalCord { fill: #f4c28d; stroke: #a45d2b; }
-.nerveRoots, .structure > path, .highlight > path { fill: none; }
-.nerveRoots path { stroke-width: 2.3; }
-.structure circle, .highlight circle { fill: #fff4c3; }
-.callouts { fill: none; stroke: #8da9b9; stroke-width: 1.5; opacity: .55; }
-.callouts rect { fill: #f9fcfe; }
-.flow { fill: none; color: #005f9e; stroke: currentColor; stroke-width: 6; stroke-dasharray: 12 7; filter: drop-shadow(0 2px 2px rgba(0,0,0,.18)); }
-.afferent { color: #006fae; }
-.efferent { color: #bf4b62; }
-.moving { animation: signal-flow 1.05s linear infinite; }
-@keyframes signal-flow { to { stroke-dashoffset: -38; } }
-.anatomyKey { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
-.anatomyKey span { display: flex; align-items: center; gap: 9px; min-width: 0; padding: 10px 12px; border: 1px solid #d3e0e8; border-radius: 10px; background: rgba(255,255,255,.82); color: #405b6c; transition: transform .25s ease, border-color .25s ease, background .25s ease; }
-.anatomyKey .keyActive { border-color: #2482ad; background: #e8f6fb; color: #063f62; font-weight: 700; transform: translateY(-2px); }
-.anatomyKey i { width: 18px; height: 18px; flex: 0 0 auto; border-radius: 50%; }
-.cnsSwatch { background: linear-gradient(135deg, #ef9cb1 0 48%, #efbd82 52%); border: 1px solid #9b4a5f; }
-.pnsSwatch { background: #a8ddeb; border: 2px solid #00669d; }
+.flow { fill: none; color: #004b87; stroke: currentColor; stroke-width: 5; stroke-dasharray: 12 6; }
+.moving { animation: signal-flow 1.2s linear infinite; }
+@keyframes signal-flow { to { stroke-dashoffset: -36; } }
 .legend { margin: 8px 0 0; }
+.legend [data-active="true"] { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .direction { font-weight: 700; }
 .controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
 .controls button { flex: 1 1 160px; }
@@ -38,15 +21,5 @@
 .explanation h4 { margin: 12px 0; color: #004b87; font-size: 1.05em; }
 .note { font-size: 0.95em; color: #526b80; }
 .reduced { display: none; }
-@media (prefers-reduced-motion: reduce) {
-  .moving { animation: none; }
-  .reduced { display: block; }
-  .structure, .highlight, .anatomyKey span { transition: none; }
-}
-@media (max-width: 560px) {
-  .controls { flex-direction: column; }
-  .controls button { flex: none; width: 100%; }
-  .visual { padding: 5px; }
-  .anatomyKey { grid-template-columns: 1fr; }
-  .anatomyKey span { font-size: .9rem; padding: 8px 10px; }
-}
+@media (prefers-reduced-motion: reduce) { .moving { animation: none; } .reduced { display: block; } }
+@media (max-width: 480px) { .controls { flex-direction: column; } .controls button { flex: none; width: 100%; } .visual { padding: 6px; } }
