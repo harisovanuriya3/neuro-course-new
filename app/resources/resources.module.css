@@ -22,7 +22,7 @@
 .actions a { padding: 12px; border: 1px solid #b9d2df; border-radius: 12px; color: #074e74; background: #eef8fc; text-align: center; text-decoration: none; font-weight: 700; }
 .preview { border-top: 1px solid #d6e2e9; padding-top: 14px; }
 .preview summary { cursor: pointer; color: #0a567c; font-weight: 800; }
-.previewBody { display: grid; gap: 18px; margin-top: 16px; }
+.previewBody { display: grid; gap: 22px; margin-top: 16px; min-width: 0; }\n.labPanel, .anatomyPanel { min-width: 0; overflow: hidden; padding: clamp(10px, 2vw, 16px); border: 1px solid #d4e2e9; border-radius: 16px; background: #fbfdfe; }\n.labPanel :global(img), .anatomyPanel :global(img), .previewBody :global(svg) { max-width: 100%; height: auto; }
 @media (max-width: 700px) {
   .page { padding: 12px; }
   .hero { border-radius: 18px; }
