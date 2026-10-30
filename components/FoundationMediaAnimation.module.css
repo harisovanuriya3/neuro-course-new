@@ -1,0 +1,28 @@
+.player { padding: clamp(14px, 3vw, 24px); border: 1px solid #b8ceda; border-radius: 18px; color: #173f56; background: linear-gradient(145deg, #f9fcfe, #edf6fa); box-shadow: 0 12px 30px rgba(29,77,101,.08); }
+.header { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; }
+.header span { color: #31718b; font-size: .82rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.header h3 { margin: 5px 0 0; color: #07466a; font-size: clamp(1.25rem, 3vw, 1.7rem); }
+.header strong { display: grid; place-items: center; min-width: 56px; height: 42px; border-radius: 21px; color: white; background: #0b6b94; }
+.instruction { max-width: 850px; line-height: 1.65; }
+.timeline { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin: 22px 0; padding: 0; list-style: none; }
+.timeline::before { content: ""; position: absolute; top: 22px; left: 10%; right: 10%; height: 3px; background: #c7d9e2; }
+.timeline li { position: relative; z-index: 1; }
+.timeline button { width: 100%; min-height: 90px; padding: 8px; border: 1px solid #c1d4df; border-radius: 14px; color: #31566b; background: #fff; cursor: pointer; }
+.timeline i { display: grid; place-items: center; width: 36px; height: 36px; margin: 0 auto 7px; border-radius: 50%; color: #27566e; background: #dceaf1; font-style: normal; font-weight: 800; }
+.timeline span { display: block; font-size: .87rem; font-weight: 700; }
+.timeline li[data-complete="true"] i { color: white; background: #3f8060; }
+.timeline li[data-active="true"] button { border: 2px solid #0b6b94; color: #063f61; background: #e8f7fc; box-shadow: 0 7px 18px rgba(11,107,148,.14); }
+.timeline li[data-active="true"] i { color: white; background: #0b6b94; }
+.explanation { min-height: 130px; padding: 18px; border-left: 5px solid #0b6b94; border-radius: 12px; background: white; }
+.explanation span { color: #0a6187; font-weight: 800; }
+.explanation p { margin: 10px 0 0; font-size: 1.04rem; line-height: 1.65; }
+.controls { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; }
+.controls button { flex: 1 1 150px; min-height: 44px; }
+.controls button[aria-pressed="true"] { border-width: 2px; background: #e4f1f7; }
+@media (prefers-reduced-motion: reduce) { .player * { scroll-behavior: auto !important; } }
+@media (max-width: 650px) {
+  .timeline { grid-template-columns: 1fr 1fr; }
+  .timeline::before { display: none; }
+  .timeline button { min-height: 78px; }
+  .controls { display: grid; grid-template-columns: 1fr; }
+}
