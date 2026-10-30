@@ -13,6 +13,7 @@ for (const component of [
   "FoundationMediaAnimation",
   "AnatomyReference",
   "AdvancedAnatomyReference",
+  "FoundationVisual",
 ]) {
   assert(page.includes(component), `Resource library must include ${component}`);
 }
@@ -31,5 +32,10 @@ assert.equal(languageArrays.length, 3, "Course registry must retain RU/KZ/EN mod
 for (const [, body] of languageArrays) {
   assert.equal((body.match(/"/g) || []).length / 2, 25, "Each language must retain 25 module titles");
 }
+
+const interactiveVisuals = fs.readFileSync(path.join(root, "components/InteractiveVisuals.tsx"), "utf8");
+const foundationVisual = fs.readFileSync(path.join(root, "components/FoundationVisual.tsx"), "utf8");
+assert(!interactiveVisuals.includes('src="/images/anatomy/brain-spinal-cord.jpg"'), "Organization visual must not duplicate the specimen shown below");
+assert(!foundationVisual.includes("brain-spinal-cord.jpg"), "Modules 10 and 18 must use their specific anatomy references instead of the generic specimen");
 
 console.log("Resource library validation passed: 25 localized module entries with animation, anatomy, laboratory, and virtual-patient routes.");
