@@ -39,9 +39,9 @@ export function withModule5Questions(base: BranchingTest, l: Language): Branchin
    prompt:promptIntro[l]+current.situation[l],
    options:displayed,correctAnswer:"0",
    explanation:feedbackIntro[l]+current.explanation[l]+"\n"+notes,
-   onCorrect:i===items.length-1?"end":"module5:main:"+(i+1),
-   onIncorrect:i===items.length-1?"end":"module5:main:"+(i+1)
+   onCorrect:i===items.length-1?base.start:"module5:main:"+(i+1),
+   onIncorrect:i===items.length-1?base.start:"module5:main:"+(i+1)
   } satisfies QuestionNode;
  }
- return {...base,start:mainIds[0],mainIds,competencies,nodes};
+ return {...base,start:mainIds[0],mainIds:[...mainIds,...base.mainIds],competencies,nodes};
 }
