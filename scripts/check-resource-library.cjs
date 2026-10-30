@@ -41,7 +41,7 @@ assert(!foundationVisual.includes("brain-spinal-cord.jpg"), "Modules 10 and 18 m
 const anatomyReference = fs.readFileSync(path.join(root, "components/AnatomyReference.tsx"), "utf8");
 const advancedAnatomyReference = fs.readFileSync(path.join(root, "components/AdvancedAnatomyReference.tsx"), "utf8");
 const anatomyIds = new Set(
-  [...anatomyReference.matchAll(/^\s{2}(\d+):\s*\{/gm), ...advancedAnatomyReference.matchAll(/^\s{2}(\d+):\s*\{/gm)]
+  [...anatomyReference.matchAll(/^\s*(\d+):\s*[\[{]/gm), ...advancedAnatomyReference.matchAll(/^\s*(\d+):\s*[\[{]/gm)]
     .map((match) => Number(match[1])),
 );
 for (let moduleId = 2; moduleId <= 25; moduleId += 1) {
