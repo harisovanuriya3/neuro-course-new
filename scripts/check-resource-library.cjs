@@ -38,4 +38,17 @@ const foundationVisual = fs.readFileSync(path.join(root, "components/FoundationV
 assert(!interactiveVisuals.includes('src="/images/anatomy/brain-spinal-cord.jpg"'), "Organization visual must not duplicate the specimen shown below");
 assert(!foundationVisual.includes("brain-spinal-cord.jpg"), "Modules 10 and 18 must use their specific anatomy references instead of the generic specimen");
 
+const anatomyReference = fs.readFileSync(path.join(root, "components/AnatomyReference.tsx"), "utf8");
+const advancedAnatomyReference = fs.readFileSync(path.join(root, "components/AdvancedAnatomyReference.tsx"), "utf8");
+const anatomyIds = new Set(
+  [...anatomyReference.matchAll(/^\s{2}(\d+):\s*\{/gm), ...advancedAnatomyReference.matchAll(/^\s{2}(\d+):\s*\{/gm)]
+    .map((match) => Number(match[1])),
+);
+for (let moduleId = 2; moduleId <= 25; moduleId += 1) {
+  assert(anatomyIds.has(moduleId), `Module ${moduleId} must retain a module-specific anatomy reference`);
+}
+for (const file of ["Peripheral_nerve,_cross_section.jpg", "Spatial_summation.svg", "Spinal_cord_tracts_-_English.svg"]) {
+  assert(anatomyReference.includes(file), `Anatomy registry must retain ${file}`);
+}
+
 console.log("Resource library validation passed: 25 localized module entries with animation, anatomy, laboratory, and virtual-patient routes.");
