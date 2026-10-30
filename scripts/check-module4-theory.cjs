@@ -2,6 +2,20 @@ const assert = require("node:assert/strict");
 const { load } = require("./check-tests.cjs");
 
 const { getLesson } = load("content/index.ts");
+const expectedSectionIds = [
+  "learning-goals",
+  "ionic-gradients",
+  "graded-potentials",
+  "action-potential",
+  "propagation",
+  "measurement",
+  "regulation-clinic",
+  "further-reading",
+  "extracellular-potassium-experiment",
+  "paired-pulse-refractoriness",
+  "hyperkalemia-clinical-bridge",
+  "membrane-cable-properties",
+];
 const requiredMechanisms = {
   RU: ["Na⁺/K⁺-АТФаза", "рефрактер", "миелин", "current clamp", "50–120 м/с"],
   EN: ["Na⁺/K⁺-ATPase", "refractory", "myelin", "current clamp", "50–120 m/s"],
@@ -11,9 +25,13 @@ const requiredMechanisms = {
 for (const language of ["RU", "EN", "KZ"]) {
   const lesson = getLesson(4, "theory", language);
   assert.equal(lesson?.kind, "theory", `Module 4 ${language}: localized theory is registered`);
-  assert.equal(lesson.sections.length, 8, `Module 4 ${language}: all eight theory sections are present`);
+
   const ids = lesson.sections.map(section => section.id);
+  assert.deepEqual(ids, expectedSectionIds, `Module 4 ${language}: all 12 theory sections are present in the expected order`);
   assert.equal(new Set(ids).size, ids.length, `Module 4 ${language}: section anchors are unique`);
+  assert(lesson.sections.every(section => section.blocks.length > 0), `Module 4 ${language}: every section contains learning blocks`);
+  const sectionContent = lesson.sections.map(section => JSON.stringify(section.blocks));
+  assert.equal(new Set(sectionContent).size, sectionContent.length, `Module 4 ${language}: section learning blocks are not duplicated`);
   assert(lesson.outcomes.items.length >= 7, `Module 4 ${language}: measurable learning outcomes are present`);
   assert(lesson.terms.items.length >= 10, `Module 4 ${language}: core terminology is present`);
 
@@ -26,5 +44,5 @@ for (const language of ["RU", "EN", "KZ"]) {
     assert(text.toLowerCase().includes(mechanism.toLowerCase()), `Module 4 ${language}: missing ${mechanism}`);
   }
   assert(text.includes("Guyton") && text.includes("Kandel"), `Module 4 ${language}: further reading is included`);
-  console.log(`Module 4 ${language}: 8 sections, learning outcomes, methods, clinical links, and references OK`);
+  console.log(`Module 4 ${language}: 12 sections, unique learning blocks, outcomes, methods, clinical links, and references OK`);
 }
