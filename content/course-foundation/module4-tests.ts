@@ -18,7 +18,7 @@ export function withModule4Questions(base:BranchingTest,l:Language):BranchingTes
   const competency="mechanism-"+(i+1);
   competencies[competency]={...base.competencies.mechanism,title:prompt};
   ids.push(id);
-  nodes[id]={id,type:"question",level:"main",competency,prompt,options:display,correctAnswer:"0",explanation:reasoning[i][l==="RU"?0:l==="EN"?1:2]+"\n"+variants.slice(1).map((option,j)=>option+" — "+(specificFeedback[i]?.[l==="RU"?0:l==="EN"?1:2]?.[j]??(l==="RU"?"Сравните этот вариант с данным механизмом и условиями опыта.":l==="EN"?"Compare this option with the mechanism and experimental conditions.":"Бұл нұсқаны тәжірибе шартымен және механизммен салыстырыңыз."))).join("\n"),onCorrect:i===questions.length-1?"end": "module4:main:"+(i+1),onIncorrect:i===questions.length-1?"end":"module4:main:"+(i+1)} satisfies QuestionNode;
+  nodes[id]={id,type:"question",level:"main",competency,prompt,options:display,correctAnswer:"0",explanation:reasoning[i][l==="RU"?0:l==="EN"?1:2]+"\n"+variants.slice(1).map((option,j)=>option+" — "+(specificFeedback[i]?.[l==="RU"?0:l==="EN"?1:2]?.[j]??(l==="RU"?"Сравните этот вариант с данным механизмом и условиями опыта.":l==="EN"?"Compare this option with the mechanism and experimental conditions.":"Бұл нұсқаны тәжірибе шартымен және механизммен салыстырыңыз."))).join("\n"),onCorrect:i===questions.length-1?base.start: "module4:main:"+(i+1),onIncorrect:i===questions.length-1?base.start:"module4:main:"+(i+1)} satisfies QuestionNode;
  }
- return {...base,start:ids[0],mainIds:ids,competencies,nodes};
+ return {...base,start:ids[0],mainIds:[...ids,...base.mainIds],competencies,nodes};
 }
