@@ -26,6 +26,19 @@ for(const lang of ["RU","EN","KZ"]){
   assert(c.situation?.length>=70,`${lang}: case ${c.id} too brief`);
   assert(c.explanation?.length>=2,`${lang}: case ${c.id} lacks worked rationale`);
  }
+ const caseSituations=cases.cases.map(c=>c.situation.trim().toLocaleLowerCase());
+ assert.equal(new Set(caseSituations).size,caseSituations.length,`${lang}: duplicated case situation`);
+ for(const c of cases.cases){
+  assert(c.stages?.length>0 && c.stages.every(st=>st.questions?.length>0),`${lang}/${c.id}: no reasoning questions`);
+  assert(c.explanation.every(e=>typeof e==="string"&&e.trim().length>=35),`${lang}/${c.id}: overly brief answer explanation`);
+ }
+ const questions=Object.values(tests.nodes).filter(n=>Array.isArray(n.options)&&n.options.length);
+ assert(questions.length>=20,`${lang}: fewer than 20 exam questions`);
+ for(const q of questions){
+  assert(q.options.length===4,`${lang}/${q.id}: expected four options`);
+  assert.equal(new Set(q.options.map(o=>o.text.trim().toLocaleLowerCase())).size,4,`${lang}/${q.id}: duplicate answer options`);
+  assert(q.options.some(o=>o.id===q.correctAnswer),`${lang}/${q.id}: missing correct answer`);
+ }
  summary[lang]={theoryIds,caseIds:cases.cases.map(c=>c.id),testNodes:Object.keys(tests.nodes).length};
 }
 for(const lang of ["EN","KZ"]){
