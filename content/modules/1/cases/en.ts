@@ -20,6 +20,84 @@ const lesson: CasesLesson = {
   },
   cases: [
     {
+      "id": "clinical-patellar",
+      "title": "Reduced patellar reflex",
+      "situation": "Following an injury, a patient has a reduced right knee-jerk reflex and weak knee extension; hip flexion is relatively preserved.",
+      "stages": [
+        {
+          "title": "Clinical reasoning",
+          "questions": [
+            "Which components of the reflex arc require assessment?",
+            "Why cannot one reflex distinguish femoral neuropathy from L2–L4 root dysfunction?",
+            "What further findings would help localize the lesion?"
+          ]
+        }
+      ],
+      "explanation": [
+        "The patellar reflex involves quadriceps muscle spindles, Ia afferents, mainly L2–L4 spinal segments, alpha motor neurons and femoral nerve efferents.",
+        "Reduced response can reflect sensory, motor or muscular dysfunction as well as examination technique; one sign is not a diagnosis.",
+        "Compare individual muscle power, sensory distribution, other reflexes, pain, history and when indicated electrodiagnostic findings."
+      ],
+      "diagram": [
+        "Muscle spindle and Ia afferent",
+        "Spinal segments L2–L4",
+        "Alpha motor neuron and femoral nerve",
+        "Quadriceps contraction"
+      ]
+    },
+    {
+      "id": "clinical-weakness",
+      "title": "Foot dorsiflexion weakness",
+      "situation": "A patient has difficulty lifting the front of the foot while walking and reduced sensation over its dorsum.",
+      "stages": [
+        {
+          "title": "Clinical reasoning",
+          "questions": [
+            "Which two peripheral localizations should be considered?",
+            "Why test inversion separately from eversion?",
+            "What evidence is needed before diagnosis?"
+          ]
+        }
+      ],
+      "explanation": [
+        "Common fibular neuropathy and L5 radiculopathy are competing hypotheses, not established diagnoses.",
+        "Inversion may be relatively preserved in common fibular neuropathy because tibialis posterior is supplied through the tibial nerve; root dysfunction may affect a different combination.",
+        "Assess power, sensation, back pain, reflexes and electrodiagnostic findings, accounting for symptom duration."
+      ],
+      "diagram": [
+        "Motor command",
+        "L5 root or peripheral nerve",
+        "Leg muscles",
+        "Foot movement"
+      ]
+    },
+    {
+      "id": "clinical-sensory",
+      "title": "Sensory loss without weakness",
+      "situation": "After a localized peripheral nerve injury, a patient poorly perceives touch over a limited skin region but can still move the limb.",
+      "stages": [
+        {
+          "title": "Clinical reasoning",
+          "questions": [
+            "Which functional limb is likely affected?",
+            "Why does preserved movement not prove intact sensory fibers?",
+            "How can observation be separated from localization hypothesis?"
+          ]
+        }
+      ],
+      "explanation": [
+        "Sensory receptors and afferent fibers are initial candidates, but the deficit distribution and mechanism require assessment.",
+        "Sensory and motor axons serve distinct functions and may be affected differently; preserved movement does not rule out sensory neuropathy.",
+        "Map sensory modalities, compare sides, assess strength and reflexes, and select investigations where indicated."
+      ],
+      "diagram": [
+        "Skin receptor",
+        "Sensory fiber",
+        "Central processing",
+        "Conscious perception"
+      ]
+    },
+    {
       id: "afferent", title: "The afferent component",
       situation: "During examination of a skin region, a stimulus acts on receptors, but information from them does not reach the central nervous system.",
       stages: [{ title: "Trace the information pathway", questions: ["Which functional component is impaired?", "In which direction does information normally travel?", "How does this situation differ from disruption of an efferent pathway?"] }],
