@@ -27,6 +27,7 @@ export default async function ExamPage({searchParams}:Props){
       <p><strong>{t.after}</strong></p>
     </section>
    </div>
+   <p><Link href={`/resources?lang=${lang}`}>{lang === "RU" ? "Медиатека: анатомия, анимации и виртуальные лаборатории" : lang === "EN" ? "Media library: anatomy, animations and virtual laboratories" : "Медиатека: анатомия, анимациялар және виртуалды зертханалар"}</Link></p>
    <ExamCenter lang={lang} bank={bank}/>
    
  </main>
