@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SectionStudyTools from "../../../../components/SectionStudyTools";
 import { notFound } from "next/navigation";
 
 import { getLesson } from "../../../../content";
@@ -135,7 +136,9 @@ export default async function SectionPage({
       >
         <ModuleSidebar moduleNumber={moduleNumber} currentSection={section} currentSectionTitle={getSectionTitle(section, lang)} lang={lang} />
         <div style={{ minWidth: 0 }}>
+        <SectionStudyTools language={lang} moduleNumber={moduleNumber} section={section} />
         <SectionProgressStrip moduleId={moduleNumber} current={section} language={lang} />
+        <div id="course-section-search-root">
         <div
           style={{
             padding: "clamp(22px, 4vw, 36px)",
@@ -370,6 +373,7 @@ export default async function SectionPage({
           </div>
         </div>
 
+        </div>
         {/* ЕДИНАЯ НАВИГАЦИЯ:
             17 РАЗДЕЛОВ + 25 МОДУЛЕЙ */}
 
