@@ -19,9 +19,17 @@ for (const component of [
   assert(page.includes(component), `Resource library must include ${component}`);
 }
 
-for (const section of ["media", "interactive", "virtual-patient"]) {
+for (const section of ["theory", "practice", "media", "interactive", "virtual-patient"]) {
   assert(page.includes(`/modules/\${moduleId}/${section}?lang=\${lang}`), `Resource library must link to every module's ${section} section`);
 }
+
+const walkthroughs = fs.readFileSync(path.join(root, "content/media-walkthroughs.ts"), "utf8");
+const mediaComponent = fs.readFileSync(path.join(root, "components/FoundationMediaAnimation.tsx"), "utf8");
+for (let moduleId = 2; moduleId <= 25; moduleId += 1) {
+  assert(new RegExp("^\\s*" + moduleId + ":t\\(", "m").test(walkthroughs), `Module ${moduleId} must have its own authored physiological walkthrough`);
+}
+assert(mediaComponent.includes("mediaWalkthroughs[moduleId]?.[language]"), "Walkthrough must use module-specific localized content");
+assert(page.includes("t.walkthrough"), "Resource library must distinguish walkthroughs from actual animations");
 
 assert(page.includes("modules[lang].map"), "Resource library must derive all cards from the localized 25-module registry");
 assert(page.includes('id={\`module-\${moduleId}\`}'), "Each module must expose a stable resource-library anchor");
