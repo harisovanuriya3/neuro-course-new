@@ -1414,19 +1414,19 @@ if (foundationLessons[16]) foundationLessons[16].pretest = {
 };
 for (const language of ["RU","EN","KZ"] as const) {
  const base = foundationLessons[16]?.theory?.[language];
- if (base?.kind === "theory") foundationLessons[16].theory![language] = createModuleSixteenTheory(language,base);
+ if (base?.kind === "theory") foundationLessons[16]!.theory![language] = createModuleSixteenTheory(language,base);
 }
 
 // Preserve existing clinical cases and practice; append reviewed authored exercises.
 for (const language of ["RU","EN","KZ"] as const) {
  const cases = foundationLessons[16]?.cases?.[language];
- if (cases?.kind === "cases") foundationLessons[16].cases![language] = extendModuleSixteenCases(language,cases);
+ if (cases?.kind === "cases") foundationLessons[16]!.cases![language] = extendModuleSixteenCases(language,cases);
  const practice = foundationLessons[16]?.practice?.[language];
- if (practice?.kind === "practice") foundationLessons[16].practice![language] = extendModuleSixteenPractice(language,practice);
+ if (practice?.kind === "practice") foundationLessons[16]!.practice![language] = extendModuleSixteenPractice(language,practice);
 }
 
 // Module 16 final exam: subject-specific branching questions after foundation QA items.
 for (const language of ["RU","EN","KZ"] as const) {
  const test=foundationLessons[16]?.tests?.[language];
- if(test?.kind==="tests") foundationLessons[16].tests![language]=extendModuleSixteenFinalTest(language,test);
+ if(test?.kind==="tests") foundationLessons[16]!.tests![language]=extendModuleSixteenFinalTest(language,test);
 }
