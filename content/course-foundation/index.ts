@@ -1409,6 +1409,7 @@ if (foundationLessons[21]?.theory) {
       const expanded = createModuleTwentyOneTheory(language, existing);
       const seen = new Set<string>();
       const sections = expanded.sections.filter((section) => {
+        if (!section.id) return true;
         if (seen.has(section.id)) return false;
         seen.add(section.id);
         return true;
