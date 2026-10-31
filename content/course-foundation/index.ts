@@ -390,6 +390,35 @@ function create(
                   : 'Механизмді өз сөзіңізбен түсіндіріңіз, өзгеретін физиологиялық шаманы және күтілетін бақылауды атаңыз. Жауабыңызды механизм және түсіндіру бөлімдерімен салыстырыңыз.' },
           ],
         },
+        ...(topic.id === 16 ? [
+          {
+            id: 'limbic-circuitry',
+            title: language === 'RU' ? 'Лимбические сети: анатомия и функции' : language === 'EN' ? 'Limbic networks: anatomy and function' : 'Лимбиялық желілер: анатомиясы және қызметі',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Лимбическая система не является единым анатомически замкнутым «центром эмоций». Гиппокампальная формация участвует в формировании эпизодической и пространственной памяти; миндалина — в оценке биологической значимости стимулов и эмоциональном обучении; поясная кора, островок и медиальная префронтальная кора интегрируют интероцепцию, мотивацию и контроль поведения. Их функции реализуются во взаимодействующих сетях с таламусом, гипоталамусом и стволом мозга.'
+              : language === 'EN'
+                ? 'The limbic system is not a single anatomically closed “emotion center.” The hippocampal formation contributes to episodic and spatial memory; the amygdala to evaluating stimulus significance and emotional learning; and cingulate, insular and medial prefrontal cortices to integrating interoception, motivation and behavioral control. These functions emerge from interacting networks involving the thalamus, hypothalamus and brainstem.'
+                : 'Лимбиялық жүйе анатомиялық тұрғыдан тұйық біртұтас «эмоция орталығы» емес. Гиппокамптық формация эпизодтық және кеңістіктік жадқа, амигдала тітіркендіргіштің биологиялық маңызын бағалауға және эмоциялық үйренуге қатысады. Белдеулік, аралшық және медиалдық префронталдық қыртыстар интероцепцияны, мотивацияны және мінез-құлықты бақылауды біріктіреді. Бұл қызметтер таламус, гипоталамус және ми бағанымен өзара байланысқан желілерде жүзеге асады.' }],
+          },
+          {
+            id: 'limbic-memory',
+            title: language === 'RU' ? 'Гиппокамп, память и консолидация' : language === 'EN' ? 'Hippocampus, memory and consolidation' : 'Гиппокамп, жад және консолидация',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Энторинальная кора обеспечивает важный вход к гиппокампальной формации. В классическом трисинаптическом пути информация проходит через зубчатую извилину, CA3 и CA1, хотя реальная организация включает дополнительные прямые и обратные связи. Синаптическая пластичность, включая долговременную потенциацию, способствует изменению связей при обучении. Гиппокамп необходим для нормального формирования многих новых декларативных воспоминаний, но не является единственным местом долговременного хранения всей памяти.'
+              : language === 'EN'
+                ? 'The entorhinal cortex provides major input to the hippocampal formation. In the classic trisynaptic circuit, information passes through dentate gyrus, CA3 and CA1, although actual organization includes additional direct and recurrent pathways. Synaptic plasticity, including long-term potentiation, contributes to learning-related connectivity changes. The hippocampus is important for forming many new declarative memories, but is not the sole long-term storage site for all memory.'
+                : 'Энториналдық қыртыс гиппокамптық формацияға маңызды кіріс береді. Классикалық үш синапстық тізбекте ақпарат тісті иірім, CA3 және CA1 арқылы өтеді, бірақ нақты жүйеде қосымша тікелей және кері байланыстар бар. Ұзақ мерзімді потенциацияны қоса алғанда, синапстық пластикалылық үйрену кезінде байланыстардың өзгеруіне ықпал етеді. Гиппокамп көптеген жаңа декларативтік естеліктердің қалыптасуы үшін маңызды, бірақ барлық жадтың жалғыз ұзақ мерзімді сақтау орны емес.' }],
+          },
+          {
+            id: 'limbic-clinical',
+            title: language === 'RU' ? 'Клинические примеры и ограничения локализации' : language === 'EN' ? 'Clinical examples and localization limits' : 'Клиникалық мысалдар және локализация шектеулері',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Двустороннее повреждение медиальных височных структур может вызывать выраженную антероградную амнезию при относительно сохранных некоторых формах процедурного обучения. Однако нарушения памяти, тревоги и эмоций редко объясняются повреждением одного изолированного «лимбического центра». Для клинической локализации необходимо сопоставлять характер нарушений, неврологический осмотр, нейропсихологические данные и методы визуализации.'
+              : language === 'EN'
+                ? 'Bilateral injury to medial temporal structures can produce severe anterograde amnesia while leaving some procedural learning relatively preserved. Yet memory, anxiety and emotional disturbances are rarely explained by a single isolated “limbic center.” Clinical localization requires symptom patterns, neurological examination, neuropsychological assessment and imaging to be interpreted together.'
+                : 'Медиалдық самай құрылымдарының екі жақты зақымдануы кейбір процедуралық үйрену түрлері салыстырмалы сақталған кезде айқын антероградтық амнезия туғызуы мүмкін. Дегенмен жад, үрей және эмоция бұзылыстарын бір ғана оқшау «лимбиялық орталықпен» түсіндіру сирек дұрыс болады. Клиникалық локализация үшін симптом сипатын, неврологиялық тексеруді, нейропсихологиялық деректерді және бейнелеу нәтижелерін бірге бағалау қажет.' }],
+          },
+        ] : []),
         ...(topic.id === 15 ? [
           {
             id: 'hypothalamic-organization',
