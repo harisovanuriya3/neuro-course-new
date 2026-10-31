@@ -144,6 +144,42 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
     l==="RU"?"Какое дополнительное исследование поможет проверить вывод?":l==="EN"?"Which additional examination would help test the conclusion?":"Қорытындыны қандай қосымша тексеру арқылы нақтылауға болады?"
    ]}],explanation:[l==="RU"?expRU:l==="EN"?expEN:expKZ]});
  }
+ const relation=physiologicalRelations[topic.id][l];
+ const caseFrames=[
+  ["controlled-change","Контролируемое изменение","Controlled perturbation","Бақыланатын өзгеріс"],
+  ["dose-response","Зависимость от интенсивности","Dose–response pattern","Қарқындылыққа тәуелділік"],
+  ["time-course","Временная динамика","Time course","Уақыттық динамика"],
+  ["reversibility","Обратимость эффекта","Reversibility","Әсердің қайтымдылығы"],
+  ["control-group","Контрольное сравнение","Control comparison","Бақылаулық салыстыру"],
+  ["confounder","Смешивающий фактор","Potential confounder","Аралас фактор"],
+  ["alternative-link","Альтернативное звено","Alternative link","Баламалы буын"],
+  ["threshold","Пороговый эффект","Threshold effect","Табалдырық әсері"],
+  ["adaptation","Адаптация","Adaptation","Бейімделу"],
+  ["compensation","Компенсаторный ответ","Compensation","Өтемдік жауап"],
+  ["baseline","Исходный уровень","Baseline dependence","Бастапқы деңгей"],
+  ["specificity","Специфичность реакции","Response specificity","Жауап ерекшелігі"],
+  ["measurement","Проверка измерения","Measurement validation","Өлшеуді тексеру"],
+  ["replication","Повторяемость","Replication","Қайталану"],
+  ["opposite-change","Противоположное воздействие","Opposite perturbation","Қарама-қарсы әсер"],
+  ["combined-change","Два воздействия","Combined perturbations","Екі әсер"],
+  ["recovery","Восстановление","Recovery","Қалпына келу"],
+  ["boundary","Границы вывода","Limits of inference","Қорытынды шектері"],
+ ];
+ const generatedCases=caseFrames.map(([id,ru,en,kz],index)=>{
+  const heading=l==="RU"?ru:l==="EN"?en:kz;
+  const situation=l==="RU"
+   ? `В теме «${moduleTitle}» проверяют связь «${relation.cause} → ${relation.effect}». Серия ${index+1}: изменяют предполагаемую причину, регистрируют исходный уровень, ранний и поздний ответ и контрольное условие. Определите, какие данные подтверждают механизм, какие поддерживают альтернативу и какой вывод пока делать нельзя.`
+   : l==="EN"
+    ? `In “${moduleTitle}”, investigators test the “${relation.cause} → ${relation.effect}” relationship. Series ${index+1} varies the proposed cause and records baseline, early and late responses, plus a control condition. Identify which findings support the mechanism, which support an alternative, and which conclusion remains unjustified.`
+    : `«${moduleTitle}» тақырыбында «${relation.cause} → ${relation.effect}» байланысы тексеріледі. ${index+1}-серияда болжамды себеп өзгертіліп, бастапқы деңгей, ерте және кеш жауап пен бақылау жағдайы тіркеледі. Қай дерек тетікті, қайсысы баламаны қолдайтынын және қандай қорытындыны әзірге жасауға болмайтынын анықтаңыз.`;
+  return {id:`m${topic.id}-evidence-${id}`,title:`${l==="RU"?"Задача":l==="EN"?"Case":"Тапсырма"} ${index+3}. ${heading}`,situation,stages:[
+   {title:l==="RU"?"Прогноз":l==="EN"?"Prediction":"Болжам",questions:[l==="RU"?`Как должен измениться показатель «${relation.effect}», если связь с «${relation.cause}» причинная?`:l==="EN"?`How should “${relation.effect}” change if its relation to “${relation.cause}” is causal?`:`«${relation.cause}» байланысы себептік болса, «${relation.effect}» қалай өзгеруі тиіс?`]},
+   {title:l==="RU"?"Альтернатива":l==="EN"?"Alternative":"Балама",questions:[l==="RU"?"Какой контроль отличит основной механизм от альтернативного?":l==="EN"?"Which control distinguishes the primary mechanism from an alternative?":"Негізгі тетікті баламадан қандай бақылау ажыратады?"]},
+   {title:l==="RU"?"Вывод":l==="EN"?"Inference":"Қорытынды",questions:[l==="RU"?"Что подтверждают данные и чего они не доказывают?":l==="EN"?"What do the data support, and what do they not establish?":"Деректер нені қолдайды және нені дәлелдемейді?"]}
+  ],explanation:[relation.mechanism,l==="RU"?"Свяжите прогноз с механизмом, используйте контроль и не делайте вывод сильнее данных.":l==="EN"?"Link the prediction to the mechanism, use a control, and do not overstate the data.":"Болжамды тетікпен байланыстырып, бақылауды қолданыңыз және деректерден артық қорытынды жасамаңыз."]};
+ });
+ const existingIds=new Set(lesson.cases.map(item=>item.id));
+ lesson.cases.push(...generatedCases.filter(item=>!existingIds.has(item.id)));
  return topic.id===4 ? {...lesson,cases:[...module4Cases(l),...lesson.cases]} : topic.id===5 ? {...lesson,cases:[...module5Cases(l),...lesson.cases]} : topic.id===6 ? {...lesson,cases:[...module6Cases(l),...lesson.cases]} : lesson;
 }
 
