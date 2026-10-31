@@ -1,0 +1,18 @@
+const assert=require("node:assert/strict");
+const fs=require("node:fs");
+const read=p=>fs.readFileSync(p,"utf8");
+const foundation=read("content/course-foundation/index.ts");
+const theory=read("content/course-foundation/module-twenty-five-theory.ts");
+const activities=read("content/course-foundation/module-twenty-five-activities.ts");
+const pretest=read("content/course-foundation/module-twenty-five-pretest.ts");
+const finalTest=read("content/course-foundation/module-twenty-five-final-test.ts");
+const section=read("app/modules/[id]/[section]/page.tsx");
+for(const name of ["createModuleTwentyFiveTheory","extendModuleTwentyFiveCases","extendModuleTwentyFivePractice","createModuleTwentyFivePretest","extendModuleTwentyFiveFinalTest"])assert(foundation.includes(name),"Missing module 25 integration "+name);
+for(const id of ["synaptic-plasticity","homeostatic-plasticity","injury","demyelination","recovery","clinical-limits"])assert(theory.includes(id),"Missing theory topic "+id);
+assert(activities.includes("module-25-clinical-"),"Missing clinical cases");
+assert(activities.includes('type:"answer"'),"Missing practical feedback");
+assert(pretest.includes("module-25-pretest-"),"Missing pretest questions");
+assert(finalTest.includes("mainIds:[...base.mainIds,...ids]"),"Missing final exam questions");
+assert(section.includes("PlasticityLab"),"Specialized plasticity lab must be preserved");
+assert(section.includes("section === 'theory' || section === 'practice'"),"Curated anatomy must appear in theory and practice");
+console.log("Module 25 integration QA passed.");
