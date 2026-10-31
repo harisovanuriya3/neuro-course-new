@@ -40,4 +40,12 @@ for (const lang of ["EN","KZ"]) {
   assert.deepEqual(snapshots[lang].cases,snapshots.RU.cases,`${lang}: case identifiers differ from RU`);
   assert.equal(snapshots[lang].practiceCount,snapshots.RU.practiceCount,`${lang}: practical station count differs from RU`);
 }
+const fs = require("node:fs");
+const sectionContent = fs.readFileSync("components/SectionContent.tsx","utf8");
+const mediaLibrary = fs.readFileSync("app/resources/page.tsx","utf8");
+const anatomy = fs.readFileSync("components/AdvancedAnatomyReference.tsx","utf8");
+assert(sectionContent.includes("<AdvancedAnatomyReference moduleId={Number(moduleId)} language={language} />"),"Anatomy missing inside theory");
+assert(mediaLibrary.includes("<AdvancedAnatomyReference moduleId={moduleId} language={lang} />"),"Anatomy missing in media library");
+assert(anatomy.includes('1201_Overview_of_Nervous_System.jpg'),"Module 1 anatomy source missing");
+assert(anatomy.includes('/modules/1/practice?lang='),"Module 1 anatomy lacks practical cross-link");
 console.log("Module 1 structural review passed: trilingual theory, practice, cases and test modules present.");
