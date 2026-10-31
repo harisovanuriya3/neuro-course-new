@@ -113,6 +113,10 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                 <Link href={`/modules/${moduleId}/virtual-patient?lang=${lang}`}>{t.patient}</Link>
               </div>
 
+              <section className={styles.anatomyPanel} aria-label={t.anatomy}>
+                <AnatomyReference moduleId={moduleId} language={lang} />
+                <AdvancedAnatomyReference moduleId={moduleId} language={lang} />
+              </section>
               <details className={styles.preview} open={moduleId === 1}>
                 <summary>{t.expand}</summary>
                 <div className={styles.previewBody}>
@@ -123,10 +127,6 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                     <FoundationVisual moduleId={moduleId} language={lang} />
                     {moduleId === 7 && <SechenovExperiment language={lang} />}
                   </section>}
-                  <section className={styles.anatomyPanel} aria-label={t.anatomy}>
-                    <AnatomyReference moduleId={moduleId} language={lang} />
-                    <AdvancedAnatomyReference moduleId={moduleId} language={lang} />
-                  </section>
                   <details className={styles.preview}>
                     <summary>{t.patientPreview}</summary>
                     {moduleId === 1 ? <VirtualPatient language={lang} /> : <>{moduleId === 20 && <VisualPathwayLocalizer language={lang} />}<UnifiedVirtualPatient moduleId={moduleId} language={lang} /></>}
