@@ -17,6 +17,16 @@ for(const lang of ["RU","EN","KZ"]){
  assert.equal(new Set(cases.cases.map(c=>c.id)).size,cases.cases.length,`${lang}: duplicate cases`);
  const questions=Object.values(tests.nodes).filter(n=>n.type==="question");
  assert(questions.length>=20,`${lang}: insufficient exam questions`);
+ const situations=cases.cases.map(c=>c.situation.trim().toLocaleLowerCase());
+ assert.equal(new Set(situations).size,situations.length,`${lang}: repeated case situations`);
+ for(const c of cases.cases){
+  assert(c.stages?.length>0 && c.stages.every(st=>st.questions?.length>0),`${lang}/${c.id}: no clinical reasoning question`);
+  assert(c.explanation?.length>0 && c.explanation.every(t=>typeof t==="string"&&t.trim().length>=25),`${lang}/${c.id}: inadequate explanation`);
+ }
+ for(const q of questions){
+  assert(q.options?.length>=3 && q.options.some(o=>o.id===q.correctAnswer),`${lang}/${q.id}: invalid answer key`);
+  assert.equal(new Set(q.options.map(o=>o.text.trim().toLocaleLowerCase())).size,q.options.length,`${lang}/${q.id}: repeated options`);
+ }
  snapshots[lang]={theoryIds,caseIds:cases.cases.map(c=>c.id)};
 }
 for(const lang of ["EN","KZ"]){assert.deepEqual(snapshots[lang].theoryIds,snapshots.RU.theoryIds);assert.deepEqual(snapshots[lang].caseIds,snapshots.RU.caseIds);}
