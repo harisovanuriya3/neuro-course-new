@@ -268,7 +268,7 @@ export default async function SectionPage({
           ) : moduleNumber === 7 && section === "interactive" ? (
             <><ReflexLab language={lang} /><SechenovExperiment language={lang} /></>
           ) : moduleNumber === 8 && section === "interactive" ? (
-            <PathwayLab language={lang} />
+            <><PathwayLab language={lang} /><section id="pathway-anatomy" aria-label={lang === "RU" ? "Анатомия проводящих путей" : lang === "EN" ? "Pathway anatomy" : "Өткізгіш жолдар анатомиясы"}><AdvancedAnatomyReference moduleId={8} language={lang} /></section></>
           ) : moduleNumber === 9 && section === "interactive" ? (
             <SpinalRegulationLab language={lang} />
           ) : moduleNumber === 10 && section === "interactive" ? (
