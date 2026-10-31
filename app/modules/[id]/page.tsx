@@ -138,6 +138,13 @@ export default async function ModulePage({
       >
         <ModuleSidebar moduleNumber={moduleNumber} lang={lang} />
         <div style={{minWidth:0}}>
+        {moduleNumber === 15 && (
+          <section style={{background:"#e8f4ff",border:"1px solid #9dc7e9",borderRadius:16,padding:20,marginBottom:20}} aria-label="Module 15 virtual laboratory">
+            <h2 style={{margin:"0 0 8px",fontSize:22}}>{lang === "RU" ? "Виртуальная лаборатория: гомеостаз" : lang === "EN" ? "Virtual laboratory: homeostasis" : "Виртуалды зертхана: гомеостаз"}</h2>
+            <p>{lang === "RU" ? "Изменяйте натрий, глюкозу, мочевину, объём крови и температуру; наблюдайте расчётные и качественные ответы." : lang === "EN" ? "Adjust sodium, glucose, urea, blood volume and temperature; examine calculated and qualitative responses." : "Натрий, глюкоза, мочевина, қан көлемі мен температураны өзгертіп, есептік және сапалық жауаптарды бақылаңыз."}</p>
+            <Link href={`/module-15-lab?lang=${lang}`} style={{display:"inline-block",padding:"10px 16px",background:"#07558b",color:"#fff",borderRadius:10,textDecoration:"none",fontWeight:700}}>{lang === "RU" ? "Открыть лабораторию" : lang === "EN" ? "Open laboratory" : "Зертхананы ашу"}</Link>
+          </section>
+        )}
         {/* Верхняя строка */}
 
         <div
