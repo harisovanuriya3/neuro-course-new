@@ -366,6 +366,30 @@ function create(
             },
           ],
         },
+        {
+          id: 'key-concepts',
+          title: language === 'RU' ? 'Ключевые физиологические понятия' : language === 'EN' ? 'Key physiological concepts' : 'Негізгі физиологиялық ұғымдар',
+          blocks: [
+            { type: 'list' as const, items: topic.terms.map((term, index) => {
+              const definition = termDefinitions[topic.id]?.[index]?.[language];
+              return definition ? `${term[language]} — ${definition}` : term[language];
+            }) },
+          ],
+        },
+        {
+          id: 'mechanism-reasoning',
+          title: language === 'RU' ? 'Вопрос для причинно-следственного анализа' : language === 'EN' ? 'Causal reasoning question' : 'Себеп-салдарлық талдау сұрағы',
+          blocks: [
+            { type: 'paragraph' as const, text: topic.question[language] },
+            { type: 'callout' as const,
+              title: language === 'RU' ? 'Проверка понимания' : language === 'EN' ? 'Check your understanding' : 'Түсінуді тексеру',
+              text: language === 'RU'
+                ? 'Объясните механизм своими словами, назовите изменяемую физиологическую величину и ожидаемое наблюдение. Затем сопоставьте ответ с разделами «Механизм» и «Интерпретация».'
+                : language === 'EN'
+                  ? 'Explain the mechanism in your own words, identify the physiological variable being changed and the expected observation. Compare your answer with the mechanism and interpretation sections.'
+                  : 'Механизмді өз сөзіңізбен түсіндіріңіз, өзгеретін физиологиялық шаманы және күтілетін бақылауды атаңыз. Жауабыңызды механизм және түсіндіру бөлімдерімен салыстырыңыз.' },
+          ],
+        },
         ...(topic.id === 3 ? [{
           id: 'brain-microenvironment',
           title: language === 'RU' ? 'Микросреда мозга: ГЭБ и ликвор' : language === 'EN' ? 'Brain microenvironment: BBB and CSF' : 'Ми микроортасы: ГЭБ және ликвор',
