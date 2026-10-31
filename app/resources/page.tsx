@@ -123,10 +123,6 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                     <FoundationVisual moduleId={moduleId} language={lang} />
                     {moduleId === 7 && <SechenovExperiment language={lang} />}
                   </section>}
-                  {moduleId > 1 && <section className={styles.labPanel} aria-label={t.lab}>
-                    <FoundationVisual moduleId={moduleId} language={lang} />
-                    {moduleId === 7 && <SechenovExperiment language={lang} />}
-                  </section>}
                   <section className={styles.anatomyPanel} aria-label={t.anatomy}>
                     <AnatomyReference moduleId={moduleId} language={lang} />
                     <AdvancedAnatomyReference moduleId={moduleId} language={lang} />
