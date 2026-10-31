@@ -13,6 +13,8 @@ for(const lang of ["RU","EN","KZ"]){
  assert.equal(new Set(names).size,names.length,`${lang}: duplicate theory IDs`);
  assert(cases.cases.length>=20,`${lang}: insufficient clinical cases`);
  assert.equal(new Set(cases.cases.map(c=>c.id)).size,cases.cases.length,`${lang}: duplicate cases`);
+ assert(cases.cases.filter(c=>c.id.startsWith("m3-curated-")).length>=5,`${lang}: missing five authored clinical cases`);
+ assert(practice.sections.some(s=>s.title.includes(lang==="RU"?"Нернста":lang==="EN"?"Nernst":"Нернст")),`${lang}: missing quantitative membrane laboratory`);
  assert(Object.values(tests.nodes).filter(n=>n.type==="question").length>=20,`${lang}: insufficient exam items`);
  ids[lang]={theory:names,cases:cases.cases.map(c=>c.id)};
 }
