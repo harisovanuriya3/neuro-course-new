@@ -40,7 +40,7 @@ export default function ModuleNavigation({
   const t = labels[lang];
 
   const hasPrevious = moduleNumber > 1;
-  const hasNext = moduleNumber < 23;
+  const hasNext = moduleNumber < 25;
 
   return (
     <nav
