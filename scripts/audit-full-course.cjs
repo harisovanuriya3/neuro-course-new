@@ -5,6 +5,7 @@ const path = require("node:path");
 const {load} = require("./check-tests.cjs");
 const {getLesson} = load("content/index.ts");
 const {sectionOrder} = load("content/sections.ts");
+const {getVirtualPatientScenario} = load("content/virtual-patients.ts");
 
 const root = path.resolve(__dirname, "..");
 const langs = ["RU","EN","KZ"];
@@ -53,6 +54,14 @@ for (const language of langs) {
     const missingCaseSituations = cases.length - caseSituations.length;
     const duplicateCaseSituations = caseSituations.length - new Set(caseSituations).size;
     const patientStages = arrayAt(patient, ["decisions","stages","steps","items"]);
+    const patientScenario = getVirtualPatientScenario(moduleId, language);
+    const authoredPatientStages = Array.isArray(patientScenario?.stages) ? patientScenario.stages : [];
+    const patientProblems = authoredPatientStages.filter(stage =>
+      !text(stage.situation) || !text(stage.task) || !text(stage.mechanism) ||
+      !Array.isArray(stage.options) || stage.options.length !== 3 ||
+      !Number.isInteger(stage.correctOption) || stage.correctOption < 0 || stage.correctOption >= 3 ||
+      stage.options.some(option => !text(option.text) || !text(option.feedback))
+    );
     rows.push({
       moduleId, language,
       sections: lessonSections.length - missingSections.length,
@@ -68,7 +77,8 @@ for (const language of langs) {
       optionProblems: optionProblems.length,
       missingTestPrompts: missingTestPrompts.length,
       duplicateTestPrompts,
-      patientStages: patientStages.length,
+      patientStages: authoredPatientStages.length || patientStages.length,
+      patientProblems: patientProblems.length,
       patientSource: patientStages.length > 0 ? "lesson-stages" : patientSource === "lesson" ? "no-lesson-stages" : patientSource,
     });
   }
@@ -82,6 +92,8 @@ for (const row of rows) {
   assert(row.cases > 0, `Module ${row.moduleId} ${row.language} has no situational cases`);
   assert.equal(row.missingCaseSituations, 0, `Module ${row.moduleId} ${row.language} has empty case situations`);
   assert(row.mainTests > 0, `Module ${row.moduleId} ${row.language} has no main tests`);
+  assert.equal(row.patientStages, 6, `Module ${row.moduleId} ${row.language} must have six virtual-patient stages`);
+  assert.equal(row.patientProblems, 0, `Module ${row.moduleId} ${row.language} has incomplete virtual-patient decisions`);
 }
 
 const anatomy = fs.readFileSync(path.join(root,"components/AnatomyReference.tsx"),"utf8");
@@ -108,6 +120,7 @@ const summary={
   moduleLanguagesBelow20DistinctCases:belowCaseTarget.length,
   moduleLanguagesBelow20DistinctMainTests:belowTestTarget.length,
   patientRoutesRequiringManualReview:rows.filter(row=>row.patientStages===0).length,
+  completeVirtualPatientScenarios:rows.filter(row=>row.patientStages===6 && row.patientProblems===0).length,
   moduleLanguagesWithDuplicateTestPrompts:rows.filter(row=>row.duplicateTestPrompts>0).length,
   moduleLanguagesWithDuplicateCaseSituations:rows.filter(row=>row.duplicateCaseSituations>0).length,
 };
