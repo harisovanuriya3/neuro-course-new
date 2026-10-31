@@ -13,7 +13,8 @@
     "check:review": "node scripts/check-course-review.cjs",
     "check:study-tools": "node scripts/check-study-tools.cjs",
     "audit:coverage": "node scripts/audit-content-coverage.cjs",
-    "audit:full": "node scripts/audit-full-course.cjs"
+    "audit:full": "node scripts/audit-full-course.cjs",
+    "check:module18": "node scripts/check-module18-content.cjs"
   },
   "dependencies": {
     "next": "16.3.5",
