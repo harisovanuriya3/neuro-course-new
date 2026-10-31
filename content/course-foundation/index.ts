@@ -21,6 +21,7 @@ import { moduleFourPracticalStations } from "./module-four-practical-stations";
 import { moduleFivePracticalStations } from "./module-five-practical-stations";
 import { moduleSixPracticalStations } from "./module-six-practical-stations";
 import { moduleSevenPracticalStations } from "./module-seven-practical-stations";
+import { moduleEightPracticalStations } from "./module-eight-practical-stations";
 import { moduleThreePracticalStations } from "./module-three-practical-stations";
 import { moduleTwoPracticalStations } from "./module-two-practical-stations";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
@@ -1062,6 +1063,7 @@ function create(
         ...(topic.id === 5 ? moduleFivePracticalStations(language) : []),
         ...(topic.id === 6 ? moduleSixPracticalStations(language) : []),
         ...(topic.id === 7 ? moduleSevenPracticalStations(language) : []),
+        ...(topic.id === 8 ? moduleEightPracticalStations(language) : []),
         {
           title: c.task,
 
