@@ -13,6 +13,8 @@ import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { createModuleTwentyFiveTheory } from "./module-twenty-five-theory";
 import { extendModuleTwentyFiveCases, extendModuleTwentyFivePractice } from "./module-twenty-five-activities";
+import { createModuleTwentyFivePretest } from "./module-twenty-five-pretest";
+import { extendModuleTwentyFiveFinalTest } from "./module-twenty-five-final-test";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
@@ -1406,3 +1408,6 @@ if (foundationLessons[13]) {
 for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[25]?.theory?.[language];if(base?.kind==="theory")foundationLessons[25]!.theory![language]=createModuleTwentyFiveTheory(language,base);}
 
 for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[25]?.cases?.[language];if(c?.kind==="cases")foundationLessons[25]!.cases![language]=extendModuleTwentyFiveCases(language,c);const p=foundationLessons[25]?.practice?.[language];if(p?.kind==="practice")foundationLessons[25]!.practice![language]=extendModuleTwentyFivePractice(language,p);}
+
+if(foundationLessons[25])foundationLessons[25].pretest={RU:createModuleTwentyFivePretest("RU",getSectionTitle("pretest","RU"),modules.RU[24]),EN:createModuleTwentyFivePretest("EN",getSectionTitle("pretest","EN"),modules.EN[24]),KZ:createModuleTwentyFivePretest("KZ",getSectionTitle("pretest","KZ"),modules.KZ[24])};
+for(const language of ["RU","EN","KZ"] as const){const t=foundationLessons[25]?.tests?.[language];if(t?.kind==="tests")foundationLessons[25]!.tests![language]=extendModuleTwentyFiveFinalTest(language,t);}
