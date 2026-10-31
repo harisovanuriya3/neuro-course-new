@@ -15,6 +15,7 @@ import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 import { createModuleTwentyOneTheory } from "./module-twenty-one-theory";
 import { createModuleTwentyVisualTheory } from "./module-twenty-visual-theory";
+import { extendModuleTwentyCases, extendModuleTwentyPractice } from "./module-twenty-visual-activities";
 import { extendModuleTwentyOneCases, extendModuleTwentyOnePractice } from "./module-twenty-one-activities";
 import { createModuleTwentyOnePretest } from "./module-twenty-one-pretest";
 import { extendModuleTwentyOneFinalTest } from "./module-twenty-one-final-test";
@@ -1479,6 +1480,28 @@ if (foundationLessons[20]?.theory) {
           return true;
         }),
       };
+    }
+  }
+}
+
+if (foundationLessons[20]) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const cases = foundationLessons[20].cases?.[language];
+    if (cases?.kind === "cases") {
+      const expanded = extendModuleTwentyCases(language, cases);
+      const seen = new Set<string>();
+      foundationLessons[20].cases![language] = {
+        ...expanded,
+        cases: expanded.cases.filter(item => {
+          if (seen.has(item.id)) return false;
+          seen.add(item.id);
+          return true;
+        }),
+      };
+    }
+    const practice = foundationLessons[20].practice?.[language];
+    if (practice?.kind === "practice") {
+      foundationLessons[20].practice![language] = extendModuleTwentyPractice(language, practice);
     }
   }
 }
