@@ -138,6 +138,7 @@ export default async function ModulePage({
       >
         <ModuleSidebar moduleNumber={moduleNumber} lang={lang} />
         <div style={{minWidth:0}}>
+        {moduleNumber===18&&<section style={{padding:20,border:"1px solid #b7c8e9",borderRadius:16,background:"#eef2ff",marginBottom:20}}><h2>{lang==="RU"?"Виртуальная лаборатория корковой локализации":lang==="EN"?"Cortical localization laboratory":"Қыртыстық локализация зертханасы"}</h2><p>{lang==="RU"?"Выберите область и сторону поражения, затем сравните ожидаемый функциональный дефицит.":lang==="EN"?"Select a cortical region and lesion side to explore possible functional deficits.":"Қыртыс аймағын және зақым жағын таңдап, ықтимал функционалдық тапшылықты зерттеңіз."}</p><Link href={`/module-18-lab?lang=${lang}`}>{lang==="RU"?"Открыть лабораторию":lang==="EN"?"Open laboratory":"Зертхананы ашу"}</Link></section>}
         {/* Верхняя строка */}
 
         <div
