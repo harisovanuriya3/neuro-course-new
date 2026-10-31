@@ -21,6 +21,7 @@ const copy = {
     module: "Модуль",
     openModule: "Открыть модуль",
     media: "Медиаматериалы и анимации",
+    theory: "Теория и иллюстрации", practice: "Практика и иллюстрации", walkthrough: "Пошаговый разбор (не видеоанимация)",
     lab: "Виртуальная лаборатория",
     patient: "Виртуальный пациент",
     anatomy: "Анатомическая опора",
@@ -34,6 +35,7 @@ const copy = {
     module: "Модуль",
     openModule: "Модульді ашу",
     media: "Медиа және анимациялар",
+    theory: "Теория және иллюстрациялар", practice: "Практика және иллюстрациялар", walkthrough: "Кезеңдік түсіндіру (бейнеанимация емес)",
     lab: "Виртуалды зертхана",
     patient: "Виртуалды пациент",
     anatomy: "Анатомиялық тірек",
@@ -47,6 +49,7 @@ const copy = {
     module: "Module",
     openModule: "Open module",
     media: "Media and animations",
+    theory: "Theory and illustrations", practice: "Practice and illustrations", walkthrough: "Step-by-step walkthrough (not video animation)",
     lab: "Virtual laboratory",
     patient: "Virtual patient",
     anatomy: "Anatomical reference",
@@ -97,6 +100,8 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
               </div>
 
               <div className={styles.actions}>
+                <Link href={`/modules/${moduleId}/theory?lang=${lang}`}>{t.theory}</Link>
+                <Link href={`/modules/${moduleId}/practice?lang=${lang}`}>{t.practice}</Link>
                 <Link href={`/modules/${moduleId}/media?lang=${lang}`}>{t.media}</Link>
                 <Link href={`/modules/${moduleId}/interactive?lang=${lang}`}>{t.lab}</Link>
                 <Link href={`/modules/${moduleId}/virtual-patient?lang=${lang}`}>{t.patient}</Link>
@@ -107,7 +112,7 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                 <div className={styles.previewBody}>
                   {moduleId === 1
                     ? <OrganizationAnimation language={lang} />
-                    : <FoundationMediaAnimation moduleId={moduleId} language={lang} />}
+                    : <section aria-label={t.walkthrough}><p style={{fontWeight:700}}>{t.walkthrough}</p><FoundationMediaAnimation moduleId={moduleId} language={lang} /></section>}
                   {moduleId > 1 && <section className={styles.labPanel} aria-label={t.lab}>
                     <FoundationVisual moduleId={moduleId} language={lang} />
                     {moduleId === 7 && <SechenovExperiment language={lang} />}
