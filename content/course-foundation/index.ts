@@ -390,6 +390,35 @@ function create(
                   : 'Механизмді өз сөзіңізбен түсіндіріңіз, өзгеретін физиологиялық шаманы және күтілетін бақылауды атаңыз. Жауабыңызды механизм және түсіндіру бөлімдерімен салыстырыңыз.' },
           ],
         },
+        ...(topic.id === 17 ? [
+          {
+            id: 'amygdala-nuclei',
+            title: language === 'RU' ? 'Ядерные комплексы миндалины и связи' : language === 'EN' ? 'Amygdala nuclear groups and connections' : 'Амигдала ядролары және байланыстары',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Миндалина — группа ядер медиальной височной области, а не единый центр страха. Базолатеральный комплекс получает обработанную сенсорную информацию из таламуса и коры и участвует в ассоциативном обучении и оценке значимости сигналов. Центральное ядро связано с гипоталамусом и стволовыми структурами, регулирующими вегетативные и поведенческие компоненты защитных реакций. Между ядрами существуют тормозные и возбуждающие связи, поэтому итоговый ответ зависит от контекста и состояния сети.'
+              : language === 'EN'
+                ? 'The amygdala is a group of nuclei in the medial temporal region, not a single fear center. The basolateral complex receives processed sensory information from thalamic and cortical pathways and contributes to associative learning and salience evaluation. The central nucleus connects with hypothalamic and brainstem circuits that organize autonomic and behavioral components of defensive responses. Excitatory and inhibitory interactions between nuclei make the final response context-dependent.'
+                : 'Амигдала — медиалдық самай аймағындағы ядролар тобы, бір ғана қорқыныш орталығы емес. Базолатералдық кешен таламус пен қыртыстан өңделген сенсорлық ақпарат алып, ассоциативтік үйренуге және сигналдың маңызын бағалауға қатысады. Орталық ядро қорғаныс жауабының вегетативтік және мінез-құлықтық бөліктерін реттейтін гипоталамус және ми бағаны тізбектерімен байланысады. Ядролар арасындағы қоздырғыш және тежегіш байланыстар жауаптың контекстке тәуелді болуына әкеледі.' }],
+          },
+          {
+            id: 'amygdala-learning',
+            title: language === 'RU' ? 'Эмоциональное обучение и угасание' : language === 'EN' ? 'Emotional learning and extinction' : 'Эмоциялық үйрену және сөну',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'При обусловливании угрозы нейтральный сигнал после сочетания с неприятным событием начинает вызывать предвосхищающие реакции. Изменения синаптической эффективности в миндалине и связанных областях способствуют формированию этой ассоциации. Угасание после многократного предъявления сигнала без неприятного события — не простое стирание старой памяти: формируется новое тормозное обучение, в котором участвуют вентромедиальная префронтальная кора и гиппокамп. Возобновление реакции в другом контексте показывает зависимость воспоминания от условий.'
+              : language === 'EN'
+                ? 'During threat conditioning, a previously neutral cue acquires the capacity to evoke anticipatory responses after pairing with an aversive event. Synaptic plasticity in the amygdala and connected regions contributes to this association. Extinction after repeated cue presentations without the aversive event is not simply erasure of the original memory; new inhibitory learning involves ventromedial prefrontal and hippocampal circuits. Renewal in a different context illustrates context-dependent retrieval.'
+                : 'Қауіпке шарттануда бұрын бейтарап сигнал жағымсыз оқиғамен байланыстырылғаннан кейін алдын ала жауап туғыза бастайды. Амигдала мен оған байланысты аймақтардағы синапстық пластикалылық осы ассоциацияның қалыптасуына қатысады. Жағымсыз оқиғасыз сигналды қайталап көрсеткенде жауаптың сөнуі бұрынғы жадтың жай өшірілуі емес: вентромедиалдық префронталдық қыртыс пен гиппокамп қатысатын жаңа тежегіш үйрену қалыптасады. Басқа контексте жауаптың қайта пайда болуы жадтың жағдайға тәуелділігін көрсетеді.' }],
+          },
+          {
+            id: 'amygdala-clinical',
+            title: language === 'RU' ? 'Клиническое значение и ограничения' : language === 'EN' ? 'Clinical relevance and limitations' : 'Клиникалық маңызы және шектеулері',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Нарушения миндалевидных и префронтальных сетей могут влиять на распознавание эмоциональной значимости и обучение, связанное с угрозой. Однако выраженность тревоги или реакция на отдельный стимул не позволяют локализовать поражение исключительно в миндалине. Интерпретация требует учёта внимания, памяти, контекста, лекарств и сопутствующих состояний. Учебная схема эмоциональной реакции не является диагностическим тестом.'
+              : language === 'EN'
+                ? 'Disruption of amygdala–prefrontal networks can affect recognition of emotional significance and threat-related learning. However, anxiety severity or response to a single stimulus cannot localize a lesion exclusively to the amygdala. Interpretation must consider attention, memory, context, medications and comorbid conditions. A teaching diagram of emotional responses is not a diagnostic test.'
+                : 'Амигдала мен префронталдық желілердің бұзылысы эмоциялық маңыздылықты тануға және қауіпке байланысты үйренуге әсер етуі мүмкін. Алайда үрей деңгейі немесе бір тітіркендіргішке жауап зақымды тек амигдалада деп анықтауға жеткіліксіз. Түсіндіруде зейін, жад, контекст, дәрілер және қатар жүретін жағдайлар ескерілуі керек. Эмоциялық жауаптың оқу сызбасы диагностикалық тест емес.' }],
+          },
+        ] : []),
         ...(topic.id === 16 ? [
           {
             id: 'limbic-circuitry',
