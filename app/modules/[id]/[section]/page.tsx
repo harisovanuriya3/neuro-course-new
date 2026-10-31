@@ -32,6 +32,7 @@ import MembraneElectrophysiologyLab from "../../../../components/MembraneElectro
 import SynapseExperimentLab from "../../../../components/SynapseExperimentLab";
 import IntegrationExperimentLab from "../../../../components/IntegrationExperimentLab";
 import ReflexLab from "../../../../components/ReflexLab";
+import SechenovExperiment from "../../../../components/SechenovExperiment";
 import PathwayLab from "../../../../components/PathwayLab";
 import SpinalRegulationLab from "../../../../components/SpinalRegulationLab";
 import BrainstemLab from "../../../../components/BrainstemLab";
@@ -265,19 +266,19 @@ export default async function SectionPage({
           ) : moduleNumber === 6 && section === "interactive" ? (
             <IntegrationExperimentLab language={lang} />
           ) : moduleNumber === 7 && section === "interactive" ? (
-            <ReflexLab language={lang} />
+            <><ReflexLab language={lang} /><SechenovExperiment language={lang} /></>
           ) : moduleNumber === 8 && section === "interactive" ? (
-            <PathwayLab language={lang} />
+            <><PathwayLab language={lang} /><section id="pathway-anatomy" aria-label={lang === "RU" ? "Анатомия проводящих путей" : lang === "EN" ? "Pathway anatomy" : "Өткізгіш жолдар анатомиясы"}><AdvancedAnatomyReference moduleId={8} language={lang} /></section></>
           ) : moduleNumber === 9 && section === "interactive" ? (
-            <SpinalRegulationLab language={lang} />
+            <><SpinalRegulationLab language={lang} /><section id="spinal-regulation-anatomy" aria-label={lang === "RU" ? "Анатомия спинальной регуляции" : lang === "EN" ? "Spinal regulation anatomy" : "Жұлындық реттелу анатомиясы"}><AdvancedAnatomyReference moduleId={9} language={lang} /></section></>
           ) : moduleNumber === 10 && section === "interactive" ? (
-            <BrainstemLab language={lang} />
+            <><BrainstemLab language={lang} /><section id="brainstem-anatomy" aria-label={lang === "RU" ? "Анатомия ствола мозга" : lang === "EN" ? "Brainstem anatomy" : "Ми бағанының анатомиясы"}><AdvancedAnatomyReference moduleId={10} language={lang} /></section></>
           ) : moduleNumber === 11 && section === "interactive" ? (
-            <MotorControlLab language={lang} />
+            <><MotorControlLab language={lang} /><section id="module-11-laboratory-anatomy" aria-label={lang === "RU" ? "Анатомия двигательного контроля" : lang === "EN" ? "Motor-control anatomy" : "Қозғалысты басқару анатомиясы"}><AdvancedAnatomyReference moduleId={11} language={lang} /></section></>
           ) : moduleNumber === 12 && section === "interactive" ? (
-            <BasalGangliaLab language={lang} />
+            <><BasalGangliaLab language={lang} /><section id="module-12-laboratory-anatomy" aria-label={lang === "RU" ? "Анатомия базальных ганглиев" : lang === "EN" ? "Basal-ganglia anatomy" : "Базальды ганглийлер анатомиясы"}><AdvancedAnatomyReference moduleId={12} language={lang} /></section></>
           ) : moduleNumber === 13 && section === "interactive" ? (
-            <CerebellumLab language={lang} />
+            <><CerebellumLab language={lang} /><section id="module-13-laboratory-anatomy" aria-label={lang === "RU" ? "Анатомия мозжечка" : lang === "EN" ? "Cerebellar anatomy" : "Мишық анатомиясы"}><AdvancedAnatomyReference moduleId={13} language={lang} /></section></>
           ) : moduleNumber === 14 && section === "interactive" ? (
             <ThalamusLab language={lang} />
           ) : moduleNumber === 15 && section === "interactive" ? (
@@ -317,7 +318,7 @@ export default async function SectionPage({
                 </section>
               )}
               {section === 'theory' && moduleNumber === 2 && <EvokedAveragingLab language={lang} />}
-              {section === 'theory' && moduleNumber > 1 && (
+              {(section === 'theory' || section === 'practice') && (
                 <div id="theory-visuals">
                   <FoundationVisual moduleId={moduleNumber} language={lang} />
                   <AnatomyReference moduleId={moduleNumber} language={lang} />

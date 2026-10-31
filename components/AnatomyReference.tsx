@@ -20,6 +20,18 @@ const refs: Record<number, AnatomyRef> = {
     },
   },
 
+
+  3: {
+    file: "Peripheral_nerve,_cross_section.jpg",
+    page: "https://commons.wikimedia.org/wiki/File:Peripheral_nerve,_cross_section.jpg",
+    credit: "Department of Histology, Jagiellonian University Medical College / Wikimedia Commons — CC BY-SA 3.0",
+    alt: {
+      RU: "Микрофотография поперечного среза периферического нерва с пучками нервных волокон",
+      EN: "Micrograph of a peripheral nerve cross-section showing nerve fascicles",
+      KZ: "Жүйке талшықтарының шоғырлары көрінетін шеткі жүйкенің көлденең кесіндісінің микрофотосы",
+    },
+  },
+
   4: {
     file: "Patch_rig.png",
     page: "https://commons.wikimedia.org/wiki/File:Patch_rig.png",
@@ -61,6 +73,29 @@ const refs: Record<number, AnatomyRef> = {
       RU: "Реальная электронная микрофотография химического нервно-мышечного синапса; это периферический контакт нейрона с мышцей, а не межнейронный синапс ЦНС",
       EN: "Real electron micrograph of a chemical neuromuscular synapse; this is a peripheral neuron-to-muscle junction, not a CNS neuron-to-neuron synapse",
       KZ: "Химиялық жүйке-бұлшықет синапсының нақты электрондық микрофотосы; бұл ОЖЖ нейрондары арасындағы емес, шеткі нейрон-бұлшықет түйісуі",
+    },
+  },
+
+
+  6: {
+    file: "Spatial_summation.svg",
+    page: "https://commons.wikimedia.org/wiki/File:Spatial_summation.svg",
+    credit: "Andi Schmitt / Wikimedia Commons — CC BY-SA 4.0",
+    alt: {
+      RU: "Пространственная суммация возбуждающих и тормозных сигналов на нейроне и принятие решения в области аксонного холмика",
+      EN: "Spatial summation of excitatory and inhibitory inputs and signal integration at the axon hillock",
+      KZ: "Нейрондағы қоздырғыш және тежегіш кірістердің кеңістіктік суммациясы және аксон төмпешігіндегі интеграция",
+    },
+  },
+
+  8: {
+    file: "Spinal_cord_tracts_-_English.svg",
+    page: "https://commons.wikimedia.org/wiki/File:Spinal_cord_tracts_-_English.svg",
+    credit: "Polarlys and Mikael Häggström / Wikimedia Commons — CC BY-SA 3.0",
+    alt: {
+      RU: "Анатомическая карта восходящих чувствительных и нисходящих двигательных проводящих путей спинного мозга",
+      EN: "Anatomical map of ascending sensory and descending motor tracts in the spinal cord",
+      KZ: "Жұлынның жоғарылайтын сезімтал және төмендейтін қозғалтқыш өткізгіш жолдарының анатомиялық картасы",
     },
   },
 

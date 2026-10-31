@@ -144,6 +144,42 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
     l==="RU"?"Какое дополнительное исследование поможет проверить вывод?":l==="EN"?"Which additional examination would help test the conclusion?":"Қорытындыны қандай қосымша тексеру арқылы нақтылауға болады?"
    ]}],explanation:[l==="RU"?expRU:l==="EN"?expEN:expKZ]});
  }
+ const relation=physiologicalRelations[topic.id][l];
+ const caseFrames=[
+  ["controlled-change","Контролируемое изменение","Controlled perturbation","Бақыланатын өзгеріс"],
+  ["dose-response","Зависимость от интенсивности","Dose–response pattern","Қарқындылыққа тәуелділік"],
+  ["time-course","Временная динамика","Time course","Уақыттық динамика"],
+  ["reversibility","Обратимость эффекта","Reversibility","Әсердің қайтымдылығы"],
+  ["control-group","Контрольное сравнение","Control comparison","Бақылаулық салыстыру"],
+  ["confounder","Смешивающий фактор","Potential confounder","Аралас фактор"],
+  ["alternative-link","Альтернативное звено","Alternative link","Баламалы буын"],
+  ["threshold","Пороговый эффект","Threshold effect","Табалдырық әсері"],
+  ["adaptation","Адаптация","Adaptation","Бейімделу"],
+  ["compensation","Компенсаторный ответ","Compensation","Өтемдік жауап"],
+  ["baseline","Исходный уровень","Baseline dependence","Бастапқы деңгей"],
+  ["specificity","Специфичность реакции","Response specificity","Жауап ерекшелігі"],
+  ["measurement","Проверка измерения","Measurement validation","Өлшеуді тексеру"],
+  ["replication","Повторяемость","Replication","Қайталану"],
+  ["opposite-change","Противоположное воздействие","Opposite perturbation","Қарама-қарсы әсер"],
+  ["combined-change","Два воздействия","Combined perturbations","Екі әсер"],
+  ["recovery","Восстановление","Recovery","Қалпына келу"],
+  ["boundary","Границы вывода","Limits of inference","Қорытынды шектері"],
+ ];
+ const generatedCases=caseFrames.map(([id,ru,en,kz],index)=>{
+  const heading=l==="RU"?ru:l==="EN"?en:kz;
+  const situation=l==="RU"
+   ? `В теме «${moduleTitle}» проверяют связь «${relation.cause} → ${relation.effect}». Серия ${index+1}: изменяют предполагаемую причину, регистрируют исходный уровень, ранний и поздний ответ и контрольное условие. Определите, какие данные подтверждают механизм, какие поддерживают альтернативу и какой вывод пока делать нельзя.`
+   : l==="EN"
+    ? `In “${moduleTitle}”, investigators test the “${relation.cause} → ${relation.effect}” relationship. Series ${index+1} varies the proposed cause and records baseline, early and late responses, plus a control condition. Identify which findings support the mechanism, which support an alternative, and which conclusion remains unjustified.`
+    : `«${moduleTitle}» тақырыбында «${relation.cause} → ${relation.effect}» байланысы тексеріледі. ${index+1}-серияда болжамды себеп өзгертіліп, бастапқы деңгей, ерте және кеш жауап пен бақылау жағдайы тіркеледі. Қай дерек тетікті, қайсысы баламаны қолдайтынын және қандай қорытындыны әзірге жасауға болмайтынын анықтаңыз.`;
+  return {id:`m${topic.id}-evidence-${id}`,title:`${l==="RU"?"Задача":l==="EN"?"Case":"Тапсырма"} ${index+3}. ${heading}`,situation,stages:[
+   {title:l==="RU"?"Прогноз":l==="EN"?"Prediction":"Болжам",questions:[l==="RU"?`Как должен измениться показатель «${relation.effect}», если связь с «${relation.cause}» причинная?`:l==="EN"?`How should “${relation.effect}” change if its relation to “${relation.cause}” is causal?`:`«${relation.cause}» байланысы себептік болса, «${relation.effect}» қалай өзгеруі тиіс?`]},
+   {title:l==="RU"?"Альтернатива":l==="EN"?"Alternative":"Балама",questions:[l==="RU"?"Какой контроль отличит основной механизм от альтернативного?":l==="EN"?"Which control distinguishes the primary mechanism from an alternative?":"Негізгі тетікті баламадан қандай бақылау ажыратады?"]},
+   {title:l==="RU"?"Вывод":l==="EN"?"Inference":"Қорытынды",questions:[l==="RU"?"Что подтверждают данные и чего они не доказывают?":l==="EN"?"What do the data support, and what do they not establish?":"Деректер нені қолдайды және нені дәлелдемейді?"]}
+  ],explanation:[relation.mechanism,l==="RU"?"Свяжите прогноз с механизмом, используйте контроль и не делайте вывод сильнее данных.":l==="EN"?"Link the prediction to the mechanism, use a control, and do not overstate the data.":"Болжамды тетікпен байланыстырып, бақылауды қолданыңыз және деректерден артық қорытынды жасамаңыз."]};
+ });
+ const existingIds=new Set(lesson.cases.map(item=>item.id));
+ lesson.cases.push(...generatedCases.filter(item=>!existingIds.has(item.id)));
  return topic.id===4 ? {...lesson,cases:[...module4Cases(l),...lesson.cases]} : topic.id===5 ? {...lesson,cases:[...module5Cases(l),...lesson.cases]} : topic.id===6 ? {...lesson,cases:[...module6Cases(l),...lesson.cases]} : lesson;
 }
 
@@ -252,7 +288,55 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   "justification:review-2":{id:"justification:review-2",type:"remediation",competency:justifyComp,depth:2,text:l==="RU"?"Сравните свою причинную цепь с теорией: найдите первое звено, где направление связи расходится, и исправьте только его.":l==="EN"?"Compare your causal chain with the theory: find the first link where the direction differs and correct only that link.":"Себептік тізбегіңізді теориямен салыстырыңыз: бағыт сәйкес келмейтін алғашқы буынды тауып, тек соны түзетіңіз.",theoryTarget:{moduleId:topic.id,anchor:"mechanism"},next:jBasic},
   [jBasic]:{id:jBasic,type:"question",level:"basic",competency:justifyComp,prompt:justificationPrompt,options:opts(justificationCorrect,justificationWrong2,justificationWrong3,justificationWrong1),correctAnswer:"a",explanation:l==="RU"?"Хорошее обоснование объясняет причинную связь и не делает вывод сильнее, чем позволяют данные.":l==="EN"?"A good justification explains the causal link without making a stronger claim than the data support.":"Жақсы негіздеме себептік байланысты түсіндіреді және деректерден артық қорытынды жасамайды.",onCorrect:"end",onIncorrect:"end"}
  };
- const lesson:BranchingTest={kind:"tests",title:l==="RU"?"Тест с разбором":l==="EN"?"Test with Feedback":"Түсіндірмесі бар тест",moduleTitle,ui:testUi(l),start:cMain,mainIds:[cMain,mMain,aMain,tMain,jMain],competencies:{
+ const extensionFrames=[
+  ["control","Контроль переменных","Control of variables","Айнымалыларды бақылау"],
+  ["direction","Направление изменения","Direction of change","Өзгеріс бағыты"],
+  ["timing","Временная последовательность","Temporal sequence","Уақыттық реттілік"],
+  ["dose","Зависимость от величины воздействия","Dose dependence","Әсер шамасына тәуелділік"],
+  ["threshold","Порог","Threshold","Табалдырық"],
+  ["reversibility","Обратимость","Reversibility","Қайтымдылық"],
+  ["adaptation","Адаптация","Adaptation","Бейімделу"],
+  ["compensation","Компенсация","Compensation","Өтем"],
+  ["baseline","Исходный уровень","Baseline","Бастапқы деңгей"],
+  ["specificity","Специфичность","Specificity","Ерекшелік"],
+  ["confounder","Смешивающий фактор","Confounder","Аралас фактор"],
+  ["replication","Повторяемость","Replication","Қайталану"],
+  ["alternative","Альтернативный механизм","Alternative mechanism","Баламалы тетік"],
+  ["measurement","Валидность измерения","Measurement validity","Өлшеу валидтілігі"],
+  ["limits","Границы вывода","Limits of inference","Қорытынды шектері"],
+ ];
+ const extensionIds=extensionFrames.map(([id])=>`evidence:${id}:main`);
+ const extensionCompetencies:BranchingTest["competencies"]={};
+ extensionFrames.forEach(([id,ru,en,kz],index)=>{
+  const heading=l==="RU"?ru:l==="EN"?en:kz;
+  const competencyId=`evidence:${id}`;
+  extensionCompetencies[competencyId]={title:heading,theoryTarget:{moduleId:topic.id,anchor:index%2===0?"mechanism":"interpretation"}};
+  const prompt=l==="RU"
+   ? `${heading}. В эксперименте по теме «${moduleTitle}» изменяют «${termA}» и регистрируют «${termB}». Какой подход даст физиологически обоснованный вывод?`
+   : l==="EN"
+    ? `${heading}. In an experiment on “${moduleTitle}”, “${termA}” is varied and “${termB}” is recorded. Which approach supports a physiologically justified inference?`
+    : `${heading}. «${moduleTitle}» тақырыбындағы тәжірибеде «${termA}» өзгертіліп, «${termB}» тіркеледі. Қай тәсіл физиологиялық негізделген қорытынды береді?`;
+  const correct=l==="RU"
+   ? `Заранее указать прогноз из механизма «${termA} → ${termB}», сохранить остальные условия, сравнить с контролем и ограничить вывод полученными данными.`
+   : l==="EN"
+    ? `State a mechanism-based prediction for “${termA} → ${termB}”, hold other conditions constant, compare with a control, and limit the inference to the data.`
+    : `«${termA} → ${termB}» тетігіне негізделген болжам жасап, басқа жағдайларды тұрақты ұстап, бақылаумен салыстыру және қорытындыны деректермен шектеу.`;
+  const w1=l==="RU"?"Сделать окончательный вывод по одному измерению без исходного уровня и контроля.":l==="EN"?"Make a definitive conclusion from one measurement without baseline or control.":"Бастапқы деңгей мен бақылаусыз бір өлшем бойынша түпкілікті қорытынды жасау.";
+  const w2=l==="RU"?"Игнорировать время появления эффекта и любое изменение считать подтверждением механизма.":l==="EN"?"Ignore effect timing and treat any change as confirmation of the mechanism.":"Әсердің пайда болу уақытын елемей, кез келген өзгерісті тетіктің дәлелі деп санау.";
+  const w3=l==="RU"?"Менять одновременно несколько условий и объяснять результат только названием темы.":l==="EN"?"Change several conditions simultaneously and explain the result only with the topic label.":"Бірнеше жағдайды қатар өзгертіп, нәтижені тек тақырып атауымен түсіндіру.";
+  const next=index===extensionIds.length-1?"end":extensionIds[index+1];
+  nodes[`evidence:${id}:main`]={id:`evidence:${id}:main`,type:"question",level:"main",competency:competencyId,prompt,options:opts(correct,w1,w2,w3),correctAnswer:"a",explanation:l==="RU"?"Корректный вывод требует прогноза, контроля, причинной последовательности и явного ограничения интерпретации.":l==="EN"?"A valid inference requires a prediction, a control, a causal sequence, and an explicit limit on interpretation.":"Дұрыс қорытынды үшін болжам, бақылау, себептік реттілік және түсіндіру шегін нақты көрсету қажет.",onCorrect:next,onIncorrect:next};
+ });
+ if(extensionIds.length){
+  const finalMain=nodes[jMain], finalBasic=nodes[jBasic];
+  if(finalMain?.type==="question") finalMain.onCorrect=extensionIds[0];
+  if(finalBasic?.type==="question"){
+   finalBasic.onCorrect=extensionIds[0];
+   finalBasic.onIncorrect=extensionIds[0];
+  }
+ }
+ const lesson:BranchingTest={kind:"tests",title:l==="RU"?"Тест с разбором":l==="EN"?"Test with Feedback":"Түсіндірмесі бар тест",moduleTitle,ui:testUi(l),start:cMain,mainIds:[cMain,mMain,aMain,tMain,jMain,...extensionIds],competencies:{
+  ...extensionCompetencies,
   [conceptComp]:{title:l==="RU"?"Ключевые понятия":l==="EN"?"Key concepts":"Негізгі ұғымдар",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [mechComp]:{title:l==="RU"?"Механизм":l==="EN"?"Mechanism":"Тетік",theoryTarget:{moduleId:topic.id,anchor:"mechanism"}},
   [appComp]:{title:l==="RU"?"Применение и интерпретация":l==="EN"?"Application and interpretation":"Қолдану және түсіндіру",theoryTarget:{moduleId:topic.id,anchor:"interpretation"}},

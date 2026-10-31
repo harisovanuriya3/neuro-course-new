@@ -161,6 +161,17 @@ export default async function ModulePage({
             {t.back}
           </Link>
 
+          <Link
+            href={`/resources?lang=${lang}#module-${moduleNumber}`}
+            style={{
+              color: "#005b96",
+              fontWeight: 700,
+              textDecoration: "none",
+            }}
+          >
+            {lang === "RU" ? "Библиотека анимаций и лабораторий" : lang === "KZ" ? "Анимациялар мен зертханалар кітапханасы" : "Animation and laboratory library"}
+          </Link>
+
           <nav
             aria-label={interfaceText[lang].language}
             className={styles.languages}

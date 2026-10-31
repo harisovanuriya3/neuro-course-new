@@ -1,42 +1,61 @@
-# Scientific, pedagogical, linguistic, accessibility and technical audit — 27 October 2026
+# Scientific, pedagogical, visual, linguistic, accessibility and technical audit — 31 October 2026
 
-**Scope:** neurophysiology textbook, 25 modules, 17 section slots per module, RU/EN/KZ. Review of current source and deployment. **Not a certification that all 1,275 localized pages were manually visually inspected.**
+**Scope:** neurophysiology textbook, 25 modules, 13 authored lesson sections plus auxiliary routes, RU/EN/KZ. The automated audit covers all 75 module-language pairs. **This is not a claim that every localized page, question, illustration and interaction has been independently certified by a human subject-matter expert.**
 
-## Findings and actions
+## Verified current state
 
-| Dimension | Source-supported finding | Action in this change | Still open |
+| Dimension | Verified result | Evidence / implementation | Remaining limitation |
 | --- | --- | --- | --- |
-| Neurophysiology | Module 8 identifies 19 named ascending/descending systems, but some are heterogeneous projections; corticobulbar does not terminate in spinal cord. | Keep the corticobulbar exception and annotated tract-by-tract descriptions; distinguish photograph from educational diagrams. | Physiologist to verify every route, crossing, laterality and clinical interpretation across all modules. |
-| Clinical interpretation | Lesion side alone does not diagnose a neurological condition. Some tract projections are bilateral; some have no isolated human syndrome. | Existing model marks ambiguous outcomes and now prioritizes evidence-based anatomical routes. | Validate lesion-level assumptions and deficits against textbooks and published neuroanatomy. |
-| Teaching and examination | A standard foundation case lesson is generated from two scenarios (additional authored cases exist for selected modules). The standard test starts from five main question IDs; some modules add bespoke questions. This **does not meet** a verified 20 distinct cases and 20 distinct tests per module. | Add `npm run audit:coverage` reporting actual per-module and per-language counts and distinct case/test prompts. | Authored physiology-specific sets, clinical-vignette review, clear explanations and distractor audit to reach the target without template filling. |
-| Visual design | The old module 8 three-tract laboratory repeated material next to the new nineteen-pathway laboratory. The same module infographic was injected into theory, practice and cases. | Collapse the old localization exercise; keep infographic in theory and scheme-builder in practice, preserving cases as case work. Replace one repeated overview photo with a licensed real spinal section in the optional atlas. | Check each page at desktop/tablet/mobile widths; correct unrelated module layouts. |
-| RU / EN / KZ | Core lesson systems and laboratory labels have translations. | Coverage reporting across each locale. | Professional scientific language review of individual texts and glossary terms. |
-| Student UX | Long pathway tables were replaced with sequential responsive cards; image views remain partly static. | Reduce duplicate surfaces and prioritize the 19-tract guided experiment. | Keyboard-only testing, focus order, screen-reader descriptions, small-screen screenshots, working reset/submit throughout all 25 modules. |
-| Engineering | Current `main` deploys to Vercel; deployment READY was observed before this update. | Add a read-only quality audit and preserve existing EEG lab and restored images. | Build new commit, review CI, then test live routes; a successful build does not prove pedagogical correctness. |
-| Progress/privacy | Student progress is stored in browser local storage in existing components. | No changes to student records. | Real teacher/student multi-device accounts and server-side secure storage are **not** proven implemented. |
-| Media attribution | Historic course images and real microscopy coexist with pedagogical simplified drawings. | Histological cross-section linked to author and CC BY-SA 4.0 license; avoid implying individual tract boundaries are visible microscopically. | Clearance and attribution review for all third-party and user-uploaded images/videos. |
+| Route and language coverage | All 75 module-language pairs contain the complete authored lesson route set; no RU/EN/KZ count mismatch was detected. | `npm run audit:course` and `scripts/audit-full-course.cjs`. | Manual linguistic editing by native scientific editors is still required, especially for idiomatic KZ terminology. |
+| Situational problems | Every module-language pair now has at least 20 distinct case prompts. The audit reports 0 pairs below target. | Eighteen mechanism/evidence frames were added to foundation modules and localized in RU/EN/KZ; module 1 retains its authored cases. | The expanded frames are structured, topic-specific learning cases, not a substitute for independent clinical review. Review plausibility, data sufficiency and scope of inference module by module. |
+| Main tests | Every module-language pair now has at least 20 distinct main questions. The audit reports 0 pairs below target. | Foundation modules received distinct mechanism competencies; module 1 received ten additional localized questions. Test-graph validation checks reachability and unique main competencies. | A human examiner must still review distractor plausibility, difficulty balance, factual nuance and translation quality. Quantity is not proof of assessment validity. |
+| Test behavior | Correctness is tied to option IDs, answer positions vary, scores are capped at 0–100, and final submission locks into a result view with analysis. | Existing engine checks plus course audit. | Perform user testing for accidental cueing, keyboard operation, persistence and repeated attempts. |
+| Practice and laboratory | Module 1 has a 13-step practice progression and drawing synthesis; specialized interactive/laboratory routes exist for modules 2–25 and pass structural validation. Module 7 now also includes a trilingual virtual reconstruction of Sechenov’s central-inhibition experiment with prediction, stimulus control, latency measurement, washout and an ethics notice. | `validate-interactive.cjs`, `validate-practical-stations.cjs`, activity-clarity checks, and `SechenovExperiment.tsx`. | Structural presence does not prove physiological fidelity or instructional value. Each control/output relationship and every reset/submit path needs hands-on review. |
+| Virtual patients | 25 virtual patients have authored decision sets; each enforces six stages with three choices per stage. | Course audit assertions. | Clinical realism, diagnostic ambiguity, safety language and feedback should be reviewed by a clinician/physiologist. |
+| Visual coverage | 62 unique curated visual files are registered across 25 modules; duplicate filenames are rejected. Visuals are surfaced in theory, practice, specialized laboratories and the resources library with backlinks. | `AnatomyReference.tsx`, `AdvancedAnatomyReference.tsx`, and `check-resource-library.cjs`. | Some laboratory interfaces still contain simplified code-drawn schemes. Real photographs cannot replace explanatory diagrams in every context; each schematic must now be judged for anatomical accuracy and visual quality. |
+| Primitive/duplicated visuals | The two primitive module 1 nervous-system diagrams identified in review were removed; a repeated peripheral-nerve image was also removed. | Module 1 animation/interactive cleanup and resource-library checks. | Manually inspect every page at mobile, tablet and desktop widths for visual repetition, cropping, tiny labels and low-value decoration. |
+| Media attribution | Curated material includes licensed Wikimedia/OpenStax anatomy, histology and imaging. | Resource metadata and source links. | Complete a file-by-file copyright/license/attribution check before public release; do not assume that a reachable URL grants reuse rights. |
+| Neurophysiology accuracy | The module 8 tract work retains route/crossing/laterality annotations and pairs the localization model with an OpenStax ascending-pathway plate plus spinothalamic and corticospinal diffusion tractography. Module 9 pairs its reciprocal-inhibition experiment with a patellar reflex plate and real muscle-spindle histology; module 10 pairs the arousal model with a human brainstem photograph, sagittal anatomy and chemical neuroanatomy of the reticular formation. Modules 11–13 now connect their laboratory models to the full corticospinal route, direct/indirect/hyperdirect basal-ganglia circuits and tractography, and the mossy/climbing-fiber–Purkinje–deep-nucleus cerebellar microcircuit. | Existing tract-specific content, `PathwayLab.tsx`, and licensed module 8 visual registry. | A physiologist must verify every mechanism, tract, crossing, laterality statement and clinical interpretation across all modules. |
+| Accessibility and mobile UX | Responsive structures and localized labels exist; automated build succeeds. | Technical Build Check run 212. | Required: keyboard-only traversal, visible focus, screen-reader names/descriptions, contrast, reduced-motion behavior, touch target sizing and screenshots on representative phones. |
+| Engineering | Full audit, TypeScript check and production build pass on the review branch. | Technical Build Check run 212, commit `b42ac2ad5639c866adeccba8a99ff9cb3342f6c1`. | Dependency audit reports known high/critical packages and requires a separate compatibility/security remediation pass. A passing build is not pedagogical certification. |
+| Progress and privacy | Existing student progress is local-browser based. | Current implementation; no student records changed in this work. | Multi-device accounts, teacher dashboards and secure server-side storage are not proven implemented. |
 
-## Release criteria before claiming final academic acceptance
+## Coverage figures
 
-1. Every module-language pair has at least 20 genuinely different, physiologically correct graded test questions with four plausible choices, one correct answer, and specific feedback (remediation retries do not count as new questions).
-2. Every module-language pair has at least 20 genuinely different clinical/problem scenarios with enough data to infer a mechanism and distinguish alternatives.
-3. All 25 × 17 section routes load; labels, content and navigation remain functional in RU, EN and KZ.
-4. Realistic figures show anatomy accurately, preserve licenses, and have readable captions, rather than vague duplicates; anatomical cross-sections and schematic tract positions are not conflated.
-5. Interactive experiments change physiologically meaningful outputs, compare student hypotheses and explain results.
-6. Check production at mobile/desktop sizes, keyboard use, video playback, controls, exam result persistence and Vercel build.
+- 25 modules × 3 languages = 75 audited module-language pairs.
+- 75/75 contain complete authored lesson routes.
+- 75/75 contain at least 20 distinct situational cases.
+- 75/75 contain at least 20 distinct main test questions.
+- 25/25 virtual patients contain six decision stages with three choices at each stage.
+- 62 unique curated visual files are registered; duplicate filenames fail the audit.
+- RU/EN/KZ route-count mismatches: 0.
+
+These are source-derived coverage figures. They do not establish that every item is medically correct, equally difficult, visually excellent or professionally translated.
+
+## Qualitative release blockers
+
+1. Conduct a physiology expert review of theory statements, causal chains, expected laboratory outputs, cases, test keys and feedback for all 25 modules.
+2. Conduct a clinical review of virtual patients and any lesion-to-deficit inference; lesion side alone must not be presented as a diagnosis.
+3. Review every third-party visual for exact reuse permission, attribution text, source stability, caption accuracy and educational relevance.
+4. Replace or redesign remaining low-quality laboratory schemes where they do not materially teach a mechanism. Retain precise explanatory diagrams when photography would be less informative.
+5. Perform professional RU/EN/KZ editing for terminology consistency and natural phrasing.
+6. Complete mobile/tablet/desktop visual QA, keyboard and screen-reader testing, interaction reset/submit testing, video playback checks and progress-persistence checks.
+7. Address dependency vulnerabilities through a controlled upgrade and regression test; do not apply a forced upgrade blindly.
+8. Obtain explicit reviewer approval before merging or publishing the review branch.
 
 ## Reproduction
 
-- `npm run audit:coverage` — factual counts and file presence; warns if 20/20 target missing, **does not generate placeholder data**.
+- `npm run audit:course` — complete structural, content, route, interaction, visual-library and review checks.
+- `npm run audit:full` — 75-pair coverage report for routes, cases, tests and visuals.
 - `npm run check:review` — structural course/test/assessment checks.
-- `npm run audit:course` — broader available validations (see package.json).
+- `npx tsc --noEmit` — TypeScript validation.
 - `npm run build` — Next.js production compilation.
 
-## Reference basis for pathway review
+## Reference basis retained from pathway review
 
 - OpenStax, *Anatomy and Physiology*, Central Processing: https://openstax.org/books/anatomy-and-physiology/pages/14-2-central-processing
 - NCBI Bookshelf, *Neuroanatomy, Brainstem*: https://www.ncbi.nlm.nih.gov/books/NBK544297/
 - NCBI Bookshelf, *Neuroanatomy, Corticobulbar Tract*: https://www.ncbi.nlm.nih.gov/books/NBK555891/
-- Histological photo: Didkov, *Cross-section through the spinal cord*, Wikimedia Commons, CC BY-SA 4.0: https://commons.wikimedia.org/wiki/File:Cross-section_through_the_spinal_cord.jpg
+- Didkov, *Cross-section through the spinal cord*, Wikimedia Commons, CC BY-SA 4.0: https://commons.wikimedia.org/wiki/File:Cross-section_through_the_spinal_cord.jpg
 
-**Editorial verdict:** publicly usable for supervised teaching and review; **not** verified academically complete or expert-certified throughout.
+**Editorial verdict:** the review branch now meets the defined structural 20-case/20-test coverage target in all 25 modules and all three languages and passes the technical build. It is suitable for supervised review, but it is **not yet honestly describable as fully expert-certified or ready for unreviewed public academic release** until the qualitative blockers above are closed.
