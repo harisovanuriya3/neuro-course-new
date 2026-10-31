@@ -29,8 +29,8 @@ const copy = {
     patient: "Виртуальный пациент",
     patientPreview: "Открыть виртуального пациента прямо в медиатеке",
     anatomy: "Анатомическая опора",
-    expand: "Показать ресурсы модуля",
-    note: "Предварительный раздел: визуальные материалы проходят экспертную проверку до публикации.",
+    expand: "Открыть изображения, анимации и лаборатории",
+    note: "Нажмите на название модуля, чтобы открыть его изображения и интерактивные материалы. Первый модуль уже раскрыт.",
   },
   KZ: {
     title: "Интерактивті ресурстар кітапханасы",
@@ -44,8 +44,8 @@ const copy = {
     patient: "Виртуалды пациент",
     patientPreview: "Виртуалды пациентті медиатекада ашу",
     anatomy: "Анатомиялық тірек",
-    expand: "Модуль ресурстарын көрсету",
-    note: "Алдын ала бөлім: визуалды материалдар жарияланғанға дейін сараптамалық тексеруден өтеді.",
+    expand: "Суреттерді, анимациялар мен зертханаларды ашу",
+    note: "Суреттер мен интерактивті материалдарды көру үшін модульді ашыңыз. Бірінші модуль ашық.",
   },
   EN: {
     title: "Interactive Resource Library",
@@ -59,8 +59,8 @@ const copy = {
     patient: "Virtual patient",
     patientPreview: "Open the virtual patient within the media library",
     anatomy: "Anatomical reference",
-    expand: "Show module resources",
-    note: "Preview section: visual materials remain under expert review before publication.",
+    expand: "Open images, animations and laboratories",
+    note: "Open a module to see its images and interactive resources. The first module is expanded.",
   },
 } satisfies Record<Language, Record<string, string>>;
 
@@ -113,7 +113,7 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                 <Link href={`/modules/${moduleId}/virtual-patient?lang=${lang}`}>{t.patient}</Link>
               </div>
 
-              <details className={styles.preview}>
+              <details className={styles.preview} open={moduleId === 1}>
                 <summary>{t.expand}</summary>
                 <div className={styles.previewBody}>
                   {moduleId === 1
