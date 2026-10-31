@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import StudyToolbar from "../components/StudyToolbar";
+import StudyTimer from "./StudyTimer";
 import { headers } from "next/headers";
 
 export const metadata = {
@@ -17,6 +18,7 @@ export default async function RootLayout({
     <html lang={language === "en" || language === "kk" ? language : "ru"}>
       <body><Suspense fallback={null}><StudyToolbar /></Suspense>
         {children}
+        <StudyTimer />
       </body>
     </html>
   );
