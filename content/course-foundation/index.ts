@@ -13,6 +13,7 @@ import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { createModuleSixteenTheory } from "./module-sixteen-theory";
 import { createModuleSixteenPretest } from "./module-sixteen-pretest";
+import { extendModuleSixteenQuestionBank } from "./module-sixteen-expanded-questions";
 import { extendModuleSixteenCases, extendModuleSixteenPractice } from "./module-sixteen-activities";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
@@ -1406,9 +1407,9 @@ if (foundationLessons[13]) {
 
 // Add authored limbic physiology without removing original module 16 sections.
 if (foundationLessons[16]) foundationLessons[16].pretest = {
- RU:createModuleSixteenPretest("RU",modules.RU[15],getSectionTitle("pretest","RU")),
- EN:createModuleSixteenPretest("EN",modules.EN[15],getSectionTitle("pretest","EN")),
- KZ:createModuleSixteenPretest("KZ",modules.KZ[15],getSectionTitle("pretest","KZ")),
+ RU:extendModuleSixteenQuestionBank("RU",createModuleSixteenPretest("RU",modules.RU[15],getSectionTitle("pretest","RU"))),
+ EN:extendModuleSixteenQuestionBank("EN",createModuleSixteenPretest("EN",modules.EN[15],getSectionTitle("pretest","EN"))),
+ KZ:extendModuleSixteenQuestionBank("KZ",createModuleSixteenPretest("KZ",modules.KZ[15],getSectionTitle("pretest","KZ"))),
 };
 for (const language of ["RU","EN","KZ"] as const) {
  const base = foundationLessons[16]?.theory?.[language];
