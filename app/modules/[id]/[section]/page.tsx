@@ -324,7 +324,7 @@ export default async function SectionPage({
                 </section>
               )}
               {section === 'theory' && moduleNumber === 2 && <EvokedAveragingLab language={lang} />}
-              {(section === 'practice' || section === 'media') && (
+              {(section === 'theory' || section === 'practice' || section === 'media') && (
                 <div id="theory-visuals">
                   <FoundationVisual moduleId={moduleNumber} language={lang} />
                   <AnatomyReference moduleId={moduleNumber} language={lang} />
