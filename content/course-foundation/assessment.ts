@@ -328,9 +328,12 @@ export function createFoundationTest(topic:Topic,l:Language,moduleTitle:string):
   nodes[`evidence:${id}:main`]={id:`evidence:${id}:main`,type:"question",level:"main",competency:competencyId,prompt,options:opts(correct,w1,w2,w3),correctAnswer:"a",explanation:l==="RU"?"Корректный вывод требует прогноза, контроля, причинной последовательности и явного ограничения интерпретации.":l==="EN"?"A valid inference requires a prediction, a control, a causal sequence, and an explicit limit on interpretation.":"Дұрыс қорытынды үшін болжам, бақылау, себептік реттілік және түсіндіру шегін нақты көрсету қажет.",onCorrect:next,onIncorrect:next};
  });
  if(extensionIds.length){
-  nodes[jMain].onCorrect=extensionIds[0];
-  nodes[jBasic].onCorrect=extensionIds[0];
-  nodes[jBasic].onIncorrect=extensionIds[0];
+  const finalMain=nodes[jMain], finalBasic=nodes[jBasic];
+  if(finalMain?.type==="question") finalMain.onCorrect=extensionIds[0];
+  if(finalBasic?.type==="question"){
+   finalBasic.onCorrect=extensionIds[0];
+   finalBasic.onIncorrect=extensionIds[0];
+  }
  }
  const lesson:BranchingTest={kind:"tests",title:l==="RU"?"Тест с разбором":l==="EN"?"Test with Feedback":"Түсіндірмесі бар тест",moduleTitle,ui:testUi(l),start:cMain,mainIds:[cMain,mMain,aMain,tMain,jMain,...extensionIds],competencies:{
   ...extensionCompetencies,
