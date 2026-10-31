@@ -115,10 +115,10 @@ export default async function HomePage({
           ))}
         </nav>
 
-        <div style={{display:"flex",justifyContent:"center",gap:"12px",flexWrap:"wrap",marginBottom:"24px"}}>
-          <Link href={`/login?next=/dashboard?lang=${lang}`} style={{padding:"10px 18px",borderRadius:"10px",background:"#005b96",color:"#fff",fontWeight:800,textDecoration:"none"}}>{t.login}</Link>
-          <Link href={`/dashboard?lang=${lang}`} style={{padding:"10px 18px",borderRadius:"10px",background:"#fff",color:"#005b96",border:"1px solid #b9d3e6",fontWeight:800,textDecoration:"none"}}>{t.dashboard}</Link>
-          <Link href={`/resources?lang=${lang}`} style={{padding:"10px 18px",borderRadius:"10px",background:"#eaf7fb",color:"#005b96",border:"1px solid #8fc2d7",fontWeight:800,textDecoration:"none"}}>{lang === "RU" ? "Медиатека" : lang === "KZ" ? "Медиатека" : "Media library"}</Link>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(3, minmax(0, 1fr))",gap:"clamp(6px, 1.5vw, 12px)",width:"100%",maxWidth:660,margin:"0 auto 24px"}}>
+          <Link href={`/login?next=/dashboard?lang=${lang}`} style={{padding:"12px 5px",minWidth:0,textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"clamp(12px, 2.8vw, 17px)",lineHeight:1.25,borderRadius:"10px",background:"#005b96",color:"#fff",fontWeight:800,textDecoration:"none"}}>{t.login}</Link>
+          <Link href={`/dashboard?lang=${lang}`} style={{padding:"12px 5px",minWidth:0,textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"clamp(12px, 2.8vw, 17px)",lineHeight:1.25,borderRadius:"10px",background:"#fff",color:"#005b96",border:"1px solid #b9d3e6",fontWeight:800,textDecoration:"none"}}>{t.dashboard}</Link>
+          <Link href={`/resources?lang=${lang}`} style={{padding:"12px 5px",minWidth:0,textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"clamp(12px, 2.8vw, 17px)",lineHeight:1.25,borderRadius:"10px",background:"#eaf7fb",color:"#005b96",border:"1px solid #8fc2d7",fontWeight:800,textDecoration:"none"}}>{lang === "RU" ? "Медиатека" : lang === "KZ" ? "Медиатека" : "Media library"}</Link>
         </div>
 
         {/* Заголовок */}
