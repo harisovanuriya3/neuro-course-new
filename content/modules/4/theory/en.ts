@@ -1,8 +1,10 @@
 import type { Lesson } from "../../../types";
+import { moduleFourDetailedTheory } from "../../../course-foundation/module-four-detailed-theory";
 
 const lesson: Lesson = {
   title: "Module 4. Membrane Physiology: Resting Potential, Ion Channels, and the Action Potential",
   sections: [
+    ...moduleFourDetailedTheory("EN"),
     {
       id: "learning-goals",
       title: "1. Learning goals and functional anatomy",
