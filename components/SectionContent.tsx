@@ -9,7 +9,6 @@ import StudyContent from "./StudyContent";
 import InteractiveContent from "./InteractiveContent";
 import MediaContent from "./MediaContent";
 import AnatomyPathBuilder from "./AnatomyPathBuilder";
-import PhysiologyInfographic from "./PhysiologyInfographic";
 import NerveFiberExpandedTheory from "./NerveFiberExpandedTheory";
 
 type Props = {
@@ -77,7 +76,6 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
             </figcaption>
           </figure>
         )}
-        <PhysiologyInfographic moduleId={Number(moduleId)} language={language} />
         <TheoryMedia moduleId={Number(moduleId)} language={language} />
         <LessonContent lesson={lesson} moduleId={moduleId} language={language} />
         {Number(moduleId) === 3 && <NerveFiberExpandedTheory language={language} />}
