@@ -80,26 +80,5 @@ export default function FoundationVisual({ moduleId, language }: { moduleId: num
   if (moduleId === 6) return <div className={styles.visual}><IntegrationExperimentLab language={language} /><section><h2>{c.specimen}</h2><figure><div className={styles.photo}><Image src="/images/anatomy/neuromuscular-junction.jpg" alt={c.junction} fill sizes="(max-width: 600px) 80vw, 520px" /></div><figcaption><p>{c.junction}</p><a href="https://commons.wikimedia.org/wiki/File:Electron_micrograph_of_neuromuscular_junction_(cross-section).jpg">{c.source}</a> · National Institute of Mental Health · Public domain (US)</figcaption></figure></section></div>;
   if (moduleId === 5) return <div className={styles.visual}><SynapseExperimentLab language={language} /></div>;
   if (moduleId === 4) return <div className={styles.visual}><MembraneElectrophysiologyLab language={language} /></div>;
-  const visual = moduleId === 3 ? {
-    file: 'peripheral-nerve', caption: c.nerve,
-    source: 'https://commons.wikimedia.org/wiki/File:Peripheral_nerve,_cross_section.jpg',
-    credit: 'Department of Histology, Jagiellonian University Medical College · CC BY-SA 3.0',
-  } : moduleId === 6 ? {
-    file: 'neuromuscular-junction', caption: c.junction,
-    source: 'https://commons.wikimedia.org/wiki/File:Electron_micrograph_of_neuromuscular_junction_(cross-section).jpg',
-    credit: 'National Institute of Mental Health · Public domain (US)',
-  } : moduleId === 10 || moduleId === 18 ? {
-    file: 'brain-spinal-cord', caption: c.brain,
-    source: 'https://commons.wikimedia.org/wiki/File:Human_brain_and_spinal_cord.jpg',
-    credit: 'Z22 · National Museum of Health and Medicine · CC BY-SA 4.0',
-  } : null;
-  if (!visual) return null;
-  return <section className={styles.visual}>
-    <h2>{c.specimen}</h2>
-    <figure>
-      <div className={styles.photo}><Image src={`/images/anatomy/${visual.file}.jpg`} alt={visual.caption} fill sizes="(max-width: 600px) 80vw, 520px" /></div>
-      <figcaption><p>{visual.caption}</p><a href={visual.source}>{c.source}</a> · {visual.credit}</figcaption>
-    </figure>
-
-  </section>;
+  return null;
 }
