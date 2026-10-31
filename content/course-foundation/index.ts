@@ -11,6 +11,7 @@ import { createModuleThirteenSummary } from "./module-thirteen-summary";
 import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
+import { createModuleNineteenTheory } from "./module-nineteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
@@ -1400,3 +1401,5 @@ if (foundationLessons[13]) {
     KZ: createModuleThirteenSummary("KZ"),
   };
 }
+
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[19]?.theory?.[language];if(base?.kind==="theory")foundationLessons[19]!.theory![language]=createModuleNineteenTheory(language,base);}
