@@ -32,7 +32,7 @@ const copy = {
   RU: {
     specimen: 'Реальное анатомическое изображение', nerve: 'Поперечный срез периферического нерва: микрофотография ткани, а не схема отдельного нейрона.',
     brain: 'Анатомический препарат головного и спинного мозга. Обзорное фото показывает строение; глубокие ядра на нём отдельно не размечены.',
-    junction: 'Электронная микрофотография нервно-мышечного соединения. T — окончание аксона; M — мышечное волокно; масштабная линейка — 0,3 мкм. Это контакт нейрона с мышцей.',
+    junction: 'Электронная микрофотография нервно-мышечного соединения. T — окончание аксона; M — мышечное волокно; масштабная линейка — 0,3 мкм. Это периферический холинергический синапс нейрона с мышцей, а не центральный межнейронный синапс. Изображение иллюстрирует передачу сигнала, но не показывает интеграцию возбуждающих и тормозных входов в ЦНС.',
     source: 'Оригинал и лицензия', balance: 'Динамическая учебная модель равновесия',
     control: 'Сопоставьте изменение положения стопы, сенсорный вход и двигательную коррекцию. В реальном движении предварительное управление и обратная связь действуют совместно.',
     cerebellum: 'Используйте последовательность для обсуждения сенсорной обратной связи и точности коррекции. Кадры не показывают деятельность мозжечка и не служат пробой для диагностики.',
@@ -40,7 +40,7 @@ const copy = {
   EN: {
     specimen: 'Real anatomical image', nerve: 'Peripheral nerve cross-section: a tissue micrograph, rather than a diagram of one neuron.',
     brain: 'Anatomical specimen of the brain and spinal cord. This overview shows structure; individual deep nuclei are not labelled.',
-    junction: 'Electron micrograph of a neuromuscular junction. T: axon terminal; M: muscle fibre; scale bar: 0.3 µm. This is a neuron-to-muscle contact.',
+    junction: 'Electron micrograph of a neuromuscular junction. T: axon terminal; M: muscle fibre; scale bar: 0.3 µm. This is a peripheral cholinergic neuron-to-muscle synapse, not a central interneuronal synapse. It illustrates transmission, not integration of excitatory and inhibitory inputs in the CNS.',
     source: 'Original and licence', balance: 'Dynamic teaching model of balance',
     control: 'Compare foot position, sensory input and motor correction. Feedforward control and sensory feedback work together during real movement.',
     cerebellum: 'Use this sequence to discuss sensory feedback and correction accuracy. The frames do not show cerebellar activity and are not a diagnostic test.',
@@ -48,7 +48,7 @@ const copy = {
   KZ: {
     specimen: 'Нақты анатомиялық бейне', nerve: 'Шеткі жүйкенің көлденең кесіндісі: бұл жеке нейрон сызбасы емес, тіннің микрофотографиясы.',
     brain: 'Бас миы мен жұлынның анатомиялық препараты. Жалпы фото құрылымды көрсетеді; терең ядролар жеке белгіленбеген.',
-    junction: 'Жүйке-бұлшықет түйіспесінің электрондық микрофотографиясы. T — аксон ұшы; M — бұлшықет талшығы; масштаб сызығы — 0,3 мкм. Бұл нейрон мен бұлшықет байланысы.',
+    junction: 'Жүйке-бұлшықет түйіспесінің электрондық микрофотографиясы. T — аксон ұшы; M — бұлшықет талшығы; масштаб сызығы — 0,3 мкм. Бұл орталық нейронаралық емес, шеткі холинергиялық нейрон-бұлшықет синапсы. Сурет сигналдың берілуін көрсетеді, бірақ ОЖЖ-дегі қоздырғыш және тежегіш кірістердің интеграциясын бейнелемейді.',
     source: 'Түпнұсқа және лицензия', balance: 'Тепе-теңдіктің динамикалық оқу моделі',
     control: 'Табан қалпының өзгеруін, сенсорлық кіріс пен қозғалыс түзетуін салыстырыңыз. Нақты қозғалыста алдын ала басқару мен кері байланыс бірге жұмыс істейді.',
     cerebellum: 'Кезеңдерді сенсорлық кері байланыс пен түзету дәлдігін талқылау үшін пайдаланыңыз. Кадрлар мишық белсенділігін көрсетпейді және диагностикалық сынама емес.',
