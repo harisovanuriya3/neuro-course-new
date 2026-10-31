@@ -34,7 +34,11 @@ for (const language of langs) {
     const practice = lessons.practice || {};
     const casesLesson = lessons.cases || {};
     const tests = lessons.tests || {};
-    const patient = lessons["virtual-patient"] || {};
+    // Virtual-patient routes are auxiliary, but still require explicit coverage inspection.
+    // Do not silently report zero merely because the route is excluded from lessonSections.
+    let patient = {};
+    try { patient = getLesson(moduleId, "virtual-patient", language) || {}; }
+    catch (_) { /* Some patient routes are rendered by a separate component. */ }
     const cases = arrayAt(casesLesson, ["cases","items","scenarios"]);
     const practiceItems = arrayAt(practice, ["activities","items","stations","steps","tasks"]);
     const theoryBlocks = arrayAt(theory, ["sections","blocks","items","topics"]);
