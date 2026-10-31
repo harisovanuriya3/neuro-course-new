@@ -19,7 +19,7 @@ const copy = {
     washResult: "После удаления NaCl тормозное влияние ослабевает, рефлекс частично восстанавливается.",
     correct: "Прогноз подтверждён.", incorrect: "Сравните результат с механизмом центрального торможения.",
     labels: ["Зрительные бугры", "Нисходящее торможение", "Спинной мозг", "Чувствительный вход", "Двигательный выход"],
-    table: "Протокол измерений", mechanism: "Механизм", mechanismText: "Торможение возникает в центральной нервной системе, а не из-за повреждения нерва или мышцы. Усиление нисходящего влияния повышает порог спинального рефлекса.",
+    baselineReference: "Расчётная исходная латентность при той же силе раздражителя", comparison: "Изменение относительно исходного условия", table: "Протокол измерений", mechanism: "Механизм", mechanismText: "Торможение возникает в центральной нервной системе, а не из-за повреждения нерва или мышцы. Усиление нисходящего влияния повышает порог спинального рефлекса.",
   },
   EN: {
     title: "Sechenov’s classic experiment: central inhibition",
@@ -33,7 +33,7 @@ const copy = {
     washResult: "After NaCl removal, inhibition weakens and the reflex partially recovers.",
     correct: "Prediction supported.", incorrect: "Compare the result with the mechanism of central inhibition.",
     labels: ["Optic-thalamic region", "Descending inhibition", "Spinal cord", "Sensory input", "Motor output"],
-    table: "Measurement log", mechanism: "Mechanism", mechanismText: "Inhibition arises within the central nervous system, not from damage to the nerve or muscle. Stronger descending influence raises the threshold of the spinal reflex.",
+    baselineReference: "Illustrative baseline latency at the same stimulus strength", comparison: "Change relative to baseline", table: "Measurement log", mechanism: "Mechanism", mechanismText: "Inhibition arises within the central nervous system, not from damage to the nerve or muscle. Stronger descending influence raises the threshold of the spinal reflex.",
   },
   KZ: {
     title: "Сеченовтің классикалық тәжірибесі: орталық тежелу",
@@ -47,7 +47,7 @@ const copy = {
     washResult: "NaCl алынып тасталғаннан кейін тежелу әлсіреп, рефлекс жартылай қалпына келеді.",
     correct: "Болжам расталды.", incorrect: "Нәтижені орталық тежелу механизмімен салыстырыңыз.",
     labels: ["Көру төмпешіктері", "Төмендеуші тежелу", "Жұлын", "Сезімтал кіріс", "Қозғалтқыш шығыс"],
-    table: "Өлшеу хаттамасы", mechanism: "Механизм", mechanismText: "Тежелу жүйке немесе бұлшықет зақымынан емес, орталық жүйке жүйесінде пайда болады. Төмендеуші әсердің күшеюі жұлын рефлексінің табалдырығын жоғарылатады.",
+    baselineReference: "Сол тітіркендіргіш күшіндегі есептік бастапқы латентті уақыт", comparison: "Бастапқы жағдаймен салыстырғандағы өзгеріс", table: "Өлшеу хаттамасы", mechanism: "Механизм", mechanismText: "Тежелу жүйке немесе бұлшықет зақымынан емес, орталық жүйке жүйесінде пайда болады. Төмендеуші әсердің күшеюі жұлын рефлексінің табалдырығын жоғарылатады.",
   },
 } as const;
 
@@ -61,13 +61,14 @@ export default function SechenovExperiment({ language }: { language: Language })
   const [result, setResult] = useState<{ latency: number | null; expected: Prediction } | null>(null);
   const [rows, setRows] = useState<{ condition: Condition; strength: number; latency: number | null }[]>([]);
 
+  const baselineLatency = useMemo(() => +Math.max(1.4, 5.8 - strength * 0.055).toFixed(1), [strength]);
   const latency = useMemo(() => {
-    const base = Math.max(1.4, 5.8 - strength * 0.055);
+    const base = baselineLatency;
     if (condition === "salt" && strength < 42) return null;
     if (condition === "salt") return +(base + 3.8).toFixed(1);
     if (condition === "wash") return +(base + 0.9).toFixed(1);
     return +base.toFixed(1);
-  }, [condition, strength]);
+  }, [condition, strength, baselineLatency]);
 
   function run() {
     if (!prediction) return;
@@ -76,7 +77,7 @@ export default function SechenovExperiment({ language }: { language: Language })
     window.setTimeout(() => {
       const expected: Prediction = latency === null ? "absent" : condition === "baseline" ? "unchanged" : "longer";
       setResult({ latency, expected });
-      setRows(current => [...current.slice(-4), { condition, strength, latency }]);
+      setRows(current => [...current, { condition, strength, latency }]);
       setRunning(false);
     }, 1450);
   }
@@ -128,9 +129,10 @@ export default function SechenovExperiment({ language }: { language: Language })
           <button type="button" onClick={run} disabled={!prediction||running} style={{padding:"11px 18px",border:0,borderRadius:10,background:"#006b84",color:"white",fontWeight:800,cursor:"pointer"}}>▶ {c.run}</button>
           <button type="button" disabled={running} onClick={()=>{setResult(null);setPrediction(null);setRows([]);}} style={{padding:"11px 18px",border:"1px solid #9db8c4",borderRadius:10,background:"white",fontWeight:700}}>↻ {c.reset}</button>
         </div>
+        <p style={{fontSize:".9rem",lineHeight:1.5}}>{c.baselineReference}: <strong>{baselineLatency.toFixed(1)} s</strong></p>
         {result && <div aria-live="polite" style={{marginTop:16,padding:14,borderRadius:12,background:"#fff",border:"2px solid "+color}}>
           <strong>{c.latency}: {result.latency===null?"—":result.latency+" s"}</strong>
-          <p>{resultText}</p><b style={{color}}>{prediction===result.expected?c.correct:c.incorrect}</b>
+          <p>{result.latency !== null && <span>{c.comparison}: <strong>{(result.latency - +(Math.max(1.4, 5.8 - strength * 0.055).toFixed(1))) >= 0 ? "+" : ""}{(result.latency - +(Math.max(1.4, 5.8 - strength * 0.055).toFixed(1))).toFixed(1)} s</strong>. </span>}{resultText}</p><b style={{color}}>{prediction===result.expected?c.correct:c.incorrect}</b>
         </div>}
       </div>
     </div>
