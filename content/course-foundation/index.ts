@@ -390,6 +390,35 @@ function create(
                   : 'Механизмді өз сөзіңізбен түсіндіріңіз, өзгеретін физиологиялық шаманы және күтілетін бақылауды атаңыз. Жауабыңызды механизм және түсіндіру бөлімдерімен салыстырыңыз.' },
           ],
         },
+        ...(topic.id === 15 ? [
+          {
+            id: 'hypothalamic-organization',
+            title: language === 'RU' ? 'Ядра гипоталамуса и функциональная организация' : language === 'EN' ? 'Hypothalamic nuclei and functional organization' : 'Гипоталамус ядролары және функционалдық ұйымдасу',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Гипоталамус объединяет сигналы о температуре, осмоляльности, энергетическом состоянии и циркадном времени. Супраоптическое и паравентрикулярное ядра содержат магноцеллюлярные нейроны, аксоны которых оканчиваются в нейрогипофизе и выделяют вазопрессин или окситоцин. Парвоцеллюлярные нейроны, в том числе паравентрикулярного ядра, регулируют аденогипофиз через рилизинг-факторы портальной системы. Супрахиазматическое ядро синхронизирует суточные ритмы по световым сигналам сетчатки; латеральная и дугообразная области участвуют в регуляции пищевого поведения и энергетического обмена.'
+              : language === 'EN'
+                ? 'The hypothalamus integrates information about temperature, osmolality, energy state and circadian timing. Magnocellular neurons in the supraoptic and paraventricular nuclei project to the posterior pituitary and release vasopressin or oxytocin. Parvocellular neurons, including those in the paraventricular nucleus, regulate the anterior pituitary through releasing factors delivered via the portal circulation. The suprachiasmatic nucleus synchronizes circadian rhythms to retinal light signals; lateral and arcuate regions contribute to feeding and energy regulation.'
+                : 'Гипоталамус температура, осмолялдық, энергетикалық күй және тәуліктік уақыт туралы ақпаратты біріктіреді. Супраоптикалық және паравентрикулярлық ядролардың магноцеллюлярлық нейрондары нейрогипофизге проекция жасап, вазопрессин не окситоцин бөледі. Паравентрикулярлық ядроны қоса алғанда, парвоцеллюлярлық нейрондар портальды қанайналым арқылы аденогипофизді рилизинг-факторлармен реттейді. Супрахиазматикалық ядро торқабықтан келген жарық сигналына сай тәуліктік ырғақты синхрондайды; латералды және доғалы аймақтар қоректену мен энергия алмасуына қатысады.' }],
+          },
+          {
+            id: 'hypothalamic-osmoregulation',
+            title: language === 'RU' ? 'Осморегуляция и отрицательная обратная связь' : language === 'EN' ? 'Osmoregulation and negative feedback' : 'Осмореттелу және теріс кері байланыс',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'При увеличении эффективной осмоляльности плазмы осмочувствительные нейроны и структуры передней стенки III желудочка усиливают жажду и секрецию вазопрессина. Вазопрессин через V2-рецепторы собирательных трубочек повышает вставку аквапорина-2 в апикальную мембрану и увеличивает реабсорбцию воды. При снижении осмоляльности секреция подавляется. Изменение эффективного объёма циркулирующей крови через барорецепторные пути также регулирует вазопрессин, поэтому его уровень нельзя объяснять только концентрацией натрия.'
+              : language === 'EN'
+                ? 'A rise in effective plasma osmolality activates osmosensitive neurons and structures around the anterior third ventricle, increasing thirst and vasopressin release. Through V2 receptors in collecting ducts, vasopressin promotes aquaporin-2 insertion into the apical membrane and increases water reabsorption. Falling osmolality suppresses secretion. Changes in effective circulating volume also regulate vasopressin through baroreceptor pathways, so sodium concentration alone does not determine its level.'
+                : 'Плазманың тиімді осмолялдығы артқанда осмосезімтал нейрондар және III қарыншаның алдыңғы қабырғасына жақын құрылымдар шөлдеуді және вазопрессин бөлінуін күшейтеді. Вазопрессин жинағыш түтікшелердегі V2-рецепторлар арқылы аквапорин-2-нің апикалдық мембранаға енгізілуін арттырып, судың қайта сіңірілуін күшейтеді. Осмолялдық төмендесе, секреция тежеледі. Айналымдағы тиімді қан көлемі барорецепторлық жолдар арқылы вазопрессинді де реттейді, сондықтан оның деңгейін тек натрий концентрациясымен түсіндіруге болмайды.' }],
+          },
+          {
+            id: 'hypothalamic-clinical',
+            title: language === 'RU' ? 'Клинические связи и диагностические ограничения' : language === 'EN' ? 'Clinical links and diagnostic limitations' : 'Клиникалық байланыстар және диагностикалық шектеулер',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Недостаточная секреция вазопрессина может приводить к центральному несахарному диабету с выделением больших объёмов разбавленной мочи; при нефрогенном несахарном диабете вазопрессин присутствует, но почечный ответ нарушен. Избыточное действие вазопрессина может способствовать гипонатриемии, однако её причины разнообразны. Клиническая интерпретация требует совместной оценки натрия плазмы, осмоляльности крови и мочи, водного баланса и лекарств; одна схема гипоталамуса не устанавливает диагноз.'
+              : language === 'EN'
+                ? 'Insufficient vasopressin secretion may cause central diabetes insipidus with large volumes of dilute urine; in nephrogenic diabetes insipidus, vasopressin is present but renal responsiveness is impaired. Excess vasopressin action can contribute to hyponatremia, which has multiple possible causes. Interpretation requires plasma sodium, serum and urine osmolality, fluid balance and medication history; an anatomical diagram alone cannot establish a diagnosis.'
+                : 'Вазопрессиннің жеткіліксіз бөлінуі көп мөлшерде сұйық несеп бөлінетін орталық қантсыз диабетке әкелуі мүмкін; нефрогендік қантсыз диабетте вазопрессин бар, бірақ бүйректің жауабы бұзылған. Вазопрессин әсерінің артық болуы гипонатриемияға ықпал етуі мүмкін, алайда оның себептері әртүрлі. Клиникалық бағалау үшін плазма натрийін, қан мен несеп осмолялдығын, су балансын және дәрілерді бірге қарастыру қажет; анатомиялық сызба диагноз қоймайды.' }],
+          },
+        ] : []),
         ...(topic.id === 3 ? [{
           id: 'brain-microenvironment',
           title: language === 'RU' ? 'Микросреда мозга: ГЭБ и ликвор' : language === 'EN' ? 'Brain microenvironment: BBB and CSF' : 'Ми микроортасы: ГЭБ және ликвор',
