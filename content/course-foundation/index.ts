@@ -21,6 +21,7 @@ import { moduleNineDetailedTheory } from "./module-nine-detailed-theory";
 import { moduleTenDetailedTheory } from "./module-ten-detailed-theory";
 import { moduleElevenDetailedTheory } from "./module-eleven-detailed-theory";
 import { moduleTwelveDetailedTheory } from "./module-twelve-detailed-theory";
+import { moduleThirteenDetailedTheory, moduleThirteenPracticalStations } from "./module-thirteen-comprehensive";
 import { moduleElevenPracticalStations } from "./module-eleven-applied";
 import { moduleTwelvePracticalStations } from "./module-twelve-applied";
 import { moduleFourPracticalStations } from "./module-four-practical-stations";
@@ -665,6 +666,7 @@ function create(
         ...(topic.id === 10 ? moduleTenDetailedTheory(language) : []),
         ...(topic.id === 11 ? moduleElevenDetailedTheory(language) : []),
         ...(topic.id === 12 ? moduleTwelveDetailedTheory(language) : []),
+        ...(topic.id === 13 ? moduleThirteenDetailedTheory(language) : []),
         ...(topic.id === 3 ? [{
           id: 'brain-microenvironment',
           title: language === 'RU' ? 'Микросреда мозга: ГЭБ и ликвор' : language === 'EN' ? 'Brain microenvironment: BBB and CSF' : 'Ми микроортасы: ГЭБ және ликвор',
@@ -1080,6 +1082,7 @@ function create(
         ...(topic.id === 10 ? moduleTenPracticalStations(language) : []),
         ...(topic.id === 11 ? moduleElevenPracticalStations(language) : []),
         ...(topic.id === 12 ? moduleTwelvePracticalStations(language) : []),
+        ...(topic.id === 13 ? moduleThirteenPracticalStations(language) : []),
         {
           title: c.task,
 
