@@ -15,6 +15,8 @@ import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 import { createModuleTwentyOneTheory } from "./module-twenty-one-theory";
 import { extendModuleTwentyOneCases, extendModuleTwentyOnePractice } from "./module-twenty-one-activities";
+import { createModuleTwentyOnePretest } from "./module-twenty-one-pretest";
+import { extendModuleTwentyOneFinalTest } from "./module-twenty-one-final-test";
 
 const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
   2: { RU: 'сравните две записи ЭЭГ с одинаковым физиологическим состоянием, но разным уровнем артефакта; измерьте амплитуду, частоту и признак, позволяющий распознать артефакт', EN: 'compare two EEG recordings from the same physiological state but with different artifact levels; measure amplitude, frequency, and a feature that identifies the artifact', KZ: 'физиологиялық күйі бірдей, бірақ артефакт деңгейі әртүрлі екі ЭЭГ жазбасын салыстырып, амплитуданы, жиілікті және артефактты тануға көмектесетін белгіні өлшеңіз' },
@@ -1435,6 +1437,28 @@ if (foundationLessons[21]) {
     const practice = foundationLessons[21].practice?.[language];
     if (practice?.kind === "practice") {
       foundationLessons[21].practice![language] = extendModuleTwentyOnePractice(language, practice);
+    }
+  }
+}
+
+if (foundationLessons[21]) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const pretest = foundationLessons[21].pretest?.[language];
+    if (pretest?.kind === "pretest") {
+      const added = createModuleTwentyOnePretest(language, pretest.title, modules[language][20]);
+      const seen = new Set(pretest.questions.map(item => item.id));
+      foundationLessons[21].pretest![language] = {
+        ...pretest,
+        questions: [...pretest.questions, ...added.questions.filter(item => {
+          if (seen.has(item.id)) return false;
+          seen.add(item.id);
+          return true;
+        })],
+      };
+    }
+    const test = foundationLessons[21].tests?.[language];
+    if (test?.kind === "tests") {
+      foundationLessons[21].tests![language] = extendModuleTwentyOneFinalTest(language, test);
     }
   }
 }
