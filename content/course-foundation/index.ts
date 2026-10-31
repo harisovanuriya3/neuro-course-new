@@ -14,6 +14,7 @@ import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwoExpandedTheory } from "./module-two-expanded-theory";
 import { moduleThreeDetailedTheory } from "./module-three-detailed-theory";
+import { moduleThreePracticalStations } from "./module-three-practical-stations";
 import { moduleTwoPracticalStations } from "./module-two-practical-stations";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
@@ -1046,6 +1047,7 @@ function create(
 
       sections: [
         ...(topic.id === 2 ? moduleTwoPracticalStations(language) : []),
+        ...(topic.id === 3 ? moduleThreePracticalStations(language) : []),
         {
           title: c.task,
 
