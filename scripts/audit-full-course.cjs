@@ -10,7 +10,7 @@ const root = path.resolve(__dirname, "..");
 const langs = ["RU","EN","KZ"];
 const auxiliarySections = new Set(["virtual-patient","voice","progress","notes"]);
 const lessonSections = sectionOrder.filter(section => !auxiliarySections.has(section));
-const specializedRoutes = new Set(["2:interactive"]);
+const isSpecializedRoute = (moduleId, section) => moduleId >= 2 && section === "interactive";
 const rows = [];
 const text = value => String(value || "").trim();
 const norm = value => text(value).toLowerCase().replace(/\s+/g," ");
@@ -26,9 +26,9 @@ for (const language of langs) {
     for (const section of lessonSections) {
       let lesson;
       try { lesson = getLesson(moduleId, section, language); }
-      catch (error) { if (!specializedRoutes.has(`${moduleId}:${section}`)) missingSections.push(section); continue; }
+      catch (error) { if (!isSpecializedRoute(moduleId, section)) missingSections.push(section); continue; }
       lessons[section] = lesson;
-      if ((!lesson || !text(lesson.title)) && !specializedRoutes.has(`${moduleId}:${section}`)) missingSections.push(section);
+      if ((!lesson || !text(lesson.title)) && !isSpecializedRoute(moduleId, section)) missingSections.push(section);
     }
     const theory = lessons.theory || {};
     const practice = lessons.practice || {};
