@@ -16,6 +16,9 @@ for(const lang of ["RU","EN","KZ"]){
  const theoryIds=theory.sections.map(s=>s.id);
  assert(theoryIds.includes("eeg-biophysics")&&theoryIds.includes("evoked-potentials")&&theoryIds.includes("method-comparison-clinical"),`${lang}: missing dedicated method chapters`);
  assert.equal(new Set(theoryIds).size,theoryIds.length,`${lang}: duplicate theory sections`);
+ assert(practice.sections.length>=6,`${lang}: fewer than 6 practice sections`);
+ assert(practice.sections.some(st=>st.title.includes(lang==="RU"?"Монтаж ЭЭГ":lang==="EN"?"EEG montage":"ЭЭГ монтажы")),`${lang}: missing EEG montage station`);
+ assert(practice.sections.some(st=>st.title.includes(lang==="RU"?"Усреднение":lang==="EN"?"averaging":"орташалау")),`${lang}: missing evoked averaging station`);
  assert(cases.cases.length>=3,`${lang}: insufficient clinical cases`);
  assert(cases.cases.some(c=>c.id==="m2-evoked-averaging"),`${lang}: missing artifact discrimination case`);
  for(const c of cases.cases){
