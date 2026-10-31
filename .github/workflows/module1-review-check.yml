@@ -39,6 +39,8 @@ jobs:
         run: node scripts/check-module11-completeness.cjs
       - name: Verify module 12 completeness
         run: node scripts/check-module12-completeness.cjs
+      - name: Verify module 13 completeness
+        run: node scripts/check-module13-completeness.cjs
       - name: Run complete scientific and course audit
         run: npm run audit:course
       - name: Verify TypeScript
