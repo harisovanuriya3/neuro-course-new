@@ -127,9 +127,14 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                     <FoundationVisual moduleId={moduleId} language={lang} />
                     {moduleId === 7 && <SechenovExperiment language={lang} />}
                   </section>}
+                  {moduleId === 20 && (
+                    <section aria-label={lang === "RU" ? "Зрительные пути и локализация поражений" : lang === "EN" ? "Visual pathways and lesion localization" : "Көру жолдары және зақымды анықтау"}>
+                      <VisualPathwayLocalizer language={lang} />
+                    </section>
+                  )}
                   <details className={styles.preview}>
                     <summary>{t.patientPreview}</summary>
-                    {moduleId === 1 ? <VirtualPatient language={lang} /> : <>{moduleId === 20 && <VisualPathwayLocalizer language={lang} />}<UnifiedVirtualPatient moduleId={moduleId} language={lang} /></>}
+                    {moduleId === 1 ? <VirtualPatient language={lang} /> : <UnifiedVirtualPatient moduleId={moduleId} language={lang} />}
                   </details>
                 </div>
               </details>
