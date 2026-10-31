@@ -158,6 +158,12 @@ export default async function SectionPage({
           >
             {t.back}
           </Link>
+          <Link
+            href={`/resources?lang=${lang}#module-${moduleNumber}`}
+            style={{display:"inline-block",marginLeft:16,color:"#005b96",fontWeight:700,textDecoration:"underline",textUnderlineOffset:3}}
+          >
+            {lang === "RU" ? "Медиатека этого модуля" : lang === "KZ" ? "Осы модульдің медиатекасы" : "Media library for this module"}
+          </Link>
 
           {/* ЯЗЫК */}
 
