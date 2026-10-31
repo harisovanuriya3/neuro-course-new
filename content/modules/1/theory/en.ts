@@ -4,6 +4,36 @@ const lesson: Lesson = {
   title: "Module 1. Introduction to Neurophysiology",
   sections: [
     {
+      "id": "functional-neuroanatomy-clinical-foundations",
+      "title": "Functional neuroanatomy: foundations for clinical reasoning",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "Gray and white matter: organization and exceptions"
+        },
+        {
+          "type": "paragraph",
+          "text": "Gray matter contains neuronal cell bodies, dendrites, synapses and glial cells; white matter consists mainly of myelinated and unmyelinated axons with supporting glia. Cerebral cortex is superficial, whereas spinal gray matter is predominantly central. This difference does not mean white matter is a passive cable: conduction depends on axons, myelin and the extracellular environment. In the peripheral nervous system, most primary sensory pseudounipolar neuron cell bodies lie in dorsal root ganglia, while somatic motor neuron cell bodies lie in the spinal anterior horns. In lesion localization distinguish a CNS nucleus, peripheral ganglion, nerve root and peripheral nerve."
+        },
+        {
+          "type": "subheading",
+          "text": "Blood supply, barriers and vulnerability of neural tissue"
+        },
+        {
+          "type": "paragraph",
+          "text": "Neural tissue requires continuous oxygen and metabolic support to maintain ion gradients. Impaired oxygen and glucose delivery reduces ATP-dependent pump function, alters membrane potentials and, in severe ischemia, contributes to excitotoxic and inflammatory injury. The blood–brain barrier depends on brain capillary endothelial properties, basement membrane, pericytes and interactions with astrocyte endfeet. It is not an absolutely impermeable wall: transport is regulated and varies between brain regions. Cerebrospinal fluid contributes to mechanical protection and exchange. Clinical interpretation of a focal deficit must consider vascular territory, symptom onset and imaging, not just gross nervous-system anatomy."
+        },
+        {
+          "type": "subheading",
+          "text": "How to interpret an anatomical image scientifically"
+        },
+        {
+          "type": "paragraph",
+          "text": "Before interpreting an image identify the section plane, patient side, scale, staining or imaging modality and anatomical labels. A gross specimen displays large structures but does not directly reveal synaptic currents. A histological micrograph reveals tissue organization yet does not establish function without additional methods. When comparing images distinguish normal variation, preparation artifacts and pathology. Report observed features, anatomical identification and physiological inference separately. Task: identify CNS and peripheral structures, pose two physiological questions the photograph cannot answer and choose a suitable experimental technique."
+        }
+      ]
+    },
+    {
       "id": "reflex-circuits-and-clinical-reasoning",
       "title": "Neural circuits, reflex regulation and clinical reasoning",
       "blocks": [
