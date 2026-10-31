@@ -1,0 +1,17 @@
+const assert=require("node:assert/strict");
+const fs=require("node:fs");
+const read=p=>fs.readFileSync(p,"utf8");
+const exam=read("app/exam/page.tsx");
+const resources=read("app/resources/page.tsx");
+const center=read("components/ExamCenter.tsx");
+const bank=read("content/exam-bank.ts");
+assert(exam.includes("createExamBank"),"Exam bank not connected");
+assert(exam.includes("ExamCenter"),"Exam center not connected");
+assert(exam.includes("/resources?lang="),"Exam missing media link");
+assert(resources.includes("/exam?lang="),"Media library missing exam link");
+assert(resources.includes("modules[lang].map"),"Media library must cover all modules");
+for(const token of ["AnatomyReference","AdvancedAnatomyReference","FoundationMediaAnimation","VirtualPatient","UnifiedVirtualPatient","SechenovExperiment","VisualPathwayLocalizer"])assert(resources.includes(token),"Missing media resource "+token);
+for(const token of ["buildVersion","finishAttempt","correctAnswer","explanation"])assert(center.includes(token),"Exam behavior missing "+token);
+assert(bank.includes("moduleId"),"Questions not mapped to modules");
+for(const lang of ["RU","EN","KZ"])assert(exam.includes(lang)&&resources.includes(lang),"Missing exam/media locale "+lang);
+console.log("Exam and media structural checks passed.");
