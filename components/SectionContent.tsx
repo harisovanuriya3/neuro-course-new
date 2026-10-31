@@ -11,6 +11,8 @@ import MediaContent from "./MediaContent";
 import AnatomyPathBuilder from "./AnatomyPathBuilder";
 import NerveFiberExpandedTheory from "./NerveFiberExpandedTheory";
 import VisualPathwayLocalizer from "./VisualPathwayLocalizer";
+import AnatomyReference from "./AnatomyReference";
+import AdvancedAnatomyReference from "./AdvancedAnatomyReference";
 
 type Props = {
   lesson: SectionLesson;
@@ -77,6 +79,10 @@ export default function SectionContent({ lesson, moduleId, language }: Props) {
             </figcaption>
           </figure>
         )}
+        <section id="theory-visuals" aria-label={language === "RU" ? "Анатомические изображения по теме" : language === "EN" ? "Anatomical images for this topic" : "Тақырыпқа қатысты анатомиялық суреттер"} style={{margin:"18px 0 28px"}}>
+          <AnatomyReference moduleId={Number(moduleId)} language={language} />
+          <AdvancedAnatomyReference moduleId={Number(moduleId)} language={language} />
+        </section>
         <TheoryMedia moduleId={Number(moduleId)} language={language} />
         {Number(moduleId) === 20 && (
           <section aria-label={language === "RU" ? "Анатомия зрительного пути и дефекты полей зрения" : language === "EN" ? "Visual pathway anatomy and visual-field defects" : "Көру жолының анатомиясы және көру өрісі ақаулары"} style={{margin:"24px 0"}}>
