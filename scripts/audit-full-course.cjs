@@ -50,6 +50,8 @@ for (const language of langs) {
     const missingTestPrompts = mainIds.filter(id => !norm(nodes[id] && nodes[id].prompt));
     const duplicateTestPrompts = mainPrompts.length - new Set(mainPrompts).size;
     const caseSituations = cases.map(item => norm(item && (item.situation || item.prompt || item.text))).filter(Boolean);
+    const missingCaseSituations = cases.length - caseSituations.length;
+    const duplicateCaseSituations = caseSituations.length - new Set(caseSituations).size;
     const patientStages = arrayAt(patient, ["decisions","stages","steps","items"]);
     rows.push({
       moduleId, language,
@@ -59,6 +61,8 @@ for (const language of langs) {
       practiceItems: practiceItems.length,
       cases: cases.length,
       distinctCases: new Set(caseSituations).size,
+      missingCaseSituations,
+      duplicateCaseSituations,
       mainTests: mainIds.length,
       distinctMainTests: new Set(mainPrompts).size,
       optionProblems: optionProblems.length,
@@ -76,6 +80,7 @@ for (const row of rows) {
   assert.equal(row.optionProblems, 0, `Module ${row.moduleId} ${row.language} has malformed main test options`);
   assert.equal(row.missingTestPrompts, 0, `Module ${row.moduleId} ${row.language} has empty main test prompts`);
   assert(row.cases > 0, `Module ${row.moduleId} ${row.language} has no situational cases`);
+  assert.equal(row.missingCaseSituations, 0, `Module ${row.moduleId} ${row.language} has empty case situations`);
   assert(row.mainTests > 0, `Module ${row.moduleId} ${row.language} has no main tests`);
 }
 
@@ -104,10 +109,12 @@ const summary={
   moduleLanguagesBelow20DistinctMainTests:belowTestTarget.length,
   patientRoutesRequiringManualReview:rows.filter(row=>row.patientStages===0).length,
   moduleLanguagesWithDuplicateTestPrompts:rows.filter(row=>row.duplicateTestPrompts>0).length,
+  moduleLanguagesWithDuplicateCaseSituations:rows.filter(row=>row.duplicateCaseSituations>0).length,
 };
 console.log("FULL COURSE AUDIT",JSON.stringify(summary,null,2));
 for(const row of rows) console.log(`${row.moduleId}|${row.language}|sections ${row.sections}/${lessonSections.length}|theory ${row.theoryBlocks}|practice ${row.practiceItems}|cases ${row.distinctCases}/${row.cases}|tests ${row.distinctMainTests}/${row.mainTests}|patient stages ${row.patientStages} (${row.patientSource})|duplicate test prompts ${row.duplicateTestPrompts}`);
 if(summary.patientRoutesRequiringManualReview) console.warn(`VIRTUAL PATIENT REVIEW REQUIRED: ${summary.patientRoutesRequiringManualReview} module-language entries have no lesson-level stages; inspect separately rendered patient components before declaring them empty.`);
+if(summary.moduleLanguagesWithDuplicateCaseSituations) console.warn(`CASE QUALITY REVIEW REQUIRED: ${summary.moduleLanguagesWithDuplicateCaseSituations} module-language entries contain repeated case situations.`);
 if(summary.moduleLanguagesWithDuplicateTestPrompts) console.warn(`TEST QUALITY REVIEW REQUIRED: ${summary.moduleLanguagesWithDuplicateTestPrompts} module-language entries contain repeated test prompts.`);
 if(languageParity.length) console.warn("LANGUAGE COUNT MISMATCH",JSON.stringify(languageParity));
 if(belowCaseTarget.length||belowTestTarget.length) console.warn("EDITORIAL TARGET OPEN: 20 distinct authored cases and tests are not yet verified for every module-language pair.");
