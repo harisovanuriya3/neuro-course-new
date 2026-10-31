@@ -57,6 +57,7 @@ export default function SechenovExperiment({ language }: { language: Language })
   const [strength, setStrength] = useState(55);
   const [prediction, setPrediction] = useState<Prediction | null>(null);
   const [running, setRunning] = useState(false);
+  // Lock experimental settings while an observation is in progress.
   const [result, setResult] = useState<{ latency: number | null; expected: Prediction } | null>(null);
   const [rows, setRows] = useState<{ condition: Condition; strength: number; latency: number | null }[]>([]);
 
@@ -116,16 +117,16 @@ export default function SechenovExperiment({ language }: { language: Language })
       <div>
         <fieldset style={{border:0,padding:0,margin:"0 0 16px"}}><legend style={{fontWeight:800,marginBottom:8}}>{c.condition}</legend>
           {(["baseline","salt","wash"] as const).map(x=><label key={x} style={{display:"block",padding:"8px 10px",marginBottom:6,borderRadius:8,background:condition===x?"#d8eef4":"#fff"}}>
-            <input type="radio" checked={condition===x} onChange={()=>{setCondition(x);setResult(null);}}/> {c[x]}
+            <input type="radio" checked={condition===x} disabled={running} onChange={()=>{setCondition(x);setResult(null);}}/> {c[x]}
           </label>)}
         </fieldset>
-        <label style={{display:"block",fontWeight:800}}>{c.strength}: {strength}%<input style={{width:"100%",display:"block",margin:"10px 0 18px"}} type="range" min="20" max="100" value={strength} onChange={e=>{setStrength(+e.target.value);setResult(null);}}/></label>
+        <label style={{display:"block",fontWeight:800}}>{c.strength}: {strength}%<input style={{width:"100%",display:"block",margin:"10px 0 18px"}} type="range" min="20" max="100" value={strength} disabled={running} onChange={e=>{setStrength(+e.target.value);setResult(null);}}/></label>
         <fieldset style={{border:0,padding:0,margin:"0 0 16px"}}><legend style={{fontWeight:800,marginBottom:8}}>{c.predict}</legend>
-          {(["shorter","longer","absent"] as const).map(x=><label key={x} style={{display:"block",marginBottom:6}}><input type="radio" checked={prediction===x} onChange={()=>setPrediction(x)}/> {c[x]}</label>)}
+          {(["shorter","longer","absent"] as const).map(x=><label key={x} style={{display:"block",marginBottom:6}}><input type="radio" checked={prediction===x} disabled={running} onChange={()=>setPrediction(x)}/> {c[x]}</label>)}
         </fieldset>
         <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
           <button type="button" onClick={run} disabled={!prediction||running} style={{padding:"11px 18px",border:0,borderRadius:10,background:"#006b84",color:"white",fontWeight:800,cursor:"pointer"}}>▶ {c.run}</button>
-          <button type="button" onClick={()=>{setResult(null);setPrediction(null);setRows([]);}} style={{padding:"11px 18px",border:"1px solid #9db8c4",borderRadius:10,background:"white",fontWeight:700}}>↻ {c.reset}</button>
+          <button type="button" disabled={running} onClick={()=>{setResult(null);setPrediction(null);setRows([]);}} style={{padding:"11px 18px",border:"1px solid #9db8c4",borderRadius:10,background:"white",fontWeight:700}}>↻ {c.reset}</button>
         </div>
         {result && <div aria-live="polite" style={{marginTop:16,padding:14,borderRadius:12,background:"#fff",border:"2px solid "+color}}>
           <strong>{c.latency}: {result.latency===null?"—":result.latency+" s"}</strong>
