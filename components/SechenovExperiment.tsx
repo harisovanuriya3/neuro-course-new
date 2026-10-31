@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import type { Language } from "../content/course";
 
 type Condition = "baseline" | "salt" | "wash";
-type Prediction = "shorter" | "longer" | "absent";
+type Prediction = "shorter" | "longer" | "absent" | "unchanged";
 
 const copy = {
   RU: {
@@ -12,7 +12,7 @@ const copy = {
     intro: "Воспроизведите исторический опыт на виртуальном препарате лягушки. Раздражитель действует на лапку; кристалл NaCl на области зрительных бугров усиливает нисходящее торможение спинального рефлекса.",
     ethics: "Только цифровая учебная модель. Животное не используется; лабораторные манипуляции показаны исторически и схематично. Численные значения латентного времени условны, не получены из экспериментальных данных и не предназначены для клинической интерпретации.",
     condition: "Условие опыта", baseline: "До нанесения NaCl", salt: "Кристалл NaCl", wash: "После промывания",
-    strength: "Сила раздражителя", predict: "Ваш прогноз", shorter: "Латентность уменьшится", longer: "Латентность увеличится", absent: "Ответ исчезнет",
+    strength: "Сила раздражителя", predict: "Прогноз относительно исходного условия без NaCl", shorter: "Латентность уменьшится", longer: "Латентность увеличится", absent: "Ответ исчезнет", unchanged: "Латентность не изменится",
     run: "Запустить опыт", reset: "Сбросить", latency: "Латентное время", response: "Результат",
     baselineResult: "Спинальный рефлекс сохранён: лапка отдёргивается после короткой задержки.",
     saltResult: "Нисходящее торможение подавляет нейроны рефлекторного центра: ответ запаздывает или не возникает при слабом раздражителе.",
@@ -26,7 +26,7 @@ const copy = {
     intro: "Reproduce the historical experiment using a virtual frog preparation. The foot receives a stimulus; a NaCl crystal over the optic-thalamic region strengthens descending inhibition of the spinal reflex.",
     ethics: "Digital teaching model only. No animal is used; historical laboratory manipulations are represented schematically. Reflex latency values are illustrative, not derived from experimental data, and must not be interpreted clinically.",
     condition: "Experimental condition", baseline: "Before NaCl", salt: "NaCl crystal", wash: "After washout",
-    strength: "Stimulus strength", predict: "Your prediction", shorter: "Latency decreases", longer: "Latency increases", absent: "Response disappears",
+    strength: "Stimulus strength", predict: "Prediction relative to baseline without NaCl", shorter: "Latency decreases", longer: "Latency increases", absent: "Response disappears", unchanged: "Latency stays unchanged",
     run: "Run experiment", reset: "Reset", latency: "Reflex latency", response: "Result",
     baselineResult: "The spinal reflex is intact: the foot withdraws after a short delay.",
     saltResult: "Descending inhibition suppresses neurons in the reflex center: the response is delayed or absent with a weak stimulus.",
@@ -40,7 +40,7 @@ const copy = {
     intro: "Тарихи тәжірибені виртуалды бақа препаратымен орындаңыз. Тітіркендіргіш аяққа әсер етеді; көру төмпешіктері аймағындағы NaCl кристалы жұлын рефлексінің төмендеуші тежелуін күшейтеді.",
     ethics: "Тек цифрлық оқу моделі. Жануар қолданылмайды; тарихи зертханалық әрекеттер сызбалық түрде көрсетілген. Рефлекстің латентті уақыт мәндері шартты, тәжірибелік деректерден алынбаған және клиникалық түсіндіруге арналмаған.",
     condition: "Тәжірибе шарты", baseline: "NaCl-ға дейін", salt: "NaCl кристалы", wash: "Жуғаннан кейін",
-    strength: "Тітіркендіргіш күші", predict: "Сіздің болжамыңыз", shorter: "Латенттілік азаяды", longer: "Латенттілік артады", absent: "Жауап жоғалады",
+    strength: "Тітіркендіргіш күші", predict: "NaCl-сыз бастапқы жағдаймен салыстырғандағы болжам", shorter: "Латенттілік азаяды", longer: "Латенттілік артады", absent: "Жауап жоғалады", unchanged: "Латентті уақыт өзгермейді",
     run: "Тәжірибені бастау", reset: "Қалпына келтіру", latency: "Латентті уақыт", response: "Нәтиже",
     baselineResult: "Жұлын рефлексі сақталған: аяқ қысқа кідірістен кейін тартылады.",
     saltResult: "Төмендеуші тежелу рефлекс орталығының нейрондарын басады: әлсіз тітіркендіргіште жауап кешігеді немесе болмайды.",
@@ -74,7 +74,7 @@ export default function SechenovExperiment({ language }: { language: Language })
     setRunning(true);
     setResult(null);
     window.setTimeout(() => {
-      const expected: Prediction = latency === null ? "absent" : condition === "salt" ? "longer" : condition === "wash" ? "longer" : "shorter";
+      const expected: Prediction = latency === null ? "absent" : condition === "baseline" ? "unchanged" : "longer";
       setResult({ latency, expected });
       setRows(current => [...current.slice(-4), { condition, strength, latency }]);
       setRunning(false);
@@ -122,7 +122,7 @@ export default function SechenovExperiment({ language }: { language: Language })
         </fieldset>
         <label style={{display:"block",fontWeight:800}}>{c.strength}: {strength}%<input style={{width:"100%",display:"block",margin:"10px 0 18px"}} type="range" min="20" max="100" value={strength} disabled={running} onChange={e=>{setStrength(+e.target.value);setResult(null);}}/></label>
         <fieldset style={{border:0,padding:0,margin:"0 0 16px"}}><legend style={{fontWeight:800,marginBottom:8}}>{c.predict}</legend>
-          {(["shorter","longer","absent"] as const).map(x=><label key={x} style={{display:"block",marginBottom:6}}><input type="radio" checked={prediction===x} disabled={running} onChange={()=>setPrediction(x)}/> {c[x]}</label>)}
+          {(["unchanged","shorter","longer","absent"] as const).map(x=><label key={x} style={{display:"block",marginBottom:6}}><input type="radio" checked={prediction===x} disabled={running} onChange={()=>setPrediction(x)}/> {c[x]}</label>)}
         </fieldset>
         <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
           <button type="button" onClick={run} disabled={!prediction||running} style={{padding:"11px 18px",border:0,borderRadius:10,background:"#006b84",color:"white",fontWeight:800,cursor:"pointer"}}>▶ {c.run}</button>
