@@ -37,8 +37,9 @@ for (const language of langs) {
     // Virtual-patient routes are auxiliary, but still require explicit coverage inspection.
     // Do not silently report zero merely because the route is excluded from lessonSections.
     let patient = {};
+    let patientSource = "lesson";
     try { patient = getLesson(moduleId, "virtual-patient", language) || {}; }
-    catch (_) { /* Some patient routes are rendered by a separate component. */ }
+    catch (error) { patientSource = "separate-route-or-unavailable"; }
     const cases = arrayAt(casesLesson, ["cases","items","scenarios"]);
     const practiceItems = arrayAt(practice, ["activities","items","stations","steps","tasks"]);
     const theoryBlocks = arrayAt(theory, ["sections","blocks","items","topics"]);
@@ -60,6 +61,7 @@ for (const language of langs) {
       distinctMainTests: new Set(mainPrompts).size,
       optionProblems: optionProblems.length,
       patientStages: patientStages.length,
+      patientSource: patientStages.length > 0 ? "lesson-stages" : patientSource === "lesson" ? "no-lesson-stages" : patientSource,
     });
   }
 }
@@ -95,9 +97,11 @@ const summary={
   modulesWithLanguageCountMismatch:languageParity.length,
   moduleLanguagesBelow20DistinctCases:belowCaseTarget.length,
   moduleLanguagesBelow20DistinctMainTests:belowTestTarget.length,
+  patientRoutesRequiringManualReview:rows.filter(row=>row.patientStages===0).length,
 };
 console.log("FULL COURSE AUDIT",JSON.stringify(summary,null,2));
-for(const row of rows) console.log(`${row.moduleId}|${row.language}|sections ${row.sections}/${lessonSections.length}|theory ${row.theoryBlocks}|practice ${row.practiceItems}|cases ${row.distinctCases}/${row.cases}|tests ${row.distinctMainTests}/${row.mainTests}|patient stages ${row.patientStages}`);
+for(const row of rows) console.log(`${row.moduleId}|${row.language}|sections ${row.sections}/${lessonSections.length}|theory ${row.theoryBlocks}|practice ${row.practiceItems}|cases ${row.distinctCases}/${row.cases}|tests ${row.distinctMainTests}/${row.mainTests}|patient stages ${row.patientStages} (${row.patientSource})`);
+if(summary.patientRoutesRequiringManualReview) console.warn(`VIRTUAL PATIENT REVIEW REQUIRED: ${summary.patientRoutesRequiringManualReview} module-language entries have no lesson-level stages; inspect separately rendered patient components before declaring them empty.`);
 if(languageParity.length) console.warn("LANGUAGE COUNT MISMATCH",JSON.stringify(languageParity));
 if(belowCaseTarget.length||belowTestTarget.length) console.warn("EDITORIAL TARGET OPEN: 20 distinct authored cases and tests are not yet verified for every module-language pair.");
 console.log("Full course structural/content audit completed.");
