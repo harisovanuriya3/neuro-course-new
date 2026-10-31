@@ -11,6 +11,7 @@ import { createModuleThirteenSummary } from "./module-thirteen-summary";
 import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
+import { createModuleSixteenTheory } from "./module-sixteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
@@ -1399,4 +1400,10 @@ if (foundationLessons[13]) {
     EN: createModuleThirteenSummary("EN"),
     KZ: createModuleThirteenSummary("KZ"),
   };
+}
+
+// Add authored limbic physiology without removing original module 16 sections.
+for (const language of ["RU","EN","KZ"] as const) {
+ const base = foundationLessons[16]?.theory?.[language];
+ if (base?.kind === "theory") foundationLessons[16].theory![language] = createModuleSixteenTheory(language,base);
 }
