@@ -12,6 +12,32 @@ import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
+import { moduleTwoExpandedTheory } from "./module-two-expanded-theory";
+import { moduleThreeDetailedTheory } from "./module-three-detailed-theory";
+import { moduleFourDetailedTheory } from "./module-four-detailed-theory";
+import { moduleSevenDetailedTheory } from "./module-seven-detailed-theory";
+import { moduleEightDetailedTheory } from "./module-eight-detailed-theory";
+import { moduleNineDetailedTheory } from "./module-nine-detailed-theory";
+import { moduleTenDetailedTheory } from "./module-ten-detailed-theory";
+import { moduleElevenDetailedTheory } from "./module-eleven-detailed-theory";
+import { moduleTwelveDetailedTheory } from "./module-twelve-detailed-theory";
+import { moduleThirteenDetailedTheory, moduleThirteenPracticalStations } from "./module-thirteen-comprehensive";
+import { moduleFourteenDetailedTheory } from "./module-fourteen-detailed-theory";
+import { moduleFifteenDetailedTheory } from "./module-fifteen-detailed-theory";
+import { moduleSixteenDetailedTheory } from "./module-sixteen-detailed-theory";
+import { moduleFifteenPracticalStations } from "./module-fifteen-applied";
+import { moduleFourteenPracticalStations } from "./module-fourteen-practical";
+import { moduleElevenPracticalStations } from "./module-eleven-applied";
+import { moduleTwelvePracticalStations } from "./module-twelve-applied";
+import { moduleFourPracticalStations } from "./module-four-practical-stations";
+import { moduleFivePracticalStations } from "./module-five-practical-stations";
+import { moduleSixPracticalStations } from "./module-six-practical-stations";
+import { moduleSevenPracticalStations } from "./module-seven-practical-stations";
+import { moduleEightPracticalStations } from "./module-eight-practical-stations";
+import { moduleNinePracticalStations } from "./module-nine-practical-stations";
+import { moduleTenPracticalStations } from "./module-ten-practical-stations";
+import { moduleThreePracticalStations } from "./module-three-practical-stations";
+import { moduleTwoPracticalStations } from "./module-two-practical-stations";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
 const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
@@ -637,6 +663,18 @@ function create(
                 : 'Вазопрессиннің жеткіліксіз бөлінуі көп мөлшерде сұйық несеп бөлінетін орталық қантсыз диабетке әкелуі мүмкін; нефрогендік қантсыз диабетте вазопрессин бар, бірақ бүйректің жауабы бұзылған. Вазопрессин әсерінің артық болуы гипонатриемияға ықпал етуі мүмкін, алайда оның себептері әртүрлі. Клиникалық бағалау үшін плазма натрийін, қан мен несеп осмолялдығын, су балансын және дәрілерді бірге қарастыру қажет; анатомиялық сызба диагноз қоймайды.' }],
           },
         ] : []),
+        ...(topic.id === 3 ? moduleThreeDetailedTheory(language) : []),
+        ...(topic.id === 4 ? moduleFourDetailedTheory(language) : []),
+        ...(topic.id === 7 ? moduleSevenDetailedTheory(language) : []),
+        ...(topic.id === 8 ? moduleEightDetailedTheory(language) : []),
+        ...(topic.id === 9 ? moduleNineDetailedTheory(language) : []),
+        ...(topic.id === 10 ? moduleTenDetailedTheory(language) : []),
+        ...(topic.id === 11 ? moduleElevenDetailedTheory(language) : []),
+        ...(topic.id === 12 ? moduleTwelveDetailedTheory(language) : []),
+        ...(topic.id === 13 ? moduleThirteenDetailedTheory(language) : []),
+        ...(topic.id === 14 ? moduleFourteenDetailedTheory(language) : []),
+        ...(topic.id === 15 ? moduleFifteenDetailedTheory(language) : []),
+        ...(topic.id === 16 ? moduleSixteenDetailedTheory(language) : []),
         ...(topic.id === 3 ? [{
           id: 'brain-microenvironment',
           title: language === 'RU' ? 'Микросреда мозга: ГЭБ и ликвор' : language === 'EN' ? 'Brain microenvironment: BBB and CSF' : 'Ми микроортасы: ГЭБ және ликвор',
@@ -729,6 +767,7 @@ function create(
               ? 'The brain requires continuous blood flow to deliver oxygen and glucose. Perfusion depends on systemic pressure, intracranial pressure, vascular resistance, and autoregulation. CSF and the blood–brain barrier help maintain a stable environment. Disturbance of blood flow, barrier function, or intracranial volume balance can impair neural networks even without primary neuronal death.'
               : 'Миға оттегі мен глюкоза жеткізу үшін үздіксіз қанайналым қажет. Перфузия жүйелік қысымға, бассүйекішілік қысымға, тамыр кедергісіне және аутореттелуге тәуелді. Ликвор мен гематоэнцефалдық бөгет тұрақты ортаны сақтауға қатысады. Қанайналым, бөгет қызметі немесе бассүйек ішіндегі көлем теңгерімі бұзылса, нейрондардың бастапқы өлімінсіз де жүйке желілері бұзылуы мүмкін.' }],
         }] : []),
+        ...(topic.id === 2 ? moduleTwoExpandedTheory(language) : []),
         ...(topic.id === 2 ? [{
           id: 'method-selection',
           title: language === 'RU' ? 'Как выбирать метод исследования' : language === 'EN' ? 'How to choose a research method' : 'Зерттеу әдісін қалай таңдау керек',
@@ -1040,6 +1079,20 @@ function create(
       ui,
 
       sections: [
+        ...(topic.id === 2 ? moduleTwoPracticalStations(language) : []),
+        ...(topic.id === 3 ? moduleThreePracticalStations(language) : []),
+        ...(topic.id === 4 ? moduleFourPracticalStations(language) : []),
+        ...(topic.id === 5 ? moduleFivePracticalStations(language) : []),
+        ...(topic.id === 6 ? moduleSixPracticalStations(language) : []),
+        ...(topic.id === 7 ? moduleSevenPracticalStations(language) : []),
+        ...(topic.id === 8 ? moduleEightPracticalStations(language) : []),
+        ...(topic.id === 9 ? moduleNinePracticalStations(language) : []),
+        ...(topic.id === 10 ? moduleTenPracticalStations(language) : []),
+        ...(topic.id === 11 ? moduleElevenPracticalStations(language) : []),
+        ...(topic.id === 12 ? moduleTwelvePracticalStations(language) : []),
+        ...(topic.id === 13 ? moduleThirteenPracticalStations(language) : []),
+        ...(topic.id === 14 ? moduleFourteenPracticalStations(language) : []),
+        ...(topic.id === 15 ? moduleFifteenPracticalStations(language) : []),
         {
           title: c.task,
 

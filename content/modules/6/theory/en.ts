@@ -4,6 +4,36 @@ const lesson: Lesson = {
   title: "Module 6. Excitation, Inhibition, and Signal Integration",
   sections: [
     {
+      "id": "dendritic-integration-network-inhibition",
+      "title": "Dendritic integration, shunting inhibition and network circuits",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "Cable properties and summation"
+        },
+        {
+          "type": "paragraph",
+          "text": "Postsynaptic potentials are graded voltage changes shaped by synaptic conductance and electrochemical driving force. Spatial summation combines inputs from different contacts, while temporal summation combines successive inputs. The outcome depends on synapse location, dendritic branching, resistance, capacitance and active ion channels. Two EPSP amplitudes cannot always be added arithmetically. The axon initial segment integrates incoming influences, while dendrites can also produce local active events."
+        },
+        {
+          "type": "subheading",
+          "text": "Shunting and hyperpolarizing inhibition"
+        },
+        {
+          "type": "paragraph",
+          "text": "An inhibitory synapse can reduce spike probability without substantial hyperpolarization. Increased membrane conductance may dissipate part of an excitatory current: shunting inhibition. Its effect depends on reversal potential, channel location and timing. GABA_A receptors generally mediate fast ionotropic responses, while GABA_B receptors mediate slower metabotropic responses. Altered chloride homeostasis can make a GABA response depolarizing without necessarily increasing spike probability."
+        },
+        {
+          "type": "subheading",
+          "text": "Network circuits and clinical connections"
+        },
+        {
+          "type": "paragraph",
+          "text": "Feedforward inhibition can narrow the time window for integrating inputs, while feedback inhibition can stabilize network activity following excitation. Reciprocal inhibition helps coordinate competing motor commands. Disturbed excitation–inhibition balance contributes to some pathological states, but an EEG pattern alone cannot establish a specific cellular mechanism. Electrophysiology, circuit anatomy, controlled perturbations and clinical findings must be considered together."
+        }
+      ]
+    },
+    {
       id: "learning-goals",
       title: "1. Learning goals and the organization of integration",
       blocks: [

@@ -1,0 +1,51 @@
+name: Module 1 medical textbook review
+on:
+  push:
+    branches:
+      - review/medical-textbook-comprehensive-1-25
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-module-one:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Verify module 1 trilingual content and clinical cases
+        run: node scripts/check-module1-completeness.cjs
+      - name: Verify module 2 content and media
+        run: node scripts/check-module2-completeness.cjs
+      - name: Verify module 3 theory and assessment
+        run: node scripts/check-module3-completeness.cjs
+      - name: Verify module 4 completeness
+        run: node scripts/check-module4-completeness.cjs
+      - name: Verify module 5 completeness
+        run: node scripts/check-module5-completeness.cjs
+      - name: Verify module 6 completeness
+        run: node scripts/check-module6-completeness.cjs
+      - name: Verify module 7 completeness
+        run: node scripts/check-module7-completeness.cjs
+      - name: Verify module 8 completeness
+        run: node scripts/check-module8-completeness.cjs
+      - name: Verify module 10 completeness
+        run: node scripts/check-module10-completeness.cjs
+      - name: Verify module 11 completeness
+        run: node scripts/check-module11-completeness.cjs
+      - name: Verify module 12 completeness
+        run: node scripts/check-module12-completeness.cjs
+      - name: Verify module 13 completeness
+        run: node scripts/check-module13-completeness.cjs
+      - name: Verify module 15 completeness
+        run: node scripts/check-module15-completeness.cjs
+      - name: Run complete scientific and course audit
+        run: npm run audit:course
+      - name: Verify TypeScript
+        run: npx tsc --noEmit
+      - name: Build production site
+        run: npm run build

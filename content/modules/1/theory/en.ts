@@ -4,6 +4,120 @@ const lesson: Lesson = {
   title: "Module 1. Introduction to Neurophysiology",
   sections: [
     {
+      "id": "functional-neuroanatomy-clinical-foundations",
+      "title": "Functional neuroanatomy: foundations for clinical reasoning",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "Gray and white matter: organization and exceptions"
+        },
+        {
+          "type": "paragraph",
+          "text": "Gray matter contains neuronal cell bodies, dendrites, synapses and glial cells; white matter consists mainly of myelinated and unmyelinated axons with supporting glia. Cerebral cortex is superficial, whereas spinal gray matter is predominantly central. This difference does not mean white matter is a passive cable: conduction depends on axons, myelin and the extracellular environment. In the peripheral nervous system, most primary sensory pseudounipolar neuron cell bodies lie in dorsal root ganglia, while somatic motor neuron cell bodies lie in the spinal anterior horns. In lesion localization distinguish a CNS nucleus, peripheral ganglion, nerve root and peripheral nerve."
+        },
+        {
+          "type": "subheading",
+          "text": "Blood supply, barriers and vulnerability of neural tissue"
+        },
+        {
+          "type": "paragraph",
+          "text": "Neural tissue requires continuous oxygen and metabolic support to maintain ion gradients. Impaired oxygen and glucose delivery reduces ATP-dependent pump function, alters membrane potentials and, in severe ischemia, contributes to excitotoxic and inflammatory injury. The blood–brain barrier depends on brain capillary endothelial properties, basement membrane, pericytes and interactions with astrocyte endfeet. It is not an absolutely impermeable wall: transport is regulated and varies between brain regions. Cerebrospinal fluid contributes to mechanical protection and exchange. Clinical interpretation of a focal deficit must consider vascular territory, symptom onset and imaging, not just gross nervous-system anatomy."
+        },
+        {
+          "type": "subheading",
+          "text": "How to interpret an anatomical image scientifically"
+        },
+        {
+          "type": "paragraph",
+          "text": "Before interpreting an image identify the section plane, patient side, scale, staining or imaging modality and anatomical labels. A gross specimen displays large structures but does not directly reveal synaptic currents. A histological micrograph reveals tissue organization yet does not establish function without additional methods. When comparing images distinguish normal variation, preparation artifacts and pathology. Report observed features, anatomical identification and physiological inference separately. Task: identify CNS and peripheral structures, pose two physiological questions the photograph cannot answer and choose a suitable experimental technique."
+        }
+      ]
+    },
+    {
+      "id": "reflex-circuits-and-clinical-reasoning",
+      "title": "Neural circuits, reflex regulation and clinical reasoning",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "From receptor to effector"
+        },
+        {
+          "type": "paragraph",
+          "text": "A functional reflex circuit includes sensory receptors, afferent neurons, central synaptic connections, efferent neurons and effectors. The number of synapses and degree of central processing vary. In the stretch reflex, Ia muscle-spindle afferents excite alpha motor neurons of the same muscle through a relatively short pathway, while reciprocal inhibition of antagonists requires additional interneurons. Protective withdrawal involves polysynaptic networks and depends on stimulus properties and descending modulation. A reflex is not necessarily independent of cortical and brainstem influences."
+        },
+        {
+          "type": "subheading",
+          "text": "Feedback and control stability"
+        },
+        {
+          "type": "paragraph",
+          "text": "Neural control often uses negative feedback: deviation of a regulated variable activates sensors and generates an output opposing the disturbance. Postural control integrates muscle spindle and tendon-organ information with central motor commands. Not all control is purely feedback-based: anticipatory adjustments use internal predictions. Identify the regulated variable, receptor, central processing, effector, response delay and limitations. A stable outcome does not imply that every underlying neural signal remains constant."
+        },
+        {
+          "type": "subheading",
+          "text": "Excitation, inhibition and response threshold"
+        },
+        {
+          "type": "paragraph",
+          "text": "Excitatory postsynaptic currents can increase spike probability, while inhibition can reduce it by hyperpolarizing or shunting the membrane. Effects depend on ionic reversal potentials, synapse location and timing. Action potentials are commonly initiated near the axon initial segment when threshold conditions are reached, but threshold is not a fixed universal voltage: prior activity and channel state matter. The rule 'one excitatory synapse equals one action potential' is false. Distinguish graded postsynaptic potentials from regenerative action potentials."
+        },
+        {
+          "type": "subheading",
+          "text": "Clinical case: tendon reflex and localization"
+        },
+        {
+          "type": "paragraph",
+          "text": "After an injury, a patient has a reduced knee-jerk reflex and weakness of knee extension. Examine quadriceps power, relevant dermatomal sensation, other tendon reflexes, pain and signs of femoral nerve or L2–L4 root dysfunction. A depressed reflex alone cannot distinguish damage to afferent, central or efferent components. Task: trace the reflex arc, propose three competing lesion sites and identify findings that could discriminate between them. Explain why a single bedside sign does not establish a diagnosis."
+        },
+        {
+          "type": "subheading",
+          "text": "Experimental design and measurement quality"
+        },
+        {
+          "type": "paragraph",
+          "text": "Simple reflex latency and voluntary reaction time are not equivalent. A visual choice reaction includes sensory encoding, central processing, decision making and motor execution; it is not a direct measure of conduction velocity in one nerve. Standardize stimulus distance, illumination, instructions and trial number; exclude anticipatory responses and inspect result distributions. Report a robust summary such as the median where appropriate. Without randomized condition order, practice and fatigue can confound comparisons."
+        }
+      ]
+    },
+    {
+      "id": "neurophysiology-evidence-and-localization",
+      "title": "Experimental neurophysiology: from structure to clinical localization",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "Multilevel explanation"
+        },
+        {
+          "type": "paragraph",
+          "text": "Neural phenomena must be considered at molecular, cellular, circuit, systems and behavioral levels. An action potential depends on ion-channel dynamics; axonal propagation depends on geometry and myelination; a reflex response depends on synaptic transmission and inhibition; and purposeful movement also requires descending control and sensory feedback. An observation at one level does not automatically predict a clinical symptom without examining the others. Distinguish an established mechanism from a hypothesis."
+        },
+        {
+          "type": "subheading",
+          "text": "How evidence is obtained"
+        },
+        {
+          "type": "paragraph",
+          "text": "In an electrophysiology experiment specify the intervention, measured variable, control condition, reproducibility and possible artifacts. Intracellular recording measures membrane voltage; patch clamp examines ionic currents; extracellular electrodes sample neuronal population activity; scalp EEG mainly reflects summed synchronized activity in large neural populations. None of these methods captures the entire nervous system. Interpretation requires attention to temperature, electrical noise, electrode position, physiological state and statistical uncertainty."
+        },
+        {
+          "type": "subheading",
+          "text": "Clinical localization as a physiological problem"
+        },
+        {
+          "type": "paragraph",
+          "text": "When a patient reports weakness, determine whether dysfunction involves the central motor command, descending pathways, motor neurons, peripheral nerves, neuromuscular junctions or muscle fibers. Upper motor neuron lesions may alter tone and tendon reflexes, whereas peripheral lesions often produce atrophy, reduced reflexes and a characteristic distribution of weakness. No single sign is absolute. Interpret history, power, reflexes, sensation, cranial nerve findings and investigations together."
+        },
+        {
+          "type": "subheading",
+          "text": "Worked teaching case"
+        },
+        {
+          "type": "paragraph",
+          "text": "A patient has impaired ankle dorsiflexion and reduced sensation over the dorsum of the foot. Common fibular nerve injury and L5 radiculopathy are competing hypotheses. Examine ankle inversion, eversion, sensory distribution, reflexes, back pain and electrodiagnostic findings. Preserved inversion with impaired eversion may favor a peripheral localization but cannot establish the diagnosis alone. Student task: trace the motor pathway from cortex to muscle, propose at least two lesion sites and identify findings that distinguish them."
+        }
+      ]
+    },
+    {
       id: "nervous-system",
       title: "1. General Organization of the Nervous System",
       blocks: [

@@ -1,8 +1,10 @@
 import type { Lesson } from "../../../types";
+import { moduleFourDetailedTheory } from "../../../course-foundation/module-four-detailed-theory";
 
 const lesson: Lesson = {
   title: "4-модуль. Мембраналық физиология: тыныштық потенциалы, иондық арналар және әрекет потенциалы",
   sections: [
+    ...moduleFourDetailedTheory("KZ"),
     {
       id: "learning-goals",
       title: "1. Оқу мақсаттары және қызметтік анатомия",

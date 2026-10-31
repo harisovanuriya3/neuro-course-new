@@ -62,7 +62,14 @@ const visualFiles = [
 ].map((match) => match[1]);
 assert.equal(visualFiles.length, new Set(visualFiles).size, "Anatomy registries must not repeat the same image file");
 assert(visualFiles.length >= 50, "The 25 modules must retain a rich set of at least 50 unique curated visuals");
-assert(sectionPage.includes("section === 'theory' || section === 'practice'"), "Curated visuals must appear in both theory and practice");
+const sectionContent = fs.readFileSync(path.join(root, "components/SectionContent.tsx"), "utf8");
+assert(sectionContent.includes('<AnatomyReference moduleId={Number(moduleId)} language={language} />') &&
+  sectionContent.includes('<AdvancedAnatomyReference moduleId={Number(moduleId)} language={language} />'),
+  "Theory must include both curated anatomy registries");
+assert(sectionPage.includes("section === 'practice' || section === 'media'") &&
+  sectionPage.includes("<AnatomyReference moduleId={moduleNumber} language={lang} />") &&
+  sectionPage.includes("<AdvancedAnatomyReference moduleId={moduleNumber} language={lang} />"),
+  "Practice and media must retain curated anatomy references");
 for (const file of ["Peripheral_nerve,_cross_section.jpg", "Spatial_summation.svg", "Spinal_cord_tracts_-_English.svg"]) {
   assert(anatomyReference.includes(file), `Anatomy registry must retain ${file}`);
 }
