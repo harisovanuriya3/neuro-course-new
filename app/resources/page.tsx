@@ -111,6 +111,9 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                 <Link href={`/modules/${moduleId}/practice?lang=${lang}`}>{t.practice}</Link>
                 <Link href={`/modules/${moduleId}/media?lang=${lang}`}>{t.media}</Link>
                 <Link href={`/modules/${moduleId}/interactive?lang=${lang}`}>{t.lab}</Link>
+                {moduleId === 16 && <Link href={`/module-16-lab?lang=${lang}`}>{lang === "RU" ? "Лаборатория лимбической системы" : lang === "EN" ? "Limbic system laboratory" : "Лимбиялық жүйе зертханасы"}</Link>}
+                {moduleId === 17 && <Link href={`/module-17-lab?lang=${lang}`}>{lang === "RU" ? "Лаборатория эмоционального обучения" : lang === "EN" ? "Emotional learning laboratory" : "Эмоциялық үйрену зертханасы"}</Link>}
+                {moduleId === 18 && <Link href={`/module-18-lab?lang=${lang}`}>{lang === "RU" ? "Лаборатория корковой локализации" : lang === "EN" ? "Cortical localization laboratory" : "Қыртыстық локализация зертханасы"}</Link>}
                 <Link href={`/modules/${moduleId}/virtual-patient?lang=${lang}`}>{t.patient}</Link>
               </div>
 
