@@ -140,6 +140,10 @@ export default async function ModulePage({
         <ModuleSidebar moduleNumber={moduleNumber} lang={lang} />
         <div style={{minWidth:0}}>
         <SectionStudyTools language={lang} moduleNumber={moduleNumber} section="overview" />
+        {[16,17,18].includes(moduleNumber) && <section style={{padding:16,border:"1px solid #b7c8e9",borderRadius:12,marginBottom:16,background:"#eef2ff"}}>
+          <h2>{lang === "RU" ? "Специализированная виртуальная лаборатория" : lang === "EN" ? "Specialized virtual laboratory" : "Арнайы виртуалды зертхана"}</h2>
+          <Link href={`/module-${moduleNumber}-lab?lang=${lang}`}>{lang === "RU" ? "Открыть лабораторию" : lang === "EN" ? "Open laboratory" : "Зертхананы ашу"}</Link>
+        </section>
         <div id="course-section-search-root">
         {/* Верхняя строка */}
 
