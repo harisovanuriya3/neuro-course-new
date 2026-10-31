@@ -14,6 +14,7 @@ import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { createModuleSixteenTheory } from "./module-sixteen-theory";
 import { createModuleSixteenPretest } from "./module-sixteen-pretest";
 import { extendModuleSixteenQuestionBank } from "./module-sixteen-expanded-questions";
+import { extendModuleSixteenFinalTest } from "./module-sixteen-final-test";
 import { extendModuleSixteenCases, extendModuleSixteenPractice } from "./module-sixteen-activities";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
@@ -1422,4 +1423,10 @@ for (const language of ["RU","EN","KZ"] as const) {
  if (cases?.kind === "cases") foundationLessons[16].cases![language] = extendModuleSixteenCases(language,cases);
  const practice = foundationLessons[16]?.practice?.[language];
  if (practice?.kind === "practice") foundationLessons[16].practice![language] = extendModuleSixteenPractice(language,practice);
+}
+
+// Module 16 final exam: subject-specific branching questions after foundation QA items.
+for (const language of ["RU","EN","KZ"] as const) {
+ const test=foundationLessons[16]?.tests?.[language];
+ if(test?.kind==="tests") foundationLessons[16].tests![language]=extendModuleSixteenFinalTest(language,test);
 }
