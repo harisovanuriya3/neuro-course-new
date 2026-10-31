@@ -12,6 +12,7 @@ import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { createModuleEighteenTheory } from "./module-eighteen-theory";
+import { extendModuleEighteenCases, extendModuleEighteenPractice } from "./module-eighteen-activities";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
@@ -1403,3 +1404,5 @@ if (foundationLessons[13]) {
 }
 
 for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[18]?.theory?.[language];if(base?.kind==="theory")foundationLessons[18]!.theory![language]=createModuleEighteenTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[18]?.cases?.[language];if(c?.kind==="cases")foundationLessons[18]!.cases![language]=extendModuleEighteenCases(language,c);const p=foundationLessons[18]?.practice?.[language];if(p?.kind==="practice")foundationLessons[18]!.practice![language]=extendModuleEighteenPractice(language,p);}
