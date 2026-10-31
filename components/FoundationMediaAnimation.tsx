@@ -17,15 +17,11 @@ export default function FoundationMediaAnimation({ moduleId, language }: { modul
 
   useEffect(() => {
     if (!playing) return;
-    const timer = window.setTimeout(() => {
-      setStep(current => {
-        if (current >= 3) {
-          setPlaying(false);
-          return current;
-        }
-        return current + 1;
-      });
-    }, 3500);
+    if (step >= 3) {
+      setPlaying(false);
+      return;
+    }
+    const timer = window.setTimeout(() => setStep(current => Math.min(3, current + 1)), 3500);
     return () => window.clearTimeout(timer);
   }, [playing, step]);
 
