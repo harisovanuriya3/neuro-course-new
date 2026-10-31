@@ -390,6 +390,26 @@ function create(
                   : 'Механизмді өз сөзіңізбен түсіндіріңіз, өзгеретін физиологиялық шаманы және күтілетін бақылауды атаңыз. Жауабыңызды механизм және түсіндіру бөлімдерімен салыстырыңыз.' },
           ],
         },
+        ...(topic.id === 20 ? [
+          {
+            id: 'visual-retinal-circuit',
+            title: language === 'RU' ? 'Сетчатка: фототрансдукция и обработка сигнала' : language === 'EN' ? 'Retina: phototransduction and signal processing' : 'Торқабық: фототрансдукция және сигналды өңдеу',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Свет активирует опсин в палочках и колбочках, запускает каскад трансдуцина и фосфодиэстеразы, снижает концентрацию цГМФ и закрывает цГМФ-зависимые катионные каналы наружного сегмента. Фоторецептор гиперполяризуется и уменьшает выделение глутамата. ON- и OFF-биполярные клетки реагируют на это изменение противоположным образом благодаря разным типам рецепторов. Горизонтальные и амакриновые клетки формируют пространственную и временную обработку, а ганглиозные клетки передают потенциалы действия по зрительному нерву.'
+              : language === 'EN'
+                ? 'Light activates opsin in rods and cones, triggering the transducin–phosphodiesterase cascade, reducing cGMP and closing cGMP-gated cation channels in the outer segment. Photoreceptors hyperpolarize and release less glutamate. ON and OFF bipolar cells respond oppositely because of different receptor mechanisms. Horizontal and amacrine cells shape spatial and temporal processing, while retinal ganglion cells send action potentials along the optic nerve.'
+                : 'Жарық таяқшалар мен сауытшалардағы опсинді белсендіріп, трансдуцин–фосфодиэстераза каскадын іске қосады, цГМФ мөлшерін азайтады және сыртқы сегменттің цГМФ-тәуелді катиондық арналарын жабады. Фоторецептор гиперполяризацияланып, глутамат бөлінуін азайтады. ON және OFF биполярлық жасушалар әртүрлі рецепторлық механизмдерге байланысты қарама-қарсы жауап береді. Горизонталдық және амакриндік жасушалар кеңістіктік әрі уақыттық өңдеуге қатысады, ал ганглиоздық жасушалар әрекет потенциалдарын көру нервімен өткізеді.' }],
+          },
+          {
+            id: 'visual-pathway-localization',
+            title: language === 'RU' ? 'Зрительные пути и локализация дефектов поля зрения' : language === 'EN' ? 'Visual pathways and visual-field localization' : 'Көру жолдары және көру өрісі ақауын локализациялау',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'В хиазме перекрещиваются преимущественно аксоны ганглиозных клеток носовых половин сетчатки; волокна височных половин остаются на своей стороне. Поэтому зрительный тракт несёт информацию о противоположной половине зрительного поля обоих глаз. Поражение хиазмы часто вызывает битемпоральную гемианопсию, а ретрохиазмальное поражение — контралатеральный гомонимный дефект. Повреждение височной петли Мейера вызывает контралатеральную верхнеквадрантную гемианопсию, поскольку она несёт сигналы от нижних отделов сетчатки. Локализацию уточняют периметрией и нейровизуализацией.'
+              : language === 'EN'
+                ? 'At the optic chiasm, axons from nasal retinal hemifields predominantly cross, whereas temporal retinal axons remain ipsilateral. Each optic tract therefore carries information from the opposite visual hemifield of both eyes. Chiasmal lesions often produce bitemporal hemianopia, while retrochiasmal lesions produce contralateral homonymous field defects. Injury to the temporal Meyer loop causes contralateral superior quadrantanopia because it carries signals from the inferior retina. Perimetry and neuroimaging help refine localization.'
+                : 'Көру хиазмасында торқабықтың мұрындық жартысынан шыққан аксондар негізінен айқасады, ал самайлық жартысының талшықтары өз жағында қалады. Сондықтан әр көру тракты екі көздің қарама-қарсы көру жарты өрісінен ақпарат өткізеді. Хиазма зақымы жиі битемпоралдық гемианопсияға, ал хиазмадан кейінгі зақым қарама-қарсы гомонимдік ақауға әкеледі. Самайдағы Мейер ілмегі зақымданса, торқабықтың төменгі бөлігінен сигнал өткізетіндіктен қарама-қарсы жоғарғы квадранттық гемианопсия туындайды. Локализация периметрия және нейровизуализация арқылы нақтыланады.' }],
+          },
+        ] : []),
         ...(topic.id === 19 ? [
           {
             id: 'somatosensory-pathways',
