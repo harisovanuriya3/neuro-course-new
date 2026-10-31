@@ -11,7 +11,8 @@ const requiredMechanisms = {
 for (const language of ["RU", "EN", "KZ"]) {
   const lesson = getLesson(6, "theory", language);
   assert.equal(lesson?.kind, "theory", `Module 6 ${language}: localized theory is registered`);
-  assert.equal(lesson.sections.length, 8, `Module 6 ${language}: all eight theory sections are present`);
+  assert(lesson.sections.length >= 8, `Module 6 ${language}: original theory preserved`);
+  assert(lesson.sections.some(section => section.id === "dendritic-integration-network-inhibition"), `Module 6 ${language}: missing expanded theory`);
   const ids = lesson.sections.map(section => section.id);
   assert.equal(new Set(ids).size, ids.length, `Module 6 ${language}: section anchors are unique`);
   assert(lesson.outcomes.items.length >= 7, `Module 6 ${language}: measurable learning outcomes are present`);
