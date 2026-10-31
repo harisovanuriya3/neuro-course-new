@@ -16,6 +16,7 @@ import { moduleTwoExpandedTheory } from "./module-two-expanded-theory";
 import { moduleThreeDetailedTheory } from "./module-three-detailed-theory";
 import { moduleFourDetailedTheory } from "./module-four-detailed-theory";
 import { moduleFourPracticalStations } from "./module-four-practical-stations";
+import { moduleFivePracticalStations } from "./module-five-practical-stations";
 import { moduleThreePracticalStations } from "./module-three-practical-stations";
 import { moduleTwoPracticalStations } from "./module-two-practical-stations";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
@@ -1052,6 +1053,7 @@ function create(
         ...(topic.id === 2 ? moduleTwoPracticalStations(language) : []),
         ...(topic.id === 3 ? moduleThreePracticalStations(language) : []),
         ...(topic.id === 4 ? moduleFourPracticalStations(language) : []),
+        ...(topic.id === 5 ? moduleFivePracticalStations(language) : []),
         {
           title: c.task,
 
