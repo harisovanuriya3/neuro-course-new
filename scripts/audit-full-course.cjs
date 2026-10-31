@@ -60,8 +60,11 @@ for (const language of langs) {
       !text(stage.situation) || !text(stage.task) || !text(stage.mechanism) ||
       !Array.isArray(stage.options) || stage.options.length !== 3 ||
       !Number.isInteger(stage.correctOption) || stage.correctOption < 0 || stage.correctOption >= 3 ||
-      stage.options.some(option => !text(option.text) || !text(option.feedback))
+      stage.options.some(option => !text(option.text) || !text(option.feedback)) ||
+      new Set(stage.options.map(option => norm(option.text))).size !== 3
     );
+    const patientStageIds = authoredPatientStages.map(stage => stage.id);
+    const duplicatePatientStageIds = patientStageIds.length - new Set(patientStageIds).size;
     rows.push({
       moduleId, language,
       sections: lessonSections.length - missingSections.length,
@@ -79,6 +82,7 @@ for (const language of langs) {
       duplicateTestPrompts,
       patientStages: authoredPatientStages.length || patientStages.length,
       patientProblems: patientProblems.length,
+      duplicatePatientStageIds,
       patientSource: patientStages.length > 0 ? "lesson-stages" : patientSource === "lesson" ? "no-lesson-stages" : patientSource,
     });
   }
@@ -94,6 +98,7 @@ for (const row of rows) {
   assert(row.mainTests > 0, `Module ${row.moduleId} ${row.language} has no main tests`);
   assert.equal(row.patientStages, 6, `Module ${row.moduleId} ${row.language} must have six virtual-patient stages`);
   assert.equal(row.patientProblems, 0, `Module ${row.moduleId} ${row.language} has incomplete virtual-patient decisions`);
+  assert.equal(row.duplicatePatientStageIds, 0, `Module ${row.moduleId} ${row.language} has duplicate virtual-patient stage IDs`);
 }
 
 const anatomy = fs.readFileSync(path.join(root,"components/AnatomyReference.tsx"),"utf8");
