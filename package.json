@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "audit:course": "node scripts/audit-course.cjs && node scripts/check-module4-theory.cjs && node scripts/check-module5-theory.cjs && node scripts/check-module6-theory.cjs && node scripts/check-evoked-infographic.cjs && node scripts/check-resource-library.cjs && node scripts/validate-references.cjs && node scripts/validate-interactive.cjs && node scripts/validate-practical-stations.cjs && node scripts/validate-activity-clarity.cjs && npm run check:review",
+    "audit:course": "node scripts/audit-course.cjs && node scripts/audit-full-course.cjs && node scripts/check-module4-theory.cjs && node scripts/check-module5-theory.cjs && node scripts/check-module6-theory.cjs && node scripts/check-evoked-infographic.cjs && node scripts/check-resource-library.cjs && node scripts/validate-references.cjs && node scripts/validate-interactive.cjs && node scripts/validate-practical-stations.cjs && node scripts/validate-activity-clarity.cjs && npm run check:review",
     "validate:interactive": "node scripts/validate-interactive.cjs",
     "validate:stations": "node scripts/validate-practical-stations.cjs",
     "validate:clarity": "node scripts/validate-activity-clarity.cjs",
@@ -12,7 +12,8 @@
     "start": "next start",
     "check:review": "node scripts/check-course-review.cjs",
     "check:study-tools": "node scripts/check-study-tools.cjs",
-    "audit:coverage": "node scripts/audit-content-coverage.cjs"
+    "audit:coverage": "node scripts/audit-content-coverage.cjs",
+    "audit:full": "node scripts/audit-full-course.cjs"
   },
   "dependencies": {
     "next": "16.3.5",
