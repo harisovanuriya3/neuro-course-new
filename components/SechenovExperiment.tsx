@@ -10,7 +10,7 @@ const copy = {
   RU: {
     title: "Классический опыт Сеченова: центральное торможение",
     intro: "Воспроизведите исторический опыт на виртуальном препарате лягушки. Раздражитель действует на лапку; кристалл NaCl на области зрительных бугров усиливает нисходящее торможение спинального рефлекса.",
-    ethics: "Только цифровая учебная модель. Животное не используется; лабораторные манипуляции показаны исторически и схематично.",
+    ethics: "Только цифровая учебная модель. Животное не используется; лабораторные манипуляции показаны исторически и схематично. Численные значения латентного времени условны, не получены из экспериментальных данных и не предназначены для клинической интерпретации.",
     condition: "Условие опыта", baseline: "До нанесения NaCl", salt: "Кристалл NaCl", wash: "После промывания",
     strength: "Сила раздражителя", predict: "Ваш прогноз", shorter: "Латентность уменьшится", longer: "Латентность увеличится", absent: "Ответ исчезнет",
     run: "Запустить опыт", reset: "Сбросить", latency: "Латентное время", response: "Результат",
@@ -24,7 +24,7 @@ const copy = {
   EN: {
     title: "Sechenov’s classic experiment: central inhibition",
     intro: "Reproduce the historical experiment using a virtual frog preparation. The foot receives a stimulus; a NaCl crystal over the optic-thalamic region strengthens descending inhibition of the spinal reflex.",
-    ethics: "Digital teaching model only. No animal is used; historical laboratory manipulations are represented schematically.",
+    ethics: "Digital teaching model only. No animal is used; historical laboratory manipulations are represented schematically. Reflex latency values are illustrative, not derived from experimental data, and must not be interpreted clinically.",
     condition: "Experimental condition", baseline: "Before NaCl", salt: "NaCl crystal", wash: "After washout",
     strength: "Stimulus strength", predict: "Your prediction", shorter: "Latency decreases", longer: "Latency increases", absent: "Response disappears",
     run: "Run experiment", reset: "Reset", latency: "Reflex latency", response: "Result",
@@ -38,7 +38,7 @@ const copy = {
   KZ: {
     title: "Сеченовтің классикалық тәжірибесі: орталық тежелу",
     intro: "Тарихи тәжірибені виртуалды бақа препаратымен орындаңыз. Тітіркендіргіш аяққа әсер етеді; көру төмпешіктері аймағындағы NaCl кристалы жұлын рефлексінің төмендеуші тежелуін күшейтеді.",
-    ethics: "Тек цифрлық оқу моделі. Жануар қолданылмайды; тарихи зертханалық әрекеттер сызбалық түрде көрсетілген.",
+    ethics: "Тек цифрлық оқу моделі. Жануар қолданылмайды; тарихи зертханалық әрекеттер сызбалық түрде көрсетілген. Рефлекстің латентті уақыт мәндері шартты, тәжірибелік деректерден алынбаған және клиникалық түсіндіруге арналмаған.",
     condition: "Тәжірибе шарты", baseline: "NaCl-ға дейін", salt: "NaCl кристалы", wash: "Жуғаннан кейін",
     strength: "Тітіркендіргіш күші", predict: "Сіздің болжамыңыз", shorter: "Латенттілік азаяды", longer: "Латенттілік артады", absent: "Жауап жоғалады",
     run: "Тәжірибені бастау", reset: "Қалпына келтіру", latency: "Латентті уақыт", response: "Нәтиже",
