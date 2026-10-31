@@ -6,6 +6,7 @@ import {moduleTenClinicalCases} from "./module-ten-clinical-cases";
 import {moduleElevenClinicalCases} from "./module-eleven-applied";
 import {moduleTwelveClinicalCases} from "./module-twelve-applied";
 import {moduleThirteenClinicalCases} from "./module-thirteen-comprehensive";
+import {moduleFifteenClinicalCases} from "./module-fifteen-applied";
 import {module5Cases} from "./module5-cases";
 import {module6Cases} from "./module6-cases";
 import {withModule4Questions} from "./module4-tests";
@@ -147,6 +148,7 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
  if(topic.id===11) lesson.cases.push(...moduleElevenClinicalCases(l));
  if(topic.id===12) lesson.cases.push(...moduleTwelveClinicalCases(l));
  if(topic.id===13) lesson.cases.push(...moduleThirteenClinicalCases(l));
+ if(topic.id===15) lesson.cases.push(...moduleFifteenClinicalCases(l));
  for (const item of additionalCases[topic.id]??[]) {
   const [id,titleRU,titleEN,titleKZ,sitRU,sitEN,sitKZ,expRU,expEN,expKZ]=item;
   lesson.cases.push({id:`m${topic.id}-${id}`,title:l==="RU"?titleRU:l==="EN"?titleEN:titleKZ,situation:l==="RU"?sitRU:l==="EN"?sitEN:sitKZ,
