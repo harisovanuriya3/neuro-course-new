@@ -270,9 +270,9 @@ export default async function SectionPage({
           ) : moduleNumber === 8 && section === "interactive" ? (
             <><PathwayLab language={lang} /><section id="pathway-anatomy" aria-label={lang === "RU" ? "Анатомия проводящих путей" : lang === "EN" ? "Pathway anatomy" : "Өткізгіш жолдар анатомиясы"}><AdvancedAnatomyReference moduleId={8} language={lang} /></section></>
           ) : moduleNumber === 9 && section === "interactive" ? (
-            <SpinalRegulationLab language={lang} />
+            <><SpinalRegulationLab language={lang} /><section id="spinal-regulation-anatomy" aria-label={lang === "RU" ? "Анатомия спинальной регуляции" : lang === "EN" ? "Spinal regulation anatomy" : "Жұлындық реттелу анатомиясы"}><AdvancedAnatomyReference moduleId={9} language={lang} /></section></>
           ) : moduleNumber === 10 && section === "interactive" ? (
-            <BrainstemLab language={lang} />
+            <><BrainstemLab language={lang} /><section id="brainstem-anatomy" aria-label={lang === "RU" ? "Анатомия ствола мозга" : lang === "EN" ? "Brainstem anatomy" : "Ми бағанының анатомиясы"}><AdvancedAnatomyReference moduleId={10} language={lang} /></section></>
           ) : moduleNumber === 11 && section === "interactive" ? (
             <MotorControlLab language={lang} />
           ) : moduleNumber === 12 && section === "interactive" ? (
