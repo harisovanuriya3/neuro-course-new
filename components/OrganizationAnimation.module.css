@@ -1,7 +1,12 @@
 .player { min-width: 0; padding: clamp(12px, 2vw, 20px); border: 1px solid #b6c9d9; border-radius: 12px; background: #f4f8fc; }
 .player h3 { margin-top: 0; }
 .visual { background: #fff; border: 1px solid #d4e0ea; border-radius: 10px; padding: 12px; }
-.anatomySequence { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 10px; }
+.anatomySequence { display: grid; gap: 10px; }
+.overviewPanel { margin: 0; padding: 10px; border: 1px solid #bfd2de; border-radius: 12px; background: #fff; }
+.overviewPanel img { display: block; width: 100%; max-height: 560px; object-fit: contain; border-radius: 8px; }
+.overviewPanel figcaption { margin-top: 8px; font-weight: 800; color: #07587e; }
+.signalBand { padding: 10px 14px; border-radius: 999px; background: linear-gradient(90deg,#d9f0fb,#e8f7ed,#d9f0fb); color: #004f73; font-weight: 800; text-align: center; overflow: hidden; }
+.signalBand span { display: inline-block; }
 .anatomyPanel { min-width: 0; margin: 0; padding: 8px; border: 3px solid transparent; border-radius: 10px; background: #f7fafc; opacity: 0.68; transition: border-color .25s ease, opacity .25s ease, transform .25s ease; }
 .anatomyPanel[data-active="true"] { border-color: #007196; opacity: 1; transform: translateY(-3px); box-shadow: 0 5px 16px rgba(0, 71, 106, .16); }
 .photo { position: relative; min-height: 210px; overflow: hidden; border-radius: 7px; background: #e7edf1; }
