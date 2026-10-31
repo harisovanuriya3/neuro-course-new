@@ -86,6 +86,7 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
         <h1>{t.title}</h1>
         <p>{t.intro}</p>
         <p className={styles.reviewNote}>{t.note}</p>
+        <p><Link href={`/exam?lang=${lang}`}>{lang === "RU" ? "Перейти к итоговому экзамену по 25 модулям" : lang === "EN" ? "Open the final exam for all 25 modules" : "25 модуль бойынша қорытынды емтиханға өту"}</Link></p>
       </header>
 
       <nav className={styles.jump} aria-label={t.title}>
