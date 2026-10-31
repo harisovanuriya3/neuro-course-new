@@ -19,6 +19,16 @@ for(const lang of ["RU","EN","KZ"]){
  const questions=Object.values(tests.nodes).filter(n=>n.type==="question");
  assert(questions.length>=20,lang+": fewer than 20 exam questions");
  for(const q of questions){assert(q.options?.some(o=>o.id===q.correctAnswer),lang+": missing answer "+q.id);assert.equal(new Set(q.options.map(o=>o.text.trim().toLocaleLowerCase())).size,q.options.length,lang+": duplicate options "+q.id);}
+ const caseSituations=cases.cases.map(c=>c.situation.trim().toLocaleLowerCase());
+ assert.equal(new Set(caseSituations).size,caseSituations.length,lang+": duplicate clinical situations");
+ for(const c of cases.cases){
+  assert(c.stages?.length>0 && c.stages.every(stage=>stage.questions?.length>0),lang+": missing reasoning prompts "+c.id);
+  assert(c.explanation?.length>0 && c.explanation.every(t=>typeof t==="string"&&t.trim().length>=25),lang+": missing substantive case explanation "+c.id);
+ }
+ for(const q of questions){
+  assert(q.options?.length>=3,lang+": too few options "+q.id);
+  assert(q.options.every(o=>typeof o.text==="string"&&o.text.trim().length>0),lang+": blank answer option "+q.id);
+ }
  snapshots[lang]={ids,caseIds:cases.cases.map(c=>c.id)};
 }
 for(const lang of ["EN","KZ"]){assert.deepEqual(snapshots[lang].ids,snapshots.RU.ids);assert.deepEqual(snapshots[lang].caseIds,snapshots.RU.caseIds);}
