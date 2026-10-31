@@ -1,3 +1,8 @@
+import { createModuleFifteenTheory } from "./module-fifteen-theory";
+import { createModuleSixteenTheory } from "./module-sixteen-theory";
+import { createModuleSeventeenTheory } from "./module-seventeen-theory";
+import { createModuleEighteenTheory } from "./module-eighteen-theory";
+import { createModuleNineteenTheory } from "./module-nineteen-theory";
 import { createModuleTwentyFourSleepTheory } from "./module-twenty-four-sleep-theory";
 import { extendModuleTwentyFourCases, extendModuleTwentyFourPractice } from "./module-twenty-four-activities";
 import { createModuleTwentyFourPretest } from "./module-twenty-four-pretest";
@@ -1683,5 +1688,85 @@ if (foundationLessons[25]) {
     }
     const test = module.tests?.[language];
     if (test?.kind === "tests") module.tests![language] = extendModuleTwentyFiveFinalTest(language, test);
+  }
+}
+
+if (foundationLessons[15]?.theory) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const existing = foundationLessons[15].theory?.[language];
+    if (existing?.kind === "theory") {
+      const expanded = createModuleFifteenTheory(language, existing);
+      const seen = new Set<string>();
+      foundationLessons[15].theory![language] = { ...expanded, sections: expanded.sections.filter(item => {
+        if (!item.id) return true;
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      }) };
+    }
+  }
+}
+
+if (foundationLessons[16]?.theory) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const existing = foundationLessons[16].theory?.[language];
+    if (existing?.kind === "theory") {
+      const expanded = createModuleSixteenTheory(language, existing);
+      const seen = new Set<string>();
+      foundationLessons[16].theory![language] = { ...expanded, sections: expanded.sections.filter(item => {
+        if (!item.id) return true;
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      }) };
+    }
+  }
+}
+
+if (foundationLessons[17]?.theory) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const existing = foundationLessons[17].theory?.[language];
+    if (existing?.kind === "theory") {
+      const expanded = createModuleSeventeenTheory(language, existing);
+      const seen = new Set<string>();
+      foundationLessons[17].theory![language] = { ...expanded, sections: expanded.sections.filter(item => {
+        if (!item.id) return true;
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      }) };
+    }
+  }
+}
+
+if (foundationLessons[18]?.theory) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const existing = foundationLessons[18].theory?.[language];
+    if (existing?.kind === "theory") {
+      const expanded = createModuleEighteenTheory(language, existing);
+      const seen = new Set<string>();
+      foundationLessons[18].theory![language] = { ...expanded, sections: expanded.sections.filter(item => {
+        if (!item.id) return true;
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      }) };
+    }
+  }
+}
+
+if (foundationLessons[19]?.theory) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const existing = foundationLessons[19].theory?.[language];
+    if (existing?.kind === "theory") {
+      const expanded = createModuleNineteenTheory(language, existing);
+      const seen = new Set<string>();
+      foundationLessons[19].theory![language] = { ...expanded, sections: expanded.sections.filter(item => {
+        if (!item.id) return true;
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      }) };
+    }
   }
 }
