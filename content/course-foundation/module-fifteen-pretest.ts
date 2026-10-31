@@ -1,4 +1,5 @@
-import type { Language, PretestLesson } from "../types";
+import type { Language } from "../types";
+import type { PretestLesson } from "../study";
 const questions = [
   {
     "key": "vasopressin",
