@@ -1,0 +1,18 @@
+const assert=require("node:assert/strict");
+const fs=require("node:fs");
+const read=p=>fs.readFileSync(p,"utf8");
+const foundation=read("content/course-foundation/index.ts");
+const theory=read("content/course-foundation/module-twenty-three-theory.ts");
+const activities=read("content/course-foundation/module-twenty-three-activities.ts");
+const pretest=read("content/course-foundation/module-twenty-three-pretest.ts");
+const finalTest=read("content/course-foundation/module-twenty-three-final-test.ts");
+const section=read("app/modules/[id]/[section]/page.tsx");
+for(const name of ["createModuleTwentyThreeTheory","extendModuleTwentyThreeCases","extendModuleTwentyThreePractice","createModuleTwentyThreePretest","extendModuleTwentyThreeFinalTest"])assert(foundation.includes(name),"Missing integration "+name);
+for(const id of ["learning","memory","plasticity","language","executive","behavior"])assert(theory.includes('id:'+JSON.stringify(id))||theory.includes('"'+id+'"'),"Missing theory topic "+id);
+assert(activities.includes("module-23-clinical-"),"Missing clinical cases");
+assert(activities.includes('type:"answer"'),"Missing practice feedback");
+assert(pretest.includes("module-23-pretest-"),"Missing pretest");
+assert(finalTest.includes("mainIds:[...base.mainIds,...ids]"),"Missing final assessment");
+assert(section.includes("LearningMemoryLab"),"Learning and memory laboratory must be retained");
+assert(section.includes("section === 'theory' || section === 'practice'"),"Curated anatomy must be in theory and practice");
+console.log("Module 23 source integration QA passed.");
