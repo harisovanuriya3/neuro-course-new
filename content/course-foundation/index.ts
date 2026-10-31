@@ -13,6 +13,7 @@ import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { createModuleSixteenTheory } from "./module-sixteen-theory";
 import { createModuleSixteenPretest } from "./module-sixteen-pretest";
+import { extendModuleSixteenCases, extendModuleSixteenPractice } from "./module-sixteen-activities";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
@@ -1412,4 +1413,12 @@ if (foundationLessons[16]) foundationLessons[16].pretest = {
 for (const language of ["RU","EN","KZ"] as const) {
  const base = foundationLessons[16]?.theory?.[language];
  if (base?.kind === "theory") foundationLessons[16].theory![language] = createModuleSixteenTheory(language,base);
+}
+
+// Preserve existing clinical cases and practice; append reviewed authored exercises.
+for (const language of ["RU","EN","KZ"] as const) {
+ const cases = foundationLessons[16]?.cases?.[language];
+ if (cases?.kind === "cases") foundationLessons[16].cases![language] = extendModuleSixteenCases(language,cases);
+ const practice = foundationLessons[16]?.practice?.[language];
+ if (practice?.kind === "practice") foundationLessons[16].practice![language] = extendModuleSixteenPractice(language,practice);
 }
