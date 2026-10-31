@@ -4,6 +4,52 @@ const lesson: Lesson = {
   title: "Module 1. Introduction to Neurophysiology",
   sections: [
     {
+      "id": "reflex-circuits-and-clinical-reasoning",
+      "title": "Neural circuits, reflex regulation and clinical reasoning",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "From receptor to effector"
+        },
+        {
+          "type": "paragraph",
+          "text": "A functional reflex circuit includes sensory receptors, afferent neurons, central synaptic connections, efferent neurons and effectors. The number of synapses and degree of central processing vary. In the stretch reflex, Ia muscle-spindle afferents excite alpha motor neurons of the same muscle through a relatively short pathway, while reciprocal inhibition of antagonists requires additional interneurons. Protective withdrawal involves polysynaptic networks and depends on stimulus properties and descending modulation. A reflex is not necessarily independent of cortical and brainstem influences."
+        },
+        {
+          "type": "subheading",
+          "text": "Feedback and control stability"
+        },
+        {
+          "type": "paragraph",
+          "text": "Neural control often uses negative feedback: deviation of a regulated variable activates sensors and generates an output opposing the disturbance. Postural control integrates muscle spindle and tendon-organ information with central motor commands. Not all control is purely feedback-based: anticipatory adjustments use internal predictions. Identify the regulated variable, receptor, central processing, effector, response delay and limitations. A stable outcome does not imply that every underlying neural signal remains constant."
+        },
+        {
+          "type": "subheading",
+          "text": "Excitation, inhibition and response threshold"
+        },
+        {
+          "type": "paragraph",
+          "text": "Excitatory postsynaptic currents can increase spike probability, while inhibition can reduce it by hyperpolarizing or shunting the membrane. Effects depend on ionic reversal potentials, synapse location and timing. Action potentials are commonly initiated near the axon initial segment when threshold conditions are reached, but threshold is not a fixed universal voltage: prior activity and channel state matter. The rule 'one excitatory synapse equals one action potential' is false. Distinguish graded postsynaptic potentials from regenerative action potentials."
+        },
+        {
+          "type": "subheading",
+          "text": "Clinical case: tendon reflex and localization"
+        },
+        {
+          "type": "paragraph",
+          "text": "After an injury, a patient has a reduced knee-jerk reflex and weakness of knee extension. Examine quadriceps power, relevant dermatomal sensation, other tendon reflexes, pain and signs of femoral nerve or L2–L4 root dysfunction. A depressed reflex alone cannot distinguish damage to afferent, central or efferent components. Task: trace the reflex arc, propose three competing lesion sites and identify findings that could discriminate between them. Explain why a single bedside sign does not establish a diagnosis."
+        },
+        {
+          "type": "subheading",
+          "text": "Experimental design and measurement quality"
+        },
+        {
+          "type": "paragraph",
+          "text": "Simple reflex latency and voluntary reaction time are not equivalent. A visual choice reaction includes sensory encoding, central processing, decision making and motor execution; it is not a direct measure of conduction velocity in one nerve. Standardize stimulus distance, illumination, instructions and trial number; exclude anticipatory responses and inspect result distributions. Report a robust summary such as the median where appropriate. Without randomized condition order, practice and fatigue can confound comparisons."
+        }
+      ]
+    },
+    {
       "id": "neurophysiology-evidence-and-localization",
       "title": "Experimental neurophysiology: from structure to clinical localization",
       "blocks": [
