@@ -9,7 +9,7 @@ for(const lang of ["RU","EN","KZ"]){
  assert(theory&&practice&&cases&&tests&&media,`${lang}: missing module 3 section`);
  validateTest(tests);
  const names=theory.sections.map(s=>s.id);
- for(const name of ["neuron-compartments","glial-physiology","myelin-clinical"])assert(names.includes(name),`${lang}: missing ${name}`);
+ for(const name of ["neuron-compartments","glial-physiology","myelin-clinical","membrane-transport","synaptic-physiology","blood-brain-barrier","glia-clinical"])assert(names.includes(name),`${lang}: missing ${name}`);
  assert.equal(new Set(names).size,names.length,`${lang}: duplicate theory IDs`);
  assert(cases.cases.length>=20,`${lang}: insufficient clinical cases`);
  assert.equal(new Set(cases.cases.map(c=>c.id)).size,cases.cases.length,`${lang}: duplicate cases`);
