@@ -20,6 +20,7 @@ import { moduleEightDetailedTheory } from "./module-eight-detailed-theory";
 import { moduleNineDetailedTheory } from "./module-nine-detailed-theory";
 import { moduleTenDetailedTheory } from "./module-ten-detailed-theory";
 import { moduleElevenDetailedTheory } from "./module-eleven-detailed-theory";
+import { moduleTwelveDetailedTheory } from "./module-twelve-detailed-theory";
 import { moduleElevenPracticalStations } from "./module-eleven-applied";
 import { moduleFourPracticalStations } from "./module-four-practical-stations";
 import { moduleFivePracticalStations } from "./module-five-practical-stations";
@@ -662,6 +663,7 @@ function create(
         ...(topic.id === 9 ? moduleNineDetailedTheory(language) : []),
         ...(topic.id === 10 ? moduleTenDetailedTheory(language) : []),
         ...(topic.id === 11 ? moduleElevenDetailedTheory(language) : []),
+        ...(topic.id === 12 ? moduleTwelveDetailedTheory(language) : []),
         ...(topic.id === 3 ? [{
           id: 'brain-microenvironment',
           title: language === 'RU' ? 'Микросреда мозга: ГЭБ и ликвор' : language === 'EN' ? 'Brain microenvironment: BBB and CSF' : 'Ми микроортасы: ГЭБ және ликвор',
