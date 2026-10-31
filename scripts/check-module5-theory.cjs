@@ -24,7 +24,8 @@ for (const language of ["RU", "EN", "KZ"]) {
   assert.equal(lesson?.kind, "theory", `Module 5 ${language}: localized theory is registered`);
 
   const ids = lesson.sections.map(section => section.id);
-  assert.deepEqual(ids, expectedSectionIds, `Module 5 ${language}: all nine theory sections are present in the expected order`);
+  assert(expectedSectionIds.every(id => ids.includes(id)), `Module 5 ${language}: all original nine sections are preserved`);
+  assert(ids.includes("quantal-calcium-plasticity"), `Module 5 ${language}: expanded synaptic physiology missing`);
   assert.equal(new Set(ids).size, ids.length, `Module 5 ${language}: section anchors are unique`);
   assert(lesson.sections.every(section => section.blocks.length > 0), `Module 5 ${language}: every section contains learning blocks`);
   const sectionContent = lesson.sections.map(section => JSON.stringify(section.blocks));
