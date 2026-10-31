@@ -12,6 +12,7 @@ import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
+import { createModuleTwentyVisualTheory } from "./module-twenty-visual-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
 const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
@@ -1400,3 +1401,6 @@ if (foundationLessons[13]) {
     KZ: createModuleThirteenSummary("KZ"),
   };
 }
+
+// Preserve existing module 20 expanded theory; append targeted visual physiology sections.
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[20]?.theory?.[language];if(base?.kind==="theory")foundationLessons[20]!.theory![language]=createModuleTwentyVisualTheory(language,base);}
