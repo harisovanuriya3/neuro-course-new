@@ -384,6 +384,35 @@ function create(
               ? 'At the neuromuscular junction, a motor-neuron action potential opens presynaptic Ca²⁺ channels and triggers acetylcholine release. Acetylcholine activates nicotinic end-plate receptors, producing depolarization that can trigger a muscle action potential. Acetylcholinesterase terminates the signal.'
               : 'Жүйке-бұлшықет синапсында мотонейрон әрекет потенциалы пресинапстық Ca²⁺ арналарының ашылуын және ацетилхолин бөлінуін туғызады. Ацетилхолин соңғы пластинканың никотиндік рецепторларын белсендіріп, бұлшықет әрекет потенциалын іске қосатын деполяризация жасайды. Ацетилхолинэстераза сигналды аяқтайды.' }],
         }] : []),
+        ...(topic.id === 6 ? [
+          {
+            id: 'integration-electrotonic',
+            title: language === 'RU' ? 'Электротоническое распространение и суммация' : language === 'EN' ? 'Electrotonic spread and summation' : 'Электротондық таралу және суммация',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Постсинаптические потенциалы являются градуальными изменениями мембранного напряжения. При пассивном распространении по дендриту их амплитуда уменьшается с расстоянием и временем; выраженность затухания зависит от геометрии отростка, мембранного сопротивления и осевого сопротивления цитоплазмы. Временная суммация усиливается, если входы приходят до исчезновения предыдущего потенциала; пространственная зависит не только от числа синапсов, но и от их расположения и электрических свойств дендритов.'
+              : language === 'EN'
+                ? 'Postsynaptic potentials are graded changes in membrane voltage. As they spread passively along dendrites, their amplitude attenuates with distance and time; attenuation depends on dendritic geometry, membrane resistance and intracellular axial resistance. Temporal summation increases when inputs arrive before the preceding potential has decayed. Spatial summation depends on synapse location and dendritic electrical properties, not merely synapse count.'
+                : 'Постсинапстық потенциалдар мембраналық кернеудің градуалды өзгерістері болып табылады. Дендрит бойымен пассивті таралғанда олардың амплитудасы қашықтық пен уақытқа байланысты әлсірейді; бұл дендрит геометриясына, мембрана және цитоплазманың бойлық кедергісіне тәуелді. Уақыттық суммация алдыңғы потенциал өшпей тұрып жаңа кіріс келгенде күшейеді. Кеңістіктік суммация тек синапстар санына емес, олардың орны мен дендриттің электрлік қасиеттеріне байланысты.' }],
+          },
+          {
+            id: 'integration-inhibition',
+            title: language === 'RU' ? 'Торможение и шунтирование' : language === 'EN' ? 'Inhibition and shunting' : 'Тежелу және шунттау',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Тормозный эффект нельзя определять только по знаку изменения потенциала. Открытие каналов, проводящих Cl⁻ или K⁺, может сдвигать напряжение к соответствующему равновесному потенциалу и увеличивать суммарную мембранную проводимость. При шунтирующем торможении входное сопротивление снижается, поэтому одновременный возбуждающий ток вызывает меньшую деполяризацию даже без выраженной гиперполяризации. Эффект GABA зависит от рецепторов, хлоридного градиента, локализации синапса и состояния клетки.'
+              : language === 'EN'
+                ? 'Inhibition cannot be identified from voltage polarity alone. Opening Cl⁻- or K⁺-conducting channels can move voltage toward the relevant reversal potential while increasing membrane conductance. During shunting inhibition, lower input resistance reduces the depolarization caused by a simultaneous excitatory current, even without prominent hyperpolarization. GABA responses depend on receptor subtype, chloride gradient, synapse location and cellular state.'
+                : 'Тежелуді тек мембраналық потенциал өзгерісінің таңбасымен анықтауға болмайды. Cl⁻ немесе K⁺ өткізетін арналардың ашылуы кернеуді тиісті тепе-теңдік потенциалына жақындатып, мембрананың жалпы өткізгіштігін арттырады. Шунттаушы тежелуде кіріс кедергісі төмендеп, айқын гиперполяризация болмаса да қатар келген қоздырғыш токтың деполяризациясы азаяды. GABA әсері рецепторға, хлорид градиентіне, синапс орнына және жасуша күйіне тәуелді.' }],
+          },
+          {
+            id: 'integration-clinical',
+            title: language === 'RU' ? 'Клиническая интерпретация и ограничения модели' : language === 'EN' ? 'Clinical interpretation and model limits' : 'Клиникалық түсіндіру және модель шектеулері',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Нарушение баланса возбуждения и торможения может повышать вероятность патологической синхронизации нейронных сетей, однако один повышенный возбуждающий вход не равнозначен диагнозу эпилепсии. В учебной лаборатории сравнивайте силу и время входов, положение тормозного синапса и порог генерации потенциала действия. Упрощённая модель показывает причинные зависимости, но не заменяет многокомпартментную биофизическую модель нейрона или клиническую ЭЭГ.'
+              : language === 'EN'
+                ? 'Disturbed excitation–inhibition balance can increase the likelihood of abnormal network synchronization, but an increased excitatory input alone does not establish epilepsy. In the teaching laboratory compare input strength and timing, inhibitory synapse location, and action-potential threshold. A simplified model illustrates causal relationships but cannot replace a multicompartment neuronal model or clinical EEG interpretation.'
+                : 'Қозу мен тежелу тепе-теңдігінің бұзылуы нейрондық желілердің патологиялық синхрондалу ықтималдығын арттыруы мүмкін, бірақ қоздырғыш кірістің күшеюі өздігінен эпилепсия диагнозын білдірмейді. Оқу зертханасында кіріс күші мен уақытын, тежегіш синапс орнын және әрекет потенциалы табалдырығын салыстырыңыз. Қарапайым модель себеп-салдар байланыстарын түсіндіреді, бірақ көпкомпартментті нейрон моделін немесе клиникалық ЭЭГ талдауын алмастырмайды.' }],
+          },
+        ] : []),
         ...(topic.id === 7 ? [{
           id: 'conditioned-reflexes',
           title: language === 'RU' ? 'Безусловные и условные рефлексы' : language === 'EN' ? 'Unconditioned and conditioned reflexes' : 'Шартсыз және шартты рефлекстер',
