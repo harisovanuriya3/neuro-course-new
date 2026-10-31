@@ -6,6 +6,8 @@ import AnatomyReference from "../../components/AnatomyReference";
 import AdvancedAnatomyReference from "../../components/AdvancedAnatomyReference";
 import FoundationVisual from "../../components/FoundationVisual";
 import SechenovExperiment from "../../components/SechenovExperiment";
+import FoundationVisual from "../../components/FoundationVisual";
+import SechenovExperiment from "../../components/SechenovExperiment";
 import { modules, type Language } from "../../content/course";
 import styles from "./resources.module.css";
 
@@ -113,6 +115,10 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                   {moduleId === 1
                     ? <OrganizationAnimation language={lang} />
                     : <section aria-label={t.walkthrough}><p style={{fontWeight:700}}>{t.walkthrough}</p><FoundationMediaAnimation moduleId={moduleId} language={lang} /></section>}
+                  {moduleId > 1 && <section className={styles.labPanel} aria-label={t.lab}>
+                    <FoundationVisual moduleId={moduleId} language={lang} />
+                    {moduleId === 7 && <SechenovExperiment language={lang} />}
+                  </section>}
                   {moduleId > 1 && <section className={styles.labPanel} aria-label={t.lab}>
                     <FoundationVisual moduleId={moduleId} language={lang} />
                     {moduleId === 7 && <SechenovExperiment language={lang} />}
