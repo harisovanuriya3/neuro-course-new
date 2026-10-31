@@ -12,6 +12,7 @@ for(const lang of ["RU","EN","KZ"]){
  assert(theoryIds.includes("quantal-calcium-plasticity"),`${lang}: missing synaptic mechanism chapter`);
  assert.equal(new Set(theoryIds).size,theoryIds.length,`${lang}: duplicate theory anchors`);
  assert(practice.sections.length>=7,`${lang}: insufficient practice sections`);
+ for(const label of (lang==="RU"?["Квантовое","Парная стимуляция","Ионотропные","Пресинаптическое"]:lang==="EN"?["Quantal","Paired-pulse","Ionotropic","Pre- versus"]:["Кванттық","Қос стимул","Ионотроптық","Пре- және"])) assert(practice.sections.some(st=>st.title.includes(label)),`${lang}: missing laboratory ${label}`);
  assert(practice.sections.some(s=>s.title.includes(lang==="RU"?"Квантовое":lang==="EN"?"Quantal":"Кванттық")),`${lang}: missing quantal lab`);
  assert(cases.cases.length>=20,`${lang}: fewer than twenty cases`);
  assert.equal(new Set(cases.cases.map(c=>c.id)).size,cases.cases.length,`${lang}: duplicate case IDs`);
