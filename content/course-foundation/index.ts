@@ -11,6 +11,11 @@ import { createModuleThirteenSummary } from "./module-thirteen-summary";
 import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
+import { createModuleSixteenTheory } from "./module-sixteen-theory";
+import { createModuleSixteenPretest } from "./module-sixteen-pretest";
+import { extendModuleSixteenQuestionBank } from "./module-sixteen-expanded-questions";
+import { extendModuleSixteenFinalTest } from "./module-sixteen-final-test";
+import { extendModuleSixteenCases, extendModuleSixteenPractice } from "./module-sixteen-activities";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
@@ -1399,4 +1404,29 @@ if (foundationLessons[13]) {
     EN: createModuleThirteenSummary("EN"),
     KZ: createModuleThirteenSummary("KZ"),
   };
+}
+
+// Add authored limbic physiology without removing original module 16 sections.
+if (foundationLessons[16]) foundationLessons[16].pretest = {
+ RU:extendModuleSixteenQuestionBank("RU",createModuleSixteenPretest("RU",modules.RU[15],getSectionTitle("pretest","RU"))),
+ EN:extendModuleSixteenQuestionBank("EN",createModuleSixteenPretest("EN",modules.EN[15],getSectionTitle("pretest","EN"))),
+ KZ:extendModuleSixteenQuestionBank("KZ",createModuleSixteenPretest("KZ",modules.KZ[15],getSectionTitle("pretest","KZ"))),
+};
+for (const language of ["RU","EN","KZ"] as const) {
+ const base = foundationLessons[16]?.theory?.[language];
+ if (base?.kind === "theory") foundationLessons[16]!.theory![language] = createModuleSixteenTheory(language,base);
+}
+
+// Preserve existing clinical cases and practice; append reviewed authored exercises.
+for (const language of ["RU","EN","KZ"] as const) {
+ const cases = foundationLessons[16]?.cases?.[language];
+ if (cases?.kind === "cases") foundationLessons[16]!.cases![language] = extendModuleSixteenCases(language,cases);
+ const practice = foundationLessons[16]?.practice?.[language];
+ if (practice?.kind === "practice") foundationLessons[16]!.practice![language] = extendModuleSixteenPractice(language,practice);
+}
+
+// Module 16 final exam: subject-specific branching questions after foundation QA items.
+for (const language of ["RU","EN","KZ"] as const) {
+ const test=foundationLessons[16]?.tests?.[language];
+ if(test?.kind==="tests") foundationLessons[16]!.tests![language]=extendModuleSixteenFinalTest(language,test);
 }
