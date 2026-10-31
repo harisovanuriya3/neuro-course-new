@@ -1,5 +1,6 @@
 import {physiologicalRelations} from "../physiological-relations";
 import {module4Cases} from "./module4-cases";
+import {moduleTwoClinicalCases} from "./module-two-clinical-cases";
 import {module5Cases} from "./module5-cases";
 import {module6Cases} from "./module6-cases";
 import {withModule4Questions} from "./module4-tests";
@@ -135,6 +136,7 @@ export function createFoundationCase(topic:Topic,l:Language,moduleTitle:string):
    ["dark-pupil","Қарашықтың қараңғыда кеңеюі","Pupil dilation in darkness","Қараңғыда қарашықтың кеңеюі","Адам жарық бөлмеден қараңғы бөлмеге кіргенде қарашықтары кеңейді. Бұл өзгерісте қандай екі автономды әсердің арақатынасы маңызды?","A person enters a dark room and the pupils enlarge. How do the two autonomic influences change?","Адам жарық бөлмеден қараңғы бөлмеге кіргенде қарашықтары кеңейді. Бұл өзгерісте қандай екі автономды әсердің арақатынасы маңызды?","Жарық азайғанда парасимпатикалық сфинктерлік тонус төмендейді, ал симпатикалық дилататорлық әсер қарашықтың кеңеюіне ықпал етеді. Реакцияны тек симпатикалық жүйенің белсенуімен түсіндіру толық емес.","In reduced light, parasympathetic sphincter drive decreases while sympathetic dilator activity contributes to enlargement. Attributing the entire response solely to sympathetic activation is incomplete.","Жарық азайғанда қарашық сфинктеріне парасимпатикалық әсер төмендейді, ал симпатикалық дилататорлық әсер кеңеюге қатысады. Жауапты тек симпатикалық белсенумен түсіндіру толық емес."]
   ]);
   additionalCases[21]=(additionalCases[21]??[]).concat([["olfactory-loss","Потеря обоняния","Loss of smell","Иіс сезудің жоғалуы","После травмы головы пациент перестал ощущать запахи. Какие структуры и альтернативные причины нужно проверить?","A patient loses smell after head trauma. Which structures and alternative causes should be evaluated?","Бас жарақатынан кейін науқас иістерді сезбей қалды. Қандай құрылымдар мен балама себептерді тексеру қажет?","Возможны повреждения обонятельных рецепторных аксонов при прохождении решётчатой пластинки, обонятельной луковицы или центральных путей. Исключают также заболевания полости носа и нарушение проходимости воздушного потока.","Olfactory receptor axons crossing the cribriform plate, the olfactory bulb or central pathways may be affected. Nasal disease and impaired airflow are alternative explanations.","Торлы пластинкадан өтетін иіс сезу рецепторларының аксондары, иіс сезу буылтығы немесе орталық жолдар зақымдануы мүмкін. Мұрын қуысының аурулары мен ауа ағынының бұзылуын да ескеру керек."]]);
+ if(topic.id===2) lesson.cases.push(...moduleTwoClinicalCases(l));
  for (const item of additionalCases[topic.id]??[]) {
   const [id,titleRU,titleEN,titleKZ,sitRU,sitEN,sitKZ,expRU,expEN,expKZ]=item;
   lesson.cases.push({id:`m${topic.id}-${id}`,title:l==="RU"?titleRU:l==="EN"?titleEN:titleKZ,situation:l==="RU"?sitRU:l==="EN"?sitEN:sitKZ,
