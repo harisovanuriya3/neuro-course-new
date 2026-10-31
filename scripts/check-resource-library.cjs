@@ -6,6 +6,7 @@ const root = path.resolve(__dirname, "..");
 const page = fs.readFileSync(path.join(root, "app/resources/page.tsx"), "utf8");
 const home = fs.readFileSync(path.join(root, "app/page.tsx"), "utf8");
 const modulePage = fs.readFileSync(path.join(root, "app/modules/[id]/page.tsx"), "utf8");
+const sectionPage = fs.readFileSync(path.join(root, "app/modules/[id]/[section]/page.tsx"), "utf8");
 const course = fs.readFileSync(path.join(root, "content/course.ts"), "utf8");
 
 for (const component of [
@@ -44,11 +45,18 @@ const anatomyIds = new Set(
   [...anatomyReference.matchAll(/^\s*(\d+):\s*[\[{]/gm), ...advancedAnatomyReference.matchAll(/^\s*(\d+):\s*[\[{]/gm)]
     .map((match) => Number(match[1])),
 );
-for (let moduleId = 2; moduleId <= 25; moduleId += 1) {
+for (let moduleId = 1; moduleId <= 25; moduleId += 1) {
   assert(anatomyIds.has(moduleId), `Module ${moduleId} must retain a module-specific anatomy reference`);
 }
+const visualFiles = [
+  ...anatomyReference.matchAll(/file:\s*"([^"]+)"/g),
+  ...advancedAnatomyReference.matchAll(/file:\s*"([^"]+)"/g),
+].map((match) => match[1]);
+assert.equal(visualFiles.length, new Set(visualFiles).size, "Anatomy registries must not repeat the same image file");
+assert(visualFiles.length >= 50, "The 25 modules must retain a rich set of at least 50 unique curated visuals");
+assert(sectionPage.includes("section === 'theory' || section === 'practice'"), "Curated visuals must appear in both theory and practice");
 for (const file of ["Peripheral_nerve,_cross_section.jpg", "Spatial_summation.svg", "Spinal_cord_tracts_-_English.svg"]) {
   assert(anatomyReference.includes(file), `Anatomy registry must retain ${file}`);
 }
 
-console.log("Resource library validation passed: 25 localized module entries with animation, anatomy, laboratory, and virtual-patient routes.");
+console.log(`Resource library validation passed: 25 localized modules, ${visualFiles.length} unique curated visuals, theory/practice placement, laboratory and virtual-patient routes.`);
