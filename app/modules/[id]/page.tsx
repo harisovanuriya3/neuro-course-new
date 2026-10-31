@@ -138,6 +138,7 @@ export default async function ModulePage({
       >
         <ModuleSidebar moduleNumber={moduleNumber} lang={lang} />
         <div style={{minWidth:0}}>
+        {moduleNumber===17&&<section style={{padding:20,border:"1px solid #b7c8e9",borderRadius:16,background:"#eef2ff",marginBottom:20}}><h2>{lang==="RU"?"Лаборатория эмоционального обучения":lang==="EN"?"Emotional learning laboratory":"Эмоциялық үйрену зертханасы"}</h2><p>{lang==="RU"?"Безопасное моделирование положительного подкрепления и угасания.":lang==="EN"?"Safe positive reinforcement and extinction simulation.":"Қауіпсіз оң нығайту мен сөнуді модельдеу."}</p><Link href={`/module-17-lab?lang=${lang}`}>{lang==="RU"?"Открыть лабораторию":lang==="EN"?"Open laboratory":"Зертхананы ашу"}</Link></section>}
         {/* Верхняя строка */}
 
         <div
