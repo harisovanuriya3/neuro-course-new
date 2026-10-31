@@ -1,0 +1,18 @@
+const assert=require("node:assert/strict");
+const fs=require("node:fs");
+const read=p=>fs.readFileSync(p,"utf8");
+const foundation=read("content/course-foundation/index.ts");
+const theory=read("content/course-foundation/module-twenty-four-sleep-theory.ts");
+const activities=read("content/course-foundation/module-twenty-four-activities.ts");
+const pretest=read("content/course-foundation/module-twenty-four-pretest.ts");
+const finalTest=read("content/course-foundation/module-twenty-four-final-test.ts");
+const section=read("app/modules/[id]/[section]/page.tsx");
+for(const name of ["createModuleTwentyFourSleepTheory","extendModuleTwentyFourCases","extendModuleTwentyFourPractice","createModuleTwentyFourPretest","extendModuleTwentyFourFinalTest"])assert(foundation.includes(name),"Missing module 24 registration "+name);
+for(const id of ["sleep-stages","sleep-circuits","circadian","homeostatic","hormones","sleep-disorders"])assert(theory.includes(id),"Missing theory section "+id);
+assert(activities.includes("module-24-clinical-"),"Missing clinical cases");
+assert(activities.includes('type:"answer"'),"Missing practice explanations");
+assert(pretest.includes("module-24-pretest-"),"Missing pretest");
+assert(finalTest.includes("mainIds:[...base.mainIds,...ids]"),"Missing final exam");
+assert(section.includes("SleepRhythmLab"),"Existing sleep lab must remain");
+assert(section.includes("section === 'theory' || section === 'practice'"),"Curated anatomical references must be visible in theory and practice");
+console.log("Module 24 source integration QA passed.");
