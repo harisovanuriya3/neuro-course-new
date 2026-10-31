@@ -13,6 +13,7 @@ import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
+import { createModuleTwentyOneTheory } from "./module-twenty-one-theory";
 
 const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
   2: { RU: 'сравните две записи ЭЭГ с одинаковым физиологическим состоянием, но разным уровнем артефакта; измерьте амплитуду, частоту и признак, позволяющий распознать артефакт', EN: 'compare two EEG recordings from the same physiological state but with different artifact levels; measure amplitude, frequency, and a feature that identifies the artifact', KZ: 'физиологиялық күйі бірдей, бірақ артефакт деңгейі әртүрлі екі ЭЭГ жазбасын салыстырып, амплитуданы, жиілікті және артефактты тануға көмектесетін белгіні өлшеңіз' },
@@ -1399,4 +1400,20 @@ if (foundationLessons[13]) {
     EN: createModuleThirteenSummary("EN"),
     KZ: createModuleThirteenSummary("KZ"),
   };
+}
+
+if (foundationLessons[21]?.theory) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const existing = foundationLessons[21].theory?.[language];
+    if (existing?.kind === "theory") {
+      const expanded = createModuleTwentyOneTheory(language, existing);
+      const seen = new Set<string>();
+      const sections = expanded.sections.filter((section) => {
+        if (seen.has(section.id)) return false;
+        seen.add(section.id);
+        return true;
+      });
+      foundationLessons[21].theory![language] = { ...expanded, sections };
+    }
+  }
 }
