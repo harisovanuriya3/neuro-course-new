@@ -110,6 +110,7 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                 <Link href={`/modules/${moduleId}/practice?lang=${lang}`}>{t.practice}</Link>
                 <Link href={`/modules/${moduleId}/media?lang=${lang}`}>{t.media}</Link>
                 <Link href={`/modules/${moduleId}/interactive?lang=${lang}`}>{t.lab}</Link>
+                {moduleId===17&&<Link href={`/module-17-lab?lang=${lang}`}>{lang==="RU"?"Лаборатория эмоционального обучения":lang==="EN"?"Emotional learning laboratory":"Эмоциялық үйрену зертханасы"}</Link>}
                 <Link href={`/modules/${moduleId}/virtual-patient?lang=${lang}`}>{t.patient}</Link>
               </div>
 
