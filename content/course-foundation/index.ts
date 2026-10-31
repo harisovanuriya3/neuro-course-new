@@ -1,3 +1,15 @@
+import { extendModuleSixteenCases, extendModuleSixteenPractice } from "./module-sixteen-activities";
+import { createModuleSixteenPretest } from "./module-sixteen-pretest";
+import { extendModuleSixteenFinalTest } from "./module-sixteen-final-test";
+import { extendModuleSeventeenCases, extendModuleSeventeenPractice } from "./module-seventeen-activities";
+import { createModuleSeventeenPretest } from "./module-seventeen-pretest";
+import { extendModuleSeventeenFinalTest } from "./module-seventeen-final-test";
+import { extendModuleEighteenCases, extendModuleEighteenPractice } from "./module-eighteen-activities";
+import { createModuleEighteenPretest } from "./module-eighteen-pretest";
+import { extendModuleEighteenFinalTest } from "./module-eighteen-final-test";
+import { extendModuleNineteenCases, extendModuleNineteenPractice } from "./module-nineteen-activities";
+import { createModuleNineteenPretest } from "./module-nineteen-pretest";
+import { extendModuleNineteenFinalTest } from "./module-nineteen-final-test";
 import { createModuleFifteenTheory } from "./module-fifteen-theory";
 import { createModuleSixteenTheory } from "./module-sixteen-theory";
 import { createModuleSeventeenTheory } from "./module-seventeen-theory";
@@ -1768,5 +1780,125 @@ if (foundationLessons[19]?.theory) {
         return true;
       }) };
     }
+  }
+}
+
+if (foundationLessons[16]) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const module = foundationLessons[16];
+    const cases = module.cases?.[language];
+    if (cases?.kind === "cases") {
+      const expanded = extendModuleSixteenCases(language, cases);
+      const seen = new Set<string>();
+      module.cases![language] = { ...expanded, cases: expanded.cases.filter(item => {
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      }) };
+    }
+    const practice = module.practice?.[language];
+    if (practice?.kind === "practice") module.practice![language] = extendModuleSixteenPractice(language, practice);
+    const pretest = module.pretest?.[language];
+    if (pretest?.kind === "pretest") {
+      const added = createModuleSixteenPretest(language, pretest.title, modules[language][15]);
+      const seen = new Set(pretest.questions.map(item => item.id));
+      module.pretest![language] = { ...pretest, questions: [...pretest.questions, ...added.questions.filter(item => {
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      })] };
+    }
+    const test = module.tests?.[language];
+    if (test?.kind === "tests") module.tests![language] = extendModuleSixteenFinalTest(language, test);
+  }
+}
+
+if (foundationLessons[17]) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const module = foundationLessons[17];
+    const cases = module.cases?.[language];
+    if (cases?.kind === "cases") {
+      const expanded = extendModuleSeventeenCases(language, cases);
+      const seen = new Set<string>();
+      module.cases![language] = { ...expanded, cases: expanded.cases.filter(item => {
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      }) };
+    }
+    const practice = module.practice?.[language];
+    if (practice?.kind === "practice") module.practice![language] = extendModuleSeventeenPractice(language, practice);
+    const pretest = module.pretest?.[language];
+    if (pretest?.kind === "pretest") {
+      const added = createModuleSeventeenPretest(language, pretest.title, modules[language][16]);
+      const seen = new Set(pretest.questions.map(item => item.id));
+      module.pretest![language] = { ...pretest, questions: [...pretest.questions, ...added.questions.filter(item => {
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      })] };
+    }
+    const test = module.tests?.[language];
+    if (test?.kind === "tests") module.tests![language] = extendModuleSeventeenFinalTest(language, test);
+  }
+}
+
+if (foundationLessons[18]) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const module = foundationLessons[18];
+    const cases = module.cases?.[language];
+    if (cases?.kind === "cases") {
+      const expanded = extendModuleEighteenCases(language, cases);
+      const seen = new Set<string>();
+      module.cases![language] = { ...expanded, cases: expanded.cases.filter(item => {
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      }) };
+    }
+    const practice = module.practice?.[language];
+    if (practice?.kind === "practice") module.practice![language] = extendModuleEighteenPractice(language, practice);
+    const pretest = module.pretest?.[language];
+    if (pretest?.kind === "pretest") {
+      const added = createModuleEighteenPretest(language, pretest.title, modules[language][17]);
+      const seen = new Set(pretest.questions.map(item => item.id));
+      module.pretest![language] = { ...pretest, questions: [...pretest.questions, ...added.questions.filter(item => {
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      })] };
+    }
+    const test = module.tests?.[language];
+    if (test?.kind === "tests") module.tests![language] = extendModuleEighteenFinalTest(language, test);
+  }
+}
+
+if (foundationLessons[19]) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const module = foundationLessons[19];
+    const cases = module.cases?.[language];
+    if (cases?.kind === "cases") {
+      const expanded = extendModuleNineteenCases(language, cases);
+      const seen = new Set<string>();
+      module.cases![language] = { ...expanded, cases: expanded.cases.filter(item => {
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      }) };
+    }
+    const practice = module.practice?.[language];
+    if (practice?.kind === "practice") module.practice![language] = extendModuleNineteenPractice(language, practice);
+    const pretest = module.pretest?.[language];
+    if (pretest?.kind === "pretest") {
+      const added = createModuleNineteenPretest(language, pretest.title, modules[language][18]);
+      const seen = new Set(pretest.questions.map(item => item.id));
+      module.pretest![language] = { ...pretest, questions: [...pretest.questions, ...added.questions.filter(item => {
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      })] };
+    }
+    const test = module.tests?.[language];
+    if (test?.kind === "tests") module.tests![language] = extendModuleNineteenFinalTest(language, test);
   }
 }
