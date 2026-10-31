@@ -32,6 +32,7 @@ import MembraneElectrophysiologyLab from "../../../../components/MembraneElectro
 import SynapseExperimentLab from "../../../../components/SynapseExperimentLab";
 import IntegrationExperimentLab from "../../../../components/IntegrationExperimentLab";
 import ReflexLab from "../../../../components/ReflexLab";
+import SechenovExperiment from "../../../../components/SechenovExperiment";
 import PathwayLab from "../../../../components/PathwayLab";
 import SpinalRegulationLab from "../../../../components/SpinalRegulationLab";
 import BrainstemLab from "../../../../components/BrainstemLab";
@@ -265,7 +266,7 @@ export default async function SectionPage({
           ) : moduleNumber === 6 && section === "interactive" ? (
             <IntegrationExperimentLab language={lang} />
           ) : moduleNumber === 7 && section === "interactive" ? (
-            <ReflexLab language={lang} />
+            <><ReflexLab language={lang} /><SechenovExperiment language={lang} /></>
           ) : moduleNumber === 8 && section === "interactive" ? (
             <PathwayLab language={lang} />
           ) : moduleNumber === 9 && section === "interactive" ? (
