@@ -1,3 +1,4 @@
+import { createModuleFifteenPretest } from "./module-fifteen-pretest";
 import { extendModuleSixteenCases, extendModuleSixteenPractice } from "./module-sixteen-activities";
 import { createModuleSixteenPretest } from "./module-sixteen-pretest";
 import { extendModuleSixteenFinalTest } from "./module-sixteen-final-test";
@@ -1900,5 +1901,23 @@ if (foundationLessons[19]) {
     }
     const test = module.tests?.[language];
     if (test?.kind === "tests") module.tests![language] = extendModuleNineteenFinalTest(language, test);
+  }
+}
+
+if (foundationLessons[15]?.pretest) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const base = foundationLessons[15].pretest?.[language];
+    if (base?.kind === "pretest") {
+      const added = createModuleFifteenPretest(language, base.title, modules[language][14]);
+      const seen = new Set(base.questions.map(item => item.id));
+      foundationLessons[15].pretest![language] = {
+        ...base,
+        questions: [...base.questions, ...added.questions.filter(item => {
+          if (seen.has(item.id)) return false;
+          seen.add(item.id);
+          return true;
+        })],
+      };
+    }
   }
 }
