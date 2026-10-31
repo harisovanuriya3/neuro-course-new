@@ -20,6 +20,7 @@ import { moduleEightDetailedTheory } from "./module-eight-detailed-theory";
 import { moduleNineDetailedTheory } from "./module-nine-detailed-theory";
 import { moduleTenDetailedTheory } from "./module-ten-detailed-theory";
 import { moduleElevenDetailedTheory } from "./module-eleven-detailed-theory";
+import { moduleElevenPracticalStations } from "./module-eleven-applied";
 import { moduleFourPracticalStations } from "./module-four-practical-stations";
 import { moduleFivePracticalStations } from "./module-five-practical-stations";
 import { moduleSixPracticalStations } from "./module-six-practical-stations";
@@ -1074,6 +1075,7 @@ function create(
         ...(topic.id === 8 ? moduleEightPracticalStations(language) : []),
         ...(topic.id === 9 ? moduleNinePracticalStations(language) : []),
         ...(topic.id === 10 ? moduleTenPracticalStations(language) : []),
+        ...(topic.id === 11 ? moduleElevenPracticalStations(language) : []),
         {
           title: c.task,
 
