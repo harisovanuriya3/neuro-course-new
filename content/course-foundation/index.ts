@@ -12,6 +12,9 @@ import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
+import { createModuleTwentyVisualTheory } from "./module-twenty-visual-theory";
+import { extendModuleTwentyCases, extendModuleTwentyPractice } from "./module-twenty-visual-activities";
+import { extendModuleTwentyPretest, extendModuleTwentyFinalTest } from "./module-twenty-visual-assessment";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
 const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
@@ -1400,3 +1403,11 @@ if (foundationLessons[13]) {
     KZ: createModuleThirteenSummary("KZ"),
   };
 }
+
+// Preserve existing module 20 expanded theory; append targeted visual physiology sections.
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[20]?.theory?.[language];if(base?.kind==="theory")foundationLessons[20]!.theory![language]=createModuleTwentyVisualTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[20]?.cases?.[language];if(c?.kind==="cases")foundationLessons[20]!.cases![language]=extendModuleTwentyCases(language,c);const p=foundationLessons[20]?.practice?.[language];if(p?.kind==="practice")foundationLessons[20]!.practice![language]=extendModuleTwentyPractice(language,p);}
+
+// Keep existing assessment items and append authored visual-system questions.
+for(const language of ["RU","EN","KZ"] as const){const pre=foundationLessons[20]?.pretest?.[language];if(pre?.kind==="pretest")foundationLessons[20]!.pretest![language]=extendModuleTwentyPretest(language,pre);const test=foundationLessons[20]?.tests?.[language];if(test?.kind==="tests")foundationLessons[20]!.tests![language]=extendModuleTwentyFinalTest(language,test);}
