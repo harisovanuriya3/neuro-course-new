@@ -13,6 +13,7 @@ import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwoExpandedTheory } from "./module-two-expanded-theory";
+import { moduleThreeDetailedTheory } from "./module-three-detailed-theory";
 import { moduleTwoPracticalStations } from "./module-two-practical-stations";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
@@ -639,6 +640,7 @@ function create(
                 : 'Вазопрессиннің жеткіліксіз бөлінуі көп мөлшерде сұйық несеп бөлінетін орталық қантсыз диабетке әкелуі мүмкін; нефрогендік қантсыз диабетте вазопрессин бар, бірақ бүйректің жауабы бұзылған. Вазопрессин әсерінің артық болуы гипонатриемияға ықпал етуі мүмкін, алайда оның себептері әртүрлі. Клиникалық бағалау үшін плазма натрийін, қан мен несеп осмолялдығын, су балансын және дәрілерді бірге қарастыру қажет; анатомиялық сызба диагноз қоймайды.' }],
           },
         ] : []),
+        ...(topic.id === 3 ? moduleThreeDetailedTheory(language) : []),
         ...(topic.id === 3 ? [{
           id: 'brain-microenvironment',
           title: language === 'RU' ? 'Микросреда мозга: ГЭБ и ликвор' : language === 'EN' ? 'Brain microenvironment: BBB and CSF' : 'Ми микроортасы: ГЭБ және ликвор',
