@@ -13,6 +13,7 @@ import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwoExpandedTheory } from "./module-two-expanded-theory";
+import { moduleTwoPracticalStations } from "./module-two-practical-stations";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
 const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
@@ -1042,6 +1043,7 @@ function create(
       ui,
 
       sections: [
+        ...(topic.id === 2 ? moduleTwoPracticalStations(language) : []),
         {
           title: c.task,
 
