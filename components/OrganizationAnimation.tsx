@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useId, useState } from "react";
 import type { Language } from "../content/course";
 import { getOrganizationAnimation } from "../content/modules/1/organization-animation";
@@ -38,30 +37,16 @@ export default function OrganizationAnimation({ language }: { language: Language
       <div className={styles.anatomySequence} role="img" aria-labelledby={`${id}-visual-title ${id}-visual-desc`}>
         <span id={`${id}-visual-title`} className={styles.srOnly}>{stage.title}</span>
         <span id={`${id}-visual-desc`} className={styles.srOnly}>{stage.text}</span>
-        <figure className={styles.anatomyPanel} data-active={cns}>
-          <div className={styles.photo}>
-            <Image src="/images/anatomy/brain-spinal-cord.jpg" alt={copy.cns} fill sizes="(max-width: 600px) 88vw, 260px" priority />
-          </div>
-          <figcaption>{copy.cns}</figcaption>
+        <figure className={styles.overviewPanel}>
+          <img
+            src="https://commons.wikimedia.org/wiki/Special:Redirect/file/1201%20Overview%20of%20Nervous%20System.jpg"
+            alt={stage.title}
+          />
+          <figcaption>{stage.title}</figcaption>
         </figure>
-        <div className={`${styles.signal} ${(index === 3 || index === 5) && playing ? styles.moving : ""}`} data-active={index === 3 || index === 5} aria-hidden="true">
-          <span>←</span><small>{copy.input}</small>
+        <div className={`${styles.signalBand} ${playing ? styles.moving : ""}`} aria-hidden="true">
+          <span>{index === 3 ? "Периферия → ЦНС" : index === 4 ? "ЦНС → эффектор" : index === 5 ? "Периферия ↔ ЦНС" : stage.title}</span>
         </div>
-        <figure className={styles.anatomyPanel} data-active={pns}>
-          <div className={styles.photo}>
-            <Image src="/images/anatomy/peripheral-nerve.jpg" alt={copy.pns} fill sizes="(max-width: 600px) 88vw, 260px" />
-          </div>
-          <figcaption>{copy.pns}</figcaption>
-        </figure>
-        <div className={`${styles.signal} ${(index === 4 || index === 5) && playing ? styles.moving : ""}`} data-active={index === 4 || index === 5} aria-hidden="true">
-          <span>→</span><small>{copy.output}</small>
-        </div>
-        <figure className={styles.anatomyPanel} data-active={index === 4 || index === 5}>
-          <div className={styles.photo}>
-            <Image src="/images/anatomy/neuromuscular-junction.jpg" alt={copy.output} fill sizes="(max-width: 600px) 88vw, 260px" />
-          </div>
-          <figcaption>{copy.output}</figcaption>
-        </figure>
       </div>
       <ul className={styles.legend}>
         <li data-active={cns}>{copy.cns}</li><li data-active={pns}>{copy.pns}</li>
