@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SectionStudyTools from "../../../components/SectionStudyTools";
 import { notFound } from "next/navigation";
 import CourseNavigation from "../../../components/CourseNavigation";
 import DocumentLanguage from "../../../components/DocumentLanguage";
@@ -138,6 +139,8 @@ export default async function ModulePage({
       >
         <ModuleSidebar moduleNumber={moduleNumber} lang={lang} />
         <div style={{minWidth:0}}>
+        <SectionStudyTools language={lang} moduleNumber={moduleNumber} section="overview" />
+        <div id="course-section-search-root">
         {/* Верхняя строка */}
 
         <div
@@ -452,6 +455,7 @@ export default async function ModulePage({
           ))}
         </section>
 
+        </div>
         {/* Единая навигация между 25 модулями */}
 
         <CourseNavigation
