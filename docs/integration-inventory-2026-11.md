@@ -27,3 +27,29 @@ Existing published course content must be preserved. Do not blindly merge overla
 - Check unique IDs, assessment answers, route reachability and duplicate content.
 - Run full course audit, TypeScript and production build.
 - Publish only after checks succeed and visual/mobile review is complete.
+
+## File-level comparison against main (2026-11-01)
+
+Compared PR heads #25–#37 against main using GitHub commit comparison. Every candidate diverges from main, so blind merges are unsafe.
+
+| PR | Ahead / behind main | Distinctive pending content |
+|---|---|---|
+| 25 | 10 / 2 | Module 15 theory, pretest, standalone homeostasis lab |
+| 26 | 26 / 2 | Module 16 theory, questions, assessment, visual and lab |
+| 27 | 13 / 2 | Module 17 theory, pretest, final test, activities and lab |
+| 28 | 15 / 2 | Module 18 theory, cases, tests and cortical lab |
+| 29 | 8 / 2 | Module 19 theory, cases and tests |
+| 30 | 10 / 2 | Module 20 visual theory, pretest, activities and assessment |
+| 31 | 10 / 2 | Module 21 theory, cases and tests |
+| 32 | 10 / 2 | Module 22 theory, cases and tests |
+| 33 | 10 / 2 | Module 23 theory, cases and tests |
+| 34 | 12 / 2 | Module 24 sleep theory, cases and tests |
+| 35 | 11 / 2 | Module 25 theory, cases and tests |
+| 36 | 6 / 2 | Exam/media integration and QA |
+| 37 | 57 / 2 | Combined staging candidate, including many module files |
+
+Shared conflict-sensitive paths include content/course-foundation/index.ts, app/modules/[id]/[section]/page.tsx, app/resources/page.tsx and package.json. Preserve current main contents when reconciling these files.
+
+PR #37 already includes many module-specific files from #26–#35, so these should be deduplicated against #37 before any individual import. PR #25 and #30 must be reviewed separately for their unique module-specific files. The compare summary alone does not prove full content integration or correctness.
+
+No module content was deployed as a result of this inventory.
