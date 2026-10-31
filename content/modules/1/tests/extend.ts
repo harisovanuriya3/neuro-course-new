@@ -221,7 +221,8 @@ export function extendModule1Test(base: BranchingTest, language: Language): Bran
   questions.forEach((question, index) => {
     const id = ids[index];
     const next = ids[index + 1] ?? base.start;
-    competencies[question.competency] = {
+    const competencyId = `module1-extended-${question.competency}`;
+    competencies[competencyId] = {
       title: question.title[language],
       theoryTarget: { moduleId: 1, anchor: question.anchor }
     };
@@ -229,7 +230,7 @@ export function extendModule1Test(base: BranchingTest, language: Language): Bran
       id,
       type: "question",
       level: "main",
-      competency: question.competency,
+      competency: competencyId,
       prompt: question.prompt[language],
       options: question.options[language].map((text, optionIndex) => ({ id: String(optionIndex), text })),
       correctAnswer: "0",
