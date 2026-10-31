@@ -6,6 +6,9 @@ import AnatomyReference from "../../components/AnatomyReference";
 import AdvancedAnatomyReference from "../../components/AdvancedAnatomyReference";
 import FoundationVisual from "../../components/FoundationVisual";
 import SechenovExperiment from "../../components/SechenovExperiment";
+import VirtualPatient from "../../components/VirtualPatient";
+import UnifiedVirtualPatient from "../../components/UnifiedVirtualPatient";
+import VisualPathwayLocalizer from "../../components/VisualPathwayLocalizer";
 import FoundationVisual from "../../components/FoundationVisual";
 import SechenovExperiment from "../../components/SechenovExperiment";
 import { modules, type Language } from "../../content/course";
@@ -26,6 +29,7 @@ const copy = {
     theory: "Теория и иллюстрации", practice: "Практика и иллюстрации", walkthrough: "Пошаговый разбор (не видеоанимация)",
     lab: "Виртуальная лаборатория",
     patient: "Виртуальный пациент",
+    patientPreview: "Открыть виртуального пациента прямо в медиатеке",
     anatomy: "Анатомическая опора",
     expand: "Показать ресурсы модуля",
     note: "Предварительный раздел: визуальные материалы проходят экспертную проверку до публикации.",
@@ -40,6 +44,7 @@ const copy = {
     theory: "Теория және иллюстрациялар", practice: "Практика және иллюстрациялар", walkthrough: "Кезеңдік түсіндіру (бейнеанимация емес)",
     lab: "Виртуалды зертхана",
     patient: "Виртуалды пациент",
+    patientPreview: "Виртуалды пациентті медиатекада ашу",
     anatomy: "Анатомиялық тірек",
     expand: "Модуль ресурстарын көрсету",
     note: "Алдын ала бөлім: визуалды материалдар жарияланғанға дейін сараптамалық тексеруден өтеді.",
@@ -54,6 +59,7 @@ const copy = {
     theory: "Theory and illustrations", practice: "Practice and illustrations", walkthrough: "Step-by-step walkthrough (not video animation)",
     lab: "Virtual laboratory",
     patient: "Virtual patient",
+    patientPreview: "Open the virtual patient within the media library",
     anatomy: "Anatomical reference",
     expand: "Show module resources",
     note: "Preview section: visual materials remain under expert review before publication.",
@@ -127,6 +133,10 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
                     <AnatomyReference moduleId={moduleId} language={lang} />
                     <AdvancedAnatomyReference moduleId={moduleId} language={lang} />
                   </section>
+                  <details className={styles.preview}>
+                    <summary>{t.patientPreview}</summary>
+                    {moduleId === 1 ? <VirtualPatient language={lang} /> : <>{moduleId === 20 && <VisualPathwayLocalizer language={lang} />}<UnifiedVirtualPatient moduleId={moduleId} language={lang} /></>}
+                  </details>
                 </div>
               </details>
             </article>
