@@ -27,7 +27,8 @@ for (const language of ["RU", "EN", "KZ"]) {
   assert.equal(lesson?.kind, "theory", `Module 4 ${language}: localized theory is registered`);
 
   const ids = lesson.sections.map(section => section.id);
-  assert.deepEqual(ids, expectedSectionIds, `Module 4 ${language}: all 12 theory sections are present in the expected order`);
+  assert(expectedSectionIds.every(id => ids.includes(id)), `Module 4 ${language}: all original 12 theory sections must be preserved`);
+  for (const id of ["ion-gradient-thermodynamics","goldman-resting-potential","voltage-gated-channel-dynamics"]) assert(ids.includes(id), `Module 4 ${language}: expanded chapter ${id} missing`);
   assert.equal(new Set(ids).size, ids.length, `Module 4 ${language}: section anchors are unique`);
   assert(lesson.sections.every(section => section.blocks.length > 0), `Module 4 ${language}: every section contains learning blocks`);
   const sectionContent = lesson.sections.map(section => JSON.stringify(section.blocks));
@@ -44,5 +45,5 @@ for (const language of ["RU", "EN", "KZ"]) {
     assert(text.toLowerCase().includes(mechanism.toLowerCase()), `Module 4 ${language}: missing ${mechanism}`);
   }
   assert(text.includes("Guyton") && text.includes("Kandel"), `Module 4 ${language}: further reading is included`);
-  console.log(`Module 4 ${language}: 12 sections, unique learning blocks, outcomes, methods, clinical links, and references OK`);
+  console.log(`Module 4 ${language}: ${ids.length} sections, unique learning blocks, outcomes, methods, clinical links, and references OK`);
 }
