@@ -1,0 +1,18 @@
+const assert=require("node:assert/strict");
+const fs=require("node:fs");
+const read=p=>fs.readFileSync(p,"utf8");
+const foundation=read("content/course-foundation/index.ts");
+const theory=read("content/course-foundation/module-twenty-one-theory.ts");
+const activities=read("content/course-foundation/module-twenty-one-activities.ts");
+const pretest=read("content/course-foundation/module-twenty-one-pretest.ts");
+const finalTest=read("content/course-foundation/module-twenty-one-final-test.ts");
+const section=read("app/modules/[id]/[section]/page.tsx");
+for(const name of ["createModuleTwentyOneTheory","extendModuleTwentyOneCases","extendModuleTwentyOnePractice","createModuleTwentyOnePretest","extendModuleTwentyOneFinalTest"])assert(foundation.includes(name),"Missing registration "+name);
+for(const id of ["cochlea","auditory-path","vestibular","taste","smell","integration"])assert(theory.includes(id),"Missing topic "+id);
+assert(activities.includes("module-21-clinical-"),"Missing clinical case IDs");
+assert(activities.includes('type:"answer"'),"Missing practice feedback");
+assert(pretest.includes("module-21-pretest-"),"Missing pretest IDs");
+assert(finalTest.includes("mainIds:[...base.mainIds,...ids]"),"Missing final test expansion");
+assert(section.includes("SensorySystemsLab"),"Specialized sensory lab must be retained");
+assert(section.includes("section === 'theory' || section === 'practice'"),"Curated anatomy must be available in theory and practice");
+console.log("Module 21 integration QA passed.");
