@@ -1,8 +1,10 @@
 import type { Lesson } from "../../../types";
+import { moduleFourDetailedTheory } from "../../../course-foundation/module-four-detailed-theory";
 
 const lesson: Lesson = {
   title: "Модуль 4. Мембранная физиология: потенциал покоя, ионные каналы и потенциал действия",
   sections: [
+    ...moduleFourDetailedTheory("RU"),
     {
       id: "learning-goals",
       title: "1. Учебные цели и функциональная анатомия",
