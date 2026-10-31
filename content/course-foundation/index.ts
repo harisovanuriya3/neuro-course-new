@@ -12,6 +12,7 @@ import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
+import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
 const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
   2: { RU: 'сравните две записи ЭЭГ с одинаковым физиологическим состоянием, но разным уровнем артефакта; измерьте амплитуду, частоту и признак, позволяющий распознать артефакт', EN: 'compare two EEG recordings from the same physiological state but with different artifact levels; measure amplitude, frequency, and a feature that identifies the artifact', KZ: 'физиологиялық күйі бірдей, бірақ артефакт деңгейі әртүрлі екі ЭЭГ жазбасын салыстырып, амплитуданы, жиілікті және артефактты тануға көмектесетін белгіні өлшеңіз' },
@@ -450,6 +451,7 @@ function create(
                 : 'Таламустың вентралдық артқы ядролары зақымданғанда бірнеше сезімталдық түрінің қарама-қарсы жақтағы бұзылысы пайда болуы мүмкін. Кейбір науқастарда таламустық инсульттен кейін орталық ауырсыну дамиды, бірақ әр зақым ауырсынуға әкелмейді. Орналасуына қарай зейін, жад, қозғалысты реттеу және сергектік бұзылуы мүмкін. Локализация үшін сезімталдық өзгерістерін, басқа неврологиялық белгілерді және нейровизуализацияны бірге бағалау қажет. Кенеттен дамыған ошақты неврологиялық тапшылық шұғыл инсульттік бағалауды талап етеді.' }],
           },
         ] : []),
+        ...(topic.id === 24 ? moduleTwentyFourChapter(language) : []),
         ...(topic.id === 24 ? [
           {
             id: 'sleep-circuitry',
