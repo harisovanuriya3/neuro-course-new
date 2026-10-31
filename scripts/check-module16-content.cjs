@@ -10,6 +10,8 @@ const modulePage=read("app/modules/[id]/page.tsx");
 const resources=read("app/resources/page.tsx");
 const visual=read("components/ModuleSixteenVisual.tsx");
 const lab=read("app/module-16-lab/page.tsx");
+const finalTest=read("content/course-foundation/module-sixteen-final-test.ts");
+const expanded=read("content/course-foundation/module-sixteen-expanded-questions.ts");
 for(const language of ["RU","EN","KZ"]){
  for(const [name,text] of Object.entries({theory,pretest,activities,visual,lab})){
   assert(text.includes(language),name+" missing "+language);
@@ -28,4 +30,8 @@ assert(visual.includes("AdvancedAnatomyReference"),"attributed anatomical refere
 assert(activities.includes("module-16-clinical-"),"clinical cases missing");
 assert(activities.includes('type:"answer"'),"practice feedback missing");
 assert(lab.includes("Math.random()"),"reward simulation missing");
+assert(foundation.includes("extendModuleSixteenFinalTest"),"final exam not registered");
+assert(finalTest.includes("mainIds:[...base.mainIds,...ids]"),"final exam main sequence not expanded");
+assert(finalTest.includes("previous.onCorrect=ids[0]"),"final exam flow not linked");
+assert(expanded.includes("module-16-expanded-"),"expanded question bank missing");
 console.log("Module 16 structural QA passed: RU/EN/KZ, six topics, cases, practice, tests, lab and anatomical reference.");
