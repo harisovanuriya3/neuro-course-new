@@ -20,6 +20,12 @@ for (const lang of langs) {
     assert(Array.isArray(item.stages) && item.stages.length > 0,`${lang}: no stages for ${item.id}`);
     assert(Array.isArray(item.explanation) && item.explanation.length >= 2,`${lang}: insufficient explanation for ${item.id}`);
   }
+  const caseSituations = cases.cases.map(item => item.situation.trim().toLocaleLowerCase());
+  assert.equal(new Set(caseSituations).size,caseSituations.length,`${lang}: duplicate clinical case situations`);
+  for (const item of cases.cases) {
+    assert(item.stages.every(stage => Array.isArray(stage.questions) && stage.questions.length >= 2 && stage.questions.every(q => typeof q === "string" && q.trim().length >= 12)),`${lang}: case ${item.id} lacks substantive clinical questions`);
+    assert(item.explanation.every(explanation => typeof explanation === "string" && explanation.trim().length >= 35),`${lang}: case ${item.id} has overly short explanation`);
+  }
   const sectionIds = theory.sections.map(item => item.id);
   assert.equal(new Set(sectionIds).size,sectionIds.length,`${lang}: duplicate theory section IDs`);
   for (const section of theory.sections) {
