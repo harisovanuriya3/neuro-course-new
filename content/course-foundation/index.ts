@@ -11,6 +11,7 @@ import { createModuleThirteenSummary } from "./module-thirteen-summary";
 import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
+import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 
 const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
   2: { RU: 'сравните две записи ЭЭГ с одинаковым физиологическим состоянием, но разным уровнем артефакта; измерьте амплитуду, частоту и признак, позволяющий распознать артефакт', EN: 'compare two EEG recordings from the same physiological state but with different artifact levels; measure amplitude, frequency, and a feature that identifies the artifact', KZ: 'физиологиялық күйі бірдей, бірақ артефакт деңгейі әртүрлі екі ЭЭГ жазбасын салыстырып, амплитуданы, жиілікті және артефактты тануға көмектесетін белгіні өлшеңіз' },
@@ -390,6 +391,7 @@ function create(
                   : 'Механизмді өз сөзіңізбен түсіндіріңіз, өзгеретін физиологиялық шаманы және күтілетін бақылауды атаңыз. Жауабыңызды механизм және түсіндіру бөлімдерімен салыстырыңыз.' },
           ],
         },
+        ...(topic.id === 20 ? moduleTwentyExpandedTheory(language) : []),
         ...(topic.id === 20 ? [
           {
             id: 'visual-retinal-circuit',
