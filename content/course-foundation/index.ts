@@ -11,6 +11,10 @@ import { createModuleThirteenSummary } from "./module-thirteen-summary";
 import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
+import { createModuleTwentyFourSleepTheory } from "./module-twenty-four-sleep-theory";
+import { extendModuleTwentyFourCases, extendModuleTwentyFourPractice } from "./module-twenty-four-activities";
+import { createModuleTwentyFourPretest } from "./module-twenty-four-pretest";
+import { extendModuleTwentyFourFinalTest } from "./module-twenty-four-final-test";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
@@ -1400,3 +1404,10 @@ if (foundationLessons[13]) {
     KZ: createModuleThirteenSummary("KZ"),
   };
 }
+
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[24]?.theory?.[language];if(base?.kind==="theory")foundationLessons[24]!.theory![language]=createModuleTwentyFourSleepTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[24]?.cases?.[language];if(c?.kind==="cases")foundationLessons[24]!.cases![language]=extendModuleTwentyFourCases(language,c);const p=foundationLessons[24]?.practice?.[language];if(p?.kind==="practice")foundationLessons[24]!.practice![language]=extendModuleTwentyFourPractice(language,p);}
+
+if(foundationLessons[24])foundationLessons[24].pretest={RU:createModuleTwentyFourPretest("RU",getSectionTitle("pretest","RU"),modules.RU[23]),EN:createModuleTwentyFourPretest("EN",getSectionTitle("pretest","EN"),modules.EN[23]),KZ:createModuleTwentyFourPretest("KZ",getSectionTitle("pretest","KZ"),modules.KZ[23])};
+for(const language of ["RU","EN","KZ"] as const){const t=foundationLessons[24]?.tests?.[language];if(t?.kind==="tests")foundationLessons[24]!.tests![language]=extendModuleTwentyFourFinalTest(language,t);}
