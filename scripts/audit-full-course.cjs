@@ -8,6 +8,8 @@ const {sectionOrder} = load("content/sections.ts");
 
 const root = path.resolve(__dirname, "..");
 const langs = ["RU","EN","KZ"];
+const auxiliarySections = new Set(["virtual-patient","voice","progress","notes"]);
+const lessonSections = sectionOrder.filter(section => !auxiliarySections.has(section));
 const rows = [];
 const text = value => String(value || "").trim();
 const norm = value => text(value).toLowerCase().replace(/\s+/g," ");
@@ -20,7 +22,7 @@ for (const language of langs) {
   for (let moduleId = 1; moduleId <= 25; moduleId += 1) {
     const lessons = {};
     const missingSections = [];
-    for (const section of sectionOrder) {
+    for (const section of lessonSections) {
       let lesson;
       try { lesson = getLesson(moduleId, section, language); }
       catch (error) { missingSections.push(section); continue; }
@@ -43,7 +45,7 @@ for (const language of langs) {
     const patientStages = arrayAt(patient, ["decisions","stages","steps","items"]);
     rows.push({
       moduleId, language,
-      sections: sectionOrder.length - missingSections.length,
+      sections: lessonSections.length - missingSections.length,
       missingSections,
       theoryBlocks: theoryBlocks.length,
       practiceItems: practiceItems.length,
@@ -90,7 +92,7 @@ const summary={
   moduleLanguagesBelow20DistinctMainTests:belowTestTarget.length,
 };
 console.log("FULL COURSE AUDIT",JSON.stringify(summary,null,2));
-for(const row of rows) console.log(`${row.moduleId}|${row.language}|sections ${row.sections}/${sectionOrder.length}|theory ${row.theoryBlocks}|practice ${row.practiceItems}|cases ${row.distinctCases}/${row.cases}|tests ${row.distinctMainTests}/${row.mainTests}|patient stages ${row.patientStages}`);
+for(const row of rows) console.log(`${row.moduleId}|${row.language}|sections ${row.sections}/${lessonSections.length}|theory ${row.theoryBlocks}|practice ${row.practiceItems}|cases ${row.distinctCases}/${row.cases}|tests ${row.distinctMainTests}/${row.mainTests}|patient stages ${row.patientStages}`);
 if(languageParity.length) console.warn("LANGUAGE COUNT MISMATCH",JSON.stringify(languageParity));
 if(belowCaseTarget.length||belowTestTarget.length) console.warn("EDITORIAL TARGET OPEN: 20 distinct authored cases and tests are not yet verified for every module-language pair.");
 console.log("Full course structural/content audit completed.");
