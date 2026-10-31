@@ -4,6 +4,36 @@ const lesson: Lesson = {
   title: "Module 5. Synapses, Neurotransmitters, and Neuromodulation",
   sections: [
     {
+      "id": "quantal-calcium-plasticity",
+      "title": "Quantal transmission, calcium microdomains and short-term plasticity",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "Presynaptic mechanism"
+        },
+        {
+          "type": "paragraph",
+          "text": "An arriving action potential depolarizes the presynaptic active zone and opens voltage-gated calcium channels. Local Ca²⁺ near an open channel may transiently greatly exceed the average concentration in the terminal. Calcium binding to vesicular sensors, including synaptotagmin at many fast synapses, promotes fusion of primed vesicles through the SNARE machinery. Release is probabilistic: each spike does not necessarily release the same number of transmitter quanta. Mean response amplitude therefore depends on functional release-site number, release probability and quantal size. This simplified model is useful only when its assumptions are considered."
+        },
+        {
+          "type": "subheading",
+          "text": "Paired pulses and mechanisms"
+        },
+        {
+          "type": "paragraph",
+          "text": "When the second postsynaptic response exceeds the first at a short interval, facilitation associated with residual presynaptic Ca²⁺ is one possibility. A reduced second response may reflect depletion of release-ready vesicles, altered release probability or postsynaptic receptor desensitization. The paired-pulse ratio alone does not prove a presynaptic mechanism. Compare miniature responses, response variability, calcium sensitivity and postsynaptic responses to direct agonist application."
+        },
+        {
+          "type": "subheading",
+          "text": "Clinical interpretation"
+        },
+        {
+          "type": "paragraph",
+          "text": "Disorders of neuromuscular transmission may produce fatigable weakness, but symptom distribution and electrophysiological patterns depend on the affected link. Postsynaptic loss of available acetylcholine receptors and presynaptic impairment of acetylcholine release have different mechanisms. A diagnosis cannot be established from a single paired-pulse result; examination, appropriate electrodiagnostics and clinical context are essential."
+        }
+      ]
+    },
+    {
       id: "learning-goals",
       title: "1. Learning goals and synaptic organization",
       blocks: [
