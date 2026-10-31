@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useId, type ReactNode } from "react";
 import type { Language } from "../content/course";
 import type { DiagramNode } from "../content/interactive";
@@ -46,32 +47,35 @@ function Legend({ nodes, selected, language }: { nodes: DiagramNode[]; selected:
 export function OrganizationVisual({ nodes, selected, language, onSelect }: { nodes: DiagramNode[]; selected: string; language: Language; onSelect: (id: string) => void }) {
   const current = nodes.find(node => node.id === selected) ?? nodes[0];
   if (!current) return <p role="status">{copy[language].unavailable}</p>;
-  const title = language === "RU" ? "Анатомические структуры ЦНС и ПНС" : language === "EN" ? "Anatomical structures of the CNS and PNS" : "ОЖЖ және ШЖЖ анатомиялық құрылымдары";
-  const detail = language === "RU" ? "Выберите структуру: выделение и импульс покажут её участие в передаче сигнала. Реальный анатомический препарат показан один раз ниже." : language === "EN" ? "Select a structure to highlight its role in signal transmission. The real anatomical specimen is shown once below." : "Құрылымды таңдаңыз: белгілеу мен импульс сигнал берілуіндегі рөлін көрсетеді. Нақты анатомиялық препарат төменде бір рет көрсетілген.";
-  const region = selected === "brain" || selected === "spinal" ? "central" : "peripheral";
-  const signal = region === "central" ? "M 180 28 C 180 90 180 110 180 185 L 180 275" : "M 180 90 Q 230 132 300 172 Q 325 186 330 265";
+  const title = language === "RU" ? "Реальная анатомия ЦНС и ПНС" : language === "EN" ? "Real anatomy of the CNS and PNS" : "ОЖЖ және ШЖЖ нақты анатомиясы";
+  const captions = language === "RU"
+    ? ["Головной и спинной мозг — анатомический препарат", "Периферический нерв — микрофотография поперечного среза", "Нервно-мышечное соединение — электронная микрофотография"]
+    : language === "EN"
+      ? ["Brain and spinal cord — anatomical specimen", "Peripheral nerve — cross-section micrograph", "Neuromuscular junction — electron micrograph"]
+      : ["Ми мен жұлын — анатомиялық препарат", "Шеткі жүйке — көлденең кесіндінің микрофотосы", "Жүйке-бұлшықет түйіспесі — электрондық микрофото"];
+  const assets = [
+    { src: "/images/anatomy/brain-spinal-cord.jpg", ids: ["brain","spinal"], caption: captions[0] },
+    { src: "/images/anatomy/peripheral-nerve.jpg", ids: ["nerves","ganglia"], caption: captions[1] },
+    { src: "/images/anatomy/neuromuscular-junction.jpg", ids: ["endings"], caption: captions[2] },
+  ];
   return <figure className={styles.figure} data-visual-state={selected} aria-label={title}>
     <div style={{padding:16}}>
-      <h3 style={{margin:"0 0 8px"}}>{title}</h3><p style={{lineHeight:1.6}}>{detail}</p>
-      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",gap:16}}>
-        <div style={{display:"grid",gap:12}}>
-          <div style={{position:"relative",padding:10,border:"1px solid #c5dae5",borderRadius:14,background:"#f7fbfe"}}>
-            <svg viewBox="0 0 360 300" role="img" aria-label={current.explanation} style={{display:"block",width:"100%"}}>
-              <path d="M180 20 Q130 5 112 42 Q91 78 146 100 L175 105 L175 232 M180 20 Q230 5 248 42 Q269 78 214 100 L185 105 L185 232" fill="none" stroke="#567b93" strokeWidth="10" strokeLinecap="round"/>
-              <path d="M177 107 L177 275 M184 107 L184 275 M178 143 Q109 126 44 180 M184 143 Q251 126 317 180 M178 205 Q110 228 50 275 M184 205 Q250 228 310 275" fill="none" stroke="#b68c4d" strokeWidth="5" strokeLinecap="round"/>
-              <path d={signal} fill="none" stroke={region==="central"?"#116ca8":"#d06a26"} strokeWidth="5" strokeDasharray="12 10">
-                <animate attributeName="stroke-dashoffset" from="44" to="0" dur="1.4s" repeatCount="indefinite"/>
-              </path>
-              <circle cx={region==="central"?180:300} cy={region==="central"?125:173} r="12" fill="#e9faff" stroke="#005b91" strokeWidth="3"/>
-              <text x="180" y="294" textAnchor="middle" fontSize="12" fill="#24465d">{region==="central"?"CNS / ОЖЖ":"PNS / ШЖЖ"}</text>
-            </svg>
-          </div>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(125px,1fr))",gap:8}}>
-            {nodes.map((node,i)=><button key={node.id} type="button" aria-pressed={node.id===selected} onClick={()=>onSelect(node.id)} style={{padding:"10px",borderRadius:10,cursor:"pointer",border:node.id===selected?"2px solid #005b91":"1px solid #b7d1df",background:node.id===selected?"#d5eef9":"#fff",fontWeight:node.id===selected?750:500,textAlign:"left"}}>{i+1}. {node.label}</button>)}
-          </div>
-          <p aria-live="polite" style={{margin:0,lineHeight:1.55}}><strong>{current.label}.</strong> {current.explanation}</p>
-        </div>
+      <h3 style={{margin:"0 0 12px"}}>{title}</h3>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:14}}>
+        {assets.map(asset => {
+          const active = asset.ids.includes(selected);
+          return <figure key={asset.src} style={{margin:0,padding:8,borderRadius:14,border:active?"3px solid #006b92":"1px solid #bfd1dc",background:"#fff",boxShadow:active?"0 8px 24px rgba(0,83,120,.18)":"none",opacity:active?1:.76}}>
+            <div style={{position:"relative",height:260,borderRadius:10,overflow:"hidden",background:"#eef3f6"}}>
+              <Image src={asset.src} alt={asset.caption} fill sizes="(max-width: 760px) 90vw, 30vw" style={{objectFit:"contain"}} />
+            </div>
+            <figcaption style={{marginTop:8,fontWeight:700,lineHeight:1.4}}>{asset.caption}</figcaption>
+          </figure>;
+        })}
       </div>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))",gap:8,marginTop:14}}>
+        {nodes.map((node,i)=><button key={node.id} type="button" aria-pressed={node.id===selected} onClick={()=>onSelect(node.id)} style={{padding:"10px",borderRadius:10,cursor:"pointer",border:node.id===selected?"2px solid #005b91":"1px solid #b7d1df",background:node.id===selected?"#d5eef9":"#fff",fontWeight:node.id===selected?750:500,textAlign:"left"}}>{i+1}. {node.label}</button>)}
+      </div>
+      <p aria-live="polite" style={{margin:"14px 0 0",lineHeight:1.55}}><strong>{current.label}.</strong> {current.explanation}</p>
     </div>
   </figure>;
 }
