@@ -14,6 +14,7 @@ import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { createModuleSeventeenTheory } from "./module-seventeen-theory";
 import { extendModuleSeventeenCases, extendModuleSeventeenPractice } from "./module-seventeen-activities";
 import { createModuleSeventeenPretest } from "./module-seventeen-pretest";
+import { extendModuleSeventeenFinalTest } from "./module-seventeen-final-test";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
@@ -1409,3 +1410,5 @@ for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[17
 for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[17]?.cases?.[language];if(c?.kind==="cases")foundationLessons[17]!.cases![language]=extendModuleSeventeenCases(language,c);const p=foundationLessons[17]?.practice?.[language];if(p?.kind==="practice")foundationLessons[17]!.practice![language]=extendModuleSeventeenPractice(language,p);}
 
 if(foundationLessons[17])foundationLessons[17].pretest={RU:createModuleSeventeenPretest("RU",getSectionTitle("pretest","RU"),modules.RU[16]),EN:createModuleSeventeenPretest("EN",getSectionTitle("pretest","EN"),modules.EN[16]),KZ:createModuleSeventeenPretest("KZ",getSectionTitle("pretest","KZ"),modules.KZ[16])};
+
+for(const language of ["RU","EN","KZ"] as const){const test=foundationLessons[17]?.tests?.[language];if(test?.kind==="tests")foundationLessons[17]!.tests![language]=extendModuleSeventeenFinalTest(language,test);}
