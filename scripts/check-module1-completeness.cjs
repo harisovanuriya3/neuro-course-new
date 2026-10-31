@@ -40,6 +40,21 @@ for (const lang of ["EN","KZ"]) {
   assert.deepEqual(snapshots[lang].cases,snapshots.RU.cases,`${lang}: case identifiers differ from RU`);
   assert.equal(snapshots[lang].practiceCount,snapshots.RU.practiceCount,`${lang}: practical station count differs from RU`);
 }
+const {extendModule1Test}=load("content/modules/1/tests/extend.ts");
+for(const lang of langs){
+  const code=suffix[lang];
+  const base=load(`content/modules/1/tests/${code}.ts`).default;
+  const expanded=extendModule1Test(base,lang);
+  const ids=expanded.mainIds.filter(id=>id.startsWith("module1:extended:"));
+  assert(ids.length>=10,`${lang}: insufficient extended test coverage`);
+  for(const id of ids){
+    const q=expanded.nodes[id];
+    assert(q.type==="question" && q.options.length===4,`${lang}/${id}: malformed question`);
+    assert(q.options.some(o=>o.id===q.correctAnswer),`${lang}/${id}: correct answer missing`);
+    assert(q.prompt.trim().length>=35 && q.explanation.trim().length>=40,`${lang}/${id}: inadequate rationale`);
+    assert.equal(new Set(q.options.map(o=>o.text.trim().toLocaleLowerCase())).size,4,`${lang}/${id}: duplicate options`);
+  }
+}
 const fs = require("node:fs");
 const sectionContent = fs.readFileSync("components/SectionContent.tsx","utf8");
 const mediaLibrary = fs.readFileSync("app/resources/page.tsx","utf8");
