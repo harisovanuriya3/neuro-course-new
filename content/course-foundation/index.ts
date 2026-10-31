@@ -390,6 +390,26 @@ function create(
                   : 'Механизмді өз сөзіңізбен түсіндіріңіз, өзгеретін физиологиялық шаманы және күтілетін бақылауды атаңыз. Жауабыңызды механизм және түсіндіру бөлімдерімен салыстырыңыз.' },
           ],
         },
+        ...(topic.id === 19 ? [
+          {
+            id: 'somatosensory-pathways',
+            title: language === 'RU' ? 'Соматосенсорные пути и перекрёст' : language === 'EN' ? 'Somatosensory pathways and decussation' : 'Соматосенсорлық жолдар және айқасу',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Тонкое осязание, вибрация и сознательная проприоцепция от туловища и конечностей преимущественно передаются по задним столбам к ядрам тонкого и клиновидного пучков в продолговатом мозге. Аксоны нейронов второго порядка перекрещиваются и формируют медиальную петлю, направляющуюся к вентральному заднелатеральному ядру таламуса. Болевая и температурная чувствительность передаётся через нейроны заднего рога; большинство вторичных аксонов пересекают переднюю белую спайку вблизи уровня входа и поднимаются в переднебоковой системе. Поэтому сторона и уровень нарушения чувствительности зависят от локализации очага.'
+              : language === 'EN'
+                ? 'Discriminative touch, vibration and conscious proprioception from the trunk and limbs travel mainly in the dorsal columns to the gracile and cuneate nuclei of the medulla. Second-order axons cross and form the medial lemniscus, projecting to the ventral posterolateral thalamus. Pain and temperature signals synapse in the dorsal horn; most second-order axons cross through the anterior white commissure near the entry level and ascend in the anterolateral system. The side and level of sensory loss therefore depend on lesion location.'
+                : 'Дене мен аяқ-қолдан келетін нәзік жанасу, діріл және саналы проприоцепция негізінен артқы бағандармен сопақша мидағы нәзік және сына тәрізді ядроларға өтеді. Екінші реттік нейрон аксондары айқасып, таламустың вентралды артқы латералды ядросына баратын медиалдық ілмекті құрайды. Ауырсыну мен температура сигналдары артқы мүйізде синапс түзеді; екінші реттік аксондардың көбі кірген деңгейге жақын алдыңғы ақ комиссура арқылы айқасып, алдыңғы-бүйір жүйемен жоғарылайды. Сондықтан сезімталдық бұзылысының жағы мен деңгейі зақым орнына тәуелді.' }],
+          },
+          {
+            id: 'somatosensory-cortex',
+            title: language === 'RU' ? 'Соматотопия и корковая обработка' : language === 'EN' ? 'Somatotopy and cortical processing' : 'Соматотопия және қыртыстық өңдеу',
+            blocks: [{ type: 'paragraph' as const, text: language === 'RU'
+              ? 'Первичная соматосенсорная кора располагается преимущественно в постцентральной извилине и включает поля Бродмана 3a, 3b, 1 и 2. В ней сохраняется упорядоченное представительство частей тела, но площадь коркового представительства отражает плотность рецепторов и функциональные требования, а не физический размер органа. Восприятие сложных признаков предмета зависит также от вторичной соматосенсорной и теменной ассоциативной коры. При осмотре необходимо раздельно проверять болевую, температурную, вибрационную и суставно-мышечную чувствительность; один отрицательный тест не исключает нарушения других модальностей.'
+              : language === 'EN'
+                ? 'Primary somatosensory cortex lies mainly in the postcentral gyrus and includes Brodmann areas 3a, 3b, 1 and 2. Body regions are represented somatotopically, but cortical representation size reflects receptor density and functional demand rather than physical body-part size. Complex tactile object recognition also involves secondary somatosensory and parietal association cortices. Examination should test pain, temperature, vibration and joint position separately; a normal result in one modality does not exclude deficits in another.'
+                : 'Біріншілік соматосенсорлық қыртыс негізінен постцентралдық иірімде орналасып, Бродманның 3a, 3b, 1 және 2 аймақтарын қамтиды. Дене бөліктері соматотопиялық ретпен бейнеленеді, бірақ қыртыстық өкілдік көлемі мүшенің физикалық өлшеміне емес, рецепторлар тығыздығы мен функционалдық қажеттілікке тәуелді. Заттың күрделі тактильдік белгілерін тануға екіншілік соматосенсорлық және төбелік ассоциативтік қыртыстар да қатысады. Тексеруде ауырсыну, температура, діріл және буын қалпын сезуді бөлек бағалау керек; бір модальділіктің қалыпты болуы басқасының бұзылуын жоққа шығармайды.' }],
+          },
+        ] : []),
         ...(topic.id === 17 ? [
           {
             id: 'amygdala-nuclei',
