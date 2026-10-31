@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Lang = "RU" | "EN" | "KZ";
 const words = {
@@ -12,6 +12,7 @@ export default function ModuleFifteenLab() {
  const [na,setNa]=useState(140),[glucose,setGlucose]=useState(5),[urea,setUrea]=useState(5);
  const [lowVolume,setLowVolume]=useState(false);
  const [thermal,setThermal]=useState<"cold"|"neutral"|"heat"|"fever">("neutral");
+ useEffect(() => { const selected = new URLSearchParams(window.location.search).get("lang"); if(selected==="RU"||selected==="EN"||selected==="KZ") setLang(selected); }, []);
  const t=words[lang];
  const result=useMemo(()=>({osmo:2*na+glucose+urea,tonicity:2*na+glucose}),[na,glucose,urea]);
  const response=lowVolume||na>145?"high":na<135?"low":"base";
