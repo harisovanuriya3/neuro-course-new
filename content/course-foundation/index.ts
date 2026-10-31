@@ -14,6 +14,46 @@ import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
+import { createModuleSixteenTheory } from "./module-sixteen-theory";
+import { createModuleSixteenPretest } from "./module-sixteen-pretest";
+import { extendModuleSixteenQuestionBank } from "./module-sixteen-expanded-questions";
+import { extendModuleSixteenFinalTest } from "./module-sixteen-final-test";
+import { extendModuleSixteenCases, extendModuleSixteenPractice } from "./module-sixteen-activities";
+import { createModuleSeventeenTheory } from "./module-seventeen-theory";
+import { extendModuleSeventeenCases, extendModuleSeventeenPractice } from "./module-seventeen-activities";
+import { createModuleSeventeenPretest } from "./module-seventeen-pretest";
+import { extendModuleSeventeenFinalTest } from "./module-seventeen-final-test";
+import { createModuleEighteenTheory } from "./module-eighteen-theory";
+import { extendModuleEighteenCases, extendModuleEighteenPractice } from "./module-eighteen-activities";
+import { createModuleEighteenPretest } from "./module-eighteen-pretest";
+import { extendModuleEighteenFinalTest } from "./module-eighteen-final-test";
+import { createModuleNineteenTheory } from "./module-nineteen-theory";
+import { extendModuleNineteenCases, extendModuleNineteenPractice } from "./module-nineteen-activities";
+import { createModuleNineteenPretest } from "./module-nineteen-pretest";
+import { extendModuleNineteenFinalTest } from "./module-nineteen-final-test";
+import { createModuleTwentyVisualTheory } from "./module-twenty-visual-theory";
+import { extendModuleTwentyCases, extendModuleTwentyPractice } from "./module-twenty-visual-activities";
+import { extendModuleTwentyPretest, extendModuleTwentyFinalTest } from "./module-twenty-visual-assessment";
+import { createModuleTwentyOneTheory } from "./module-twenty-one-theory";
+import { extendModuleTwentyOneCases, extendModuleTwentyOnePractice } from "./module-twenty-one-activities";
+import { createModuleTwentyOnePretest } from "./module-twenty-one-pretest";
+import { extendModuleTwentyOneFinalTest } from "./module-twenty-one-final-test";
+import { createModuleTwentyTwoTheory } from "./module-twenty-two-theory";
+import { extendModuleTwentyTwoCases, extendModuleTwentyTwoPractice } from "./module-twenty-two-activities";
+import { createModuleTwentyTwoPretest } from "./module-twenty-two-pretest";
+import { extendModuleTwentyTwoFinalTest } from "./module-twenty-two-final-test";
+import { createModuleTwentyThreeTheory } from "./module-twenty-three-theory";
+import { extendModuleTwentyThreeCases, extendModuleTwentyThreePractice } from "./module-twenty-three-activities";
+import { createModuleTwentyThreePretest } from "./module-twenty-three-pretest";
+import { extendModuleTwentyThreeFinalTest } from "./module-twenty-three-final-test";
+import { createModuleTwentyFourSleepTheory } from "./module-twenty-four-sleep-theory";
+import { extendModuleTwentyFourCases, extendModuleTwentyFourPractice } from "./module-twenty-four-activities";
+import { createModuleTwentyFourPretest } from "./module-twenty-four-pretest";
+import { extendModuleTwentyFourFinalTest } from "./module-twenty-four-final-test";
+import { createModuleTwentyFiveTheory } from "./module-twenty-five-theory";
+import { extendModuleTwentyFiveCases, extendModuleTwentyFivePractice } from "./module-twenty-five-activities";
+import { createModuleTwentyFivePretest } from "./module-twenty-five-pretest";
+import { extendModuleTwentyFiveFinalTest } from "./module-twenty-five-final-test";
 const experimentFocus: Partial<Record<number, Record<Language, string>>> = {
   2: { RU: 'сравните две записи ЭЭГ с одинаковым физиологическим состоянием, но разным уровнем артефакта; измерьте амплитуду, частоту и признак, позволяющий распознать артефакт', EN: 'compare two EEG recordings from the same physiological state but with different artifact levels; measure amplitude, frequency, and a feature that identifies the artifact', KZ: 'физиологиялық күйі бірдей, бірақ артефакт деңгейі әртүрлі екі ЭЭГ жазбасын салыстырып, амплитуданы, жиілікті және артефактты тануға көмектесетін белгіні өлшеңіз' },
   3: { RU: 'измените диаметр или степень миелинизации нервного волокна и измерьте скорость проведения при фиксированной температуре и длине пути', EN: 'change nerve-fibre diameter or degree of myelination and measure conduction velocity at fixed temperature and path length', KZ: 'жүйке талшығының диаметрін немесе миелиндену дәрежесін өзгертіп, температура мен жол ұзындығын тұрақты ұстап, өткізу жылдамдығын өлшеңіз' },
@@ -1400,3 +1440,95 @@ if (foundationLessons[13]) {
     KZ: createModuleThirteenSummary("KZ"),
   };
 }
+
+
+// Consolidated module 16-25 additions; original foundation lessons retained.
+// Add authored limbic physiology without removing original module 16 sections.
+if (foundationLessons[16]) foundationLessons[16].pretest = {
+ RU:extendModuleSixteenQuestionBank("RU",createModuleSixteenPretest("RU",modules.RU[15],getSectionTitle("pretest","RU"))),
+ EN:extendModuleSixteenQuestionBank("EN",createModuleSixteenPretest("EN",modules.EN[15],getSectionTitle("pretest","EN"))),
+ KZ:extendModuleSixteenQuestionBank("KZ",createModuleSixteenPretest("KZ",modules.KZ[15],getSectionTitle("pretest","KZ"))),
+};
+for (const language of ["RU","EN","KZ"] as const) {
+ const base = foundationLessons[16]?.theory?.[language];
+ if (base?.kind === "theory") foundationLessons[16]!.theory![language] = createModuleSixteenTheory(language,base);
+}
+
+// Preserve existing clinical cases and practice; append reviewed authored exercises.
+for (const language of ["RU","EN","KZ"] as const) {
+ const cases = foundationLessons[16]?.cases?.[language];
+ if (cases?.kind === "cases") foundationLessons[16]!.cases![language] = extendModuleSixteenCases(language,cases);
+ const practice = foundationLessons[16]?.practice?.[language];
+ if (practice?.kind === "practice") foundationLessons[16]!.practice![language] = extendModuleSixteenPractice(language,practice);
+}
+
+// Module 16 final exam: subject-specific branching questions after foundation QA items.
+for (const language of ["RU","EN","KZ"] as const) {
+ const test=foundationLessons[16]?.tests?.[language];
+ if(test?.kind==="tests") foundationLessons[16]!.tests![language]=extendModuleSixteenFinalTest(language,test);
+}
+
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[17]?.theory?.[language];if(base?.kind==="theory")foundationLessons[17]!.theory![language]=createModuleSeventeenTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[17]?.cases?.[language];if(c?.kind==="cases")foundationLessons[17]!.cases![language]=extendModuleSeventeenCases(language,c);const p=foundationLessons[17]?.practice?.[language];if(p?.kind==="practice")foundationLessons[17]!.practice![language]=extendModuleSeventeenPractice(language,p);}
+
+if(foundationLessons[17])foundationLessons[17].pretest={RU:createModuleSeventeenPretest("RU",getSectionTitle("pretest","RU"),modules.RU[16]),EN:createModuleSeventeenPretest("EN",getSectionTitle("pretest","EN"),modules.EN[16]),KZ:createModuleSeventeenPretest("KZ",getSectionTitle("pretest","KZ"),modules.KZ[16])};
+
+for(const language of ["RU","EN","KZ"] as const){const test=foundationLessons[17]?.tests?.[language];if(test?.kind==="tests")foundationLessons[17]!.tests![language]=extendModuleSeventeenFinalTest(language,test);}
+
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[18]?.theory?.[language];if(base?.kind==="theory")foundationLessons[18]!.theory![language]=createModuleEighteenTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[18]?.cases?.[language];if(c?.kind==="cases")foundationLessons[18]!.cases![language]=extendModuleEighteenCases(language,c);const p=foundationLessons[18]?.practice?.[language];if(p?.kind==="practice")foundationLessons[18]!.practice![language]=extendModuleEighteenPractice(language,p);}
+
+if(foundationLessons[18])foundationLessons[18].pretest={RU:createModuleEighteenPretest("RU",getSectionTitle("pretest","RU"),modules.RU[17]),EN:createModuleEighteenPretest("EN",getSectionTitle("pretest","EN"),modules.EN[17]),KZ:createModuleEighteenPretest("KZ",getSectionTitle("pretest","KZ"),modules.KZ[17])};
+for(const language of ["RU","EN","KZ"] as const){const t=foundationLessons[18]?.tests?.[language];if(t?.kind==="tests")foundationLessons[18]!.tests![language]=extendModuleEighteenFinalTest(language,t);}
+
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[19]?.theory?.[language];if(base?.kind==="theory")foundationLessons[19]!.theory![language]=createModuleNineteenTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[19]?.cases?.[language];if(c?.kind==="cases")foundationLessons[19]!.cases![language]=extendModuleNineteenCases(language,c);const p=foundationLessons[19]?.practice?.[language];if(p?.kind==="practice")foundationLessons[19]!.practice![language]=extendModuleNineteenPractice(language,p);}
+
+if(foundationLessons[19])foundationLessons[19].pretest={RU:createModuleNineteenPretest("RU",getSectionTitle("pretest","RU"),modules.RU[18]),EN:createModuleNineteenPretest("EN",getSectionTitle("pretest","EN"),modules.EN[18]),KZ:createModuleNineteenPretest("KZ",getSectionTitle("pretest","KZ"),modules.KZ[18])};
+for(const language of ["RU","EN","KZ"] as const){const t=foundationLessons[19]?.tests?.[language];if(t?.kind==="tests")foundationLessons[19]!.tests![language]=extendModuleNineteenFinalTest(language,t);}
+
+// Preserve existing module 20 expanded theory; append targeted visual physiology sections.
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[20]?.theory?.[language];if(base?.kind==="theory")foundationLessons[20]!.theory![language]=createModuleTwentyVisualTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[20]?.cases?.[language];if(c?.kind==="cases")foundationLessons[20]!.cases![language]=extendModuleTwentyCases(language,c);const p=foundationLessons[20]?.practice?.[language];if(p?.kind==="practice")foundationLessons[20]!.practice![language]=extendModuleTwentyPractice(language,p);}
+
+// Keep existing assessment items and append authored visual-system questions.
+for(const language of ["RU","EN","KZ"] as const){const pre=foundationLessons[20]?.pretest?.[language];if(pre?.kind==="pretest")foundationLessons[20]!.pretest![language]=extendModuleTwentyPretest(language,pre);const test=foundationLessons[20]?.tests?.[language];if(test?.kind==="tests")foundationLessons[20]!.tests![language]=extendModuleTwentyFinalTest(language,test);}
+
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[21]?.theory?.[language];if(base?.kind==="theory")foundationLessons[21]!.theory![language]=createModuleTwentyOneTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[21]?.cases?.[language];if(c?.kind==="cases")foundationLessons[21]!.cases![language]=extendModuleTwentyOneCases(language,c);const p=foundationLessons[21]?.practice?.[language];if(p?.kind==="practice")foundationLessons[21]!.practice![language]=extendModuleTwentyOnePractice(language,p);}
+
+if(foundationLessons[21])foundationLessons[21].pretest={RU:createModuleTwentyOnePretest("RU",getSectionTitle("pretest","RU"),modules.RU[20]),EN:createModuleTwentyOnePretest("EN",getSectionTitle("pretest","EN"),modules.EN[20]),KZ:createModuleTwentyOnePretest("KZ",getSectionTitle("pretest","KZ"),modules.KZ[20])};
+for(const language of ["RU","EN","KZ"] as const){const test=foundationLessons[21]?.tests?.[language];if(test?.kind==="tests")foundationLessons[21]!.tests![language]=extendModuleTwentyOneFinalTest(language,test);}
+
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[22]?.theory?.[language];if(base?.kind==="theory")foundationLessons[22]!.theory![language]=createModuleTwentyTwoTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[22]?.cases?.[language];if(c?.kind==="cases")foundationLessons[22]!.cases![language]=extendModuleTwentyTwoCases(language,c);const p=foundationLessons[22]?.practice?.[language];if(p?.kind==="practice")foundationLessons[22]!.practice![language]=extendModuleTwentyTwoPractice(language,p);}
+
+if(foundationLessons[22])foundationLessons[22].pretest={RU:createModuleTwentyTwoPretest("RU",getSectionTitle("pretest","RU"),modules.RU[21]),EN:createModuleTwentyTwoPretest("EN",getSectionTitle("pretest","EN"),modules.EN[21]),KZ:createModuleTwentyTwoPretest("KZ",getSectionTitle("pretest","KZ"),modules.KZ[21])};
+for(const language of ["RU","EN","KZ"] as const){const t=foundationLessons[22]?.tests?.[language];if(t?.kind==="tests")foundationLessons[22]!.tests![language]=extendModuleTwentyTwoFinalTest(language,t);}
+
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[23]?.theory?.[language];if(base?.kind==="theory")foundationLessons[23]!.theory![language]=createModuleTwentyThreeTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[23]?.cases?.[language];if(c?.kind==="cases")foundationLessons[23]!.cases![language]=extendModuleTwentyThreeCases(language,c);const p=foundationLessons[23]?.practice?.[language];if(p?.kind==="practice")foundationLessons[23]!.practice![language]=extendModuleTwentyThreePractice(language,p);}
+
+if(foundationLessons[23])foundationLessons[23].pretest={RU:createModuleTwentyThreePretest("RU",getSectionTitle("pretest","RU"),modules.RU[22]),EN:createModuleTwentyThreePretest("EN",getSectionTitle("pretest","EN"),modules.EN[22]),KZ:createModuleTwentyThreePretest("KZ",getSectionTitle("pretest","KZ"),modules.KZ[22])};
+for(const language of ["RU","EN","KZ"] as const){const t=foundationLessons[23]?.tests?.[language];if(t?.kind==="tests")foundationLessons[23]!.tests![language]=extendModuleTwentyThreeFinalTest(language,t);}
+
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[24]?.theory?.[language];if(base?.kind==="theory")foundationLessons[24]!.theory![language]=createModuleTwentyFourSleepTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[24]?.cases?.[language];if(c?.kind==="cases")foundationLessons[24]!.cases![language]=extendModuleTwentyFourCases(language,c);const p=foundationLessons[24]?.practice?.[language];if(p?.kind==="practice")foundationLessons[24]!.practice![language]=extendModuleTwentyFourPractice(language,p);}
+
+if(foundationLessons[24])foundationLessons[24].pretest={RU:createModuleTwentyFourPretest("RU",getSectionTitle("pretest","RU"),modules.RU[23]),EN:createModuleTwentyFourPretest("EN",getSectionTitle("pretest","EN"),modules.EN[23]),KZ:createModuleTwentyFourPretest("KZ",getSectionTitle("pretest","KZ"),modules.KZ[23])};
+for(const language of ["RU","EN","KZ"] as const){const t=foundationLessons[24]?.tests?.[language];if(t?.kind==="tests")foundationLessons[24]!.tests![language]=extendModuleTwentyFourFinalTest(language,t);}
+
+for(const language of ["RU","EN","KZ"] as const){const base=foundationLessons[25]?.theory?.[language];if(base?.kind==="theory")foundationLessons[25]!.theory![language]=createModuleTwentyFiveTheory(language,base);}
+
+for(const language of ["RU","EN","KZ"] as const){const c=foundationLessons[25]?.cases?.[language];if(c?.kind==="cases")foundationLessons[25]!.cases![language]=extendModuleTwentyFiveCases(language,c);const p=foundationLessons[25]?.practice?.[language];if(p?.kind==="practice")foundationLessons[25]!.practice![language]=extendModuleTwentyFivePractice(language,p);}
+
+if(foundationLessons[25])foundationLessons[25].pretest={RU:createModuleTwentyFivePretest("RU",getSectionTitle("pretest","RU"),modules.RU[24]),EN:createModuleTwentyFivePretest("EN",getSectionTitle("pretest","EN"),modules.EN[24]),KZ:createModuleTwentyFivePretest("KZ",getSectionTitle("pretest","KZ"),modules.KZ[24])};
+for(const language of ["RU","EN","KZ"] as const){const t=foundationLessons[25]?.tests?.[language];if(t?.kind==="tests")foundationLessons[25]!.tests![language]=extendModuleTwentyFiveFinalTest(language,t);}
