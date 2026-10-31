@@ -19,7 +19,8 @@ for(const lang of ["RU","EN","KZ"]){
  assert(practice.sections.length>=6,`${lang}: fewer than 6 practice sections`);
  assert(practice.sections.some(st=>st.title.includes(lang==="RU"?"Монтаж ЭЭГ":lang==="EN"?"EEG montage":"ЭЭГ монтажы")),`${lang}: missing EEG montage station`);
  assert(practice.sections.some(st=>st.title.includes(lang==="RU"?"Усреднение":lang==="EN"?"averaging":"орташалау")),`${lang}: missing evoked averaging station`);
- assert(cases.cases.length>=3,`${lang}: insufficient clinical cases`);
+ assert(cases.cases.length>=11,`${lang}: fewer than 11 clinical/situational cases`);
+ assert.equal(new Set(cases.cases.map(c=>c.id)).size,cases.cases.length,`${lang}: duplicate clinical case IDs`);
  assert(cases.cases.some(c=>c.id==="m2-evoked-averaging"),`${lang}: missing artifact discrimination case`);
  for(const c of cases.cases){
   assert(c.situation?.length>=70,`${lang}: case ${c.id} too brief`);
