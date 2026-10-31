@@ -118,7 +118,7 @@ export default async function HomePage({
         <div style={{display:"flex",justifyContent:"center",gap:"12px",flexWrap:"wrap",marginBottom:"24px"}}>
           <Link href={`/login?next=/dashboard?lang=${lang}`} style={{padding:"10px 18px",borderRadius:"10px",background:"#005b96",color:"#fff",fontWeight:800,textDecoration:"none"}}>{t.login}</Link>
           <Link href={`/dashboard?lang=${lang}`} style={{padding:"10px 18px",borderRadius:"10px",background:"#fff",color:"#005b96",border:"1px solid #b9d3e6",fontWeight:800,textDecoration:"none"}}>{t.dashboard}</Link>
-          <Link href={`/resources?lang=${lang}`} style={{padding:"10px 18px",borderRadius:"10px",background:"#eaf7fb",color:"#005b96",border:"1px solid #8fc2d7",fontWeight:800,textDecoration:"none"}}>{lang === "RU" ? "Анимации, лаборатории и пациенты" : lang === "KZ" ? "Анимациялар, зертханалар және пациенттер" : "Animations, laboratories and patients"}</Link>
+          <Link href={`/resources?lang=${lang}`} style={{padding:"10px 18px",borderRadius:"10px",background:"#eaf7fb",color:"#005b96",border:"1px solid #8fc2d7",fontWeight:800,textDecoration:"none"}}>{lang === "RU" ? "МЕДИАТЕКА — все 25 модулей" : lang === "KZ" ? "МЕДИАТЕКА — барлық 25 модуль" : "MEDIA LIBRARY — all 25 modules"}</Link>
         </div>
 
         {/* Заголовок */}
