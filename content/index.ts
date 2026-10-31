@@ -17,14 +17,19 @@ import practiceEN from "./modules/1/practice/en";
 import casesRU from "./modules/1/cases/ru";
 import casesKZ from "./modules/1/cases/kz";
 import casesEN from "./modules/1/cases/en";
-import testsRU from "./modules/1/tests/ru";
-import testsKZ from "./modules/1/tests/kz";
-import testsEN from "./modules/1/tests/en";
+import testsRUBase from "./modules/1/tests/ru";
+import testsKZBase from "./modules/1/tests/kz";
+import testsENBase from "./modules/1/tests/en";
 import { validateTest } from "../lib/tests/engine";
+import { extendModule1Test } from "./modules/1/tests/extend";
 import { createStudyLessons } from "./modules/1/study";
 import { createInteractiveLesson } from "./modules/1/interactive";
 import { createMediaLesson } from "./modules/1/media";
 import { foundationLessons } from "./course-foundation";
+
+const testsRU = extendModule1Test(testsRUBase, "RU");
+const testsKZ = extendModule1Test(testsKZBase, "KZ");
+const testsEN = extendModule1Test(testsENBase, "EN");
 
 const studyRU = createStudyLessons("RU");
 const studyKZ = createStudyLessons("KZ");
