@@ -1,5 +1,3 @@
-import SechenovExperiment from "../../components/SechenovExperiment";
-import FoundationVisual from "../../components/FoundationVisual";
 import Link from "next/link";
 import DocumentLanguage from "../../components/DocumentLanguage";
 import OrganizationAnimation from "../../components/OrganizationAnimation";
