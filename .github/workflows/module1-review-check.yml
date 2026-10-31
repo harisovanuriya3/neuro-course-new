@@ -21,6 +21,8 @@ jobs:
         run: node scripts/check-module1-completeness.cjs
       - name: Verify module 2 content and media
         run: node scripts/check-module2-completeness.cjs
+      - name: Verify module 3 theory and assessment
+        run: node scripts/check-module3-completeness.cjs
       - name: Run complete scientific and course audit
         run: npm run audit:course
       - name: Verify TypeScript
