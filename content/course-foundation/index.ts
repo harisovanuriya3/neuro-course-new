@@ -11,6 +11,7 @@ import { createModuleThirteenSummary } from "./module-thirteen-summary";
 import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
+import { createModuleFifteenTheory } from "./module-fifteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 
@@ -1399,4 +1400,12 @@ if (foundationLessons[13]) {
     EN: createModuleThirteenSummary("EN"),
     KZ: createModuleThirteenSummary("KZ"),
   };
+}
+
+// Additive authored content for module 15; preserve existing lesson sections.
+for (const language of ["RU", "EN", "KZ"] as const) {
+  const base = foundationLessons[15]?.theory?.[language];
+  if (base?.kind === "theory") {
+    foundationLessons[15].theory![language] = createModuleFifteenTheory(language, base);
+  }
 }
