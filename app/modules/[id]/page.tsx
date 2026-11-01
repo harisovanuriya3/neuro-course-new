@@ -349,7 +349,7 @@ export default async function ModulePage({
           <Link href={`/calendar?lang=${lang}`} style={{padding:"12px 16px",border:"1px solid #a8c5d8",borderRadius:12,background:"#fff",color:"#064b76",fontWeight:700}}>{lang === "RU" ? "📅 Календарь" : lang === "EN" ? "📅 Calendar" : "📅 Күнтізбе"}</Link>
         </div>
         <div style={{display:"flex",gap:12,flexWrap:"wrap",margin:"0 0 16px"}}>
-          <Link href={`/draw?lang=${lang}`} style={{padding:"12px 16px",border:"1px solid #a8c5d8",borderRadius:12,background:"#fff",color:"#064b76",fontWeight:700}}>{lang === "RU" ? "✏️ Нарисовать схему" : lang === "EN" ? "✏️ Draw a diagram" : "✏️ Сызба салу"}</Link>
+          <Link href={`/draw?lang=${lang}&module=${moduleNumber}`} style={{padding:"12px 16px",border:"1px solid #a8c5d8",borderRadius:12,background:"#fff",color:"#064b76",fontWeight:700}}>{lang === "RU" ? "✏️ Нарисовать схему" : lang === "EN" ? "✏️ Draw a diagram" : "✏️ Сызба салу"}</Link>
         </div>
         {/* 17 разделов */}
 
