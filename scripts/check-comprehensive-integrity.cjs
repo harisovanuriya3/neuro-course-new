@@ -47,3 +47,20 @@ for(const word of words.concat("twenty-visual")) {
  assert(!/previous\.onCorrect\s*=|previous\.onIncorrect\s*=/.test(src),"base test mutation "+filename);
 }
 console.log("Comprehensive content structure: 25 modules x 3 languages x 5 sections; test keys, explanations, language parity, branching tests passed.");
+
+const source = (name) => fs.readFileSync(path.join(__dirname,"..",name),"utf8");
+const toolbar=source("components/StudyToolbar.tsx");
+const calendar=source("components/StudyCalendar.tsx");
+const layout=source("app/layout.tsx");
+const modulePage=source("app/modules/[id]/page.tsx");
+const exam=source("app/exam/page.tsx");
+const resources=source("app/resources/page.tsx");
+assert(toolbar.includes('setPanel("search")'),"Search button missing");
+assert(toolbar.includes("/calendar?lang="),"Calendar toolbar link missing");
+assert(layout.includes("<StudyToolbar"),"Study toolbar not mounted");
+assert(fs.existsSync(path.join(__dirname,"../app/calendar/page.tsx")),"Calendar route missing");
+assert(calendar.includes("localStorage")&&calendar.includes("exportEntries"),"Calendar persistence or backup missing");
+for(let id=15;id<=18;id++)assert(fs.existsSync(path.join(__dirname,"../app/module-"+id+"-lab/page.tsx")),"Missing module lab "+id);
+assert(modulePage.includes("moduleNumber >= 15 && moduleNumber <= 18"),"Lab links missing");
+assert(exam.includes("/resources?lang=")&&resources.includes("/exam?lang="),"Exam/media crosslinks missing");
+console.log("Navigation and tool integrity: search, calendar, laboratory routes, exam/media crosslinks present.");
