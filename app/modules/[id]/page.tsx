@@ -337,6 +337,14 @@ export default async function ModulePage({
           </div>
         </section>
 
+        {moduleNumber >= 15 && moduleNumber <= 18 && (
+          <section aria-label={lang === "RU" ? "Дополнительная виртуальная лаборатория" : lang === "EN" ? "Additional virtual laboratory" : "Қосымша виртуалды зертхана"} style={{marginTop:24,padding:20,border:"1px solid #d6e3eb",borderRadius:16,background:"#fff"}}>
+            <h2 style={{margin:"0 0 8px",color:"#064a73"}}>{lang === "RU" ? "Практическая виртуальная лаборатория" : lang === "EN" ? "Practical virtual laboratory" : "Практикалық виртуалды зертхана"}</h2>
+            <p style={{color:"#526b80"}}>{lang === "RU" ? "Откройте интерактивную лабораторию этого модуля." : lang === "EN" ? "Open the interactive laboratory for this module." : "Осы модульдің интерактивті зертханасын ашыңыз."}</p>
+            <Link href={`/module-${moduleNumber}-lab`} style={{color:"#005b96",fontWeight:700}}>{lang === "RU" ? "Открыть лабораторию" : lang === "EN" ? "Open laboratory" : "Зертхананы ашу"}</Link>
+          </section>
+        )}
+
         {/* 17 разделов */}
 
         <section

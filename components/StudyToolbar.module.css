@@ -18,3 +18,6 @@
 .toolbar button:focus-visible,.dialog button:focus-visible,.dialog input:focus-visible,.dialog a:focus-visible { outline:3px solid #166ba0; outline-offset:3px; }
 .dialog button:disabled { opacity:.55; cursor:default; }
 @media(max-width:480px) { .toolbar { padding:10px; justify-content:center; gap:8px; } .dialog { padding:16px; } .heading { align-items:flex-start; } }
+
+.calendarLink { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:9px 13px; border:1px solid #aac8da; border-radius:10px; background:white; color:#174461; font:inherit; text-decoration:none; }
+.calendarLink:focus-visible { outline:3px solid #166ba0; outline-offset:2px; }
