@@ -20,6 +20,6 @@ export function extendModuleTwentyFinalTest(language:Language,base:BranchingTest
   nodes[id]={id,type:"question",level:"main",competency,prompt:question.prompt,options:question.options,correctAnswer:question.correctAnswer,explanation:question.explanation,onCorrect:ids[index+1]??"end",onIncorrect:ids[index+1]??"end"};
  });
  const previous=nodes[base.mainIds[base.mainIds.length-1]];
- if(previous?.type==="question"&&ids.length){previous.onCorrect=ids[0];previous.onIncorrect=ids[0];}
+ if(previous?.type==="question"&&ids.length){nodes[base.mainIds[base.mainIds.length - 1]] = { ...previous, onCorrect: ids[0], onIncorrect: ids[0] };}
  return {...base,nodes,competencies,mainIds:[...base.mainIds,...ids]};
 }
