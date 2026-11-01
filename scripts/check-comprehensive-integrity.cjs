@@ -20,6 +20,10 @@ for (let moduleId=1;moduleId<=25;moduleId++) {
         : lesson.mainIds;
       assert(Array.isArray(list)&&list.length>0,moduleId+"/"+language+"/"+section+" empty");
       sizes[moduleId][language][section]=list.length;
+      if(section==="pretest") {
+        const prompts = list.map(q => q.prompt.toLocaleLowerCase().replace(/\\s+/g," ").trim());
+        assert.equal(new Set(prompts).size,prompts.length,"duplicate pretest prompts "+moduleId+"/"+language);
+      }
       if(section==="tests") {
         validateTest(lesson);
         assert.equal(new Set(lesson.mainIds).size,lesson.mainIds.length,"duplicate main IDs "+moduleId+"/"+language);
