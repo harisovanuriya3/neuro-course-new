@@ -77,7 +77,7 @@ const lesson: Lesson = {
         { type: "paragraph", text: "This knowledge explains how sensory systems detect stimuli and how motor control and autonomic regulation operate. It also provides a foundation for studying behavior, memory, and learning, which involve changes in neural network activity and synaptic plasticity." },
         { type: "paragraph", text: "Understanding normal mechanisms is essential for studying nervous system pathophysiology: it helps explain how disturbances of excitability, conduction, or synaptic transmission can lead to functional impairment." },
         { type: "paragraph", text: "The clinical value of neurophysiology is especially clear in functional diagnostics. EEG characterizes rhythmic and epileptiform activity; electromyography and nerve-conduction studies assess peripheral nerves and muscle; evoked potentials assess conduction along sensory pathways. These tests must be interpreted together with clinical findings rather than in isolation." },
-        { type: "paragraph", text: "Neurophysiological principles also guide rehabilitation and pharmacology: training uses plasticity and sensory feedback, while drugs can modify ion channels, transmitter systems, or receptors. In research, neurophysiology links cellular mechanisms to behavior and objective physiological measurements." },,
+        { type: "paragraph", text: "Neurophysiological principles also guide rehabilitation and pharmacology: training uses plasticity and sensory feedback, while drugs can modify ion channels, transmitter systems, or receptors. In research, neurophysiology links cellular mechanisms to behavior and objective physiological measurements." },
       ],
     },
     {
