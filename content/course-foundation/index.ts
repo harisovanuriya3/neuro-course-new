@@ -55,6 +55,7 @@ import { createModuleEightCases } from "./module-eight-cases";
 import { moduleTenClinicalCases } from "./module-ten-clinical-cases";
 import { createModuleEightPretest } from "./module-eight-pretest";
 import { createModuleEightQuestions } from "./module-eight-questions";
+import { createModuleEightClinical } from "./module-eight-clinical";
 import { createModuleEightPractice } from "./module-eight-practice";
 import { adaptModuleEightTest } from "./module-eight-tests";
 import { moduleFourDetailedTheory } from "./module-four-detailed-theory";
@@ -1002,6 +1003,7 @@ function create(
   }
 
   if (section === 'clinical') {
+    if (topic.id === 8) return createModuleEightClinical(language);
     const sourceVignette = clinicalVignettes[topic.id]?.[language];
     const vignette = sourceVignette ?? (
       language === 'RU'
