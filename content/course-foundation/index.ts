@@ -47,6 +47,9 @@ import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
+import { moduleFourDetailedTheory } from "./module-four-detailed-theory";
+import { moduleTwoPracticalStations } from "./module-two-practical-stations";
+import { moduleThreePracticalStations } from "./module-three-practical-stations";
 import { moduleSevenDetailedTheory } from "./module-seven-detailed-theory";
 import { moduleEightDetailedTheory } from "./module-eight-detailed-theory";
 import { moduleNineDetailedTheory } from "./module-nine-detailed-theory";
@@ -472,6 +475,7 @@ function create(
         ...(topic.id === 14 ? moduleFourteenDetailedTheory(language) : []),
         ...(topic.id === 15 ? moduleFifteenDetailedTheory(language) : []),
         ...(topic.id === 16 ? moduleSixteenDetailedTheory(language) : []),
+        ...(topic.id === 4 ? moduleFourDetailedTheory(language) : []),
         ...(topic.id === 20 ? moduleTwentyExpandedTheory(language) : []),
         ...(topic.id === 22 ? [
           {
