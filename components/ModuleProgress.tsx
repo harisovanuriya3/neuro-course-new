@@ -65,6 +65,10 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     <p>{language==="RU"?"Освоение по выполненным оцениваниям":language==="KZ"?"Орындалған бағалаулар бойынша меңгеру":"Mastery from completed assessments"}: <strong>{courseMastery}%</strong></p><progress value={courseMastery} max={100} style={{width:"100%"}}/>
     {needsAttention.length>0&&<><h3>{language==="RU"?"Приоритет повторения":language==="KZ"?"Қайталау басымдығы":"Review priority"}</h3><p>{needsAttention.map(m=>`${m.id}. ${m.title} — ${m.mastery}%`).join(" · ")}</p></>}
   </section>
+  <div role="note" style={{display:"flex",flexWrap:"wrap",gap:12,padding:12,margin:"12px 0",background:"#f6f9fc",borderRadius:10}}>
+    {([{color:"#208b5a",text:language==="RU"?"100% — завершено":language==="EN"?"100% — completed":"100% — аяқталды"},{color:"#397cc2",text:"75–99%"},{color:"#c99725",text:"50–74%"},{color:"#c86f3f",text:"1–49%"},{color:"#a5b2bd",text:language==="RU"?"0% — не начато":language==="EN"?"0% — not started":"0% — басталмаған"}]).map(item=><span key={item.color} style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:13}}><span style={{background:item.color,width:12,height:12,borderRadius:3}}/>{item.text}</span>)}
+    <p style={{width:"100%",margin:0,fontSize:12}}>{language==="RU"?"Цвет показывает выполнение маршрута, а не процент правильных ответов.":language==="EN"?"Color indicates pathway completion, not answer accuracy.":"Түс оқу маршрутының аяқталуын көрсетеді, дұрыс жауап пайызын емес."}</p>
+  </div>
   <h2>{c.assessment} · {c.module} {moduleId}</h2>
   <p>{c.exam}</p>
   <section style={{margin:"16px 0 20px",padding:"16px",border:"1px solid #d6e3eb",borderRadius:14,background:"#f8fcff"}}>
@@ -87,6 +91,13 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     {[[c.practice,practice],[c.questions,questions],[c.tests,test],[c.cases,cases],[c.patient,patient],[c.sketch,sketch],[c.builder,builder]].map(([name,value])=><div key={String(name)} style={{padding:"12px",border:"1px solid #dce8ef",borderRadius:10,background:"#fff"}}><strong>{String(name)}</strong><p style={{margin:"5px 0 0"}}>{value && typeof value==="object" ? `${value.correct}/${value.total} · ${Math.round(value.correct/value.total*100)}%` : c.none}</p></div>)}
   </div>
   <h2 style={{marginTop:28}}>{c.criteria}</h2>
-  <div className={styles.courseModules}>{allModules.map(m=>{const count=data?.visitedSections[m.id]?.length??0;return <div key={m.id}><h3>{c.module} {m.id}: {m.title}</h3><p>{c.sections}: {count} · {language==="RU"?"маршрут":language==="KZ"?"маршрут":"path"} {m.completion}% · {language==="RU"?"освоение":language==="KZ"?"меңгеру":"mastery"} {m.total?m.mastery+"%":c.none}</p><progress value={m.completion} max={100} style={{width:"100%"}}/><br/><Link href={`/modules/${m.id}?lang=${language}`}>{c.start}</Link></div>})}</div>
+  <div className={styles.courseModules}>{allModules.map(m=>{const count=data?.visitedSections[m.id]?.length??0;return <div key={m.id}><h3>{c.module} {m.id}: {m.title}</h3><p>{c.sections}: {count} · {language==="RU"?"маршрут":language==="KZ"?"маршрут":"path"} {m.completion}% · {language==="RU"?"освоение":language==="KZ"?"меңгеру":"mastery"} {m.total?m.mastery+"%":c.none}</p><progress value={m.completion} max={100} style={{width:"100%",accentColor:m.completion===100?"#208b5a":m.completion>=75?"#397cc2":m.completion>=50?"#c99725":m.completion>0?"#c86f3f":"#a5b2bd"}}/><br/>
+    <span style={{fontSize:13,color:"#456477"}}>{m.completion===100?(language==="RU"?"Завершено":language==="EN"?"Completed":"Аяқталды"):m.completion===0?(language==="RU"?"Не начато":language==="EN"?"Not started":"Басталмаған"):(language==="RU"?"Не завершено":language==="EN"?"In progress":"Аяқталмаған")}</span><br/>
+    <Link href={`/modules/${m.id}?lang=${language}`}>{c.start}</Link>
+    {m.completion<100&&<div style={{display:"flex",gap:8,flexWrap:"wrap",marginTop:8}}>
+      <Link href={`/modules/${m.id}/theory?lang=${language}`}>{language==="RU"?"Теория":language==="EN"?"Theory":"Теория"}</Link>
+      <Link href={`/modules/${m.id}/practice?lang=${language}`}>{language==="RU"?"Практика":language==="EN"?"Practice":"Практика"}</Link>
+      <Link href={`/modules/${m.id}/tests?lang=${language}`}>{language==="RU"?"Тест":language==="EN"?"Test":"Тест"}</Link>
+    </div>}</div>})}</div>
  </section>
 }
