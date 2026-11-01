@@ -1068,7 +1068,7 @@ function create(
 
   if (section === 'glossary') {
     const baseGlossary = {
-      kind: 'glossary',
+      kind: 'glossary' as const,
       title,
       introduction: c.terms,
 
