@@ -236,9 +236,9 @@ export default async function ModulePage({
           <p style={{margin:"0 0 14px",color:"#61798b",lineHeight:1.55}}>{stageCopy.pathHint}</p>
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(150px,1fr))",gap:"10px"}}>
             {[stageCopy.orient,stageCopy.learn,stageCopy.apply,stageCopy.assess].map((label,index)=>(
-              <div key={label} style={{padding:"12px 14px",borderRadius:"12px",background:"#f2f7fb",color:"#175d86",fontWeight:800}}>
-                <span aria-hidden="true">{["🎯","🧠","🧪","✅"][index]} </span>{label}
-              </div>
+              <Link key={label} href={`/modules/${moduleNumber}/${["objectives","theory","practice","tests"][index]}?lang=${lang}`} style={{display:"block",padding:"12px 14px",border:"1px solid #b7d2e4",borderRadius:"12px",background:"#f2f7fb",color:"#175d86",fontWeight:800,textDecoration:"underline",textUnderlineOffset:"3px",minHeight:44}}>
+                <span aria-hidden="true">{["🎯","🧠","🧪","✅"][index]} </span>{label} →
+              </Link>
             ))}
           </div>
         </section>
