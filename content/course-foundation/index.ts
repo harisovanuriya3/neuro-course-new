@@ -52,6 +52,7 @@ import { createModuleEightGlossary } from "./module-eight-glossary";
 import { createModuleEightReferences } from "./module-eight-references";
 import { createModuleEightSummary } from "./module-eight-summary";
 import { createModuleEightCases } from "./module-eight-cases";
+import { moduleTenClinicalCases } from "./module-ten-clinical-cases";
 import { createModuleEightPretest } from "./module-eight-pretest";
 import { createModuleEightPractice } from "./module-eight-practice";
 import { adaptModuleEightTest } from "./module-eight-tests";
@@ -1105,7 +1106,7 @@ function create(
       const seen = new Set(baseCases.cases.map(item => item.id));
       return { ...baseCases, cases: [...baseCases.cases, ...authored.cases.filter(item => !seen.has(item.id))] };
     }
-    const restored = topic.id === 2 ? moduleTwoClinicalCases(language) : topic.id === 3 ? moduleThreeClinicalCases(language) : [];
+    const restored = topic.id === 2 ? moduleTwoClinicalCases(language) : topic.id === 3 ? moduleThreeClinicalCases(language) : topic.id === 10 ? moduleTenClinicalCases(language) : [];
     if (!restored.length) return baseCases;
     const seen = new Set(baseCases.cases.map(item => item.id));
     return { ...baseCases, cases: [...baseCases.cases, ...restored.filter(item => {
