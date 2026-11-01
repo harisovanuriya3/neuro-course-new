@@ -182,3 +182,11 @@ for(let id=15;id<=18;id++){
   assert(fs.existsSync(path.join(process.cwd(),"app","module-"+id+"-lab","page.tsx")),"Missing preserved standalone module "+id+" lab");
 }
 console.log("Laboratory preservation: specialized module labs 2-25 and preserved standalone labs 15-18 are present.");
+
+assert(moduleSectionPage.includes("(section === 'theory' || section === 'practice' || section === 'media')"),"Curated visuals are not exposed across theory practice and media");
+assert(moduleSectionPage.includes("<FoundationVisual moduleId={moduleNumber} language={lang} />"),"Foundation visual block missing");
+assert(moduleSectionPage.includes("<AnatomyReference moduleId={moduleNumber} language={lang} />"),"Anatomy reference block missing");
+assert(moduleSectionPage.includes("<AdvancedAnatomyReference moduleId={moduleNumber} language={lang} />"),"Advanced anatomy block missing");
+const virtualPatient=source("components/UnifiedVirtualPatient.tsx");
+assert(virtualPatient.includes("moduleId")&&virtualPatient.includes("visual"),"Unified virtual patient visual support missing");
+console.log("Visual route preservation: theory, practice and media expose curated anatomy; virtual-patient visual support remains connected.");
