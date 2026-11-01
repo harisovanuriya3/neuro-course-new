@@ -896,7 +896,25 @@ function create(
           explanation: language === 'RU' ? 'Диагностический вопрос должен проверять способ рассуждения, а не заранее показывать формулировку практического задания.' : language === 'EN' ? 'A diagnostic question should test the reasoning process rather than reveal the wording of the later practice task.' : 'Диагностикалық сұрақ кейінгі практикалық тапсырманың мәтінін алдын ала көрсетпей, ойлау тәсілін тексеруі керек.',
           target: { section: 'practice' },
         },
-      ],
+,
+        ...Array.from({ length: 18 }, (_, index) => {
+          const n = index + 3;
+          const focus = [mechanism, interpretation, topic.practice[language], topic.caseText[language]][index % 4];
+          return {
+            id: `module-${topic.id}-pretest-${n}`,
+            topic: moduleTitle,
+            prompt: language === 'RU' ? `Вопрос ${n}. Как лучше всего физиологически проверить утверждение по теме «${modules.RU[topic.id - 1]}»: ${focus}` : language === 'EN' ? `Question ${n}. Which approach best tests the physiological claim in “${modules.EN[topic.id - 1]}”: ${focus}` : `${n}-сұрақ. «${modules.KZ[topic.id - 1]}» тақырыбындағы физиологиялық тұжырымды қалай дұрыс тексеруге болады: ${focus}`,
+            options: [
+              { id: 'a', text: language === 'RU' ? 'Определить изменяемое звено, заранее предсказать направление эффекта и сравнить наблюдение с контролем.' : language === 'EN' ? 'Define the altered link, predict the direction of effect in advance, and compare the observation with a control.' : 'Өзгеретін буынды анықтап, әсер бағытын алдын ала болжап, бақылауды бақылау шартымен салыстыру.' },
+              { id: 'b', text: language === 'RU' ? 'Считать любое совпадение с ожиданием окончательным доказательством единственного механизма.' : language === 'EN' ? 'Treat any agreement with expectation as final proof of a single mechanism.' : 'Күтілген нәтижемен кез келген сәйкестікті жалғыз тетіктің түпкілікті дәлелі деп санау.' },
+              { id: 'c', text: language === 'RU' ? 'Оценивать только название структуры, не задавая измеряемую физиологическую переменную.' : language === 'EN' ? 'Evaluate only the structure name without defining a measurable physiological variable.' : 'Өлшенетін физиологиялық айнымалыны анықтамай, тек құрылым атауын бағалау.' },
+              { id: 'd', text: language === 'RU' ? 'Менять несколько условий одновременно и не использовать контроль.' : language === 'EN' ? 'Change several conditions simultaneously and omit a control.' : 'Бірнеше шартты қатар өзгертіп, бақылау шартын қолданбау.' },
+            ],
+            correctAnswer: 'a',
+            explanation: language === 'RU' ? 'Корректная физиологическая проверка связывает одно заданное изменение с прогнозируемым измеряемым результатом и контрольным условием; совпадение само по себе не исключает альтернативные объяснения.' : language === 'EN' ? 'A sound physiological test links a defined change to a predicted measurable outcome and a control condition; agreement alone does not exclude alternative explanations.' : 'Дұрыс физиологиялық тексеру нақты өзгерісті алдын ала болжанған өлшенетін нәтижемен және бақылау шартымен байланыстырады; сәйкестік балама түсіндірулерді өздігінен жоққа шығармайды.',
+            target: { section: index % 2 === 0 ? 'theory' as const : 'practice' as const },
+          };
+        })      ],
     };
   }
 
@@ -1221,7 +1239,13 @@ function create(
           explanation: language === 'RU' ? 'Сильный вывод требует наблюдения, которое различает конкурирующие физиологические объяснения.' : language === 'EN' ? 'A strong conclusion requires an observation that discriminates between competing physiological explanations.' : 'Нақты қорытынды бәсекелес физиологиялық түсіндірмелерді ажырататын бақылауды қажет етеді.',
           target: { section: 'tests' },
         },
-      ],
+,
+        ...Array.from({ length: 20 }, (_, index) => ({
+          id: `module-${topic.id}-review-${index + 6}`,
+          prompt: language === 'RU' ? `Контрольный вопрос ${index + 6}. Примените механизм темы «${modules.RU[topic.id - 1]}» к новому условию: измените ${index % 2 === 0 ? 'входной сигнал' : 'одно промежуточное звено'}, предскажите результат и объясните причинную цепь.` : language === 'EN' ? `Review question ${index + 6}. Apply the mechanism of “${modules.EN[topic.id - 1]}” to a new condition: change ${index % 2 === 0 ? 'the input signal' : 'one intermediate link'}, predict the outcome, and explain the causal chain.` : `${index + 6}-бақылау сұрағы. «${modules.KZ[topic.id - 1]}» тақырыбының тетігін жаңа жағдайға қолданыңыз: ${index % 2 === 0 ? 'кіріс сигналын' : 'бір аралық буынды'} өзгертіп, нәтижені болжап, себептік тізбекті түсіндіріңіз.`,
+          explanation: language === 'RU' ? 'Шаблон ответа: исходное условие → изменённое звено → непосредственный физиологический эффект → изменение выхода → ограничение вывода или необходимый контроль.' : language === 'EN' ? 'Answer template: starting condition → altered link → immediate physiological effect → change in output → limitation of inference or required control.' : 'Жауап үлгісі: бастапқы жағдай → өзгерген буын → тікелей физиологиялық әсер → шығыс нәтижесінің өзгеруі → қорытынды шегі немесе қажетті бақылау.',
+          target: { section: index % 3 === 0 ? 'theory' as const : index % 3 === 1 ? 'practice' as const : 'cases' as const },
+        }))      ],
     };
   }
 
