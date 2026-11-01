@@ -87,6 +87,9 @@ export default function ReflexLab({ language }: { language: Language }) {
   return <section id="reflex-lab" className={styles.lab} aria-labelledby="reflex-lab-title" lang={language === "KZ" ? "kk" : language.toLowerCase()}>
     <div className={styles.languageBar}><strong>{c.languages}</strong><div>{(["RU","KZ","EN"] as const).map(code => <Link key={code} className={language===code?styles.languageActive:styles.languageButton} href={`/modules/7/interactive?lang=${code}#reflex-lab`}>{code}</Link>)}</div></div>
     <h2 id="reflex-lab-title">{c.title}</h2><p>{c.intro}</p>
+    <aside role="note" style={{padding:"12px 16px",margin:"12px 0",border:"1px solid #b4d1e3",borderRadius:12,background:"#f1f8fc",lineHeight:1.6}}>
+      {language==="RU"?"Порядок работы: 1) выберите сохранную или условно повреждённую рефлекторную дугу; 2) предскажите ответ; 3) запустите опыт и проследите все этапы; 4) объясните результат. Это учебная модель ноцицептивного защитного рефлекса: горячая поверхность используется как условный раздражитель, не как инструкция для реального опыта.":language==="EN"?"Procedure: 1) choose an intact or hypothetically interrupted reflex arc; 2) predict the response; 3) run the simulation and follow its stages; 4) explain the outcome. This is an educational model of a protective nociceptive reflex, not an instruction to test a real hot surface.":"Жұмыс тәртібі: 1) бүтін немесе шартты түрде үзілген рефлекс доғасын таңдаңыз; 2) жауапты болжаңыз; 3) тәжірибені іске қосып, кезеңдерін бақылаңыз; 4) нәтижені түсіндіріңіз. Бұл қорғаныш ноцицептивтік рефлекстің оқу моделі, нақты ыстық бетпен тәжірибе жасау нұсқауы емес."}
+    </aside>
     <div className={styles.workspace}>
       <figure className={styles.photo}>
         <div className={styles.scene} role="img" aria-label={stage >= 4 && condition === "intact" ? c.withdrawalAlt : c.contactAlt}
