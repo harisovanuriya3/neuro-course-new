@@ -83,6 +83,25 @@ for (let moduleId=1;moduleId<=25;moduleId++) {
     assert(counts.every(n=>n===counts[0]),"language count mismatch "+moduleId+"/"+section+": "+counts.join("/"));
   }
 }
+// Author's 26-point release gate: report actual counts, never treat nonempty as complete.
+const authorMinimums = { pretest:20, cases:20, questions:25, glossary:50 };
+const authorShortfalls=[];
+for (let moduleId=1; moduleId<=25; moduleId++) {
+  for (const language of langs) {
+    for (const [section, minimum] of Object.entries(authorMinimums)) {
+      const lesson=getLesson(moduleId,section,language);
+      const items=section==="pretest"?lesson?.questions:section==="cases"?lesson?.cases:section==="questions"?lesson?.questions:lesson?.terms;
+      const actual=Array.isArray(items)?items.length:0;
+      if(actual<minimum) authorShortfalls.push({moduleId,language,section,actual,minimum});
+    }
+  }
+}
+const authorReport=path.join(__dirname,"../author-content-shortfalls.json");
+fs.writeFileSync(authorReport,JSON.stringify({generatedAt:new Date().toISOString(),requirements:authorMinimums,shortfalls:authorShortfalls},null,2)+"\\n");
+console.log("Author quantitative review: "+authorShortfalls.length+" section-language shortfalls; report: author-content-shortfalls.json.");
+if(process.env.AUTHOR_RELEASE_GATE==="strict" && authorShortfalls.length) {
+  throw new Error("Author release gate blocked: "+authorShortfalls.length+" content shortfalls. Do not publish as complete.");
+}
 const words=["sixteen","seventeen","eighteen","nineteen","twenty-one","twenty-two","twenty-three","twenty-four","twenty-five"];
 for(const word of words.concat("twenty-visual")) {
  const filename=word==="twenty-visual"?"module-twenty-visual-assessment.ts":"module-"+word+"-final-test.ts";
