@@ -4,3 +4,4 @@ node_modules
 .visual-check/
 
 *.tsbuildinfo
+author-content-shortfalls.json
