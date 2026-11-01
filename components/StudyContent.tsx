@@ -117,6 +117,25 @@ function ReviewQuestions({ lesson, ...context }: Context & { lesson: QuestionsLe
       return next;
     });
   }
+  function importAnswers(file: File | undefined) {
+    if (!file || file.size > 2_000_000) return;
+    void file.text().then(raw=>{
+      const data=JSON.parse(raw);
+      if(data.moduleId!==context.moduleId || data.language!==context.language || !Array.isArray(data.answers)) throw Error("Mismatched backup");
+      const next:Record<number,boolean>={};
+      for(const entry of data.answers){
+        if(!Number.isInteger(entry.number) || entry.number<1 || entry.number>lesson.questions.length) throw Error("Invalid number");
+        const idx=entry.number-1;
+        if(entry.question!==lesson.questions[idx].prompt || typeof entry.answer!=="string" || entry.answer.length>10000 || typeof entry.submitted!=="boolean") throw Error("Invalid answer");
+        localStorage.setItem(`neuro-course:question-answer:${context.moduleId}:${context.language}:${lesson.questions[idx].id}:v1`,JSON.stringify({answer:entry.answer,checked:entry.submitted}));
+        if(entry.submitted) next[idx]=true;
+      }
+      localStorage.setItem(storageKey,JSON.stringify(next));
+      setCompleted(next);
+      recordOutcome(Number(context.moduleId),"questions",Object.keys(next).length,lesson.questions.length);
+      window.location.reload();
+    }).catch(()=>window.alert(context.language==="RU"?"Не удалось восстановить ответы: проверьте файл и модуль.":context.language==="EN"?"Could not restore answers: check the file and module.":"Жауаптарды қалпына келтіру мүмкін болмады: файл мен модульді тексеріңіз."));
+  }
   function exportAnswers() {
     const answers=lesson.questions.map((question,index)=>{
       let answer=""; let submitted=false;
@@ -135,6 +154,7 @@ function ReviewQuestions({ lesson, ...context }: Context & { lesson: QuestionsLe
   return <>
     <div className={shared.taskProgress}><span>{label}: <strong>{done} / {lesson.questions.length}</strong></span><progress value={done} max={lesson.questions.length} aria-label={label}/></div>
     <button type="button" onClick={exportAnswers} style={{padding:"10px 14px",margin:"10px 0",borderRadius:9,border:"1px solid #94b7ce",background:"#f3f9fc",color:"#125479",fontWeight:700}}>{context.language==="RU"?"Скачать мои ответы (резервная копия)":context.language==="EN"?"Download my answers (backup)":"Жауаптарымды жүктеу (сақтық көшірме)"}</button>
+    <label style={{display:"block",margin:"10px 0",fontWeight:600}}>{context.language==="RU"?"Восстановить ответы из резервной копии":context.language==="EN"?"Restore answers from backup":"Жауаптарды сақтық көшірмеден қалпына келтіру"} <input type="file" accept=".json,application/json" onChange={e=>{importAnswers(e.target.files?.[0]);e.target.value="";}}/></label>
     <nav aria-label={context.language==="RU"?"Навигация по контрольным вопросам":context.language==="EN"?"Review question navigation":"Бақылау сұрақтары бойынша навигация"} style={{display:"flex",gap:8,flexWrap:"wrap",margin:"16px 0",padding:12,background:"#f1f7fb",borderRadius:12}}>
       {lesson.questions.map((question,index)=><a key={question.id} href={`#${question.id}`} aria-label={`${context.language==="RU"?"Вопрос":context.language==="EN"?"Question":"Сұрақ"} ${index+1}: ${completed[index]?(context.language==="RU"?"ответ отправлен":context.language==="EN"?"submitted":"жауап жіберілді"):(context.language==="RU"?"не завершён":context.language==="EN"?"unfinished":"аяқталмаған")}`} style={{display:"inline-flex",alignItems:"center",justifyContent:"center",minWidth:44,minHeight:44,padding:6,borderRadius:9,background:completed[index]?"#d5f0e2":"#fff",border:`2px solid ${completed[index]?"#24845a":"#b6cbd9"}`,color:"#123f5a",fontWeight:700,textDecoration:"none"}}>{index+1}{completed[index]?" ✓":""}</a>)}
     </nav>
