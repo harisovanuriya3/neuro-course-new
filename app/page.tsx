@@ -90,6 +90,10 @@ export default async function HomePage({
           margin: "0 auto",
         }}
       >
+        <nav aria-label={lang === "RU" ? "Быстрый доступ" : lang === "EN" ? "Quick access" : "Жылдам өту"} style={{display:"flex",justifyContent:"center",gap:12,flexWrap:"wrap",marginBottom:24}}>
+          <Link href={`/calendar?lang=${lang}`} style={{padding:"12px 18px",background:"#fff",border:"1px solid #9fbdd1",borderRadius:12,fontWeight:700,color:"#064c78"}}>{lang === "RU" ? "📅 Учебный календарь" : lang === "EN" ? "📅 Study calendar" : "📅 Оқу күнтізбесі"}</Link>
+          <a href="#course" style={{padding:"12px 18px",background:"#fff",border:"1px solid #9fbdd1",borderRadius:12,color:"#064c78"}}>{lang === "RU" ? "Все 25 модулей" : lang === "EN" ? "All 25 modules" : "Барлық 25 модуль"}</a>
+        </nav>
         {/* Языки */}
         <nav
           aria-label={interfaceText[lang].language}
