@@ -890,6 +890,7 @@ function create(
             { id: 'a', text: language === 'RU' ? 'Предсказать результат изменения одного звена и обосновать его причинной цепью.' : language === 'EN' ? 'Predict the result of changing one link and justify it with a causal chain.' : 'Бір буын өзгергендегі нәтижені болжап, оны себептік тізбекпен негіздеу.' },
             { id: 'b', text: language === 'RU' ? 'Повторить название темы без объяснения механизма.' : language === 'EN' ? 'Repeat the topic title without explaining the mechanism.' : 'Тетікті түсіндірмей тақырып атауын қайталау.' },
             { id: 'c', text: language === 'RU' ? 'Сделать вывод только по одному термину.' : language === 'EN' ? 'Draw a conclusion from one term alone.' : 'Бір ғана терминге сүйеніп қорытынды жасау.' },
+            { id: 'd', text: language === 'RU' ? 'Считать любое изменение доказательством полного выключения системы.' : language === 'EN' ? 'Treat any change as proof that the entire system has stopped functioning.' : 'Кез келген өзгерісті бүкіл жүйенің қызметі толық тоқтағанының дәлелі деп санау.' },
           ],
           correctAnswer: 'a',
           explanation: language === 'RU' ? 'Диагностический вопрос должен проверять способ рассуждения, а не заранее показывать формулировку практического задания.' : language === 'EN' ? 'A diagnostic question should test the reasoning process rather than reveal the wording of the later practice task.' : 'Диагностикалық сұрақ кейінгі практикалық тапсырманың мәтінін алдын ала көрсетпей, ойлау тәсілін тексеруі керек.',
