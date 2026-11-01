@@ -29,7 +29,7 @@ function Reading({ lesson, ...context }: Context & { lesson: ReadingLesson }) {
     <h2>{card.title}</h2>{card.paragraphs.map((text, index) => <p key={index}>{text}</p>)}
     <nav aria-label={ui.related} className={styles.links}>{card.links.map((target, index) => <MaterialLink key={index} target={target} {...context} />)}</nav>
   </section>)}
-    {lesson.sources && <section><h2>{ui.sources}</h2>{lesson.sources.map((source, index) => <section className={shared.card} id={`source-${index + 1}`} key={source.href}><h3><a href={source.href}>{source.title}</a></h3><p>{source.description}</p><nav aria-label={ui.related} className={styles.links}>{source.links.map((target, index) => <MaterialLink key={index} target={target} {...context} />)}</nav></section>)}</section>}
+    {lesson.sources && <section><h2>{ui.sources}</h2>{lesson.sources.map((source, index) => <section className={shared.card} id={`source-${index + 1}`} key={source.href}><h3><a href={source.href} target="_blank" rel="noopener noreferrer" aria-label={`${source.title} — ${context.language === "RU" ? "открыть источник в новой вкладке" : context.language === "EN" ? "open source in a new tab" : "дереккөзді жаңа қойындыда ашу"}`}>{source.title} ↗</a></h3><p>{source.description}</p><nav aria-label={ui.related} className={styles.links}>{source.links.map((target, index) => <MaterialLink key={index} target={target} {...context} />)}</nav></section>)}</section>}
   </>;
 }
 function Objectives({ lesson, ...context }: Context & { lesson: ObjectivesLesson }) {
