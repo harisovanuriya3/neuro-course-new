@@ -51,6 +51,8 @@ import { moduleTwoExpandedTheory } from "./module-two-expanded-theory";
 import { moduleThreeDetailedTheory } from "./module-three-detailed-theory";
 import { moduleFourPracticalStations } from "./module-four-practical-stations";
 import { moduleFivePracticalStations } from "./module-five-practical-stations";
+import { moduleTwoClinicalCases } from "./module-two-clinical-cases";
+import { moduleThreeClinicalCases } from "./module-three-clinical-cases";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 import { createModuleTwentyOneTheory } from "./module-twenty-one-theory";
 import { createModuleTwentyVisualTheory } from "./module-twenty-visual-theory";
@@ -1053,11 +1055,15 @@ function create(
   }
 
   if (section === 'cases') {
-    return createFoundationCase(
-      topic,
-      language,
-      moduleTitle,
-    );
+    const baseCases = createFoundationCase(topic, language, moduleTitle);
+    const restored = topic.id === 2 ? moduleTwoClinicalCases(language) : topic.id === 3 ? moduleThreeClinicalCases(language) : [];
+    if (!restored.length) return baseCases;
+    const seen = new Set(baseCases.cases.map(item => item.id));
+    return { ...baseCases, cases: [...baseCases.cases, ...restored.filter(item => {
+      if (seen.has(item.id)) return false;
+      seen.add(item.id);
+      return true;
+    })] };
   }
 
   if (section === 'tests') {
