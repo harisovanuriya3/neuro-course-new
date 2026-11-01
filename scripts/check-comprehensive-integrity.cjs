@@ -114,3 +114,18 @@ assert(draw.includes("localStorage.setItem(storageKey")&&draw.includes("toDataUR
 assert(draw.includes("moduleId")&&modulePage.includes("/draw?lang="),"Module drawing links missing");
 assert(modulePage.includes('["objectives","theory","practice","tests"][index]'),"Learning stage tiles not linked");
 console.log("Author-review UX checks: stage links, module drawing, persistence and PNG export source present.");
+
+const fsReview = require("fs");
+const sourceCourse = source("content/course-foundation/index.ts");
+const preStart = sourceCourse.indexOf("if (section === 'pretest')");
+const preEnd = sourceCourse.indexOf("if (section === 'one-minute')",preStart);
+const questionStart = sourceCourse.indexOf("if (section === 'questions')");
+const questionEnd = sourceCourse.indexOf("if (section === 'media')",questionStart);
+assert(preStart>=0&&preEnd>preStart&&questionStart>=0&&questionEnd>questionStart,"Unable to locate assessment template");
+const pretestCount=(sourceCourse.slice(preStart,preEnd).match(/id: `module-\$\{topic\.id\}-pretest/g)||[]).length;
+const controlCount=(sourceCourse.slice(questionStart,questionEnd).match(/id: `module-\$\{topic\.id\}-review/g)||[]).length;
+const gaps=[];
+if(pretestCount<20) gaps.push("Pretest template has "+pretestCount+" of 20 required questions");
+if(controlCount<25) gaps.push("Control question template has "+controlCount+" of 25 required questions");
+if(gaps.length) console.warn("AUTHOR RELEASE BLOCKERS (not a build failure): "+gaps.join("; "));
+console.log("Author release gate: "+(gaps.length?"NOT READY":"Template count checks passed")+". Do not publish until scientific and visual review also complete.");
