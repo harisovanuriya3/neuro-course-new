@@ -47,6 +47,10 @@ import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
+import { createModuleEightObjectives } from "./module-eight-objectives";
+import { createModuleEightGlossary } from "./module-eight-glossary";
+import { createModuleEightReferences } from "./module-eight-references";
+import { createModuleEightSummary } from "./module-eight-summary";
 import { createModuleEightCases } from "./module-eight-cases";
 import { createModuleEightPractice } from "./module-eight-practice";
 import { adaptModuleEightTest } from "./module-eight-tests";
@@ -863,6 +867,7 @@ function create(
   }
 
   if (section === 'objectives') {
+    if (topic.id === 8) return createModuleEightObjectives(language);
     const relation = physiologicalRelations[topic.id][language];
     const termA = topic.terms[0][language];
     const termB = topic.terms[1][language];
@@ -1062,8 +1067,8 @@ function create(
   }
 
   if (section === 'glossary') {
-    return {
-      kind: 'glossary',
+    const baseGlossary = {
+      kind: 'glossary' as const,
       title,
       introduction: c.terms,
 
@@ -1088,6 +1093,7 @@ function create(
         })),
       ],
     };
+    return topic.id === 8 ? createModuleEightGlossary(language, baseGlossary) : baseGlossary;
   }
 
   if (section === 'cases') {
@@ -1384,8 +1390,8 @@ function create(
         : []),
     ];
 
-    return {
-      kind: 'references',
+    const baseReferences = {
+      kind: 'references' as const,
       title,
       introduction: c.referenceIntro,
 
@@ -1405,7 +1411,10 @@ function create(
         };
       }),
     };
+    return topic.id === 8 ? createModuleEightReferences(language, baseReferences) : baseReferences;
   }
+
+  if (section === 'one-minute' && topic.id === 8) return createModuleEightSummary(language);
 
   return {
     kind: section,
