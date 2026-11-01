@@ -73,6 +73,7 @@ export default async function ResourcesPage({ searchParams }: PageProps) {
   return (
     <main className={styles.page}>
       <DocumentLanguage language={lang} />
+      <p style={{padding:"12px 20px"}}><Link href={`/exam?lang=${lang}`}>{lang === "RU" ? "Перейти в экзаменационный центр" : lang === "EN" ? "Open final exam center" : "Емтихан орталығына өту"}</Link></p>
       <header className={styles.hero}>
         <div className={styles.topline}>
           <Link href={`/?lang=${lang}#course`}>{t.back}</Link>
