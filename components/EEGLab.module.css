@@ -21,3 +21,16 @@
 @keyframes patientBlink{0%,94%,100%{opacity:1}96%{opacity:0}}
 @keyframes patientLid{0%,94%,100%{opacity:0}96%{opacity:1}}
 @media(prefers-reduced-motion:reduce){.eyesOpen .pupils,.eyesOpen[data-tracking=true] .pupils,.eyesOpen[data-mental=true] .pupils,.blinkLid{animation:none}}
+
+/* Mobile EEG: show the real participant and changing state before the protocol controls. */
+@media (max-width:760px) {
+  .workspace{display:flex;flex-direction:column;min-width:0}
+  .visualLab{order:-1;display:flex;flex-direction:column;min-width:0;width:100%}
+  .visualLab>div:first-of-type{display:flex;flex-direction:column;min-width:0}
+  .visualLab>div:first-of-type>div{min-width:0}
+  .patientCard{width:100%;max-width:100%;overflow:hidden}
+  .patientCard img{width:100%;height:auto;max-height:280px;object-fit:contain}
+  .patient{max-height:290px}
+  .protocol{order:0;width:100%;min-width:0}
+  .monitor{width:100%;min-width:0}
+}
