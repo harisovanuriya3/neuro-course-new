@@ -122,14 +122,20 @@ function ReviewQuestions({ lesson, ...context }: Context & { lesson: QuestionsLe
     void file.text().then(raw=>{
       const data=JSON.parse(raw);
       if(data.moduleId!==context.moduleId || data.language!==context.language || !Array.isArray(data.answers)) throw Error("Mismatched backup");
+      if(data.answers.length !== lesson.questions.length) throw Error("Incomplete backup");
       const next:Record<number,boolean>={};
+      const staged:{key:string;value:string}[]=[];
+      const seen=new Set<number>();
       for(const entry of data.answers){
         if(!Number.isInteger(entry.number) || entry.number<1 || entry.number>lesson.questions.length) throw Error("Invalid number");
         const idx=entry.number-1;
+        if(seen.has(idx)) throw Error("Duplicate question");
+        seen.add(idx);
         if(entry.question!==lesson.questions[idx].prompt || typeof entry.answer!=="string" || entry.answer.length>10000 || typeof entry.submitted!=="boolean") throw Error("Invalid answer");
-        localStorage.setItem(`neuro-course:question-answer:${context.moduleId}:${context.language}:${lesson.questions[idx].id}:v1`,JSON.stringify({answer:entry.answer,checked:entry.submitted}));
+        staged.push({key:`neuro-course:question-answer:${context.moduleId}:${context.language}:${lesson.questions[idx].id}:v1`,value:JSON.stringify({answer:entry.answer,checked:entry.submitted})});
         if(entry.submitted) next[idx]=true;
       }
+      for(const item of staged) localStorage.setItem(item.key,item.value);
       localStorage.setItem(storageKey,JSON.stringify(next));
       setCompleted(next);
       recordOutcome(Number(context.moduleId),"questions",Object.keys(next).length,lesson.questions.length);
