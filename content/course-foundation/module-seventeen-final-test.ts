@@ -15,8 +15,7 @@ export function extendModuleSeventeenFinalTest(language: Language, base: Branchi
   });
   const previous = nodes[base.mainIds[base.mainIds.length - 1]];
   if (previous?.type === "question") {
-    previous.onCorrect = ids[0];
-    previous.onIncorrect = ids[0];
+    nodes[base.mainIds[base.mainIds.length - 1]] = { ...previous, onCorrect: ids[0], onIncorrect: ids[0] };
   }
   return { ...base, nodes, competencies, mainIds: [...base.mainIds, ...ids] };
 }
