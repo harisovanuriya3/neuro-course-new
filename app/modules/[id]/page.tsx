@@ -345,6 +345,9 @@ export default async function ModulePage({
           </section>
         )}
 
+        <div style={{display:"flex",gap:12,flexWrap:"wrap",margin:"18px 0"}}>
+          <Link href={`/calendar?lang=${lang}`} style={{padding:"12px 16px",border:"1px solid #a8c5d8",borderRadius:12,background:"#fff",color:"#064b76",fontWeight:700}}>{lang === "RU" ? "📅 Календарь" : lang === "EN" ? "📅 Calendar" : "📅 Күнтізбе"}</Link>
+        </div>
         {/* 17 разделов */}
 
         <section
