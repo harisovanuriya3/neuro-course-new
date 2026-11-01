@@ -92,6 +92,26 @@ export default function DrawingBoard() {
     const a = document.createElement("a");
     a.href = url; a.download = "neurophysiology-drawing.png"; a.click();
   };
+  const exportBackup = () => {
+    const blob = new Blob([JSON.stringify({version:1,moduleId,strokes},null,2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href=url;
+    a.download = `neuro-drawing-${moduleId ?? "general"}.json`; a.click();
+    URL.revokeObjectURL(url);
+  };
+  const importBackup = async (file: File | undefined) => {
+    if (!file || file.size > 5_000_000) { setMessage("Invalid or oversized file."); return; }
+    try {
+      const data = JSON.parse(await file.text());
+      if (data.version !== 1 || data.moduleId !== moduleId || !Array.isArray(data.strokes)) throw Error("Invalid backup");
+      const valid = data.strokes.every((stroke: Stroke) => Array.isArray(stroke.points) && stroke.points.length < 100000 &&
+        /^#[0-9a-f]{6}$/i.test(stroke.color) && Number.isFinite(stroke.width) && stroke.width >= 1 && stroke.width <= 20 &&
+        stroke.points.every(p => Number.isFinite(p.x) && Number.isFinite(p.y) && p.x >= 0 && p.x <= W && p.y >= 0 && p.y <= H));
+      if (!valid) throw Error("Invalid strokes");
+      setStrokes(data.strokes);
+      setMessage(lang === "RU" ? "Рисунок восстановлен." : lang === "EN" ? "Drawing restored." : "Сурет қалпына келтірілді.");
+    } catch { setMessage(lang === "RU" ? "Не удалось прочитать резервную копию." : lang === "EN" ? "Could not read the backup." : "Сақтық көшірмені оқу мүмкін болмады."); }
+  };
   const labels = {
     RU: ["Поле для рисования схем", "Рисуйте мышью, пальцем или стилусом. Сохранение выполняется в этом браузере.", "Толщина", "Отменить", "Очистить", "Сохранить PNG", "К учебнику"],
     EN: ["Diagram drawing board", "Draw with mouse, finger or stylus. Saved in this browser only.", "Width", "Undo", "Clear", "Save PNG", "Back to textbook"],
@@ -105,6 +125,8 @@ export default function DrawingBoard() {
       <button type="button" disabled={!strokes.length} onClick={()=>setStrokes(old=>old.slice(0,-1))}>{labels[3]}</button>
       <button type="button" disabled={!strokes.length} onClick={()=>{if(window.confirm(labels[4]+"?"))setStrokes([]);}}>{labels[4]}</button>
       <button type="button" onClick={exportPng}>{labels[5]}</button>
+      <button type="button" onClick={exportBackup}>{lang === "RU" ? "Резервная копия" : lang === "EN" ? "Backup" : "Сақтық көшірме"}</button>
+      <label style={{display:"inline-flex",alignItems:"center",gap:6}}>{lang === "RU" ? "Восстановить" : lang === "EN" ? "Restore" : "Қалпына келтіру"} <input type="file" accept=".json,application/json" onChange={e=>{void importBackup(e.target.files?.[0]);e.target.value="";}}/></label>
       <Link href={moduleId ? `/modules/${moduleId}?lang=${lang}` : `/?lang=${lang}`}>{labels[6]}</Link>
     </div>
     <canvas ref={canvas} width={W} height={H} aria-label={labels[0]} onPointerDown={begin} onPointerMove={move} onPointerUp={end} onPointerCancel={end} style={{display:"block",width:"100%",height:"auto",aspectRatio:"1000 / 620",border:"2px solid #9cb9cf",borderRadius:12,touchAction:"none",background:"white",cursor:"crosshair"}}/>
