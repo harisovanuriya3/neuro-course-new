@@ -45,11 +45,19 @@ for (let moduleId=1;moduleId<=25;moduleId++) {
           if(node.type!=="question") continue;
           assert(node.options.some(option=>option.id===node.correctAnswer),"missing correct option "+moduleId+"/"+language+"/"+node.id);
           assert(node.explanation.trim(),"missing explanation "+moduleId+"/"+language+"/"+node.id);
+          assert(node.prompt.trim().length>=12,"short question "+moduleId+"/"+language+"/"+node.id);
+          assert(node.options.every(option=>option.text&&option.text.trim().length>=2),"empty distractor "+moduleId+"/"+language+"/"+node.id);
+          const optionTexts=node.options.map(option=>option.text.toLocaleLowerCase().replace(/\\s+/g," ").trim());
+          assert.equal(new Set(optionTexts).size,optionTexts.length,"duplicate answer options "+moduleId+"/"+language+"/"+node.id);
+          assert(lesson.competencies[node.competency],"missing competency "+moduleId+"/"+language+"/"+node.id);
         }
       }
       if(section==="pretest") for(const q of list) {
         assert(q.options.some(option=>option.id===q.correctAnswer),"invalid pretest key "+moduleId+"/"+language+"/"+q.id);
         assert(q.explanation?.trim(),"missing pretest explanation "+moduleId+"/"+language+"/"+q.id);
+        assert(q.options.length===4,"pretest requires four choices "+moduleId+"/"+language+"/"+q.id);
+        const texts=q.options.map(option=>option.text.toLocaleLowerCase().replace(/\\s+/g," ").trim());
+        assert.equal(new Set(texts).size,texts.length,"duplicate pretest answer options "+moduleId+"/"+language+"/"+q.id);
       }
     }
   }
