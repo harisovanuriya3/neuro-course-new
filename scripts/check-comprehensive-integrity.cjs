@@ -124,7 +124,8 @@ const questionEnd = sourceCourse.indexOf("if (section === 'media')",questionStar
 assert(preStart>=0&&preEnd>preStart&&questionStart>=0&&questionEnd>questionStart,"Unable to locate assessment template");
 const pretestTemplate=sourceCourse.slice(preStart,preEnd);
 const questionTemplate=sourceCourse.slice(questionStart,questionEnd);
-const pretestCount=2 + (pretestTemplate.includes("Array.from({ length: 18 }") ? 18 : 0);\nconst controlCount=5 + (questionTemplate.includes("Array.from({ length: 20 }") ? 20 : 0);
+const pretestCount=2 + (pretestTemplate.includes("Array.from({ length: 18 }") ? 18 : 0);
+const controlCount=5 + (questionTemplate.includes("Array.from({ length: 20 }") ? 20 : 0);
 const gaps=[];
 if(pretestCount<20) gaps.push("Pretest template has "+pretestCount+" of 20 required questions");
 if(controlCount<25) gaps.push("Control question template has "+controlCount+" of 25 required questions");
