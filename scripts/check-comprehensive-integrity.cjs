@@ -129,3 +129,14 @@ if(pretestCount<20) gaps.push("Pretest template has "+pretestCount+" of 20 requi
 if(controlCount<25) gaps.push("Control question template has "+controlCount+" of 25 required questions");
 if(gaps.length) console.warn("AUTHOR RELEASE BLOCKERS (not a build failure): "+gaps.join("; "));
 console.log("Author release gate: "+(gaps.length?"NOT READY":"Template count checks passed")+". Do not publish until scientific and visual review also complete.");
+
+const moduleSectionPage=source("app/modules/[id]/[section]/page.tsx");
+for(const [name,component,moduleId] of [["EEG","EEGLab",2],["Withdrawal reflex","ReflexLab",7],["Gait","GaitDemonstration",11]]) {
+  const componentSource=source("components/"+component+".tsx");
+  assert(componentSource.includes("language"),name+" laboratory lacks language support");
+  assert(moduleSectionPage.includes("<"+component+" language={lang} />"),name+" laboratory is not rendered in the module route");
+  assert(modulePage.includes("moduleNumber === "+moduleId)||modulePage.includes("[2,7,11].includes(moduleNumber)"),name+" laboratory has no module overview entry");
+}
+const gait=source("components/GaitDemonstration.tsx");
+assert(gait.includes("setPlaying")&&gait.includes("setPhase")&&gait.includes("setSpeed"),"Gait animation controls missing");
+console.log("Preservation checks: EEG, withdrawal reflex and gait components wired into module routes.");
