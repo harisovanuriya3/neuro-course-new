@@ -12,6 +12,6 @@ export function extendModuleNineteenFinalTest(language:Language,base:BranchingTe
   nodes[id]={id,type:"question",level:"main",competency,prompt:q.prompt,options:q.options,correctAnswer:q.correctAnswer,explanation:q.explanation,onCorrect:ids[i+1]??"end",onIncorrect:ids[i+1]??"end"};
  });
  const previous=nodes[base.mainIds[base.mainIds.length-1]];
- if(previous?.type==="question"){previous.onCorrect=ids[0];previous.onIncorrect=ids[0];}
+ if(previous?.type==="question"){nodes[base.mainIds[base.mainIds.length - 1]] = { ...previous, onCorrect: ids[0], onIncorrect: ids[0] };}
  return {...base,nodes,competencies,mainIds:[...base.mainIds,...ids]};
 }
