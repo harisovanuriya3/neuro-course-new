@@ -76,8 +76,21 @@ function ReviewQuestion({ question, index, total, onComplete, ...context }: Cont
   const [answer, setAnswer] = useState("");
   const [checked, setChecked] = useState(false);
   const [open, setOpen] = useState(false);
+  const answerKey = `neuro-course:question-answer:${context.moduleId}:${context.language}:${question.id}:v1`;
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(answerKey) || "null");
+      if (stored && typeof stored.answer === "string" && stored.answer.length <= 10000) {
+        setAnswer(stored.answer);
+        setChecked(stored.checked === true);
+      }
+    } catch { /* Storage is optional */ }
+  }, [answerKey]);
+  const saveAnswer = (value: string, isChecked: boolean) => {
+    try { localStorage.setItem(answerKey, JSON.stringify({answer:value,checked:isChecked})); } catch { /* Storage is optional */ }
+  };
   const meaningful = (answer.match(/[\p{L}\p{N}]/gu) ?? []).length >= 12;
-  return <section className={shared.card} id={question.id}><p><strong>{context.language==="RU"?"Вопрос":context.language==="KZ"?"Сұрақ":"Question"}: {index + 1} / {total}{checked ? (context.language==="RU"?" · выполнено":context.language==="KZ"?" · орындалды":" · completed") : ""}</strong></p><h2>{question.prompt}</h2><VoiceTextarea language={context.language} label={ui.answer} id={`${question.id}-answer`} value={answer} rows={4} onValue={text => { setAnswer(text); setChecked(false); setOpen(false); onComplete(false); }} /><p id={`${question.id}-hint`} className={shared.note}>{checked ? ui.attempt : ui.gate}</p>{!checked ? <button className={shared.primary} aria-describedby={`${question.id}-hint`} disabled={!meaningful} onClick={() => { setChecked(true); onComplete(true); }}>{ui.check}</button> : <button aria-describedby={`${question.id}-hint`} aria-expanded={open} aria-controls={`${question.id}-explanation`} onClick={() => setOpen(!open)}>{open ? ui.hide : ui.show}</button>}<div id={`${question.id}-explanation`} hidden={!checked || !open} className={shared.answers}>{checked && open && <><h3>{ui.result}</h3><p>{question.explanation}</p><MaterialLink target={question.target} {...context} /></>}</div></section>;
+  return <section className={shared.card} id={question.id}><p><strong>{context.language==="RU"?"Вопрос":context.language==="KZ"?"Сұрақ":"Question"}: {index + 1} / {total}{checked ? (context.language==="RU"?" · выполнено":context.language==="KZ"?" · орындалды":" · completed") : ""}</strong></p><h2>{question.prompt}</h2><VoiceTextarea language={context.language} label={ui.answer} id={`${question.id}-answer`} value={answer} rows={4} onValue={text => { setAnswer(text); setChecked(false); setOpen(false); saveAnswer(text,false); onComplete(false); }} /><p id={`${question.id}-hint`} className={shared.note}>{checked ? ui.attempt : ui.gate}</p>{!checked ? <button className={shared.primary} aria-describedby={`${question.id}-hint`} disabled={!meaningful} onClick={() => { setChecked(true); saveAnswer(answer,true); onComplete(true); }}>{ui.check}</button> : <button aria-describedby={`${question.id}-hint`} aria-expanded={open} aria-controls={`${question.id}-explanation`} onClick={() => setOpen(!open)}>{open ? ui.hide : ui.show}</button>}<div id={`${question.id}-explanation`} hidden={!checked || !open} className={shared.answers}>{checked && open && <><h3>{ui.result}</h3><p>{question.explanation}</p><MaterialLink target={question.target} {...context} /></>}</div></section>;
 }
 function ReviewQuestions({ lesson, ...context }: Context & { lesson: QuestionsLesson }) {
   const [completed, setCompleted] = useState<Record<number, boolean>>({});
