@@ -1,3 +1,4 @@
+import { extendModuleTwentyPretest, extendModuleTwentyFinalTest } from "./module-twenty-visual-assessment";
 import { createModuleFifteenPretest } from "./module-fifteen-pretest";
 import { extendModuleSixteenCases, extendModuleSixteenPractice } from "./module-sixteen-activities";
 import { createModuleSixteenPretest } from "./module-sixteen-pretest";
@@ -1919,5 +1920,23 @@ if (foundationLessons[15]?.pretest) {
         })],
       };
     }
+  }
+}
+
+if (foundationLessons[20]) {
+  for (const language of ["RU", "EN", "KZ"] as const) {
+    const module = foundationLessons[20];
+    const pretest = module.pretest?.[language];
+    if (pretest?.kind === "pretest") {
+      const expanded = extendModuleTwentyPretest(language, pretest);
+      const seen = new Set<string>();
+      module.pretest![language] = { ...expanded, questions: expanded.questions.filter(item => {
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      }) };
+    }
+    const test = module.tests?.[language];
+    if (test?.kind === "tests") module.tests![language] = extendModuleTwentyFinalTest(language, test);
   }
 }
