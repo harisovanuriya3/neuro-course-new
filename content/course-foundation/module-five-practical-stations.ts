@@ -1,4 +1,5 @@
 import type {Language} from "../course";
+import type {ContentBlock} from "../types";
 const stations=[
   {
     "title": [
@@ -69,4 +70,4 @@ const stations=[
     ]
   }
 ] as const;
-export function moduleFivePracticalStations(language:Language){const i=language==="RU"?0:language==="EN"?1:2;return stations.map(s=>({title:s.title[i],blocks:[{type:"paragraph" as const,text:s.task[i]},{type:"response" as const,label:language==="RU"?"Ваш протокол и интерпретация":language==="EN"?"Your protocol and interpretation":"Хаттамаңыз және түсіндіруіңіз"},{type:"answer" as const,items:[s.answer[i]]}]}));}
+export function moduleFivePracticalStations(language:Language){const i=language==="RU"?0:language==="EN"?1:2;return stations.map(s=>({title:s.title[i],blocks:[{type:"paragraph",text:s.task[i]},{type:"response",label:language==="RU"?"Ваш протокол и интерпретация":language==="EN"?"Your protocol and interpretation":"Хаттамаңыз және түсіндіруіңіз"},{type:"answer",items:[s.answer[i]]}] as ContentBlock[]}));}
