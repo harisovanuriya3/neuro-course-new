@@ -21,7 +21,16 @@ const lesson: Lesson = {
       id: "functions",
       title: "2. Major Functions of the Nervous System",
       blocks: [
-        { type: "list", items: ["Detection of information.", "Conduction of neural signals.", "Analysis and integration of information.", "Generation of motor responses.", "Regulation of autonomic functions.", "Coordination of internal organ activity.", "Maintenance of homeostasis.", "Support of higher nervous functions."] },
+        { type: "list", items: [
+"Information reception — receptors transduce mechanical, thermal, chemical, and other stimuli into electrical signals. Example: cutaneous mechanoreceptors encode touch, whereas nociceptors signal potentially damaging stimuli.",
+"Neural signal conduction — action potentials propagate along axons; myelin speeds conduction through saltatory propagation. Example: sensory information from a finger rapidly reaches the spinal cord.",
+"Analysis and integration — neurons sum excitatory and inhibitory inputs, while networks combine information from different sources. Example: balance depends on visual, vestibular, and proprioceptive signals.",
+"Motor response formation — the CNS generates motor-neuron commands and coordinates muscle activation. Example: withdrawal from a hot surface begins as a rapid spinal protective response.",
+"Autonomic regulation — autonomic circuits alter cardiac, vascular, smooth-muscle, and glandular activity. Example: the baroreflex helps stabilize arterial pressure on standing.",
+"Coordination of internal organs — neural circuits coordinate several organ systems. Example: exercise simultaneously changes ventilation, cardiac output, and vascular tone.",
+"Homeostasis — neural, endocrine, and local mechanisms keep regulated variables within physiological ranges. Example: hypothalamic networks participate in thermoregulation.",
+"Higher nervous functions — distributed networks support attention, learning, memory, language, emotion, and goal-directed behavior. Example: repeated practice changes synaptic efficacy and improves performance."
+] },
         { type: "paragraph", text: "The nervous system does more than relay signals: it evaluates information in relation to the body's current state and previous experience to produce an appropriate response. For example, touching a hot object triggers rapid withdrawal of the hand, while processing in the brain supports conscious perception of pain and subsequent changes in behavior." },
         { type: "paragraph", text: "Homeostasis is the maintenance of a relatively stable internal environment. Together with endocrine and local mechanisms, the nervous system helps regulate circulation, breathing, and body temperature." },
       ],
