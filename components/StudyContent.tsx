@@ -156,9 +156,12 @@ function ReviewQuestions({ lesson, ...context }: Context & { lesson: QuestionsLe
     const link=document.createElement("a");link.href=url;link.download=`neuro-module-${context.moduleId}-answers-${context.language}.json`;link.click();
     URL.revokeObjectURL(url);
   }
+  const firstUnfinished = lesson.questions.findIndex((_,index)=>!completed[index]);
   const label = context.language==="RU"?"Выполнено контрольных вопросов":context.language==="KZ"?"Орындалған бақылау сұрақтары":"Review questions completed";
   return <>
     <div className={shared.taskProgress}><span>{label}: <strong>{done} / {lesson.questions.length}</strong></span><progress value={done} max={lesson.questions.length} aria-label={label}/></div>
+    {firstUnfinished>=0 && <a href={`#${lesson.questions[firstUnfinished].id}`} style={{display:"inline-flex",alignItems:"center",padding:"10px 14px",margin:"10px 0",background:"#e0f3e9",color:"#155d3d",borderRadius:9,fontWeight:700}}>{context.language==="RU"?"Продолжить с вопроса":context.language==="EN"?"Continue at question":"Сұрақтан жалғастыру"} {firstUnfinished+1} →</a>}
+
     <button type="button" onClick={exportAnswers} style={{padding:"10px 14px",margin:"10px 0",borderRadius:9,border:"1px solid #94b7ce",background:"#f3f9fc",color:"#125479",fontWeight:700}}>{context.language==="RU"?"Скачать мои ответы (резервная копия)":context.language==="EN"?"Download my answers (backup)":"Жауаптарымды жүктеу (сақтық көшірме)"}</button>
     <label style={{display:"block",margin:"10px 0",fontWeight:600}}>{context.language==="RU"?"Восстановить ответы из резервной копии":context.language==="EN"?"Restore answers from backup":"Жауаптарды сақтық көшірмеден қалпына келтіру"} <input type="file" accept=".json,application/json" onChange={e=>{importAnswers(e.target.files?.[0]);e.target.value="";}}/></label>
     <nav aria-label={context.language==="RU"?"Навигация по контрольным вопросам":context.language==="EN"?"Review question navigation":"Бақылау сұрақтары бойынша навигация"} style={{display:"flex",gap:8,flexWrap:"wrap",margin:"16px 0",padding:12,background:"#f1f7fb",borderRadius:12}}>
