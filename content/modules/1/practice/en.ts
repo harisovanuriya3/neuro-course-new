@@ -12,6 +12,51 @@ const lesson: PracticeLesson = {
   },
   // Theory repetition removed: practice starts with application.
   sections: [
+    {
+      "title": "14. Practical workshop: reflex arc analysis and lesion localization",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "Learning objective"
+        },
+        {
+          "type": "paragraph",
+          "text": "Use a clinical description to construct a testable hypothesis about the affected component of a reflex circuit. Distinguish observation, mechanism, suspected localization and required confirmation. Perform only safe educational maneuvers under supervision; actual patient symptoms require clinical evaluation."
+        },
+        {
+          "type": "subheading",
+          "text": "Station A. Patellar reflex"
+        },
+        {
+          "type": "paragraph",
+          "text": "Compare the patellar reflex circuit with a spinal cord anatomical image. Identify the quadriceps muscle spindle, Ia afferent, L2–L4 segments, alpha motor neuron, femoral nerve efferents and quadriceps. Explain why the response is not completely independent of descending modulation. Educational observation compares sides while controlling patient position and relaxation."
+        },
+        {
+          "type": "subheading",
+          "text": "Station B. Differential localization"
+        },
+        {
+          "type": "paragraph",
+          "text": "A patient has a unilateral reduced knee-jerk reflex and weak knee extension. Compare femoral neuropathy, L2–L4 root dysfunction and primary muscle dysfunction. Construct a table of expected differences in sensory distribution, pain, weakness pattern and electrodiagnostic findings. An absent reflex alone is not diagnostic: technique, age and patient state can affect it."
+        },
+        {
+          "type": "subheading",
+          "text": "Station C. Experimental controls"
+        },
+        {
+          "type": "paragraph",
+          "text": "Compare voluntary visual reaction time under two conditions. Use repeated trials with standardized instructions, exclude anticipatory responses and record learning effects. Report trial number, median and variability. Explain why reaction time includes sensory processing, decision making and motor execution rather than directly measuring conduction velocity in one axon."
+        },
+        {
+          "type": "subheading",
+          "text": "Interpretation and assessment"
+        },
+        {
+          "type": "paragraph",
+          "text": "Station A should trace receptor → afferent → spinal circuitry → motor neuron → muscle and acknowledge reciprocal inhibition of antagonists. Station B requires justified competing localizations rather than one unsupported diagnosis. Station C assesses reproducibility, artifacts, practice effects and whether the measured quantity matches the stated physiological question. Reports must separate observations, physiological interpretation, alternative hypotheses and confirmatory methods."
+        }
+      ]
+    },
     { title: "Practice goal", blocks: [
       { type: "paragraph", text: "Apply the basic neural-regulation scheme to concrete structures and situations: identify the input, direction of information flow, central processing, and output. Detailed mechanisms of action potentials, synapses, and inhibition are studied in later modules." },
     ] },
