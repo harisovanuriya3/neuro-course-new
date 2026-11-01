@@ -47,6 +47,10 @@ import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
+import { moduleTwoExpandedTheory } from "./module-two-expanded-theory";
+import { moduleThreeDetailedTheory } from "./module-three-detailed-theory";
+import { moduleFourPracticalStations } from "./module-four-practical-stations";
+import { moduleFivePracticalStations } from "./module-five-practical-stations";
 import { moduleTwentyFourChapter } from "./module-twenty-four-chapter";
 import { createModuleTwentyOneTheory } from "./module-twenty-one-theory";
 import { createModuleTwentyVisualTheory } from "./module-twenty-visual-theory";
@@ -374,6 +378,8 @@ function create(
       title: moduleTitle,
 
       sections: [
+        ...(topic.id === 4 ? moduleFourPracticalStations(language) : []),
+        ...(topic.id === 5 ? moduleFivePracticalStations(language) : []),
         {
           id: 'quick-summary',
           title: language === 'RU' ? 'Коротко о главном' : language === 'EN' ? 'The key idea first' : 'Алдымен ең маңыздысы',
@@ -433,6 +439,8 @@ function create(
                   : 'Механизмді өз сөзіңізбен түсіндіріңіз, өзгеретін физиологиялық шаманы және күтілетін бақылауды атаңыз. Жауабыңызды механизм және түсіндіру бөлімдерімен салыстырыңыз.' },
           ],
         },
+        ...(topic.id === 2 ? moduleTwoExpandedTheory(language) : []),
+        ...(topic.id === 3 ? moduleThreeDetailedTheory(language) : []),
         ...(topic.id === 20 ? moduleTwentyExpandedTheory(language) : []),
         ...(topic.id === 22 ? [
           {
