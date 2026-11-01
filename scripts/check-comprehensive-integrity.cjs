@@ -190,3 +190,10 @@ assert(moduleSectionPage.includes("<AdvancedAnatomyReference moduleId={moduleNum
 const virtualPatient=source("components/UnifiedVirtualPatient.tsx");
 assert(virtualPatient.includes("moduleId")&&virtualPatient.includes("visual"),"Unified virtual patient visual support missing");
 console.log("Visual route preservation: theory, practice and media expose curated anatomy; virtual-patient visual support remains connected.");
+
+for(const language of ["ru","en","kz"]){
+  const m1=source("content/modules/1/theory/"+language+".ts");
+  const examples=(m1.match(/Example:|Мысал:|Пример:/g)||[]).length;
+  assert(examples>=8,"Module 1 nervous-system functions lack eight localized examples in "+language);
+}
+console.log("Module 1 theory audit: eight nervous-system functions have localized physiological examples in RU EN KZ.");
