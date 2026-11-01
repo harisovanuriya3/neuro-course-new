@@ -54,6 +54,7 @@ import { createModuleEightSummary } from "./module-eight-summary";
 import { createModuleEightCases } from "./module-eight-cases";
 import { moduleTenClinicalCases } from "./module-ten-clinical-cases";
 import { createModuleEightPretest } from "./module-eight-pretest";
+import { createModuleEightQuestions } from "./module-eight-questions";
 import { createModuleEightPractice } from "./module-eight-practice";
 import { adaptModuleEightTest } from "./module-eight-tests";
 import { moduleFourDetailedTheory } from "./module-four-detailed-theory";
@@ -1273,6 +1274,7 @@ function create(
       introduction: c.questionsIntro,
 
       questions: [
+        ...(topic.id === 8 ? createModuleEightQuestions(language).questions : []),
         {
           id: `module-${topic.id}-review-concept`,
           prompt: question,
