@@ -1,4 +1,6 @@
-# Release audit — staging PR 40 (2026-11-01)
+# Historical release audit — staging PR 40 (2026-11-01)
+
+> **Historical snapshot.** The blockers below describe PR 40 at that point in time and are not the current release status. Subsequent PRs integrated the missing module 20 assessment routing, exam/media navigation, author-review corrections, specialized laboratories, and visual-attribution fixes. Consult the current `main` CI and comprehensive audit for present status.
 
 ## Verified automatically
 - GitHub Actions run 41254578735: course audit PASS; TypeScript PASS; Next.js build PASS.
