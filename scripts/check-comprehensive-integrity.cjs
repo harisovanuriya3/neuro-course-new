@@ -107,3 +107,10 @@ for(let id=15;id<=18;id++)assert(fs.existsSync(path.join(__dirname,"../app/modul
 assert(modulePage.includes("moduleNumber >= 15 && moduleNumber <= 18"),"Lab links missing");
 assert(exam.includes("/resources?lang=")&&resources.includes("/exam?lang="),"Exam/media crosslinks missing");
 console.log("Navigation and tool integrity: search, calendar, laboratory routes, exam/media crosslinks present.");
+
+const draw=source("app/draw/page.tsx");
+assert(draw.includes("onPointerDown={begin}")&&draw.includes("onPointerMove={move}")&&draw.includes("onPointerUp={end}"),"Drawing pointer controls missing");
+assert(draw.includes("localStorage.setItem(storageKey")&&draw.includes("toDataURL"),"Drawing persistence/export missing");
+assert(draw.includes("moduleId")&&modulePage.includes("/draw?lang="),"Module drawing links missing");
+assert(modulePage.includes('["objectives","theory","practice","tests"][index]'),"Learning stage tiles not linked");
+console.log("Author-review UX checks: stage links, module drawing, persistence and PNG export source present.");
