@@ -42,5 +42,6 @@ export default function GaitDemonstration({language}:{language:Language}) {
       <label>{t.speed} <select value={speed} onChange={e=>setSpeed(Number(e.target.value))}><option value="0.5">0.5×</option><option value="1">1×</option><option value="2">2×</option></select></label>
     </div>
     <p><strong>{t.question}</strong></p>
+    <p style={{fontSize:14,color:"#456579"}}>{language==="RU"?"Обратите внимание: это упрощённая схема чередования движений ног, а не точная модель суставных углов, мышечной активности или патологической походки. Сопоставьте движение с данными моторного контроля в лаборатории выше.":language==="EN"?"Note: this is a simplified illustration of alternating leg movements, not a validated model of joint angles, muscle activity, or pathological gait. Compare it with the motor-control laboratory above.":"Назар аударыңыз: бұл аяқ қозғалыстарының кезектесуін көрсететін қарапайым сызба, буын бұрыштарының, бұлшықет белсенділігінің немесе патологиялық жүрістің дәл моделі емес. Жоғарыдағы қозғалысты басқару зертханасымен салыстырыңыз."}</p>
   </section>;
 }
