@@ -4,6 +4,21 @@ const path = require("node:path");
 const {load} = require("./check-tests.cjs");
 const {getLesson} = load("content/index.ts");
 const {validateTest} = load("lib/tests/engine.ts");
+const {initialState,transition} = load("lib/tests/engine.ts");
+function simulateRoute(test, answerCorrectly) {
+  let state=initialState(test);
+  for(let step=0;step<500;step++){
+    if(state.phase==="results") return state;
+    if(state.phase==="remediation"||state.phase==="feedback"){state=transition(test,state,{type:"continue"});continue;}
+    const node=test.nodes[state.current];
+    assert(node&&node.type==="question","broken test route "+test.title);
+    const selected=answerCorrectly?node.correctAnswer:node.options.find(o=>o.id!==node.correctAnswer)?.id;
+    assert(selected,"no alternative answer "+node.id);
+    state=transition(test,state,{type:"select",answer:selected});
+    state=transition(test,state,{type:"check"});
+  }
+  throw Error("Test route failed to terminate: "+test.title);
+}
 const langs = ["RU","EN","KZ"];
 const sections = ["theory","practice","cases","pretest","tests"];
 const sizes = {};
@@ -26,6 +41,8 @@ for (let moduleId=1;moduleId<=25;moduleId++) {
       }
       if(section==="tests") {
         validateTest(lesson);
+        simulateRoute(lesson,true);
+        simulateRoute(lesson,false);
         const prompts = Object.values(lesson.nodes).filter(node => node.type==="question").map(node => node.prompt.toLocaleLowerCase().replace(/\\s+/g," ").trim());
         const repeated = prompts.length - new Set(prompts).size;
         if (repeated) {
