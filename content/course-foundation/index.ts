@@ -52,6 +52,7 @@ import { createModuleEightGlossary } from "./module-eight-glossary";
 import { createModuleEightReferences } from "./module-eight-references";
 import { createModuleEightSummary } from "./module-eight-summary";
 import { createModuleEightCases } from "./module-eight-cases";
+import { createModuleEightPretest } from "./module-eight-pretest";
 import { createModuleEightPractice } from "./module-eight-practice";
 import { adaptModuleEightTest } from "./module-eight-tests";
 import { moduleFourDetailedTheory } from "./module-four-detailed-theory";
@@ -919,6 +920,7 @@ function create(
       introduction: c.goals,
 
       questions: [
+        ...(topic.id === 8 ? createModuleEightPretest(language, moduleTitle, title).questions : []),
         {
           id: `module-${topic.id}-pretest`,
           topic: moduleTitle,
