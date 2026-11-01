@@ -373,6 +373,11 @@ export default async function ModulePage({
             </div>
           </section>
         )}
+        <section aria-label={lang === "RU" ? "Быстрый доступ к учебным инструментам" : lang === "EN" ? "Quick study tools" : "Оқу құралдарына жылдам өту"} style={{display:"flex",gap:10,flexWrap:"wrap",margin:"10px 0 20px"}}>
+          <Link href={`/modules/${moduleNumber}/notes?lang=${lang}`} style={{padding:"10px 14px",border:"1px solid #a8c5d8",borderRadius:10,background:"#fff",color:"#064b76",fontWeight:700}}>{lang==="RU"?"📝 Заметки и закладки":lang==="EN"?"📝 Notes and bookmarks":"📝 Жазбалар мен бетбелгілер"}</Link>
+          <Link href={`/modules/${moduleNumber}/progress?lang=${lang}`} style={{padding:"10px 14px",border:"1px solid #a8c5d8",borderRadius:10,background:"#fff",color:"#064b76",fontWeight:700}}>{lang==="RU"?"📊 Мой прогресс":lang==="EN"?"📊 My progress":"📊 Менің үлгерімім"}</Link>
+          <Link href={`/modules/${moduleNumber}/media?lang=${lang}`} style={{padding:"10px 14px",border:"1px solid #a8c5d8",borderRadius:10,background:"#fff",color:"#064b76",fontWeight:700}}>{lang==="RU"?"🎬 Медиа и анимации":lang==="EN"?"🎬 Media and animations":"🎬 Медиа және анимациялар"}</Link>
+        </section>
         {/* 17 разделов */}
 
         <section
