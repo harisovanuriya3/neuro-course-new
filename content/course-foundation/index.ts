@@ -47,6 +47,9 @@ import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
+import { createModuleEightCases } from "./module-eight-cases";
+import { createModuleEightPractice } from "./module-eight-practice";
+import { adaptModuleEightTest } from "./module-eight-tests";
 import { moduleFourDetailedTheory } from "./module-four-detailed-theory";
 import { moduleTwoPracticalStations } from "./module-two-practical-stations";
 import { moduleThreePracticalStations } from "./module-three-practical-stations";
@@ -1089,6 +1092,11 @@ function create(
 
   if (section === 'cases') {
     const baseCases = createFoundationCase(topic, language, moduleTitle);
+    if (topic.id === 8) {
+      const authored = createModuleEightCases(language, moduleTitle, baseCases.ui);
+      const seen = new Set(baseCases.cases.map(item => item.id));
+      return { ...baseCases, cases: [...baseCases.cases, ...authored.cases.filter(item => !seen.has(item.id))] };
+    }
     const restored = topic.id === 2 ? moduleTwoClinicalCases(language) : topic.id === 3 ? moduleThreeClinicalCases(language) : [];
     if (!restored.length) return baseCases;
     const seen = new Set(baseCases.cases.map(item => item.id));
@@ -1100,11 +1108,8 @@ function create(
   }
 
   if (section === 'tests') {
-    return createFoundationTest(
-      topic,
-      language,
-      moduleTitle,
-    );
+    const baseTest = createFoundationTest(topic, language, moduleTitle);
+    return topic.id === 8 ? adaptModuleEightTest(baseTest, language) : baseTest;
   }
 
   if (section === 'practice') {
@@ -1141,12 +1146,8 @@ function create(
             : 'Тапсырманың орындалу белгілері осы браузерде сақталады. Жауап мәтіні бет жаңартылғанда өшуі мүмкін, сондықтан маңызды талдауды бет жазбасына сақтаңыз.',
     };
 
-    return {
-      kind: 'practice',
-      title,
-      moduleTitle,
-      ui,
-
+    const practiceBase: PracticeLesson = {
+      kind: 'practice', title, moduleTitle, ui,
       sections: [
         ...(topic.id === 6 ? moduleSixPracticalStations(language) : []),
         ...(topic.id === 7 ? moduleSevenPracticalStations(language) : []),
@@ -1253,6 +1254,7 @@ function create(
         },
       ],
     };
+    return topic.id === 8 ? createModuleEightPractice(language, practiceBase) : practiceBase;
   }
 
   if (section === 'questions') {
