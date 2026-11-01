@@ -157,3 +157,16 @@ const progressContent=source("components/ModuleProgress.tsx");
 assert(progressContent.includes("m.nextSection")&&progressContent.includes("m.completion<100"),"Unfinished-module resume navigation missing");
 assert(progressContent.includes("75–99%")&&progressContent.includes("50–74%"),"Progress color legend missing");
 console.log("Author UX audit: bibliography links, resume navigation and progress legend present.");
+
+const authorVisual=source("components/AuthorRestoredVisuals.tsx");
+assert(moduleSectionPage.includes("<AuthorRestoredVisuals moduleId={moduleNumber} language={lang} />"),"Restored author visuals are not connected to theory");
+for(const language of ["ru","en","kz"]){
+  assert(fs.existsSync(path.join(process.cwd(),"public","images","neuro-atlas-"+language+".png")),"Missing restored neuro-atlas "+language);
+}
+for(let id=1;id<=10;id++){
+  const file="module-"+String(id).padStart(2,"0")+".webp";
+  const full=path.join(process.cwd(),"public","images","neuro-modules",file);
+  assert(fs.existsSync(full),"Missing restored module visual "+file);
+  assert(fs.statSync(full).size>1024,"Restored module visual is suspiciously small "+file);
+}
+console.log("Author visual preservation: trilingual atlas and restored module 1-10 imagery are present and wired to theory.");
