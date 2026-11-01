@@ -22,7 +22,7 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
  const supportSections=["media","glossary","voice","progress","notes","references"] as const;
  const supportVisited=supportSections.filter(section=>visitedSections.includes(section)).length;
  const currentPercent=Math.round((coreVisited/coreSections.length)*100);
- const allModules=modules[language].map((title,index)=>{const id=index+1;const sections=data?.visitedSections[id]??[];const core=coreSections.filter(s=>sections.includes(s)).length;const o=data?.outcomes??{};const evidence=Object.entries(o).filter(([k])=>[`${id}:tests`,`${id}:criterion:clinical:cases`,`${id}:virtual-patient`].includes(k)).map(([,v])=>v);const correct=evidence.reduce((s,v)=>s+v.correct,0),total=evidence.reduce((s,v)=>s+v.total,0);const mastery=total?Math.round(correct/total*100):0;return{id,title,core,completion:Math.round(core/coreSections.length*100),mastery,total}});
+ const allModules=modules[language].map((title,index)=>{const id=index+1;const sections=data?.visitedSections[id]??[];const core=coreSections.filter(s=>sections.includes(s)).length;const o=data?.outcomes??{};const evidence=Object.entries(o).filter(([k])=>[`${id}:tests`,`${id}:criterion:clinical:cases`,`${id}:virtual-patient`].includes(k)).map(([,v])=>v);const correct=evidence.reduce((s,v)=>s+v.correct,0),total=evidence.reduce((s,v)=>s+v.total,0);const mastery=total?Math.round(correct/total*100):0;const nextSection=coreSections.find(section=>!sections.includes(section))??null;return{id,title,core,completion:Math.round(core/coreSections.length*100),mastery,total,nextSection}});
  const courseCompletion=Math.round(allModules.reduce((s,m)=>s+m.completion,0)/allModules.length);
  const assessed=allModules.filter(m=>m.total>0);const courseMastery=assessed.length?Math.round(assessed.reduce((s,m)=>s+m.mastery,0)/assessed.length):0;
  const needsAttention=allModules.filter(m=>m.total>0&&m.mastery<55).sort((a,b)=>a.mastery-b.mastery).slice(0,5);
@@ -67,7 +67,7 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
   </section>
   <div role="note" style={{display:"flex",flexWrap:"wrap",gap:12,padding:12,margin:"12px 0",background:"#f6f9fc",borderRadius:10}}>
     {([{color:"#208b5a",text:language==="RU"?"100% — завершено":language==="EN"?"100% — completed":"100% — аяқталды"},{color:"#397cc2",text:"75–99%"},{color:"#c99725",text:"50–74%"},{color:"#c86f3f",text:"1–49%"},{color:"#a5b2bd",text:language==="RU"?"0% — не начато":language==="EN"?"0% — not started":"0% — басталмаған"}]).map(item=><span key={item.color} style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:13}}><span style={{background:item.color,width:12,height:12,borderRadius:3}}/>{item.text}</span>)}
-    <p style={{width:"100%",margin:0,fontSize:12}}>{language==="RU"?"Цвет показывает выполнение маршрута, а не процент правильных ответов.":language==="EN"?"Color indicates pathway completion, not answer accuracy.":"Түс оқу маршрутының аяқталуын көрсетеді, дұрыс жауап пайызын емес."}</p>
+    <p style={{width:"100%",margin:0,fontSize:12}}>{language==="RU"?"Цвет показывает долю открытых разделов, а не подтверждённое освоение или процент правильных ответов.":language==="EN"?"Color indicates sections visited, not verified mastery or answer accuracy.":"Түс қаралған бөлімдер үлесін көрсетеді, білімді меңгеруді немесе дұрыс жауап пайызын емес."}</p>
   </div>
   <h2>{c.assessment} · {c.module} {moduleId}</h2>
   <p>{c.exam}</p>
@@ -95,6 +95,7 @@ export default function ModuleProgress({language,moduleId}:{language:Language;mo
     <span style={{fontSize:13,color:"#456477"}}>{m.completion===100?(language==="RU"?"Завершено":language==="EN"?"Completed":"Аяқталды"):m.completion===0?(language==="RU"?"Не начато":language==="EN"?"Not started":"Басталмаған"):(language==="RU"?"Не завершено":language==="EN"?"In progress":"Аяқталмаған")}</span><br/>
     <Link href={`/modules/${m.id}?lang=${language}`}>{c.start}</Link>
     {m.completion<100&&<div style={{display:"flex",gap:8,flexWrap:"wrap",marginTop:8}}>
+      {m.nextSection&&<Link href={`/modules/${m.id}/${m.nextSection}?lang=${language}`} style={{background:"#e1f2e9",color:"#145c3c",padding:"6px 10px",borderRadius:8,fontWeight:700}}>{language==="RU"?"Продолжить с непросмотренного раздела →":language==="EN"?"Continue to next unvisited section →":"Келесі қаралмаған бөлімге өту →"}</Link>}
       <Link href={`/modules/${m.id}/theory?lang=${language}`}>{language==="RU"?"Теория":language==="EN"?"Theory":"Теория"}</Link>
       <Link href={`/modules/${m.id}/practice?lang=${language}`}>{language==="RU"?"Практика":language==="EN"?"Practice":"Практика"}</Link>
       <Link href={`/modules/${m.id}/tests?lang=${language}`}>{language==="RU"?"Тест":language==="EN"?"Test":"Тест"}</Link>
