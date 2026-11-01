@@ -898,7 +898,7 @@ function create(
         },
         ...Array.from({ length: 18 }, (_, index) => {
           const n = index + 3;
-          const focus = [mechanism, interpretation, topic.practice[language], topic.caseText[language]][index % 4];
+          const focus = [mechanism, interpretation, question, topic.task[language]][index % 4];
           return {
             id: `module-${topic.id}-pretest-${n}`,
             topic: moduleTitle,
