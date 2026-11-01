@@ -18,7 +18,7 @@ export function extendModuleSixteenFinalTest(language:Language,base:BranchingTes
  const last=base.mainIds[base.mainIds.length-1];
  const previous=nodes[last];
  if(previous?.type==="question" && ids.length){
-  previous.onCorrect=ids[0];previous.onIncorrect=ids[0];
+  nodes[base.mainIds[base.mainIds.length - 1]] = { ...previous, onCorrect: ids[0], onIncorrect: ids[0] };
  }
  return {...base,mainIds:[...base.mainIds,...ids],competencies,nodes};
 }
