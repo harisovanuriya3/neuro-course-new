@@ -40,28 +40,22 @@ const guidance: Record<Language, {
 };
 
 export function createModuleEightReferences(language: Language, base: ReadingLesson): ReadingLesson {
-  if (base.kind !== "references" || !base.sources) {
-    throw new Error("Module 8 references base missing");
-  }
-  const find = (prefix: string) => {
-    const source = base.sources!.find(item => item.title.startsWith(prefix));
-    if (!source) throw new Error("Module 8 missing bibliography record: " + prefix);
-    return source;
-  };
+  if (base.kind !== "references" || !base.sources) throw new Error("Module 8 references base missing");
   const copy = guidance[language];
-  return {
-    ...base,
-    introduction: copy.introduction,
-    sources: [
-      { ...find("Guyton & Hall"), description: copy.guyton, links: [{ section: "theory" }] },
-      { ...find("Ganong"), description: copy.ganong, links: [{ section: "theory" }] },
-      {
-        title: "C. L. Ghai · A Textbook of Practical Physiology, 8th ed. (2013)",
-        href: "https://opac.iitrpr.ac.in/cgi-bin/koha/opac-MARCdetail.pl?biblionumber=10003",
-        description: copy.ghai, links: [{ section: "clinical" }]
-      },
-      { ...find("OpenStax · Sensory Perception"), description: copy.sensory, links: [{ section: "interactive" }] },
-      { ...find("OpenStax · Motor Responses"), description: copy.motor, links: [{ section: "cases" }] }
-    ]
-  };
+  const sources = base.sources.map(item => {
+    if (item.title.startsWith("Guyton & Hall")) return { ...item, description: copy.guyton, links: [{ section: "theory" as const }] };
+    if (item.title.startsWith("Ganong")) return { ...item, description: copy.ganong, links: [{ section: "theory" as const }] };
+    if (item.title.startsWith("OpenStax · Sensory Perception")) return { ...item, description: copy.sensory, links: [{ section: "interactive" as const }] };
+    if (item.title.startsWith("OpenStax · Motor Responses")) return { ...item, description: copy.motor, links: [{ section: "cases" as const }] };
+    return item;
+  });
+  if (!sources.some(item => item.title.startsWith("C. L. Ghai"))) {
+    sources.push({
+      title: "C. L. Ghai · A Textbook of Practical Physiology, 8th ed. (2013)",
+      href: "https://opac.iitrpr.ac.in/cgi-bin/koha/opac-MARCdetail.pl?biblionumber=10003",
+      description: copy.ghai,
+      links: [{ section: "clinical" as const }]
+    });
+  }
+  return { ...base, introduction: copy.introduction, sources };
 }
