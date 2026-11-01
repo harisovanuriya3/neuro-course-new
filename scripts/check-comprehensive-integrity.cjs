@@ -150,3 +150,10 @@ for(const mode of eegModes){
 }
 assert(eegComponent.includes('/images/eeg-verified/${mode}.jpg'),"EEG patient image mode wiring missing");
 console.log("EEG image preservation: six referenced patient photographs exist and are nonempty.");
+
+const studyContent=source("components/StudyContent.tsx");
+assert(studyContent.includes('href={source.href} target="_blank" rel="noopener noreferrer"'),"Bibliography external links must be clickable and safe");
+const progressContent=source("components/ModuleProgress.tsx");
+assert(progressContent.includes("m.nextSection")&&progressContent.includes("m.completion<100"),"Unfinished-module resume navigation missing");
+assert(progressContent.includes("75–99%")&&progressContent.includes("50–74%"),"Progress color legend missing");
+console.log("Author UX audit: bibliography links, resume navigation and progress legend present.");
