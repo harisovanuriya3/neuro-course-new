@@ -348,6 +348,36 @@ export default async function ModulePage({
         <div style={{display:"flex",gap:12,flexWrap:"wrap",margin:"18px 0"}}>
           <Link href={`/calendar?lang=${lang}`} style={{padding:"12px 16px",border:"1px solid #a8c5d8",borderRadius:12,background:"#fff",color:"#064b76",fontWeight:700}}>{lang === "RU" ? "📅 Календарь" : lang === "EN" ? "📅 Calendar" : "📅 Күнтізбе"}</Link>
         </div>
+        <div style={{display:"flex",gap:12,flexWrap:"wrap",margin:"0 0 16px"}}>
+          <Link href={`/draw?lang=${lang}&module=${moduleNumber}`} style={{padding:"12px 16px",border:"1px solid #a8c5d8",borderRadius:12,background:"#fff",color:"#064b76",fontWeight:700}}>{lang === "RU" ? "✏️ Нарисовать схему" : lang === "EN" ? "✏️ Draw a diagram" : "✏️ Сызба салу"}</Link>
+        </div>
+        {[2,7,11].includes(moduleNumber) && (
+          <section aria-label={lang === "RU" ? "Найденные виртуальные лаборатории" : lang === "EN" ? "Virtual laboratories" : "Виртуалды зертханалар"} style={{margin:"12px 0 20px",padding:16,border:"1px solid #b3d0e3",borderRadius:14,background:"#edf7fc"}}>
+            <h2 style={{margin:"0 0 10px",fontSize:19,color:"#064b76"}}>{lang === "RU" ? "Виртуальная лаборатория" : lang === "EN" ? "Virtual laboratory" : "Виртуалды зертхана"}</h2>
+            <p style={{margin:"0 0 12px",lineHeight:1.5}}>
+              {moduleNumber === 2 ? (lang === "RU" ? "ЭЭГ: сравнение записи при открытых и закрытых глазах" : lang === "EN" ? "EEG: compare eyes-open and eyes-closed recordings" : "ЭЭГ: көз ашық және жабық кездегі жазбаларды салыстыру")
+                : moduleNumber === 7 ? (lang === "RU" ? "Рефлекторная дуга: отдёргивание руки от горячей поверхности" : lang === "EN" ? "Reflex arc: withdrawing a hand from a hot surface" : "Рефлекс доғасы: ыстық беттен қолды тартып алу")
+                : (lang === "RU" ? "Моторный контроль и сенсорная обратная связь" : lang === "EN" ? "Motor control and sensory feedback" : "Қозғалысты басқару және сенсорлық кері байланыс")}
+            </p>
+            <Link href={`/modules/${moduleNumber}/interactive?lang=${lang}`} style={{display:"inline-block",padding:"12px 16px",borderRadius:10,background:"#135d86",color:"white",fontWeight:700,textDecoration:"none"}}>{lang === "RU" ? "Открыть лабораторию →" : lang === "EN" ? "Open laboratory →" : "Зертхананы ашу →"}</Link>
+          </section>
+        )}
+        {moduleNumber === 1 && (
+          <section style={{margin:"14px 0 22px",padding:18,border:"1px solid #a9c9dd",borderRadius:14,background:"#f0f8fd"}}>
+            <h2 style={{fontSize:19,margin:"0 0 10px"}}>{lang === "RU" ? "Физиологические демонстрации к введению" : lang === "EN" ? "Physiology demonstrations for the introduction" : "Кіріспеге арналған физиологиялық көрсетілімдер"}</h2>
+            <p style={{lineHeight:1.5}}>{lang === "RU" ? "Связанные лаборатории расположены в профильных модулях. Откройте их здесь и вернитесь к введению после опыта." : lang === "EN" ? "Related laboratories are in their specialist modules. Open them here and return after the experiment." : "Тиісті зертханалар арнайы модульдерде орналасқан. Оларды осы жерден ашып, тәжірибеден кейін кіріспеге оралыңыз."}</p>
+            <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
+              {([2,7,11] as const).map(n=><Link key={n} href={`/modules/${n}/interactive?lang=${lang}`} style={{display:"inline-flex",padding:"12px 14px",borderRadius:10,background:"#fff",border:"1px solid #92bbd4",color:"#075681",fontWeight:700,textDecoration:"underline"}}>
+                {n===2 ? (lang==="RU"?"ЭЭГ: глаза открыты / закрыты":lang==="EN"?"EEG: eyes open / closed":"ЭЭГ: көз ашық / жабық") : n===7 ? (lang==="RU"?"Отдёргивание руки от горячего":lang==="EN"?"Hot-surface withdrawal reflex":"Ыстықтан қолды тартып алу рефлексі") : (lang==="RU"?"Подъём и опускание ног":lang==="EN"?"Leg raising and lowering":"Аяқты көтеру және түсіру")}
+              </Link>)}
+            </div>
+          </section>
+        )}
+        <section aria-label={lang === "RU" ? "Быстрый доступ к учебным инструментам" : lang === "EN" ? "Quick study tools" : "Оқу құралдарына жылдам өту"} style={{display:"flex",gap:10,flexWrap:"wrap",margin:"10px 0 20px"}}>
+          <Link href={`/modules/${moduleNumber}/notes?lang=${lang}`} style={{padding:"10px 14px",border:"1px solid #a8c5d8",borderRadius:10,background:"#fff",color:"#064b76",fontWeight:700}}>{lang==="RU"?"📝 Заметки и закладки":lang==="EN"?"📝 Notes and bookmarks":"📝 Жазбалар мен бетбелгілер"}</Link>
+          <Link href={`/modules/${moduleNumber}/progress?lang=${lang}`} style={{padding:"10px 14px",border:"1px solid #a8c5d8",borderRadius:10,background:"#fff",color:"#064b76",fontWeight:700}}>{lang==="RU"?"📊 Мой прогресс":lang==="EN"?"📊 My progress":"📊 Менің үлгерімім"}</Link>
+          <Link href={`/modules/${moduleNumber}/media?lang=${lang}`} style={{padding:"10px 14px",border:"1px solid #a8c5d8",borderRadius:10,background:"#fff",color:"#064b76",fontWeight:700}}>{lang==="RU"?"🎬 Медиа и анимации":lang==="EN"?"🎬 Media and animations":"🎬 Медиа және анимациялар"}</Link>
+        </section>
         {/* 17 разделов */}
 
         <section

@@ -96,6 +96,7 @@ export default function StudyToolbar() {
       <button type="button" onClick={() => setPanel("search")} aria-haspopup="dialog">
         <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" strokeWidth="2"/><path d="m15 15 6 6" stroke="currentColor" strokeWidth="2"/></svg>{t.search}
       </button>
+      <Link href={`/draw?lang=${language}`} className={styles.calendarLink}>{language === "RU" ? "✏️ Рисование" : language === "EN" ? "✏️ Draw" : "✏️ Сурет салу"}</Link>
       <Link href={`/calendar?lang=${language}`} className={styles.calendarLink}>{language === "RU" ? "Календарь" : language === "EN" ? "Calendar" : "Күнтізбе"}</Link>
       <time aria-label={t.clock}>{now === null ? "--:--" : new Intl.DateTimeFormat(language === "KZ" ? "kk-KZ" : language === "RU" ? "ru-RU" : "en-GB", { hour: "2-digit", minute: "2-digit" }).format(now)}</time>
       <button type="button" onClick={() => setPanel("timer")} aria-haspopup="dialog">{t.timer} · {formatTime(remaining)}</button>
