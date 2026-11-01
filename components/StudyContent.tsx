@@ -120,6 +120,9 @@ function ReviewQuestions({ lesson, ...context }: Context & { lesson: QuestionsLe
   const label = context.language==="RU"?"Выполнено контрольных вопросов":context.language==="KZ"?"Орындалған бақылау сұрақтары":"Review questions completed";
   return <>
     <div className={shared.taskProgress}><span>{label}: <strong>{done} / {lesson.questions.length}</strong></span><progress value={done} max={lesson.questions.length} aria-label={label}/></div>
+    <nav aria-label={context.language==="RU"?"Навигация по контрольным вопросам":context.language==="EN"?"Review question navigation":"Бақылау сұрақтары бойынша навигация"} style={{display:"flex",gap:8,flexWrap:"wrap",margin:"16px 0",padding:12,background:"#f1f7fb",borderRadius:12}}>
+      {lesson.questions.map((question,index)=><a key={question.id} href={`#${question.id}`} aria-label={`${context.language==="RU"?"Вопрос":context.language==="EN"?"Question":"Сұрақ"} ${index+1}: ${completed[index]?(context.language==="RU"?"ответ отправлен":context.language==="EN"?"submitted":"жауап жіберілді"):(context.language==="RU"?"не завершён":context.language==="EN"?"unfinished":"аяқталмаған")}`} style={{display:"inline-flex",alignItems:"center",justifyContent:"center",minWidth:44,minHeight:44,padding:6,borderRadius:9,background:completed[index]?"#d5f0e2":"#fff",border:`2px solid ${completed[index]?"#24845a":"#b6cbd9"}`,color:"#123f5a",fontWeight:700,textDecoration:"none"}}>{index+1}{completed[index]?" ✓":""}</a>)}
+    </nav>
     {lesson.questions.map((question,index) => <ReviewQuestion key={question.id} question={question} index={index} total={lesson.questions.length} onComplete={(value)=>mark(index,value)} {...context} />)}
   </>;
 }
