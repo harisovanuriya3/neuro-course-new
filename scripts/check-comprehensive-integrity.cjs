@@ -140,3 +140,13 @@ for(const [name,component,moduleId] of [["EEG","EEGLab",2],["Withdrawal reflex",
 const gait=source("components/GaitDemonstration.tsx");
 assert(gait.includes("setPlaying")&&gait.includes("setPhase")&&gait.includes("setSpeed"),"Gait animation controls missing");
 console.log("Preservation checks: EEG, withdrawal reflex and gait components wired into module routes.");
+
+const eegComponent=source("components/EEGLab.tsx");
+const eegModes=["closed","open","eyes","mental","n2","n3"];
+for(const mode of eegModes){
+  const imageFile=path.join(process.cwd(),"public","images","eeg-verified",mode+".jpg");
+  assert(fs.existsSync(imageFile),"Missing EEG patient photograph: "+imageFile);
+  assert(fs.statSync(imageFile).size>1024,"EEG photograph suspiciously small: "+imageFile);
+}
+assert(eegComponent.includes('/images/eeg-verified/${mode}.jpg'),"EEG patient image mode wiring missing");
+console.log("EEG image preservation: six referenced patient photographs exist and are nonempty.");
