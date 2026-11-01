@@ -47,6 +47,25 @@ import { createModuleThirteenObjectives } from "./module-thirteen-objectives";
 import { createModuleThirteenPretest } from "./module-thirteen-pretest";
 import { createModuleThirteenTheory } from "./module-thirteen-theory";
 import { moduleTwentyExpandedTheory } from "./module-twenty-expanded-theory";
+import { moduleSevenDetailedTheory } from "./module-seven-detailed-theory";
+import { moduleEightDetailedTheory } from "./module-eight-detailed-theory";
+import { moduleNineDetailedTheory } from "./module-nine-detailed-theory";
+import { moduleTenDetailedTheory } from "./module-ten-detailed-theory";
+import { moduleElevenDetailedTheory } from "./module-eleven-detailed-theory";
+import { moduleTwelveDetailedTheory } from "./module-twelve-detailed-theory";
+import { moduleThirteenDetailedTheory, moduleThirteenPracticalStations } from "./module-thirteen-comprehensive";
+import { moduleFourteenDetailedTheory } from "./module-fourteen-detailed-theory";
+import { moduleFifteenDetailedTheory } from "./module-fifteen-detailed-theory";
+import { moduleSixteenDetailedTheory } from "./module-sixteen-detailed-theory";
+import { moduleFifteenPracticalStations } from "./module-fifteen-applied";
+import { moduleFourteenPracticalStations } from "./module-fourteen-practical";
+import { moduleElevenPracticalStations } from "./module-eleven-applied";
+import { moduleTwelvePracticalStations } from "./module-twelve-applied";
+import { moduleSixPracticalStations } from "./module-six-practical-stations";
+import { moduleSevenPracticalStations } from "./module-seven-practical-stations";
+import { moduleEightPracticalStations } from "./module-eight-practical-stations";
+import { moduleNinePracticalStations } from "./module-nine-practical-stations";
+import { moduleTenPracticalStations } from "./module-ten-practical-stations";
 import { moduleTwoExpandedTheory } from "./module-two-expanded-theory";
 import { moduleThreeDetailedTheory } from "./module-three-detailed-theory";
 import { moduleFourPracticalStations } from "./module-four-practical-stations";
@@ -443,6 +462,16 @@ function create(
         },
         ...(topic.id === 2 ? moduleTwoExpandedTheory(language) : []),
         ...(topic.id === 3 ? moduleThreeDetailedTheory(language) : []),
+        ...(topic.id === 7 ? moduleSevenDetailedTheory(language) : []),
+        ...(topic.id === 8 ? moduleEightDetailedTheory(language) : []),
+        ...(topic.id === 9 ? moduleNineDetailedTheory(language) : []),
+        ...(topic.id === 10 ? moduleTenDetailedTheory(language) : []),
+        ...(topic.id === 11 ? moduleElevenDetailedTheory(language) : []),
+        ...(topic.id === 12 ? moduleTwelveDetailedTheory(language) : []),
+        ...(topic.id === 13 ? moduleThirteenDetailedTheory(language) : []),
+        ...(topic.id === 14 ? moduleFourteenDetailedTheory(language) : []),
+        ...(topic.id === 15 ? moduleFifteenDetailedTheory(language) : []),
+        ...(topic.id === 16 ? moduleSixteenDetailedTheory(language) : []),
         ...(topic.id === 20 ? moduleTwentyExpandedTheory(language) : []),
         ...(topic.id === 22 ? [
           {
@@ -1115,6 +1144,16 @@ function create(
       ui,
 
       sections: [
+        ...(topic.id === 6 ? moduleSixPracticalStations(language) : []),
+        ...(topic.id === 7 ? moduleSevenPracticalStations(language) : []),
+        ...(topic.id === 8 ? moduleEightPracticalStations(language) : []),
+        ...(topic.id === 9 ? moduleNinePracticalStations(language) : []),
+        ...(topic.id === 10 ? moduleTenPracticalStations(language) : []),
+        ...(topic.id === 11 ? moduleElevenPracticalStations(language) : []),
+        ...(topic.id === 12 ? moduleTwelvePracticalStations(language) : []),
+        ...(topic.id === 13 ? moduleThirteenPracticalStations(language) : []),
+        ...(topic.id === 14 ? moduleFourteenPracticalStations(language) : []),
+        ...(topic.id === 15 ? moduleFifteenPracticalStations(language) : []),
         {
           title: c.task,
 
