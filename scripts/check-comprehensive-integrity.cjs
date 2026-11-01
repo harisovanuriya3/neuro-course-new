@@ -28,7 +28,17 @@ for (let moduleId=1;moduleId<=25;moduleId++) {
         validateTest(lesson);
         const prompts = Object.values(lesson.nodes).filter(node => node.type==="question").map(node => node.prompt.toLocaleLowerCase().replace(/\\s+/g," ").trim());
         const repeated = prompts.length - new Set(prompts).size;
-        if (repeated) console.warn("Duplicate final-test prompt wording: "+moduleId+"/"+language+" ("+repeated+" repeated); review competency, difficulty and remediation before editing");
+        if (repeated) {
+          const groups = new Map();
+          for (const node of Object.values(lesson.nodes).filter(node => node.type==="question")) {
+            const prompt = node.prompt.toLocaleLowerCase().replace(/\\s+/g," ").trim();
+            if (!groups.has(prompt)) groups.set(prompt,[]);
+            groups.get(prompt).push(node);
+          }
+          const withinLevel = [...groups.values()].some(nodes => new Set(nodes.map(node => node.level)).size !== nodes.length);
+          assert(!withinLevel,"Duplicate questions at the same difficulty level: "+moduleId+"/"+language);
+          console.warn("Adaptive review reuses "+repeated+" question prompts across levels: "+moduleId+"/"+language);
+        }
 
         assert.equal(new Set(lesson.mainIds).size,lesson.mainIds.length,"duplicate main IDs "+moduleId+"/"+language);
         for(const node of Object.values(lesson.nodes)) {
