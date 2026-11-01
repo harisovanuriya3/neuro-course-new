@@ -896,7 +896,6 @@ function create(
           explanation: language === 'RU' ? 'Диагностический вопрос должен проверять способ рассуждения, а не заранее показывать формулировку практического задания.' : language === 'EN' ? 'A diagnostic question should test the reasoning process rather than reveal the wording of the later practice task.' : 'Диагностикалық сұрақ кейінгі практикалық тапсырманың мәтінін алдын ала көрсетпей, ойлау тәсілін тексеруі керек.',
           target: { section: 'practice' },
         },
-,
         ...Array.from({ length: 18 }, (_, index) => {
           const n = index + 3;
           const focus = [mechanism, interpretation, topic.practice[language], topic.caseText[language]][index % 4];
@@ -1239,7 +1238,6 @@ function create(
           explanation: language === 'RU' ? 'Сильный вывод требует наблюдения, которое различает конкурирующие физиологические объяснения.' : language === 'EN' ? 'A strong conclusion requires an observation that discriminates between competing physiological explanations.' : 'Нақты қорытынды бәсекелес физиологиялық түсіндірмелерді ажырататын бақылауды қажет етеді.',
           target: { section: 'tests' },
         },
-,
         ...Array.from({ length: 20 }, (_, index) => ({
           id: `module-${topic.id}-review-${index + 6}`,
           prompt: language === 'RU' ? `Контрольный вопрос ${index + 6}. Примените механизм темы «${modules.RU[topic.id - 1]}» к новому условию: измените ${index % 2 === 0 ? 'входной сигнал' : 'одно промежуточное звено'}, предскажите результат и объясните причинную цепь.` : language === 'EN' ? `Review question ${index + 6}. Apply the mechanism of “${modules.EN[topic.id - 1]}” to a new condition: change ${index % 2 === 0 ? 'the input signal' : 'one intermediate link'}, predict the outcome, and explain the causal chain.` : `${index + 6}-бақылау сұрағы. «${modules.KZ[topic.id - 1]}» тақырыбының тетігін жаңа жағдайға қолданыңыз: ${index % 2 === 0 ? 'кіріс сигналын' : 'бір аралық буынды'} өзгертіп, нәтижені болжап, себептік тізбекті түсіндіріңіз.`,
