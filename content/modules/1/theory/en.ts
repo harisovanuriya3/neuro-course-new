@@ -4,6 +4,44 @@ const lesson: Lesson = {
   title: "Module 1. Introduction to Neurophysiology",
   sections: [
     {
+      "id": "neurophysiology-evidence-and-localization",
+      "title": "Experimental neurophysiology: from structure to clinical localization",
+      "blocks": [
+        {
+          "type": "subheading",
+          "text": "Multilevel explanation"
+        },
+        {
+          "type": "paragraph",
+          "text": "Neural phenomena must be considered at molecular, cellular, circuit, systems and behavioral levels. An action potential depends on ion-channel dynamics; axonal propagation depends on geometry and myelination; a reflex response depends on synaptic transmission and inhibition; and purposeful movement also requires descending control and sensory feedback. An observation at one level does not automatically predict a clinical symptom without examining the others. Distinguish an established mechanism from a hypothesis."
+        },
+        {
+          "type": "subheading",
+          "text": "How evidence is obtained"
+        },
+        {
+          "type": "paragraph",
+          "text": "In an electrophysiology experiment specify the intervention, measured variable, control condition, reproducibility and possible artifacts. Intracellular recording measures membrane voltage; patch clamp examines ionic currents; extracellular electrodes sample neuronal population activity; scalp EEG mainly reflects summed synchronized activity in large neural populations. None of these methods captures the entire nervous system. Interpretation requires attention to temperature, electrical noise, electrode position, physiological state and statistical uncertainty."
+        },
+        {
+          "type": "subheading",
+          "text": "Clinical localization as a physiological problem"
+        },
+        {
+          "type": "paragraph",
+          "text": "When a patient reports weakness, determine whether dysfunction involves the central motor command, descending pathways, motor neurons, peripheral nerves, neuromuscular junctions or muscle fibers. Upper motor neuron lesions may alter tone and tendon reflexes, whereas peripheral lesions often produce atrophy, reduced reflexes and a characteristic distribution of weakness. No single sign is absolute. Interpret history, power, reflexes, sensation, cranial nerve findings and investigations together."
+        },
+        {
+          "type": "subheading",
+          "text": "Worked teaching case"
+        },
+        {
+          "type": "paragraph",
+          "text": "A patient has impaired ankle dorsiflexion and reduced sensation over the dorsum of the foot. Common fibular nerve injury and L5 radiculopathy are competing hypotheses. Examine ankle inversion, eversion, sensory distribution, reflexes, back pain and electrodiagnostic findings. Preserved inversion with impaired eversion may favor a peripheral localization but cannot establish the diagnosis alone. Student task: trace the motor pathway from cortex to muscle, propose at least two lesion sites and identify findings that distinguish them."
+        }
+      ]
+    },
+    {
       id: "nervous-system",
       title: "1. General Organization of the Nervous System",
       blocks: [
