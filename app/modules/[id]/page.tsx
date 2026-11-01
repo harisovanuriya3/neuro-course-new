@@ -351,6 +351,17 @@ export default async function ModulePage({
         <div style={{display:"flex",gap:12,flexWrap:"wrap",margin:"0 0 16px"}}>
           <Link href={`/draw?lang=${lang}&module=${moduleNumber}`} style={{padding:"12px 16px",border:"1px solid #a8c5d8",borderRadius:12,background:"#fff",color:"#064b76",fontWeight:700}}>{lang === "RU" ? "✏️ Нарисовать схему" : lang === "EN" ? "✏️ Draw a diagram" : "✏️ Сызба салу"}</Link>
         </div>
+        {[2,7,11].includes(moduleNumber) && (
+          <section aria-label={lang === "RU" ? "Найденные виртуальные лаборатории" : lang === "EN" ? "Virtual laboratories" : "Виртуалды зертханалар"} style={{margin:"12px 0 20px",padding:16,border:"1px solid #b3d0e3",borderRadius:14,background:"#edf7fc"}}>
+            <h2 style={{margin:"0 0 10px",fontSize:19,color:"#064b76"}}>{lang === "RU" ? "Виртуальная лаборатория" : lang === "EN" ? "Virtual laboratory" : "Виртуалды зертхана"}</h2>
+            <p style={{margin:"0 0 12px",lineHeight:1.5}}>
+              {moduleNumber === 2 ? (lang === "RU" ? "ЭЭГ: сравнение записи при открытых и закрытых глазах" : lang === "EN" ? "EEG: compare eyes-open and eyes-closed recordings" : "ЭЭГ: көз ашық және жабық кездегі жазбаларды салыстыру")
+                : moduleNumber === 7 ? (lang === "RU" ? "Рефлекторная дуга: отдёргивание руки от горячей поверхности" : lang === "EN" ? "Reflex arc: withdrawing a hand from a hot surface" : "Рефлекс доғасы: ыстық беттен қолды тартып алу")
+                : (lang === "RU" ? "Моторный контроль и сенсорная обратная связь" : lang === "EN" ? "Motor control and sensory feedback" : "Қозғалысты басқару және сенсорлық кері байланыс")}
+            </p>
+            <Link href={`/modules/${moduleNumber}/interactive?lang=${lang}`} style={{display:"inline-block",padding:"12px 16px",borderRadius:10,background:"#135d86",color:"white",fontWeight:700,textDecoration:"none"}}>{lang === "RU" ? "Открыть лабораторию →" : lang === "EN" ? "Open laboratory →" : "Зертхананы ашу →"}</Link>
+          </section>
+        )}
         {/* 17 разделов */}
 
         <section
