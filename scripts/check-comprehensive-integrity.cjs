@@ -97,7 +97,7 @@ for (let moduleId=1; moduleId<=25; moduleId++) {
   }
 }
 const authorReport=path.join(__dirname,"../author-content-shortfalls.json");
-fs.writeFileSync(authorReport,JSON.stringify({generatedAt:new Date().toISOString(),requirements:authorMinimums,shortfalls:authorShortfalls},null,2)+"\\n");
+fs.writeFileSync(authorReport,JSON.stringify({generatedAt:new Date().toISOString(),requirements:authorMinimums,shortfalls:authorShortfalls},null,2)+"\n");
 console.log("Author quantitative review: "+authorShortfalls.length+" section-language shortfalls; report: author-content-shortfalls.json.");
 if(process.env.AUTHOR_RELEASE_GATE==="strict" && authorShortfalls.length) {
   throw new Error("Author release gate blocked: "+authorShortfalls.length+" content shortfalls. Do not publish as complete.");
