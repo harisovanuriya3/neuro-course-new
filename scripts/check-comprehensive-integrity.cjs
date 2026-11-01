@@ -55,7 +55,7 @@ for (let moduleId=1;moduleId<=25;moduleId++) {
       if(section==="pretest") for(const q of list) {
         assert(q.options.some(option=>option.id===q.correctAnswer),"invalid pretest key "+moduleId+"/"+language+"/"+q.id);
         assert(q.explanation?.trim(),"missing pretest explanation "+moduleId+"/"+language+"/"+q.id);
-        assert(q.options.length>=3 && q.options.length<=4,"pretest requires three or four choices "+moduleId+"/"+language+"/"+q.id);
+        assert(q.options.length===4,"pretest requires exactly four choices "+moduleId+"/"+language+"/"+q.id);
         const texts=q.options.map(option=>option.text.toLocaleLowerCase().replace(/\\s+/g," ").trim());
         assert.equal(new Set(texts).size,texts.length,"duplicate pretest answer options "+moduleId+"/"+language+"/"+q.id);
       }
