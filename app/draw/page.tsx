@@ -18,11 +18,18 @@ export default function DrawingBoard() {
   const [ready, setReady] = useState(false);
   const [message, setMessage] = useState("");
   const [lang, setLang] = useState<"RU" | "EN" | "KZ">("RU");
+  const [moduleId, setModuleId] = useState<number | null>(null);
+  const [storageKey, setStorageKey] = useState(KEY);
   useEffect(() => {
     const requested = new URLSearchParams(window.location.search).get("lang");
     if (requested === "EN" || requested === "KZ") setLang(requested);
+    const rawModule = Number(new URLSearchParams(window.location.search).get("module"));
+    const id = Number.isInteger(rawModule) && rawModule >= 1 && rawModule <= 25 ? rawModule : null;
+    setModuleId(id);
+    const key = id ? `${KEY}-module-${id}` : KEY;
+    setStorageKey(key);
     try {
-      const saved = JSON.parse(localStorage.getItem(KEY) || "[]");
+      const saved = JSON.parse(localStorage.getItem(key) || "[]");
       if (Array.isArray(saved)) setStrokes(saved.filter((s: Stroke) => Array.isArray(s.points) && typeof s.color === "string" && typeof s.width === "number"));
     } catch { setMessage("Saved drawing could not be restored."); }
     setReady(true);
@@ -52,9 +59,9 @@ export default function DrawingBoard() {
   }, [strokes]);
   useEffect(() => {
     if (!ready) return;
-    try { localStorage.setItem(KEY, JSON.stringify(strokes)); }
+    try { localStorage.setItem(storageKey, JSON.stringify(strokes)); }
     catch { setMessage("Storage unavailable. Export the drawing to keep it."); }
-  }, [strokes, ready]);
+  }, [strokes, ready, storageKey]);
   const point = (event: React.PointerEvent<HTMLCanvasElement>): Point => {
     const rect = event.currentTarget.getBoundingClientRect();
     return { x: (event.clientX - rect.left) * W / rect.width, y: (event.clientY - rect.top) * H / rect.height };
@@ -90,14 +97,14 @@ export default function DrawingBoard() {
     KZ: ["Сызба салу алаңы", "Тінтуірмен, саусақпен немесе қаламмен сурет салыңыз. Тек осы браузерде сақталады.", "Қалыңдық", "Болдырмау", "Тазарту", "PNG сақтау", "Оқулыққа оралу"],
   }[lang];
   return <main style={{maxWidth:1160,margin:"0 auto",padding:"24px 16px",fontFamily:"system-ui",color:"#173e55"}}>
-    <h1>{labels[0]}</h1><p>{labels[1]}</p>
+    <h1>{labels[0]}{moduleId ? ` — ${lang === "RU" ? "Модуль" : lang === "EN" ? "Module" : "Модуль"} ${moduleId}` : ""}</h1><p>{labels[1]}</p>
     <div style={{display:"flex",gap:12,flexWrap:"wrap",alignItems:"center",marginBottom:14}}>
       <label>🎨 <input aria-label="Color" type="color" value={color} onChange={e=>setColor(e.target.value)}/></label>
       <label>{labels[2]} <input type="range" min="1" max="20" value={width} onChange={e=>setWidth(Number(e.target.value))}/></label>
       <button type="button" disabled={!strokes.length} onClick={()=>setStrokes(old=>old.slice(0,-1))}>{labels[3]}</button>
       <button type="button" disabled={!strokes.length} onClick={()=>{if(window.confirm(labels[4]+"?"))setStrokes([]);}}>{labels[4]}</button>
       <button type="button" onClick={exportPng}>{labels[5]}</button>
-      <Link href={`/?lang=${lang}`}>{labels[6]}</Link>
+      <Link href={moduleId ? `/modules/${moduleId}?lang=${lang}` : `/?lang=${lang}`}>{labels[6]}</Link>
     </div>
     <canvas ref={canvas} width={W} height={H} aria-label={labels[0]} onPointerDown={begin} onPointerMove={move} onPointerUp={end} onPointerCancel={end} style={{display:"block",width:"100%",height:"auto",aspectRatio:"1000 / 620",border:"2px solid #9cb9cf",borderRadius:12,touchAction:"none",background:"white",cursor:"crosshair"}}/>
     {message&&<p role="status">{message}</p>}
