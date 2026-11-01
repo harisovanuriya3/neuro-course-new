@@ -82,8 +82,9 @@ export default function DrawingBoard() {
     ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y); ctx.stroke();
   };
   const end = () => {
-    if (active.current) setStrokes(old => [...old, active.current!]);
+    const finished = active.current;
     active.current = null;
+    if (finished) setStrokes(old => [...old, finished]);
   };
   const exportPng = () => {
     const url = canvas.current?.toDataURL("image/png");
