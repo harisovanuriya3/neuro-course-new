@@ -876,6 +876,7 @@ function create(
             { id: 'a', text: mechanism },
             { id: 'b', text: interpretation },
             { id: 'c', text: language === 'RU' ? 'Наблюдаемое изменение всегда имеет только одну возможную физиологическую причину.' : language === 'EN' ? 'An observed change always has only one possible physiological cause.' : 'Бақыланатын өзгерістің әрқашан тек бір ғана физиологиялық себебі болады.' },
+            { id: 'd', text: language === 'RU' ? 'Для объяснения результата достаточно назвать исследуемую структуру, не рассматривая физиологический механизм.' : language === 'EN' ? 'Naming the structure under study is sufficient to explain the result without examining the physiological mechanism.' : 'Нәтижені түсіндіру үшін физиологиялық механизмді талдамай, зерттелетін құрылымды атау жеткілікті.' },
           ],
           correctAnswer: 'a',
           explanation: language === 'RU' ? 'Сопоставьте свой ответ с определением ключевого физиологического отношения: укажите переменную, направление её изменения и наблюдаемый результат.' : language === 'EN' ? 'Compare your answer with the key physiological relationship: identify the variable, direction of change, and observable result.' : 'Жауабыңызды негізгі физиологиялық байланыспен салыстырыңыз: айнымалыны, оның өзгеру бағытын және байқалатын нәтижені көрсетіңіз.',
