@@ -1,4 +1,6 @@
-# Media and animation production slate — internal draft / Черновой план медиа / Медиа жоспары
+# Media and animation production slate — historical planning document / Исторический план медиа / Медиа тарихи жоспары
+
+> **Historical planning record.** This file preserves the original production slate. It must not be used as the current implementation-status report. The current course now renders trilingual foundation walkthroughs and specialized interactive laboratories across modules 2–25; several modules also include dedicated demonstrations such as EEG states, Sechenov inhibition and gait. Statements below such as “no actual animation has been added” describe the earlier planning stage only.
 
 **Status:** editorial scenarios only; no actual video or clinical photograph has been added. All user-provided videos are pending review, licensing and localization. No deployment is authorized.
 
