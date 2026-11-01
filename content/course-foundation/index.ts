@@ -913,7 +913,8 @@ function create(
             explanation: language === 'RU' ? 'Корректная физиологическая проверка связывает одно заданное изменение с прогнозируемым измеряемым результатом и контрольным условием; совпадение само по себе не исключает альтернативные объяснения.' : language === 'EN' ? 'A sound physiological test links a defined change to a predicted measurable outcome and a control condition; agreement alone does not exclude alternative explanations.' : 'Дұрыс физиологиялық тексеру нақты өзгерісті алдын ала болжанған өлшенетін нәтижемен және бақылау шартымен байланыстырады; сәйкестік балама түсіндірулерді өздігінен жоққа шығармайды.',
             target: { section: index % 2 === 0 ? 'theory' as const : 'practice' as const },
           };
-        })      ],
+        }),
+      ],
     };
   }
 
@@ -1243,7 +1244,8 @@ function create(
           prompt: language === 'RU' ? `Контрольный вопрос ${index + 6}. Примените механизм темы «${modules.RU[topic.id - 1]}» к новому условию: измените ${index % 2 === 0 ? 'входной сигнал' : 'одно промежуточное звено'}, предскажите результат и объясните причинную цепь.` : language === 'EN' ? `Review question ${index + 6}. Apply the mechanism of “${modules.EN[topic.id - 1]}” to a new condition: change ${index % 2 === 0 ? 'the input signal' : 'one intermediate link'}, predict the outcome, and explain the causal chain.` : `${index + 6}-бақылау сұрағы. «${modules.KZ[topic.id - 1]}» тақырыбының тетігін жаңа жағдайға қолданыңыз: ${index % 2 === 0 ? 'кіріс сигналын' : 'бір аралық буынды'} өзгертіп, нәтижені болжап, себептік тізбекті түсіндіріңіз.`,
           explanation: language === 'RU' ? 'Шаблон ответа: исходное условие → изменённое звено → непосредственный физиологический эффект → изменение выхода → ограничение вывода или необходимый контроль.' : language === 'EN' ? 'Answer template: starting condition → altered link → immediate physiological effect → change in output → limitation of inference or required control.' : 'Жауап үлгісі: бастапқы жағдай → өзгерген буын → тікелей физиологиялық әсер → шығыс нәтижесінің өзгеруі → қорытынды шегі немесе қажетті бақылау.',
           target: { section: index % 3 === 0 ? 'theory' as const : index % 3 === 1 ? 'practice' as const : 'cases' as const },
-        }))      ],
+        })),
+      ],
     };
   }
 
