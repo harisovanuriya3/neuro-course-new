@@ -170,3 +170,15 @@ for(let id=1;id<=10;id++){
   assert(fs.statSync(full).size>1024,"Restored module visual is suspiciously small "+file);
 }
 console.log("Author visual preservation: trilingual atlas and restored module 1-10 imagery are present and wired to theory.");
+
+const specializedLabs=[
+[2,"EEGLab"],[3,"NerveFiberLab"],[4,"MembraneElectrophysiologyLab"],[5,"SynapseExperimentLab"],[6,"IntegrationExperimentLab"],[7,"ReflexLab"],[8,"PathwayLab"],[9,"SpinalRegulationLab"],[10,"BrainstemLab"],[11,"MotorControlLab"],[12,"BasalGangliaLab"],[13,"CerebellumLab"],[14,"ThalamusLab"],[15,"HypothalamusLab"],[16,"LimbicLab"],[17,"AmygdalaLab"],[18,"CortexLab"],[19,"SomatosensoryLab"],[20,"VisionLab"],[21,"SensorySystemsLab"],[22,"AutonomicLab"],[23,"LearningMemoryLab"],[24,"SleepRhythmLab"],[25,"PlasticityLab"]
+];
+for(const [moduleId,component] of specializedLabs){
+  assert(moduleSectionPage.includes("<"+component+" language={lang}"),"Module "+moduleId+" specialized laboratory not connected: "+component);
+  assert(fs.existsSync(path.join(process.cwd(),"components",component+".tsx")),"Missing specialized laboratory component "+component);
+}
+for(let id=15;id<=18;id++){
+  assert(fs.existsSync(path.join(process.cwd(),"app","module-"+id+"-lab","page.tsx")),"Missing preserved standalone module "+id+" lab");
+}
+console.log("Laboratory preservation: specialized module labs 2-25 and preserved standalone labs 15-18 are present.");
