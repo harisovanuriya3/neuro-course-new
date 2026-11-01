@@ -362,6 +362,17 @@ export default async function ModulePage({
             <Link href={`/modules/${moduleNumber}/interactive?lang=${lang}`} style={{display:"inline-block",padding:"12px 16px",borderRadius:10,background:"#135d86",color:"white",fontWeight:700,textDecoration:"none"}}>{lang === "RU" ? "Открыть лабораторию →" : lang === "EN" ? "Open laboratory →" : "Зертхананы ашу →"}</Link>
           </section>
         )}
+        {moduleNumber === 1 && (
+          <section style={{margin:"14px 0 22px",padding:18,border:"1px solid #a9c9dd",borderRadius:14,background:"#f0f8fd"}}>
+            <h2 style={{fontSize:19,margin:"0 0 10px"}}>{lang === "RU" ? "Физиологические демонстрации к введению" : lang === "EN" ? "Physiology demonstrations for the introduction" : "Кіріспеге арналған физиологиялық көрсетілімдер"}</h2>
+            <p style={{lineHeight:1.5}}>{lang === "RU" ? "Связанные лаборатории расположены в профильных модулях. Откройте их здесь и вернитесь к введению после опыта." : lang === "EN" ? "Related laboratories are in their specialist modules. Open them here and return after the experiment." : "Тиісті зертханалар арнайы модульдерде орналасқан. Оларды осы жерден ашып, тәжірибеден кейін кіріспеге оралыңыз."}</p>
+            <div style={{display:"flex",gap:10,flexWrap:"wrap"}}>
+              {([2,7,11] as const).map(n=><Link key={n} href={`/modules/${n}/interactive?lang=${lang}`} style={{display:"inline-flex",padding:"12px 14px",borderRadius:10,background:"#fff",border:"1px solid #92bbd4",color:"#075681",fontWeight:700,textDecoration:"underline"}}>
+                {n===2 ? (lang==="RU"?"ЭЭГ: глаза открыты / закрыты":lang==="EN"?"EEG: eyes open / closed":"ЭЭГ: көз ашық / жабық") : n===7 ? (lang==="RU"?"Отдёргивание руки от горячего":lang==="EN"?"Hot-surface withdrawal reflex":"Ыстықтан қолды тартып алу рефлексі") : (lang==="RU"?"Подъём и опускание ног":lang==="EN"?"Leg raising and lowering":"Аяқты көтеру және түсіру")}
+              </Link>)}
+            </div>
+          </section>
+        )}
         {/* 17 разделов */}
 
         <section
