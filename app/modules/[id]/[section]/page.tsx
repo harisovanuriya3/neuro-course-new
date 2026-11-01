@@ -37,6 +37,7 @@ import PathwayLab from "../../../../components/PathwayLab";
 import SpinalRegulationLab from "../../../../components/SpinalRegulationLab";
 import BrainstemLab from "../../../../components/BrainstemLab";
 import MotorControlLab from "../../../../components/MotorControlLab";
+import GaitDemonstration from "../../../../components/GaitDemonstration";
 import BasalGangliaLab from "../../../../components/BasalGangliaLab";
 import CerebellumLab from "../../../../components/CerebellumLab";
 import ThalamusLab from "../../../../components/ThalamusLab";
@@ -280,7 +281,7 @@ export default async function SectionPage({
           ) : moduleNumber === 10 && section === "interactive" ? (
             <><BrainstemLab language={lang} /><section id="brainstem-anatomy" aria-label={lang === "RU" ? "Анатомия ствола мозга" : lang === "EN" ? "Brainstem anatomy" : "Ми бағанының анатомиясы"}><AdvancedAnatomyReference moduleId={10} language={lang} /></section></>
           ) : moduleNumber === 11 && section === "interactive" ? (
-            <><MotorControlLab language={lang} /><section id="module-11-laboratory-anatomy" aria-label={lang === "RU" ? "Анатомия двигательного контроля" : lang === "EN" ? "Motor-control anatomy" : "Қозғалысты басқару анатомиясы"}><AdvancedAnatomyReference moduleId={11} language={lang} /></section></>
+            <><MotorControlLab language={lang} /><GaitDemonstration language={lang} /><section id="module-11-laboratory-anatomy" aria-label={lang === "RU" ? "Анатомия двигательного контроля" : lang === "EN" ? "Motor-control anatomy" : "Қозғалысты басқару анатомиясы"}><AdvancedAnatomyReference moduleId={11} language={lang} /></section></>
           ) : moduleNumber === 12 && section === "interactive" ? (
             <><BasalGangliaLab language={lang} /><section id="module-12-laboratory-anatomy" aria-label={lang === "RU" ? "Анатомия базальных ганглиев" : lang === "EN" ? "Basal-ganglia anatomy" : "Базальды ганглийлер анатомиясы"}><AdvancedAnatomyReference moduleId={12} language={lang} /></section></>
           ) : moduleNumber === 13 && section === "interactive" ? (
