@@ -93,15 +93,24 @@ export default function SechenovExperiment({ language }: { language: Language })
 
     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:20,alignItems:"start"}}>
       <figure style={{margin:0,padding:14,borderRadius:16,background:"#071e2c",color:"white"}}>
-        <svg viewBox="0 0 620 390" role="img" aria-label={c.title} style={{width:"100%",height:"auto"}}>
+        <svg viewBox="0 0 620 390" role="img" aria-label={c.title} style={{width:"100%",height:"auto",maxHeight:420}}>
           <defs>
             <linearGradient id="frogBody" x1="0" x2="1"><stop stopColor="#76a873"/><stop offset="1" stopColor="#315e55"/></linearGradient>
             <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
-          <path d="M395 114c65-18 120 8 130 55 12 54-39 95-108 84-41-7-69-35-67-69 2-33 17-58 45-70Z" fill="url(#frogBody)"/>
+          <ellipse cx="377" cy="201" rx="131" ry="73" fill="#65854d" stroke="#314c2e" strokeWidth="4"/>
+          <path d="M395 114c65-18 120 8 130 55 12 54-39 95-108 84-41-7-69-35-67-69 2-33 17-58 45-70Z" fill="url(#frogBody)" stroke="#2e4d31" strokeWidth="3"/>
+          <path d="M424 215q52 34 94-1" stroke="#b2bc80" strokeWidth="4" fill="none"/>
+          {Array.from({length:27},(_,i)=>{const x=282+(i*41)%205;const y=160+(i*29)%67;return <ellipse key={i} cx={x} cy={y} rx={3+(i%4)*2} ry={2+(i%3)*2} fill={i%3===0?"#c1b77a":"#334b2d"} opacity=".72"/>})}
+          <ellipse cx="493" cy="142" rx="19" ry="20" fill="#8aa463" stroke="#344e31" strokeWidth="3"/>
+          <ellipse cx="503" cy="145" rx="10" ry="12" fill="#e6d4a1"/><ellipse cx="507" cy="145" rx="4" ry="9" fill="#1a2820"/>
+          <circle cx="524" cy="190" r="3" fill="#1b3025"/>
           <ellipse cx="503" cy="145" rx="13" ry="16" fill="#d9efb7"/><circle cx="507" cy="145" r="6" fill="#071e2c"/>
-          <path d="M388 229c-44 24-72 61-91 113m113-105c-14 45-5 78 19 118m-78-114c-64 1-109 22-151 70m111-86c-64-19-120-7-172 24" fill="none" stroke="#568b6a" strokeWidth="25" strokeLinecap="round"/>
-          <path d="M193 306l-56 47m290 2 45 17M133 246l-68 18" fill="none" stroke="#8fbd75" strokeWidth="12" strokeLinecap="round"/>
+          <g style={{transformOrigin:"290px 260px",transform:running && condition!=="salt" ? "rotate(-15deg)" : "rotate(0deg)",transition:"transform 850ms ease-out"}}>
+          <path d="M388 229c-44 24-72 61-91 113m113-105c-14 45-5 78 19 118m-78-114c-64 1-109 22-151 70m111-86c-64-19-120-7-172 24" fill="none" stroke="#648c55" strokeWidth="29" strokeLinecap="round"/>
+          <path d="M193 306l-56 47m290 2 45 17M133 246l-68 18" fill="none" stroke="#a0b875" strokeWidth="13" strokeLinecap="round"/>
+          </g>
+          
           <path d="M430 134c-28 25-39 52-48 94-12 58-28 75-63 91" fill="none" stroke="#f4d35e" strokeWidth="8" opacity=".9"/>
           <circle cx="432" cy="132" r="12" fill={condition==="salt"?"#fff":"#8ad5c1"} stroke={color} strokeWidth="5"/>
           {condition==="salt" && <g filter="url(#glow)"><path d="M420 112l13-14 13 14-13 15Z" fill="#fff"/><path d="M430 151c-15 28-26 46-39 67" stroke="#e84a6a" strokeWidth="9" strokeDasharray="8 7"/></g>}
