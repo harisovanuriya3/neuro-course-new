@@ -31,6 +31,18 @@ function getIndex(language: Language) {
       add(section.title[language], `/modules/${moduleId}/${section.slug}?lang=${language}`, `${moduleTitle} ${section.description[language]} ${textOf(lesson)}`);
     }
   });
+  const labs: Record<Language, { eeg: string; sechenov: string; eegBody: string; sechenovBody: string }> = {
+    RU: { eeg: "Виртуальная лаборатория ЭЭГ — глаза, умственная деятельность, сон и артефакты", sechenov: "Опыт Сеченова — центральное торможение рефлекса у лягушки", eegBody: "ЭЭГ EEG электроэнцефалография виртуальная лаборатория открытые закрытые глаза умственная нагрузка сон N2 N3 артефакты", sechenovBody: "Сеченов опыт лягушка центральное торможение рефлекс виртуальная лаборатория" },
+    EN: { eeg: "EEG virtual laboratory — eyes, mental task, sleep and artifacts", sechenov: "Sechenov frog experiment — central reflex inhibition", eegBody: "EEG electroencephalography virtual laboratory eyes open closed mental arithmetic sleep N2 N3 artifacts", sechenovBody: "Sechenov frog experiment central inhibition reflex virtual laboratory" },
+    KZ: { eeg: "ЭЭГ виртуалды зертханасы — көз, ой жүктемесі, ұйқы және артефактілер", sechenov: "Сеченов тәжірибесі — бақадағы рефлекстің орталық тежелуі", eegBody: "ЭЭГ EEG электроэнцефалография виртуалды зертхана көз ашық жабық ой жүктемесі ұйқы артефакт", sechenovBody: "Сеченов тәжірибесі бақа орталық тежелу рефлекс виртуалды зертхана" }
+  };
+  const lab = labs[language];
+  const addLab = (title: string, moduleId: number, body: string) => {
+    const href = `/modules/${moduleId}/interactive?lang=${language}`;
+    entries.unshift({ title, moduleTitle: modules[language][moduleId - 1], href, body, excerpt: body, titleKey: normalizeSearch(title), bodyKey: normalizeSearch(body) });
+  };
+  addLab(lab.eeg, 2, lab.eegBody);
+  addLab(lab.sechenov, 7, lab.sechenovBody);
   indexes.set(language, entries);
   return entries;
 }
