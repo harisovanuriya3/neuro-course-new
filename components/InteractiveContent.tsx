@@ -10,6 +10,7 @@ import { OrganizationVisual, PathwayVisual, SynapseVisual, IntegrationVisual } f
 import { OrganizationSpecimens, SynapseSpecimen } from "./RealSpecimens";
 import SynapseLab from "./SynapseLab";
 import EEGLab from "./EEGLab";
+import SechenovExperiment from "./SechenovExperiment";
 import BalanceDiagram from "./BalanceDiagram";
 import NerveFiberLab from "./NerveFiberLab";
 import MembranePotentialLab from "./MembranePotentialLab";
@@ -263,7 +264,7 @@ export default function InteractiveContent({ lesson, moduleId, language }: { les
     {moduleId === "3" && <><NerveFiberLab language={language} /><CerebralHomeostasisLab language={language} /><AgeNeurophysiologyPanel language={language} /></>}
     {moduleId === "4" && <><AdvancedAnatomyReference moduleId={4} language={language}/><MembranePotentialLab language={language} /></>}
     {moduleId === "6" && <IntegrationExperimentLab language={language} />}
-    {moduleId === "7" && <><AdvancedAnatomyReference moduleId={7} language={language}/><ReflexLab language={language} /><ReflexLearningLab language={language} /></>}
+    {moduleId === "7" && <><SechenovExperiment language={language} /><AdvancedAnatomyReference moduleId={7} language={language}/><ReflexLab language={language} /><ReflexLearningLab language={language} /></>}
     {moduleId === "8" && <PathwayLab language={language} />}
     {moduleId === "9" && <SpinalRegulationLab language={language} />}
     {moduleId === "10" && <><BrainstemLab language={language} /><CranialNerveFiberLab language={language} /><FunctionalCentersLab language={language} moduleId={10} /><NeurologicalExamLab language={language} /></>}
