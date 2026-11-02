@@ -21,3 +21,25 @@
 @keyframes patientBlink{0%,94%,100%{opacity:1}96%{opacity:0}}
 @keyframes patientLid{0%,94%,100%{opacity:0}96%{opacity:1}}
 @media(prefers-reduced-motion:reduce){.eyesOpen .pupils,.eyesOpen[data-tracking=true] .pupils,.eyesOpen[data-mental=true] .pupils,.blinkLid{animation:none}}
+
+/* Mobile EEG: show the real participant and changing state before the protocol controls. */
+@media (max-width:760px) {
+  .workspace{display:flex;flex-direction:column;min-width:0}
+  .visualLab{order:-1;display:flex;flex-direction:column;min-width:0;width:100%}
+  .visualLab>div:first-of-type{display:flex;flex-direction:column;min-width:0}
+  .visualLab>div:first-of-type>div{min-width:0}
+  .patientCard{width:100%;max-width:100%;overflow:hidden}
+  .patientCard img{width:100%;height:auto;max-height:280px;object-fit:contain}
+  .patient{max-height:290px}
+  .protocol{order:0;width:100%;min-width:0}
+  .monitor{width:100%;min-width:0}
+}
+
+.mobileConditionPicker{display:none}
+@media(max-width:760px){
+.mobileConditionPicker{display:grid;gap:9px;padding:12px;border:1px solid #b6d5e4;border-radius:12px;background:#f2f9fc}
+.mobileConditionPicker>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.mobileConditionPicker button{min-height:44px;padding:8px;border:1px solid #a1c0d2;border-radius:9px;background:white;color:#16435c;font:inherit;font-size:.86rem}
+.mobileConditionPicker button[aria-pressed=true]{background:#d6effa;border:2px solid #1679a7;font-weight:800}
+.visualLab>div:first-of-type{gap:10px}
+}
