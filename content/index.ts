@@ -1,3 +1,4 @@
+import { extendAuthorContent } from "./author-review";
 import type { Language, LocalizedLesson, Section } from "./types";
 import RU from "./modules/1/theory/ru";
 import KZ from "./modules/1/theory/kz";
@@ -85,5 +86,5 @@ const lessons: Partial<Record<number, Partial<Record<Section, LocalizedLesson>>>
 };
 
 export function getLesson(moduleId: number, section: Section, language: Language) {
-  return lessons[moduleId]?.[section]?.[language];
+  return extendAuthorContent(moduleId, language, lessons[moduleId]?.[section]?.[language]);
 }

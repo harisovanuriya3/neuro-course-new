@@ -1,0 +1,24 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> neuro-course-new@1.0.0 audit:comprehensive
+> node scripts/check-comprehensive-integrity.cjs
+
+Adaptive review reuses 5 question prompts across levels: 8/RU
+Adaptive review reuses 5 question prompts across levels: 8/EN
+Adaptive review reuses 5 question prompts across levels: 8/KZ
+Author quantitative review: 72 section-language shortfalls; report: author-content-shortfalls.json.
+/workspace/scratch/7ed44e605db4/neuro-course-new/scripts/check-comprehensive-integrity.cjs:103
+  throw new Error("Author release gate blocked: "+authorShortfalls.length+" content shortfalls. Do not publish as complete.");
+  ^
+
+Error: Author release gate blocked: 72 content shortfalls. Do not publish as complete.
+    at Object.<anonymous> (/workspace/scratch/7ed44e605db4/neuro-course-new/scripts/check-comprehensive-integrity.cjs:103:9)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v24.22.1

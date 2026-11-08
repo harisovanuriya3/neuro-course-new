@@ -1,0 +1,76 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> neuro-course-new@1.0.0 build
+> next build
+
+▲ Next.js 16.3.5 (Turbopack)
+✓ Running next.config.js took 12ms
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 5.3s
+  Running TypeScript ...
+  Finished TypeScript in 968ms ...
+  Collecting page data using 8 workers ...
+  Generating static pages using 8 workers (0/42) ...
+  Generating static pages using 8 workers (10/42) 
+  Generating static pages using 8 workers (20/42) 
+  Generating static pages using 8 workers (31/42) 
+✓ Generating static pages using 8 workers (42/42) in 212ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /api/auth/login
+├ ƒ /api/auth/logout
+├ ƒ /api/auth/me
+├ ƒ /api/search
+├ ƒ /calendar
+├ ƒ /dashboard
+├ ƒ /draw
+├ ƒ /exam
+├ ƒ /login
+├ ƒ /module-15-lab
+├ ƒ /module-16-lab
+├ ƒ /module-17-lab
+├ ƒ /module-18-lab
+├ ƒ /modules-dynamic/[id]
+├ ƒ /modules/[id]
+├ ƒ /modules/[id]/[section]
+├ ƒ /modules/exam
+├ ƒ /modules/module-1
+├ ƒ /modules/module-10
+├ ƒ /modules/module-11
+├ ƒ /modules/module-12
+├ ƒ /modules/module-13
+├ ƒ /modules/module-14
+├ ƒ /modules/module-15
+├ ƒ /modules/module-16
+├ ƒ /modules/module-17
+├ ƒ /modules/module-18
+├ ƒ /modules/module-19
+├ ƒ /modules/module-2
+├ ƒ /modules/module-20
+├ ƒ /modules/module-21
+├ ƒ /modules/module-22
+├ ƒ /modules/module-23
+├ ƒ /modules/module-3
+├ ƒ /modules/module-4
+├ ƒ /modules/module-5
+├ ƒ /modules/module-6
+├ ƒ /modules/module-7
+├ ƒ /modules/module-8
+├ ƒ /modules/module-9
+├ ƒ /modules/virtual-patient
+└ ƒ /resources
+
+
+ƒ Proxy (Middleware)
+
+ƒ  (Dynamic)  server-rendered on demand
+

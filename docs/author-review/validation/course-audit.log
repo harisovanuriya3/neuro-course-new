@@ -1,0 +1,206 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> neuro-course-new@1.0.0 audit:course
+> node scripts/audit-course.cjs && node scripts/audit-full-course.cjs && node scripts/check-module4-theory.cjs && node scripts/check-module5-theory.cjs && node scripts/check-module6-theory.cjs && node scripts/check-evoked-infographic.cjs && node scripts/check-resource-library.cjs && node scripts/validate-references.cjs && node scripts/validate-interactive.cjs && node scripts/validate-practical-stations.cjs && node scripts/validate-activity-clarity.cjs && npm run check:review && npm run audit:comprehensive
+
+PASS: course keeps exactly 25 modules
+PASS: 17 section routes are unique
+PASS: RU module titles are registered
+PASS: EN module titles are registered
+PASS: KZ module titles are registered
+PASS: foundation topic map covers modules 2–25 exactly once
+PASS: 25 virtual patients have authored decision sets
+PASS: virtual patients enforce six stages
+PASS: every virtual-patient stage requires three choices
+PASS: Exam Center shuffles answer positions
+PASS: Exam Center caps and reports a 0–100 result
+PASS: final submission switches to a locked result view
+PASS: result analysis is rendered
+PASS: module tests vary the visual position of the correct answer deterministically
+PASS: Module 1 Practice RU has the same 13-step progression
+PASS: Module 1 Practice RU provides a drawing tool for synthesis
+PASS: Module 1 Practice EN has the same 13-step progression
+PASS: Module 1 Practice EN provides a drawing tool for synthesis
+PASS: Module 1 Practice KZ has the same 13-step progression
+PASS: Module 1 Practice KZ provides a drawing tool for synthesis
+PASS: Module 1 Objectives use prediction rather than repeating the Practice sequence task
+PASS: all Objectives use learning outcomes rather than exercise cards
+PASS: Objectives render one shared navigation block after the outcomes
+PASS: Objectives pathway uses localized labels and non-interactive decorative arrows
+PASS: individual learning outcomes do not render repeated navigation links
+PASS: foundation Tests use a transfer perturbation rather than the Cases vignette
+PASS: foundation Practice comparison differs from the Review Question recall prompt
+PASS: Exam Center does not reuse Theory, Practice, Cases, or Review prompts
+INFO: 23 exact long-copy duplicate groups (including deliberate feedback/remediation copy)
+INFO: duplicate in foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation, foundation: paragraph' as const, text: language ===
+INFO: duplicate in assessment, assessment: Адам жарық бөлмеден қараңғы бөлмеге кіргенде қарашықтары кеңейді. Бұл өзгерісте қандай екі автономды әсердің арақатынасы маңызды?
+INFO: duplicate in assessment, assessment: adaptation","Адаптация","Adaptation","Бейімделу
+INFO: duplicate in assessment, assessment: replication","Повторяемость","Replication
+INFO: duplicate in assessment, assessment, assessment, assessment: ?"Не перечитывайте готовый ответ. Сначала назовите исходное изменение, затем промежуточное физиологическое звено и только после этого прогно
+INFO: duplicate in assessment, assessment, assessment, assessment: EN"?"Do not reread a prepared answer. First identify the initial change, then the intermediate physiological link, and only then predict the
+INFO: duplicate in assessment, assessment, assessment, assessment: Дайын жауапты қайта оқымаңыз. Алдымен бастапқы өзгерісті, кейін аралық физиологиялық буынды атаңыз, содан соң ғана нәтижені болжаңыз.
+INFO: duplicate in assessment, assessment: ?"Уточните механизм после обратной связи.
+INFO: duplicate in assessment, assessment: EN"?"After feedback, reassess the mechanism.
+INFO: duplicate in assessment, assessment: Кері байланыстан кейін механизмді қайта талдаңыз.
+INFO: duplicate in assessment, assessment, assessment, assessment, assessment, assessment: ?"Сравните свою причинную цепь с теорией: найдите первое звено, где направление связи расходится, и исправьте только его.
+INFO: duplicate in assessment, assessment, assessment, assessment, assessment, assessment: EN"?"Compare your causal chain with the theory: find the first link where the direction differs and correct only that link.
+INFO: duplicate in assessment, assessment, assessment, assessment, assessment, assessment: Себептік тізбегіңізді теориямен салыстырыңыз: бағыт сәйкес келмейтін алғашқы буынды тауып, тек соны түзетіңіз.
+INFO: duplicate in assessment, assessment: ?"Проверьте базовый принцип перед повторной попыткой.
+INFO: duplicate in assessment, assessment, assessment: EN"?"Review the fundamental principle before continuing.
+INFO: duplicate in assessment, assessment, assessment: Жалғастырмас бұрын негізгі қағиданы тексеріңіз.
+INFO: duplicate in assessment, assessment: a",explanation:l==="RU"?"Проверьте причинную цепь по шагам: исходное изменение → промежуточное звено → ожидаемый результат.
+INFO: duplicate in assessment, assessment: EN"?"Check the causal chain step by step: initial change → intermediate link → expected outcome.
+INFO: duplicate in assessment, assessment: Себептік тізбекті кезең-кезеңімен тексеріңіз: бастапқы өзгеріс → аралық буын → күтілетін нәтиже.
+INFO: duplicate in assessment, assessment, assessment, assessment, assessment: a",explanation:l==="RU"?"Сначала оцените, соответствует ли выбранный вариант данным и направлению причинной связи. Полную интерпретацию свер
+INFO: duplicate in assessment, assessment, assessment, assessment, assessment, assessment, assessment: EN"?"First check whether the selected option fits the data and the direction of the causal relationship. Consult the full interpretation onl
+INFO: duplicate in assessment, assessment, assessment, assessment, assessment, assessment, assessment: Алдымен таңдалған нұсқаның деректерге және себептік байланыс бағытына сәйкестігін тексеріңіз. Толық түсіндірмені өз шешіміңізден кейін ғана 
+INFO: duplicate in assessment, assessment: ,explanation:l==="RU"?"Сначала оцените, соответствует ли выбранный вариант данным и направлению причинной связи. Полную интерпретацию сверяй
+PASS: no exact long-copy task is duplicated across educational source groups
+Course audit completed successfully.
+FULL COURSE AUDIT {
+  "auditedModuleLanguages": 75,
+  "completeSectionRoutes": 75,
+  "uniqueCuratedVisuals": 66,
+  "modulesWithLanguageCountMismatch": 0,
+  "moduleLanguagesBelow20DistinctCases": 0,
+  "moduleLanguagesBelow20DistinctMainTests": 0,
+  "patientRoutesRequiringManualReview": 0,
+  "completeVirtualPatientScenarios": 75,
+  "moduleLanguagesWithDuplicateTestPrompts": 0,
+  "moduleLanguagesWithDuplicateCaseSituations": 0
+}
+1|RU|sections 13/13|theory 7|practice 0|cases 24/24|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+2|RU|sections 13/13|theory 11|practice 0|cases 38/38|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+3|RU|sections 13/13|theory 17|practice 0|cases 25/25|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+4|RU|sections 13/13|theory 12|practice 0|cases 40/40|tests 40/40|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+5|RU|sections 13/13|theory 9|practice 0|cases 40/40|tests 40/40|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+6|RU|sections 13/13|theory 8|practice 0|cases 40/40|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+7|RU|sections 13/13|theory 9|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+8|RU|sections 13/13|theory 8|practice 0|cases 24/24|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+9|RU|sections 13/13|theory 8|practice 0|cases 21/21|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+10|RU|sections 13/13|theory 9|practice 0|cases 27/27|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+11|RU|sections 13/13|theory 8|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+12|RU|sections 13/13|theory 8|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+13|RU|sections 13/13|theory 15|practice 0|cases 22/22|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+14|RU|sections 13/13|theory 11|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+15|RU|sections 13/13|theory 16|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+16|RU|sections 13/13|theory 17|practice 0|cases 30/30|tests 36/36|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+17|RU|sections 13/13|theory 13|practice 0|cases 30/30|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+18|RU|sections 13/13|theory 12|practice 0|cases 33/33|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+19|RU|sections 13/13|theory 13|practice 0|cases 31/31|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+20|RU|sections 13/13|theory 17|practice 0|cases 32/32|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+21|RU|sections 13/13|theory 14|practice 0|cases 32/32|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+22|RU|sections 13/13|theory 14|practice 0|cases 33/33|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+23|RU|sections 13/13|theory 12|practice 0|cases 32/32|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+24|RU|sections 13/13|theory 18|practice 0|cases 30/30|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+25|RU|sections 13/13|theory 12|practice 0|cases 30/30|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+1|EN|sections 13/13|theory 7|practice 0|cases 24/24|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+2|EN|sections 13/13|theory 11|practice 0|cases 38/38|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+3|EN|sections 13/13|theory 17|practice 0|cases 25/25|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+4|EN|sections 13/13|theory 12|practice 0|cases 40/40|tests 40/40|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+5|EN|sections 13/13|theory 9|practice 0|cases 40/40|tests 40/40|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+6|EN|sections 13/13|theory 8|practice 0|cases 40/40|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+7|EN|sections 13/13|theory 9|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+8|EN|sections 13/13|theory 8|practice 0|cases 24/24|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+9|EN|sections 13/13|theory 8|practice 0|cases 21/21|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+10|EN|sections 13/13|theory 9|practice 0|cases 27/27|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+11|EN|sections 13/13|theory 8|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+12|EN|sections 13/13|theory 8|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+13|EN|sections 13/13|theory 15|practice 0|cases 22/22|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+14|EN|sections 13/13|theory 11|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+15|EN|sections 13/13|theory 16|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+16|EN|sections 13/13|theory 17|practice 0|cases 30/30|tests 36/36|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+17|EN|sections 13/13|theory 13|practice 0|cases 30/30|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+18|EN|sections 13/13|theory 12|practice 0|cases 33/33|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+19|EN|sections 13/13|theory 13|practice 0|cases 31/31|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+20|EN|sections 13/13|theory 17|practice 0|cases 32/32|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+21|EN|sections 13/13|theory 14|practice 0|cases 32/32|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+22|EN|sections 13/13|theory 14|practice 0|cases 33/33|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+23|EN|sections 13/13|theory 12|practice 0|cases 32/32|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+24|EN|sections 13/13|theory 18|practice 0|cases 30/30|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+25|EN|sections 13/13|theory 12|practice 0|cases 30/30|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+1|KZ|sections 13/13|theory 7|practice 0|cases 24/24|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+2|KZ|sections 13/13|theory 11|practice 0|cases 38/38|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+3|KZ|sections 13/13|theory 17|practice 0|cases 25/25|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+4|KZ|sections 13/13|theory 12|practice 0|cases 40/40|tests 40/40|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+5|KZ|sections 13/13|theory 9|practice 0|cases 40/40|tests 40/40|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+6|KZ|sections 13/13|theory 8|practice 0|cases 40/40|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+7|KZ|sections 13/13|theory 9|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+8|KZ|sections 13/13|theory 8|practice 0|cases 24/24|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+9|KZ|sections 13/13|theory 8|practice 0|cases 21/21|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+10|KZ|sections 13/13|theory 9|practice 0|cases 27/27|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+11|KZ|sections 13/13|theory 8|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+12|KZ|sections 13/13|theory 8|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+13|KZ|sections 13/13|theory 15|practice 0|cases 22/22|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+14|KZ|sections 13/13|theory 11|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+15|KZ|sections 13/13|theory 16|practice 0|cases 20/20|tests 20/20|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+16|KZ|sections 13/13|theory 17|practice 0|cases 30/30|tests 36/36|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+17|KZ|sections 13/13|theory 13|practice 0|cases 30/30|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+18|KZ|sections 13/13|theory 12|practice 0|cases 33/33|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+19|KZ|sections 13/13|theory 13|practice 0|cases 31/31|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+20|KZ|sections 13/13|theory 17|practice 0|cases 32/32|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+21|KZ|sections 13/13|theory 14|practice 0|cases 32/32|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+22|KZ|sections 13/13|theory 14|practice 0|cases 33/33|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+23|KZ|sections 13/13|theory 12|practice 0|cases 32/32|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+24|KZ|sections 13/13|theory 18|practice 0|cases 30/30|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+25|KZ|sections 13/13|theory 12|practice 0|cases 30/30|tests 32/32|patient stages 6 (no-lesson-stages)|duplicate test prompts 0
+Full course structural/content audit completed.
+(node:35) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Module 4 RU: 12 sections, unique learning blocks, outcomes, methods, clinical links, and references OK
+Module 4 EN: 12 sections, unique learning blocks, outcomes, methods, clinical links, and references OK
+Module 4 KZ: 12 sections, unique learning blocks, outcomes, methods, clinical links, and references OK
+(node:43) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Module 5 RU: 9 sections, unique learning blocks, outcomes, mechanisms, clinical links, and references OK
+Module 5 EN: 9 sections, unique learning blocks, outcomes, mechanisms, clinical links, and references OK
+Module 5 KZ: 9 sections, unique learning blocks, outcomes, mechanisms, clinical links, and references OK
+(node:51) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Module 6 RU: 8 sections, learning outcomes, network mechanisms, and references OK
+Module 6 EN: 8 sections, learning outcomes, network mechanisms, and references OK
+Module 6 KZ: 8 sections, learning outcomes, network mechanisms, and references OK
+(node:59) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Evoked-potential infographics: three localized assets, attribution records, scientific caption, and module links OK.
+Resource library validation passed: 25 localized modules, 66 unique curated visuals, theory/practice placement, laboratory and virtual-patient routes.
+References validation passed: 25 modules × 3 languages; 390 internal navigation/resource blocks and 75 external-source blocks have unique labels and hrefs.
+(node:83) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Interactive validation passed: organization, pathway, chemical and electrical modes in RU/EN/KZ.
+(node:91) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Practical-station validation passed: Modules 3, 11, 19, 20, 21 and 22 route only their specialized laboratories; Module 20 has a localized visual-pathway lesion model; Module 22 has localized parameters, prediction targets, time-series results and interpretation.
+(node:99) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Activity-clarity validation passed: observation-first virtual-patient prompts are localized, Module 20 explains visual-field localization, and all 25 modules retain a topic-specific interactive entry.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> neuro-course-new@1.0.0 check:review
+> node scripts/check-course-review.cjs
+
+Review checks passed: 903 localized content sections, 75 test graphs, 24 × 3 media walkthroughs, 3 exam banks, 90 full-course exam samples, multilingual written rubric and pathway laterality.
+(node:128) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> neuro-course-new@1.0.0 audit:comprehensive
+> node scripts/check-comprehensive-integrity.cjs
+
+Adaptive review reuses 5 question prompts across levels: 8/RU
+Adaptive review reuses 5 question prompts across levels: 8/EN
+Adaptive review reuses 5 question prompts across levels: 8/KZ
+Author quantitative review: 72 section-language shortfalls; report: author-content-shortfalls.json.
+Comprehensive content structure: 25 modules x 3 languages x 5 sections; test keys, explanations, language parity, branching tests passed.
+Navigation and tool integrity: search, calendar, laboratory routes, exam/media crosslinks present.
+Author-review UX checks: stage links, module drawing, persistence and PNG export source present.
+Author release gate: Template count checks passed. Do not publish until scientific and visual review also complete.
+Preservation checks: EEG, withdrawal reflex and gait components wired into module routes.
+EEG image preservation: six referenced patient photographs exist and are nonempty.
+Author UX audit: bibliography links, resume navigation and progress legend present.
+Author visual preservation: trilingual atlas and restored module 1-10 imagery are present and wired to theory.
+Laboratory preservation: specialized module labs 2-25 and preserved standalone labs 15-18 are present.
+Visual route preservation: theory, practice and media expose curated anatomy; virtual-patient visual support remains connected.
+Module 1 theory audit: eight nervous-system functions have localized physiological examples in RU EN KZ.
+(node:149) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

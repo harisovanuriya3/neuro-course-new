@@ -1,0 +1,22 @@
+{
+  "baselineCommit": "4dc6bfa91c1dc25a0ebdf9e58e8da8e8ae88d57c",
+  "baselineShortfalls": 84,
+  "closed": 12,
+  "remaining": 72,
+  "missingItems": 3351,
+  "addedLocalizedItems": 255,
+  "preservedSectionSlots": 1275,
+  "preservedRegisteredLessons": 903,
+  "existingDuplicateTerms": [
+    {
+      "moduleId": 25,
+      "language": "RU",
+      "duplicates": 1
+    },
+    {
+      "moduleId": 25,
+      "language": "EN",
+      "duplicates": 1
+    }
+  ]
+}
